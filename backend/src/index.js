@@ -15,7 +15,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(helmet());
+// app.use(helmet());
 app.use(cookieParser());
 
 // app.use((req, res, next) => {
@@ -30,6 +30,28 @@ app.use(cookieParser());
 //     const user = jwt.verify(token, process.env.JWT_SECRET);
 //     req.me = user;
 //   }
+//   next();
+// });
+
+// decode the JWT so we can get the user Id on each request
+app.use((req, res, next) => {
+  const { token } = req.cookies;
+  if (token) {
+    const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+    // put the userId onto the req for future requests to access
+    req.userId = userId;
+  }
+  console.log('req.userId: ', req.userId);
+
+  next();
+});
+
+// 2. Create a middleware that populates the user on each request
+// app.use(async (req, res, next) => {
+//   // if they aren't logged in, skip this
+//   if (!req.userId) return next();
+//   const user = await prisma.user({ where: { id: req.userId } });
+//   req.user = user;
 //   next();
 // });
 
