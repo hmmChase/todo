@@ -1,6 +1,6 @@
 const Home = () => (
   <>
-    <p>Home</p>
+    <p>Welcome</p>
   </>
 );
 
