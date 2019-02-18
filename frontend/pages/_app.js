@@ -1,7 +1,6 @@
 import App, { Container } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import theme from '../styles/theme.style';
-
 import Layout from '../components/Layout/Layout';
 
 class MyApp extends App {
