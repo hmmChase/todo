@@ -1,7 +1,6 @@
 import App, { Container } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import theme from '../styles/theme.style';
-import GlobalStyle from '../styles/global.style';
 
 import Layout from '../components/Layout/Layout';
 
@@ -22,12 +21,9 @@ class MyApp extends App {
     return (
       <Container>
         <ThemeProvider theme={theme}>
-          <>
-            <GlobalStyle />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ThemeProvider>
       </Container>
     );
