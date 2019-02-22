@@ -1,5 +1,7 @@
 import App, { Container } from 'next/app';
+import { ApolloProvider } from 'react-apollo';
 import { ThemeProvider } from 'styled-components';
+import withApollo from '../graphql/withApollo';
 import theme from '../styles/theme.style';
 import Layout from '../components/Layout/Layout';
 
@@ -15,18 +17,20 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, apolloClient } = this.props;
 
     return (
       <Container>
-        <ThemeProvider theme={theme}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
+        <ApolloProvider client={apolloClient}>
+          <ThemeProvider theme={theme}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </ApolloProvider>
       </Container>
     );
   }
 }
 
-export default MyApp;
+export default withApollo(MyApp);

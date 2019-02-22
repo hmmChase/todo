@@ -15,10 +15,14 @@
     }
   },
   "rules": {
+    "no-undef": "off",
     "linebreak-style": "off",
     "comma-dangle": "off",
+    "no-nested-ternary": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": "off",
+    "react/destructuring-assignment": "off",
+    "react/jsx-one-expression-per-line": "off",
     "jsx-a11y/anchor-is-valid": "off"
   }
 }
