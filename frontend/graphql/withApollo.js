@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { getDataFromTree } from 'react-apollo';
+import PropTypes from 'prop-types';
 import initApollo from './initApollo';
 
 export default App => class Apollo extends React.Component {
@@ -26,6 +27,7 @@ export default App => class Apollo extends React.Component {
           // Prevent Apollo Client GraphQL errors from crashing SSR.
           // Handle them in components via the data.error prop:
           // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
+          // eslint-disable-next-line no-console
           console.error('Error while running `getDataFromTree`', error);
         }
 
@@ -42,6 +44,10 @@ export default App => class Apollo extends React.Component {
         apolloState
       };
     }
+
+    propTypes = {
+      apolloState: PropTypes.objectOf(PropTypes.object).isRequired
+    };
 
     constructor(props) {
       super(props);
