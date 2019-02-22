@@ -16,9 +16,7 @@ function createServer() {
     context: req => ({
       ...req,
       prisma
-    }),
-    introspection: false,
-    playground: false
+    })
   });
 }
 
