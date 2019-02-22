@@ -1,0 +1,5 @@
+# import * from '../prisma/generated/prisma.graphql'
+
+type Query {}
+
+type Mutation {}
