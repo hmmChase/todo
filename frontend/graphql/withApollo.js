@@ -45,7 +45,7 @@ export default App => class Apollo extends React.Component {
       };
     }
 
-    propTypes = {
+    static propTypes = {
       apolloState: PropTypes.objectOf(PropTypes.object).isRequired
     };
 
