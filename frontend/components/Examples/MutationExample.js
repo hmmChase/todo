@@ -5,6 +5,7 @@ import { USERS_QUERY } from './QueryExample';
 const CREATE_USER_MUTATION = gql`
   mutation CREATE_USER_MUTATION($name: String!) {
     createUser(name: $name) {
+      id
       name
     }
   }
