@@ -1,6 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import GlobalStyle from '../static/styles/global.style';
+import GlobalStyle from '../styles/global.style';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {

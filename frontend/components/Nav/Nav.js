@@ -7,6 +7,7 @@ class Nav extends React.PureComponent {
         <Link href="/">
           <a>Home</a>
         </Link>{' '}
+        |{' '}
         <Link href="examples">
           <a>Examples</a>
         </Link>
