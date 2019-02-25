@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types';
-import Head from '../Head/Head';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-const Layout = ({ children }) => (
-  <>
-    <Head />
-    <Header />
-    <main>{children}</main>
-    <Footer />
-  </>
-);
+class Layout extends React.PureComponent {
+  render() {
+    return (
+      <>
+        <Header />
+        <main>{this.props.children}</main>
+        <Footer />
+      </>
+    );
+  }
+}
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired

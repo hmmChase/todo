@@ -10,20 +10,24 @@ export const USERS_QUERY = gql`
   }
 `;
 
-const QueryExample = () => (
-  <Query query={USERS_QUERY}>
-    {({ data, error, loading }) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error: {error.message}</p>;
-      return (
-        <ul>
-          {data.users.map(user => (
-            <li key={user.id}>{user.name}</li>
-          ))}
-        </ul>
-      );
-    }}
-  </Query>
-);
+class QueryExample extends React.PureComponent {
+  render() {
+    return (
+      <Query query={USERS_QUERY}>
+        {({ data, error, loading }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error: {error.message}</p>;
+          return (
+            <ul>
+              {data.users.map(user => (
+                <li key={user.id}>{user.name}</li>
+              ))}
+            </ul>
+          );
+        }}
+      </Query>
+    );
+  }
+}
 
 export default QueryExample;

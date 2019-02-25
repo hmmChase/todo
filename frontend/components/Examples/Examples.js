@@ -1,11 +1,15 @@
 import QueryExample from './QueryExample';
 import MutationExample from './MutationExample';
 
-const Examples = () => (
-  <>
-    <MutationExample />
-    <QueryExample />
-  </>
-);
+class Examples extends React.PureComponent {
+  render() {
+    return (
+      <>
+        <MutationExample />
+        <QueryExample />
+      </>
+    );
+  }
+}
 
 export default Examples;
