@@ -36,7 +36,32 @@ class MyDocument extends Document {
   render() {
     return (
       <html lang="en">
-        <Head />
+        <Head>
+          <meta charSet="utf-8" />
+          <meta name="description" content="" />
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+          <link
+            rel="preload"
+            href="/static/favicon.ico"
+            as="image"
+            crossOrigin
+            onLoad="this.rel='shortcut icon'"
+          />
+          <link
+            rel="preload"
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+            as="style"
+            crossOrigin
+            onLoad="this.rel='stylesheet'"
+          />
+          <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700"
+            as="font"
+            crossOrigin
+            onLoad="this.rel='stylesheet'"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

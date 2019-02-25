@@ -3,7 +3,7 @@ import { getDataFromTree } from 'react-apollo';
 import PropTypes from 'prop-types';
 import initApollo from './initApollo';
 
-export default App => class Apollo extends React.Component {
+export default App => class Apollo extends React.PureComponent {
     static displayName = 'withApollo(App)';
 
     static async getInitialProps(ctx) {

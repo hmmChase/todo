@@ -11,7 +11,7 @@ const CREATE_USER_MUTATION = gql`
   }
 `;
 
-class MutationExample extends React.Component {
+class MutationExample extends React.PureComponent {
   state = {
     name: ''
   };
