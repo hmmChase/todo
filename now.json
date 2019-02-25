@@ -5,8 +5,5 @@
     { "src": "frontend/package.json", "use": "@now/next" },
     { "src": "backend/package.json", "use": "@now/node-server" }
   ],
-  "routes": [
-    { "src": "/(.*)", "dest": "frontend/$1" },
-    { "src": "/static/(.*)", "dest": "frontend/static/$1" }
-  ]
+  "routes": [{ "src": "/(.*)", "dest": "frontend/$1" }]
 }

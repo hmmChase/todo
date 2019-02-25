@@ -2,7 +2,7 @@ import App, { Container } from 'next/app';
 import { ApolloProvider } from 'react-apollo';
 import { ThemeProvider } from 'styled-components';
 import withApollo from '../graphql/withApollo';
-import theme from '../static/styles/theme.style';
+import theme from '../styles/theme.style';
 import Layout from '../components/Layout/Layout';
 
 class MyApp extends App {
