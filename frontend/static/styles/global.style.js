@@ -23,7 +23,7 @@ export default createGlobalStyle`
     padding: 0;
     margin: 0;
     color: ${theme.black};
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', sans-serif;
   }
 
   a {
