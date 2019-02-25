@@ -44,21 +44,21 @@ class MyDocument extends Document {
             rel="preload"
             href="/static/favicon.ico"
             as="image"
-            crossOrigin
+            crossOrigin="anonymous"
             onLoad="this.rel='shortcut icon'"
           />
           <link
             rel="preload"
             href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
             as="style"
-            crossOrigin
+            crossOrigin="anonymous"
             onLoad="this.rel='stylesheet'"
           />
           <link
             rel="preload"
             href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700"
             as="font"
-            crossOrigin
+            crossOrigin="anonymous"
             onLoad="this.rel='stylesheet'"
           />
         </Head>
