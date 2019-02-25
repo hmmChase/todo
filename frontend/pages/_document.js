@@ -1,6 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import GlobalStyle from '../styles/global.style';
+import GlobalStyle from '../static/styles/global.style';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -40,26 +40,20 @@ class MyDocument extends Document {
           <meta charSet="utf-8" />
           <meta name="description" content="" />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+          <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
             rel="preload"
-            href="/static/favicon.ico"
-            as="image"
-            crossOrigin="anonymous"
-            onLoad="this.rel='shortcut icon'"
-          />
-          <link
-            rel="preload"
-            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+            href="/static/styles/normalize.css"
             as="style"
             crossOrigin="anonymous"
-            onLoad="this.rel='stylesheet'"
           />
+          <link rel="stylesheet" href="/static/styles/normalize.css" crossOrigin="anonymous" />
           <link
             rel="preload"
-            href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700"
+            href="/static/fonts/open-sans-v15-latin-regular.woff2"
             as="font"
+            type="font/woff2"
             crossOrigin="anonymous"
-            onLoad="this.rel='stylesheet'"
           />
         </Head>
         <body>
