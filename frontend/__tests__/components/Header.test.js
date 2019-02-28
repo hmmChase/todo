@@ -7,7 +7,7 @@ describe('Header', () => {
   let header;
 
   beforeEach(() => {
-    mockProps = {};
+    mockProps = { children: [] };
     header = shallow(<Header {...mockProps} />);
   });
 
