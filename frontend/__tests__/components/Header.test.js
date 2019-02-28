@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Header from '../../components/Header/Header';
 
-describe('round', () => {
+describe('Header', () => {
   let mockProps;
   let header;
 

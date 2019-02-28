@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Home from '../../components/Home/Home';
 
-describe('round', () => {
+describe('Home', () => {
   let mockProps;
   let home;
 
