@@ -4,14 +4,14 @@ import Header from '../../components/Header/Header';
 
 describe('Header', () => {
   let mockProps;
-  let header;
+  let wrapper;
 
   beforeEach(() => {
     mockProps = { children: [] };
-    header = shallow(<Header {...mockProps} />);
+    wrapper = shallow(<Header {...mockProps} />);
   });
 
   it('matches snapshot', () => {
-    expect(header).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

@@ -4,14 +4,14 @@ import Nav from '../../components/Nav/Nav';
 
 describe('Nav', () => {
   let mockProps;
-  let nav;
+  let wrapper;
 
   beforeEach(() => {
     mockProps = {};
-    nav = shallow(<Nav {...mockProps} />);
+    wrapper = shallow(<Nav {...mockProps} />);
   });
 
   it('matches snapshot', () => {
-    expect(nav).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

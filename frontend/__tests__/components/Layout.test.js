@@ -4,14 +4,14 @@ import Layout from '../../components/Layout/Layout';
 
 describe('Layout', () => {
   let mockProps;
-  let layout;
+  let wrapper;
 
   beforeEach(() => {
     mockProps = { children: [] };
-    layout = shallow(<Layout {...mockProps} />);
+    wrapper = shallow(<Layout {...mockProps} />);
   });
 
   it('matches snapshot', () => {
-    expect(layout).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

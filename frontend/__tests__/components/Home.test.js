@@ -4,14 +4,14 @@ import Home from '../../components/Home/Home';
 
 describe('Home', () => {
   let mockProps;
-  let home;
+  let wrapper;
 
   beforeEach(() => {
     mockProps = {};
-    home = shallow(<Home {...mockProps} />);
+    wrapper = shallow(<Home {...mockProps} />);
   });
 
   it('matches snapshot', () => {
-    expect(home).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });
