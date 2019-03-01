@@ -6,7 +6,7 @@
     { "src": "frontend/package.json", "use": "@now/next" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "backend/src/index.js" },
+    { "src": "/api/(.*)", "dest": "backend/src/$1" },
     { "src": "/(.*)", "dest": "frontend/$1" }
   ]
 }
