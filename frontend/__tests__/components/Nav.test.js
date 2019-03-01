@@ -2,16 +2,16 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Nav from '../../components/Nav/Nav';
 
-describe('round', () => {
+describe('Nav', () => {
   let mockProps;
-  let nav;
+  let wrapper;
 
   beforeEach(() => {
     mockProps = {};
-    nav = shallow(<Nav {...mockProps} />);
+    wrapper = shallow(<Nav {...mockProps} />);
   });
 
   it('matches snapshot', () => {
-    expect(nav).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

@@ -1,0 +1,26 @@
+{
+  "name": "next-graphql-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "app": "concurrently --kill-others-on-fail \"npm run backend\" \"npm run frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmmChase/next-graphql-starter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hmmChase/next-graphql-starter/issues"
+  },
+  "homepage": "https://github.com/hmmChase/next-graphql-starter#readme",
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}

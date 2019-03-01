@@ -2,16 +2,16 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Layout from '../../components/Layout/Layout';
 
-describe('round', () => {
+describe('Layout', () => {
   let mockProps;
-  let layout;
+  let wrapper;
 
   beforeEach(() => {
     mockProps = { children: [] };
-    layout = shallow(<Layout {...mockProps} />);
+    wrapper = shallow(<Layout {...mockProps} />);
   });
 
   it('matches snapshot', () => {
-    expect(layout).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });
