@@ -13,10 +13,6 @@ function createServer() {
       Query,
       Mutation
     },
-    context: req => ({
-      ...req,
-      prisma
-    }),
     introspection: true,
     playground: true
   });
