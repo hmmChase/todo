@@ -1,6 +1,16 @@
 {
   "name": "next-graphql-starter",
   "version": 2,
-  "builds": [{ "src": "backend/src/index.js", "use": "@now/node-server" }],
-  "routes": [{ "src": "/api/(.*)", "dest": "backend/src/index.js" }]
+  "builds": [
+    { "src": "backend/src/index.js", "use": "@now/node-server" },
+    { "src": "frontend/next.config.js", "use": "@now/next" }
+  ],
+  "routes": [
+    {
+      "src": "/_next/static/(?:[^/]+/pages|chunks|runtime)/.+",
+      "headers": { "cache-control": "immutable" }
+    },
+    { "src": "/api/(.*)", "dest": "backend/src/index.js" },
+    { "src": "/(.*)", "dest": "frontend/$1" }
+  ]
 }
