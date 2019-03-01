@@ -1,12 +1,6 @@
 {
   "name": "next-graphql-starter",
   "version": 2,
-  "builds": [
-    { "src": "backend/package.json", "use": "@now/node" },
-    { "src": "frontend/package.json", "use": "@now/next" }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "backend/src/$1" },
-    { "src": "/(.*)", "dest": "frontend/$1" }
-  ]
+  "builds": [{ "src": "backend/package.json", "use": "@now/node" }],
+  "routes": [{ "src": "/.*", "dest": "backend/src/index.js" }]
 }
