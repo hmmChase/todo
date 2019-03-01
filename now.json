@@ -6,6 +6,7 @@
     { "src": "frontend/next.config.js", "use": "@now/next" }
   ],
   "routes": [
+    { "src": "/_next/static/(?:[^/]+/pages|chunks|runtime)/.+", "headers": { "cache-control": "immutable" } }
     { "src": "/api/(.*)", "dest": "backend/src/index.js" },
     { "src": "/(.*)", "dest": "frontend/$1" }
   ]
