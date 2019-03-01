@@ -1,3 +1,98 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MutationExample matches snapshot 1`] = `ShallowWrapper {}`;
+exports[`MutationExample matches snapshot 1`] = `
+<ApolloProvider
+  client={
+    ApolloClient {
+      "cache": InMemoryCache {
+        "addTypename": true,
+        "cacheKeyRoot": CacheKeyNode {
+          "children": null,
+          "key": null,
+        },
+        "config": Object {
+          "addTypename": true,
+          "dataIdFromObject": [Function],
+          "fragmentMatcher": HeuristicFragmentMatcher {},
+          "resultCaching": true,
+        },
+        "data": DepTrackingCache {
+          "data": Object {},
+          "depend": [Function],
+        },
+        "maybeBroadcastWatch": [Function],
+        "optimisticData": DepTrackingCache {
+          "data": Object {},
+          "depend": [Function],
+        },
+        "silenceBroadcast": false,
+        "storeReader": StoreReader {
+          "cacheKeyRoot": CacheKeyNode {
+            "children": null,
+            "key": null,
+          },
+          "executeSelectionSet": [Function],
+          "executeStoreQuery": [Function],
+        },
+        "storeWriter": StoreWriter {},
+        "typenameDocumentCache": Map {},
+        "watches": Set {},
+      },
+      "clearStoreCallbacks": Array [],
+      "clientAwareness": Object {},
+      "defaultOptions": Object {},
+      "disableNetworkFetches": false,
+      "link": ApolloLink {
+        "request": [Function],
+      },
+      "mutate": [Function],
+      "query": [Function],
+      "queryDeduplication": true,
+      "reFetchObservableQueries": [Function],
+      "resetStore": [Function],
+      "resetStoreCallbacks": Array [],
+      "ssrMode": false,
+      "store": DataStore {
+        "cache": InMemoryCache {
+          "addTypename": true,
+          "cacheKeyRoot": CacheKeyNode {
+            "children": null,
+            "key": null,
+          },
+          "config": Object {
+            "addTypename": true,
+            "dataIdFromObject": [Function],
+            "fragmentMatcher": HeuristicFragmentMatcher {},
+            "resultCaching": true,
+          },
+          "data": DepTrackingCache {
+            "data": Object {},
+            "depend": [Function],
+          },
+          "maybeBroadcastWatch": [Function],
+          "optimisticData": DepTrackingCache {
+            "data": Object {},
+            "depend": [Function],
+          },
+          "silenceBroadcast": false,
+          "storeReader": StoreReader {
+            "cacheKeyRoot": CacheKeyNode {
+              "children": null,
+              "key": null,
+            },
+            "executeSelectionSet": [Function],
+            "executeStoreQuery": [Function],
+          },
+          "storeWriter": StoreWriter {},
+          "typenameDocumentCache": Map {},
+          "watches": Set {},
+        },
+      },
+      "version": "2.4.13",
+      "watchQuery": [Function],
+    }
+  }
+>
+  <MutationExample />
+</ApolloProvider>
+`;

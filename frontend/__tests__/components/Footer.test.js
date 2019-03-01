@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import Footer from '../../components/Footer/Footer';
 
 describe('Footer', () => {
@@ -7,11 +8,14 @@ describe('Footer', () => {
   let wrapper;
 
   beforeEach(() => {
+    jest.resetAllMocks();
     mockProps = {};
-    wrapper = shallow(<Footer {...mockProps} />);
+    wrapper = shallow(<Footer {...mockProps} />, {
+      disableLifecycleMethods: true
+    });
   });
 
   it('matches snapshot', () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(toJson(wrapper)).toMatchSnapshot();
   });
 });

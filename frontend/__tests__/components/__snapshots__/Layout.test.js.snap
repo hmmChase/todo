@@ -1,3 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Layout matches snapshot 1`] = `ShallowWrapper {}`;
+exports[`Layout matches snapshot 1`] = `
+<Fragment>
+  <Header>
+    <Nav />
+  </Header>
+  <main />
+  <Footer />
+</Fragment>
+`;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import Header from '../../components/Header/Header';
 
 describe('Header', () => {
@@ -7,11 +8,14 @@ describe('Header', () => {
   let wrapper;
 
   beforeEach(() => {
+    jest.resetAllMocks();
     mockProps = { children: [] };
-    wrapper = shallow(<Header {...mockProps} />);
+    wrapper = shallow(<Header {...mockProps} />, {
+      disableLifecycleMethods: true
+    });
   });
 
   it('matches snapshot', () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(toJson(wrapper)).toMatchSnapshot();
   });
 });
