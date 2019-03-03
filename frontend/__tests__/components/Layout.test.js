@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import toJson from 'enzyme-to-json';
 import Layout from '../../components/Layout/Layout';
 
 describe('Layout', () => {
@@ -16,6 +15,6 @@ describe('Layout', () => {
   });
 
   it('matches snapshot', () => {
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

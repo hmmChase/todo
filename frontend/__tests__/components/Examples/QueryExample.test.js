@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import toJson from 'enzyme-to-json';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { load } from '../../../utils/tests';
 import * as mock from '../../../__mocks__/mocks';
@@ -40,7 +39,7 @@ describe('QueryExample', () => {
     expect(wrapper.text()).toContain('Loading...');
 
     const queryExample = wrapper.find('QueryExample');
-    expect(toJson(queryExample)).toMatchSnapshot();
+    expect(queryExample).toMatchSnapshot();
   });
 
   it('matches snapshot when loaded', async () => {
@@ -49,7 +48,7 @@ describe('QueryExample', () => {
     expect(wrapper.text()).not.toContain('Loading...');
 
     const queryExample = wrapper.find('QueryExample');
-    expect(toJson(queryExample)).toMatchSnapshot();
+    expect(queryExample).toMatchSnapshot();
   });
 
   it('renders an li for each user', async () => {

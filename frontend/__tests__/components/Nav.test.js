@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import toJson from 'enzyme-to-json';
 import Nav from '../../components/Nav/Nav';
 
 describe('Nav', () => {
@@ -16,6 +15,6 @@ describe('Nav', () => {
   });
 
   it('matches snapshot', () => {
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

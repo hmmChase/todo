@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import toJson from 'enzyme-to-json';
 import Examples from '../../../components/Examples/Examples';
 
 describe('Examples', () => {
@@ -16,6 +15,6 @@ describe('Examples', () => {
   });
 
   it('matches snapshot', () => {
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });
