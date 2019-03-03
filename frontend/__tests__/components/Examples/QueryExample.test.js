@@ -27,7 +27,7 @@ describe('QueryExample', () => {
     ];
     mockMutations = [];
     wrapper = mount(
-      <MockedProvider mocks={[...mockQueries, ...mockMutations]}>
+      <MockedProvider mocks={[...mockQueries, ...mockMutations]} addTypename={false}>
         <QueryExample {...mockProps} />
       </MockedProvider>,
       {
