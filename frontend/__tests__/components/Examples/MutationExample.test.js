@@ -36,7 +36,7 @@ describe('MutationExample', () => {
         request: { query: USERS_QUERY },
         result: {
           data: {
-            users: [mock.user]
+            users: mock.users
           }
         }
       }
@@ -56,7 +56,7 @@ describe('MutationExample', () => {
     expect(mutationExample).toMatchSnapshot();
   });
 
-  it('matches snapshot while loading', async () => {
+  it('matches snapshot while mutation loading', async () => {
     wrapper.find('input').simulate('change', { target: { value: mock.user.name } });
     wrapper.find('form').simulate('submit');
 
@@ -64,6 +64,51 @@ describe('MutationExample', () => {
 
     const mutationExample = wrapper.find('MutationExample');
     expect(mutationExample).toMatchSnapshot();
+  });
+
+  fit('matches snapshot after mutation completes', async () => {
+    wrapper.find('input').simulate('change', { target: { value: mock.user.name } });
+    wrapper.find('form').simulate('submit');
+
+    await load(wrapper);
+
+    expect(wrapper.text()).not.toContain('Loading...');
+
+    const mutationExample = wrapper.find('MutationExample');
+    expect(mutationExample).toMatchSnapshot();
+  });
+
+  it('updates state on form submit', async () => {
+    const component = wrapper.find('MutationExample').instance();
+
+    expect(component.state.name).toEqual('');
+
+    wrapper.find('input').simulate('change', { target: { value: mock.user.name } });
+    wrapper.find('form').simulate('submit');
+
+    expect(component.state.name).toEqual(mock.user.name);
+  });
+
+  it('refetches updated data', async () => {
+    let apolloClient;
+
+    wrapper = mount(
+      <MockedProvider mocks={mockQueries} addTypename={false}>
+        <ApolloConsumer>
+          {(client) => {
+            apolloClient = client;
+            return <MutationExample />;
+          }}
+        </ApolloConsumer>
+      </MockedProvider>,
+      {
+        disableLifecycleMethods: true
+      }
+    );
+
+    const users = await apolloClient.query({ query: USERS_QUERY });
+
+    expect(users.data.users).toEqual(mock.users);
   });
 
   xit('matches snapshot on error', async () => {
@@ -121,28 +166,5 @@ describe('MutationExample', () => {
 
     // const mutationExample = wrapper.find('MutationExample');
     // expect((mutationExample)).toMatchSnapshot();
-  });
-
-  xit('calls the mutation on form submit', async () => {
-    const createUser = jest.fn();
-
-    wrapper.find('input').simulate('change', {
-      preventDefault: jest.fn(),
-      target: { value: mock.user.name }
-    });
-    wrapper.find('form').simulate('submit');
-
-    expect(preventDefault).toHaveBeenCalledTimes(1);
-  });
-
-  it('updates state on form submit', async () => {
-    const component = wrapper.find('MutationExample').instance();
-
-    expect(component.state.name).toEqual('');
-
-    wrapper.find('input').simulate('change', { target: { value: mock.user.name } });
-    wrapper.find('form').simulate('submit');
-
-    expect(component.state.name).toEqual(mock.user.name);
   });
 });
