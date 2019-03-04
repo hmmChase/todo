@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IndexPage matches snapshot 1`] = `
+<Fragment>
+  <Head>
+    <title>
+      next-graphql-starter | Home
+    </title>
+  </Head>
+  <Home />
+</Fragment>
+`;
