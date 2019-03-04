@@ -7,8 +7,11 @@ describe('Header', () => {
   let wrapper;
 
   beforeEach(() => {
+    jest.resetAllMocks();
     mockProps = { children: [] };
-    wrapper = shallow(<Header {...mockProps} />);
+    wrapper = shallow(<Header {...mockProps} />, {
+      disableLifecycleMethods: true
+    });
   });
 
   it('matches snapshot', () => {

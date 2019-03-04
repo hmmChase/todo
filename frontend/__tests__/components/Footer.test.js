@@ -7,8 +7,11 @@ describe('Footer', () => {
   let wrapper;
 
   beforeEach(() => {
+    jest.resetAllMocks();
     mockProps = {};
-    wrapper = shallow(<Footer {...mockProps} />);
+    wrapper = shallow(<Footer {...mockProps} />, {
+      disableLifecycleMethods: true
+    });
   });
 
   it('matches snapshot', () => {
