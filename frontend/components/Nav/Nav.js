@@ -4,13 +4,18 @@ class Nav extends React.PureComponent {
   render() {
     return (
       <nav>
-        <Link href="/">
-          <a>Home</a>
-        </Link>{' '}
-        |{' '}
-        <Link href="examples">
-          <a>Examples</a>
-        </Link>
+        <ul>
+          <li>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="examples">
+              <a>Examples</a>
+            </Link>
+          </li>
+        </ul>
       </nav>
     );
   }

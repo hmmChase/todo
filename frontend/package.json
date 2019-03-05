@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "jest --watch",
+    "analyze": "cross-env BUNDLE_ANALYZE=both npm run build",
     "test:cov": "jest --coverage",
     "now-build": "next build"
   },
@@ -17,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@zeit/next-bundle-analyzer": "^0.1.2",
     "apollo-boost": "^0.1.28",
     "graphql": "^14.1.1",
     "isomorphic-unfetch": "^3.0.0",
@@ -30,6 +32,7 @@
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "babel-plugin-styled-components": "^1.10.0",
+    "cross-env": "^5.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "enzyme-to-json": "^3.3.5",
