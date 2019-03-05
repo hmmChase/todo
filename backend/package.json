@@ -6,7 +6,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
+    "start": "cross-env NODE_ENV=production node src/index.js",
     "deploy": "prisma deploy -e .env",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +21,7 @@
     "prisma-client-lib": "^1.28.0-beta"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "nodemon": "^1.18.10",
     "prisma": "^1.27.0"
   }
