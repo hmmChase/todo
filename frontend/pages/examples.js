@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Examples from '../components/Examples/Examples';
 
-class ExamplePage extends React.PureComponent {
+class ExamplesPage extends React.PureComponent {
   render() {
     return (
       <>
@@ -14,4 +14,4 @@ class ExamplePage extends React.PureComponent {
   }
 }
 
-export default ExamplePage;
+export default ExamplesPage;
