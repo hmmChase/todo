@@ -5,9 +5,10 @@ import Footer from '../Footer/Footer';
 
 const Layout = React.memo(props => (
   <>
-    <Header>
-      <Nav />
-    </Header>
+    {/* Prevent first element from pointlessly rerendering */}
+    <div style={{ display: 'none' }} />
+    <Header />
+    <Nav />
     <main>
       {/* Pages are rendered here */}
       {props.children}
