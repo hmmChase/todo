@@ -1,9 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Footer matches snapshot 1`] = `
-<Footer__StyledFooter>
-  <p>
-    Footer
-  </p>
-</Footer__StyledFooter>
-`;
+exports[`Footer matches snapshot 1`] = `undefined`;

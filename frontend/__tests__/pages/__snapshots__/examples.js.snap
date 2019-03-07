@@ -1,12 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ExamplesPage matches snapshot 1`] = `
-<Fragment>
-  <Head>
-    <title>
-      next-graphql-starter | Examples
-    </title>
-  </Head>
-  <Examples />
-</Fragment>
-`;
+exports[`ExamplesPage matches snapshot 1`] = `undefined`;

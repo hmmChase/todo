@@ -1,17 +1,9 @@
-import styled from 'styled-components';
+import * as Styled from './Footer.style';
 
-const StyledFooter = styled.footer`
-  text-align: center;
-`;
-
-class Footer extends React.PureComponent {
-  render() {
-    return (
-      <StyledFooter>
-        <p>Footer</p>
-      </StyledFooter>
-    );
-  }
-}
+const Footer = React.memo(() => (
+  <Styled.footer>
+    <p>Footer</p>
+  </Styled.footer>
+));
 
 export default Footer;

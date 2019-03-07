@@ -1,20 +1,9 @@
-import styled from 'styled-components';
+import * as Styled from './Header.style';
 
-const StyledHeader = styled.header`
-  h1 {
-    text-align: center;
-    color: ${props => props.theme.red};
-  }
-`;
-
-class Header extends React.PureComponent {
-  render() {
-    return (
-      <StyledHeader>
-        <h1>next-graphql-starter</h1>
-      </StyledHeader>
-    );
-  }
-}
+const Header = React.memo(() => (
+  <Styled.header>
+    <h1>next-graphql-starter</h1>
+  </Styled.header>
+));
 
 export default Header;

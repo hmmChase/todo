@@ -1,26 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Nav matches snapshot 1`] = `
-<Nav__StyledNav>
-  <ul>
-    <li>
-      <Link
-        href="/"
-      >
-        <a>
-          Home
-        </a>
-      </Link>
-    </li>
-    <li>
-      <Link
-        href="examples"
-      >
-        <a>
-          Examples
-        </a>
-      </Link>
-    </li>
-  </ul>
-</Nav__StyledNav>
-`;
+exports[`Nav matches snapshot 1`] = `undefined`;
