@@ -5,6 +5,8 @@ import Footer from '../Footer/Footer';
 
 const Layout = React.memo(props => (
   <>
+    {/* Prevent first element from pointlessly rerendering */}
+    <div style={{ display: 'none' }} />
     <Header />
     <Nav />
     <main>
