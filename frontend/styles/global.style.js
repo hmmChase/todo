@@ -25,8 +25,4 @@ export default createGlobalStyle`
     color: ${theme.black};
     font-family: 'Open Sans', sans-serif;
   }
-
-  a {
-    text-decoration: none;
-  }
 `;

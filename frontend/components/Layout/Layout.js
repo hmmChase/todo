@@ -2,19 +2,19 @@ import PropTypes from 'prop-types';
 import Header from '../Header/Header';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+import * as Styled from './Layout.style';
 
 const Layout = React.memo(props => (
-  <>
-    {/* Prevent first element from pointlessly rerendering */}
-    <div style={{ display: 'none' }} />
+  // Using styled-components causes the element to rerender everytime
+  <Styled.divLayout>
     <Header />
     <Nav />
-    <main>
+    <Styled.main>
       {/* Pages are rendered here */}
       {props.children}
-    </main>
+    </Styled.main>
     <Footer />
-  </>
+  </Styled.divLayout>
 ));
 
 Layout.propTypes = {

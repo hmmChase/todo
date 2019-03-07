@@ -8,7 +8,7 @@ describe('Header', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    mockProps = { children: [] };
+    mockProps = {};
     wrapper = shallow(<Header {...mockProps} />, {
       disableLifecycleMethods: true
     });

@@ -1,11 +1,9 @@
-class Footer extends React.PureComponent {
-  render() {
-    return (
-      <footer>
-        <p>Footer</p>
-      </footer>
-    );
-  }
-}
+import * as Styled from './Footer.style';
+
+const Footer = React.memo(() => (
+  <Styled.footer>
+    <p>Footer</p>
+  </Styled.footer>
+));
 
 export default Footer;

@@ -1,24 +1,21 @@
 import Link from 'next/link';
+import * as Styled from './Nav.style';
 
-class Nav extends React.PureComponent {
-  render() {
-    return (
-      <nav>
-        <ul>
-          <li>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="examples">
-              <a>Examples</a>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    );
-  }
-}
+const Nav = React.memo(() => (
+  <Styled.nav>
+    <ul>
+      <li>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+      </li>
+      <li>
+        <Link href="examples">
+          <a>Examples</a>
+        </Link>
+      </li>
+    </ul>
+  </Styled.nav>
+));
 
 export default Nav;
