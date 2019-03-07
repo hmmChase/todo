@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header matches snapshot 1`] = `
-<header>
-  <Header__StyledLogo>
+<Header__StyledHeader>
+  <h1>
     next-graphql-starter
-  </Header__StyledLogo>
-</header>
+  </h1>
+</Header__StyledHeader>
 `;

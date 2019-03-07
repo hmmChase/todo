@@ -1,23 +1,20 @@
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const StyledLogo = styled.h1`
-  color: ${props => props.theme.red};
+const StyledHeader = styled.header`
+  h1 {
+    text-align: center;
+    color: ${props => props.theme.red};
+  }
 `;
 
 class Header extends React.PureComponent {
   render() {
     return (
-      <header>
-        <StyledLogo>next-graphql-starter</StyledLogo>
-        {this.props.children}
-      </header>
+      <StyledHeader>
+        <h1>next-graphql-starter</h1>
+      </StyledHeader>
     );
   }
 }
-
-Header.propTypes = {
-  children: PropTypes.node.isRequired
-};
 
 export default Header;

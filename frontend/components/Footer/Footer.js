@@ -1,9 +1,15 @@
+import styled from 'styled-components';
+
+const StyledFooter = styled.footer`
+  text-align: center;
+`;
+
 class Footer extends React.PureComponent {
   render() {
     return (
-      <footer>
+      <StyledFooter>
         <p>Footer</p>
-      </footer>
+      </StyledFooter>
     );
   }
 }
