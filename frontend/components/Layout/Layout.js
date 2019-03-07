@@ -5,9 +5,8 @@ import Footer from '../Footer/Footer';
 
 const Layout = React.memo(props => (
   <>
-    <Header>
-      <Nav />
-    </Header>
+    <Header />
+    <Nav />
     <main>
       {/* Pages are rendered here */}
       {props.children}
