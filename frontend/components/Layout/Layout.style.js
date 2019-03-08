@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 export const divLayout = styled.div`
-  display: grid;
   max-width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  display: grid;
   grid-template-rows: 100px 50px 1fr 100px;
-  /* grid-template-columns: 1fr minmax(350px, 1200px) 1fr; */
+  grid-template-columns: 1fr;
   grid-template-areas:
-    'header header header'
-    'nav nav nav'
-    'main main main'
-    'footer footer footer';
+    'header'
+    'nav'
+    'main'
+    'footer';
 
   header {
     grid-area: header;
@@ -26,14 +26,6 @@ export const divLayout = styled.div`
 
   footer {
     grid-area: footer;
-  }
-
-  header,
-  nav,
-  main,
-  footer {
-    /* grid-column-start: 2; */
-    /* grid-column-end: span 1; */
   }
 `;
 
