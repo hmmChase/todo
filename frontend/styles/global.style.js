@@ -1,7 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
+import styledNormalize from 'styled-normalize';
 import theme from './theme.style';
 
 export default createGlobalStyle`
+  ${styledNormalize}
+
   @font-face {
     font-family: 'Open Sans';
     src:  url('/static/fonts/open-sans-v15-latin-regular.woff2') format('woff2'),

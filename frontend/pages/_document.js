@@ -44,13 +44,6 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
             rel="preload"
-            href="/static/styles/normalize.css"
-            as="style"
-            crossOrigin="anonymous"
-          />
-          <link rel="stylesheet" href="/static/styles/normalize.css" crossOrigin="anonymous" />
-          <link
-            rel="preload"
             href="/static/fonts/open-sans-v15-latin-regular.woff2"
             as="font"
             type="font/woff2"
