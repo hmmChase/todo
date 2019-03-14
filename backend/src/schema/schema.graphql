@@ -1,4 +1,4 @@
-# import * from '../prisma/generated/prisma.graphql'
+# import * from '../../prisma/generated/prisma.graphql'
 
 type Query {
   user(id: ID!): User

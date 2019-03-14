@@ -7,6 +7,8 @@ import Layout from '../components/Layout/Layout';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
+    console.log('MyApp GIP');
+
     let pageProps = {};
 
     if (Component.getInitialProps) {
@@ -17,6 +19,8 @@ class MyApp extends App {
   }
 
   render() {
+    console.log('MyApp render');
+
     const { Component, pageProps, apolloClient } = this.props;
 
     return (

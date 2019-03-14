@@ -4,6 +4,8 @@ import GlobalStyle from '../styles/global.style';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
+    console.log('MyDocument GIP');
+
     // https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
@@ -35,6 +37,8 @@ class MyDocument extends Document {
   }
 
   render() {
+    console.log('MyDocument render');
+
     return (
       <html lang="en">
         <Head>
