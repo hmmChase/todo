@@ -1,18 +1,14 @@
-const { ApolloServer } = require('apollo-server');
-const { importSchema } = require('graphql-import');
-const path = require('path');
-const typeDefs = importSchema(path.resolve('src/schema.graphql'));
-const { prisma } = require('../prisma/generated/prisma-client');
-const Query = require('./resolvers/Query');
-const Mutation = require('./resolvers/Mutation');
+import { ApolloServer } from 'apollo-server-express';
+import { importSchema } from 'graphql-import';
+import path from 'path';
+import { prisma } from '../prisma/generated/prisma-client';
+import resolvers from './resolvers';
+const typeDefs = importSchema(path.resolve('src/schema/schema.graphql'));
 
-function createServer() {
-  return new ApolloServer({
+export default () =>
+  new ApolloServer({
     typeDefs,
-    resolvers: {
-      Query,
-      Mutation
-    },
+    resolvers,
     context: req => ({
       ...req,
       prisma
@@ -20,6 +16,3 @@ function createServer() {
     introspection: true,
     playground: true
   });
-}
-
-module.exports = createServer;
