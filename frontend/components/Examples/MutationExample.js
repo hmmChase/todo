@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { USERS_QUERY } from './QueryExample';
 
