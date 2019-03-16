@@ -2,7 +2,7 @@ import * as Styled from './SignOut.style';
 
 const SignOut = React.memo(() => (
   <Styled.div>
-    <p>Welcome</p>
+    <p>Sign Out</p>
   </Styled.div>
 ));
 

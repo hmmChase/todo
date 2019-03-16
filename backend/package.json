@@ -17,9 +17,11 @@
     "apollo-server-express": "^2.4.8",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "graphql": "^14.1.1",
     "graphql-import": "^0.7.1",
+    "helmet": "^3.16.0",
     "jsonwebtoken": "^8.5.0",
     "prisma-client-lib": "^1.28.0-beta"
   },

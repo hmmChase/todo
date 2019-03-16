@@ -106,8 +106,10 @@ export interface ClientConstructor<T> {
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "password_ASC"
+  | "password_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -116,15 +118,18 @@ export type UserOrderByInput =
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export interface UserCreateInput {
-  name: String;
+  email: String;
+  password: String;
 }
 
 export interface UserUpdateInput {
-  name?: String;
+  email?: String;
+  password?: String;
 }
 
 export interface UserUpdateManyMutationInput {
-  name?: String;
+  email?: String;
+  password?: String;
 }
 
 export interface UserWhereInput {
@@ -142,20 +147,34 @@ export interface UserWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
+  password?: String;
+  password_not?: String;
+  password_in?: String[] | String;
+  password_not_in?: String[] | String;
+  password_lt?: String;
+  password_lte?: String;
+  password_gt?: String;
+  password_gte?: String;
+  password_contains?: String;
+  password_not_contains?: String;
+  password_starts_with?: String;
+  password_not_starts_with?: String;
+  password_ends_with?: String;
+  password_not_ends_with?: String;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
@@ -174,6 +193,7 @@ export interface UserSubscriptionWhereInput {
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  email?: String;
 }>;
 
 export interface NodeNode {
@@ -214,21 +234,24 @@ export interface BatchPayloadSubscription
 
 export interface UserPreviousValues {
   id: ID_Output;
-  name: String;
+  email: String;
+  password: String;
 }
 
 export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserEdge {
@@ -275,19 +298,22 @@ export interface UserSubscriptionPayloadSubscription
 
 export interface User {
   id: ID_Output;
-  name: String;
+  email: String;
+  password: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
 }
 
 export interface UserSubscription
   extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserConnection {
