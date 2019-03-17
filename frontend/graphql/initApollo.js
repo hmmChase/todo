@@ -22,26 +22,27 @@ const createClient = (initialState) => {
     credentials: 'include'
   });
 
-  const authLink = new ApolloLink((operation, forward) => {
-    operation.setContext((headers = {}) => ({
-      fetchOptions: {
-        credentials: 'include'
-      },
-      headers
-    }));
-    return forward(operation);
-  });
+  // const authLink = new ApolloLink((operation, forward) => {
+  //   operation.setContext((headers = {}) => ({
+  //     fetchOptions: {
+  //       credentials: 'include'
+  //     },
+  //     headers
+  //   }));
+  //   return forward(operation);
+  // });
 
-  const errorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-      graphQLErrors.map(({ message, locations, path }) => console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`));
-    }
-    if (networkError) console.error(`[Network error]: ${networkError}`);
-  });
+  // const errorLink = onError(({ graphQLErrors, networkError }) => {
+  //   if (graphQLErrors) {
+  //     graphQLErrors.map(({ message, locations, path }) => console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`));
+  //   }
+  //   if (networkError) console.error(`[Network error]: ${networkError}`);
+  // });
 
   return new ApolloClient({
     // Specifies what Apollo will use for every request to the GraphQL endpoint
-    link: ApolloLink.from([httpLink, authLink, errorLink]),
+    link: httpLink,
+    // link: ApolloLink.from([errorLink, authLink, httpLink]),
     cache: new InMemoryCache().restore(initialState || {}),
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
     connectToDevTools: process.browser

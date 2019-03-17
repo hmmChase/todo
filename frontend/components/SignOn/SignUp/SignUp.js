@@ -33,11 +33,9 @@ class SignUp extends React.PureComponent {
 
     return (
       <Mutation mutation={SIGN_UP_MUTATION} variables={this.state}>
-        {(signUp, { loading, error, data }) => {
+        {(signUp, { loading, error }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error: {error.message}</p>;
-          // eslint-disable-next-line no-console
-          if (data) console.log('data: ', data);
           return (
             <Styled.div>
               <form onSubmit={e => this.onSubmit(e, signUp)}>

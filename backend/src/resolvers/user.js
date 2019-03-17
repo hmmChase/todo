@@ -10,6 +10,12 @@ export default {
 
     users: (parent, args, ctx, info) => {
       return ctx.prisma.users({});
+    },
+
+    me: (parent, args, ctx, info) => {
+      if (!ctx.me) return null;
+
+      return ctx.prisma.user({ where: { id: ctx.req.user.id } });
     }
   },
 
@@ -27,10 +33,6 @@ export default {
         // secure: process.env.NODE_ENV === 'production',
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
       });
-
-      console.log(' : -----------');
-      console.log(' : ctx.res.cookie: ', ctx.res.cookie);
-      console.log(' : -----------');
 
       const user = ctx.prisma.createUser({ email, password });
 
@@ -56,7 +58,8 @@ export default {
 
       ctx.res.cookie('token', JWT, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 365
+        // secure: process.env.NODE_ENV === 'production',
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
       });
 
       return user;
