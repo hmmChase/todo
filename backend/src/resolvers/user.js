@@ -10,6 +10,12 @@ export default {
 
     users: (parent, args, ctx, info) => {
       return ctx.prisma.users({});
+    },
+
+    me: (parent, args, ctx, info) => {
+      if (!ctx.me) return null;
+
+      return ctx.prisma.user({ where: { id: ctx.me.id } });
     }
   },
 
@@ -18,21 +24,20 @@ export default {
       const email = args.email.toLowerCase();
       const password = await bcrypt.hash(args.password, 10);
 
-      const JWT = jwt.sign({ ...user }, process.env.JWT_SECRET, {
-        expiresIn: '1h'
+      const user = await ctx.prisma.createUser({ email, password });
+      console.log(' : -------------');
+      console.log(' : user', user);
+      console.log(' : -------------');
+
+      const JWT = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+        expiresIn: '7d'
       });
 
       ctx.res.cookie('token', JWT, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === 'production',
+        // secure: process.env.NODE_ENV === "production",
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
       });
-
-      console.log(' : -----------');
-      console.log(' : ctx.res.cookie: ', ctx.res.cookie);
-      console.log(' : -----------');
-
-      const user = ctx.prisma.createUser({ email, password });
 
       return user;
     },
@@ -50,13 +55,14 @@ export default {
         throw new AuthenticationError('Invalid Password');
       }
 
-      const JWT = jwt.sign({ ...user }, process.env.JWT_SECRET, {
-        expiresIn: '1h'
+      const JWT = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+        expiresIn: '7d'
       });
 
       ctx.res.cookie('token', JWT, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 365
+        // secure: process.env.NODE_ENV === 'production',
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
       });
 
       return user;
