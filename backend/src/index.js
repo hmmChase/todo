@@ -15,33 +15,18 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// app.use(helmet());
+app.use(helmet());
 app.use(cookieParser());
-
-// app.use((req, res, next) => {
-//   console.log(' : -----------');
-//   console.log(' : index.req.cookies', req.cookies);
-//   console.log(' : -----------');
-//   const { token } = req.cookies;
-//   console.log(' : ---------------');
-//   console.log(' : index.token', token);
-//   console.log(' : ---------------');
-//   if (token) {
-//     const user = jwt.verify(token, process.env.JWT_SECRET);
-//     req.me = user;
-//   }
-//   next();
-// });
 
 // decode the JWT so we can get the user Id on each request
 app.use((req, res, next) => {
   const { token } = req.cookies;
+
   if (token) {
     const { userId } = jwt.verify(token, process.env.JWT_SECRET);
     // put the userId onto the req for future requests to access
     req.userId = userId;
   }
-  console.log('req.userId: ', req.userId);
 
   next();
 });

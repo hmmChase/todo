@@ -1,23 +1,47 @@
-import Head from 'next/head';
-import { getDataFromTree } from 'react-apollo';
+import cookie from 'cookie';
 import PropTypes from 'prop-types';
+import { getDataFromTree } from 'react-apollo';
+import Head from 'next/head';
 import initApollo from './initApollo';
 
-export default App => class Apollo extends React.PureComponent {
-    static displayName = 'withApollo(App)';
+// https://github.com/zeit/next.js/blob/canary/examples/with-apollo-auth/lib/withApollo.js
+
+const parseCookies = (req, options = {}) => cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
+
+export default App => class WithApollo extends React.PureComponent {
+    static displayName = `WithApollo(${App.displayName})`;
+
+    static propTypes = {
+      apolloState: PropTypes.objectOf(PropTypes.object).isRequired
+    };
 
     static async getInitialProps(ctx) {
-      const { Component, router } = ctx;
+      const {
+        Component,
+        router,
+        ctx: { req, res }
+      } = ctx;
+
+      // Run all GraphQL queries in the component tree
+      // and extract the resulting data
+      const apollo = initApollo({}, { getToken: () => parseCookies(req).token });
+
+      ctx.ctx.apolloClient = apollo;
 
       let appProps = {};
       if (App.getInitialProps) {
         appProps = await App.getInitialProps(ctx);
       }
 
-      // Run all GraphQL queries in the component tree
-      // and extract the resulting data
-      const apollo = initApollo();
+      if (res && res.finished) {
+        // When redirecting, the response is finished.
+        // No point in continuing to render
+        return {};
+      }
+
       if (!process.browser) {
+        // Run all graphql queries in the component tree
+        // and extract the resulting data
         try {
           // Run all GraphQL queries
           await getDataFromTree(
@@ -45,13 +69,13 @@ export default App => class Apollo extends React.PureComponent {
       };
     }
 
-    static propTypes = {
-      apolloState: PropTypes.objectOf(PropTypes.object).isRequired
-    };
-
     constructor(props) {
       super(props);
-      this.apolloClient = initApollo(props.apolloState);
+      // `getDataFromTree` renders the component first, the client is passed off as a property.
+      // After that rendering is done using Next's normal rendering pipeline
+      this.apolloClient = initApollo(props.apolloState, {
+        getToken: () => parseCookies().token
+      });
     }
 
     render() {

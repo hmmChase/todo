@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import App, { Container } from 'next/app';
 import { ApolloProvider } from 'react-apollo';
 import { ThemeProvider } from 'styled-components';

@@ -25,6 +25,7 @@
     "apollo-link-context": "^1.0.17",
     "apollo-link-error": "^1.1.10",
     "apollo-link-http": "^1.5.14",
+    "cookie": "^0.3.1",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "^3.0.0",
