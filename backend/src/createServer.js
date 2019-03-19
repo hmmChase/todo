@@ -30,15 +30,16 @@ export default () =>
     typeDefs,
     resolvers,
     context: async ({ req, res }) => {
-      console.log(' : -----------');
-      console.log(' : res', Object.keys(res));
-      console.log(' : req', Object.keys(req));
+      // console.log(' : -----------');
+      // console.log(' : res', Object.keys(res));
+      // console.log(' : req', Object.keys(req));
 
-      console.log(' : res', res);
-      console.log(' : req', req.method);
-      console.log(' : req.headers', req.headers);
-      console.log(' : req.body.query', req.body.query);
-      console.log(' : -----------');
+      // console.log(' : res', res);
+      // console.log(' : req.userId: ', req.userId);
+      // console.log(' : req', req.method);
+      // console.log(' : req.headers', req.headers);
+      // console.log(' : req.body.query', req.body.query);
+      // console.log(' : -----------');
       // const me = await getMe(req.cookies);
       return { req, res, prisma };
     },
