@@ -1,15 +1,15 @@
+// https://github.com/zeit/next.js/blob/canary/examples/with-apollo-auth/lib/withApollo.js
+/* eslint-disable no-console */
 import cookie from 'cookie';
 import PropTypes from 'prop-types';
 import { getDataFromTree } from 'react-apollo';
 import Head from 'next/head';
 import initApollo from './initApollo';
 
-// https://github.com/zeit/next.js/blob/canary/examples/with-apollo-auth/lib/withApollo.js
-
 const parseCookies = (req, options = {}) => cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
 
 export default App => class WithApollo extends React.PureComponent {
-    static displayName = `WithApollo(${App.displayName})`;
+    static displayName = 'WithApollo(App)';
 
     static propTypes = {
       apolloState: PropTypes.objectOf(PropTypes.object).isRequired
@@ -34,7 +34,7 @@ export default App => class WithApollo extends React.PureComponent {
       }
 
       if (res && res.finished) {
-        // When redirecting, the response is finished.
+        // When redirecting, the response is finished
         // No point in continuing to render
         return {};
       }
@@ -51,7 +51,6 @@ export default App => class WithApollo extends React.PureComponent {
           // Prevent Apollo Client GraphQL errors from crashing SSR.
           // Handle them in components via the data.error prop:
           // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
-          // eslint-disable-next-line no-console
           console.error('Error while running `getDataFromTree`', error);
         }
 
@@ -71,7 +70,7 @@ export default App => class WithApollo extends React.PureComponent {
 
     constructor(props) {
       super(props);
-      // `getDataFromTree` renders the component first, the client is passed off as a property.
+      // getDataFromTree renders the component first, the client is passed off as a property
       // After that rendering is done using Next's normal rendering pipeline
       this.apolloClient = initApollo(props.apolloState, {
         getToken: () => parseCookies().token

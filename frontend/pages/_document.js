@@ -1,3 +1,5 @@
+// https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
+/* eslint-disable no-console */
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 import GlobalStyle from '../styles/global.style';
@@ -6,7 +8,6 @@ class MyDocument extends Document {
   static async getInitialProps(ctx) {
     console.log('MyDocument GIP');
 
-    // https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 

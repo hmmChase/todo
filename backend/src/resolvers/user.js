@@ -25,9 +25,6 @@ export default {
       const password = await bcrypt.hash(args.password, 10);
 
       const user = await ctx.prisma.createUser({ email, password });
-      console.log(' : -------------');
-      console.log(' : user', user);
-      console.log(' : -------------');
 
       const JWT = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
         expiresIn: '7d'
@@ -35,7 +32,7 @@ export default {
 
       ctx.res.cookie('token', JWT, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === 'production',
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
       });
 
@@ -61,7 +58,7 @@ export default {
 
       ctx.res.cookie('token', JWT, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production',
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
       });
 
