@@ -42,6 +42,7 @@ const createClient = (initialState) => {
   return new ApolloClient({
     // Specifies what Apollo will use for every request to the GraphQL endpoint
     link: httpLink,
+
     // link: ApolloLink.from([errorLink, authLink, httpLink]),
     cache: new InMemoryCache().restore(initialState || {}),
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)

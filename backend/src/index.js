@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
 import createServer from './createServer';
 
 const app = express();
@@ -19,11 +20,11 @@ app.use(cookieParser());
 
 // app.use((req, res, next) => {
 //   console.log(' : -----------');
-//   console.log(' : req.cookies', req.cookies);
+//   console.log(' : index.req.cookies', req.cookies);
 //   console.log(' : -----------');
 //   const { token } = req.cookies;
 //   console.log(' : ---------------');
-//   console.log(' : token', token);
+//   console.log(' : index.token', token);
 //   console.log(' : ---------------');
 //   if (token) {
 //     const user = jwt.verify(token, process.env.JWT_SECRET);
