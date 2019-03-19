@@ -26,8 +26,7 @@ class MutationExample extends React.PureComponent {
         {(createUser, { loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error: {error.message}</p>;
-          // eslint-disable-next-line no-console
-          if (data) console.log('data: ', data);
+
           return (
             <form
               onSubmit={(e) => {
