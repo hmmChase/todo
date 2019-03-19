@@ -10,24 +10,22 @@ import { graphQLEndpoint } from '../config';
 
 let apolloClient = null;
 
-// Polyfill fetch() on the server (used by apollo-client)
-if (!process.browser) {
-  global.fetch = fetch;
-}
-
 const createClient = (initialState) => {
   const httpLink = createHttpLink({
     uri: graphQLEndpoint,
     // Specifies that Apollo will include the headers it gets in the response from the server
-    credentials: 'include'
+    credentials: 'include',
+    fetchOptions: {
+      credentials: 'include'
+    },
+    fetch
   });
 
   // const authLink = new ApolloLink((operation, forward) => {
   //   operation.setContext((headers = {}) => ({
   //     fetchOptions: {
   //       credentials: 'include'
-  //     },
-  //     headers
+  //     }
   //   }));
   //   return forward(operation);
   // });
@@ -42,7 +40,6 @@ const createClient = (initialState) => {
   return new ApolloClient({
     // Specifies what Apollo will use for every request to the GraphQL endpoint
     link: httpLink,
-
     // link: ApolloLink.from([errorLink, authLink, httpLink]),
     cache: new InMemoryCache().restore(initialState || {}),
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
