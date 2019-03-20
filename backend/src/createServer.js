@@ -6,6 +6,8 @@ import { prisma } from '../prisma/generated/prisma-client';
 import resolvers from './resolvers';
 const typeDefs = importSchema(path.resolve('src/schema/schema.graphql'));
 
+const dev = process.env.NODE_ENV === 'development';
+
 const getMe = async cookies => {
   const { token } = cookies;
 
@@ -27,15 +29,14 @@ export default () =>
 
       return { req, res, prisma, me };
     },
-    tracing: process.env.NODE_ENV === 'development',
-    introspection: process.env.NODE_ENV === 'development',
-    playground:
-      process.env.NODE_ENV === 'development'
-        ? {
-            settings: {
-              'editor.theme': 'light',
-              'request.credentials': 'include'
-            }
+    tracing: dev,
+    introspection: dev,
+    playground: dev
+      ? {
+          settings: {
+            'editor.theme': 'light',
+            'request.credentials': 'include'
           }
-        : false
+        }
+      : false
   });
