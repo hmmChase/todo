@@ -5,17 +5,17 @@ import { AuthenticationError, UserInputError } from 'apollo-server-express';
 export default {
   Query: {
     user: (parent, args, ctx, info) => {
-      return ctx.prisma.user({ where: { id: args.id } });
+      return ctx.prisma.user({ id: args.id });
     },
 
     users: (parent, args, ctx, info) => {
-      return ctx.prisma.users({});
+      return ctx.prisma.users();
     },
 
     me: (parent, args, ctx, info) => {
       if (!ctx.me) return null;
 
-      return ctx.prisma.user({ where: { id: ctx.me.id } });
+      return ctx.prisma.user({ id: ctx.me.userId });
     }
   },
 
@@ -42,7 +42,7 @@ export default {
     signIn: async (parent, args, ctx, info) => {
       const email = args.email.toLowerCase();
 
-      const user = await ctx.prisma.user({ where: { email } });
+      const user = await ctx.prisma.user({ email });
       if (!user) {
         throw new UserInputError(`No such user found for email ${email}`);
       }

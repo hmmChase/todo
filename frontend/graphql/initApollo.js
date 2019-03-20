@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+// https://github.com/matthew-andrews/isomorphic-fetch/issues/141
+
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';

@@ -18,18 +18,18 @@ app.use(cors(corsOptions));
 app.use(helmet());
 app.use(cookieParser());
 
-// decode the JWT so we can get the user Id on each request
-app.use((req, res, next) => {
-  const { token } = req.cookies;
+// // Decode the JWT so we can get the user Id on each request
+// app.use((req, res, next) => {
+//   const { token } = req.cookies;
 
-  if (token) {
-    const { userId } = jwt.verify(token, process.env.JWT_SECRET);
-    // put the userId onto the req for future requests to access
-    req.userId = userId;
-  }
+//   if (token) {
+//     const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+//     // Put the userId onto the req for future requests to access
+//     req.userId = userId;
+//   }
 
-  next();
-});
+//   next();
+// });
 
 // 2. Create a middleware that populates the user on each request
 // app.use(async (req, res, next) => {

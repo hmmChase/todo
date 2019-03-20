@@ -12,14 +12,16 @@ class MyDocument extends Document {
     const originalRenderPage = ctx.renderPage;
 
     try {
-      ctx.renderPage = () => originalRenderPage({
-        enhanceApp: App => props => sheet.collectStyles(
-          <>
-            <GlobalStyle />
-            <App {...props} />
-          </>
-        )
-      });
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: App => props =>
+            sheet.collectStyles(
+              <>
+                <GlobalStyle />
+                <App {...props} />
+              </>
+            )
+        });
 
       const initialProps = await Document.getInitialProps(ctx);
 
@@ -45,7 +47,10 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta name="description" content="" />
-          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          />
           <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
             rel="preload"

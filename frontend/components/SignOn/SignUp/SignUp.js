@@ -8,7 +8,7 @@ class SignUp extends React.PureComponent {
     password: ''
   };
 
-  onChange = (e) => {
+  onChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };

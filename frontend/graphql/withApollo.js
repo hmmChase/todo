@@ -1,14 +1,17 @@
-// https://github.com/zeit/next.js/blob/canary/examples/with-apollo-auth/lib/withApollo.js
 /* eslint-disable no-console */
+// https://github.com/zeit/next.js/blob/canary/examples/with-apollo-auth/lib/withApollo.js
+
 import cookie from 'cookie';
 import PropTypes from 'prop-types';
 import { getDataFromTree } from 'react-apollo';
 import Head from 'next/head';
 import initApollo from './initApollo';
 
-const parseCookies = (req, options = {}) => cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
+const parseCookies = (req, options = {}) =>
+  cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
 
-export default App => class WithApollo extends React.PureComponent {
+export default App =>
+  class WithApollo extends React.PureComponent {
     static displayName = 'WithApollo(App)';
 
     static propTypes = {
@@ -24,7 +27,10 @@ export default App => class WithApollo extends React.PureComponent {
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
-      const apollo = initApollo({}, { getToken: () => parseCookies(req).token });
+      const apollo = initApollo(
+        {},
+        { getToken: () => parseCookies(req).token }
+      );
 
       ctx.ctx.apolloClient = apollo;
 
@@ -45,7 +51,12 @@ export default App => class WithApollo extends React.PureComponent {
         try {
           // Run all GraphQL queries
           await getDataFromTree(
-            <App {...appProps} Component={Component} router={router} apolloClient={apollo} />
+            <App
+              {...appProps}
+              Component={Component}
+              router={router}
+              apolloClient={apollo}
+            />
           );
         } catch (error) {
           // Prevent Apollo Client GraphQL errors from crashing SSR.
@@ -80,4 +91,4 @@ export default App => class WithApollo extends React.PureComponent {
     render() {
       return <App {...this.props} apolloClient={this.apolloClient} />;
     }
-};
+  };
