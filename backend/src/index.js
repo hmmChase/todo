@@ -3,15 +3,18 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import jwt from 'jsonwebtoken';
 import createServer from './createServer';
+// import jwt from 'jsonwebtoken';
 
 const app = express();
 const server = createServer();
 
 const corsOptions = {
   credentials: true,
-  origin: process.env.FRONTEND_URL
+  origin:
+    process.env.NODE_ENV === 'production'
+      ? process.env.PROD_FRONTEND_URL
+      : process.env.DEV_FRONTEND_URL
 };
 
 app.use(cors(corsOptions));
