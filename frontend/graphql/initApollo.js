@@ -40,6 +40,7 @@ const createClient = (initialState, { getToken }) => {
     link: authLink.concat(httpLink),
     cache: new InMemoryCache().restore(initialState || {}),
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
+    ssrForceFetchDelay: 100,
     connectToDevTools: process.browser
   });
 };
