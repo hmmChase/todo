@@ -29,9 +29,9 @@ export default () =>
 
       return { req, res, prisma, me };
     },
-    tracing: dev,
-    introspection: dev,
-    playground: dev
+    tracing: true,
+    introspection: true,
+    playground: true
       ? {
           settings: {
             'editor.theme': 'light',
@@ -39,4 +39,14 @@ export default () =>
           }
         }
       : false
+    // tracing: dev,
+    // introspection: dev,
+    // playground: dev
+    //   ? {
+    //       settings: {
+    //         'editor.theme': 'light',
+    //         'request.credentials': 'include'
+    //       }
+    //     }
+    //   : false
   });
