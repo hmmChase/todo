@@ -9,14 +9,17 @@ import { setContext } from 'apollo-link-context';
 // import { ApolloLink } from 'apollo-link';
 
 import fetch from 'isomorphic-unfetch';
-import { graphQLEndpoint } from '../config';
+import { devGraphQLEndpoint, prodGraphQLEndpoint } from '../config';
 
 let apolloClient = null;
 
 const createClient = (initialState, { getToken }) => {
   // Specifies what Apollo will use for every request to the GraphQL endpoint
   const httpLink = createHttpLink({
-    uri: graphQLEndpoint,
+    uri:
+      process.env.NODE_ENV === 'development'
+        ? devGraphQLEndpoint
+        : prodGraphQLEndpoint,
     // Specifies that Apollo will include the headers it gets in the response from the server
     credentials: 'include',
     fetch

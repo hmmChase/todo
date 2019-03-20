@@ -43,7 +43,7 @@ app.use(cookieParser());
 //   next();
 // });
 
-server.applyMiddleware({ app, path: '/', cors: corsOptions });
+server.applyMiddleware({ app, path: '/graphql', cors: corsOptions });
 
 app.listen({ port: process.env.PORT || 4000 }, err => {
   if (err) throw err;
