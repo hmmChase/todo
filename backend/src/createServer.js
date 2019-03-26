@@ -8,26 +8,26 @@ const typeDefs = importSchema(path.resolve('src/schema/schema.graphql'));
 
 const dev = process.env.NODE_ENV === 'development';
 
-const getMe = async cookies => {
-  const { token } = cookies;
+// const getMe = async cookies => {
+//   const { token } = cookies;
 
-  if (token) {
-    try {
-      return await jwt.verify(token, process.env.JWT_SECRET);
-    } catch (e) {
-      throw new AuthenticationError('Your session expired. Sign in again.');
-    }
-  }
-};
+//   if (token) {
+//     try {
+//       return await jwt.verify(token, process.env.JWT_SECRET);
+//     } catch (e) {
+//       throw new AuthenticationError('Your session expired. Sign in again.');
+//     }
+//   }
+// };
 
 export default () =>
   new ApolloServer({
     typeDefs,
     resolvers,
     context: async ({ req, res }) => {
-      const me = await getMe(req.cookies);
+      // const me = await getMe(req.cookies);
 
-      return { req, res, prisma, me };
+      return { req, res, prisma };
     },
     tracing: true,
     introspection: true,

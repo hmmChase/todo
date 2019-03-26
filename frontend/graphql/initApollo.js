@@ -21,7 +21,7 @@ const createClient = (initialState, { getToken }) => {
         ? devGraphQLEndpoint
         : prodGraphQLEndpoint,
     // Specifies that Apollo will include the headers it gets in the response from the server
-    credentials: 'include',
+    // credentials: 'include',
     fetch
   });
 

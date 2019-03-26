@@ -22,11 +22,11 @@ class MyApp extends App {
   render() {
     console.log('MyApp render');
 
-    const { Component, pageProps, apolloClient } = this.props;
+    const { Component, pageProps, apollo } = this.props;
 
     return (
       <Container>
-        <ApolloProvider client={apolloClient}>
+        <ApolloProvider client={apollo}>
           <ThemeProvider theme={theme}>
             <Layout>
               <Component {...pageProps} />
