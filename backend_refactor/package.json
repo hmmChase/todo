@@ -1,0 +1,36 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js",
+    "start": "cross-env NODE_ENV=production node --exec babel-node src/index.js",
+    "deploy": "prisma deploy -e .env",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^2.4.8",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "graphql": "^14.1.1",
+    "graphql-import": "^0.7.1",
+    "helmet": "^3.16.0",
+    "jsonwebtoken": "^8.5.1",
+    "prisma-client-lib": "^1.29.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.2",
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.10",
+    "prisma": "^1.29.1"
+  }
+}

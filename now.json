@@ -8,5 +8,14 @@
   "routes": [
     { "src": "/graphql", "dest": "backend/src/index.js" },
     { "src": "/(.*)", "dest": "frontend/$1" }
-  ]
+  ],
+  "env": {
+    "PORT": 6969,
+    "JWT_SECRET": "asdlplplfwfwefwdhsrtjzxfbsth",
+    "FRONTEND_URL": "http://localhost:8008",
+    "DEV_FRONTEND_URL": "http://localhost:8008",
+    "PROD_FRONTEND_URL": "https://next-graphql-starter-git-master.hmmchase.now.sh",
+    "PRISMA_ENDPOINT": "https://us1.prisma.sh/chase-c544a8/starter/prod",
+    "PRISMA_SECRET": "poraepogtlggggiopopidfjg"
+  }
 }
