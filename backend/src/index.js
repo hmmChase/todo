@@ -5,7 +5,7 @@ const server = createServer();
 
 server.start(
   {
-    port: 6969,
+    port: '6969',
     endpoint: '/graphql',
     playground: '/graphql',
     cors: {
