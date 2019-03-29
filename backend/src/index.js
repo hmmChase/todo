@@ -8,14 +8,13 @@ server.start(
     port: '6969',
     endpoint: '/graphql',
     playground: '/graphql',
-    cors: {
-      credentials: true,
-      origin: process.env.FRONTEND_URL
-    }
+    tracing: true
   },
-  deets => {
+  server => {
     console.log(
-      `Server is now running on port http://localhost:${deets.port}/graphql`
+      `Server is now running on port http://localhost:${server.port}${
+        server.endpoint
+      }`
     );
   }
 );

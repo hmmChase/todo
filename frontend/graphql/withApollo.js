@@ -38,6 +38,9 @@ export default withApollo(
       // credentials: 'include',
     });
 
+    console.log('process.env.NODE_ENV: ', process.env.NODE_ENV)
+
+
     return new ApolloClient({
       link: ApolloLink.from([errorLink, authLink, httpLink]),
       cache: new InMemoryCache().restore(initialState || {}),
