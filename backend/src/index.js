@@ -5,16 +5,14 @@ const server = createServer();
 
 server.start(
   {
-    port: '6969',
+    port: 6969,
     endpoint: '/graphql',
     playground: '/graphql',
     tracing: true
   },
   server => {
     console.log(
-      `Server is now running on port http://localhost:${server.port}${
-        server.endpoint
-      }`
+      `Apollo Server ready at http://localhost:${server.port}${server.endpoint}`
     );
   }
 );
