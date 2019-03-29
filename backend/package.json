@@ -5,11 +5,11 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon -e js,graphql -x node src/index.js",
     "dev": "nodemon -e js,graphql -x node --inspect src/index.js",
-    "deploy": "prisma deploy --env-file .env",
+    "start": "nodemon -e js,graphql -x node src/index.js",
+    "prisma": "prisma deploy --env-file .env",
     "writeSchema": "node utils/writeSchema.js",
-    "update": "npm run deploy && npm run writeSchema"
+    "schema": "npm run prisma && npm run writeSchema"
   },
   "keywords": [],
   "author": "",
