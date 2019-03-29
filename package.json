@@ -7,7 +7,7 @@
   "scripts": {
     "backend": "cd backend && npm run dev",
     "frontend": "cd frontend && npm run dev",
-    "app": "concurrently --kill-others-on-fail \"npm run backend\" \"npm run frontend\""
+    "app": "concurrently -c red,green --kill-others-on-fail \"npm run backend\" \"npm run frontend\""
   },
   "repository": {
     "type": "git",

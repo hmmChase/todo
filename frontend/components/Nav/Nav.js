@@ -10,8 +10,8 @@ const Nav = React.memo(() => (
         </Link>
       </li>
       <li>
-        <Link href="examples">
-          <a>Examples</a>
+        <Link href="users">
+          <a>Users</a>
         </Link>
       </li>
     </ul>

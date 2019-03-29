@@ -1,14 +1,6 @@
-import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
+import * as userQL from '../../../graphql/Queries/user';
 import * as Styled from './SignUp.style';
-
-export const SIGN_UP_MUTATION = gql`
-  mutation SIGN_UP_MUTATION($email: String!, $password: String!) {
-    signUp(email: $email, password: $password) {
-      id
-    }
-  }
-`;
 
 class SignUp extends React.PureComponent {
   state = {
@@ -16,7 +8,7 @@ class SignUp extends React.PureComponent {
     password: ''
   };
 
-  onChange = (e) => {
+  onChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
@@ -32,7 +24,11 @@ class SignUp extends React.PureComponent {
     const isInvalid = email === '' || password === '';
 
     return (
-      <Mutation mutation={SIGN_UP_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={userQL.SIGN_UP_MUTATION}
+        variables={this.state}
+        refetchQueries={[{ query: userQL.USERS_QUERY }]}
+      >
         {(signUp, { loading, error }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error: {error.message}</p>;

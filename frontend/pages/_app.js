@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import App, { Container } from 'next/app';
 import { ApolloProvider } from 'react-apollo';
 import { ThemeProvider } from 'styled-components';
@@ -21,11 +22,11 @@ class MyApp extends App {
   render() {
     console.log('MyApp render');
 
-    const { Component, pageProps, apolloClient } = this.props;
+    const { Component, pageProps, apollo } = this.props;
 
     return (
       <Container>
-        <ApolloProvider client={apolloClient}>
+        <ApolloProvider client={apollo}>
           <ThemeProvider theme={theme}>
             <Layout>
               <Component {...pageProps} />

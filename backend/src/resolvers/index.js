@@ -1,3 +1,3 @@
-import userResolvers from './user';
+const { Query, Mutation } = require('./user');
 
-export default [userResolvers];
+module.exports = { Query, Mutation };
