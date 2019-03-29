@@ -3,7 +3,7 @@ datamodel: datamodel.graphql
 secret: ${env:PRISMA_SECRET}
 generate:
   - generator: graphql-schema
-    output: ./src/generated/prisma.graphql
+    output: ./src/schema/generated/prisma.graphql
 hooks:
   post-deploy:
     - prisma generate
