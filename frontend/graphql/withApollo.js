@@ -33,9 +33,9 @@ export default withApollo(
       uri:
         process.env.NODE_ENV === 'production'
           ? prodGraphQLEndpoint
-          : devGraphQLEndpoint,
+          : devGraphQLEndpoint
       // credentials: 'same-origin',
-      credentials: 'include'
+      // credentials: 'include',
     });
 
     console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);

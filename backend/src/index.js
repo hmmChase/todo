@@ -8,11 +8,7 @@ server.start(
     port: '6969',
     endpoint: '/graphql',
     playground: '/graphql',
-    tracing: true,
-    cors: {
-      credentials: true,
-      origin: process.env.FRONTEND_URL
-    }
+    tracing: true
   },
   server => {
     console.log(
