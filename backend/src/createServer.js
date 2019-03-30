@@ -4,7 +4,7 @@ const prisma = require('./prisma');
 
 function createServer() {
   return new GraphQLServer({
-    typeDefs: 'src/schema/schema.graphql',
+    typeDefs: __dirname + '/schema/schema.graphql',
     resolvers,
     context: ({ req, res }) => ({ req, res, prisma })
   });
