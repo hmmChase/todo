@@ -1,8 +1,7 @@
 const { GraphQLServer } = require('graphql-yoga');
+const { importSchema } = require('graphql-import');
 const resolvers = require('./resolvers');
 const prisma = require('./prisma');
-
-const { importSchema } = require('graphql-import');
 const typeDefs = importSchema(__dirname + '/schema/schema.graphql');
 
 function createServer() {
