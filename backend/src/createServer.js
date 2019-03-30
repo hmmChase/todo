@@ -3,9 +3,10 @@ const resolvers = require('./resolvers');
 const prisma = require('./prisma');
 
 const { importSchema } = require('graphql-import');
-const typeDefs = importSchema('src/schema/schema.graphql');
+const typeDefs = importSchema(__dirname + '/schema/schema.graphql');
 
 function createServer() {
+  console.log('TCL: typeDefs', typeDefs);
   console.log('__dirname: ', __dirname + '/schema/schema.graphql');
 
   return new GraphQLServer({
