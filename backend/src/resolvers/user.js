@@ -9,7 +9,6 @@ export default {
     },
 
     users: (parent, args, ctx, info) => {
-      console.log('TCL: ctx', ctx);
       return ctx.prisma.query.users();
     },
 
