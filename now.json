@@ -10,7 +10,7 @@
     { "src": "/(.*)", "dest": "frontend/$1" }
   ],
   "env": {
-    "PORT": 6969,
+    "PORT": "6969",
     "PRISMA_ENDPOINT": "https://us1.prisma.sh/chase-c544a8/starter/prod",
     "PRISMA_SECRET": "poraepogtlggggiopopidfjg"
   }
