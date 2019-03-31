@@ -4,7 +4,7 @@ const { importSchema } = require('graphql-import');
 
 // const typeDefs = importSchema(__dirname + '/schema/generated/prisma.graphql');
 const typeDefs = importSchema(__dirname + '/schema/schema_prep.graphql');
-console.log('TCL: typeDefs', typeDefs);
+// console.log('TCL: typeDefs', typeDefs);
 
 const prisma = new Prisma({
   // typeDefs: __dirname + '/schema/schema_prep.graphql',

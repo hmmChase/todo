@@ -1,11 +1,15 @@
 # import * from './schema_prep.graphql'
 
-type Mutation {
-  signup(email: String!, password: String!, name: String!): User!
+type Query {
+  user(id: ID!): User
+  users: [User]!
+  me: User
 }
 
-type Query {
-  users: [User]!
+type Mutation {
+  signUp(email: String!, password: String!): User!
+  signIn(email: String!, password: String!): User!
+  me: User
 }
 
 type User {
