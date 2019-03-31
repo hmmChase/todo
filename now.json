@@ -2,11 +2,11 @@
   "name": "next-graphql-starter",
   "version": 2,
   "builds": [
-    { "src": "backend_refactor/src/index.js", "use": "@now/node-server" },
+    { "src": "backend/src/index.js", "use": "@now/node-server" },
     { "src": "frontend/next.config.js", "use": "@now/next" }
   ],
   "routes": [
-    { "src": "/graphql", "dest": "backend_refactor/src/index.js" },
+    { "src": "/graphql", "dest": "backend/src/index.js" },
     { "src": "/(.*)", "dest": "frontend/$1" }
   ],
   "env": {

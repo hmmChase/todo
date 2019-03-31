@@ -1,3 +1,3 @@
-const { Query, Mutation } = require('./user');
+import user from './user';
 
-module.exports = { Query, Mutation };
+export default [user];
