@@ -1,2 +1,2 @@
 # import * from './schema_prep.graphql'
-# import Query.*, Mutation.*, * from "user.graphql"
+# import Query.*, Mutation.*, * from "./user.graphql"
