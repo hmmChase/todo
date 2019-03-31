@@ -2,9 +2,11 @@ import { ApolloServer, AuthenticationError } from 'apollo-server-express';
 import { importSchema } from 'graphql-import';
 import jwt from 'jsonwebtoken';
 import path from 'path';
-import { prisma } from '../prisma/generated/prisma-client';
+// import { prisma } from '../prisma/generated/prisma-client';
+const prisma = require('./prisma');
 import resolvers from './resolvers';
-const typeDefs = importSchema(path.resolve('src/schema/schema.graphql'));
+// const typeDefs = importSchema('src/schema/schema.graphql');
+const typeDefs = importSchema(__dirname + '/schema/schema.graphql');
 
 const dev = process.env.NODE_ENV === 'development';
 
@@ -34,8 +36,8 @@ export default () =>
     playground: true
       ? {
           settings: {
-            'editor.theme': 'light',
-            'request.credentials': 'include'
+            'editor.theme': 'light'
+            // 'request.credentials': 'include'
           }
         }
       : false

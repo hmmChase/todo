@@ -1,3 +1,3 @@
-import userResolvers from './user';
+import user from './user';
 
-export default [userResolvers];
+export default [user];
