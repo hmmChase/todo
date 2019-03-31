@@ -2,14 +2,15 @@
   "name": "next-graphql-starter",
   "version": 2,
   "builds": [
-    { "src": "backend/src/index.js", "use": "@now/node-server" },
+    { "src": "backend_refactor/src/index.js", "use": "@now/node-server" },
     { "src": "frontend/next.config.js", "use": "@now/next" }
   ],
   "routes": [
-    { "src": "/graphql", "dest": "backend/src/index.js" },
+    { "src": "/graphql", "dest": "backend_refactor/src/index.js" },
     { "src": "/(.*)", "dest": "frontend/$1" }
   ],
   "env": {
+    "PORT": 6969,
     "PRISMA_ENDPOINT": "https://us1.prisma.sh/chase-c544a8/starter/prod",
     "PRISMA_SECRET": "poraepogtlggggiopopidfjg"
   }

@@ -8,7 +8,10 @@
     "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js",
     "start": "cross-env NODE_ENV=production node --exec babel-node src/index.js",
     "deploy": "prisma deploy -e .env",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma": "prisma deploy --env-file .env",
+    "writeSchema": "node utils/writeSchema.js",
+    "schema": "npm run prisma && npm run writeSchema"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +26,7 @@
     "graphql-import": "^0.7.1",
     "helmet": "^3.16.0",
     "jsonwebtoken": "^8.5.1",
+    "prisma-binding": "^2.3.10",
     "prisma-client-lib": "^1.29.1"
   },
   "devDependencies": {

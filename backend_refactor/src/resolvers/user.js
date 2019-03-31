@@ -5,17 +5,18 @@ import { AuthenticationError, UserInputError } from 'apollo-server-express';
 export default {
   Query: {
     user: (parent, args, ctx, info) => {
-      return ctx.prisma.user({ id: args.id });
+      return ctx.prisma.query.user({ id: args.id });
     },
 
     users: (parent, args, ctx, info) => {
-      return ctx.prisma.users();
+      console.log('TCL: ctx', ctx);
+      return ctx.prisma.query.users();
     },
 
     me: (parent, args, ctx, info) => {
       if (!ctx.me) return null;
 
-      return ctx.prisma.user({ id: ctx.me.userId });
+      return ctx.prisma.query.user({ id: ctx.me.userId });
     }
   },
 
@@ -24,7 +25,7 @@ export default {
       const email = args.email.toLowerCase();
       const password = await bcrypt.hash(args.password, 10);
 
-      const user = await ctx.prisma.createUser({ email, password });
+      const user = await ctx.prisma.mutation.createUser({ email, password });
 
       const JWT = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
         expiresIn: '7d'
@@ -42,7 +43,7 @@ export default {
     signIn: async (parent, args, ctx, info) => {
       const email = args.email.toLowerCase();
 
-      const user = await ctx.prisma.user({ email });
+      const user = await ctx.prisma.query.user({ email });
       if (!user) {
         throw new UserInputError(`No such user found for email ${email}`);
       }
