@@ -1,15 +1,8 @@
+/* eslint-disable no-console */
 import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
+import * as user from '../../../graphql/queries/user';
 import * as Styled from './SignIn.style';
-
-export const SIGN_IN_MUTATION = gql`
-  mutation SIGN_IN_MUTATION($email: String!, $password: String!) {
-    signIn(email: $email, password: $password) {
-      id
-    }
-  }
-`;
 
 class SignIn extends React.PureComponent {
   state = {
@@ -34,11 +27,14 @@ class SignIn extends React.PureComponent {
     const isInvalid = email === '' || password === '';
 
     return (
-      <Mutation mutation={SIGN_IN_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={user.SIGN_IN_MUTATION}
+        variables={this.state}
+        refetchQueries={[{ query: user.ME_QUERY }]}
+      >
         {(signIn, { loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error: {error.message}</p>;
-          // eslint-disable-next-line no-console
           if (data) console.log('data: ', data);
           return (
             <Styled.div>

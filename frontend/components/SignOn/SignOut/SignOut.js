@@ -1,6 +1,5 @@
-import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import * as user from '../../../graphql/Queries/user';
+import * as user from '../../../graphql/queries/user';
 import * as Styled from './SignOut.style';
 
 const SignOut = React.memo(() => (

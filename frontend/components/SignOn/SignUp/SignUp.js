@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
-import * as userQL from '../../../graphql/Queries/user';
+import * as userQL from '../../../graphql/queries/user';
 import * as Styled from './SignUp.style';
 
 class SignUp extends React.PureComponent {
