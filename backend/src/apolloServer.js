@@ -1,10 +1,9 @@
 import { ApolloServer } from 'apollo-server-express';
 import { importSchema } from 'graphql-import';
-import jwt from 'jsonwebtoken';
-// import { prisma } from '../prisma/generated/prisma-client';
 const prisma = require('./prismaClient');
 import resolvers from './resolvers';
 import * as auth from '../utils/auth';
+
 // const typeDefs = importSchema('src/schema/schema.graphql');
 const typeDefs = importSchema(__dirname + '/schema/schema.graphql');
 

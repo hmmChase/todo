@@ -1,4 +1,5 @@
 import { AuthenticationError } from 'apollo-server-express';
+import jwt from 'jsonwebtoken';
 
 export const getMe = async cookies => {
   const { token } = cookies;
