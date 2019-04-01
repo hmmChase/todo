@@ -40,7 +40,7 @@ class SignIn extends React.PureComponent {
             <Styled.div>
               <form onSubmit={e => this.onSubmit(e, signIn)}>
                 <fieldset disabled={loading} aria-busy={loading}>
-                  <h2>Create a new Account</h2>
+                  <h2>Sign In</h2>
 
                   <label htmlFor="email">
                     Email
