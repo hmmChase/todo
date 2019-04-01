@@ -4,6 +4,7 @@ endpoint: ${env:PRISMA_ENDPOINT}
 # Defines your models, each model is mapped to the database as a table
 datamodel: datamodel.prisma
 
+# Used to authenticate requests made to the service's API
 secret: ${env:PRISMA_SECRET}
 
 # Specifies the language and directory for the generated Prisma client

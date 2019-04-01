@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
-// import cors from 'cors';
+import cors from 'cors';
 // import helmet from 'helmet';
-// import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import apolloServer from './apolloServer';
 // import jwt from 'jsonwebtoken';
 
@@ -13,20 +13,21 @@ const server = apolloServer();
 //   'http://localhost:8008',
 //   'https://next-graphql-starter-git-master.hmmchase.now.sh'
 // ];
-// const corsOptions = {
-//   credentials: true,
-//   origin: (origin, callback) => {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   }
-// };
+const corsOptions = {
+  credentials: true,
+  origin: 'http://localhost:8008'
+  // origin: (origin, callback) => {
+  //   if (whitelist.indexOf(origin) !== -1) {
+  //     callback(null, true);
+  //   } else {
+  //     callback(new Error('Not allowed by CORS'));
+  //   }
+  // }
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 // app.use(helmet());
-// app.use(cookieParser());
+app.use(cookieParser());
 
 // // Decode the JWT so we can get the user Id on each request
 // app.use((req, res, next) => {
@@ -51,7 +52,7 @@ const server = apolloServer();
 // });
 
 // cors: corsOptions }
-server.applyMiddleware({ app, path: '/graphql' });
+server.applyMiddleware({ app, path: '/graphql', cors: corsOptions });
 
 app.listen({ port: process.env.PORT || 4000 }, err => {
   if (err) throw err;

@@ -10,7 +10,7 @@
     "deploy": "prisma deploy -e .env",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prisma": "prisma deploy --env-file .env",
-    "writeSchema": "node utils/writeSchema.js",
+    "writeSchema": "node prisma/writeSchema.js",
     "schema": "npm run prisma && npm run writeSchema"
   },
   "keywords": [],
