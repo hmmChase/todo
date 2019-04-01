@@ -8,7 +8,7 @@ import Layout from '../components/Layout/Layout';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    console.log('MyApp GIP');
+    console.log('_app GIP', new Date().getMilliseconds());
 
     let pageProps = {};
 
@@ -20,7 +20,7 @@ class MyApp extends App {
   }
 
   render() {
-    console.log('MyApp render');
+    console.log('_app render', new Date().getMilliseconds());
 
     const { Component, pageProps, apollo } = this.props;
 

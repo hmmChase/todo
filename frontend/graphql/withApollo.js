@@ -38,7 +38,7 @@ export default withApollo(
       // credentials: 'include',
     });
 
-    console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
+    console.log('withApollo', new Date().getMilliseconds());
 
     return new ApolloClient({
       link: httpLink,
