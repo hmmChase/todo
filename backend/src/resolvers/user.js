@@ -49,6 +49,11 @@ export default {
       await auth.sendCookie(ctx.res, { userId: user.id });
 
       return user;
+    },
+
+    signOut: (parent, args, ctx, info) => {
+      ctx.res.clearCookie('token');
+      return true;
     }
   }
 };

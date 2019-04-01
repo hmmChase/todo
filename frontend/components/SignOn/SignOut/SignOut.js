@@ -1,9 +1,21 @@
+import gql from 'graphql-tag';
+import { Mutation } from 'react-apollo';
+import * as user from '../../../graphql/Queries/user';
 import * as Styled from './SignOut.style';
 
 const SignOut = React.memo(() => (
-  <Styled.div>
-    <p>Sign Out</p>
-  </Styled.div>
+  <Mutation
+    mutation={user.SIGN_OUT_MUTATION}
+    refetchQueries={[{ query: user.ME_QUERY }]}
+  >
+    {signOut => (
+      <Styled.div>
+        <button type="button" onClick={signOut}>
+          Sign Out
+        </button>
+      </Styled.div>
+    )}
+  </Mutation>
 ));
 
 export default SignOut;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import * as Styled from './SignIn.style';
@@ -25,6 +26,7 @@ class SignIn extends React.PureComponent {
     e.preventDefault();
     await signIn();
     this.setState({ email: '', password: '' });
+    this.props.close();
   };
 
   render() {
@@ -67,7 +69,7 @@ class SignIn extends React.PureComponent {
                   </label>
 
                   <button type="submit" disabled={isInvalid}>
-                    Sign Up
+                    Sign In
                   </button>
                 </fieldset>
               </form>
@@ -78,5 +80,9 @@ class SignIn extends React.PureComponent {
     );
   }
 }
+
+SignIn.propTypes = {
+  close: PropTypes.func.isRequired
+};
 
 export default SignIn;
