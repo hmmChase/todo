@@ -3,11 +3,11 @@ import express from 'express';
 // import cors from 'cors';
 // import helmet from 'helmet';
 // import cookieParser from 'cookie-parser';
-import createServer from './createServer';
+import apolloServer from './apolloServer';
 // import jwt from 'jsonwebtoken';
 
 const app = express();
-const server = createServer();
+const server = apolloServer();
 
 // const whitelist = [
 //   'http://localhost:8008',
