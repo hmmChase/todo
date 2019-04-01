@@ -1,10 +1,7 @@
 import { AuthenticationError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
 
-export const getMe = async cookies => {
-  console.log('TCL: cookies', cookies);
-  return await verifyJWT(cookies.token);
-};
+export const getMe = async cookies => await verifyJWT(cookies.token);
 
 export const signJWT = async payload =>
   await jwt.sign(payload, process.env.JWT_SECRET, {
