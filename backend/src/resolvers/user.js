@@ -1,21 +1,21 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import { AuthenticationError, UserInputError } from 'apollo-server-express';
+import * as auth from '../utils/auth';
 
 export default {
   Query: {
-    user: (parent, args, ctx, info) => {
-      return ctx.prisma.query.user({ id: args.id });
+    user: async (parent, args, ctx, info) => {
+      return await ctx.prisma.query.user({ where: { id: args.id } });
     },
 
-    users: (parent, args, ctx, info) => {
-      return ctx.prisma.query.users();
+    users: async (parent, args, ctx, info) => {
+      return await ctx.prisma.query.users();
     },
 
-    me: (parent, args, ctx, info) => {
+    me: async (parent, args, ctx, info) => {
       if (!ctx.me) return null;
 
-      return ctx.prisma.query.user({ id: ctx.me.userId });
+      return await ctx.prisma.query.user({ where: { id: ctx.me.userId } });
     }
   },
 
@@ -24,17 +24,11 @@ export default {
       const email = args.email.toLowerCase();
       const password = await bcrypt.hash(args.password, 10);
 
-      const user = await ctx.prisma.mutation.createUser({ email, password });
-
-      const JWT = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-        expiresIn: '7d'
+      const user = await ctx.prisma.mutation.createUser({
+        data: { email, password }
       });
 
-      ctx.res.cookie('token', JWT, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
-      });
+      await auth.sendCookie(ctx.res, { userId: user.id });
 
       return user;
     },
@@ -42,7 +36,7 @@ export default {
     signIn: async (parent, args, ctx, info) => {
       const email = args.email.toLowerCase();
 
-      const user = await ctx.prisma.query.user({ email });
+      const user = await ctx.prisma.query.user({ where: { email } });
       if (!user) {
         throw new UserInputError(`No such user found for email ${email}`);
       }
@@ -52,15 +46,7 @@ export default {
         throw new AuthenticationError('Invalid Password');
       }
 
-      const JWT = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-        expiresIn: '7d'
-      });
-
-      ctx.res.cookie('token', JWT, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
-      });
+      await auth.sendCookie(ctx.res, { userId: user.id });
 
       return user;
     }
