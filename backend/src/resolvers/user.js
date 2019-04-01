@@ -41,7 +41,7 @@ export default {
         throw new UserInputError(`No such user found for email ${email}`);
       }
 
-      const valid = await bcrypt.compare(password, user.password);
+      const valid = await bcrypt.compare(args.password, user.password);
       if (!valid) {
         throw new AuthenticationError('Invalid Password');
       }
@@ -49,6 +49,11 @@ export default {
       await auth.sendCookie(ctx.res, { userId: user.id });
 
       return user;
+    },
+
+    signOut: (parent, args, ctx, info) => {
+      ctx.res.clearCookie('token');
+      return true;
     }
   }
 };

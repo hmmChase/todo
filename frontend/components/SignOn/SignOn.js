@@ -1,8 +1,9 @@
 import { Query } from 'react-apollo';
 import SignIn from './SignIn/SignIn';
+import SignOut from './SignOut/SignOut';
 import SignUp from './SignUp/SignUp';
+import * as user from '../../graphql/queries/user';
 import * as Styled from './SignOn.style';
-import * as user from '../../graphql/Queries/user';
 
 class SignOn extends React.PureComponent {
   state = {
@@ -13,45 +14,47 @@ class SignOn extends React.PureComponent {
     const { showPopup } = this.state;
 
     return (
-      // <Query query={user.ME_QUERY}>
-      //   {({ data }) => {
-      // console.log(' : ---------------------------------');
-      // console.log(' : SignOn -> render -> data', data);
-      // console.log(' : ---------------------------------');
-      // const me = data.me ? data.me : null;
-
-      // return (
-      <Styled.div>
-        {/* {me && <button type="button">Sign Out</button>} */}
-        {/* {!me && ( */}
-        <>
-          <Styled.aSignIn
-            onClick={() => this.setState({ showPopup: 'signIn' })}
-          >
-            Sign In
-          </Styled.aSignIn>
-          <Styled.aSignUp
-            onClick={() => this.setState({ showPopup: 'signUp' })}
-          >
-            Sign Up
-          </Styled.aSignUp>
-          {showPopup && (
-            <Styled.divPopup>
-              <Styled.divOuter
-                onClick={() => this.setState({ showPopup: '' })}
-              />
-              <Styled.divInner>
-                {showPopup === 'signIn' && <SignIn />}
-                {showPopup === 'signUp' && <SignUp />}
-              </Styled.divInner>
-            </Styled.divPopup>
-          )}
-        </>
-        {/* )} */}
-      </Styled.div>
-      // );
-      //   }}
-      // </Query>
+      <Query query={user.ME_QUERY}>
+        {({ data }) => (
+          <Styled.div>
+            {data.me ? (
+              <SignOut />
+            ) : (
+              <>
+                <Styled.aSignIn
+                  onClick={() => this.setState({ showPopup: 'signIn' })}
+                >
+                  Sign In
+                </Styled.aSignIn>
+                <Styled.aSignUp
+                  onClick={() => this.setState({ showPopup: 'signUp' })}
+                >
+                  Sign Up
+                </Styled.aSignUp>
+                {showPopup && (
+                  <Styled.divPopup>
+                    <Styled.divOuter
+                      onClick={() => this.setState({ showPopup: '' })}
+                    />
+                    <Styled.divInner>
+                      {showPopup === 'signIn' && (
+                        <SignIn
+                          close={() => this.setState({ showPopup: '' })}
+                        />
+                      )}
+                      {showPopup === 'signUp' && (
+                        <SignUp
+                          close={() => this.setState({ showPopup: '' })}
+                        />
+                      )}
+                    </Styled.divInner>
+                  </Styled.divPopup>
+                )}
+              </>
+            )}
+          </Styled.div>
+        )}
+      </Query>
     );
   }
 }
