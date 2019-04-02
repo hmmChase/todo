@@ -26,6 +26,7 @@
     "graphql-import": "^0.7.1",
     "helmet": "^3.16.0",
     "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.0.0",
     "prisma-binding": "^2.3.10",
     "prisma-client-lib": "^1.29.1"
   },

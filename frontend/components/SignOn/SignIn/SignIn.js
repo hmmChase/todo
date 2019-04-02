@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-console */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
@@ -70,6 +72,7 @@ class SignIn extends React.PureComponent {
                   </button>
                 </fieldset>
               </form>
+              <a onClick={() => this.props.resetRequest()}>Forget password?</a>
             </Styled.div>
           );
         }}
@@ -79,7 +82,8 @@ class SignIn extends React.PureComponent {
 }
 
 SignIn.propTypes = {
-  close: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired,
+  resetRequest: PropTypes.func.isRequired
 };
 
 export default SignIn;

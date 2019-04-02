@@ -10,6 +10,12 @@ type Mutation {
   signUp(email: String!, password: String!): User!
   signIn(email: String!, password: String!): User!
   signOut: Boolean!
+  resetRequest(email: String!): Boolean!
+  resetPassword(
+    resetToken: String!
+    password: String!
+    confirmPassword: String!
+  ): User!
   me: User
 }
 
