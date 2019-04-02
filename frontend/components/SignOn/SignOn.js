@@ -2,7 +2,7 @@ import { Query } from 'react-apollo';
 import SignIn from './SignIn/SignIn';
 import SignOut from './SignOut/SignOut';
 import SignUp from './SignUp/SignUp';
-import * as user from '../../graphql/queries/user';
+import * as query from './SignOn.query';
 import * as Styled from './SignOn.style';
 
 class SignOn extends React.PureComponent {
@@ -14,7 +14,7 @@ class SignOn extends React.PureComponent {
     const { showPopup } = this.state;
 
     return (
-      <Query query={user.ME_QUERY}>
+      <Query query={query.ME_QUERY}>
         {({ data }) => (
           <Styled.div>
             {data.me ? (
