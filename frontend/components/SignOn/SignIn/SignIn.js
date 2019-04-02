@@ -1,8 +1,25 @@
 /* eslint-disable no-console */
 import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import * as user from '../../../graphql/queries/user';
+// import * as user from '../../../graphql/queries/user';
 import * as Styled from './SignIn.style';
+
+const SIGN_IN_MUTATION = gql`
+  mutation SIGN_IN_MUTATION($email: String!, $password: String!) {
+    signIn(email: $email, password: $password) {
+      id
+    }
+  }
+`;
+
+const ME_QUERY = gql`
+  query ME_QUERY {
+    me {
+      id
+    }
+  }
+`;
 
 class SignIn extends React.PureComponent {
   state = {
@@ -28,9 +45,9 @@ class SignIn extends React.PureComponent {
 
     return (
       <Mutation
-        mutation={user.SIGN_IN_MUTATION}
+        mutation={SIGN_IN_MUTATION}
         variables={this.state}
-        refetchQueries={[{ query: user.ME_QUERY }]}
+        refetchQueries={[{ query: ME_QUERY }]}
       >
         {(signIn, { loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
