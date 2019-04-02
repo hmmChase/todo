@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
-import * as userQL from '../../../graphql/queries/user';
+// import * as user from '../../../graphql/queries/user';
+import * as query from './SignUp.query';
 import * as Styled from './SignUp.style';
 
 class SignUp extends React.PureComponent {
@@ -27,9 +28,12 @@ class SignUp extends React.PureComponent {
 
     return (
       <Mutation
-        mutation={userQL.SIGN_UP_MUTATION}
+        mutation={query.SIGN_UP_MUTATION}
         variables={this.state}
-        refetchQueries={[{ query: userQL.USERS_QUERY }]}
+        refetchQueries={[
+          { query: query.USERS_QUERY },
+          { query: query.ME_QUERY }
+        ]}
       >
         {(signUp, { loading, error }) => {
           if (loading) return <p>Loading...</p>;
