@@ -2,4 +2,6 @@ type User {
   id: ID! @unique
   email: String! @unique
   password: String!
+  resetToken: String
+  resetTokenExpiry: Float
 }
