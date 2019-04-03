@@ -10,9 +10,16 @@
     { "src": "/(.*)", "dest": "frontend/$1" }
   ],
   "env": {
-    "PORT": "6969",
-    "PRISMA_ENDPOINT": "https://us1.prisma.sh/chase-c544a8/starter/prod",
-    "PRISMA_SECRET": "poraepogtlggggiopopidfjg",
-    "JWT_SECRET": "asdlplplfwfwefwdhsrtjzxfbsth"
+    "PORT": "@port",
+    "DEV_FRONTEND_URL": "@dev_frontend_url",
+    "PROD_FRONTEND_URL": "@prod_frontend_url",
+    "JWT_SECRET": "@jwt_secret",
+    "PRISMA_ENDPOINT": "@prisma_endpoint",
+    "PRISMA_SECRET": "@prisma_secret",
+    "PRISMA_MANAGEMENT_API_SECRET": "",
+    "MAIL_HOST": "@mail_host",
+    "MAIL_PORT": "@mail_port",
+    "MAIL_USER": "@mail_user",
+    "MAIL_PASS": "@mail_pass"
   }
 }

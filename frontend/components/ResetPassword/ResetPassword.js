@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { Mutation } from 'react-apollo';
+import Error from '../Error/Error';
 import * as query from './ResetPassword.query';
 
 class ResetPassword extends React.PureComponent {
@@ -39,7 +40,7 @@ class ResetPassword extends React.PureComponent {
           >
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Reset Your Password</h2>
-              {/* <Error error={error} /> */}
+              <Error error={error} />
 
               <label htmlFor="password">
                 Password
