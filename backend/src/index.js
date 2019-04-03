@@ -16,7 +16,7 @@ const server = apolloServer();
 const corsOptions = {
   credentials: true,
   origin:
-    process.env === 'production'
+    process.env.NODE_ENV === 'production'
       ? process.env.PROD_FRONTEND_URL
       : process.env.DEV_FRONTEND_URL
   // origin: (origin, callback) => {
