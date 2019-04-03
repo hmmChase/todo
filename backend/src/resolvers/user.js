@@ -88,7 +88,7 @@ export default {
             `Your Password Reset Token is here!
             \n\n
             <a href="${
-              process.env === 'production'
+              process.env.NODE_ENV === 'production'
                 ? process.env.PROD_FRONTEND_URL
                 : process.env.DEV_FRONTEND_URL
             }/reset?resetToken=${resetToken}">Click Here to Reset</a>`
