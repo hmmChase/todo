@@ -3,7 +3,7 @@ import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
 import * as auth from '../utils/auth';
-import { transport, emailTemplate } from '../utils/mail';
+import * as mail from '../utils/mail';
 
 export default {
   Query: {
@@ -79,24 +79,7 @@ export default {
       });
 
       // Email them that reset token
-      try {
-        await transport.sendMail({
-          from: 'hmm@chase.com',
-          to: user.email,
-          subject: 'Your Password Reset Token',
-          html: emailTemplate(
-            `Your Password Reset Token is here!
-            \n\n
-            <a href="${
-              process.env.NODE_ENV === 'production'
-                ? process.env.PROD_FRONTEND_URL
-                : process.env.DEV_FRONTEND_URL
-            }/reset?resetToken=${resetToken}">Click Here to Reset</a>`
-          )
-        });
-      } catch (err) {
-        throw Error(`Error sending email. (${err})`);
-      }
+      await mail.mailResetToken(user.email, resetToken);
 
       return true;
     },

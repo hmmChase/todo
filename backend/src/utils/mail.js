@@ -20,3 +20,24 @@ export const emailTemplate = body => `
     <p>${body}</p>
   </div>
 `;
+
+export const mailResetToken = async (email, resetToken) => {
+  try {
+    await transport.sendMail({
+      from: 'hmm@chase.com',
+      to: email,
+      subject: 'Your Password Reset Token',
+      html: emailTemplate(
+        `Your Password Reset Token is here!
+        \n\n
+        <a href="${
+          process.env.NODE_ENV === 'production'
+            ? process.env.PROD_FRONTEND_URL
+            : process.env.DEV_FRONTEND_URL
+        }/reset?resetToken=${resetToken}">Click Here to Reset</a>`
+      )
+    });
+  } catch (err) {
+    throw Error(`Error sending email. (${err})`);
+  }
+};
