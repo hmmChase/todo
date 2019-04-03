@@ -15,7 +15,10 @@ const server = apolloServer();
 // ];
 const corsOptions = {
   credentials: true,
-  origin: 'http://localhost:8008'
+  origin:
+    process.env === 'production'
+      ? process.env.PROD_FRONTEND_URL
+      : process.env.DEV_FRONTEND_URL
   // origin: (origin, callback) => {
   //   if (whitelist.indexOf(origin) !== -1) {
   //     callback(null, true);
