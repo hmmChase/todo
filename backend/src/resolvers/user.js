@@ -3,6 +3,7 @@ import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
 import * as auth from '../utils/auth';
+import { transport, makeANiceEmail } from '../utils/mail';
 
 export default {
   Query: {
@@ -70,29 +71,31 @@ export default {
       const randomBytesPromisified = promisify(randomBytes);
       const resetTokenBytes = await randomBytesPromisified(20);
       const resetToken = resetTokenBytes.toString('hex');
-
-      console.log('TCL: resetToken', resetToken);
-
       const resetTokenExpiry = Date.now() + 3600000; // 1 hour from now
 
-      const updatedUser = await ctx.prisma.mutation.updateUser({
+      await ctx.prisma.mutation.updateUser({
         where: { email },
         data: { resetToken, resetTokenExpiry }
       });
 
       // Email them that reset token
-      // const mailRes = await transport.sendMail({
-      //   from: 'wes@wesbos.com',
-      //   to: user.email,
-      //   subject: 'Your Password Reset Token',
-      //   html: makeANiceEmail(`Your Password Reset Token is here!
-      //     \n\n
-      //     <a href="${
-      //       process.env.FRONTEND_URL
-      //     }/reset?resetToken=${resetToken}">Click Here to Reset</a>`)
-      // });
+      try {
+        await transport.sendMail({
+          from: 'hmm@chase.com',
+          to: user.email,
+          subject: 'Your Password Reset Token',
+          html: makeANiceEmail(`Your Password Reset Token is here!
+          \n\n
+          <a href="${
+            process.env === 'production'
+              ? process.env.PROD_FRONTEND_URL
+              : process.env.DEV_FRONTEND_URL
+          }/reset?resetToken=${resetToken}">Click Here to Reset</a>`)
+        });
+      } catch (e) {
+        throw Error(`Error sending email. (error: ${e})`);
+      }
 
-      //   // 4. Return the message
       return true;
     },
 
