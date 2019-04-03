@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-console */
@@ -38,7 +39,6 @@ class SignIn extends React.PureComponent {
         {(signIn, { loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error: {error.message}</p>;
-          if (data) console.log('data: ', data);
           return (
             <Styled.div>
               <form onSubmit={e => this.onSubmit(e, signIn)}>

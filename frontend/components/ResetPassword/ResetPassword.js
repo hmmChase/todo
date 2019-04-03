@@ -19,7 +19,7 @@ class ResetPassword extends React.PureComponent {
     this.setState({ password: '', confirmPassword: '' });
 
     Router.push({
-      pathname: '/index'
+      pathname: ''
     });
   };
 
