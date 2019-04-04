@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-export const transport = nodemailer.createTransport({
+const transport = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
   port: process.env.MAIL_PORT,
   auth: {
@@ -9,7 +9,7 @@ export const transport = nodemailer.createTransport({
   }
 });
 
-export const emailTemplate = body => `
+const emailTemplate = body => `
   <div className="email" style="
     border: 1px solid black;
     padding: 20px;
@@ -24,7 +24,7 @@ export const emailTemplate = body => `
 export const mailResetToken = async (email, resetToken) => {
   try {
     await transport.sendMail({
-      from: 'hmm@chase.com',
+      from: 'test@email.com',
       to: email,
       subject: 'Your Password Reset Token',
       html: emailTemplate(

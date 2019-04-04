@@ -1,6 +1,6 @@
 `
 Fill in the info and run each line in your terminal in the project root
-All the secrets are used by the backend only
+Currently all the secrets are used by the backend only
 
 now secret add PORT ""
 now secret add DEV_FRONTEND_URL ""
