@@ -2,7 +2,7 @@ import { Query } from 'react-apollo';
 import SignIn from './SignIn/SignIn';
 import SignOut from './SignOut/SignOut';
 import SignUp from './SignUp/SignUp';
-import ResetRequest from './ResetRequest/ResetRequest';
+import RequestReset from './RequestReset/RequestReset';
 import * as query from './SignOn.query';
 import * as Styled from './SignOn.style';
 
@@ -41,8 +41,8 @@ class SignOn extends React.PureComponent {
                       {showPopup === 'signIn' && (
                         <SignIn
                           close={() => this.setState({ showPopup: '' })}
-                          resetRequest={() =>
-                            this.setState({ showPopup: 'resetRequest' })
+                          requestReset={() =>
+                            this.setState({ showPopup: 'requestReset' })
                           }
                         />
                       )}
@@ -51,8 +51,8 @@ class SignOn extends React.PureComponent {
                           close={() => this.setState({ showPopup: '' })}
                         />
                       )}
-                      {showPopup === 'resetRequest' && (
-                        <ResetRequest
+                      {showPopup === 'requestReset' && (
+                        <RequestReset
                           close={() => this.setState({ showPopup: '' })}
                         />
                       )}

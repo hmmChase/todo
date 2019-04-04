@@ -10,7 +10,7 @@ type Mutation {
   signUp(email: String!, password: String!): User!
   signIn(email: String!, password: String!): User!
   signout: Boolean!
-  requestReset(email: String!): SuccessMessage
+  requestReset(email: String!): Boolean!
   resetPassword(
     resetToken: String!
     password: String!

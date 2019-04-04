@@ -7,10 +7,10 @@ type Query {
 }
 
 type Mutation {
-  signUp(email: String!, password: String!): User!
+  signUp(email: String!, password: String!, confirmPassword: String!): User!
   signIn(email: String!, password: String!): User!
   signOut: Boolean!
-  resetRequest(email: String!): Boolean!
+  requestReset(email: String!): Boolean!
   resetPassword(
     resetToken: String!
     password: String!

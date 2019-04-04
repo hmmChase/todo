@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
-// import * as user from '../../../graphql/queries/user';
 import * as query from './SignUp.query';
 import * as Styled from './SignUp.style';
 
 class SignUp extends React.PureComponent {
   state = {
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   };
 
   onChange = e => {
@@ -18,13 +18,13 @@ class SignUp extends React.PureComponent {
   onSubmit = async (e, signUp) => {
     e.preventDefault();
     await signUp();
-    this.setState({ email: '', password: '' });
+    this.setState({ email: '', password: '', confirmPassword: '' });
     this.props.close();
   };
 
   render() {
-    const { email, password } = this.state;
-    const isInvalid = email === '' || password === '';
+    const { email, password, confirmPassword } = this.state;
+    const isInvalid = email === '' || password === '' || confirmPassword === '';
 
     return (
       <Mutation
@@ -62,6 +62,17 @@ class SignUp extends React.PureComponent {
                       name="password"
                       placeholder="Password"
                       value={password}
+                      onChange={this.onChange}
+                    />
+                  </label>
+
+                  <label htmlFor="confirmPassword">
+                    Confirm Your Password
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="confirmPassword"
+                      value={confirmPassword}
                       onChange={this.onChange}
                     />
                   </label>

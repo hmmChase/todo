@@ -1,8 +1,8 @@
 import { Mutation } from 'react-apollo';
 import Error from '../../Error/Error';
-import * as query from './ResetRequest.query';
+import * as query from './RequestReset.query';
 
-class ResetRequest extends React.PureComponent {
+class RequestReset extends React.PureComponent {
   state = {
     email: ''
   };
@@ -11,14 +11,14 @@ class ResetRequest extends React.PureComponent {
 
   render() {
     return (
-      <Mutation mutation={query.RESET_REQUEST_MUTATION} variables={this.state}>
-        {(resetRequest, { error, loading, called }) => (
+      <Mutation mutation={query.REQUEST_RESET_MUTATION} variables={this.state}>
+        {(requestReset, { error, loading, called }) => (
           <form
             method="post"
             data-test="form"
             onSubmit={async e => {
               e.preventDefault();
-              await resetRequest();
+              await requestReset();
               this.setState({ email: '' });
             }}
           >
@@ -26,7 +26,7 @@ class ResetRequest extends React.PureComponent {
               <h2>Request a password reset</h2>
               <Error error={error} />
               {!error && !loading && called && (
-                <p>Success! Check your email for a reset link!</p>
+                <p>Check your email for a reset link.</p>
               )}
 
               <label htmlFor="email">
@@ -40,7 +40,7 @@ class ResetRequest extends React.PureComponent {
                 />
               </label>
 
-              <button type="submit">Request Reset!</button>
+              <button type="submit">Request Reset</button>
             </fieldset>
           </form>
         )}
@@ -49,4 +49,4 @@ class ResetRequest extends React.PureComponent {
   }
 }
 
-export default ResetRequest;
+export default RequestReset;
