@@ -4,7 +4,6 @@
 /* eslint-disable no-console */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
-// import * as user from '../../../graphql/queries/user';
 import * as query from './SignIn.query';
 import * as Styled from './SignIn.style';
 
@@ -72,7 +71,7 @@ class SignIn extends React.PureComponent {
                   </button>
                 </fieldset>
               </form>
-              <a onClick={() => this.props.resetRequest()}>Forget password?</a>
+              <a onClick={this.props.requestReset}>Forgot password?</a>
             </Styled.div>
           );
         }}
@@ -83,7 +82,7 @@ class SignIn extends React.PureComponent {
 
 SignIn.propTypes = {
   close: PropTypes.func.isRequired,
-  resetRequest: PropTypes.func.isRequired
+  requestReset: PropTypes.func.isRequired
 };
 
 export default SignIn;

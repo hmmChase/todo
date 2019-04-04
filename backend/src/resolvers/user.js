@@ -25,6 +25,12 @@ export default {
   Mutation: {
     signUp: async (parent, args, ctx, info) => {
       const email = args.email.toLowerCase();
+
+      // Check if the passwords match
+      if (args.password !== args.confirmPassword) {
+        throw new UserInputError("Passwords don't match.");
+      }
+
       const password = await bcrypt.hash(args.password, 10);
 
       const user = await ctx.prisma.mutation.createUser({
@@ -59,7 +65,7 @@ export default {
       return true;
     },
 
-    resetRequest: async (parent, args, ctx, info) => {
+    requestReset: async (parent, args, ctx, info) => {
       const email = args.email.toLowerCase();
 
       const user = await ctx.prisma.query.user({ where: { email } });
