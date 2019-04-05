@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import apolloServer from './apolloServer';
 
@@ -29,6 +30,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(helmet());
+app.use(compression());
 app.use(cookieParser());
 
 server.applyMiddleware({ app, path: '/graphql', cors: corsOptions });
