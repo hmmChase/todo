@@ -1,5 +1,5 @@
 import { Query } from 'react-apollo';
-// import * as userQL from '../../graphql/queries/user';
+import Error from '../Error/Error';
 import * as query from './Users.query';
 
 class Users extends React.PureComponent {
@@ -8,13 +8,17 @@ class Users extends React.PureComponent {
       <Query query={query.USERS_QUERY}>
         {({ data, loading, error }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error: {error.message}</p>;
+
           return (
-            <ul>
-              {data.users.map(user => (
-                <li key={user.id}>{user.email}</li>
-              ))}
-            </ul>
+            <>
+              {error && <Error error={error} />}
+
+              <ul>
+                {data.users.map(user => (
+                  <li key={user.id}>{user.email}</li>
+                ))}
+              </ul>
+            </>
           );
         }}
       </Query>

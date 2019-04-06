@@ -27,16 +27,19 @@ class SignOn extends React.PureComponent {
                 >
                   Sign In
                 </Styled.aSignIn>
+
                 <Styled.aSignUp
                   onClick={() => this.setState({ showPopup: 'signUp' })}
                 >
                   Sign Up
                 </Styled.aSignUp>
+
                 {showPopup && (
                   <Styled.divPopup>
                     <Styled.divOuter
                       onClick={() => this.setState({ showPopup: '' })}
                     />
+
                     <Styled.divInner>
                       {showPopup === 'signIn' && (
                         <SignIn
@@ -46,11 +49,13 @@ class SignOn extends React.PureComponent {
                           }
                         />
                       )}
+
                       {showPopup === 'signUp' && (
                         <SignUp
                           close={() => this.setState({ showPopup: '' })}
                         />
                       )}
+
                       {showPopup === 'requestReset' && (
                         <RequestReset
                           close={() => this.setState({ showPopup: '' })}

@@ -9,22 +9,22 @@ class RequestReset extends React.PureComponent {
 
   onChangeEmail = e => this.setState({ [e.target.name]: e.target.value });
 
+  onSubmitForm = async (e, requestReset) => {
+    e.preventDefault();
+    await requestReset();
+    this.setState({ email: '' });
+  };
+
   render() {
     return (
       <Mutation mutation={query.REQUEST_RESET_MUTATION} variables={this.state}>
         {(requestReset, { error, loading, called }) => (
-          <form
-            method="post"
-            data-test="form"
-            onSubmit={async e => {
-              e.preventDefault();
-              await requestReset();
-              this.setState({ email: '' });
-            }}
-          >
+          <form method="post" onSubmit={e => onSubmitForm(e, requestReset)}>
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Request a password reset</h2>
-              <Error error={error} />
+
+              {error && <Error error={error} />}
+
               {!error && !loading && called && (
                 <p>Check your email for a reset link.</p>
               )}

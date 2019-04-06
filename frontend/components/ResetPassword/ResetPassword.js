@@ -17,7 +17,6 @@ class ResetPassword extends React.PureComponent {
     e.preventDefault();
     await resetPassword();
     this.setState({ password: '', confirmPassword: '' });
-
     Router.push({
       pathname: '/'
     });
@@ -40,7 +39,8 @@ class ResetPassword extends React.PureComponent {
           >
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Reset Your Password</h2>
-              <Error error={error} />
+
+              {error && <Error error={error} />}
 
               <label htmlFor="password">
                 Password

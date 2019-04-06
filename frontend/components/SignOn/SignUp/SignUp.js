@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
+import Error from '../../Error/Error';
 import * as query from './SignUp.query';
 import * as Styled from './SignUp.style';
 
@@ -37,12 +38,14 @@ class SignUp extends React.PureComponent {
       >
         {(signUp, { loading, error }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error: {error.message}</p>;
+
           return (
             <Styled.div>
               <form onSubmit={e => this.onSubmit(e, signUp)}>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h2>Create a new Account</h2>
+
+                  {error && <Error error={error} />}
 
                   <label htmlFor="email">
                     Email

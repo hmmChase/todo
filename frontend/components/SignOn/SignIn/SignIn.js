@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import * as query from './SignIn.query';
 import * as Styled from './SignIn.style';
+import Error from '../../Error/Error';
 
 class SignIn extends React.PureComponent {
   state = {
@@ -37,12 +38,14 @@ class SignIn extends React.PureComponent {
       >
         {(signIn, { loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error: {error.message}</p>;
+
           return (
             <Styled.div>
               <form onSubmit={e => this.onSubmit(e, signIn)}>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h2>Sign In</h2>
+
+                  {error && <Error error={error} />}
 
                   <label htmlFor="email">
                     Email
@@ -71,6 +74,7 @@ class SignIn extends React.PureComponent {
                   </button>
                 </fieldset>
               </form>
+
               <a onClick={this.props.requestReset}>Forgot password?</a>
             </Styled.div>
           );
