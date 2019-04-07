@@ -24,7 +24,7 @@ class RequestReset extends React.PureComponent {
       <Mutation mutation={query.REQUEST_RESET_MUTATION} variables={this.state}>
         {(requestReset, { error, loading, called }) => (
           <Styled.div>
-            <form method="post" onSubmit={e => onSubmitForm(e, requestReset)}>
+            <form onSubmit={e => this.onSubmitForm(e, requestReset)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Request a password reset</h2>
 

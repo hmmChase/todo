@@ -4,7 +4,7 @@
 import PropTypes from 'prop-types';
 import * as Styled from './Error.style';
 
-const Error = error => {
+const Error = React.memo(error => {
   if (error.error.networkError) {
     return (
       <>
@@ -34,7 +34,7 @@ const Error = error => {
   }
 
   return <Styled.divError>Opps, something went wrong.</Styled.divError>;
-};
+});
 
 Error.defaultProps = {
   error: {}

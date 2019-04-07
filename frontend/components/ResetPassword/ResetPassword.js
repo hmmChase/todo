@@ -4,6 +4,7 @@ import Router from 'next/router';
 import { Mutation } from 'react-apollo';
 import Error from '../Error/Error';
 import * as query from './ResetPassword.query';
+import * as Styled from './ResetPassword.style';
 
 class ResetPassword extends React.PureComponent {
   state = {
@@ -36,42 +37,41 @@ class ResetPassword extends React.PureComponent {
         refetchQueries={[{ query: query.ME_QUERY }]}
       >
         {(resetPassword, { error, loading, called }) => (
-          <form
-            method="post"
-            onSubmit={e => this.onSubmitForm(e, resetPassword)}
-          >
-            <fieldset disabled={loading} aria-busy={loading}>
-              <h2>Reset Your Password</h2>
+          <Styled.div>
+            <form onSubmit={e => this.onSubmitForm(e, resetPassword)}>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <h2>Reset Your Password</h2>
 
-              {error && <Error error={error} />}
+                {error && <Error error={error} />}
 
-              <label htmlFor="password">
-                Password
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  value={password}
-                  onChange={this.onChangeInput}
-                />
-              </label>
+                <label htmlFor="password">
+                  Password
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    value={password}
+                    onChange={this.onChangeInput}
+                  />
+                </label>
 
-              <label htmlFor="confirmPassword">
-                Confirm Your Password
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="confirmPassword"
-                  value={confirmPassword}
-                  onChange={this.onChangeInput}
-                />
-              </label>
+                <label htmlFor="confirmPassword">
+                  Confirm Your Password
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="confirmPassword"
+                    value={confirmPassword}
+                    onChange={this.onChangeInput}
+                  />
+                </label>
 
-              <button type="submit" disabled={isInvalid}>
-                Reset Your Password
-              </button>
-            </fieldset>
-          </form>
+                <button type="submit" disabled={isInvalid}>
+                  Reset Your Password
+                </button>
+              </fieldset>
+            </form>
+          </Styled.div>
         )}
       </Mutation>
     );
