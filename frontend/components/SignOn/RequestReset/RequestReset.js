@@ -8,7 +8,7 @@ class RequestReset extends React.PureComponent {
     email: ''
   };
 
-  onChangeEmail = e => this.setState({ [e.target.name]: e.target.value });
+  onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
   onSubmitForm = async (e, requestReset) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ class RequestReset extends React.PureComponent {
                     name="email"
                     placeholder="email"
                     value={email}
-                    onChange={this.onChangeEmail}
+                    onChange={this.onChangeInput}
                   />
                 </label>
 

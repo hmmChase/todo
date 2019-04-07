@@ -11,12 +11,9 @@ class SignUp extends React.PureComponent {
     confirmPassword: ''
   };
 
-  onChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
+  onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmit = async (e, signUp) => {
+  onSubmitForm = async (e, signUp) => {
     e.preventDefault();
     await signUp();
     this.setState({ email: '', password: '', confirmPassword: '' });
@@ -41,7 +38,7 @@ class SignUp extends React.PureComponent {
 
           return (
             <Styled.div>
-              <form method="post" onSubmit={e => this.onSubmit(e, signUp)}>
+              <form method="post" Form={e => this.onSubmitForm(e, signUp)}>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h2>Create a new Account</h2>
 
@@ -52,9 +49,9 @@ class SignUp extends React.PureComponent {
                     <input
                       type="email"
                       name="email"
-                      placeholder="Email"
+                      placeholder="email"
                       value={email}
-                      onChange={this.onChange}
+                      onChange={this.onChangeInput}
                     />
                   </label>
 
@@ -63,9 +60,9 @@ class SignUp extends React.PureComponent {
                     <input
                       type="password"
                       name="password"
-                      placeholder="Password"
+                      placeholder="password"
                       value={password}
-                      onChange={this.onChange}
+                      onChange={this.onChangeInput}
                     />
                   </label>
 
@@ -74,9 +71,9 @@ class SignUp extends React.PureComponent {
                     <input
                       type="password"
                       name="confirmPassword"
-                      placeholder="confirmPassword"
+                      placeholder="password"
                       value={confirmPassword}
-                      onChange={this.onChange}
+                      onChange={this.onChangeInput}
                     />
                   </label>
 

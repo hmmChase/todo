@@ -14,12 +14,9 @@ class SignIn extends React.PureComponent {
     password: ''
   };
 
-  onChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
+  onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmit = async (e, signIn) => {
+  onSubmitForm = async (e, signIn) => {
     e.preventDefault();
     await signIn();
     this.setState({ email: '', password: '' });
@@ -41,7 +38,7 @@ class SignIn extends React.PureComponent {
 
           return (
             <Styled.div>
-              <form method="post" onSubmit={e => this.onSubmit(e, signIn)}>
+              <form method="post" onSubmit={e => this.onSubmitForm(e, signIn)}>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h2>Sign In</h2>
 
@@ -54,7 +51,7 @@ class SignIn extends React.PureComponent {
                       name="email"
                       placeholder="email"
                       value={email}
-                      onChange={this.onChange}
+                      onChange={this.onChangeInput}
                     />
                   </label>
 
@@ -65,7 +62,7 @@ class SignIn extends React.PureComponent {
                       name="password"
                       placeholder="password"
                       value={password}
-                      onChange={this.onChange}
+                      onChange={this.onChangeInput}
                     />
                   </label>
 
