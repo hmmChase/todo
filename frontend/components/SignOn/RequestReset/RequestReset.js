@@ -1,6 +1,7 @@
 import { Mutation } from 'react-apollo';
 import Error from '../../Error/Error';
 import * as query from './RequestReset.query';
+import * as Styled from './RequestReset.style';
 
 class RequestReset extends React.PureComponent {
   state = {
@@ -16,33 +17,40 @@ class RequestReset extends React.PureComponent {
   };
 
   render() {
+    const { email } = this.state;
+    const isInvalid = email === '';
+
     return (
       <Mutation mutation={query.REQUEST_RESET_MUTATION} variables={this.state}>
         {(requestReset, { error, loading, called }) => (
-          <form method="post" onSubmit={e => onSubmitForm(e, requestReset)}>
-            <fieldset disabled={loading} aria-busy={loading}>
-              <h2>Request a password reset</h2>
+          <Styled.div>
+            <form method="post" onSubmit={e => onSubmitForm(e, requestReset)}>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <h2>Request a password reset</h2>
 
-              {error && <Error error={error} />}
+                {error && <Error error={error} />}
 
-              {!error && !loading && called && (
-                <p>Check your email for a reset link.</p>
-              )}
+                {!error && !loading && called && (
+                  <p>Check your email for a reset link.</p>
+                )}
 
-              <label htmlFor="email">
-                Email
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  value={this.state.email}
-                  onChange={this.onChangeEmail}
-                />
-              </label>
+                <label htmlFor="email">
+                  Email
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="email"
+                    value={email}
+                    onChange={this.onChangeEmail}
+                  />
+                </label>
 
-              <button type="submit">Request Reset</button>
-            </fieldset>
-          </form>
+                <button type="submit" disabled={isInvalid}>
+                  Request Reset
+                </button>
+              </fieldset>
+            </form>
+          </Styled.div>
         )}
       </Mutation>
     );

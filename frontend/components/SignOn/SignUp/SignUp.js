@@ -41,7 +41,7 @@ class SignUp extends React.PureComponent {
 
           return (
             <Styled.div>
-              <form onSubmit={e => this.onSubmit(e, signUp)}>
+              <form method="post" onSubmit={e => this.onSubmit(e, signUp)}>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h2>Create a new Account</h2>
 

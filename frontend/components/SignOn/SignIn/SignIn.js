@@ -41,7 +41,7 @@ class SignIn extends React.PureComponent {
 
           return (
             <Styled.div>
-              <form onSubmit={e => this.onSubmit(e, signIn)}>
+              <form method="post" onSubmit={e => this.onSubmit(e, signIn)}>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h2>Sign In</h2>
 
@@ -52,7 +52,7 @@ class SignIn extends React.PureComponent {
                     <input
                       type="email"
                       name="email"
-                      placeholder="Email"
+                      placeholder="email"
                       value={email}
                       onChange={this.onChange}
                     />
@@ -63,7 +63,7 @@ class SignIn extends React.PureComponent {
                     <input
                       type="password"
                       name="password"
-                      placeholder="Password"
+                      placeholder="password"
                       value={password}
                       onChange={this.onChange}
                     />

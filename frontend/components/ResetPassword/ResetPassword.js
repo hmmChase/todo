@@ -23,6 +23,9 @@ class ResetPassword extends React.PureComponent {
   };
 
   render() {
+    const { password, confirmPassword } = this.state;
+    const isInvalid = password === '' || confirmPassword === '';
+
     return (
       <Mutation
         mutation={query.RESET_PASSWORD_MUTATION}
@@ -48,7 +51,7 @@ class ResetPassword extends React.PureComponent {
                   type="password"
                   name="password"
                   placeholder="password"
-                  value={this.state.password}
+                  value={password}
                   onChange={this.saveToState}
                 />
               </label>
@@ -59,12 +62,14 @@ class ResetPassword extends React.PureComponent {
                   type="password"
                   name="confirmPassword"
                   placeholder="confirmPassword"
-                  value={this.state.confirmPassword}
+                  value={confirmPassword}
                   onChange={this.saveToState}
                 />
               </label>
 
-              <button type="submit">Reset Your Password</button>
+              <button type="submit" disabled={isInvalid}>
+                Reset Your Password
+              </button>
             </fieldset>
           </form>
         )}
