@@ -11,7 +11,7 @@ class ResetPassword extends React.PureComponent {
     confirmPassword: ''
   };
 
-  saveToState = e => this.setState({ [e.target.name]: e.target.value });
+  onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
   onSubmitForm = async (e, resetPassword) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ class ResetPassword extends React.PureComponent {
                   name="password"
                   placeholder="password"
                   value={password}
-                  onChange={this.saveToState}
+                  onChange={this.onChangeInput}
                 />
               </label>
 
@@ -63,7 +63,7 @@ class ResetPassword extends React.PureComponent {
                   name="confirmPassword"
                   placeholder="confirmPassword"
                   value={confirmPassword}
-                  onChange={this.saveToState}
+                  onChange={this.onChangeInput}
                 />
               </label>
 
