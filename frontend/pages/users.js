@@ -6,6 +6,7 @@ const UsersPage = React.memo(() => (
     <Head>
       <title>next-graphql-starter | Users</title>
     </Head>
+
     <Users />
   </>
 ));

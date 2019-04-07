@@ -58,8 +58,6 @@ export const divInner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 300px;
-  width: 300px;
   padding: 20px;
   background-color: white;
 `;

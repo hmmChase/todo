@@ -1,6 +1,7 @@
 import { Mutation } from 'react-apollo';
 import Error from '../../Error/Error';
 import * as query from './RequestReset.query';
+import * as Styled from './RequestReset.style';
 
 class RequestReset extends React.PureComponent {
   state = {
@@ -9,40 +10,47 @@ class RequestReset extends React.PureComponent {
 
   onChangeEmail = e => this.setState({ [e.target.name]: e.target.value });
 
+  onSubmitForm = async (e, requestReset) => {
+    e.preventDefault();
+    await requestReset();
+    this.setState({ email: '' });
+  };
+
   render() {
+    const { email } = this.state;
+    const isInvalid = email === '';
+
     return (
       <Mutation mutation={query.REQUEST_RESET_MUTATION} variables={this.state}>
         {(requestReset, { error, loading, called }) => (
-          <form
-            method="post"
-            data-test="form"
-            onSubmit={async e => {
-              e.preventDefault();
-              await requestReset();
-              this.setState({ email: '' });
-            }}
-          >
-            <fieldset disabled={loading} aria-busy={loading}>
-              <h2>Request a password reset</h2>
-              <Error error={error} />
-              {!error && !loading && called && (
-                <p>Check your email for a reset link.</p>
-              )}
+          <Styled.div>
+            <form method="post" onSubmit={e => onSubmitForm(e, requestReset)}>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <h2>Request a password reset</h2>
 
-              <label htmlFor="email">
-                Email
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  value={this.state.email}
-                  onChange={this.onChangeEmail}
-                />
-              </label>
+                {error && <Error error={error} />}
 
-              <button type="submit">Request Reset</button>
-            </fieldset>
-          </form>
+                {!error && !loading && called && (
+                  <p>Check your email for a reset link.</p>
+                )}
+
+                <label htmlFor="email">
+                  Email
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="email"
+                    value={email}
+                    onChange={this.onChangeEmail}
+                  />
+                </label>
+
+                <button type="submit" disabled={isInvalid}>
+                  Request Reset
+                </button>
+              </fieldset>
+            </form>
+          </Styled.div>
         )}
       </Mutation>
     );

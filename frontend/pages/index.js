@@ -6,6 +6,7 @@ const IndexPage = React.memo(() => (
     <Head>
       <title>next-graphql-starter | Home</title>
     </Head>
+
     <Home />
   </>
 ));

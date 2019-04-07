@@ -1,36 +1,47 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import * as Styled from './Error.style';
 
-const DisplayError = ({ error }) => {
-  if (!error || !error.message) return null;
-  if (
-    error.networkError &&
-    error.networkError.result &&
-    error.networkError.result.errors.length
-  ) {
-    return error.networkError.result.errors.map((e, i) => (
-      <Styled.divError key={i}>
-        <p>
-          <strong>Shoot!</strong>
-          {e.message.replace('GraphQL error: ', '')}
-        </p>
-      </Styled.divError>
-    ));
+const Error = error => {
+  if (error.error.networkError) {
+    return (
+      <>
+        {error.error.networkError.result.errors.map((e, i) => (
+          <Styled.divError key={i}>
+            <p>{e.message.replace('GraphQL error: ', '')}</p>
+          </Styled.divError>
+        ))}
+      </>
+    );
   }
 
-  return (
-    <Styled.divError>
-      <p>{error.message.replace('GraphQL error: ', '')}</p>
-    </Styled.divError>
-  );
+  if (error.error.graphQLErrors) {
+    return (
+      <>
+        {error.error.graphQLErrors.map((e, i) => (
+          <Styled.divError key={i}>
+            <p>{e.message.replace('GraphQL error: ', '')}</p>
+          </Styled.divError>
+        ))}
+      </>
+    );
+  }
+
+  if (error.error) {
+    return <Styled.divError>{error.error.message}</Styled.divError>;
+  }
+
+  return <Styled.divError>Opps, something went wrong.</Styled.divError>;
 };
 
-DisplayError.defaultProps = {
+Error.defaultProps = {
   error: {}
 };
 
-DisplayError.propTypes = {
+Error.propTypes = {
   error: PropTypes.object
 };
 
-export default DisplayError;
+export default Error;
