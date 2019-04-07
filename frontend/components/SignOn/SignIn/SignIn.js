@@ -38,7 +38,7 @@ class SignIn extends React.PureComponent {
 
           return (
             <Styled.div>
-              <form method="post" onSubmit={e => this.onSubmitForm(e, signIn)}>
+              <form onSubmit={e => this.onSubmitForm(e, signIn)}>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h2>Sign In</h2>
 
