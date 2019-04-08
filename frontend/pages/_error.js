@@ -19,19 +19,11 @@ class ErrorPage extends React.PureComponent {
     let response;
 
     switch (this.props.statusCode) {
-      case undefined:
-        response = (
-          <>
-            <p>Unknown error, no status code to report.</p>
-            <LinkHome />
-          </>
-        );
-        break;
-
       case 404:
         response = (
           <>
             <h1>Page Not Found</h1>
+
             <LinkHome />
           </>
         );
@@ -41,6 +33,17 @@ class ErrorPage extends React.PureComponent {
         response = (
           <>
             <h1>Internal Server Error</h1>
+
+            <LinkHome />
+          </>
+        );
+        break;
+
+      case true:
+        response = (
+          <>
+            <h1>HTTP {this.props.statusCode} Error</h1>
+
             <LinkHome />
           </>
         );
@@ -49,7 +52,8 @@ class ErrorPage extends React.PureComponent {
       default:
         response = (
           <>
-            <h1>HTTP {this.props.statusCode} Error</h1>
+            <p>Unknown error, no status code to report.</p>
+
             <LinkHome />
           </>
         );
