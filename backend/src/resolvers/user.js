@@ -49,7 +49,7 @@ export default {
         throw new UserInputError(`No such user found for email ${email}`);
       }
 
-      auth.checkPassword(args.password, user.password);
+      await auth.checkPassword(args.password, user.password);
 
       await auth.sendCookie(ctx.res, { userId: user.id });
 
