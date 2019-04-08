@@ -11,11 +11,14 @@ const Layout = React.memo(props => (
     <Header>
       <SignOn />
     </Header>
+
     <Nav />
+
     <Styled.main>
       {/* Pages are rendered here */}
       {props.children}
     </Styled.main>
+
     <Footer />
   </Styled.divLayout>
 ));

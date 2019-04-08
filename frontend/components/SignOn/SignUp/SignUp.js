@@ -33,58 +33,55 @@ class SignUp extends React.PureComponent {
           { query: query.ME_QUERY }
         ]}
       >
-        {(signUp, { loading, error }) => {
-          if (loading) return <p>Loading...</p>;
+        {(signUp, { error, loading }) => (
+          <Styled.div>
+            <form onSubmit={e => this.onSubmitForm(e, signUp)}>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <h2>Create a new Account</h2>
 
-          return (
-            <Styled.div>
-              <form onSubmit={e => this.onSubmitForm(e, signUp)}>
-                <fieldset disabled={loading} aria-busy={loading}>
-                  <h2>Create a new Account</h2>
+                {error && <Error error={error} />}
 
-                  {error && <Error error={error} />}
+                <label htmlFor="email">
+                  Email
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="email"
+                    value={email}
+                    onChange={this.onChangeInput}
+                  />
+                </label>
 
-                  <label htmlFor="email">
-                    Email
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="email"
-                      value={email}
-                      onChange={this.onChangeInput}
-                    />
-                  </label>
+                <label htmlFor="password">
+                  Password
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    value={password}
+                    onChange={this.onChangeInput}
+                  />
+                </label>
 
-                  <label htmlFor="password">
-                    Password
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="password"
-                      value={password}
-                      onChange={this.onChangeInput}
-                    />
-                  </label>
+                <label htmlFor="confirmPassword">
+                  Confirm Your Password
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="password"
+                    value={confirmPassword}
+                    onChange={this.onChangeInput}
+                  />
+                </label>
 
-                  <label htmlFor="confirmPassword">
-                    Confirm Your Password
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      placeholder="password"
-                      value={confirmPassword}
-                      onChange={this.onChangeInput}
-                    />
-                  </label>
-
-                  <button type="submit" disabled={isInvalid}>
-                    Sign Up
-                  </button>
-                </fieldset>
-              </form>
-            </Styled.div>
-          );
-        }}
+                <button type="submit" disabled={isInvalid}>
+                  Sign Up
+                </button>
+              </fieldset>
+            </form>
+          </Styled.div>
+        )}
+        )
       </Mutation>
     );
   }

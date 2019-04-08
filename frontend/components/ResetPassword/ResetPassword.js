@@ -36,7 +36,7 @@ class ResetPassword extends React.PureComponent {
         }}
         refetchQueries={[{ query: query.ME_QUERY }]}
       >
-        {(resetPassword, { error, loading, called }) => (
+        {(resetPassword, { error, loading }) => (
           <Styled.div>
             <form onSubmit={e => this.onSubmitForm(e, resetPassword)}>
               <fieldset disabled={loading} aria-busy={loading}>

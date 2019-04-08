@@ -33,49 +33,45 @@ class SignIn extends React.PureComponent {
         variables={this.state}
         refetchQueries={[{ query: query.ME_QUERY }]}
       >
-        {(signIn, { loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
+        {(signIn, { error, loading }) => (
+          <Styled.div>
+            <form onSubmit={e => this.onSubmitForm(e, signIn)}>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <h2>Sign In</h2>
 
-          return (
-            <Styled.div>
-              <form onSubmit={e => this.onSubmitForm(e, signIn)}>
-                <fieldset disabled={loading} aria-busy={loading}>
-                  <h2>Sign In</h2>
+                {error && <Error error={error} />}
 
-                  {error && <Error error={error} />}
+                <label htmlFor="email">
+                  Email
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="email"
+                    value={email}
+                    onChange={this.onChangeInput}
+                  />
+                </label>
 
-                  <label htmlFor="email">
-                    Email
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="email"
-                      value={email}
-                      onChange={this.onChangeInput}
-                    />
-                  </label>
+                <label htmlFor="password">
+                  Password
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    value={password}
+                    onChange={this.onChangeInput}
+                  />
+                </label>
 
-                  <label htmlFor="password">
-                    Password
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="password"
-                      value={password}
-                      onChange={this.onChangeInput}
-                    />
-                  </label>
+                <button type="submit" disabled={isInvalid}>
+                  Sign In
+                </button>
+              </fieldset>
+            </form>
 
-                  <button type="submit" disabled={isInvalid}>
-                    Sign In
-                  </button>
-                </fieldset>
-              </form>
-
-              <a onClick={this.props.requestReset}>Forgot password?</a>
-            </Styled.div>
-          );
-        }}
+            <a onClick={this.props.requestReset}>Forgot password?</a>
+          </Styled.div>
+        )}
       </Mutation>
     );
   }

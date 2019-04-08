@@ -9,6 +9,7 @@ const Nav = React.memo(() => (
           <a>Home</a>
         </Link>
       </li>
+
       <li>
         <Link href="users">
           <a>Users</a>
