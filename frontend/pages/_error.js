@@ -17,6 +17,7 @@ class ErrorPage extends React.PureComponent {
 
   render() {
     let response;
+    console.log('this.props.statusCode: ', this.props.statusCode);
 
     switch (this.props.statusCode) {
       case undefined:
@@ -49,7 +50,7 @@ class ErrorPage extends React.PureComponent {
       default:
         response = (
           <>
-            <h1>HTTP {this.props.statusCode} Error</h1>
+            <h1>`HTTP ${this.props.statusCode} Error`</h1>
             <LinkHome />
           </>
         );
