@@ -24,13 +24,11 @@ export default {
 
   Mutation: {
     signUp: async (parent, args, ctx, info) => {
+      auth.validateEmail(args.email);
+      auth.validatePassword(args.password);
+      auth.comparePasswords(args.password, args.confirmPassword);
+
       const email = args.email.toLowerCase();
-
-      // Check if the passwords match
-      if (args.password !== args.confirmPassword) {
-        throw new UserInputError("Passwords don't match.");
-      }
-
       const password = await bcrypt.hash(args.password, 10);
 
       const user = await ctx.prisma.mutation.createUser({
@@ -46,14 +44,12 @@ export default {
       const email = args.email.toLowerCase();
 
       const user = await ctx.prisma.query.user({ where: { email } });
+
       if (!user) {
         throw new UserInputError(`No such user found for email ${email}`);
       }
 
-      const valid = await bcrypt.compare(args.password, user.password);
-      if (!valid) {
-        throw new AuthenticationError('Invalid Password');
-      }
+      auth.checkPassword(args.password, user.password);
 
       await auth.sendCookie(ctx.res, { userId: user.id });
 
@@ -62,6 +58,7 @@ export default {
 
     signOut: (parent, args, ctx, info) => {
       ctx.res.clearCookie('token');
+
       return true;
     },
 
@@ -69,14 +66,16 @@ export default {
       const email = args.email.toLowerCase();
 
       const user = await ctx.prisma.query.user({ where: { email } });
+
       if (!user) {
         throw new UserInputError(`No such user found for email ${email}`);
       }
 
-      // Set a reset token and expiry on that user
+      // Set a reset token and expiry on the user
       const randomBytesPromisified = promisify(randomBytes);
       const resetTokenBytes = await randomBytesPromisified(20);
       const resetToken = resetTokenBytes.toString('hex');
+
       const resetTokenExpiry = Date.now() + 3600000; // 1 hour from now
 
       await ctx.prisma.mutation.updateUser({
@@ -84,17 +83,14 @@ export default {
         data: { resetToken, resetTokenExpiry }
       });
 
-      // Email them that reset token
-      await mail.mailResetToken(user.email, resetToken);
+      // Email them the reset token
+      await mail.mailResetToken(email, resetToken);
 
       return true;
     },
 
     resetPassword: async (parent, args, ctx, info) => {
-      // Check if the passwords match
-      if (args.password !== args.confirmPassword) {
-        throw new UserInputError("Passwords don't match.");
-      }
+      auth.comparePasswords(args.password, args.confirmPassword);
 
       // Check if its a legit reset token and not expired
       const [user] = await ctx.prisma.query.users({
@@ -110,7 +106,6 @@ export default {
         );
       }
 
-      // Hash their new password
       const password = await bcrypt.hash(args.password, 10);
 
       // Save the new password to the user and remove old resetToken fields
