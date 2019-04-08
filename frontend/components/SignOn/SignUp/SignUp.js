@@ -81,7 +81,6 @@ class SignUp extends React.PureComponent {
             </form>
           </Styled.div>
         )}
-        )
       </Mutation>
     );
   }
