@@ -13,20 +13,20 @@ export default withApollo(
   ({ ctx, headers, initialState }) => {
     console.log('withApollo', new Date().getMilliseconds());
 
-    const errorLink = onError(({ graphQLErrors, networkError }) => {
-      if (graphQLErrors)
-        graphQLErrors.map(({ message, locations, path }) =>
-          console.log(
-            `[GraphQL error]:
-              Message: ${message},
-              Location: ${locations},
-              Path: ${path}`
-          )
-        );
-      if (networkError) {
-        console.log(`[Network error]: ${networkError}`);
-      }
-    });
+    // const errorLink = onError(({ graphQLErrors, networkError }) => {
+    //   if (graphQLErrors)
+    //     graphQLErrors.map(({ message, locations, path }) =>
+    //       console.log(
+    //         `[GraphQL error]:
+    //           Message: ${message},
+    //           Location: ${locations},
+    //           Path: ${path}`
+    //       )
+    //     );
+    //   if (networkError) {
+    //     console.log(`[Network error]: ${networkError}`);
+    //   }
+    // });
 
     const authLink = new ApolloLink((operation, forward) => {
       operation.setContext({
@@ -54,7 +54,7 @@ export default withApollo(
     });
 
     const link = ApolloLink.from([
-      errorLink,
+      // errorLink,
       authLink,
       // Using the ability to split links, you can send data to each link
       // depending on what kind of operation is being sent
@@ -70,6 +70,7 @@ export default withApollo(
     return new ApolloClient({
       link,
       cache,
+      queryDeduplication: true,
       ssrMode: !process.browser,
       ssrForceFetchDelay: 100,
       connectToDevTools: process.browser

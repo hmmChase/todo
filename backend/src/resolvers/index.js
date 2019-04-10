@@ -1,3 +1,4 @@
-import user from './user';
+import authResolver from './authResolver';
+import userResolver from './userResolver';
 
-export default [user];
+export default [authResolver, userResolver];

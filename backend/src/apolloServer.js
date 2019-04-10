@@ -18,8 +18,12 @@ export default () =>
 
       return { req, res, prisma, me };
     },
+    // formatError: error => {
+    //   return error.message;
+    // },
     tracing: dev,
     introspection: dev,
+    debug: dev,
     playground: dev
       ? {
           settings: {

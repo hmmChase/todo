@@ -74,6 +74,15 @@ class SignUp extends React.PureComponent {
                   />
                 </label>
 
+                <p>Password must contain:</p>
+
+                <ul>
+                  <li>at least 8 charactors</li>
+                  <li>an uppercase letter</li>
+                  <li>a lowercase letter</li>
+                  <li>a number</li>
+                </ul>
+
                 <button type="submit" disabled={isInvalid}>
                   Sign Up
                 </button>

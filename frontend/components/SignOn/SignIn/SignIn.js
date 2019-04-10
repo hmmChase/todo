@@ -31,7 +31,10 @@ class SignIn extends React.PureComponent {
       <Mutation
         mutation={query.SIGN_IN_MUTATION}
         variables={this.state}
-        refetchQueries={[{ query: query.ME_QUERY }]}
+        refetchQueries={[
+          { query: query.ME_QUERY },
+          { query: query.USERS_QUERY }
+        ]}
       >
         {(signIn, { error, loading }) => (
           <Styled.div>
