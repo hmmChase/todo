@@ -16,9 +16,10 @@ class SignIn extends React.PureComponent {
 
   onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmitForm = async (e, signIn) => {
+  onSubmitForm = async (e, signIn, client) => {
     e.preventDefault();
     await signIn();
+    await client.resetStore();
     this.setState({ email: '', password: '' });
     this.props.close();
   };
@@ -28,17 +29,10 @@ class SignIn extends React.PureComponent {
     const isInvalid = email === '' || password === '';
 
     return (
-      <Mutation
-        mutation={query.SIGN_IN_MUTATION}
-        variables={this.state}
-        refetchQueries={[
-          { query: query.ME_QUERY },
-          { query: query.USERS_QUERY }
-        ]}
-      >
-        {(signIn, { error, loading }) => (
+      <Mutation mutation={query.SIGN_IN_MUTATION} variables={this.state}>
+        {(signIn, { client, error, loading }) => (
           <Styled.div>
-            <form onSubmit={e => this.onSubmitForm(e, signIn)}>
+            <form onSubmit={e => this.onSubmitForm(e, signIn, client)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Sign In</h2>
 
