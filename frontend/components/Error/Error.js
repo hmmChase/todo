@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import * as Styled from './Error.style';
 
 const Error = React.memo(error => {
+  console.log('TCL: error', error);
   if (error.error.networkError) {
     return (
       <>
@@ -19,13 +20,11 @@ const Error = React.memo(error => {
 
   if (error.error.graphQLErrors) {
     return (
-      <>
+      <Styled.divError>
         {error.error.graphQLErrors.map((e, i) => (
-          <Styled.divError key={i}>
-            <p>{e.message.replace('GraphQL error: ', '')}</p>
-          </Styled.divError>
+          <p key={i}>{e.message}</p>
         ))}
-      </>
+      </Styled.divError>
     );
   }
 

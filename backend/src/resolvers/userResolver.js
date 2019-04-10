@@ -1,7 +1,10 @@
 import bcrypt from 'bcryptjs';
-import { AuthenticationError, UserInputError } from 'apollo-server-express';
-import { randomBytes } from 'crypto';
-import { promisify } from 'util';
+import {
+  AuthenticationError,
+  UserInputError,
+  ForbiddenError
+} from 'apollo-server-express';
+
 import * as auth from '../utils/auth';
 import * as mail from '../utils/mail';
 
@@ -12,7 +15,13 @@ export default {
     },
 
     users: async (parent, args, ctx, info) => {
-      return await ctx.prisma.query.users();
+      if (!ctx.me) {
+        throw new ForbiddenError('You must be signed in.');
+      }
+
+      const users = await ctx.prisma.query.users({}, info);
+
+      return users;
     },
 
     me: async (parent, args, ctx, info) => {
@@ -24,11 +33,20 @@ export default {
 
   Mutation: {
     signUp: async (parent, args, ctx, info) => {
+      const email = args.email.toLowerCase();
+
+      const accountExists = await ctx.prisma.query.user({
+        where: { email }
+      });
+
+      if (accountExists) {
+        throw new UserInputError(`An account already exists for ${email}`);
+      }
+
       auth.validateEmail(args.email);
       auth.validatePassword(args.password);
       auth.comparePasswords(args.password, args.confirmPassword);
 
-      const email = args.email.toLowerCase();
       const password = await bcrypt.hash(args.password, 10);
 
       const user = await ctx.prisma.mutation.createUser({
@@ -46,7 +64,7 @@ export default {
       const user = await ctx.prisma.query.user({ where: { email } });
 
       if (!user) {
-        throw new UserInputError(`No such user found for email ${email}`);
+        throw new UserInputError(`No user found for email ${email}`);
       }
 
       await auth.checkPassword(args.password, user.password);
@@ -72,11 +90,7 @@ export default {
       }
 
       // Set a reset token and expiry on the user
-      const randomBytesPromisified = promisify(randomBytes);
-      const resetTokenBytes = await randomBytesPromisified(20);
-      const resetToken = resetTokenBytes.toString('hex');
-
-      const resetTokenExpiry = Date.now() + 3600000; // 1 hour from now
+      const { resetToken, resetTokenExpiry } = await genResetToken();
 
       await ctx.prisma.mutation.updateUser({
         where: { email },

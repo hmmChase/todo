@@ -9,13 +9,15 @@ const Users = React.memo(() => (
 
       return (
         <>
-          {error && <Error error={error} />}
-
-          <ul>
-            {data.users.map(user => (
-              <li key={user.id}>{user.email}</li>
-            ))}
-          </ul>
+          {error ? (
+            <Error error={error} />
+          ) : (
+            <ul>
+              {data.users.map(user => (
+                <li key={user.id}>{user.email}</li>
+              ))}
+            </ul>
+          )}
         </>
       );
     }}

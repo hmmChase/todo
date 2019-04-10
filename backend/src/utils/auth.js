@@ -1,6 +1,8 @@
 import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { randomBytes } from 'crypto';
+import { promisify } from 'util';
 
 export const getMe = async cookies => await verifyJWT(cookies.token);
 
@@ -46,18 +48,18 @@ export const validateEmail = email => {
 export const validatePassword = password => {
   if (typeof password !== 'string') return false;
 
+  const hasLength = password.length >= 8;
   const hasUpper = password.match(/[A-Z]/g);
   const hasLower = password.match(/[a-z]/g);
   const hasNumber = password.match(/[0-9]/g);
-  const hasLength = password.length >= 8;
 
+  if (!hasLength)
+    throw new UserInputError('Password must be at least 8 charactors');
   if (!hasUpper)
     throw new UserInputError('Password must contain an uppercase letter');
   if (!hasLower)
     throw new UserInputError('Password must contain a lowercase letter');
   if (!hasNumber) throw new UserInputError('Password must contain a number');
-  if (!hasLength)
-    throw new UserInputError('Password must be at least 8 charactors');
 };
 
 export const comparePasswords = (password, confirmPassword) => {
@@ -72,4 +74,14 @@ export const checkPassword = async (password, hashedPassword) => {
   if (!valid) {
     throw new AuthenticationError('Invalid Password');
   }
+};
+
+export const genResetToken = async () => {
+  const randomBytesPromisified = promisify(randomBytes);
+  const resetTokenBytes = await randomBytesPromisified(20);
+  const resetToken = resetTokenBytes.toString('hex');
+
+  const resetTokenExpiry = Date.now() + 3600000; // 1 hour from now
+
+  return { resetToken, resetTokenExpiry };
 };

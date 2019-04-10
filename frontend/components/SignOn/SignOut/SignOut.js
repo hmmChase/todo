@@ -4,11 +4,8 @@ import * as query from './SignOut.query';
 import * as Styled from './SignOut.style';
 
 const SignOut = React.memo(() => (
-  <Mutation
-    mutation={query.SIGN_OUT_MUTATION}
-    refetchQueries={[{ query: query.ME_QUERY }]}
-  >
-    {(signOut, { error, loading }) => (
+  <Mutation mutation={query.SIGN_OUT_MUTATION}>
+    {(signOut, { client, error, loading }) => (
       <Styled.div>
         {error && <Error error={error} />}
 
@@ -16,7 +13,10 @@ const SignOut = React.memo(() => (
           type="button"
           disabled={loading}
           aria-busy={loading}
-          onClick={signOut}
+          onClick={async () => {
+            await signOut();
+            await client.resetStore();
+          }}
         >
           Sign Out
         </button>
