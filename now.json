@@ -10,6 +10,8 @@
     { "src": "/(.*)", "dest": "frontend/$1" }
   ],
   "env": {
+    "DEV_GRAPHQL_ENDPOINT": "@dev_graphql_endpoint",
+    "PROD_GRAPHQL_ENDPOINT": "@prod_graphql_endpoint",
     "PORT": "@port",
     "DEV_FRONTEND_URL": "@dev_frontend_url",
     "PROD_FRONTEND_URL": "@prod_frontend_url",

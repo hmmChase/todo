@@ -11,50 +11,66 @@ import { BatchHttpLink } from 'apollo-link-batch-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { onError } from 'apollo-link-error';
 import { ApolloLink, split } from 'apollo-link';
-import { devGraphQLEndpoint, prodGraphQLEndpoint } from '../config';
+// import { devGraphQLEndpoint, prodGraphQLEndpoint } from '../config';
 
 const createClient = ({ ctx, headers, initialState }) => {
   console.log('withApollo', new Date().getMilliseconds());
 
-  const errorLink = () =>
-    onError(({ graphQLErrors, networkError, operation, forward }) => {
-      if (graphQLErrors) {
-        console.log('TCL: createClient -> graphQLErrors', graphQLErrors);
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors)
+      graphQLErrors.map(({ message, locations, path }) =>
+        console.log(
+          `[GraphQL error]:
+            Message: ${message},
+            Location: ${locations},
+            Path: ${path}`
+        )
+      );
+    if (networkError) {
+      console.log(`[Network error]: ${networkError}`);
+    }
+  });
 
-        for (const err of graphQLErrors) {
-          switch (err.extensions.code) {
-            case 'UNAUTHENTICATED':
-              console.log(
-                'TCL: createClient -> err.extensions.code',
-                err.extensions.code
-              );
+  // onError(({ graphQLErrors, networkError, operation, forward }) => {
+  //   if (graphQLErrors) {
+  //     console.log('TCL: createClient -> graphQLErrors', graphQLErrors);
 
-            // error code is set to UNAUTHENTICATED
-            // when AuthenticationError thrown in resolver
+  //     for (const err of graphQLErrors) {
+  //       switch (err.extensions.code) {
+  //         case 'UNAUTHENTICATED':
+  //           console.log(
+  //             'TCL: createClient -> err.extensions.code',
+  //             err.extensions.code
+  //           );
 
-            // modify the operation context with a new token
-            // const oldHeaders = operation.getContext().headers;
+  //         // error code is set to UNAUTHENTICATED
+  //         // when AuthenticationError thrown in resolver
 
-            // operation.setContext({
-            //   headers: {
-            //     ...oldHeaders,
-            //     authorization: getNewToken()
-            //   }
-            // });
+  //         // modify the operation context with a new token
+  //         // const oldHeaders = operation.getContext().headers;
 
-            // retry the request, returning the new observable
-            // return forward(operation);
-          }
-        }
-      }
-      if (networkError) {
-        console.log(`[Network error]: ${networkError}`);
+  //         // operation.setContext({
+  //         //   headers: {
+  //         //     ...oldHeaders,
+  //         //     authorization: getNewToken()
+  //         //   }
+  //         // });
 
-        // if you would also like to retry automatically on
-        // network errors, we recommend that you use
-        // apollo-link-retry
-      }
-    });
+  //         // retry the request, returning the new observable
+  //         // return forward(operation);
+  //       }
+  //     }
+  //   }
+  //   if (networkError) {
+  //     console.log('----------');
+  //     console.log(`[Network error]: ${networkError}`);
+  //     console.log('----------');
+
+  //     // if you would also like to retry automatically on
+  //     // network errors, we recommend that you use
+  //     // apollo-link-retry
+  //   }
+  // });
 
   const authLink = new ApolloLink((operation, forward) => {
     operation.setContext({
@@ -75,8 +91,8 @@ const createClient = ({ ctx, headers, initialState }) => {
 
   const uri =
     process.env.NODE_ENV === 'production'
-      ? prodGraphQLEndpoint
-      : devGraphQLEndpoint;
+      ? process.env.PROD_GRAPHQL_ENDPOINT
+      : process.env.DEV_GRAPHQL_ENDPOINT;
 
   // Link to use if batching (default)
   // Also adds a `batch: true` header to the request
@@ -94,10 +110,10 @@ const createClient = ({ ctx, headers, initialState }) => {
   });
 
   const link = ApolloLink.from([
-    // errorLink,
     authLink,
     // Using the ability to split links, you can send data to each link
     // depending on what kind of operation is being sent
+    errorLink,
     split(
       // Add `important: true` to the operation's context to debatch it
       // <Query query={SOME_QUERY} context={{ important: true }}>

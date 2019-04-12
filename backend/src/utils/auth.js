@@ -4,25 +4,45 @@ import jwt from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
 
-export const getMe = async cookies => await verifyJWT(cookies.token);
-
 export const signJWT = async payload =>
+  // TODO: Add CSRK token
+  // https://www.youtube.com/watch?v=67mezK3NzpU&feature=youtu.be&t=36m30s
+
   await jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: '7d'
+    expiresIn: '10s'
   });
 
-export const verifyJWT = async token => {
+export const verifyJWT = async (res, token) => {
   try {
-    return await jwt.verify(token, process.env.JWT_SECRET);
+    const verifiedPayload = jwt.verify(token, process.env.JWT_SECRET);
+
+    console.log('TCL: verifyJWT -> verifiedPayload', verifiedPayload);
+
+    return verifiedPayload;
   } catch (err) {
-    throw new AuthenticationError(
-      `Your session expired. Sign in again. (${err})`
-    );
+    // TODO: Figure out how to properly refresh token
+
+    if (err.name === 'TokenExpiredError') {
+      console.log('TokenExpiredError');
+
+      const decodedPayload = await jwt.decode(token);
+
+      await res.clearCookie('token');
+
+      await sendCookie(res, { userId: decodedPayload.userId });
+
+      return decodedPayload;
+
+      // throw new AuthenticationError(
+      //   `Your session expired. Please sign in again.`
+      // );
+    }
   }
 };
 
 export const sendCookie = async (res, payload) => {
   const JWT = await signJWT(payload);
+  console.log('TCL: sendCookie -> JWT', JWT);
 
   const cookieOptions = {
     httpOnly: true,
@@ -30,7 +50,17 @@ export const sendCookie = async (res, payload) => {
     maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
   };
 
-  res.cookie('token', JWT, cookieOptions);
+  try {
+    console.log('1');
+
+    await res.cookie('token', JWT, cookieOptions);
+
+    console.log('res headers : ', res.header()._headers);
+
+    console.log('2');
+  } catch (error) {
+    console.log('TCL: sendCookie -> res.cookie', error);
+  }
 };
 
 export const validateEmail = email => {
@@ -72,7 +102,7 @@ export const checkPassword = async (password, hashedPassword) => {
   const valid = await bcrypt.compare(password, hashedPassword);
 
   if (!valid) {
-    throw new AuthenticationError('Invalid Password');
+    throw new UserInputError('Invalid Password');
   }
 };
 

@@ -16,7 +16,7 @@ export default {
 
     users: async (parent, args, ctx, info) => {
       if (!ctx.me) {
-        throw new ForbiddenError('You must be signed in.');
+        throw new ForbiddenError('You must be signed in to view this.');
       }
 
       const users = await ctx.prisma.query.users({}, info);
@@ -64,7 +64,7 @@ export default {
       const user = await ctx.prisma.query.user({ where: { email } });
 
       if (!user) {
-        throw new UserInputError(`No user found for email ${email}`);
+        throw new UserInputError(`No account found for ${email}`);
       }
 
       await auth.checkPassword(args.password, user.password);
@@ -74,8 +74,8 @@ export default {
       return user;
     },
 
-    signOut: (parent, args, ctx, info) => {
-      ctx.res.clearCookie('token');
+    signOut: async (parent, args, ctx, info) => {
+      await ctx.res.clearCookie('token');
 
       return true;
     },
@@ -86,7 +86,7 @@ export default {
       const user = await ctx.prisma.query.user({ where: { email } });
 
       if (!user) {
-        throw new UserInputError(`No such user found for email ${email}`);
+        throw new UserInputError(`No account found for ${email}`);
       }
 
       // Set a reset token and expiry on the user
@@ -116,7 +116,7 @@ export default {
 
       if (!user) {
         throw new AuthenticationError(
-          'This token is either invalid or expired.'
+          'Your reset token is either invalid or expired.  Please request a new one.'
         );
       }
 

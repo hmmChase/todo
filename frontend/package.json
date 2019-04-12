@@ -28,6 +28,7 @@
     "apollo-link-http": "^1.5.14",
     "apollo-link-state": "^0.4.2",
     "cookie": "^0.3.1",
+    "dotenv-webpack": "^1.7.0",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "^3.0.0",
