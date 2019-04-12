@@ -13,7 +13,6 @@ class RequestReset extends React.PureComponent {
   onSubmitForm = async (e, requestReset) => {
     e.preventDefault();
     await requestReset();
-    this.setState({ email: '' });
   };
 
   render() {

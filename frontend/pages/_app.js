@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import App, { Container } from 'next/app';
 import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { ThemeProvider } from 'styled-components';
 import withApollo from '../graphql/withApollo';
 import theme from '../styles/theme.style';
@@ -27,11 +28,13 @@ class MyApp extends App {
     return (
       <Container>
         <ApolloProvider client={apollo}>
-          <ThemeProvider theme={theme}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ThemeProvider>
+          <ApolloHooksProvider client={apollo}>
+            <ThemeProvider theme={theme}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ThemeProvider>
+          </ApolloHooksProvider>
         </ApolloProvider>
       </Container>
     );

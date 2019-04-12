@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-  console.log('----------');
+  console.log('\n', '----------');
   console.log('req host: ', req.headers.host);
   // console.log('req headers: ', req.headers);
   console.log('req body: ', req.body);
@@ -49,6 +49,8 @@ app.use((req, res, next) => {
 server.applyMiddleware({ app, path: '/graphql', cors: corsOptions });
 
 app.listen({ port: process.env.PORT || 4000 }, err => {
+  console.log('\n'.repeat(99));
+
   if (err) throw err;
   console.log(
     `Apollo Server ready at http://localhost:${process.env.PORT}${

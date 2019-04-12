@@ -16,8 +16,6 @@ class SignUp extends React.PureComponent {
   onSubmitForm = async (e, signUp) => {
     e.preventDefault();
     await signUp();
-    this.setState({ email: '', password: '', confirmPassword: '' });
-    this.props.close();
   };
 
   render() {
@@ -32,6 +30,7 @@ class SignUp extends React.PureComponent {
           { query: query.USERS_QUERY },
           { query: query.ME_QUERY }
         ]}
+        onCompleted={() => this.props.close()}
       >
         {(signUp, { error, loading }) => (
           <Styled.div>

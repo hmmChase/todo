@@ -11,7 +11,7 @@ module.exports = withBundleAnalyzer({
     config.plugins = [
       ...config.plugins,
 
-      // Read the .env file
+      // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
       new Dotenv({
         path: path.join(__dirname, '.env'),
         systemvars: true

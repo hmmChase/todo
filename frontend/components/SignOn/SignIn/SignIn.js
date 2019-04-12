@@ -20,8 +20,6 @@ class SignIn extends React.PureComponent {
     e.preventDefault();
     await signIn();
     await client.resetStore();
-    this.setState({ email: '', password: '' });
-    this.props.close();
   };
 
   render() {
@@ -29,7 +27,11 @@ class SignIn extends React.PureComponent {
     const isInvalid = email === '' || password === '';
 
     return (
-      <Mutation mutation={query.SIGN_IN_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={query.SIGN_IN_MUTATION}
+        variables={this.state}
+        onCompleted={() => this.props.close()}
+      >
         {(signIn, { client, error, loading }) => (
           <Styled.div>
             <form onSubmit={e => this.onSubmitForm(e, signIn, client)}>
