@@ -14,7 +14,9 @@ export default () =>
     typeDefs,
     resolvers,
     context: async ({ req, res }) => {
-      const me = req.cookies.token ? await auth.getMe(req.cookies) : null;
+      const me = req.cookies.token
+        ? await auth.verifyJWT(res, req.cookies.token)
+        : null;
 
       return { req, res, prisma, me };
     },

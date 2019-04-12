@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import apolloServer from './apolloServer';
 
 const app = express();
@@ -32,6 +33,18 @@ app.use(cors(corsOptions));
 app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
+app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+  console.log('----------');
+  console.log('req host: ', req.headers.host);
+  // console.log('req headers: ', req.headers);
+  console.log('req body: ', req.body);
+  // console.log('res headers : ', res.header()._headers);
+  console.log('res statusCode: ', res.statusCode);
+
+  next();
+});
 
 server.applyMiddleware({ app, path: '/graphql', cors: corsOptions });
 
