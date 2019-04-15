@@ -13,9 +13,11 @@ class SignUp extends React.PureComponent {
 
   onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmitForm = async (e, signUp) => {
+  onSubmitForm = async (e, signUp, client) => {
     e.preventDefault();
+    this.setState({ password: '', confirmPassword: '' });
     await signUp();
+    await client.resetStore();
   };
 
   render() {
@@ -26,69 +28,67 @@ class SignUp extends React.PureComponent {
       <Mutation
         mutation={query.SIGN_UP_MUTATION}
         variables={this.state}
-        refetchQueries={[
-          { query: query.USERS_QUERY },
-          { query: query.ME_QUERY }
-        ]}
         onCompleted={() => this.props.close()}
       >
-        {(signUp, { error, loading }) => (
-          <Styled.div>
-            <form onSubmit={e => this.onSubmitForm(e, signUp)}>
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Create a new Account</h2>
+        {(signUp, { client, error, loading }) => {
+          return (
+            <Styled.div>
+              <form onSubmit={e => this.onSubmitForm(e, signUp, client)}>
+                <fieldset disabled={loading} aria-busy={loading}>
+                  <h2>Create a new Account</h2>
 
-                {error && <Error error={error} />}
+                  {error && <Error error={error} />}
 
-                <label htmlFor="email">
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="email"
-                    value={email}
-                    onChange={this.onChangeInput}
-                  />
-                </label>
+                  <label htmlFor="email">
+                    Email
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="email"
+                      value={email}
+                      onChange={this.onChangeInput}
+                    />
+                  </label>
 
-                <label htmlFor="password">
-                  Password
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    value={password}
-                    onChange={this.onChangeInput}
-                  />
-                </label>
+                  <label htmlFor="password">
+                    Password
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      value={password}
+                      onChange={this.onChangeInput}
+                    />
+                  </label>
 
-                <label htmlFor="confirmPassword">
-                  Confirm Your Password
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="password"
-                    value={confirmPassword}
-                    onChange={this.onChangeInput}
-                  />
-                </label>
+                  <label htmlFor="confirmPassword">
+                    Confirm Your Password
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="password"
+                      value={confirmPassword}
+                      onChange={this.onChangeInput}
+                    />
+                  </label>
 
-                <p>Password must contain:</p>
+                  <p>Password must contain:</p>
 
-                <ul>
-                  <li>at least 8 charactors</li>
-                  <li>an uppercase letter</li>
-                  <li>a lowercase letter</li>
-                  <li>a number</li>
-                </ul>
+                  <ul>
+                    <li>at least 8 charactors</li>
+                    <li>an uppercase letter</li>
+                    <li>a lowercase letter</li>
+                    <li>a number</li>
+                  </ul>
 
-                <button type="submit" disabled={isInvalid}>
-                  Sign Up
-                </button>
-              </fieldset>
-            </form>
-          </Styled.div>
-        )}
+                  <button type="submit" disabled={isInvalid}>
+                    Sign Up
+                  </button>
+                </fieldset>
+              </form>
+            </Styled.div>
+          );
+        }}
       </Mutation>
     );
   }

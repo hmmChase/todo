@@ -1,11 +1,9 @@
 import Link from 'next/link';
-import { Query } from 'react-apollo';
-import * as query from '../SignOn/SignOn.query';
-
+import User from '../User/User';
 import * as Styled from './Nav.style';
 
 const Nav = React.memo(() => (
-  <Query query={query.ME_QUERY}>
+  <User>
     {({ data }) => (
       <Styled.nav>
         <ul>
@@ -24,7 +22,7 @@ const Nav = React.memo(() => (
         </ul>
       </Styled.nav>
     )}
-  </Query>
+  </User>
 ));
 
 export default Nav;

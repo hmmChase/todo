@@ -1,9 +1,8 @@
-import { Query } from 'react-apollo';
 import SignIn from './SignIn/SignIn';
 import SignOut from './SignOut/SignOut';
 import SignUp from './SignUp/SignUp';
 import RequestReset from './RequestReset/RequestReset';
-import * as query from './SignOn.query';
+import User from '../User/User';
 import * as Styled from './SignOn.style';
 
 class SignOn extends React.PureComponent {
@@ -15,7 +14,7 @@ class SignOn extends React.PureComponent {
     const { showPopup } = this.state;
 
     return (
-      <Query query={query.ME_QUERY}>
+      <User>
         {({ data }) => (
           <Styled.div>
             {data.me ? (
@@ -68,7 +67,7 @@ class SignOn extends React.PureComponent {
             )}
           </Styled.div>
         )}
-      </Query>
+      </User>
     );
   }
 }

@@ -16,8 +16,9 @@ class ResetPassword extends React.PureComponent {
 
   onSubmitForm = async (e, resetPassword) => {
     e.preventDefault();
-    await resetPassword();
     this.setState({ password: '', confirmPassword: '' });
+    await resetPassword();
+    await client.resetStore();
     Router.push({
       pathname: '/'
     });
@@ -34,11 +35,10 @@ class ResetPassword extends React.PureComponent {
           ...this.state,
           resetToken: this.props.resetToken
         }}
-        refetchQueries={[{ query: query.ME_QUERY }]}
       >
-        {(resetPassword, { error, loading }) => (
+        {(resetPassword, { client, error, loading }) => (
           <Styled.div>
-            <form onSubmit={e => this.onSubmitForm(e, resetPassword)}>
+            <form onSubmit={e => this.onSubmitForm(e, resetPassword, client)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Reset Your Password</h2>
 
