@@ -8,12 +8,11 @@ class RequestReset extends React.PureComponent {
     email: ''
   };
 
-  onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
+  handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmitForm = async (e, requestReset) => {
+  handleSubmitForm = async (e, requestReset) => {
     e.preventDefault();
     await requestReset();
-    this.setState({ email: '' });
   };
 
   render() {
@@ -24,7 +23,7 @@ class RequestReset extends React.PureComponent {
       <Mutation mutation={query.REQUEST_RESET_MUTATION} variables={this.state}>
         {(requestReset, { error, loading, called }) => (
           <Styled.div>
-            <form onSubmit={e => this.onSubmitForm(e, requestReset)}>
+            <form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Request a password reset</h2>
 
@@ -41,7 +40,7 @@ class RequestReset extends React.PureComponent {
                     name="email"
                     placeholder="email"
                     value={email}
-                    onChange={this.onChangeInput}
+                    onChange={this.handleChangeInput}
                   />
                 </label>
 

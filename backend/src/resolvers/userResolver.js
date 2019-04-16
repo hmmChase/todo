@@ -4,9 +4,9 @@ import {
   UserInputError,
   ForbiddenError
 } from 'apollo-server-express';
-
 import * as auth from '../utils/auth';
 import * as mail from '../utils/mail';
+import * as config from '../config';
 
 export default {
   Query: {
@@ -19,9 +19,7 @@ export default {
         throw new ForbiddenError('You must be signed in to view this.');
       }
 
-      const users = await ctx.prisma.query.users({}, info);
-
-      return users;
+      return await ctx.prisma.query.users();
     },
 
     me: async (parent, args, ctx, info) => {
@@ -47,7 +45,7 @@ export default {
       auth.validatePassword(args.password);
       auth.comparePasswords(args.password, args.confirmPassword);
 
-      const password = await bcrypt.hash(args.password, 10);
+      const password = await bcrypt.hash(args.password, config.saltRounds);
 
       const user = await ctx.prisma.mutation.createUser({
         data: { email, password }
@@ -89,40 +87,36 @@ export default {
         throw new UserInputError(`No account found for ${email}`);
       }
 
-      // Set a reset token and expiry on the user
-      const { resetToken, resetTokenExpiry } = await genResetToken();
+      const { resetToken, resetTokenExpiry } = await auth.genResetToken();
 
       await ctx.prisma.mutation.updateUser({
         where: { email },
         data: { resetToken, resetTokenExpiry }
       });
 
-      // Email them the reset token
-      await mail.mailResetToken(email, resetToken);
+      await mail.mailResetToken(email, resetToken, resetTokenExpiry);
 
       return true;
     },
 
     resetPassword: async (parent, args, ctx, info) => {
+      auth.validatePassword(args.password);
       auth.comparePasswords(args.password, args.confirmPassword);
 
-      // Check if its a legit reset token and not expired
-      const [user] = await ctx.prisma.query.users({
-        where: {
-          resetToken: args.resetToken,
-          resetTokenExpiry_gte: Date.now() - 3600000
-        }
+      const user = await ctx.prisma.query.user({
+        where: { resetToken: args.resetToken }
       });
 
       if (!user) {
         throw new AuthenticationError(
-          'Your reset token is either invalid or expired.  Please request a new one.'
+          'Your reset token is invalid.  Please request a new one.'
         );
       }
 
-      const password = await bcrypt.hash(args.password, 10);
+      auth.validateTokenExpiry(user.resetTokenExpiry);
 
-      // Save the new password to the user and remove old resetToken fields
+      const password = await bcrypt.hash(args.password, config.saltRounds);
+
       const updatedUser = await ctx.prisma.mutation.updateUser({
         where: { email: user.email },
         data: {
@@ -132,10 +126,8 @@ export default {
         }
       });
 
-      // Generate updated JWT and send cookie
       await auth.sendCookie(ctx.res, { userId: updatedUser.id });
 
-      // Return the new user
       return updatedUser;
     }
   }

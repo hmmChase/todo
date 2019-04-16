@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -14,25 +15,29 @@ class SignIn extends React.PureComponent {
     password: ''
   };
 
-  onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
+  handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmitForm = async (e, signIn, client) => {
+  handleSubmitForm = async (e, signIn, client) => {
     e.preventDefault();
     await signIn();
     await client.resetStore();
-    this.setState({ email: '', password: '' });
-    this.props.close();
   };
+
+  handleCompleted = () => this.props.close();
 
   render() {
     const { email, password } = this.state;
     const isInvalid = email === '' || password === '';
 
     return (
-      <Mutation mutation={query.SIGN_IN_MUTATION} variables={this.state}>
-        {(signIn, { client, error, loading }) => (
+      <Mutation
+        mutation={query.SIGN_IN_MUTATION}
+        variables={this.state}
+        onCompleted={this.handleCompleted}
+      >
+        {(signIn, { error, loading, client }) => (
           <Styled.div>
-            <form onSubmit={e => this.onSubmitForm(e, signIn, client)}>
+            <form onSubmit={e => this.handleSubmitForm(e, signIn, client)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Sign In</h2>
 
@@ -45,7 +50,7 @@ class SignIn extends React.PureComponent {
                     name="email"
                     placeholder="email"
                     value={email}
-                    onChange={this.onChangeInput}
+                    onChange={this.handleChangeInput}
                   />
                 </label>
 
@@ -56,7 +61,7 @@ class SignIn extends React.PureComponent {
                     name="password"
                     placeholder="password"
                     value={password}
-                    onChange={this.onChangeInput}
+                    onChange={this.handleChangeInput}
                   />
                 </label>
 
@@ -66,7 +71,9 @@ class SignIn extends React.PureComponent {
               </fieldset>
             </form>
 
-            <a onClick={this.props.requestReset}>Forgot password?</a>
+            <a style={{ cursor: 'pointer' }} onClick={this.props.requestReset}>
+              Forgot password?
+            </a>
           </Styled.div>
         )}
       </Mutation>

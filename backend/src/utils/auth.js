@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
+import * as config from '../config';
 
 export const signJWT = async payload =>
   // TODO: Add CSRK token
@@ -111,7 +112,17 @@ export const genResetToken = async () => {
   const resetTokenBytes = await randomBytesPromisified(20);
   const resetToken = resetTokenBytes.toString('hex');
 
-  const resetTokenExpiry = Date.now() + 3600000; // 1 hour from now
+  const resetTokenExpiry = Date.now() + config.resetTokenExpiryTime;
 
   return { resetToken, resetTokenExpiry };
+};
+
+export const validateTokenExpiry = resetTokenExpiry => {
+  const isTokenExpired = Date.now() > resetTokenExpiry;
+
+  if (isTokenExpired) {
+    throw new AuthenticationError(
+      'Your reset token is expired.  Please request a new one.'
+    );
+  }
 };

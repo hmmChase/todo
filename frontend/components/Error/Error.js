@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import * as Styled from './Error.style';
 
 const Error = React.memo(error => {
-  console.log('TCL: error', error);
   if (error.error.networkError) {
     return (
       <>

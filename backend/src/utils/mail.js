@@ -21,7 +21,7 @@ const emailTemplate = body => `
   </div>
 `;
 
-export const mailResetToken = async (email, resetToken) => {
+export const mailResetToken = async (email, resetToken, resetTokenExpiry) => {
   try {
     await transport.sendMail({
       from: 'test@email.com',
@@ -34,7 +34,9 @@ export const mailResetToken = async (email, resetToken) => {
           process.env.NODE_ENV === 'production'
             ? process.env.PROD_FRONTEND_URL
             : process.env.DEV_FRONTEND_URL
-        }/reset?resetToken=${resetToken}">Click Here to Reset</a>`
+        }/reset?resetToken=${resetToken}&resetTokenExpiry=${resetTokenExpiry}">
+          Click Here to Reset
+        </a>`
       )
     });
   } catch (err) {

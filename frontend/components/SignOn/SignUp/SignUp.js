@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import Error from '../../Error/Error';
@@ -11,14 +12,16 @@ class SignUp extends React.PureComponent {
     confirmPassword: ''
   };
 
-  onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
+  handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmitForm = async (e, signUp) => {
+  handleSubmitForm = async (e, signUp, client) => {
     e.preventDefault();
+    this.setState({ password: '', confirmPassword: '' });
     await signUp();
-    this.setState({ email: '', password: '', confirmPassword: '' });
-    this.props.close();
+    await client.resetStore();
   };
+
+  handleCompleted = () => this.props.close();
 
   render() {
     const { email, password, confirmPassword } = this.state;
@@ -28,68 +31,67 @@ class SignUp extends React.PureComponent {
       <Mutation
         mutation={query.SIGN_UP_MUTATION}
         variables={this.state}
-        refetchQueries={[
-          { query: query.USERS_QUERY },
-          { query: query.ME_QUERY }
-        ]}
+        onCompleted={this.handleCompleted}
       >
-        {(signUp, { error, loading }) => (
-          <Styled.div>
-            <form onSubmit={e => this.onSubmitForm(e, signUp)}>
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Create a new Account</h2>
+        {(signUp, { error, loading, client }) => {
+          return (
+            <Styled.div>
+              <form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
+                <fieldset disabled={loading} aria-busy={loading}>
+                  <h2>Create a new Account</h2>
 
-                {error && <Error error={error} />}
+                  {error && <Error error={error} />}
 
-                <label htmlFor="email">
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="email"
-                    value={email}
-                    onChange={this.onChangeInput}
-                  />
-                </label>
+                  <label htmlFor="email">
+                    Email
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="email"
+                      value={email}
+                      onChange={this.handleChangeInput}
+                    />
+                  </label>
 
-                <label htmlFor="password">
-                  Password
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    value={password}
-                    onChange={this.onChangeInput}
-                  />
-                </label>
+                  <label htmlFor="password">
+                    Password
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      value={password}
+                      onChange={this.handleChangeInput}
+                    />
+                  </label>
 
-                <label htmlFor="confirmPassword">
-                  Confirm Your Password
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="password"
-                    value={confirmPassword}
-                    onChange={this.onChangeInput}
-                  />
-                </label>
+                  <label htmlFor="confirmPassword">
+                    Confirm Your Password
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="password"
+                      value={confirmPassword}
+                      onChange={this.handleChangeInput}
+                    />
+                  </label>
 
-                <p>Password must contain:</p>
+                  <p>Password must contain:</p>
 
-                <ul>
-                  <li>at least 8 charactors</li>
-                  <li>an uppercase letter</li>
-                  <li>a lowercase letter</li>
-                  <li>a number</li>
-                </ul>
+                  <ul>
+                    <li>at least 8 charactors</li>
+                    <li>an uppercase letter</li>
+                    <li>a lowercase letter</li>
+                    <li>a number</li>
+                  </ul>
 
-                <button type="submit" disabled={isInvalid}>
-                  Sign Up
-                </button>
-              </fieldset>
-            </form>
-          </Styled.div>
-        )}
+                  <button type="submit" disabled={isInvalid}>
+                    Sign Up
+                  </button>
+                </fieldset>
+              </form>
+            </Styled.div>
+          );
+        }}
       </Mutation>
     );
   }
