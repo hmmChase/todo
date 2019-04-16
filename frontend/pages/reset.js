@@ -10,7 +10,10 @@ const ResetPage = React.memo(props => (
       <title>next-graphql-starter | Reset Password</title>
     </Head>
 
-    <ResetPassword resetToken={props.router.query.resetToken} />
+    <ResetPassword
+      resetToken={props.router.query.resetToken}
+      resetTokenExpiry={props.router.query.resetTokenExpiry}
+    />
   </>
 ));
 

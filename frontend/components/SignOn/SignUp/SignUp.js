@@ -12,16 +12,16 @@ class SignUp extends React.PureComponent {
     confirmPassword: ''
   };
 
-  onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
+  handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmitForm = async (e, signUp, client) => {
+  handleSubmitForm = async (e, signUp, client) => {
     e.preventDefault();
     this.setState({ password: '', confirmPassword: '' });
     await signUp();
     await client.resetStore();
   };
 
-  onCompleted = () => this.props.close();
+  handleCompleted = () => this.props.close();
 
   render() {
     const { email, password, confirmPassword } = this.state;
@@ -31,12 +31,12 @@ class SignUp extends React.PureComponent {
       <Mutation
         mutation={query.SIGN_UP_MUTATION}
         variables={this.state}
-        onCompleted={this.onCompleted}
+        onCompleted={this.handleCompleted}
       >
         {(signUp, { error, loading, client }) => {
           return (
             <Styled.div>
-              <form onSubmit={e => this.onSubmitForm(e, signUp, client)}>
+              <form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h2>Create a new Account</h2>
 
@@ -49,7 +49,7 @@ class SignUp extends React.PureComponent {
                       name="email"
                       placeholder="email"
                       value={email}
-                      onChange={this.onChangeInput}
+                      onChange={this.handleChangeInput}
                     />
                   </label>
 
@@ -60,7 +60,7 @@ class SignUp extends React.PureComponent {
                       name="password"
                       placeholder="password"
                       value={password}
-                      onChange={this.onChangeInput}
+                      onChange={this.handleChangeInput}
                     />
                   </label>
 
@@ -71,7 +71,7 @@ class SignUp extends React.PureComponent {
                       name="confirmPassword"
                       placeholder="password"
                       value={confirmPassword}
-                      onChange={this.onChangeInput}
+                      onChange={this.handleChangeInput}
                     />
                   </label>
 

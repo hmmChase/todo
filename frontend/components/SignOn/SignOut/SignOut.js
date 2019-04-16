@@ -5,15 +5,15 @@ import * as query from './SignOut.query';
 import * as Styled from './SignOut.style';
 
 const SignOut = React.memo(() => {
-  const onClickBtn = async (signOut, client) => {
+  const handleClickBtn = async (signOut, client) => {
     await signOut();
     await client.resetStore();
   };
 
-  const onCompleted = () => Router.push('/');
+  const handleCompleted = () => Router.push('/');
 
   return (
-    <Mutation mutation={query.SIGN_OUT_MUTATION} onCompleted={onCompleted}>
+    <Mutation mutation={query.SIGN_OUT_MUTATION} onCompleted={handleCompleted}>
       {(signOut, { error, loading, client }) => (
         <Styled.div>
           {error && <Error error={error} />}
@@ -22,7 +22,7 @@ const SignOut = React.memo(() => {
             type="button"
             disabled={loading}
             aria-busy={loading}
-            onClick={() => onClickBtn(signOut, client)}
+            onClick={() => handleClickBtn(signOut, client)}
           >
             Sign Out
           </button>

@@ -15,15 +15,15 @@ class SignIn extends React.PureComponent {
     password: ''
   };
 
-  onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
+  handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmitForm = async (e, signIn, client) => {
+  handleSubmitForm = async (e, signIn, client) => {
     e.preventDefault();
     await signIn();
     await client.resetStore();
   };
 
-  onCompleted = () => this.props.close();
+  handleCompleted = () => this.props.close();
 
   render() {
     const { email, password } = this.state;
@@ -33,11 +33,11 @@ class SignIn extends React.PureComponent {
       <Mutation
         mutation={query.SIGN_IN_MUTATION}
         variables={this.state}
-        onCompleted={this.onCompleted}
+        onCompleted={this.handleCompleted}
       >
         {(signIn, { error, loading, client }) => (
           <Styled.div>
-            <form onSubmit={e => this.onSubmitForm(e, signIn, client)}>
+            <form onSubmit={e => this.handleSubmitForm(e, signIn, client)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Sign In</h2>
 
@@ -50,7 +50,7 @@ class SignIn extends React.PureComponent {
                     name="email"
                     placeholder="email"
                     value={email}
-                    onChange={this.onChangeInput}
+                    onChange={this.handleChangeInput}
                   />
                 </label>
 
@@ -61,7 +61,7 @@ class SignIn extends React.PureComponent {
                     name="password"
                     placeholder="password"
                     value={password}
-                    onChange={this.onChangeInput}
+                    onChange={this.handleChangeInput}
                   />
                 </label>
 

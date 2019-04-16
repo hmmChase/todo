@@ -13,33 +13,42 @@ class ResetPassword extends React.PureComponent {
     confirmPassword: ''
   };
 
-  onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
+  handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmitForm = async (e, resetPassword, client) => {
+  handleSubmitForm = async (e, resetPassword, client) => {
     e.preventDefault();
     this.setState({ password: '', confirmPassword: '' });
     await resetPassword();
     await client.resetStore();
   };
 
-  onCompleted = () => Router.push({ pathname: '/' });
+  handleCompleted = () => Router.push({ pathname: '/' });
 
   render() {
     const { password, confirmPassword } = this.state;
-    const isInvalid = password === '' || confirmPassword === '';
+    const { resetToken, resetTokenExpiry } = this.props;
+    const isInvalidPass = password === '' || confirmPassword === '';
+    const isTokenExpired = Date.now() > resetTokenExpiry;
+    const tokenError = {
+      message: 'Your reset token is expired.  Please request a new one.'
+    };
+
+    if (isTokenExpired) return <Error error={tokenError} />;
 
     return (
       <Mutation
         mutation={query.RESET_PASSWORD_MUTATION}
         variables={{
           ...this.state,
-          resetToken: this.props.resetToken
+          resetToken
         }}
-        onCompleted={this.onCompleted}
+        onCompleted={this.handleCompleted}
       >
         {(resetPassword, { error, loading, client }) => (
           <Styled.div>
-            <form onSubmit={e => this.onSubmitForm(e, resetPassword, client)}>
+            <form
+              onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
+            >
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Reset Your Password</h2>
 
@@ -52,7 +61,7 @@ class ResetPassword extends React.PureComponent {
                     name="password"
                     placeholder="password"
                     value={password}
-                    onChange={this.onChangeInput}
+                    onChange={this.handleChangeInput}
                   />
                 </label>
 
@@ -63,7 +72,7 @@ class ResetPassword extends React.PureComponent {
                     name="confirmPassword"
                     placeholder="confirmPassword"
                     value={confirmPassword}
-                    onChange={this.onChangeInput}
+                    onChange={this.handleChangeInput}
                   />
                 </label>
 
@@ -76,7 +85,7 @@ class ResetPassword extends React.PureComponent {
                   <li>a number</li>
                 </ul>
 
-                <button type="submit" disabled={isInvalid}>
+                <button type="submit" disabled={isInvalidPass}>
                   Reset Your Password
                 </button>
               </fieldset>
@@ -89,7 +98,8 @@ class ResetPassword extends React.PureComponent {
 }
 
 ResetPassword.propTypes = {
-  resetToken: PropTypes.string.isRequired
+  resetToken: PropTypes.string.isRequired,
+  resetTokenExpiry: PropTypes.string.isRequired
 };
 
 export default ResetPassword;
