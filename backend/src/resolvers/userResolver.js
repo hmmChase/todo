@@ -90,7 +90,7 @@ export default {
       }
 
       // Set a reset token and expiry on the user
-      const { resetToken, resetTokenExpiry } = await genResetToken();
+      const { resetToken, resetTokenExpiry } = await auth.genResetToken();
 
       await ctx.prisma.mutation.updateUser({
         where: { email },

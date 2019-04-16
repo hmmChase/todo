@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
 import Router from 'next/router';
@@ -14,15 +15,14 @@ class ResetPassword extends React.PureComponent {
 
   onChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmitForm = async (e, resetPassword) => {
+  onSubmitForm = async (e, resetPassword, client) => {
     e.preventDefault();
     this.setState({ password: '', confirmPassword: '' });
     await resetPassword();
     await client.resetStore();
-    Router.push({
-      pathname: '/'
-    });
   };
+
+  onCompleted = () => Router.push({ pathname: '/' });
 
   render() {
     const { password, confirmPassword } = this.state;
@@ -35,8 +35,9 @@ class ResetPassword extends React.PureComponent {
           ...this.state,
           resetToken: this.props.resetToken
         }}
+        onCompleted={this.onCompleted}
       >
-        {(resetPassword, { client, error, loading }) => (
+        {(resetPassword, { error, loading, client }) => (
           <Styled.div>
             <form onSubmit={e => this.onSubmitForm(e, resetPassword, client)}>
               <fieldset disabled={loading} aria-busy={loading}>

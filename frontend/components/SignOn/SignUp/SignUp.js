@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import Error from '../../Error/Error';
@@ -20,6 +21,8 @@ class SignUp extends React.PureComponent {
     await client.resetStore();
   };
 
+  onCompleted = () => this.props.close();
+
   render() {
     const { email, password, confirmPassword } = this.state;
     const isInvalid = email === '' || password === '' || confirmPassword === '';
@@ -28,9 +31,9 @@ class SignUp extends React.PureComponent {
       <Mutation
         mutation={query.SIGN_UP_MUTATION}
         variables={this.state}
-        onCompleted={() => this.props.close()}
+        onCompleted={this.onCompleted}
       >
-        {(signUp, { client, error, loading }) => {
+        {(signUp, { error, loading, client }) => {
           return (
             <Styled.div>
               <form onSubmit={e => this.onSubmitForm(e, signUp, client)}>

@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -22,6 +23,8 @@ class SignIn extends React.PureComponent {
     await client.resetStore();
   };
 
+  onCompleted = () => this.props.close();
+
   render() {
     const { email, password } = this.state;
     const isInvalid = email === '' || password === '';
@@ -30,9 +33,9 @@ class SignIn extends React.PureComponent {
       <Mutation
         mutation={query.SIGN_IN_MUTATION}
         variables={this.state}
-        onCompleted={() => this.props.close()}
+        onCompleted={this.onCompleted}
       >
-        {(signIn, { client, error, loading }) => (
+        {(signIn, { error, loading, client }) => (
           <Styled.div>
             <form onSubmit={e => this.onSubmitForm(e, signIn, client)}>
               <fieldset disabled={loading} aria-busy={loading}>
@@ -68,7 +71,9 @@ class SignIn extends React.PureComponent {
               </fieldset>
             </form>
 
-            <a onClick={this.props.requestReset}>Forgot password?</a>
+            <a style={{ cursor: 'pointer' }} onClick={this.props.requestReset}>
+              Forgot password?
+            </a>
           </Styled.div>
         )}
       </Mutation>

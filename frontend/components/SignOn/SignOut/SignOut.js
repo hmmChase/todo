@@ -10,15 +10,10 @@ const SignOut = React.memo(() => {
     await client.resetStore();
   };
 
-  const onCompleted = () => {
-    Router.push('/');
-  };
+  const onCompleted = () => Router.push('/');
 
   return (
-    <Mutation
-      mutation={query.SIGN_OUT_MUTATION}
-      onCompleted={() => onCompleted()}
-    >
+    <Mutation mutation={query.SIGN_OUT_MUTATION} onCompleted={onCompleted}>
       {(signOut, { error, loading, client }) => (
         <Styled.div>
           {error && <Error error={error} />}
