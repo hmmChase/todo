@@ -103,7 +103,7 @@ export default {
       auth.validatePassword(args.password);
       auth.comparePasswords(args.password, args.confirmPassword);
 
-      const user = await ctx.prisma.query.user({
+      const [user] = await ctx.prisma.query.users({
         where: { resetToken: args.resetToken }
       });
 
