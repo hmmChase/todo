@@ -36,13 +36,14 @@ const createClient = ({ ctx, headers, initialState }) => {
   const errorLink = onError(
     ({ graphQLErrors, networkError, operation, forward }) => {
       if (graphQLErrors) {
-        graphQLErrors.map(err =>
-          console.log(
-            `[GraphQL error (${operation.operationName})]: Message: ${
-              err.message
-            }`
-          )
-        );
+        graphQLErrors.map(err => {
+          const errorObject = {
+            operation: operation.operationName,
+            message: err.message
+          };
+
+          console.log('[GraphQL error]: ', errorObject);
+        });
 
         for (const err of graphQLErrors) {
           switch (err.extensions.code) {
@@ -64,16 +65,12 @@ const createClient = ({ ctx, headers, initialState }) => {
         }
       }
       if (networkError) {
-        networkError.result.errors.map(err => {
-          const errorObject = {
-            err,
-            code: err.extensions.code,
-            message: err.message,
-            stackTrace: err.extensions.exception.stacktrace
-          };
+        const errorObject = {
+          code: networkError.code,
+          message: networkError.message
+        };
 
-          console.log('[Network error]: ', errorObject);
-        });
+        console.log('[Network error]: ', errorObject);
 
         // if you would also like to retry automatically on
         // network errors, we recommend that you use
