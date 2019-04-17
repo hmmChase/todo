@@ -65,6 +65,13 @@ export default {
         throw new UserInputError(`No account found for ${email}`);
       }
 
+      // let user;
+      // try {
+      //   user = await ctx.prisma.query.user({ where: { email } });
+      // } catch (error) {
+      //   throw new UserInputError(`No account found for ${email}`);
+      // }
+
       await auth.checkPassword(args.password, user.password);
 
       await auth.sendCookie(ctx.res, { userId: user.id });
