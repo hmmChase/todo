@@ -17,6 +17,10 @@ const createClient = ({ ctx, headers, initialState }) => {
   console.log('withApollo', new Date().getMilliseconds());
 
   const consoleLink = new ApolloLink((operation, forward) => {
+    // console.log('ctx.req.headers: ', ctx.req.headers);
+
+    // console.log('headers: ', headers);
+
     console.log(
       '\n',
       `---------- starting request for ${operation.operationName}`,
@@ -32,6 +36,22 @@ const createClient = ({ ctx, headers, initialState }) => {
       return op;
     });
   });
+
+  // const refreshAuthToken = async refreshToken => {
+  //   // Get refresh token from cookies
+  //   console.log('.............................................');
+  //   console.log('refresh auth token with token:');
+  //   console.log(refreshToken);
+  //   console.log('.............................................');
+
+  //   // Get new auth token from server
+  //   return client.mutate({
+  //     mutation: REFRESH_AUTH_TOKEN,
+  //     variables: {
+  //       refreshToken
+  //     }
+  //   });
+  // };
 
   const errorLink = onError(
     ({ graphQLErrors, networkError, operation, forward }) => {
@@ -61,6 +81,35 @@ const createClient = ({ ctx, headers, initialState }) => {
 
               // Retry the request, returning the new observable
               return forward(operation);
+
+            // ----------------------------------------
+
+            // const doRefresh = async () => {
+            //   const refreshToken = await getTokens()['x-token-refresh'];
+            //   const data = await refreshAuthToken(refreshToken);
+
+            //   console.log('.......................');
+            //   console.log('results of refreshAuthToken (success!!)');
+            //   console.log(data.data.refreshAuthToken.token);
+            //   console.log('.......................');
+
+            //   await cookie.serialize(
+            //     'x-token-new',
+            //     data.data.refreshAuthToken.token,
+            //     {}
+            //   );
+
+            //   await operation.setContext({
+            //     headers: {
+            //       ...headers,
+            //       'x-token': data.data.refreshAuthToken.token
+            //     }
+            //   });
+
+            //   return forward(operation);
+            // };
+
+            // doRefresh();
           }
         }
       }
@@ -80,8 +129,11 @@ const createClient = ({ ctx, headers, initialState }) => {
   );
 
   const authLink = new ApolloLink((operation, forward) => {
+    // console.log('headers.cookie: ', headers.cookie);
+
     operation.setContext({
       headers
+      // headers: { ...headers, cookie: headers.cookie }
     });
     return forward(operation);
   });

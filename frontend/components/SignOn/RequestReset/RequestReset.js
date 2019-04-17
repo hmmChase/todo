@@ -15,12 +15,18 @@ class RequestReset extends React.PureComponent {
     await requestReset();
   };
 
+  handleError = error => error;
+
   render() {
     const { email } = this.state;
     const isInvalid = email === '';
 
     return (
-      <Mutation mutation={query.REQUEST_RESET_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={query.REQUEST_RESET_MUTATION}
+        variables={this.state}
+        onError={this.handleError}
+      >
         {(requestReset, { error, loading, called }) => (
           <Styled.div>
             <form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
