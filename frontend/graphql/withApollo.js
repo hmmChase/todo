@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
 /* eslint-disable default-case */
 /* eslint-disable no-restricted-syntax */
@@ -63,7 +64,16 @@ const createClient = ({ ctx, headers, initialState }) => {
         }
       }
       if (networkError) {
-        console.log(`[Network error]: ${networkError}`);
+        networkError.result.errors.map(err => {
+          const errorObject = {
+            err,
+            code: err.extensions.code,
+            message: err.message,
+            stackTrace: err.extensions.exception.stacktrace
+          };
+
+          console.log('[Network error]: ', errorObject);
+        });
 
         // if you would also like to retry automatically on
         // network errors, we recommend that you use
