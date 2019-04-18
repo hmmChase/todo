@@ -1,6 +1,5 @@
 import Router from 'next/router';
 import { Mutation } from 'react-apollo';
-import Error from '../../Error/Error';
 import * as query from './SignOut.query';
 import * as Styled from './SignOut.style';
 
@@ -10,14 +9,18 @@ const SignOut = React.memo(() => {
     await client.resetStore();
   };
 
+  const handleError = error => error;
+
   const handleCompleted = () => Router.push('/');
 
   return (
-    <Mutation mutation={query.SIGN_OUT_MUTATION} onCompleted={handleCompleted}>
-      {(signOut, { error, loading, client }) => (
+    <Mutation
+      mutation={query.SIGN_OUT_MUTATION}
+      onError={handleError}
+      onCompleted={handleCompleted}
+    >
+      {(signOut, { loading, client }) => (
         <Styled.div>
-          {error && <Error error={error} />}
-
           <button
             type="button"
             disabled={loading}

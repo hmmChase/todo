@@ -21,6 +21,8 @@ class SignUp extends React.PureComponent {
     await client.resetStore();
   };
 
+  handleError = error => error;
+
   handleCompleted = () => this.props.close();
 
   render() {
@@ -31,6 +33,7 @@ class SignUp extends React.PureComponent {
       <Mutation
         mutation={query.SIGN_UP_MUTATION}
         variables={this.state}
+        onError={this.handleError}
         onCompleted={this.handleCompleted}
       >
         {(signUp, { error, loading, client }) => {
