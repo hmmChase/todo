@@ -9,14 +9,26 @@ const typeDefs = importSchema(__dirname + '/schema/schema.graphql');
 
 const dev = process.env.NODE_ENV !== 'production';
 
+const getMe = async req => {
+  const token = req.cookies.token;
+
+  if (!token) return null;
+
+  try {
+    return await auth.verifyJWT(req, token);
+  } catch (err) {
+    console.log('getMe err', err);
+
+    return null;
+  }
+};
+
 export default () =>
   new ApolloServer({
     typeDefs,
     resolvers,
     context: async ({ req, res }) => {
-      const me = req.cookies.token
-        ? await auth.verifyJWT(res, req.cookies.token)
-        : null;
+      const me = await getMe(req);
 
       return { req, res, prisma, me };
     },

@@ -8,6 +8,57 @@ import * as auth from '../utils/auth';
 import * as mail from '../utils/mail';
 import * as config from '../config';
 
+// // Define token expiry times
+// const accessTokenExpiry = '10m';
+// const refreshTokenExpiry = '60m';
+
+// // Create access and refresh tokens
+// const createTokens = async (user, secret) => {
+//   // Create access token
+//   const accessToken = jwt.sign({ userId: user.id }, secret, {
+//     expiresIn: accessTokenExpiry
+//   });
+
+//   // Create refresh token
+//   const refreshToken = jwt.sign({ userId: user.id }, secret, {
+//     expiresIn: refreshTokenExpiry
+//   });
+
+//   return Promise.all([accessToken, refreshToken]);
+// };
+
+// // Refresh access token
+// export const refreshAccessToken = async (refreshToken, prisma, secret) => {
+//   let userId;
+
+//   // Attempt to verify refresh token
+//   try {
+//     // Get return values from verification
+//     userId = await jwt.verify(refreshToken, secret);
+//   } catch (err) {
+//     // Return nothing if verification fails
+//     throw new ForbiddenError('Please sign in again to continue');
+//   }
+
+//   // Find user 'me' by id
+//   const user = await prisma.query.user({ where: { id: userId } });
+
+//   // Create new access token
+//   const newAccessToken = await jwt.sign({ userId: user.id }, secret, {
+//     expiresIn: accessTokenExpiry
+//   });
+
+//   // Create new refresh token to extend idle timeout
+//   const newRefreshToken = await jwt.sign({ userId: user.id }, secret, {
+//     expiresIn: refreshTokenExpiry
+//   });
+
+//   // Return tokens and user
+//   return { newAccessToken, newRefreshToken };
+// };
+
+// --------------------------------
+
 export default {
   Query: {
     user: async (parent, args, ctx, info) => {
@@ -25,11 +76,23 @@ export default {
     me: async (parent, args, ctx, info) => {
       if (!ctx.me) return null;
 
-      return await ctx.prisma.query.user({ where: { id: ctx.me.userId } });
+      return await ctx.prisma.query.user({ where: { id: ctx.me.user.id } });
     }
   },
 
   Mutation: {
+    // refreshAccessToken: async (parent, args, ctx, info) => {
+    //   // Get new access token
+    //   const { newAccessToken, newRefreshToken } = await refreshAccessToken(
+    //     args.refreshToken,
+    //     ctx.prisma,
+    //     process.env.JWT_SECRET
+    //   );
+
+    //   // Return new tokens
+    //   return { token: newAccessToken, refreshToken: newRefreshToken };
+    // },
+
     signUp: async (parent, args, ctx, info) => {
       const email = args.email.toLowerCase();
 
@@ -51,7 +114,9 @@ export default {
         data: { email, password }
       });
 
-      await auth.sendCookie(ctx.res, { userId: user.id });
+      const payload = { user: { id: user.id } };
+
+      await auth.sendCookie(ctx.res, payload);
 
       return user;
     },
@@ -65,16 +130,11 @@ export default {
         throw new UserInputError(`No account found for ${email}`);
       }
 
-      // let user;
-      // try {
-      //   user = await ctx.prisma.query.user({ where: { email } });
-      // } catch (error) {
-      //   throw new UserInputError(`No account found for ${email}`);
-      // }
-
       await auth.checkPassword(args.password, user.password);
 
-      await auth.sendCookie(ctx.res, { userId: user.id });
+      const payload = { user: { id: user.id } };
+
+      await auth.sendCookie(ctx.res, payload);
 
       return user;
     },
@@ -133,7 +193,9 @@ export default {
         }
       });
 
-      await auth.sendCookie(ctx.res, { userId: updatedUser.id });
+      const payload = { user: { id: updatedUser.id } };
+
+      await auth.sendCookie(ctx.res, payload);
 
       return updatedUser;
     }

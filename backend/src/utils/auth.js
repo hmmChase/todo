@@ -10,40 +10,39 @@ export const signJWT = async payload =>
   // https://www.youtube.com/watch?v=67mezK3NzpU&feature=youtu.be&t=36m30s
 
   await jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: '10s'
+    expiresIn: config.JWTExpiryTime
   });
 
 export const verifyJWT = async (res, token) => {
   try {
-    const verifiedPayload = jwt.verify(token, process.env.JWT_SECRET);
-
-    console.log('TCL: verifyJWT -> verifiedPayload', verifiedPayload);
-
-    return verifiedPayload;
+    return jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
+    console.log('auth.verifyJWT err: ', err);
+
     // TODO: Figure out how to properly refresh token
 
     if (err.name === 'TokenExpiredError') {
-      console.log('TokenExpiredError');
+      //   console.log('TokenExpiredError');
 
-      const decodedPayload = await jwt.decode(token);
+      //   const decodedPayload = await jwt.decode(token);
 
-      await res.clearCookie('token');
+      //   await res.clearCookie('token');
 
-      await sendCookie(res, { userId: decodedPayload.userId });
+      //   payload = { user: { id: decodedPayload.userId } };
 
-      return decodedPayload;
+      //   await sendCookie(res, payload);
 
-      // throw new AuthenticationError(
-      //   `Your session expired. Please sign in again.`
-      // );
+      //   return decodedPayload;
+
+      throw new AuthenticationError(
+        'Your session expired. Please sign in again.'
+      );
     }
   }
 };
 
 export const sendCookie = async (res, payload) => {
   const JWT = await signJWT(payload);
-  console.log('TCL: sendCookie -> JWT', JWT);
 
   const cookieOptions = {
     httpOnly: true,
@@ -52,15 +51,9 @@ export const sendCookie = async (res, payload) => {
   };
 
   try {
-    console.log('1');
-
     await res.cookie('token', JWT, cookieOptions);
-
-    console.log('res headers : ', res.header()._headers);
-
-    console.log('2');
-  } catch (error) {
-    console.log('TCL: sendCookie -> res.cookie', error);
+  } catch (err) {
+    throw new Error(err);
   }
 };
 
@@ -110,8 +103,8 @@ export const checkPassword = async (password, hashedPassword) => {
 export const genResetToken = async () => {
   const randomBytesPromisified = promisify(randomBytes);
   const resetTokenBytes = await randomBytesPromisified(20);
-  const resetToken = resetTokenBytes.toString('hex');
 
+  const resetToken = resetTokenBytes.toString('hex');
   const resetTokenExpiry = Date.now() + config.resetTokenExpiryTime;
 
   return { resetToken, resetTokenExpiry };
