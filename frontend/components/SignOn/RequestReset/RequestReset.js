@@ -28,7 +28,7 @@ class RequestReset extends React.PureComponent {
         onError={this.handleError}
       >
         {(requestReset, { loading, error, called }) => (
-          <Styled.div>
+          <Styled.formContainer>
             <form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Request a password reset</h2>
@@ -55,7 +55,7 @@ class RequestReset extends React.PureComponent {
                 </button>
               </fieldset>
             </form>
-          </Styled.div>
+          </Styled.formContainer>
         )}
       </Mutation>
     );
