@@ -39,7 +39,7 @@ class SignIn extends React.PureComponent {
         onCompleted={this.handleCompleted}
       >
         {(signIn, { loading, error, client }) => (
-          <Styled.div>
+          <Styled.formContainer>
             <form onSubmit={e => this.handleSubmitForm(e, signIn, client)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Sign In</h2>
@@ -77,7 +77,7 @@ class SignIn extends React.PureComponent {
             <a style={{ cursor: 'pointer' }} onClick={this.props.requestReset}>
               Forgot password?
             </a>
-          </Styled.div>
+          </Styled.formContainer>
         )}
       </Mutation>
     );

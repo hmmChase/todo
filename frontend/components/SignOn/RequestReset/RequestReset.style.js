@@ -1,14 +1,3 @@
-import styled from 'styled-components';
+import { formContainer } from '../../../styles/formContainer.style';
 
-export const div = styled.div`
-  fieldset {
-    display: flex;
-    * {
-      margin: 4px;
-    }
-
-    button {
-      align-self: center;
-    }
-  }
-`;
+export { formContainer };

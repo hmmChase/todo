@@ -1,3 +1,3 @@
-import styled from 'styled-components';
+import { redBtn } from '../../../styles/button.style';
 
-export const div = styled.div``;
+export { redBtn };

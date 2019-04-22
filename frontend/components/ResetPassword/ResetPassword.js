@@ -48,7 +48,7 @@ class ResetPassword extends React.PureComponent {
         onCompleted={this.handleCompleted}
       >
         {(resetPassword, { loading, error, client }) => (
-          <Styled.div>
+          <Styled.formContainer>
             <form
               onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
             >
@@ -93,7 +93,7 @@ class ResetPassword extends React.PureComponent {
                 </button>
               </fieldset>
             </form>
-          </Styled.div>
+          </Styled.formContainer>
         )}
       </Mutation>
     );

@@ -38,7 +38,7 @@ class SignUp extends React.PureComponent {
       >
         {(signUp, { loading, error, client }) => {
           return (
-            <Styled.div>
+            <Styled.formContainer>
               <form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h2>Create a new Account</h2>
@@ -87,12 +87,12 @@ class SignUp extends React.PureComponent {
                     <li>a number</li>
                   </ul>
 
-                  <button type="submit" disabled={isInvalid}>
+                  <Styled.greenBtn type="submit" disabled={isInvalid}>
                     Sign Up
-                  </button>
+                  </Styled.greenBtn>
                 </fieldset>
               </form>
-            </Styled.div>
+            </Styled.formContainer>
           );
         }}
       </Mutation>
