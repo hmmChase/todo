@@ -15,7 +15,6 @@ const UsersPage = React.memo(() => (
 
 UsersPage.getInitialProps = async ctx => {
   const me = await isLoggedIn(ctx.apolloClient);
-  console.log('getInitialProps me: ', me);
 
   if (!me) redirect(ctx, '/');
 

@@ -21,17 +21,17 @@ class SignOn extends React.PureComponent {
               <SignOut />
             ) : (
               <>
-                <Styled.aSignIn
+                <Styled.purpleBtn
                   onClick={() => this.setState({ showPopup: 'signIn' })}
                 >
                   Sign In
-                </Styled.aSignIn>
+                </Styled.purpleBtn>
 
-                <Styled.aSignUp
+                <Styled.orangeBtn
                   onClick={() => this.setState({ showPopup: 'signUp' })}
                 >
                   Sign Up
-                </Styled.aSignUp>
+                </Styled.orangeBtn>
 
                 {showPopup && (
                   <Styled.divPopup>
