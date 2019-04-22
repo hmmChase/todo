@@ -5,9 +5,9 @@
 /* eslint-disable no-console */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
+import DisplayError from '../../DisplayError/DisplayError';
 import * as query from './SignIn.query';
 import * as Styled from './SignIn.style';
-import Error from '../../Error/Error';
 
 class SignIn extends React.PureComponent {
   state = {
@@ -38,13 +38,13 @@ class SignIn extends React.PureComponent {
         onError={this.handleError}
         onCompleted={this.handleCompleted}
       >
-        {(signIn, { error, loading, client }) => (
+        {(signIn, { loading, error, client }) => (
           <Styled.div>
             <form onSubmit={e => this.handleSubmitForm(e, signIn, client)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Sign In</h2>
 
-                {error && <Error error={error} />}
+                {error && <DisplayError error={error} />}
 
                 <label htmlFor="email">
                   Email

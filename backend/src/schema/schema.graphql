@@ -17,9 +17,15 @@ type Mutation {
     confirmPassword: String!
   ): User!
   me: User
+  # refreshAccessToken(refreshToken: String!): Token!
 }
 
 type User {
   id: ID!
   email: String!
 }
+
+# type Token {
+#   token: String!
+#   refreshToken: String!
+# }

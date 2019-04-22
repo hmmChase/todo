@@ -2,7 +2,7 @@ import SignIn from './SignIn/SignIn';
 import SignOut from './SignOut/SignOut';
 import SignUp from './SignUp/SignUp';
 import RequestReset from './RequestReset/RequestReset';
-import UserWrapper from '../wrappers/UserWrapper/UserWrapper';
+import WithUser from '../wrappers/WithUser/WithUser';
 import * as Styled from './SignOn.style';
 
 class SignOn extends React.PureComponent {
@@ -14,10 +14,10 @@ class SignOn extends React.PureComponent {
     const { showPopup } = this.state;
 
     return (
-      <UserWrapper>
-        {({ data }) => (
+      <WithUser>
+        {me => (
           <Styled.div>
-            {data.me ? (
+            {me ? (
               <SignOut />
             ) : (
               <>
@@ -67,7 +67,7 @@ class SignOn extends React.PureComponent {
             )}
           </Styled.div>
         )}
-      </UserWrapper>
+      </WithUser>
     );
   }
 }

@@ -1,66 +1,65 @@
-import { AuthenticationError, UserInputError } from 'apollo-server-express';
+import {
+  AuthenticationError,
+  ForbiddenError,
+  UserInputError
+} from 'apollo-server-express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
 import * as config from '../config';
 
+export const isAuth = async req => {
+  const token = req.cookies.token;
+
+  if (!token) throw new ForbiddenError('Please sign in.');
+
+  return await verifyJWT(req, token);
+};
+
 export const signJWT = async payload =>
   // TODO: Add CSRK token
   // https://www.youtube.com/watch?v=67mezK3NzpU&feature=youtu.be&t=36m30s
 
   await jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: '10s'
+    expiresIn: config.JWTExpiryTime
   });
 
 export const verifyJWT = async (res, token) => {
   try {
-    const verifiedPayload = jwt.verify(token, process.env.JWT_SECRET);
-
-    console.log('TCL: verifyJWT -> verifiedPayload', verifiedPayload);
-
-    return verifiedPayload;
+    return jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
-    // TODO: Figure out how to properly refresh token
-
     if (err.name === 'TokenExpiredError') {
+      // TODO: Figure out how to refresh token
       console.log('TokenExpiredError');
 
-      const decodedPayload = await jwt.decode(token);
+      //   const decodedPayload = await jwt.decode(token);
 
-      await res.clearCookie('token');
+      //   await res.clearCookie('token');
 
-      await sendCookie(res, { userId: decodedPayload.userId });
+      //   payload = { user: { id: decodedPayload.userId } };
 
-      return decodedPayload;
+      //   await sendCookie(res, payload);
 
-      // throw new AuthenticationError(
-      //   `Your session expired. Please sign in again.`
-      // );
+      throw new AuthenticationError('JWT expired.');
     }
+    throw new AuthenticationError('verifyJWT error: ', err);
   }
 };
 
 export const sendCookie = async (res, payload) => {
   const JWT = await signJWT(payload);
-  console.log('TCL: sendCookie -> JWT', JWT);
 
   const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
+    maxAge: config.cookieMaxAge
   };
 
   try {
-    console.log('1');
-
     await res.cookie('token', JWT, cookieOptions);
-
-    console.log('res headers : ', res.header()._headers);
-
-    console.log('2');
-  } catch (error) {
-    console.log('TCL: sendCookie -> res.cookie', error);
+  } catch (err) {
+    throw new Error(err);
   }
 };
 
@@ -110,8 +109,8 @@ export const checkPassword = async (password, hashedPassword) => {
 export const genResetToken = async () => {
   const randomBytesPromisified = promisify(randomBytes);
   const resetTokenBytes = await randomBytesPromisified(20);
-  const resetToken = resetTokenBytes.toString('hex');
 
+  const resetToken = resetTokenBytes.toString('hex');
   const resetTokenExpiry = Date.now() + config.resetTokenExpiryTime;
 
   return { resetToken, resetTokenExpiry };

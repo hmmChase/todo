@@ -3,7 +3,7 @@
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { Mutation } from 'react-apollo';
-import Error from '../Error/Error';
+import DisplayError from '../DisplayError/DisplayError';
 import * as query from './ResetPassword.query';
 import * as Styled from './ResetPassword.style';
 
@@ -33,7 +33,7 @@ class ResetPassword extends React.PureComponent {
       message: 'Your reset token is expired.  Please request a new one.'
     };
 
-    if (isTokenExpired) return <Error error={tokenError} />;
+    if (isTokenExpired) return <DisplayError error={tokenError} />;
 
     return (
       <Mutation
@@ -44,7 +44,7 @@ class ResetPassword extends React.PureComponent {
         }}
         onCompleted={this.handleCompleted}
       >
-        {(resetPassword, { error, loading, client }) => (
+        {(resetPassword, { loading, error, client }) => (
           <Styled.div>
             <form
               onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
@@ -52,7 +52,7 @@ class ResetPassword extends React.PureComponent {
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Reset Your Password</h2>
 
-                {error && <Error error={error} />}
+                {error && <DisplayError error={error} />}
 
                 <label htmlFor="password">
                   Password

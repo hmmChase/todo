@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
-import Error from '../../Error/Error';
+import DisplayError from '../../DisplayError/DisplayError';
 import * as query from './SignUp.query';
 import * as Styled from './SignUp.style';
 
@@ -36,14 +36,14 @@ class SignUp extends React.PureComponent {
         onError={this.handleError}
         onCompleted={this.handleCompleted}
       >
-        {(signUp, { error, loading, client }) => {
+        {(signUp, { loading, error, client }) => {
           return (
             <Styled.div>
               <form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h2>Create a new Account</h2>
 
-                  {error && <Error error={error} />}
+                  {error && <DisplayError error={error} />}
 
                   <label htmlFor="email">
                     Email

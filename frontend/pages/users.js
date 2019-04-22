@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import Users from '../components/Users/Users';
+import redirect from '../utils/redirect';
+import { isLoggedIn } from '../utils/isLoggedIn';
 
 const UsersPage = React.memo(() => (
   <>
@@ -10,5 +12,14 @@ const UsersPage = React.memo(() => (
     <Users />
   </>
 ));
+
+UsersPage.getInitialProps = async ctx => {
+  const me = await isLoggedIn(ctx.apolloClient);
+  console.log('getInitialProps me: ', me);
+
+  if (!me) redirect(ctx, '/');
+
+  return me;
+};
 
 export default UsersPage;
