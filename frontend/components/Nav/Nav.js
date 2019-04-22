@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import UserWrapper from '../wrappers/UserWrapper/UserWrapper';
+import WithUser from '../wrappers/WithUser/WithUser';
 import * as Styled from './Nav.style';
 
 const Nav = React.memo(() => (
-  <UserWrapper>
-    {({ data }) => (
+  <WithUser>
+    {me => (
       <Styled.nav>
         <ul>
           <li>
@@ -12,7 +12,7 @@ const Nav = React.memo(() => (
               <a>Home</a>
             </Link>
           </li>
-          {data.me && (
+          {me && (
             <li>
               <Link href="users">
                 <a>Users</a>
@@ -22,7 +22,7 @@ const Nav = React.memo(() => (
         </ul>
       </Styled.nav>
     )}
-  </UserWrapper>
+  </WithUser>
 ));
 
 export default Nav;

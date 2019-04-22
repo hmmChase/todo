@@ -66,17 +66,15 @@ export default {
     },
 
     users: async (parent, args, ctx, info) => {
-      if (!ctx.me) {
-        throw new ForbiddenError('You must be signed in to view this.');
-      }
+      await auth.isAuth(ctx.req);
 
       return await ctx.prisma.query.users();
     },
 
     me: async (parent, args, ctx, info) => {
-      if (!ctx.me) return null;
+      const me = await auth.isAuth(ctx.req);
 
-      return await ctx.prisma.query.user({ where: { id: ctx.me.user.id } });
+      if (me) return await ctx.prisma.query.user({ where: { id: me.user.id } });
     }
   },
 

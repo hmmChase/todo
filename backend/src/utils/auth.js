@@ -1,9 +1,21 @@
-import { AuthenticationError, UserInputError } from 'apollo-server-express';
+import {
+  AuthenticationError,
+  ForbiddenError,
+  UserInputError
+} from 'apollo-server-express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
 import * as config from '../config';
+
+export const isAuth = async req => {
+  const token = req.cookies.token;
+
+  if (!token) throw new ForbiddenError('Please sign in.');
+
+  return await verifyJWT(req, token);
+};
 
 export const signJWT = async payload =>
   // TODO: Add CSRK token
@@ -17,12 +29,9 @@ export const verifyJWT = async (res, token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
-    console.log('auth.verifyJWT err: ', err);
-
-    // TODO: Figure out how to properly refresh token
-
     if (err.name === 'TokenExpiredError') {
-      //   console.log('TokenExpiredError');
+      // TODO: Figure out how to refresh token
+      console.log('TokenExpiredError');
 
       //   const decodedPayload = await jwt.decode(token);
 
@@ -32,12 +41,9 @@ export const verifyJWT = async (res, token) => {
 
       //   await sendCookie(res, payload);
 
-      //   return decodedPayload;
-
-      throw new AuthenticationError(
-        'Your session expired. Please sign in again.'
-      );
+      throw new AuthenticationError('JWT expired.');
     }
+    throw new AuthenticationError('verifyJWT error: ', err);
   }
 };
 
@@ -47,7 +53,7 @@ export const sendCookie = async (res, payload) => {
   const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
+    maxAge: config.cookieMaxAge
   };
 
   try {

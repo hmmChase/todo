@@ -5,6 +5,7 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
+import Router from 'next/router';
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
@@ -66,10 +67,20 @@ const createClient = ({ ctx, headers, initialState }) => {
         // ----------------------------------------
 
         for (const err of graphQLErrors) {
+          console.log('err.extensions.code: ', err.extensions.code);
+
           switch (err.extensions.code) {
             // AuthenticationError
             case 'UNAUTHENTICATED':
-              console.log('UNAUTHENTICATED');
+              console.log('UNAUTHENTICATED: ', err);
+
+              return forward(operation);
+
+            // ForbiddenError
+            case 'FORBIDDEN':
+              console.log('FORBIDDEN: ', err);
+
+              if (process.browser) Router.push('/');
 
               return forward(operation);
 
@@ -164,7 +175,7 @@ const createClient = ({ ctx, headers, initialState }) => {
             //     //     }
             //     //   });
 
-            //     //   return forward(operation);
+            // return forward(operation);
             //     // };
 
             //     // doRefresh();

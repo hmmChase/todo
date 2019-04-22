@@ -1,5 +1,5 @@
 import { Mutation } from 'react-apollo';
-import Error from '../../Error/Error';
+import DisplayError from '../../DisplayError/DisplayError';
 import * as query from './RequestReset.query';
 import * as Styled from './RequestReset.style';
 
@@ -27,13 +27,13 @@ class RequestReset extends React.PureComponent {
         variables={this.state}
         onError={this.handleError}
       >
-        {(requestReset, { error, loading, called }) => (
+        {(requestReset, { loading, error, called }) => (
           <Styled.div>
             <form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Request a password reset</h2>
 
-                {error && <Error error={error} />}
+                {error && <DisplayError error={error} />}
 
                 {!error && !loading && called && (
                   <p>Check your email for a reset link.</p>
