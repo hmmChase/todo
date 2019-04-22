@@ -22,6 +22,8 @@ class ResetPassword extends React.PureComponent {
     await client.resetStore();
   };
 
+  handleError = error => error;
+
   handleCompleted = () => Router.push({ pathname: '/' });
 
   render() {
@@ -42,6 +44,7 @@ class ResetPassword extends React.PureComponent {
           ...this.state,
           resetToken
         }}
+        onError={this.handleError}
         onCompleted={this.handleCompleted}
       >
         {(resetPassword, { loading, error, client }) => (

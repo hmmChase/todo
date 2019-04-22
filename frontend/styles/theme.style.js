@@ -1,6 +1,8 @@
 export default {
   black: '#393939',
-  red: '#B00',
-  green: '#BADA55',
-  blue: '#ACE'
+  blue: '#ACE',
+  red: '#F00',
+  orange: 'tomato',
+  green: 'limeGreen',
+  purple: 'blueviolet'
 };
