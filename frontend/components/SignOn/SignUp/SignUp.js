@@ -87,9 +87,11 @@ class SignUp extends React.PureComponent {
                     <li>a number</li>
                   </ul>
 
-                  <Styled.greenBtn type="submit" disabled={isInvalid}>
-                    Sign Up
-                  </Styled.greenBtn>
+                  <Styled.submitInputBtn
+                    value="Sign Up"
+                    type="submit"
+                    disabled={isInvalid}
+                  />
                 </fieldset>
               </form>
             </Styled.formContainer>

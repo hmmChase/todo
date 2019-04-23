@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { purpleBtn, orangeBtn } from '../../styles/button.style';
+import { purpleLinkBtn, orangeLinkBtn } from '../../styles/button.style';
 
-export { purpleBtn, orangeBtn };
+export { purpleLinkBtn, orangeLinkBtn };
 
 export const div = styled.div``;
 

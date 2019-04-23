@@ -11,7 +11,8 @@ export default createGlobalStyle`
          url('/static/fonts/open-sans-v15-latin-regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-    font-display: swap;
+    /* font-display: swap; */
+    font-display: fallback;
   }
 
   html {

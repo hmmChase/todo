@@ -1,3 +1,3 @@
-import { redBtn } from '../../../styles/button.style';
+import { redLinkBtn } from '../../../styles/button.style';
 
-export { redBtn };
+export { redLinkBtn };

@@ -50,9 +50,11 @@ class RequestReset extends React.PureComponent {
                   />
                 </label>
 
-                <button type="submit" disabled={isInvalid}>
-                  Request Reset
-                </button>
+                <Styled.submitInputBtn
+                  value="Request Reset"
+                  type="submit"
+                  disabled={isInvalid}
+                />
               </fieldset>
             </form>
           </Styled.formContainer>
