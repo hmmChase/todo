@@ -68,13 +68,19 @@ class SignIn extends React.PureComponent {
                   />
                 </label>
 
-                <button type="submit" disabled={isInvalid}>
-                  Sign In
-                </button>
+                <Styled.submitInputBtn
+                  value="Sign In"
+                  type="submit"
+                  disabled={isInvalid}
+                />
               </fieldset>
             </form>
 
-            <a style={{ cursor: 'pointer' }} onClick={this.props.requestReset}>
+            <a
+              value="Forgot password?"
+              css="cursor: pointer;"
+              onClick={this.props.requestReset}
+            >
               Forgot password?
             </a>
           </Styled.formContainer>

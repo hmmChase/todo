@@ -1,4 +1,4 @@
 import { formContainer } from '../../../styles/formContainer.style';
-import { greenBtn } from '../../../styles/button.style';
+import { submitInputBtn } from '../../../styles/button.style';
 
-export { formContainer, greenBtn };
+export { formContainer, submitInputBtn };
