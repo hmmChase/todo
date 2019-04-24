@@ -5,7 +5,6 @@ export const linkBtn = styled.a`
   text-shadow: 1px 1px 0 #fff;
   font-size: 1em;
   font-weight: 600;
-  margin: 1em;
   padding: 0.25em 1em;
   border: 2px solid;
   border-radius: 3px;
@@ -23,17 +22,14 @@ export const linkBtn = styled.a`
 
 export const purpleLinkBtn = styled(linkBtn)`
   color: ${props => props.theme.purple};
-  border-color: ${props => props.theme.purple};
 `;
 
 export const orangeLinkBtn = styled(linkBtn)`
   color: ${props => props.theme.orange};
-  border-color: ${props => props.theme.orange};
 `;
 
 export const redLinkBtn = styled(linkBtn)`
   color: ${props => props.theme.red};
-  border-color: ${props => props.theme.red};
 `;
 
 export const inputBtn = styled.input`
@@ -47,11 +43,7 @@ export const inputBtn = styled.input`
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.2s ease-out;
-
-  &[type='submit'] {
-    background: inherit;
-    -webkit-appearance: none;
-  }
+  background: none;
 
   &:hover {
     background-color: #eee;
@@ -64,16 +56,8 @@ export const inputBtn = styled.input`
 
 export const greenInputBtn = styled(inputBtn)`
   color: ${props => props.theme.green};
-  border-color: ${props => props.theme.green};
-`;
-
-export const redInputBtn = styled(inputBtn)`
-  color: ${props => props.theme.red};
-  border-color: ${props => props.theme.red};
 `;
 
 export const submitInputBtn = styled(inputBtn)`
-  color: ${props => (props.disabled ? props.theme.red : props.theme.green)};
-  border-color: ${props =>
-    props.disabled ? props.theme.red : props.theme.green};
+  color: ${props => !props.disabled && props.theme.green};
 `;

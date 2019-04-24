@@ -1,71 +1,45 @@
-import SignIn from './SignIn/SignIn';
-import SignOut from './SignOut/SignOut';
-import SignUp from './SignUp/SignUp';
-import RequestReset from './RequestReset/RequestReset';
 import WithUser from '../wrappers/WithUser/WithUser';
+import SignOut from './SignOut/SignOut';
+import PopUps from './PopUps/PopUps';
 import * as Styled from './SignOn.style';
 
 class SignOn extends React.PureComponent {
   state = {
-    showPopup: ''
+    popUp: ''
   };
 
   render() {
-    const { showPopup } = this.state;
+    const { popUp } = this.state;
 
     return (
       <WithUser>
         {me => (
-          <Styled.div>
+          <Styled.divSignOn>
             {me ? (
               <SignOut />
             ) : (
               <>
                 <Styled.purpleLinkBtn
-                  onClick={() => this.setState({ showPopup: 'signIn' })}
+                  onClick={() => this.setState({ popUp: 'signIn' })}
                 >
                   Sign In
                 </Styled.purpleLinkBtn>
 
                 <Styled.orangeLinkBtn
-                  onClick={() => this.setState({ showPopup: 'signUp' })}
+                  onClick={() => this.setState({ popUp: 'signUp' })}
                 >
                   Sign Up
                 </Styled.orangeLinkBtn>
 
-                {showPopup && (
-                  <Styled.divPopup>
-                    <Styled.divOuter
-                      onClick={() => this.setState({ showPopup: '' })}
-                    />
-
-                    <Styled.divInner>
-                      {showPopup === 'signIn' && (
-                        <SignIn
-                          close={() => this.setState({ showPopup: '' })}
-                          requestReset={() =>
-                            this.setState({ showPopup: 'requestReset' })
-                          }
-                        />
-                      )}
-
-                      {showPopup === 'signUp' && (
-                        <SignUp
-                          close={() => this.setState({ showPopup: '' })}
-                        />
-                      )}
-
-                      {showPopup === 'requestReset' && (
-                        <RequestReset
-                          close={() => this.setState({ showPopup: '' })}
-                        />
-                      )}
-                    </Styled.divInner>
-                  </Styled.divPopup>
+                {popUp && (
+                  <PopUps
+                    popUp={popUp}
+                    setPopUp={popUpName => this.setState({ popUp: popUpName })}
+                  />
                 )}
               </>
             )}
-          </Styled.div>
+          </Styled.divSignOn>
         )}
       </WithUser>
     );

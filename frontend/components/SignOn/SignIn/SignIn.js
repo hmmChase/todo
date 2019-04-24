@@ -19,6 +19,7 @@ class SignIn extends React.PureComponent {
 
   handleSubmitForm = async (e, signIn, client) => {
     e.preventDefault();
+    this.setState({ password: '' });
     await signIn();
     await client.resetStore();
   };
