@@ -48,52 +48,50 @@ class ResetPassword extends React.PureComponent {
         onCompleted={this.handleCompleted}
       >
         {(resetPassword, { loading, error, client }) => (
-          <Styled.formContainer>
-            <form
-              onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
-            >
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Reset Your Password</h2>
+          <Styled.form
+            onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
+          >
+            <fieldset disabled={loading} aria-busy={loading}>
+              <h2>Reset Your Password</h2>
 
-                {error && <DisplayError error={error} />}
+              {error && <DisplayError error={error} />}
 
-                <label htmlFor="password">
-                  Password
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    value={password}
-                    onChange={this.handleChangeInput}
-                  />
-                </label>
+              <label htmlFor="password">
+                Password
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  value={password}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
-                <label htmlFor="confirmPassword">
-                  Confirm Your Password
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="confirmPassword"
-                    value={confirmPassword}
-                    onChange={this.handleChangeInput}
-                  />
-                </label>
+              <label htmlFor="confirmPassword">
+                Confirm Your Password
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="confirmPassword"
+                  value={confirmPassword}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
-                <p>Password must contain:</p>
+              <p>Password must contain:</p>
 
-                <ul>
-                  <li>at least 8 charactors</li>
-                  <li>an uppercase letter</li>
-                  <li>a lowercase letter</li>
-                  <li>a number</li>
-                </ul>
+              <ul>
+                <li>at least 8 charactors</li>
+                <li>an uppercase letter</li>
+                <li>a lowercase letter</li>
+                <li>a number</li>
+              </ul>
 
-                <button type="submit" disabled={isInvalidPass}>
-                  Reset Your Password
-                </button>
-              </fieldset>
-            </form>
-          </Styled.formContainer>
+              <button type="submit" disabled={isInvalidPass}>
+                Reset Your Password
+              </button>
+            </fieldset>
+          </Styled.form>
         )}
       </Mutation>
     );

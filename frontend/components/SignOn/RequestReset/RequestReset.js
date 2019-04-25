@@ -28,36 +28,34 @@ class RequestReset extends React.PureComponent {
         onError={this.handleError}
       >
         {(requestReset, { loading, error, called }) => (
-          <Styled.formContainer>
-            <form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Request a password reset</h2>
+          <Styled.form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
+            <fieldset disabled={loading} aria-busy={loading}>
+              <h2>Request a password reset</h2>
 
-                {error && <DisplayError error={error} />}
+              {error && <DisplayError error={error} />}
 
-                {!error && !loading && called && (
-                  <p>Check your email for a reset link.</p>
-                )}
+              {!error && !loading && called && (
+                <p>Check your email for a reset link.</p>
+              )}
 
-                <label htmlFor="email">
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="email"
-                    value={email}
-                    onChange={this.handleChangeInput}
-                  />
-                </label>
-
-                <Styled.submitInputBtn
-                  value="Request Reset"
-                  type="submit"
-                  disabled={isInvalid}
+              <label htmlFor="email">
+                Email
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="email"
+                  value={email}
+                  onChange={this.handleChangeInput}
                 />
-              </fieldset>
-            </form>
-          </Styled.formContainer>
+              </label>
+
+              <Styled.submitInputBtn
+                value="Request Reset"
+                type="submit"
+                disabled={isInvalid}
+              />
+            </fieldset>
+          </Styled.form>
         )}
       </Mutation>
     );

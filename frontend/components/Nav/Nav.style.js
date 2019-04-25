@@ -1,6 +1,20 @@
 import styled from 'styled-components';
 
 export const nav = styled.nav`
+  ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    height: 100%;
+    flex-wrap: wrap;
+  }
+
+  li {
+    flex: 3;
+    flex: 1 1 50%;
+  }
+
   a {
     color: white;
     letter-spacing: 1px;
@@ -15,20 +29,6 @@ export const nav = styled.nav`
     :hover {
       background: rgba(0, 0, 0, 0.3);
     }
-  }
-
-  ul {
-    display: flex;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    height: 100%;
-    flex-wrap: wrap;
-  }
-
-  li {
-    flex: 3;
-    flex: 1 1 50%;
   }
 
   @media all and (max-width: 500px) {

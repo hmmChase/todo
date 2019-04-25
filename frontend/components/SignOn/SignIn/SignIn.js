@@ -40,8 +40,10 @@ class SignIn extends React.PureComponent {
         onCompleted={this.handleCompleted}
       >
         {(signIn, { loading, error, client }) => (
-          <Styled.formContainer>
-            <form onSubmit={e => this.handleSubmitForm(e, signIn, client)}>
+          <>
+            <Styled.form
+              onSubmit={e => this.handleSubmitForm(e, signIn, client)}
+            >
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Sign In</h2>
 
@@ -75,7 +77,7 @@ class SignIn extends React.PureComponent {
                   disabled={isInvalid}
                 />
               </fieldset>
-            </form>
+            </Styled.form>
 
             <a
               value="Forgot password?"
@@ -84,7 +86,7 @@ class SignIn extends React.PureComponent {
             >
               Forgot password?
             </a>
-          </Styled.formContainer>
+          </>
         )}
       </Mutation>
     );

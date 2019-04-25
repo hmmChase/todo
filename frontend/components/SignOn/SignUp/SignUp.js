@@ -36,67 +36,63 @@ class SignUp extends React.PureComponent {
         onError={this.handleError}
         onCompleted={this.handleCompleted}
       >
-        {(signUp, { loading, error, client }) => {
-          return (
-            <Styled.formContainer>
-              <form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
-                <fieldset disabled={loading} aria-busy={loading}>
-                  <h2>Create a new Account</h2>
+        {(signUp, { loading, error, client }) => (
+          <Styled.form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
+            <fieldset disabled={loading} aria-busy={loading}>
+              <h2>Create a new Account</h2>
 
-                  {error && <DisplayError error={error} />}
+              {error && <DisplayError error={error} />}
 
-                  <label htmlFor="email">
-                    Email
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="email"
-                      value={email}
-                      onChange={this.handleChangeInput}
-                    />
-                  </label>
+              <label htmlFor="email">
+                Email
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="email"
+                  value={email}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
-                  <label htmlFor="password">
-                    Password
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="password"
-                      value={password}
-                      onChange={this.handleChangeInput}
-                    />
-                  </label>
+              <label htmlFor="password">
+                Password
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  value={password}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
-                  <label htmlFor="confirmPassword">
-                    Confirm Your Password
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      placeholder="password"
-                      value={confirmPassword}
-                      onChange={this.handleChangeInput}
-                    />
-                  </label>
+              <label htmlFor="confirmPassword">
+                Confirm Your Password
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="password"
+                  value={confirmPassword}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
-                  <p>Password must contain:</p>
+              <p>Password must contain:</p>
 
-                  <ul>
-                    <li>at least 8 charactors</li>
-                    <li>an uppercase letter</li>
-                    <li>a lowercase letter</li>
-                    <li>a number</li>
-                  </ul>
+              <ul>
+                <li>at least 8 charactors</li>
+                <li>an uppercase letter</li>
+                <li>a lowercase letter</li>
+                <li>a number</li>
+              </ul>
 
-                  <Styled.submitInputBtn
-                    value="Sign Up"
-                    type="submit"
-                    disabled={isInvalid}
-                  />
-                </fieldset>
-              </form>
-            </Styled.formContainer>
-          );
-        }}
+              <Styled.submitInputBtn
+                value="Sign Up"
+                type="submit"
+                disabled={isInvalid}
+              />
+            </fieldset>
+          </Styled.form>
+        )}
       </Mutation>
     );
   }

@@ -1,3 +1,3 @@
-import { formContainer } from '../../styles/formContainer.style';
+import { form } from '../../styles/form.style';
 
-export { formContainer };
+export { form };
