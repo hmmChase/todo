@@ -68,7 +68,7 @@ class SignUp extends React.PureComponent {
               </label>
 
               <label htmlFor="confirmPassword">
-                Confirm Your Password
+                Confirm Password
                 <Styled.inputText
                   type="password"
                   name="confirmPassword"
