@@ -30,29 +30,15 @@ class ResetPassword extends React.PureComponent {
 
   render() {
     const { password, confirmPassword } = this.state;
-    const { resetToken, resetTokenExpiry } = this.props;
 
     const isInvalidPass = password === '' || confirmPassword === '';
-
-    const isTokenMissing = !resetToken || !resetTokenExpiry;
-    const isTokenExpired = Date.now() > resetTokenExpiry;
-
-    const tokenMissingError = {
-      message: 'Your reset token is invalid.  Please request a new one.'
-    };
-    const tokenExpiredError = {
-      message: 'Your reset token is expired.  Please request a new one.'
-    };
-
-    if (isTokenMissing) return <DisplayError error={tokenMissingError} />;
-    if (isTokenExpired) return <DisplayError error={tokenExpiredError} />;
 
     return (
       <Mutation
         mutation={query.RESET_PASSWORD_MUTATION}
         variables={{
           ...this.state,
-          resetToken
+          resetToken: this.props.resetToken
         }}
         onError={this.handleError}
         onCompleted={this.handleCompleted}
@@ -111,13 +97,11 @@ class ResetPassword extends React.PureComponent {
 }
 
 ResetPassword.defaultProps = {
-  resetToken: '',
-  resetTokenExpiry: ''
+  resetToken: ''
 };
 
 ResetPassword.propTypes = {
-  resetToken: PropTypes.string,
-  resetTokenExpiry: PropTypes.string
+  resetToken: PropTypes.string
 };
 
 export default ResetPassword;

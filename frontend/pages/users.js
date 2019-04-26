@@ -17,8 +17,6 @@ UsersPage.getInitialProps = async ctx => {
   const me = await isLoggedIn(ctx.apolloClient);
 
   if (!me) redirect(ctx, '/');
-
-  return me;
 };
 
 export default UsersPage;
