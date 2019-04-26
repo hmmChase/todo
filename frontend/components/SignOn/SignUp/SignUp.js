@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
@@ -36,67 +38,63 @@ class SignUp extends React.PureComponent {
         onError={this.handleError}
         onCompleted={this.handleCompleted}
       >
-        {(signUp, { loading, error, client }) => {
-          return (
-            <Styled.formContainer>
-              <form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
-                <fieldset disabled={loading} aria-busy={loading}>
-                  <h2>Create a new Account</h2>
+        {(signUp, { loading, error, client }) => (
+          <Styled.form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
+            <fieldset disabled={loading} aria-busy={loading}>
+              <h2>Create a new Account</h2>
 
-                  {error && <DisplayError error={error} />}
+              {error && <DisplayError error={error} />}
 
-                  <label htmlFor="email">
-                    Email
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="email"
-                      value={email}
-                      onChange={this.handleChangeInput}
-                    />
-                  </label>
+              <label htmlFor="email">
+                Email
+                <Styled.inputText
+                  type="email"
+                  name="email"
+                  placeholder="email"
+                  value={email}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
-                  <label htmlFor="password">
-                    Password
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="password"
-                      value={password}
-                      onChange={this.handleChangeInput}
-                    />
-                  </label>
+              <label htmlFor="password">
+                Password
+                <Styled.inputText
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  value={password}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
-                  <label htmlFor="confirmPassword">
-                    Confirm Your Password
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      placeholder="password"
-                      value={confirmPassword}
-                      onChange={this.handleChangeInput}
-                    />
-                  </label>
+              <label htmlFor="confirmPassword">
+                Confirm Your Password
+                <Styled.inputText
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="password"
+                  value={confirmPassword}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
-                  <p>Password must contain:</p>
+              <Styled.h3PassTitle>Password must contain:</Styled.h3PassTitle>
 
-                  <ul>
-                    <li>at least 8 charactors</li>
-                    <li>an uppercase letter</li>
-                    <li>a lowercase letter</li>
-                    <li>a number</li>
-                  </ul>
+              <Styled.ulPassList aria-label="Password must contain:">
+                <li>at least 8 charactors</li>
+                <li>an uppercase letter</li>
+                <li>a lowercase letter</li>
+                <li>a number</li>
+              </Styled.ulPassList>
 
-                  <Styled.submitInputBtn
-                    value="Sign Up"
-                    type="submit"
-                    disabled={isInvalid}
-                  />
-                </fieldset>
-              </form>
-            </Styled.formContainer>
-          );
-        }}
+              <Styled.inputBtn
+                value="Sign Up"
+                type="submit"
+                disabled={isInvalid}
+              />
+            </fieldset>
+          </Styled.form>
+        )}
       </Mutation>
     );
   }

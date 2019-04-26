@@ -16,6 +16,13 @@ const DisplayError = React.memo(error => {
     );
   }
 
+  if (error.error)
+    return (
+      <Styled.divError>
+        <p>{error.error.message}</p>
+      </Styled.divError>
+    );
+
   return (
     <>
       {console.log('Opps: ', error)}

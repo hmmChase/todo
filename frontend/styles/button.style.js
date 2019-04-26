@@ -21,15 +21,15 @@ export const linkBtn = styled.a`
 `;
 
 export const purpleLinkBtn = styled(linkBtn)`
-  color: ${props => props.theme.purple};
+  color: ${props => props.theme.color.purple};
 `;
 
 export const orangeLinkBtn = styled(linkBtn)`
-  color: ${props => props.theme.orange};
+  color: ${props => props.theme.color.orange};
 `;
 
 export const redLinkBtn = styled(linkBtn)`
-  color: ${props => props.theme.red};
+  color: ${props => props.theme.color.red};
 `;
 
 export const inputBtn = styled.input`
@@ -37,7 +37,6 @@ export const inputBtn = styled.input`
   text-shadow: 1px 1px 0 #fff;
   font-size: 1em;
   font-weight: 600;
-  margin: 1em;
   padding: 0.25em 1em;
   border: 2px solid;
   border-radius: 3px;
@@ -55,9 +54,9 @@ export const inputBtn = styled.input`
 `;
 
 export const greenInputBtn = styled(inputBtn)`
-  color: ${props => props.theme.green};
+  color: ${props => props.theme.color.green};
 `;
 
 export const submitInputBtn = styled(inputBtn)`
-  color: ${props => !props.disabled && props.theme.green};
+  color: ${props => !props.disabled && props.theme.color.green};
 `;

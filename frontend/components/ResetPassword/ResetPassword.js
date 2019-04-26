@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
@@ -29,13 +31,21 @@ class ResetPassword extends React.PureComponent {
   render() {
     const { password, confirmPassword } = this.state;
     const { resetToken, resetTokenExpiry } = this.props;
+
     const isInvalidPass = password === '' || confirmPassword === '';
+
+    const isTokenMissing = !resetToken || !resetTokenExpiry;
     const isTokenExpired = Date.now() > resetTokenExpiry;
-    const tokenError = {
+
+    const tokenMissingError = {
+      message: 'Your reset token is invalid.  Please request a new one.'
+    };
+    const tokenExpiredError = {
       message: 'Your reset token is expired.  Please request a new one.'
     };
 
-    if (isTokenExpired) return <DisplayError error={tokenError} />;
+    if (isTokenMissing) return <DisplayError error={tokenMissingError} />;
+    if (isTokenExpired) return <DisplayError error={tokenExpiredError} />;
 
     return (
       <Mutation
@@ -48,61 +58,66 @@ class ResetPassword extends React.PureComponent {
         onCompleted={this.handleCompleted}
       >
         {(resetPassword, { loading, error, client }) => (
-          <Styled.formContainer>
-            <form
-              onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
-            >
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Reset Your Password</h2>
+          <Styled.form
+            onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
+          >
+            <fieldset disabled={loading} aria-busy={loading}>
+              <h2>Reset Your Password</h2>
 
-                {error && <DisplayError error={error} />}
+              {error && <DisplayError error={error} />}
 
-                <label htmlFor="password">
-                  Password
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    value={password}
-                    onChange={this.handleChangeInput}
-                  />
-                </label>
+              <label htmlFor="password">
+                Password
+                <Styled.inputText
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  value={password}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
-                <label htmlFor="confirmPassword">
-                  Confirm Your Password
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="confirmPassword"
-                    value={confirmPassword}
-                    onChange={this.handleChangeInput}
-                  />
-                </label>
+              <label htmlFor="confirmPassword">
+                Confirm Your Password
+                <Styled.inputText
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="confirmPassword"
+                  value={confirmPassword}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
-                <p>Password must contain:</p>
+              <Styled.h3PassTitle>Password must contain:</Styled.h3PassTitle>
 
-                <ul>
-                  <li>at least 8 charactors</li>
-                  <li>an uppercase letter</li>
-                  <li>a lowercase letter</li>
-                  <li>a number</li>
-                </ul>
+              <Styled.ulPassList aria-label="Password must contain:">
+                <li>at least 8 charactors</li>
+                <li>an uppercase letter</li>
+                <li>a lowercase letter</li>
+                <li>a number</li>
+              </Styled.ulPassList>
 
-                <button type="submit" disabled={isInvalidPass}>
-                  Reset Your Password
-                </button>
-              </fieldset>
-            </form>
-          </Styled.formContainer>
+              <Styled.inputBtn
+                value="Reset Your Password"
+                type="submit"
+                disabled={isInvalidPass}
+              />
+            </fieldset>
+          </Styled.form>
         )}
       </Mutation>
     );
   }
 }
 
+ResetPassword.defaultProps = {
+  resetToken: '',
+  resetTokenExpiry: ''
+};
+
 ResetPassword.propTypes = {
-  resetToken: PropTypes.string.isRequired,
-  resetTokenExpiry: PropTypes.string.isRequired
+  resetToken: PropTypes.string,
+  resetTokenExpiry: PropTypes.string
 };
 
 export default ResetPassword;

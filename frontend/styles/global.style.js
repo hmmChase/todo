@@ -26,7 +26,7 @@ export default createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-    color: ${theme.black};
+    color: ${theme.color.black};
     font-family: 'Open Sans', sans-serif;
   }
 `;
