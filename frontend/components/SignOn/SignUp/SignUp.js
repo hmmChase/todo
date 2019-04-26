@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
@@ -45,7 +47,7 @@ class SignUp extends React.PureComponent {
 
               <label htmlFor="email">
                 Email
-                <input
+                <Styled.inputText
                   type="email"
                   name="email"
                   placeholder="email"
@@ -56,7 +58,7 @@ class SignUp extends React.PureComponent {
 
               <label htmlFor="password">
                 Password
-                <input
+                <Styled.inputText
                   type="password"
                   name="password"
                   placeholder="password"
@@ -67,7 +69,7 @@ class SignUp extends React.PureComponent {
 
               <label htmlFor="confirmPassword">
                 Confirm Your Password
-                <input
+                <Styled.inputText
                   type="password"
                   name="confirmPassword"
                   placeholder="password"
@@ -76,16 +78,16 @@ class SignUp extends React.PureComponent {
                 />
               </label>
 
-              <p>Password must contain:</p>
+              <Styled.h3PassTitle>Password must contain:</Styled.h3PassTitle>
 
-              <ul>
+              <Styled.ulPassList aria-label="Password must contain:">
                 <li>at least 8 charactors</li>
                 <li>an uppercase letter</li>
                 <li>a lowercase letter</li>
                 <li>a number</li>
-              </ul>
+              </Styled.ulPassList>
 
-              <Styled.submitInputBtn
+              <Styled.inputBtn
                 value="Sign Up"
                 type="submit"
                 disabled={isInvalid}

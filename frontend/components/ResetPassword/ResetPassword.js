@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
@@ -29,13 +31,21 @@ class ResetPassword extends React.PureComponent {
   render() {
     const { password, confirmPassword } = this.state;
     const { resetToken, resetTokenExpiry } = this.props;
+
     const isInvalidPass = password === '' || confirmPassword === '';
+
+    const isTokenMissing = !resetToken || !resetTokenExpiry;
     const isTokenExpired = Date.now() > resetTokenExpiry;
-    const tokenError = {
+
+    const tokenMissingError = {
+      message: 'Your reset token is invalid.  Please request a new one.'
+    };
+    const tokenExpiredError = {
       message: 'Your reset token is expired.  Please request a new one.'
     };
 
-    if (isTokenExpired) return <DisplayError error={tokenError} />;
+    if (isTokenMissing) return <DisplayError error={tokenMissingError} />;
+    if (isTokenExpired) return <DisplayError error={tokenExpiredError} />;
 
     return (
       <Mutation
@@ -58,7 +68,7 @@ class ResetPassword extends React.PureComponent {
 
               <label htmlFor="password">
                 Password
-                <input
+                <Styled.inputText
                   type="password"
                   name="password"
                   placeholder="password"
@@ -69,7 +79,7 @@ class ResetPassword extends React.PureComponent {
 
               <label htmlFor="confirmPassword">
                 Confirm Your Password
-                <input
+                <Styled.inputText
                   type="password"
                   name="confirmPassword"
                   placeholder="confirmPassword"
@@ -78,18 +88,20 @@ class ResetPassword extends React.PureComponent {
                 />
               </label>
 
-              <p>Password must contain:</p>
+              <Styled.h3PassTitle>Password must contain:</Styled.h3PassTitle>
 
-              <ul>
+              <Styled.ulPassList aria-label="Password must contain:">
                 <li>at least 8 charactors</li>
                 <li>an uppercase letter</li>
                 <li>a lowercase letter</li>
                 <li>a number</li>
-              </ul>
+              </Styled.ulPassList>
 
-              <button type="submit" disabled={isInvalidPass}>
-                Reset Your Password
-              </button>
+              <Styled.inputBtn
+                value="Reset Your Password"
+                type="submit"
+                disabled={isInvalidPass}
+              />
             </fieldset>
           </Styled.form>
         )}
@@ -98,9 +110,14 @@ class ResetPassword extends React.PureComponent {
   }
 }
 
+ResetPassword.defaultProps = {
+  resetToken: '',
+  resetTokenExpiry: ''
+};
+
 ResetPassword.propTypes = {
-  resetToken: PropTypes.string.isRequired,
-  resetTokenExpiry: PropTypes.string.isRequired
+  resetToken: PropTypes.string,
+  resetTokenExpiry: PropTypes.string
 };
 
 export default ResetPassword;

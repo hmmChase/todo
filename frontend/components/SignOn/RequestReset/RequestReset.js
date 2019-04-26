@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 import { Mutation } from 'react-apollo';
 import DisplayError from '../../DisplayError/DisplayError';
 import * as query from './RequestReset.query';
@@ -40,7 +42,7 @@ class RequestReset extends React.PureComponent {
 
               <label htmlFor="email">
                 Email
-                <input
+                <Styled.inputText
                   type="email"
                   name="email"
                   placeholder="email"
@@ -49,7 +51,7 @@ class RequestReset extends React.PureComponent {
                 />
               </label>
 
-              <Styled.submitInputBtn
+              <Styled.inputBtn
                 value="Request Reset"
                 type="submit"
                 disabled={isInvalid}

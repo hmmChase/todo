@@ -37,7 +37,6 @@ export const inputBtn = styled.input`
   text-shadow: 1px 1px 0 #fff;
   font-size: 1em;
   font-weight: 600;
-  margin: 1em;
   padding: 0.25em 1em;
   border: 2px solid;
   border-radius: 3px;

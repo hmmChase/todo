@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const form = styled.form`
-  fieldset {
+  > fieldset {
     display: flex;
   }
 `;

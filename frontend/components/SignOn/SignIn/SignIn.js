@@ -2,6 +2,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
@@ -51,7 +53,7 @@ class SignIn extends React.PureComponent {
 
                 <label htmlFor="email">
                   Email
-                  <input
+                  <Styled.inputText
                     type="email"
                     name="email"
                     placeholder="email"
@@ -62,7 +64,7 @@ class SignIn extends React.PureComponent {
 
                 <label htmlFor="password">
                   Password
-                  <input
+                  <Styled.inputText
                     type="password"
                     name="password"
                     placeholder="password"
@@ -71,7 +73,7 @@ class SignIn extends React.PureComponent {
                   />
                 </label>
 
-                <Styled.submitInputBtn
+                <Styled.inputBtn
                   value="Sign In"
                   type="submit"
                   disabled={isInvalid}
