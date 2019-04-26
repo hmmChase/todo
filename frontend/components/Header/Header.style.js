@@ -7,6 +7,6 @@ export const header = styled.header`
 
   h1 {
     font-size: 1rem;
-    color: ${props => props.theme.red};
+    color: ${props => props.theme.color.red};
   }
 `;
