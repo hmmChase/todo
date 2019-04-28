@@ -20,9 +20,13 @@ now secret add PORT ""
 now secret add DEV_FRONTEND_URL ""
 now secret add PROD_FRONTEND_URL ""
 now secret add JWT_SECRET ""
+
+## prisma
 now secret add PRISMA_ENDPOINT ""
 now secret add PRISMA_SECRET ""
 now secret add PRISMA_MANAGEMENT_API_SECRET ""
+
+## mailtrap.io
 now secret add MAIL_HOST ""
 now secret add MAIL_PORT ""
 now secret add MAIL_USER ""

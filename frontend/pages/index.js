@@ -1,11 +1,9 @@
-import Head from 'next/head';
+import Head from '../components/Head/Head';
 import Home from '../components/Home/Home';
 
 const IndexPage = React.memo(() => (
   <>
-    <Head>
-      <title>next-graphql-starter | Home</title>
-    </Head>
+    <Head title="Home" />
 
     <Home />
   </>

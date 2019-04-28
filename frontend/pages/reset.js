@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
-import Head from 'next/head';
 import { withRouter } from 'next/router';
+import Head from '../components/Head/Head';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import DisplayError from '../components/DisplayError/DisplayError';
 
@@ -21,9 +21,7 @@ const ResetPage = React.memo(props => {
 
   return (
     <>
-      <Head>
-        <title>next-graphql-starter | Reset Password</title>
-      </Head>
+      <Head title="Reset Password" />
 
       {isTokenMissing && <DisplayError error={tokenMissingError} />}
       {isTokenExpired && <DisplayError error={tokenExpiredError} />}
