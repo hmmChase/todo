@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unused-prop-types */
 import PropTypes from 'prop-types';
-import SignIn from '../SignIn/SignIn';
-import SignUp from '../SignUp/SignUp';
-import RequestReset from '../RequestReset/RequestReset';
+import PopUpSignIn from '../PopUpSignIn/PopUpSignIn';
+import PopUpSignUp from '../PopUpSignUp/PopUpSignUp';
+import PopUpRequestReset from '../PopUpRequestReset/PopUpRequestReset';
 import * as sc from './PopUps.style';
 
 const PopUps = React.memo(props => {
@@ -10,17 +10,17 @@ const PopUps = React.memo(props => {
     switch (props.popUp) {
       case 'signIn':
         return (
-          <SignIn
+          <PopUpSignIn
             close={() => props.setPopUp('')}
             requestReset={() => props.setPopUp('requestReset')}
           />
         );
 
       case 'signUp':
-        return <SignUp close={() => props.setPopUp('')} />;
+        return <PopUpSignUp close={() => props.setPopUp('')} />;
 
       case 'requestReset':
-        return <RequestReset close={() => props.setPopUp('')} />;
+        return <PopUpRequestReset close={() => props.setPopUp('')} />;
 
       default:
         return null;

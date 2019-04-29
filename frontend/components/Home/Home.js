@@ -1,9 +1,5 @@
 import * as sc from './Home.style';
 
-const Home = React.memo(() => (
-  <div>
-    <sc.p>Home</sc.p>
-  </div>
-));
+const Home = React.memo(() => <sc.p>Home</sc.p>);
 
 export default Home;

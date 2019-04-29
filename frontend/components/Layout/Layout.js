@@ -17,6 +17,7 @@ const Layout = React.memo(props => (
 
     <sc.main>
       {/* Pages are rendered here */}
+
       {props.children}
     </sc.main>
 

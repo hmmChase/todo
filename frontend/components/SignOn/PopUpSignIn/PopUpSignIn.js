@@ -1,17 +1,10 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-console */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import DisplayError from '../../DisplayError/DisplayError';
-import * as query from './SignIn.query';
-import * as sc from './SignIn.style';
+import * as query from './PopUpSignIn.query';
+import * as sc from './PopUpSignIn.style';
 
-class SignIn extends React.PureComponent {
+class PopUpSignIn extends React.PureComponent {
   state = {
     email: '',
     password: ''
@@ -92,9 +85,9 @@ class SignIn extends React.PureComponent {
   }
 }
 
-SignIn.propTypes = {
+PopUpSignIn.propTypes = {
   close: PropTypes.func.isRequired,
   requestReset: PropTypes.func.isRequired
 };
 
-export default SignIn;
+export default PopUpSignIn;

@@ -1,7 +1,5 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
 import { Mutation } from 'react-apollo';
-import DisplayError from '../../DisplayError/DisplayError';
+import DisplayError from '../DisplayError/DisplayError';
 import * as query from './RequestReset.query';
 import * as sc from './RequestReset.style';
 

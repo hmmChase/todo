@@ -1,13 +1,10 @@
-/* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import DisplayError from '../../DisplayError/DisplayError';
-import * as query from './SignUp.query';
-import * as sc from './SignUp.style';
+import * as query from './PopUpSignUp.query';
+import * as sc from './PopUpSignUp.style';
 
-class SignUp extends React.PureComponent {
+class PopUpSignUp extends React.PureComponent {
   state = {
     email: '',
     password: '',
@@ -96,8 +93,8 @@ class SignUp extends React.PureComponent {
   }
 }
 
-SignUp.propTypes = {
+PopUpSignUp.propTypes = {
   close: PropTypes.func.isRequired
 };
 
-export default SignUp;
+export default PopUpSignUp;

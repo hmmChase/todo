@@ -12,6 +12,7 @@ const Nav = React.memo(() => (
               <sc.a>Home</sc.a>
             </Link>
           </sc.li>
+
           {me && (
             <sc.li>
               <Link href="users">

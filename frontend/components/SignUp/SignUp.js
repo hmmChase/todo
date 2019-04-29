@@ -1,22 +1,22 @@
 import Router from 'next/router';
-import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import DisplayError from '../DisplayError/DisplayError';
-import * as query from './ResetPassword.query';
-import * as sc from './ResetPassword.style';
+import * as query from './SignUp.query';
+import * as sc from './SignUp.style';
 
-class ResetPassword extends React.PureComponent {
+class SignUp extends React.PureComponent {
   state = {
+    email: '',
     password: '',
     confirmPassword: ''
   };
 
   handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  handleSubmitForm = async (e, resetPassword, client) => {
+  handleSubmitForm = async (e, signUp, client) => {
     e.preventDefault();
     this.setState({ password: '', confirmPassword: '' });
-    await resetPassword();
+    await signUp();
     await client.resetStore();
   };
 
@@ -25,28 +25,33 @@ class ResetPassword extends React.PureComponent {
   handleCompleted = () => Router.push({ pathname: '/' });
 
   render() {
-    const { password, confirmPassword } = this.state;
-
-    const isInvalidPass = password === '' || confirmPassword === '';
+    const { email, password, confirmPassword } = this.state;
+    const isInvalid = email === '' || password === '' || confirmPassword === '';
 
     return (
       <Mutation
-        mutation={query.RESET_PASSWORD_MUTATION}
-        variables={{
-          ...this.state,
-          resetToken: this.props.resetToken
-        }}
+        mutation={query.SIGN_UP_MUTATION}
+        variables={this.state}
         onError={this.handleError}
         onCompleted={this.handleCompleted}
       >
-        {(resetPassword, { loading, error, client }) => (
-          <sc.form
-            onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
-          >
+        {(signUp, { loading, error, client }) => (
+          <sc.form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
             <fieldset disabled={loading} aria-busy={loading}>
-              <h2>Reset Your Password</h2>
+              <h2>Create a new Account</h2>
 
               {error && <DisplayError error={error} />}
+
+              <label htmlFor="email">
+                Email
+                <sc.inputText
+                  type="email"
+                  name="email"
+                  placeholder="email"
+                  value={email}
+                  onChange={this.handleChangeInput}
+                />
+              </label>
 
               <label htmlFor="password">
                 Password
@@ -64,7 +69,7 @@ class ResetPassword extends React.PureComponent {
                 <sc.inputText
                   type="password"
                   name="confirmPassword"
-                  placeholder="confirmPassword"
+                  placeholder="password"
                   value={confirmPassword}
                   onChange={this.handleChangeInput}
                 />
@@ -79,11 +84,7 @@ class ResetPassword extends React.PureComponent {
                 <li>a number</li>
               </sc.ulPassList>
 
-              <sc.inputBtn
-                value="Reset Your Password"
-                type="submit"
-                disabled={isInvalidPass}
-              />
+              <sc.inputBtn value="Sign Up" type="submit" disabled={isInvalid} />
             </fieldset>
           </sc.form>
         )}
@@ -92,12 +93,4 @@ class ResetPassword extends React.PureComponent {
   }
 }
 
-ResetPassword.defaultProps = {
-  resetToken: ''
-};
-
-ResetPassword.propTypes = {
-  resetToken: PropTypes.string
-};
-
-export default ResetPassword;
+export default SignUp;
