@@ -9,6 +9,7 @@ const WithUser = React.memo(props => (
     {({ loading, error, data }) => {
       if (loading) return <DisplayLoading />;
       if (error) return <DisplayError error={error} />;
+
       return props.children(data.me);
     }}
   </Query>

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { form } from '../../../styles/form.style';
-import { submitInputBtn } from '../../../styles/button.style';
-import { input } from '../../../styles/input.style';
+import { form } from '../../styles/form.style';
+import { input } from '../../styles/input.style';
+import { submitInputBtn } from '../../styles/button.style';
 
 export { form };
 

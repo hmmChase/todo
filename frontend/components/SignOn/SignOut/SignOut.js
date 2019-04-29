@@ -1,6 +1,6 @@
 import { Mutation } from 'react-apollo';
 import * as query from './SignOut.query';
-import * as Styled from './SignOut.style';
+import * as sc from './SignOut.style';
 
 const SignOut = React.memo(() => {
   const handleClickBtn = async (signOut, client) => {
@@ -13,13 +13,13 @@ const SignOut = React.memo(() => {
   return (
     <Mutation mutation={query.SIGN_OUT_MUTATION} onError={handleError}>
       {(signOut, { loading, client }) => (
-        <Styled.purpleLinkBtn
+        <sc.purpleLinkBtn
           disabled={loading}
           aria-busy={loading}
           onClick={() => handleClickBtn(signOut, client)}
         >
           Sign Out
-        </Styled.purpleLinkBtn>
+        </sc.purpleLinkBtn>
       )}
     </Mutation>
   );

@@ -1,13 +1,10 @@
-/* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import DisplayError from '../../DisplayError/DisplayError';
-import * as query from './SignUp.query';
-import * as Styled from './SignUp.style';
+import * as query from './PopUpSignUp.query';
+import * as sc from './PopUpSignUp.style';
 
-class SignUp extends React.PureComponent {
+class PopUpSignUp extends React.PureComponent {
   state = {
     email: '',
     password: '',
@@ -39,7 +36,7 @@ class SignUp extends React.PureComponent {
         onCompleted={this.handleCompleted}
       >
         {(signUp, { loading, error, client }) => (
-          <Styled.form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
+          <sc.form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Create a new Account</h2>
 
@@ -47,7 +44,7 @@ class SignUp extends React.PureComponent {
 
               <label htmlFor="email">
                 Email
-                <Styled.inputText
+                <sc.inputText
                   type="email"
                   name="email"
                   placeholder="email"
@@ -58,7 +55,7 @@ class SignUp extends React.PureComponent {
 
               <label htmlFor="password">
                 Password
-                <Styled.inputText
+                <sc.inputText
                   type="password"
                   name="password"
                   placeholder="password"
@@ -69,7 +66,7 @@ class SignUp extends React.PureComponent {
 
               <label htmlFor="confirmPassword">
                 Confirm Password
-                <Styled.inputText
+                <sc.inputText
                   type="password"
                   name="confirmPassword"
                   placeholder="password"
@@ -78,30 +75,26 @@ class SignUp extends React.PureComponent {
                 />
               </label>
 
-              <Styled.h3PassTitle>Password must contain:</Styled.h3PassTitle>
+              <sc.h3PassTitle>Password must contain:</sc.h3PassTitle>
 
-              <Styled.ulPassList aria-label="Password must contain:">
+              <sc.ulPassList aria-label="Password must contain:">
                 <li>at least 8 charactors</li>
                 <li>an uppercase letter</li>
                 <li>a lowercase letter</li>
                 <li>a number</li>
-              </Styled.ulPassList>
+              </sc.ulPassList>
 
-              <Styled.inputBtn
-                value="Sign Up"
-                type="submit"
-                disabled={isInvalid}
-              />
+              <sc.inputBtn value="Sign Up" type="submit" disabled={isInvalid} />
             </fieldset>
-          </Styled.form>
+          </sc.form>
         )}
       </Mutation>
     );
   }
 }
 
-SignUp.propTypes = {
+PopUpSignUp.propTypes = {
   close: PropTypes.func.isRequired
 };
 
-export default SignUp;
+export default PopUpSignUp;

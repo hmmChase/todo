@@ -1,34 +1,26 @@
-/* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable react/no-unused-prop-types */
-/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
-import * as Styled from './DisplayError.style';
+import * as sc from './DisplayError.style';
 
-const DisplayError = React.memo(error => {
-  if (error.error.graphQLErrors) {
+const DisplayError = React.memo(props => {
+  if (props.error.graphQLErrors) {
     return (
-      <Styled.divError>
-        {error.error.graphQLErrors.map((e, i) => (
-          <p key={i}>{e.message}</p>
+      <sc.divError>
+        {props.error.graphQLErrors.map((e, i) => (
+          <p key={e.message.length + i}>{e.message}</p>
         ))}
-      </Styled.divError>
+      </sc.divError>
     );
   }
 
-  if (error.error)
+  if (props.error.message)
     return (
-      <Styled.divError>
-        <p>{error.error.message}</p>
-      </Styled.divError>
+      <sc.divError>
+        <p>{props.error.message}</p>
+      </sc.divError>
     );
 
-  return (
-    <>
-      {console.log('Opps: ', error)}
-      <Styled.divError>Opps, something went wrong.</Styled.divError>
-    </>
-  );
+  return <sc.divError>Opps, something went wrong.</sc.divError>;
 });
 
 DisplayError.defaultProps = {
@@ -36,7 +28,10 @@ DisplayError.defaultProps = {
 };
 
 DisplayError.propTypes = {
-  error: PropTypes.object
+  error: PropTypes.shape({
+    graphQLErrors: PropTypes.array,
+    message: PropTypes.string
+  })
 };
 
 export default DisplayError;

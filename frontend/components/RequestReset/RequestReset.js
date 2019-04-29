@@ -1,9 +1,7 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
 import { Mutation } from 'react-apollo';
-import DisplayError from '../../DisplayError/DisplayError';
+import DisplayError from '../DisplayError/DisplayError';
 import * as query from './RequestReset.query';
-import * as Styled from './RequestReset.style';
+import * as sc from './RequestReset.style';
 
 class RequestReset extends React.PureComponent {
   state = {
@@ -30,7 +28,7 @@ class RequestReset extends React.PureComponent {
         onError={this.handleError}
       >
         {(requestReset, { loading, error, called }) => (
-          <Styled.form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
+          <sc.form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Request a password reset</h2>
 
@@ -42,7 +40,7 @@ class RequestReset extends React.PureComponent {
 
               <label htmlFor="email">
                 Email
-                <Styled.inputText
+                <sc.inputText
                   type="email"
                   name="email"
                   placeholder="email"
@@ -51,13 +49,13 @@ class RequestReset extends React.PureComponent {
                 />
               </label>
 
-              <Styled.inputBtn
+              <sc.inputBtn
                 value="Request Reset"
                 type="submit"
                 disabled={isInvalid}
               />
             </fieldset>
-          </Styled.form>
+          </sc.form>
         )}
       </Mutation>
     );

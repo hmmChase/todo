@@ -1,26 +1,26 @@
 /* eslint-disable react/no-unused-prop-types */
 import PropTypes from 'prop-types';
-import SignIn from '../SignIn/SignIn';
-import SignUp from '../SignUp/SignUp';
-import RequestReset from '../RequestReset/RequestReset';
-import * as Styled from './PopUps.style';
+import PopUpSignIn from '../PopUpSignIn/PopUpSignIn';
+import PopUpSignUp from '../PopUpSignUp/PopUpSignUp';
+import PopUpRequestReset from '../PopUpRequestReset/PopUpRequestReset';
+import * as sc from './PopUps.style';
 
 const PopUps = React.memo(props => {
   const showPopUp = () => {
     switch (props.popUp) {
       case 'signIn':
         return (
-          <SignIn
+          <PopUpSignIn
             close={() => props.setPopUp('')}
             requestReset={() => props.setPopUp('requestReset')}
           />
         );
 
       case 'signUp':
-        return <SignUp close={() => props.setPopUp('')} />;
+        return <PopUpSignUp close={() => props.setPopUp('')} />;
 
       case 'requestReset':
-        return <RequestReset close={() => props.setPopUp('')} />;
+        return <PopUpRequestReset close={() => props.setPopUp('')} />;
 
       default:
         return null;
@@ -28,11 +28,11 @@ const PopUps = React.memo(props => {
   };
 
   return (
-    <Styled.divPopup>
-      <Styled.divOuter onClick={() => props.setPopUp('')} />
+    <sc.divPopup>
+      <sc.divOuter onClick={() => props.setPopUp('')} />
 
-      <Styled.divInner>{showPopUp()}</Styled.divInner>
-    </Styled.divPopup>
+      <sc.divInner>{showPopUp()}</sc.divInner>
+    </sc.divPopup>
   );
 });
 

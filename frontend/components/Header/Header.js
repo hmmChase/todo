@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import * as Styled from './Header.style';
+import * as sc from './Header.style';
 
 const Header = React.memo(props => (
-  <Styled.header>
-    <h1>next-graphql-starter</h1>
+  <sc.header>
+    <sc.h1>next-graphql-starter</sc.h1>
 
     {props.children}
-  </Styled.header>
+  </sc.header>
 ));
 
 Header.propTypes = {

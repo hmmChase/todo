@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-export const div = styled.div`
-  p {
-    font-size: 2em;
-  }
+export const p = styled.p`
+  font-size: 2em;
 `;

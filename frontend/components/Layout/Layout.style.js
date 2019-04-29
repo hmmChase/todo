@@ -12,19 +12,19 @@ export const divLayout = styled.div`
     'main'
     'footer';
 
-  header {
+  > header {
     grid-area: header;
   }
 
-  nav {
+  > nav {
     grid-area: nav;
   }
 
-  main {
+  > main {
     grid-area: main;
   }
 
-  footer {
+  > footer {
     grid-area: footer;
   }
 `;
