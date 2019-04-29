@@ -1,7 +1,7 @@
 import WithUser from '../wrappers/WithUser/WithUser';
 import SignOut from './SignOut/SignOut';
 import PopUps from './PopUps/PopUps';
-import * as Styled from './SignOn.style';
+import * as sc from './SignOn.style';
 
 class SignOn extends React.PureComponent {
   state = {
@@ -14,22 +14,22 @@ class SignOn extends React.PureComponent {
     return (
       <WithUser>
         {me => (
-          <Styled.divSignOn>
+          <>
             {me ? (
               <SignOut />
             ) : (
-              <>
-                <Styled.purpleLinkBtn
+              <div>
+                <sc.purpleBtn
                   onClick={() => this.setState({ popUp: 'signIn' })}
                 >
                   Sign In
-                </Styled.purpleLinkBtn>
+                </sc.purpleBtn>
 
-                <Styled.orangeLinkBtn
+                <sc.orangeBtn
                   onClick={() => this.setState({ popUp: 'signUp' })}
                 >
                   Sign Up
-                </Styled.orangeLinkBtn>
+                </sc.orangeBtn>
 
                 {popUp && (
                   <PopUps
@@ -37,9 +37,9 @@ class SignOn extends React.PureComponent {
                     setPopUp={popUpName => this.setState({ popUp: popUpName })}
                   />
                 )}
-              </>
+              </div>
             )}
-          </Styled.divSignOn>
+          </>
         )}
       </WithUser>
     );

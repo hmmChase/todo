@@ -1,9 +1,9 @@
-import * as Styled from './Home.style';
+import * as sc from './Home.style';
 
 const Home = React.memo(() => (
-  <Styled.div>
-    <p>Home</p>
-  </Styled.div>
+  <div>
+    <sc.p>Home</sc.p>
+  </div>
 ));
 
 export default Home;

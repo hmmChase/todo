@@ -7,7 +7,7 @@ import Router from 'next/router';
 import { Mutation } from 'react-apollo';
 import DisplayError from '../DisplayError/DisplayError';
 import * as query from './ResetPassword.query';
-import * as Styled from './ResetPassword.style';
+import * as sc from './ResetPassword.style';
 
 class ResetPassword extends React.PureComponent {
   state = {
@@ -44,7 +44,7 @@ class ResetPassword extends React.PureComponent {
         onCompleted={this.handleCompleted}
       >
         {(resetPassword, { loading, error, client }) => (
-          <Styled.form
+          <sc.form
             onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
           >
             <fieldset disabled={loading} aria-busy={loading}>
@@ -54,7 +54,7 @@ class ResetPassword extends React.PureComponent {
 
               <label htmlFor="password">
                 Password
-                <Styled.inputText
+                <sc.inputText
                   type="password"
                   name="password"
                   placeholder="password"
@@ -65,7 +65,7 @@ class ResetPassword extends React.PureComponent {
 
               <label htmlFor="confirmPassword">
                 Confirm Password
-                <Styled.inputText
+                <sc.inputText
                   type="password"
                   name="confirmPassword"
                   placeholder="confirmPassword"
@@ -74,22 +74,22 @@ class ResetPassword extends React.PureComponent {
                 />
               </label>
 
-              <Styled.h3PassTitle>Password must contain:</Styled.h3PassTitle>
+              <sc.h3PassTitle>Password must contain:</sc.h3PassTitle>
 
-              <Styled.ulPassList aria-label="Password must contain:">
+              <sc.ulPassList aria-label="Password must contain:">
                 <li>at least 8 charactors</li>
                 <li>an uppercase letter</li>
                 <li>a lowercase letter</li>
                 <li>a number</li>
-              </Styled.ulPassList>
+              </sc.ulPassList>
 
-              <Styled.inputBtn
+              <sc.inputBtn
                 value="Reset Your Password"
                 type="submit"
                 disabled={isInvalidPass}
               />
             </fieldset>
-          </Styled.form>
+          </sc.form>
         )}
       </Mutation>
     );

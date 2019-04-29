@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import RequestReset from '../RequestReset/RequestReset';
-import * as Styled from './PopUps.style';
+import * as sc from './PopUps.style';
 
 const PopUps = React.memo(props => {
   const showPopUp = () => {
@@ -28,11 +28,11 @@ const PopUps = React.memo(props => {
   };
 
   return (
-    <Styled.divPopup>
-      <Styled.divOuter onClick={() => props.setPopUp('')} />
+    <sc.divPopup>
+      <sc.divOuter onClick={() => props.setPopUp('')} />
 
-      <Styled.divInner>{showPopUp()}</Styled.divInner>
-    </Styled.divPopup>
+      <sc.divInner>{showPopUp()}</sc.divInner>
+    </sc.divPopup>
   );
 });
 

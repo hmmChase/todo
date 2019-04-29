@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import DisplayError from '../../DisplayError/DisplayError';
 import * as query from './SignIn.query';
-import * as Styled from './SignIn.style';
+import * as sc from './SignIn.style';
 
 class SignIn extends React.PureComponent {
   state = {
@@ -43,9 +43,7 @@ class SignIn extends React.PureComponent {
       >
         {(signIn, { loading, error, client }) => (
           <>
-            <Styled.form
-              onSubmit={e => this.handleSubmitForm(e, signIn, client)}
-            >
+            <sc.form onSubmit={e => this.handleSubmitForm(e, signIn, client)}>
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Sign In</h2>
 
@@ -53,7 +51,7 @@ class SignIn extends React.PureComponent {
 
                 <label htmlFor="email">
                   Email
-                  <Styled.inputText
+                  <sc.inputText
                     type="email"
                     name="email"
                     placeholder="email"
@@ -64,7 +62,7 @@ class SignIn extends React.PureComponent {
 
                 <label htmlFor="password">
                   Password
-                  <Styled.inputText
+                  <sc.inputText
                     type="password"
                     name="password"
                     placeholder="password"
@@ -73,21 +71,20 @@ class SignIn extends React.PureComponent {
                   />
                 </label>
 
-                <Styled.inputBtn
+                <sc.inputBtn
                   value="Sign In"
                   type="submit"
                   disabled={isInvalid}
                 />
               </fieldset>
-            </Styled.form>
+            </sc.form>
 
-            <a
+            <sc.aForgotPass
               value="Forgot password?"
-              css="cursor: pointer;"
               onClick={this.props.requestReset}
             >
               Forgot password?
-            </a>
+            </sc.aForgotPass>
           </>
         )}
       </Mutation>

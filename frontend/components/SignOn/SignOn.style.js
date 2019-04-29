@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { purpleLinkBtn, orangeLinkBtn } from '../../styles/button.style';
 
-export { purpleLinkBtn, orangeLinkBtn };
+export const purpleBtn = styled(purpleLinkBtn)`
+  margin: 10px;
+`;
 
-export const divSignOn = styled.div`
-  a {
-    margin: 10px;
-  }
+export const orangeBtn = styled(orangeLinkBtn)`
+  margin: 10px;
 `;

@@ -1,26 +1,26 @@
 import Link from 'next/link';
 import WithUser from '../wrappers/WithUser/WithUser';
-import * as Styled from './Nav.style';
+import * as sc from './Nav.style';
 
 const Nav = React.memo(() => (
   <WithUser>
     {me => (
-      <Styled.nav>
-        <ul>
-          <li>
+      <nav>
+        <sc.ul>
+          <sc.li>
             <Link href="/">
-              <a>Home</a>
+              <sc.a>Home</sc.a>
             </Link>
-          </li>
+          </sc.li>
           {me && (
-            <li>
+            <sc.li>
               <Link href="users">
-                <a>Users</a>
+                <sc.a>Users</sc.a>
               </Link>
-            </li>
+            </sc.li>
           )}
-        </ul>
-      </Styled.nav>
+        </sc.ul>
+      </nav>
     )}
   </WithUser>
 ));

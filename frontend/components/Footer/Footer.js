@@ -1,9 +1,9 @@
-import * as Styled from './Footer.style';
+import * as sc from './Footer.style';
 
 const Footer = React.memo(() => (
-  <Styled.footer>
+  <sc.footer>
     <p>Footer</p>
-  </Styled.footer>
+  </sc.footer>
 ));
 
 export default Footer;

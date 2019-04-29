@@ -3,30 +3,30 @@
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
-import * as Styled from './DisplayError.style';
+import * as sc from './DisplayError.style';
 
 const DisplayError = React.memo(error => {
   if (error.error.graphQLErrors) {
     return (
-      <Styled.divError>
+      <sc.divError>
         {error.error.graphQLErrors.map((e, i) => (
           <p key={i}>{e.message}</p>
         ))}
-      </Styled.divError>
+      </sc.divError>
     );
   }
 
   if (error.error)
     return (
-      <Styled.divError>
+      <sc.divError>
         <p>{error.error.message}</p>
-      </Styled.divError>
+      </sc.divError>
     );
 
   return (
     <>
       {console.log('Opps: ', error)}
-      <Styled.divError>Opps, something went wrong.</Styled.divError>
+      <sc.divError>Opps, something went wrong.</sc.divError>
     </>
   );
 });
