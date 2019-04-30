@@ -1,9 +1,10 @@
-/* eslint-disable react/forbid-prop-types */
-import PropTypes from 'prop-types';
 import { withRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import Head from '../components/Head/Head';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import DisplayError from '../components/DisplayError/DisplayError';
+
+// Should this page be accessable if a user is logged in?
 
 const ResetPage = React.memo(props => {
   const { resetToken, resetTokenExpiry } = props.router.query;
@@ -31,8 +32,17 @@ const ResetPage = React.memo(props => {
   );
 });
 
+ResetPage.defaultProps = {
+  router: { query: { resetToken: '', resetTokenExpiry: '' } }
+};
+
 ResetPage.propTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.shape({
+    query: PropTypes.shape({
+      resetToken: PropTypes.string,
+      resetTokenExpiry: PropTypes.string
+    })
+  })
 };
 
 export default withRouter(ResetPage);
