@@ -1,8 +1,4 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable consistent-return */
-/* eslint-disable default-case */
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable no-case-declarations */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import Router from 'next/router';
@@ -55,135 +51,140 @@ const createClient = ({ ctx, headers, initialState }) => {
   const errorLink = onError(
     ({ graphQLErrors, networkError, operation, forward }) => {
       if (graphQLErrors) {
-        graphQLErrors.map(err => {
-          const errorObject = {
-            operation: operation.operationName,
-            message: err.message
-          };
-
-          console.log('[GraphQL error]: ', errorObject);
-        });
-
-        // ----------------------------------------
-
         for (const err of graphQLErrors) {
-          console.log('err.extensions.code: ', err.extensions.code);
-
           switch (err.extensions.code) {
             // AuthenticationError
             case 'UNAUTHENTICATED':
-              console.log('UNAUTHENTICATED: ', err);
+              console.log('UNAUTHENTICATED: ', {
+                operation: operation.operationName,
+                message: err.message
+              });
 
-              return forward(operation);
+              // return forward(operation);
+              break;
 
             // ForbiddenError
             case 'FORBIDDEN':
-              console.log('FORBIDDEN: ', err);
+              console.log('FORBIDDEN: ', {
+                operation: operation.operationName,
+                message: err.message
+              });
 
               if (process.browser) Router.push('/');
 
-              return forward(operation);
+              // return forward(operation);
+              break;
 
-            // ----------------------------------------
+            default:
+              console.log({
+                code: err.extensions.code,
+                operation: operation.operationName,
+                message: err.message
+              });
 
-            // If error is due to unathenticated user request
-            // and a refresh token is available
-            // const { extensions } = graphQLErrors[0];
-            // const refreshToken = getTokens()['x-token-refresh'];
-
-            // if (extensions.code === 'UNAUTHENTICATED' && refreshToken) {
-            //   // Create a new Observerable
-            //   return new Observable(async observer => {
-            //     // Refresh the access token
-            //     refreshAccessToken(refreshToken, client)
-            //       // On successful refresh...
-            //       .then(newTokens => {
-            //         // Handle cookies
-            //         if (!newTokens.token) {
-            //           // Delete cookies if no new access token provided
-            //           destroyCookie(ctx, 'x-token');
-            //           destroyCookie(ctx, 'x-token-refresh');
-            //         } else {
-            //           // Update cookies if new access token available
-            //           setCookie(ctx, 'x-token', newTokens.token, {
-            //             maxAge: 30 * 60
-            //           });
-
-            //           setCookie(ctx, 'x-token-refresh', newTokens.refreshToken, {
-            //             maxAge: 30 * 24 * 60 * 60
-            //           });
-            //         }
-
-            //         // Bind observable subscribers
-            //         const subscriber = {
-            //           next: observer.next.bind(observer),
-            //           error: observer.error.bind(observer),
-            //           complete: observer.complete.bind(observer)
-            //         };
-
-            //         // Retry last failed request
-            //         forward(operation).subscribe(subscriber);
-            //       })
-
-            //       // On refresh failure...
-            //       .catch(error => {
-            //         observer.error(error);
-            //       });
-            //   });
-            // }
-
-            // ----------------------------------------
-
-            // for (const err of graphQLErrors) {
-            //   switch (err.extensions.code) {
-            //     // AuthenticationError
-            //     case 'UNAUTHENTICATED':
-            //       // Modify the operation context with a new token
-            //       // const oldHeaders = operation.getContext().headers;
-
-            //       // operation.setContext({
-            //       //   headers: {
-            //       //     ...oldHeaders,
-            //       //     authorization: getNewToken()
-            //       //   }
-            //       // });
-
-            //       // Retry the request, returning the new observable
-            //       return forward(operation);
-
-            //     // ----------------------------------------
-
-            //     // const doRefresh = async () => {
-            //     //   const refreshToken = await getTokens()['x-token-refresh'];
-            //     //   const data = await refreshAuthToken(refreshToken);
-
-            //     //   console.log('.......................');
-            //     //   console.log('results of refreshAuthToken (success!!)');
-            //     //   console.log(data.data.refreshAuthToken.token);
-            //     //   console.log('.......................');
-
-            //     //   await cookie.serialize(
-            //     //     'x-token-new',
-            //     //     data.data.refreshAuthToken.token,
-            //     //     {}
-            //     //   );
-
-            //     //   await operation.setContext({
-            //     //     headers: {
-            //     //       ...headers,
-            //     //       'x-token': data.data.refreshAuthToken.token
-            //     //     }
-            //     //   });
-
-            // return forward(operation);
-            //     // };
-
-            //     // doRefresh();
-            //   }
-            // }
+              // return forward(operation);
+              break;
           }
         }
       }
+
+      // ----------------------------------------
+
+      // If error is due to unathenticated user request
+      // and a refresh token is available
+      // const { extensions } = graphQLErrors[0];
+      // const refreshToken = getTokens()['x-token-refresh'];
+
+      // if (extensions.code === 'UNAUTHENTICATED' && refreshToken) {
+      //   // Create a new Observerable
+      //   return new Observable(async observer => {
+      //     // Refresh the access token
+      //     refreshAccessToken(refreshToken, client)
+      //       // On successful refresh...
+      //       .then(newTokens => {
+      //         // Handle cookies
+      //         if (!newTokens.token) {
+      //           // Delete cookies if no new access token provided
+      //           destroyCookie(ctx, 'x-token');
+      //           destroyCookie(ctx, 'x-token-refresh');
+      //         } else {
+      //           // Update cookies if new access token available
+      //           setCookie(ctx, 'x-token', newTokens.token, {
+      //             maxAge: 30 * 60
+      //           });
+
+      //           setCookie(ctx, 'x-token-refresh', newTokens.refreshToken, {
+      //             maxAge: 30 * 24 * 60 * 60
+      //           });
+      //         }
+
+      //         // Bind observable subscribers
+      //         const subscriber = {
+      //           next: observer.next.bind(observer),
+      //           error: observer.error.bind(observer),
+      //           complete: observer.complete.bind(observer)
+      //         };
+
+      //         // Retry last failed request
+      //         forward(operation).subscribe(subscriber);
+      //       })
+
+      //       // On refresh failure...
+      //       .catch(error => {
+      //         observer.error(error);
+      //       });
+      //   });
+      // }
+
+      // ----------------------------------------
+
+      // for (const err of graphQLErrors) {
+      //   switch (err.extensions.code) {
+      //     // AuthenticationError
+      //     case 'UNAUTHENTICATED':
+      //       // Modify the operation context with a new token
+      //       // const oldHeaders = operation.getContext().headers;
+
+      //       // operation.setContext({
+      //       //   headers: {
+      //       //     ...oldHeaders,
+      //       //     authorization: getNewToken()
+      //       //   }
+      //       // });
+
+      //       // Retry the request, returning the new observable
+      //       return forward(operation);
+
+      //     // ----------------------------------------
+
+      //     // const doRefresh = async () => {
+      //     //   const refreshToken = await getTokens()['x-token-refresh'];
+      //     //   const data = await refreshAuthToken(refreshToken);
+
+      //     //   console.log('.......................');
+      //     //   console.log('results of refreshAuthToken (success!!)');
+      //     //   console.log(data.data.refreshAuthToken.token);
+      //     //   console.log('.......................');
+
+      //     //   await cookie.serialize(
+      //     //     'x-token-new',
+      //     //     data.data.refreshAuthToken.token,
+      //     //     {}
+      //     //   );
+
+      //     //   await operation.setContext({
+      //     //     headers: {
+      //     //       ...headers,
+      //     //       'x-token': data.data.refreshAuthToken.token
+      //     //     }
+      //     //   });
+
+      // return forward(operation);
+      //     // };
+
+      //     // doRefresh();
+      //   }
+      // }
 
       if (networkError) {
         const errorObject = {
