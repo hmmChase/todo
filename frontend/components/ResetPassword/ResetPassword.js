@@ -37,7 +37,7 @@ class ResetPassword extends React.PureComponent {
           resetToken: this.props.resetToken
         }}
         onError={this.handleError}
-        // onCompleted={this.handleCompleted}
+        onCompleted={this.handleCompleted}
       >
         {(resetPassword, { loading, error, client }) => (
           <sc.form

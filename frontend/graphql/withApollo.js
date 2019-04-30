@@ -52,36 +52,26 @@ const createClient = ({ ctx, headers, initialState }) => {
     ({ graphQLErrors, networkError, operation, forward }) => {
       if (graphQLErrors) {
         for (const err of graphQLErrors) {
+          console.log('graphQLError: ', {
+            code: err.extensions.code,
+            operation: operation.operationName,
+            message: err.message
+          });
+
           switch (err.extensions.code) {
             // AuthenticationError
             case 'UNAUTHENTICATED':
-              console.log('UNAUTHENTICATED: ', {
-                operation: operation.operationName,
-                message: err.message
-              });
-
               // return forward(operation);
               break;
 
             // ForbiddenError
             case 'FORBIDDEN':
-              console.log('FORBIDDEN: ', {
-                operation: operation.operationName,
-                message: err.message
-              });
-
-              if (process.browser) Router.push('/');
+              // if (process.browser) Router.push('/');
 
               // return forward(operation);
               break;
 
             default:
-              console.log({
-                code: err.extensions.code,
-                operation: operation.operationName,
-                message: err.message
-              });
-
               // return forward(operation);
               break;
           }
