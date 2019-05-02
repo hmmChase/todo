@@ -34,7 +34,7 @@ export const mailResetToken = async (email, resetToken, resetTokenExpiry) => {
           process.env.NODE_ENV === 'production'
             ? process.env.PROD_FRONTEND_URL
             : process.env.DEV_FRONTEND_URL
-        }/resetpass?resetToken=${resetToken}&resetTokenExpiry=${resetTokenExpiry}">
+        }/resetpassword?resetToken=${resetToken}&resetTokenExpiry=${resetTokenExpiry}">
           Click Here to Reset
         </a>`
       )

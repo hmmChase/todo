@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import Head from '../components/Head/Head';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import DisplayError from '../components/DisplayError/DisplayError';
+import { isLoggedIn } from '../utils/isLoggedIn';
 
-// Should this page be accessable if a user is logged in?
-
-const ResetPassPage = React.memo(props => {
+const ResetPasswordPage = React.memo(props => {
   const { resetToken, resetTokenExpiry } = props.router.query;
 
   const isTokenMissing = !resetToken || !resetTokenExpiry;
@@ -32,11 +31,17 @@ const ResetPassPage = React.memo(props => {
   );
 });
 
-ResetPassPage.defaultProps = {
+ResetPasswordPage.getInitialProps = async ctx => {
+  const me = await isLoggedIn(ctx.apolloClient);
+
+  if (me) redirect(ctx, '/');
+};
+
+ResetPasswordPage.defaultProps = {
   router: { query: { resetToken: '', resetTokenExpiry: '' } }
 };
 
-ResetPassPage.propTypes = {
+ResetPasswordPage.propTypes = {
   router: PropTypes.shape({
     query: PropTypes.shape({
       resetToken: PropTypes.string,
@@ -45,4 +50,4 @@ ResetPassPage.propTypes = {
   })
 };
 
-export default withRouter(ResetPassPage);
+export default withRouter(ResetPasswordPage);
