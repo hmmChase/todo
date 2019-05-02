@@ -6,7 +6,7 @@ import DisplayError from '../components/DisplayError/DisplayError';
 
 // Should this page be accessable if a user is logged in?
 
-const ResetPage = React.memo(props => {
+const ResetPassPage = React.memo(props => {
   const { resetToken, resetTokenExpiry } = props.router.query;
 
   const isTokenMissing = !resetToken || !resetTokenExpiry;
@@ -32,11 +32,11 @@ const ResetPage = React.memo(props => {
   );
 });
 
-ResetPage.defaultProps = {
+ResetPassPage.defaultProps = {
   router: { query: { resetToken: '', resetTokenExpiry: '' } }
 };
 
-ResetPage.propTypes = {
+ResetPassPage.propTypes = {
   router: PropTypes.shape({
     query: PropTypes.shape({
       resetToken: PropTypes.string,
@@ -45,4 +45,4 @@ ResetPage.propTypes = {
   })
 };
 
-export default withRouter(ResetPage);
+export default withRouter(ResetPassPage);
