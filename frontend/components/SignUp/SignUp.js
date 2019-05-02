@@ -33,6 +33,7 @@ class SignUp extends React.PureComponent {
         mutation={query.SIGN_UP_MUTATION}
         variables={this.state}
         onError={this.handleError}
+        errorPolicy="all"
         onCompleted={this.handleCompleted}
       >
         {(signUp, { loading, error, client }) => (

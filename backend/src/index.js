@@ -6,6 +6,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import apolloServer from './apolloServer';
+import logger from './utils/logger';
 
 const app = express();
 const server = apolloServer();
@@ -37,17 +38,7 @@ app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  console.log('\n', '----------');
-  // console.log('req host: ', req.headers.host);
-  // console.log('req headers: ', req.headers);
-  // console.log('req cookies: ', req.cookies);
-  // console.log('req body: ', req.body);
-  console.log('res headers : ', res.header()._headers);
-  // console.log('res statusCode: ', res.statusCode);
-  console.log('headersSent: ', res.headersSent);
-  next();
-});
+if (process.env.NODE_ENV === 'development') app.use(logger);
 
 server.applyMiddleware({ app, path: '/graphql', cors: corsOptions });
 

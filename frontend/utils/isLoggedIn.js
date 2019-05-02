@@ -9,7 +9,6 @@ export const isLoggedIn = async client => {
 
     return res.data.me;
   } catch (err) {
-    console.log('isLoggedIn Error: ', err);
     return null;
   }
 };

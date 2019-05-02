@@ -21,14 +21,16 @@ const createClient = ({ ctx, headers, initialState }) => {
     console.log(
       '\n',
       `---------- starting request for ${operation.operationName}`,
+      new Date().getMilliseconds(),
       `(client: ${process.browser}, server: ${!process.browser})`
     );
 
     return forward(operation).map(op => {
-      console.log(`${operation.operationName} res data: `, op.data);
+      console.log(`${operation.operationName} res: `, op);
       console.log(
         '\n',
-        `---------- ending request for ${operation.operationName}`
+        `---------- ending request for ${operation.operationName}`,
+        new Date().getMilliseconds()
       );
       return op;
     });
@@ -52,11 +54,17 @@ const createClient = ({ ctx, headers, initialState }) => {
     ({ graphQLErrors, networkError, operation, forward }) => {
       if (graphQLErrors) {
         for (const err of graphQLErrors) {
-          console.log('graphQLError: ', {
+          const errorObject = {
             code: err.extensions.code,
             operation: operation.operationName,
             message: err.message
-          });
+          };
+
+          console.log(
+            '[GraphQL error]: ',
+            new Date().getMilliseconds(),
+            errorObject
+          );
 
           switch (err.extensions.code) {
             // AuthenticationError
@@ -66,7 +74,7 @@ const createClient = ({ ctx, headers, initialState }) => {
 
             // ForbiddenError
             case 'FORBIDDEN':
-              // if (process.browser) Router.push('/');
+              if (process.browser) Router.push('/');
 
               // return forward(operation);
               break;
@@ -239,11 +247,11 @@ const createClient = ({ ctx, headers, initialState }) => {
     cache,
     queryDeduplication: true,
     ssrMode: !process.browser,
-    ssrForceFetchDelay: 100,
+    // ssrForceFetchDelay: 100,
     connectToDevTools: process.browser
   });
 };
 
 export default withApollo(createClient, {
-  getDataFromTree: 'ssr'
+  getDataFromTree: 'always'
 });

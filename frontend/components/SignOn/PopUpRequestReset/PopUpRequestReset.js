@@ -26,6 +26,7 @@ class PopUpRequestReset extends React.PureComponent {
         mutation={query.REQUEST_RESET_MUTATION}
         variables={this.state}
         onError={this.handleError}
+        errorPolicy="all"
       >
         {(requestReset, { loading, error, called }) => (
           <sc.form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
