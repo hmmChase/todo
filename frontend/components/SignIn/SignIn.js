@@ -34,6 +34,7 @@ class SignIn extends React.PureComponent {
         mutation={query.SIGN_IN_MUTATION}
         variables={this.state}
         onError={this.handleError}
+        errorPolicy="all"
         onCompleted={this.handleCompleted}
       >
         {(signIn, { loading, error, client }) => (

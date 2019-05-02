@@ -9,12 +9,24 @@ import { randomBytes } from 'crypto';
 import { promisify } from 'util';
 import * as config from '../config';
 
-export const isAuth = async req => {
+export const getMe = async req => {
   const token = req.cookies.token;
 
-  if (!token) throw new ForbiddenError('Please sign in.');
+  if (!token) return null;
 
-  return await verifyJWT(req, token);
+  try {
+    return await verifyJWT(req, token);
+  } catch (err) {
+    return null;
+  }
+};
+
+export const isAuthenticated = me => {
+  if (!me) {
+    console.log('!me');
+
+    throw new ForbiddenError('Must be signed in.');
+  }
 };
 
 export const signJWT = async payload =>

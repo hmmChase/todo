@@ -11,7 +11,11 @@ const SignOut = React.memo(() => {
   const handleError = error => error;
 
   return (
-    <Mutation mutation={query.SIGN_OUT_MUTATION} onError={handleError}>
+    <Mutation
+      mutation={query.SIGN_OUT_MUTATION}
+      onError={handleError}
+      errorPolicy="all"
+    >
       {(signOut, { loading, client }) => (
         <sc.purpleLinkBtn
           disabled={loading}

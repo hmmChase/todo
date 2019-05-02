@@ -66,15 +66,15 @@ export default {
     },
 
     users: async (parent, args, ctx, info) => {
-      await auth.isAuth(ctx.req);
+      await auth.isAuthenticated(ctx.me);
 
       return await ctx.prisma.query.users();
     },
 
     me: async (parent, args, ctx, info) => {
-      const me = await auth.isAuth(ctx.req);
-
-      if (me) return await ctx.prisma.query.user({ where: { id: me.user.id } });
+      return ctx.me
+        ? await ctx.prisma.query.user({ where: { id: ctx.me.user.id } })
+        : null;
     }
   },
 
