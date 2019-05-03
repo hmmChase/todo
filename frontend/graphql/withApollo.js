@@ -253,5 +253,5 @@ const createClient = ({ ctx, headers, initialState }) => {
 };
 
 export default withApollo(createClient, {
-  getDataFromTree: 'always'
+  getDataFromTree: 'ssr'
 });
