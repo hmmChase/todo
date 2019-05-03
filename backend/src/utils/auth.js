@@ -75,6 +75,12 @@ export const sendCookie = async (res, payload) => {
   }
 };
 
+export const clearCookie = res => {
+  res.clearCookie('token');
+
+  // res.cookie('token', { maxAge: Date.now() });
+};
+
 export const validateEmail = email => {
   if (typeof email !== 'string') return false;
 
