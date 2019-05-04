@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "backend": "cd backend && npm run dev",
+    "backend:install": "cd backend && npm install",
     "frontend": "cd frontend && npm run dev",
+    "frontend:install": "cd frontend && npm install",
     "app": "concurrently -c red,green --kill-others-on-fail \"npm run backend\" \"npm run frontend\""
   },
   "repository": {
