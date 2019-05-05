@@ -16,8 +16,8 @@
 
 ### Notes
 
-- User authentication implemented with a JWT and cookie
-- I'm always looking for better ways to do things, so please give suggestions/pull requests
+- User authentication implemented with a JWT and cookie.
+- I'm always looking for better ways to do things, so please give suggestions/pull requests.
 
 ## Getting Started
 
@@ -27,27 +27,37 @@
 
 ### Install dependencies
 
-1. Navigate to root `/`
+1. Navigate to project root `cd next-graphql-starter`
 2. Run `npm install`
-3. Run `npm frontend:install`
-4. Run `npm backend:install`
+3. Run `npm run frontend:install`
+4. Run `npm run backend:install`
+
+### Set environment variables
+
+1. Locate `.env.example` in both `/frontend` and `/backend`
+2. Make a copy of both
+3. Rename copy to just `.env`
 
 ### Setup Prisma server
 
-For simplicity's sake, we are using a demo server
+For simplicity's sake, we are using a demo server.
 
 - First time
   - Visit [Prisma](https://www.prisma.io/) and sign up
   - Install [CLI](https://www.prisma.io/docs/prisma-cli-and-configuration/using-the-prisma-cli-alx4/) and login
 
 1. Navigate to `/backend`
-2. run `npm run deploy -- -n`
-3. Select `Demo server + MySQL database`
+2. Run `npm run deploy -- -n`
+3. Select `Demo server`
 4. Complete the prompts
 5. Copy `HTTP` endpoint
-6. Paste endpoint in `.env` as `PRISMA_ENDPOINT`
+6. Paste endpoint in `.env` as `PRISMA_ENDPOINT` value
+7. Run `npm run schema`
+   - Do this everytime you make a change to `datamodel.prisma`
 
 ### Setup Mailtrap
+
+Can skip if you don't try to reset a password.
 
 - First time
   - Visit [Mailtrap](https://mailtrap.io) and sign up
@@ -55,15 +65,6 @@ For simplicity's sake, we are using a demo server
 
 1. Copy `Host`, `Port`, `Username`, and `Password` values
 2. Paste in `/backend/.env`
-
-### Set environment variables
-
-1. Locate `.env.example` in both `/frontend` and `/backend`
-2. Make a copy of both
-3. Delete the extension `.example`
-4. Update the values
-
-- If deploying to [Now](https://zeit.co/now), follow `now-secrets.md`
 
 ### Start the app
 
@@ -73,4 +74,18 @@ For simplicity's sake, we are using a demo server
 
 ### Deploy to Now
 
--
+No guarantee this will work. Now has been changing a lot recently.
+
+- First time
+  - Visit [Now](https://zeit.co/now) and sign up
+  - Install [Now Desktop](https://zeit.co/download) and login
+
+1. Navigate to root `/`
+2. Run `now`
+3. Copy aliased URL
+4. Paste URL in `/backend/.env` as `PROD_FRONTEND_URL` value
+5. Paste URL in `/frontend/.env` as `PROD_GRAPHQL_ENDPOINT` value
+   - append `/graphql` onto it
+6. Follow `now-secrets.md` to setup Now secrets
+7. Run `now`
+8. Visit the URL
