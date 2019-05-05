@@ -1,5 +1,7 @@
-type User {
-  id: ID! @unique
+type User @db(name: "user") {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   email: String! @unique
   password: String!
   resetToken: String
