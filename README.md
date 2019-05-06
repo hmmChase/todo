@@ -1,10 +1,10 @@
 # next-graphql-starter
 
-> A boilerplate/example app that includes functionality to sign up/in/out, and reset password
+> A boilerplate/example app that includes functionality to sign up/in/out, and reset password.
 
 > View the app at https://next-graphql-starter.hmmchase.now.sh/
 >
-> - Don't use a real email address to sign up
+> - Don't use a real email address to sign up.
 
 ## Built with
 
