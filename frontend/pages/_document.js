@@ -49,9 +49,19 @@ class MyDocument extends Document {
           <meta name="description" content="" />
           <meta
             name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            content="
+              width=device-width,
+              height=device-height,
+              initial-scale=1,
+              minimum-scale=1,
+              user-scalable=0,
+              shrink-to-fit=no"
           />
-          <link rel="shortcut icon" href="/static/favicon.ico" />
+          <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="/static/favicon.ico"
+          />
           <link
             rel="preload"
             href="/static/fonts/open-sans-v15-latin-regular.woff2"

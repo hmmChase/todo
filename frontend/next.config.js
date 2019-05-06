@@ -1,18 +1,17 @@
-require('dotenv').config();
-const Dotenv = require('dotenv-webpack');
-const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
+/* eslint-disable no-param-reassign */
 const path = require('path');
+const DotenvWebpackPlugin = require('dotenv-webpack');
+const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 
 module.exports = withBundleAnalyzer({
   target: 'serverless',
-  webpack: config => {
-    config.plugins = config.plugins || [];
 
+  webpack: config => {
     config.plugins = [
-      ...config.plugins,
+      ...(config.plugins || []),
 
       // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
-      new Dotenv({
+      new DotenvWebpackPlugin({
         path: path.join(__dirname, '.env'),
         systemvars: true
       })
@@ -21,7 +20,7 @@ module.exports = withBundleAnalyzer({
     return config;
   },
 
-  // https://github.com/zeit/next-plugins/tree/master/packages/next-bundle-analyzer
+  // github.com/zeit/next-plugins/tree/master/packages/next-bundle-analyzer
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
   analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
   bundleAnalyzerConfig: {
