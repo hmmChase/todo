@@ -45,6 +45,7 @@ class MyDocument extends Document {
     return (
       <html lang="en">
         <Head>
+          <meta forwardcyberverification="True" />
           <meta charSet="utf-8" />
           <meta name="description" content="" />
           <meta
