@@ -1,16 +1,15 @@
-import PropTypes from 'prop-types';
+import SignOn from '../SignOn/SignOn';
+import IdeaCardForm from '../IdeaCardForm/IdeaCardForm';
 import * as sc from './Header.style';
 
-const Header = React.memo(props => (
+const Header = React.memo(() => (
   <sc.header>
-    <sc.h1>next-graphql-starter</sc.h1>
+    <sc.h1>Starter</sc.h1>
 
-    {props.children}
+    <SignOn />
+
+    <IdeaCardForm />
   </sc.header>
 ));
-
-Header.propTypes = {
-  children: PropTypes.node.isRequired
-};
 
 export default Header;

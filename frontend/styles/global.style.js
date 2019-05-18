@@ -15,6 +15,16 @@ export default createGlobalStyle`
     font-display: fallback;
   }
 
+  @font-face {
+    font-family: 'Play';
+    src: url('/static/fonts/play-v10-latin-regular.woff2') format('woff2'),
+         url('/static/fonts/play-v10-latin-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    /* font-display: swap; */
+    font-display: fallback;
+  }
+
   html {
     box-sizing: border-box;
   }

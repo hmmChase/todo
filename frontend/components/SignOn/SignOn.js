@@ -14,11 +14,11 @@ class SignOn extends React.PureComponent {
     return (
       <WithUser>
         {me => (
-          <>
+          <sc.signOn>
             {me ? (
               <SignOut />
             ) : (
-              <div>
+              <>
                 <sc.purpleBtn
                   onClick={() => this.setState({ popUp: 'signIn' })}
                 >
@@ -37,9 +37,9 @@ class SignOn extends React.PureComponent {
                     setPopUp={popUpName => this.setState({ popUp: popUpName })}
                   />
                 )}
-              </div>
+              </>
             )}
-          </>
+          </sc.signOn>
         )}
       </WithUser>
     );
