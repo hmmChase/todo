@@ -2,7 +2,8 @@ export default {
   color: {
     black: '#393939',
     blue: '#ACE',
-    red: '#F00',
+    yellow_bright: '#FFFF99',
+    yellow_light: '#fffacd',
     orange: 'tomato',
     green: 'limeGreen',
     purple: 'blueviolet'

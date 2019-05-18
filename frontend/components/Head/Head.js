@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Head = React.memo(props => (
   <NextHead>
-    <title>{`next-graphql-starter | ${props.title}`}</title>
+    <title>{props.title ? `Starter | ${props.title}` : 'Starter'}</title>
   </NextHead>
 ));
 

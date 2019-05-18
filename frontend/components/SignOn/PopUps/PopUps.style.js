@@ -12,6 +12,7 @@ export const divPopup = styled.div`
 `;
 
 export const divOuter = styled.div`
+  z-index: 666;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -21,7 +22,7 @@ export const divOuter = styled.div`
 `;
 
 export const divInner = styled.div`
-  z-index: 666;
+  z-index: 999;
   padding: 10px;
   background-color: white;
 `;
