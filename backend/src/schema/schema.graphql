@@ -1,9 +1,12 @@
 # import * from './schema_prep.graphql'
 
 type Query {
-  user(id: ID!): User
-  users: [User]!
   me: User
+  user(id: ID!): User
+  users: [User!]!
+  idea(id: ID!): Idea
+  ideas: [Idea!]!
+  getUserIdeas: [Idea!]!
 }
 
 type Mutation {
@@ -16,13 +19,16 @@ type Mutation {
     password: String!
     confirmPassword: String!
   ): User!
-  me: User
+  createIdea(content: String!): Idea!
+  updateIdea(id: ID!, content: String!): Idea!
+  deleteIdea(id: ID!): Idea!
   # refreshAccessToken(refreshToken: String!): Token!
 }
 
 type User {
   id: ID!
   email: String!
+  ideas: [Idea!]!
 }
 
 # type Token {

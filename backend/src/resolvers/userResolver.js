@@ -61,20 +61,18 @@ import * as config from '../config';
 
 export default {
   Query: {
-    user: async (parent, args, ctx, info) => {
-      return await ctx.prisma.query.user({ where: { id: args.id } });
-    },
-
-    users: async (parent, args, ctx, info) => {
-      await auth.isAuthenticated(ctx.me);
-
-      return await ctx.prisma.query.users();
-    },
-
-    me: async (parent, args, ctx, info) => {
+    me: (parent, args, ctx, info) => {
       return ctx.me
-        ? await ctx.prisma.query.user({ where: { id: ctx.me.user.id } })
+        ? ctx.prisma.query.user({ where: { id: ctx.me.user.id } })
         : null;
+    },
+
+    user: (parent, args, ctx, info) => {
+      return ctx.prisma.query.user({ where: { id: args.id } }, info);
+    },
+
+    users: (parent, args, ctx, info) => {
+      return ctx.prisma.query.users();
     }
   },
 
@@ -109,7 +107,7 @@ export default {
       const password = await bcrypt.hash(args.password, config.saltRounds);
 
       const user = await ctx.prisma.mutation.createUser({
-        data: { email, password }
+        data: { email, password, roles: { set: ['USER'] } }
       });
 
       const payload = { user: { id: user.id } };
@@ -146,7 +144,7 @@ export default {
     requestReset: async (parent, args, ctx, info) => {
       const email = args.email.toLowerCase();
 
-      const user = await ctx.prisma.query.user({ where: { email } });
+      const user = ctx.prisma.query.user({ where: { email } });
 
       if (!user) {
         throw new UserInputError(`No account found for ${email}`);
@@ -154,7 +152,7 @@ export default {
 
       const { resetToken, resetTokenExpiry } = await auth.genResetToken();
 
-      await ctx.prisma.mutation.updateUser({
+      ctx.prisma.mutation.updateUser({
         where: { email },
         data: { resetToken, resetTokenExpiry }
       });
@@ -168,7 +166,7 @@ export default {
       auth.validatePassword(args.password);
       auth.comparePasswords(args.password, args.confirmPassword);
 
-      const [user] = await ctx.prisma.query.users({
+      const [user] = ctx.prisma.query.users({
         where: { resetToken: args.resetToken }
       });
 
@@ -182,7 +180,7 @@ export default {
 
       const password = await bcrypt.hash(args.password, config.saltRounds);
 
-      const updatedUser = await ctx.prisma.mutation.updateUser({
+      const updatedUser = ctx.prisma.mutation.updateUser({
         where: { email: user.email },
         data: {
           password,
@@ -196,6 +194,21 @@ export default {
       await auth.sendCookie(ctx.res, payload);
 
       return updatedUser;
+    }
+  },
+
+  // Further resolvers to resolve the connections on a per-field level
+  // The root (parent) resolver that ran, passes its data to any per-field resolvers
+
+  User: {
+    ideas: (parent, args, ctx, info) => {
+      console.log('user parent: ', parent);
+
+      // return ctx.prisma.query.user({ where: { id: parent.id } }).ideas();
+
+      return ctx.prisma.query.ideas({
+        where: { author: { id: parent.ideas.id } }
+      });
     }
   }
 };
