@@ -10,7 +10,7 @@ export default {
       return ctx.prisma.query.ideas();
     },
 
-    getUserIdeas(parent, args, ctx, info) {
+    getUserIdeas: async (parent, args, ctx, info) => {
       await auth.isAuthenticated(ctx.me);
 
       return ctx.prisma.query.ideas({
