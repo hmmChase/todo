@@ -22,7 +22,7 @@ const IdeaContainer = React.memo(() => {
           <sc.IdeaContainer>
             {loading && <DisplayLoading />}
 
-            {data.getUserIdeas.length ? (
+            {data.getUserIdeas && data.getUserIdeas.length ? (
               <sc.ul>{displayIdeaCards(data)}</sc.ul>
             ) : (
               <p>Think of something!</p>
