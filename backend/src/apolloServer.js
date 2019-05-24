@@ -4,7 +4,7 @@ const prisma = require('./prismaClient');
 import resolvers from './resolvers';
 import * as auth from './utils/auth';
 
-// import schema from './schema';
+import schema from './schema';
 
 const typeDefs = importSchema(__dirname + '/schema/schema.graphql');
 
@@ -12,9 +12,9 @@ const dev = process.env.NODE_ENV !== 'production';
 
 export default () =>
   new ApolloServer({
-    typeDefs,
-    resolvers,
-    // schema,
+    // typeDefs,
+    // resolvers,
+    schema,
     context: async ({ req, res }) => {
       const me = await auth.getMe(req);
 
