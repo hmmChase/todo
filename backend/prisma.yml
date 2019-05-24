@@ -2,14 +2,18 @@
 endpoint: ${env:PRISMA_ENDPOINT}
 
 # Defines your models, each model is mapped to the database as a table
-datamodel: datamodel.prisma
+datamodel: ./src/prisma/datamodel.prisma
 
 # Used to authenticate requests made to the service's API
 secret: ${env:PRISMA_SECRET}
 
 # Specifies the language and directory for the generated Prisma client
 generate:
-  # - generator: javascript-client
-  #   output: ./generated/prisma-client
+  - generator: javascript-client
+    output: ./src/prisma/generated/prisma-client
   - generator: graphql-schema
-    output: ../src/schema/generated/prisma.graphql
+    output: ./src/prisma/generated/prisma.graphql
+
+hooks:
+  post-deploy:
+    - prisma generate
