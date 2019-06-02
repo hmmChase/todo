@@ -10,9 +10,9 @@ secret: ${env:PRISMA_SECRET}
 # Specifies the language and directory for the generated Prisma client
 generate:
   - generator: javascript-client
-    output: ./src/prisma/generated/prisma-client
+    output: ./src/prisma/generated/
   - generator: graphql-schema
-    output: ./src/prisma/generated/prisma.graphql
+    output: ./src/schema/generated/prisma.graphql
 
 hooks:
   post-deploy:

@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'development') app.use(logger);
 server.applyMiddleware({ app, path: '/graphql', cors: corsOptions });
 
 app.listen({ port: process.env.PORT || 4000 }, err => {
-  console.log('\n'.repeat(99));
+  // console.log('\n'.repeat(99));
 
   if (err) throw err;
   console.log(

@@ -1,12 +1,11 @@
 import { ApolloServer } from 'apollo-server-express';
-import { importSchema } from 'graphql-import';
-const prisma = require('./prismaClient');
-import resolvers from './resolvers';
 import * as auth from './utils/auth';
-
+import prisma from './prisma/prismaClient';
 import schema from './schema';
 
-const typeDefs = importSchema(__dirname + '/schema/schema.graphql');
+// import { importSchema } from 'graphql-import';
+// import resolvers from './resolvers';
+// const typeDefs = importSchema(__dirname + '/schema/schema.graphql');
 
 const dev = process.env.NODE_ENV !== 'production';
 

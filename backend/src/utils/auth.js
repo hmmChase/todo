@@ -43,14 +43,10 @@ export const verifyJWT = async (res, token) => {
   } catch (err) {
     if (err.name === 'TokenExpiredError') {
       // TODO: Figure out how to refresh token
-      console.log('TokenExpiredError');
 
       //   const decodedPayload = await jwt.decode(token);
-
       //   await res.clearCookie('token');
-
       //   payload = { user: { id: decodedPayload.userId } };
-
       //   await sendCookie(res, payload);
 
       throw new AuthenticationError('JWT expired.');
@@ -135,7 +131,7 @@ export const genResetToken = async () => {
 };
 
 export const validateTokenExpiry = resetTokenExpiry => {
-  const isTokenExpired = Date.now() > resetTokenExpiry;
+  const isTokenExpired = Date.now() >= resetTokenExpiry;
 
   if (isTokenExpired) {
     throw new AuthenticationError(
