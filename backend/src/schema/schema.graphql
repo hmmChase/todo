@@ -37,4 +37,5 @@ type User {
 # }
 
 # https://github.com/prisma/graphql-import/issues/267
+# https://github.com/prisma/graphql-yoga/issues/478
 # https://spectrum.chat/zeit/now/v2-no-such-file-or-directory-graphql-schema-files~71053e4b-c98a-4d97-90c7-8b69f8dcf513
