@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server-express';
-import prisma from './prisma/prismaClient';
+import prisma from './prismaClient';
 import * as auth from './utils/auth';
 // import schema from './schema';
 
