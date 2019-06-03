@@ -2,7 +2,7 @@
   "name": "next-graphql-starter",
   "version": 2,
   "builds": [
-    { "src": "backend/src/index.js", "use": "@now/node@canary" },
+    { "src": "backend/src/index.js", "use": "@now/node-server@canary" },
     { "src": "frontend/next.config.js", "use": "@now/next" }
   ],
   "routes": [
