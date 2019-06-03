@@ -1,4 +1,4 @@
-# import * from './schema_prep.graphql'
+# import * from './prep.graphql'
 
 type Query {
   me: User
@@ -35,3 +35,5 @@ type User {
 #   token: String!
 #   refreshToken: String!
 # }
+
+# https://github.com/prisma/graphql-import/issues/267
