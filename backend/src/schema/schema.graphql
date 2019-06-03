@@ -1,4 +1,4 @@
-# import * from './schema_prep.graphql'
+# import * from './generated/prisma.graphql'
 
 type Query {
   me: User
