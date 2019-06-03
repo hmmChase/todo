@@ -11,25 +11,12 @@ import logger from './utils/logger';
 const app = express();
 const server = apolloServer();
 
-// const whitelist = [
-//   'http://localhost:8008',
-//   'https://next-graphql-starter-git-master.hmmchase.now.sh'
-// ];
-
 const corsOptions = {
   credentials: true,
   origin:
     process.env.NODE_ENV === 'production'
       ? process.env.PROD_FRONTEND_URL
       : process.env.DEV_FRONTEND_URL
-
-  // origin: (origin, callback) => {
-  //   if (whitelist.indexOf(origin) !== -1) {
-  //     callback(null, true);
-  //   } else {
-  //     callback(new Error('Not allowed by CORS'));
-  //   }
-  // }
 };
 
 app.use(cors(corsOptions));
