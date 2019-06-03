@@ -1,4 +1,4 @@
-# import * from './prep.graphql'
+# import * from './schema_prep.graphql'
 
 type Query {
   me: User
