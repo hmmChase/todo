@@ -5,7 +5,7 @@ export default {
     yellow_bright: '#FFFF99',
     yellow_light: '#fffacd',
     orange: 'tomato',
-    green: 'limeGreen',
+    green: 'limegreen',
     purple: 'blueviolet'
   }
 };
