@@ -1,9 +1,13 @@
+/* eslint-disable */
+
 import React from 'react';
 import { mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { load } from '../../../utils/tests';
 import * as mock from '../../../__mocks__/mocks';
-import QueryExample, { USERS_QUERY } from '../../../components/Examples/QueryExample';
+import QueryExample, {
+  USERS_QUERY
+} from '../../../components/Examples/QueryExample';
 
 describe('QueryExample', () => {
   let mockProps;
@@ -26,7 +30,10 @@ describe('QueryExample', () => {
     ];
     mockMutations = [];
     wrapper = mount(
-      <MockedProvider mocks={[...mockQueries, ...mockMutations]} addTypename={false}>
+      <MockedProvider
+        mocks={[...mockQueries, ...mockMutations]}
+        addTypename={false}
+      >
         <QueryExample {...mockProps} />
       </MockedProvider>,
       {

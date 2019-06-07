@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import { mount } from 'enzyme';
 import { ApolloConsumer } from 'react-apollo';
@@ -57,7 +59,9 @@ describe('MutationExample', () => {
   });
 
   it('matches snapshot while mutation loading', async () => {
-    wrapper.find('input').simulate('change', { target: { value: mock.user.name } });
+    wrapper
+      .find('input')
+      .simulate('change', { target: { value: mock.user.name } });
     wrapper.find('form').simulate('submit');
 
     expect(wrapper.text()).toContain('Loading...');
@@ -67,7 +71,9 @@ describe('MutationExample', () => {
   });
 
   fit('matches snapshot after mutation completes', async () => {
-    wrapper.find('input').simulate('change', { target: { value: mock.user.name } });
+    wrapper
+      .find('input')
+      .simulate('change', { target: { value: mock.user.name } });
     wrapper.find('form').simulate('submit');
 
     await load(wrapper);
@@ -83,7 +89,9 @@ describe('MutationExample', () => {
 
     expect(component.state.name).toEqual('');
 
-    wrapper.find('input').simulate('change', { target: { value: mock.user.name } });
+    wrapper
+      .find('input')
+      .simulate('change', { target: { value: mock.user.name } });
     wrapper.find('form').simulate('submit');
 
     expect(component.state.name).toEqual(mock.user.name);
@@ -95,7 +103,7 @@ describe('MutationExample', () => {
     wrapper = mount(
       <MockedProvider mocks={mockQueries} addTypename={false}>
         <ApolloConsumer>
-          {(client) => {
+          {client => {
             apolloClient = client;
             return <MutationExample {...mockProps} />;
           }}
@@ -152,7 +160,9 @@ describe('MutationExample', () => {
 
     // console.log('debug1: ', wrapper.debug());
 
-    wrapper.find('input').simulate('change', { target: { value: mock.user.name } });
+    wrapper
+      .find('input')
+      .simulate('change', { target: { value: mock.user.name } });
     wrapper.find('form').simulate('submit');
 
     // console.log('debug2: ', wrapper.debug());
