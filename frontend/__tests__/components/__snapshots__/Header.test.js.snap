@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header matches snapshot 1`] = `
+<Headerstyle__header>
+  <Headerstyle__h1>
+    Starter
+  </Headerstyle__h1>
+  <SignOn />
+  <IdeaCardForm />
+</Headerstyle__header>
+`;

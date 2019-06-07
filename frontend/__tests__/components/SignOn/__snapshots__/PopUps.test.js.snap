@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopUps matches snapshot 1`] = `
+<PopUpsstyle__divPopup>
+  <PopUpsstyle__divOuter
+    onClick={[Function]}
+  />
+  <PopUpsstyle__divInner />
+</PopUpsstyle__divPopup>
+`;
