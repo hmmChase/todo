@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUpPage matches snapshot 1`] = `
+<Fragment>
+  <Component
+    title="Sign Up"
+  />
+  <SignUp />
+</Fragment>
+`;
