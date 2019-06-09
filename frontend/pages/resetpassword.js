@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Head from '../components/Head/Head';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import DisplayError from '../components/DisplayError/DisplayError';
-import redirect from '../utils/redirect';
+import { redirect } from '../utils/redirect';
 import { isLoggedIn } from '../utils/isLoggedIn';
 
 const ResetPasswordPage = React.memo(props => {

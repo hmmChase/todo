@@ -1,6 +1,6 @@
 import Head from '../components/Head/Head';
 import SignIn from '../components/SignIn/SignIn';
-import redirect from '../utils/redirect';
+import { redirect } from '../utils/redirect';
 import { isLoggedIn } from '../utils/isLoggedIn';
 
 const SignInPage = React.memo(() => (

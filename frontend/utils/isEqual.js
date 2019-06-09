@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 export const isEqual = (prevProps, nextProps) => {
   const obj1 = prevProps;
   console.log('TCL: isEqual -> obj1', obj1);

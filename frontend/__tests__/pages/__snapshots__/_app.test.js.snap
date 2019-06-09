@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`_app matches snapshot 1`] = `
+<Container>
+  <ApolloProvider>
+    <ThemeProvider
+      theme={
+        Object {
+          "color": Object {
+            "black": "#393939",
+            "blue": "#ACE",
+            "green": "limegreen",
+            "orange": "tomato",
+            "purple": "blueviolet",
+            "yellow_bright": "#FFFF99",
+            "yellow_light": "#fffacd",
+          },
+        }
+      }
+    >
+      <Component>
+        <Component />
+      </Component>
+    </ThemeProvider>
+  </ApolloProvider>
+</Container>
+`;

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`_error matches snapshot 1`] = `
+<Fragment>
+  <h3>
+    Unknown error, no status code to report.
+  </h3>
+  <Component />
+</Fragment>
+`;

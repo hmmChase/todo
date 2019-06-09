@@ -1,15 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Examples from '../../../components/Examples/Examples';
+import SignOn from '../../../components/SignOn/SignOn';
 
-describe('Examples', () => {
+describe('SignOn', () => {
   let mockProps;
   let wrapper;
 
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    wrapper = shallow(<Examples {...mockProps} />, {
+    wrapper = shallow(<SignOn {...mockProps} />, {
       disableLifecycleMethods: true
     });
   });

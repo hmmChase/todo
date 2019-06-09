@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopUpSignUp matches snapshot 1`] = `
+<Mutation
+  errorPolicy="all"
+  mutation={
+    Object {
+      "definitions": Array [
+        Object {
+          "directives": Array [],
+          "kind": "OperationDefinition",
+          "name": Object {
+            "kind": "Name",
+            "value": "SIGN_UP_MUTATION",
+          },
+          "operation": "mutation",
+          "selectionSet": Object {
+            "kind": "SelectionSet",
+            "selections": Array [
+              Object {
+                "alias": undefined,
+                "arguments": Array [
+                  Object {
+                    "kind": "Argument",
+                    "name": Object {
+                      "kind": "Name",
+                      "value": "email",
+                    },
+                    "value": Object {
+                      "kind": "Variable",
+                      "name": Object {
+                        "kind": "Name",
+                        "value": "email",
+                      },
+                    },
+                  },
+                  Object {
+                    "kind": "Argument",
+                    "name": Object {
+                      "kind": "Name",
+                      "value": "password",
+                    },
+                    "value": Object {
+                      "kind": "Variable",
+                      "name": Object {
+                        "kind": "Name",
+                        "value": "password",
+                      },
+                    },
+                  },
+                  Object {
+                    "kind": "Argument",
+                    "name": Object {
+                      "kind": "Name",
+                      "value": "confirmPassword",
+                    },
+                    "value": Object {
+                      "kind": "Variable",
+                      "name": Object {
+                        "kind": "Name",
+                        "value": "confirmPassword",
+                      },
+                    },
+                  },
+                ],
+                "directives": Array [],
+                "kind": "Field",
+                "name": Object {
+                  "kind": "Name",
+                  "value": "signUp",
+                },
+                "selectionSet": Object {
+                  "kind": "SelectionSet",
+                  "selections": Array [
+                    Object {
+                      "alias": undefined,
+                      "arguments": Array [],
+                      "directives": Array [],
+                      "kind": "Field",
+                      "name": Object {
+                        "kind": "Name",
+                        "value": "id",
+                      },
+                      "selectionSet": undefined,
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+          "variableDefinitions": Array [
+            Object {
+              "defaultValue": undefined,
+              "directives": Array [],
+              "kind": "VariableDefinition",
+              "type": Object {
+                "kind": "NonNullType",
+                "type": Object {
+                  "kind": "NamedType",
+                  "name": Object {
+                    "kind": "Name",
+                    "value": "String",
+                  },
+                },
+              },
+              "variable": Object {
+                "kind": "Variable",
+                "name": Object {
+                  "kind": "Name",
+                  "value": "email",
+                },
+              },
+            },
+            Object {
+              "defaultValue": undefined,
+              "directives": Array [],
+              "kind": "VariableDefinition",
+              "type": Object {
+                "kind": "NonNullType",
+                "type": Object {
+                  "kind": "NamedType",
+                  "name": Object {
+                    "kind": "Name",
+                    "value": "String",
+                  },
+                },
+              },
+              "variable": Object {
+                "kind": "Variable",
+                "name": Object {
+                  "kind": "Name",
+                  "value": "password",
+                },
+              },
+            },
+            Object {
+              "defaultValue": undefined,
+              "directives": Array [],
+              "kind": "VariableDefinition",
+              "type": Object {
+                "kind": "NonNullType",
+                "type": Object {
+                  "kind": "NamedType",
+                  "name": Object {
+                    "kind": "Name",
+                    "value": "String",
+                  },
+                },
+              },
+              "variable": Object {
+                "kind": "Variable",
+                "name": Object {
+                  "kind": "Name",
+                  "value": "confirmPassword",
+                },
+              },
+            },
+          ],
+        },
+      ],
+      "kind": "Document",
+      "loc": Object {
+        "end": 234,
+        "start": 0,
+      },
+    }
+  }
+  onCompleted={[Function]}
+  onError={[Function]}
+  variables={
+    Object {
+      "confirmPassword": "",
+      "email": "",
+      "password": "",
+    }
+  }
+>
+  <Component />
+</Mutation>
+`;

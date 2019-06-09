@@ -8,12 +8,12 @@ import withApollo from '../graphql/withApollo';
 import theme from '../styles/theme.style';
 import Layout from '../components/Layout/Layout';
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   const whyDidYouRender = require('@welldone-software/why-did-you-render');
   whyDidYouRender(React);
 }
 
-class MyApp extends App {
+export class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     console.log('_app GIP', new Date().getMilliseconds());
 

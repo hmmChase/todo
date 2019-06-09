@@ -1,3 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Layout matches snapshot 1`] = `undefined`;
+exports[`Layout matches snapshot 1`] = `
+<Layoutstyle__divLayout>
+  <Layoutstyle__headerMarginLeft />
+  <Component />
+  <Layoutstyle__headerMarginRight />
+</Layoutstyle__divLayout>
+`;

@@ -1,15 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ExamplesPage from '../../pages/examples';
+import DisplayLoading from '../../components/DisplayLoading/DisplayLoading';
 
-describe('ExamplesPage', () => {
+describe('DisplayLoading', () => {
   let mockProps;
   let wrapper;
 
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    wrapper = shallow(<ExamplesPage {...mockProps} />, {
+    wrapper = shallow(<DisplayLoading {...mockProps} />, {
       disableLifecycleMethods: true
     });
   });
