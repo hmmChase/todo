@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisplayLoading matches snapshot 1`] = `
-<p>
+<p
+  snapshot="DisplayLoading"
+>
   Loading ...
 </p>
 `;

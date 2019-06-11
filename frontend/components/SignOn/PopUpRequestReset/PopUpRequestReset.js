@@ -29,7 +29,10 @@ class PopUpRequestReset extends React.PureComponent {
         errorPolicy="all"
       >
         {(requestReset, { loading, error, called }) => (
-          <sc.form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
+          <sc.form
+            snapshot="PopUpRequestReset"
+            onSubmit={e => this.handleSubmitForm(e, requestReset)}
+          >
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Request a password reset</h2>
 

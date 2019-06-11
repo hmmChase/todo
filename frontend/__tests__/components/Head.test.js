@@ -8,13 +8,15 @@ describe('Head', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    mockProps = {};
+    mockProps = { title: 'test' };
     wrapper = shallow(<Head {...mockProps} />, {
       disableLifecycleMethods: true
     });
   });
 
   it('matches snapshot', () => {
-    expect(wrapper).toMatchSnapshot();
+    const wrapSnap = wrapper.find({ snapshot: 'Head' });
+
+    expect(wrapSnap).toMatchSnapshot();
   });
 });

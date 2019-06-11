@@ -39,7 +39,10 @@ class SignIn extends React.PureComponent {
       >
         {(signIn, { loading, error, client }) => (
           <>
-            <sc.form onSubmit={e => this.handleSubmitForm(e, signIn, client)}>
+            <sc.form
+              snapshot="SignIn"
+              onSubmit={e => this.handleSubmitForm(e, signIn, client)}
+            >
               <fieldset disabled={loading} aria-busy={loading}>
                 <h2>Sign In</h2>
 

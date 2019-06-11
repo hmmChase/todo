@@ -15,6 +15,9 @@ describe('DisplayLoading', () => {
   });
 
   it('matches snapshot', () => {
-    expect(wrapper).toMatchSnapshot();
+    const wrapSnap = wrapper.find({ snapshot: 'DisplayLoading' });
+
+    expect(wrapSnap.text()).toContain('Loading ...');
+    expect(wrapSnap).toMatchSnapshot();
   });
 });

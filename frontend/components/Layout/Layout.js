@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 import * as sc from './Layout.style';
 
 const Layout = React.memo(props => (
-  <sc.divLayout>
+  <sc.divLayout snapshot="Layout">
     <sc.headerMarginLeft />
 
     <Header />

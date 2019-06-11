@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Head matches snapshot 1`] = `
-<Head>
+<Head
+  snapshot="Head"
+>
   <title>
-    Starter
+    Starter | test
   </title>
 </Head>
 `;

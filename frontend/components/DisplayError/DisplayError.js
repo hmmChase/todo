@@ -5,7 +5,7 @@ import * as sc from './DisplayError.style';
 const DisplayError = React.memo(props => {
   if (props.error.graphQLErrors) {
     return (
-      <sc.divError>
+      <sc.divError snapshot="DisplayError">
         {props.error.graphQLErrors.map((e, i) => (
           <p key={e.message.length + i}>{e.message}</p>
         ))}
@@ -15,12 +15,16 @@ const DisplayError = React.memo(props => {
 
   if (props.error.message)
     return (
-      <sc.divError>
+      <sc.divError snapshot="DisplayError">
         <p>{props.error.message}</p>
       </sc.divError>
     );
 
-  return <sc.divError>Opps, something went wrong.</sc.divError>;
+  return (
+    <sc.divError snapshot="DisplayError">
+      Opps, something went wrong.
+    </sc.divError>
+  );
 });
 
 DisplayError.defaultProps = {

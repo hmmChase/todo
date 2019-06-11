@@ -22,7 +22,7 @@ class IdeaCard extends React.PureComponent {
 
   render() {
     return (
-      <sc.li>
+      <sc.li snapshot="IdeaCard">
         <Mutation
           mutation={query.DELETE_IDEA_MUTATION}
           variables={{ id: this.props.id }}

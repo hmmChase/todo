@@ -3,7 +3,7 @@ import IdeaCardForm from '../IdeaCardForm/IdeaCardForm';
 import * as sc from './Header.style';
 
 const Header = React.memo(() => (
-  <sc.header>
+  <sc.header snapshot="Header">
     <sc.h1>Starter</sc.h1>
 
     <SignOn />

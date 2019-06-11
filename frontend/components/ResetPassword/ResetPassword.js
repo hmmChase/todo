@@ -42,6 +42,7 @@ class ResetPassword extends React.PureComponent {
       >
         {(resetPassword, { loading, error, client }) => (
           <sc.form
+            snapshot="ResetPassword"
             onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
           >
             <fieldset disabled={loading} aria-busy={loading}>

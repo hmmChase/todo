@@ -14,7 +14,7 @@ class SignOn extends React.PureComponent {
     return (
       <WithUser>
         {me => (
-          <sc.signOn>
+          <sc.signOn snapshot="SignOn">
             {me ? (
               <SignOut />
             ) : (

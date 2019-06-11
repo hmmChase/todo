@@ -15,6 +15,9 @@ describe('Footer', () => {
   });
 
   it('matches snapshot', () => {
-    expect(wrapper).toMatchSnapshot();
+    const wrapSnap = wrapper.find({ snapshot: 'Footer' });
+
+    expect(wrapSnap.text()).toContain('Footer');
+    expect(wrapSnap).toMatchSnapshot();
   });
 });

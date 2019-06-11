@@ -18,6 +18,7 @@ const SignOut = React.memo(() => {
     >
       {(signOut, { loading, client }) => (
         <sc.purpleLinkBtn
+          snapshot="SignOut"
           disabled={loading}
           aria-busy={loading}
           onClick={() => handleClickBtn(signOut, client)}
