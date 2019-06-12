@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout matches snapshot 1`] = `
+<Layoutstyle__divLayout
+  snapshot="Layout"
+>
+  <Layoutstyle__headerMarginLeft />
+  <Component />
+  <Layoutstyle__headerMarginRight />
+</Layoutstyle__divLayout>
+`;

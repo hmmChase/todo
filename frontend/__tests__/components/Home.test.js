@@ -23,10 +23,9 @@ describe('Home', () => {
     );
   });
 
-  it('matches snapshot - loading', () => {
+  it('matches snapshot', () => {
     const wrapSnap = wrapper.find({ snapshot: 'Home' });
 
-    // expect(wrapSnap.text()).toContain('Loading...');
     expect(wrapSnap).toMatchSnapshot();
   });
 });

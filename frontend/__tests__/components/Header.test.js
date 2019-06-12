@@ -1,10 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
+import { ThemeProvider } from 'styled-components';
+import Header from '../../components/Header/Header';
+import theme from '../../styles/theme.style';
 
-import Home from '../../components/Home/Home';
-
-describe('Home', () => {
+describe('Header', () => {
   let mockProps;
   let mockQueries;
   let wrapper;
@@ -15,7 +16,9 @@ describe('Home', () => {
     mockQueries = [];
     wrapper = mount(
       <MockedProvider mocks={mockQueries} addTypename={false}>
-        <Home {...mockProps} />
+        <ThemeProvider theme={theme}>
+          <Header {...mockProps} />
+        </ThemeProvider>
       </MockedProvider>,
       {
         disableLifecycleMethods: true
@@ -24,9 +27,8 @@ describe('Home', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapSnap = wrapper.find({ snapshot: 'Home' });
+    const wrapSnap = wrapper.find({ snapshot: 'Header' });
 
-    expect(wrapSnap.text()).toContain('Loading...');
     expect(wrapSnap).toMatchSnapshot();
   });
 });
