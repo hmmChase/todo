@@ -15,8 +15,10 @@ describe('Head', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapSnap = wrapper.find({ snapshot: 'Head' });
+    expect(wrapper).toMatchSnapshot();
+  });
 
-    expect(wrapSnap).toMatchSnapshot();
+  it('updates title w/ props.title', () => {
+    expect(wrapper.find('title').text()).toContain('Starter | test');
   });
 });

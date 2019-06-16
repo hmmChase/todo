@@ -2,7 +2,7 @@ import NextHead from 'next/head';
 import PropTypes from 'prop-types';
 
 const Head = React.memo(props => (
-  <NextHead snapshot="Head">
+  <NextHead>
     <title>{props.title ? `Starter | ${props.title}` : 'Starter'}</title>
   </NextHead>
 ));

@@ -19,7 +19,7 @@ const IdeaContainer = React.memo(() => {
         if (error) return <DisplayError error={error} />;
 
         return (
-          <sc.IdeaContainer snapshot="IdeaContainer">
+          <sc.IdeaContainer>
             {loading && <DisplayLoading />}
 
             {data.getUserIdeas && data.getUserIdeas.length ? (

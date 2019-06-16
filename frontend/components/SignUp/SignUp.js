@@ -37,10 +37,7 @@ class SignUp extends React.PureComponent {
         onCompleted={this.handleCompleted}
       >
         {(signUp, { loading, error, client }) => (
-          <sc.form
-            snapshot="SignUp"
-            onSubmit={e => this.handleSubmitForm(e, signUp, client)}
-          >
+          <sc.form onSubmit={e => this.handleSubmitForm(e, signUp, client)}>
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Create a new Account</h2>
 

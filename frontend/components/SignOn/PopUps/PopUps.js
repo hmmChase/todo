@@ -28,7 +28,7 @@ const PopUps = React.memo(props => {
   };
 
   return (
-    <sc.divPopup snapshot="PopUps">
+    <sc.divPopup>
       <sc.divOuter onClick={() => props.setPopUp('')} />
 
       <sc.divInner>{showPopUp()}</sc.divInner>

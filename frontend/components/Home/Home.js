@@ -4,7 +4,7 @@ import * as sc from './Home.style';
 
 const Home = React.memo(() => {
   return (
-    <sc.main snapshot="Home">
+    <sc.main>
       <WithUser>{me => me && <IdeaCardContainer />}</WithUser>
     </sc.main>
   );

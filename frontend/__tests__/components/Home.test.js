@@ -1,8 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
-
+import { load } from '../../utils/load';
 import Home from '../../components/Home/Home';
+// eslint-disable-next-line max-len
+import { MOCK_ME_QUERY } from '../../components/wrappers/WithUser/WithUser.query';
 
 describe('Home', () => {
   let mockProps;
@@ -12,7 +14,7 @@ describe('Home', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    mockQueries = [];
+    mockQueries = [MOCK_ME_QUERY];
     wrapper = mount(
       <MockedProvider mocks={mockQueries} addTypename={false}>
         <Home {...mockProps} />
@@ -23,9 +25,17 @@ describe('Home', () => {
     );
   });
 
-  it('matches snapshot', () => {
-    const wrapSnap = wrapper.find({ snapshot: 'Home' });
+  it('matches snapshot - loading', () => {
+    const wrapSnap = wrapper.find('Homestyle__main');
 
+    expect(wrapSnap.find('p').text()).toContain('Loading ...');
+    expect(wrapSnap).toMatchSnapshot();
+  });
+
+  it('matches snapshot - loaded', async () => {
+    const wrapSnap = wrapper.find('Homestyle__main');
+    await load(wrapper);
+    // console.log(wrapper.debug());
     expect(wrapSnap).toMatchSnapshot();
   });
 });

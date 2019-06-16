@@ -10,3 +10,18 @@ export const CREATE_IDEA_MUTATION = gql`
     }
   }
 `;
+
+export const MOCK_CREATE_IDEA_MUTATION = {
+  request: {
+    query: CREATE_IDEA_MUTATION
+  },
+  result: {
+    data: {
+      createIdea: [
+        {
+          id: '1'
+        }
+      ]
+    }
+  }
+};

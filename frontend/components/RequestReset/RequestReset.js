@@ -29,10 +29,7 @@ class RequestReset extends React.PureComponent {
         errorPolicy="all"
       >
         {(requestReset, { loading, error, called }) => (
-          <sc.form
-            snapshot="RequestReset"
-            onSubmit={e => this.handleSubmitForm(e, requestReset)}
-          >
+          <sc.form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Request a password reset</h2>
 

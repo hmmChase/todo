@@ -1,5 +1,3 @@
-const DisplayLoading = React.memo(() => (
-  <p snapshot="DisplayLoading">Loading ...</p>
-));
+const DisplayLoading = React.memo(() => <p>Loading ...</p>);
 
 export default DisplayLoading;

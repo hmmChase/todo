@@ -41,7 +41,6 @@ class IdeaCardForm extends React.PureComponent {
       >
         {createIdea => (
           <sc.form
-            snapshot="IdeaCardForm"
             onSubmit={event => this.handleSubmitIdeaForm(event, createIdea)}
           >
             <img src="static/ideabox.png" alt="ideabox" />

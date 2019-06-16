@@ -8,3 +8,17 @@ export const ME_QUERY = gql`
     }
   }
 `;
+
+export const MOCK_ME_QUERY = {
+  request: {
+    query: ME_QUERY
+  },
+  result: {
+    data: {
+      me: {
+        id: '1',
+        email: 'mock@email.com'
+      }
+    }
+  }
+};

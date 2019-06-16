@@ -6,10 +6,14 @@ import { MockedProvider } from 'react-apollo/test-utils';
 import { load } from '../../utils/load';
 import IdeaCard from '../../components/IdeaCard/IdeaCard';
 import {
-  ME_IDEAS_QUERY,
-  UPDATE_IDEA_MUTATION,
-  DELETE_IDEA_MUTATION
+  MOCK_UPDATE_IDEA_MUTATION,
+  MOCK_DELETE_IDEA_MUTATION
 } from '../../components/IdeaCard/IdeaCard.query';
+// eslint-disable-next-line max-len
+import {
+  ME_IDEAS_QUERY,
+  MOCK_ME_IDEAS_QUERY
+} from '../../components/IdeaCardContainer/IdeaCardContainer.query';
 import * as mock from '../../__mocks__/mocks';
 
 describe('IdeaCard', () => {
@@ -21,51 +25,9 @@ describe('IdeaCard', () => {
     jest.resetAllMocks();
     mockProps = { id: mock.idea.id, content: mock.idea.content };
     mockQueries = [
-      {
-        request: {
-          query: UPDATE_IDEA_MUTATION,
-          variables: { id: mock.newIdea.id, content: mock.newIdea.newIdea }
-        },
-        result: {
-          data: {
-            updateIdea: {
-              id: mock.newIdea.id,
-              content: mock.newIdea.newIdea
-            }
-          }
-        }
-      },
-      {
-        request: {
-          query: DELETE_IDEA_MUTATION,
-          variables: { id: mock.idea.id }
-        },
-        result: {
-          data: {
-            deleteIdea: {
-              id: mock.idea.id
-            }
-          }
-        }
-      },
-      {
-        request: { query: ME_IDEAS_QUERY },
-        result: {
-          data: {
-            getUserIdeas: [{ id: mock.idea.id, content: mock.idea.content }]
-          }
-        }
-      },
-      {
-        request: { query: ME_IDEAS_QUERY },
-        result: {
-          data: {
-            getUserIdeas: [
-              { id: mock.newIdea.id, content: mock.newIdea.content }
-            ]
-          }
-        }
-      }
+      MOCK_UPDATE_IDEA_MUTATION,
+      MOCK_DELETE_IDEA_MUTATION,
+      MOCK_ME_IDEAS_QUERY
     ];
 
     wrapper = mount(
@@ -79,11 +41,16 @@ describe('IdeaCard', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapSnap = wrapper.find({ snapshot: 'IdeaCard' });
-
-    // expect(wrapSnap.text()).toContain('mock content');
+    const wrapSnap = wrapper.find('IdeaCard');
 
     expect(wrapSnap).toMatchSnapshot();
+  });
+
+  it('renders list item', () => {
+    const ideaLi = wrapper.find('li');
+
+    expect(ideaLi).toHaveLength(1);
+    expect(ideaLi.text()).toContain('mock content');
   });
 
   it('matches snapshot - update idea', async () => {
@@ -106,20 +73,25 @@ describe('IdeaCard', () => {
     const wrapSnap = wrapper.find({ snapshot: 'IdeaCard' });
 
     const userIdeas1 = await apolloClient.query({ query: ME_IDEAS_QUERY });
-    console.log(': userIdeas1', userIdeas1.data.getUserIdeas);
+    // console.log(': userIdeas1', userIdeas1.data.getUserIdeas);
 
-    console.log('state: ', wrapper.find('IdeaCard').instance().state);
+    // console.log('state: ', wrapper.find('IdeaCard').instance().state);
 
-    wrapper
-      .find('p')
-      .simulate('input', { target: { innerText: 'new mock idea' } });
+    const ideaP = wrapper.find('p');
+    // console.log(': ideaP', ideaP.debug());
 
-    console.log('state: ', wrapper.find('IdeaCard').instance().state);
+    ideaP.simulate('input', { target: { innerText: 'new mock idea' } });
+
+    // console.log('state: ', wrapper.find('IdeaCard').instance().state);
 
     await load(wrapper);
 
     const userIdeas2 = await apolloClient.query({ query: ME_IDEAS_QUERY });
-    console.log(': userIdeas2', userIdeas2.data.getUserIdeas);
+    // console.log(': userIdeas2', userIdeas2.data.getUserIdeas);
+
+    await load(wrapper);
+
+    // console.log(wrapper.debug());
 
     expect(wrapper.find('IdeaCard').instance().state.nextContent).toBe(
       'new mock idea'

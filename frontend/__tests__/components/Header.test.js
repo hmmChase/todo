@@ -27,7 +27,7 @@ describe('Header', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapSnap = wrapper.find({ snapshot: 'Header' });
+    const wrapSnap = wrapper.find('Headerstyle__header');
 
     expect(wrapSnap).toMatchSnapshot();
   });

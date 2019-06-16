@@ -15,9 +15,10 @@ describe('DisplayError', () => {
   });
 
   it('matches snapshot - generic error', () => {
-    const wrapSnap = wrapper.find({ snapshot: 'DisplayError' });
+    const wrapSnap = wrapper.find('DisplayErrorstyle__divError');
 
     expect(wrapSnap.text()).toContain('Opps, something went wrong.');
+
     expect(wrapSnap).toMatchSnapshot();
   });
 });
