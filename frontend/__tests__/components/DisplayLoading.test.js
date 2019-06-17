@@ -15,6 +15,7 @@ describe('DisplayLoading', () => {
   });
 
   it('matches snapshot', () => {
+    expect(wrapper.text()).toContain('Loading ...');
     expect(wrapper).toMatchSnapshot();
   });
 });

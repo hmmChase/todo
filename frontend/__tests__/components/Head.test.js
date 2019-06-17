@@ -8,7 +8,7 @@ describe('Head', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    mockProps = {};
+    mockProps = { title: 'test' };
     wrapper = shallow(<Head {...mockProps} />, {
       disableLifecycleMethods: true
     });
@@ -16,5 +16,9 @@ describe('Head', () => {
 
   it('matches snapshot', () => {
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('updates title w/ props.title', () => {
+    expect(wrapper.find('title').text()).toContain('Starter | test');
   });
 });

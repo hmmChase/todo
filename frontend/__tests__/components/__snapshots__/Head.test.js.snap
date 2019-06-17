@@ -3,7 +3,7 @@
 exports[`Head matches snapshot 1`] = `
 <Head>
   <title>
-    Starter
+    Starter | test
   </title>
 </Head>
 `;

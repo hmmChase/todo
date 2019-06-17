@@ -9,6 +9,22 @@ export const ALL_IDEAS_QUERY = gql`
   }
 `;
 
+export const MOCK_ALL_IDEAS_QUERY = {
+  request: {
+    query: ALL_IDEAS_QUERY
+  },
+  result: {
+    data: {
+      ideas: [
+        {
+          id: '1',
+          content: 'mock content'
+        }
+      ]
+    }
+  }
+};
+
 export const USER_IDEAS_QUERY = gql`
   query USER_IDEAS_QUERY($author: ID!) {
     idea(author: $id) {
@@ -18,6 +34,22 @@ export const USER_IDEAS_QUERY = gql`
   }
 `;
 
+export const MOCK_USER_IDEAS_QUERY = {
+  request: {
+    query: USER_IDEAS_QUERY
+  },
+  result: {
+    data: {
+      idea: [
+        {
+          id: '1',
+          content: 'mock content'
+        }
+      ]
+    }
+  }
+};
+
 export const ME_IDEAS_QUERY = gql`
   query ME_IDEAS_QUERY {
     getUserIdeas {
@@ -26,3 +58,19 @@ export const ME_IDEAS_QUERY = gql`
     }
   }
 `;
+
+export const MOCK_ME_IDEAS_QUERY = {
+  request: {
+    query: ME_IDEAS_QUERY
+  },
+  result: {
+    data: {
+      getUserIdeas: [
+        {
+          id: '1',
+          content: 'mock content'
+        }
+      ]
+    }
+  }
+};
