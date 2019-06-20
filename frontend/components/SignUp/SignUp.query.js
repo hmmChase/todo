@@ -15,3 +15,23 @@ export const SIGN_UP_MUTATION = gql`
     }
   }
 `;
+
+export const MOCK_SIGN_UP_MUTATION = {
+  request: {
+    query: SIGN_UP_MUTATION,
+    variables: {
+      email: 'mock@email.com',
+      password: 'mockpass',
+      confirmPassword: 'mockpass'
+    }
+  },
+  result: {
+    data: {
+      signUp: [
+        {
+          id: '1'
+        }
+      ]
+    }
+  }
+};

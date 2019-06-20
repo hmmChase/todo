@@ -5,3 +5,14 @@ export const SIGN_OUT_MUTATION = gql`
     signOut
   }
 `;
+
+export const MOCK_SIGN_OUT_MUTATION = {
+  request: {
+    query: SIGN_OUT_MUTATION
+  },
+  result: {
+    data: {
+      signOut: true
+    }
+  }
+};

@@ -13,7 +13,8 @@ export const CREATE_IDEA_MUTATION = gql`
 
 export const MOCK_CREATE_IDEA_MUTATION = {
   request: {
-    query: CREATE_IDEA_MUTATION
+    query: CREATE_IDEA_MUTATION,
+    variables: { content: 'mock created idea' }
   },
   result: {
     data: {
