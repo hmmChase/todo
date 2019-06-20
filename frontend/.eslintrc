@@ -5,8 +5,15 @@
     "es6": true,
     "jest": true
   },
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["react", "jsx-a11y", "import"],
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
@@ -15,7 +22,12 @@
     }
   },
   "rules": {
-    "max-len": ["error", { "code": 80 }],
+    "max-len": [
+      "error",
+      {
+        "code": 80
+      }
+    ],
     "no-undef": "off",
     "linebreak-style": "off",
     "comma-dangle": "off",
