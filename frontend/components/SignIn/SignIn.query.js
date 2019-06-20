@@ -7,3 +7,22 @@ export const SIGN_IN_MUTATION = gql`
     }
   }
 `;
+
+export const MOCK_SIGN_IN_MUTATION = {
+  request: {
+    query: SIGN_IN_MUTATION,
+    variables: {
+      email: 'mock@email.com',
+      password: 'mockpass'
+    }
+  },
+  result: {
+    data: {
+      signIn: [
+        {
+          id: '1'
+        }
+      ]
+    }
+  }
+};

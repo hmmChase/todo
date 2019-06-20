@@ -2,7 +2,7 @@
 
 exports[`SignInPage matches snapshot 1`] = `
 <Fragment>
-  <Component
+  <Memo()
     title="Sign In"
   />
   <SignIn />

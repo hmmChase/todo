@@ -18,9 +18,9 @@ exports[`_app matches snapshot 1`] = `
         }
       }
     >
-      <Component>
+      <Memo()>
         <Component />
-      </Component>
+      </Memo()>
     </ThemeProvider>
   </ApolloProvider>
 </Container>

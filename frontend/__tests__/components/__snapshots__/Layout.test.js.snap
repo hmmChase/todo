@@ -3,7 +3,7 @@
 exports[`Layout matches snapshot 1`] = `
 <Layoutstyle__divLayout>
   <Layoutstyle__headerMarginLeft />
-  <Component />
+  <Memo() />
   <Layoutstyle__headerMarginRight />
 </Layoutstyle__divLayout>
 `;

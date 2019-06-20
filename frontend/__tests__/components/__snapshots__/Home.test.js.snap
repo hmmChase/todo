@@ -34,7 +34,7 @@ exports[`Home matches snapshot - loaded 1`] = `
     <main
       className="c0"
     >
-      <Component>
+      <Memo()>
         <Query
           errorPolicy="all"
           query={
@@ -101,13 +101,13 @@ exports[`Home matches snapshot - loaded 1`] = `
             }
           }
         >
-          <Component>
+          <Memo()>
             <p>
               Loading ...
             </p>
-          </Component>
+          </Memo()>
         </Query>
-      </Component>
+      </Memo()>
     </main>
   </StyledComponent>
 </Homestyle__main>
@@ -147,7 +147,7 @@ exports[`Home matches snapshot - loading 1`] = `
     <main
       className="c0"
     >
-      <Component>
+      <Memo()>
         <Query
           errorPolicy="all"
           query={
@@ -214,13 +214,13 @@ exports[`Home matches snapshot - loading 1`] = `
             }
           }
         >
-          <Component>
+          <Memo()>
             <p>
               Loading ...
             </p>
-          </Component>
+          </Memo()>
         </Query>
-      </Component>
+      </Memo()>
     </main>
   </StyledComponent>
 </Homestyle__main>

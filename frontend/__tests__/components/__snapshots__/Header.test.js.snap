@@ -148,7 +148,7 @@ exports[`Header matches snapshot 1`] = `
         </StyledComponent>
       </Headerstyle__h1>
       <SignOn>
-        <Component>
+        <Memo()>
           <Query
             errorPolicy="all"
             query={
@@ -215,13 +215,13 @@ exports[`Header matches snapshot 1`] = `
               }
             }
           >
-            <Component>
+            <Memo()>
               <p>
                 Loading ...
               </p>
-            </Component>
+            </Memo()>
           </Query>
-        </Component>
+        </Memo()>
       </SignOn>
       <IdeaCardForm>
         <Mutation
