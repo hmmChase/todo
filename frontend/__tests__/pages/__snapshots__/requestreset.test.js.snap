@@ -2,7 +2,7 @@
 
 exports[`RequestResetPage matches snapshot 1`] = `
 <Fragment>
-  <Component
+  <Memo()
     title="Request Reset"
   />
   <RequestReset />

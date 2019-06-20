@@ -2,9 +2,9 @@
 
 exports[`IndexPage matches snapshot 1`] = `
 <Fragment>
-  <Component
+  <Memo()
     title="Home"
   />
-  <Component />
+  <Memo() />
 </Fragment>
 `;
