@@ -1,90 +1,385 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RequestReset matches snapshot 1`] = `
-<Mutation
-  errorPolicy="all"
-  mutation={
-    Object {
-      "definitions": Array [
-        Object {
-          "directives": Array [],
-          "kind": "OperationDefinition",
-          "name": Object {
-            "kind": "Name",
-            "value": "REQUEST_RESET_MUTATION",
-          },
-          "operation": "mutation",
-          "selectionSet": Object {
-            "kind": "SelectionSet",
-            "selections": Array [
-              Object {
-                "alias": undefined,
-                "arguments": Array [
-                  Object {
-                    "kind": "Argument",
-                    "name": Object {
-                      "kind": "Name",
-                      "value": "email",
-                    },
-                    "value": Object {
-                      "kind": "Variable",
-                      "name": Object {
-                        "kind": "Name",
-                        "value": "email",
-                      },
-                    },
-                  },
-                ],
-                "directives": Array [],
-                "kind": "Field",
-                "name": Object {
-                  "kind": "Name",
-                  "value": "requestReset",
-                },
-                "selectionSet": undefined,
-              },
-            ],
-          },
-          "variableDefinitions": Array [
-            Object {
-              "defaultValue": undefined,
-              "directives": Array [],
-              "kind": "VariableDefinition",
-              "type": Object {
-                "kind": "NonNullType",
-                "type": Object {
-                  "kind": "NamedType",
-                  "name": Object {
-                    "kind": "Name",
-                    "value": "String",
-                  },
-                },
-              },
-              "variable": Object {
-                "kind": "Variable",
-                "name": Object {
-                  "kind": "Name",
-                  "value": "email",
-                },
-              },
-            },
+exports[`RequestReset matches snapshot - loaded 1`] = `
+.c0 > fieldset {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 {
+  border: 1px solid #393939;
+  padding: 4px;
+  border-radius: 2px;
+  margin: 5px;
+}
+
+.c2 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem 1rem;
+  border: 2px solid;
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease-out;
+  transition: background-color 0.3s ease-out;
+  background: none;
+  white-space: nowrap;
+  margin-top: 10px;
+  margin-left: auto;
+}
+
+.c2:hover {
+  background-color: #eee;
+}
+
+.c2:active {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25) inset;
+}
+
+<formstyle__form
+  onSubmit={[Function]}
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "formstyle__form-q97ky5-0",
+          "isStatic": true,
+          "lastClassName": "c0",
+          "rules": Array [
+            "> fieldset{display:flex;}",
           ],
         },
-      ],
-      "kind": "Document",
-      "loc": Object {
-        "end": 90,
-        "start": 0,
-      },
+        "displayName": "formstyle__form",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "formstyle__form-q97ky5-0",
+        "target": "form",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
     }
-  }
-  onError={[Function]}
-  variables={
-    Object {
-      "email": "",
-    }
-  }
+    forwardedRef={null}
+    onSubmit={[Function]}
+  >
+    <form
+      className="c0"
+      onSubmit={[Function]}
+    >
+      <fieldset
+        aria-busy={false}
+        disabled={false}
+      >
+        <h2>
+          Request a password reset
+        </h2>
+        <label
+          htmlFor="email"
+        >
+          Email
+          <RequestResetstyle__inputText
+            name="email"
+            onChange={[Function]}
+            placeholder="email"
+            type="email"
+            value=""
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "RequestResetstyle__inputText-sc-1cierfp-0",
+                    "isStatic": false,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "border:1px solid ",
+                      [Function],
+                      ";padding:4px;border-radius:2px;",
+                      "margin:5px;",
+                    ],
+                  },
+                  "displayName": "RequestResetstyle__inputText",
+                  "foldedComponentIds": Array [
+                    "inputstyle__input-bgiqmz-0",
+                  ],
+                  "render": [Function],
+                  "styledComponentId": "RequestResetstyle__inputText-sc-1cierfp-0",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              name="email"
+              onChange={[Function]}
+              placeholder="email"
+              type="email"
+              value=""
+            >
+              <input
+                className="c1"
+                name="email"
+                onChange={[Function]}
+                placeholder="email"
+                type="email"
+                value=""
+              />
+            </StyledComponent>
+          </RequestResetstyle__inputText>
+        </label>
+        <RequestResetstyle__inputBtn
+          disabled={true}
+          type="submit"
+          value="Request Reset"
+        >
+          <StyledComponent
+            disabled={true}
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "RequestResetstyle__inputBtn-sc-1cierfp-1",
+                  "isStatic": false,
+                  "lastClassName": "c2",
+                  "rules": Array [
+                    "text-decoration:none;text-shadow:1px 1px 0 #fff;font-size:1rem;font-weight:600;padding:0.3rem 1rem;border:2px solid;border-radius:3px;cursor:pointer;transition:background-color 0.3s ease-out;background:none;white-space:nowrap;&:hover{background-color:#eee;}&:active{box-shadow:0 2px 6px rgba(0,0,0,0.25) inset;}",
+                    "color:",
+                    [Function],
+                    ";",
+                    "margin-top:10px;margin-left:auto;",
+                  ],
+                },
+                "displayName": "RequestResetstyle__inputBtn",
+                "foldedComponentIds": Array [
+                  "buttonstyle__inputBtn-sc-5slzqu-3",
+                  "buttonstyle__submitInputBtn-sc-5slzqu-5",
+                ],
+                "render": [Function],
+                "styledComponentId": "RequestResetstyle__inputBtn-sc-1cierfp-1",
+                "target": "input",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            type="submit"
+            value="Request Reset"
+          >
+            <input
+              className="c2"
+              disabled={true}
+              type="submit"
+              value="Request Reset"
+            />
+          </StyledComponent>
+        </RequestResetstyle__inputBtn>
+      </fieldset>
+    </form>
+  </StyledComponent>
+</formstyle__form>
+`;
+
+exports[`RequestReset matches snapshot 1`] = `
+.c0 > fieldset {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 {
+  border: 1px solid #393939;
+  padding: 4px;
+  border-radius: 2px;
+  margin: 5px;
+}
+
+.c2 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem 1rem;
+  border: 2px solid;
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease-out;
+  transition: background-color 0.3s ease-out;
+  background: none;
+  white-space: nowrap;
+  margin-top: 10px;
+  margin-left: auto;
+}
+
+.c2:hover {
+  background-color: #eee;
+}
+
+.c2:active {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25) inset;
+}
+
+<formstyle__form
+  onSubmit={[Function]}
 >
-  <Component />
-</Mutation>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "formstyle__form-q97ky5-0",
+          "isStatic": true,
+          "lastClassName": "c0",
+          "rules": Array [
+            "> fieldset{display:flex;}",
+          ],
+        },
+        "displayName": "formstyle__form",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "formstyle__form-q97ky5-0",
+        "target": "form",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    onSubmit={[Function]}
+  >
+    <form
+      className="c0"
+      onSubmit={[Function]}
+    >
+      <fieldset
+        aria-busy={false}
+        disabled={false}
+      >
+        <h2>
+          Request a password reset
+        </h2>
+        <label
+          htmlFor="email"
+        >
+          Email
+          <RequestResetstyle__inputText
+            name="email"
+            onChange={[Function]}
+            placeholder="email"
+            type="email"
+            value=""
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "RequestResetstyle__inputText-sc-1cierfp-0",
+                    "isStatic": false,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "border:1px solid ",
+                      [Function],
+                      ";padding:4px;border-radius:2px;",
+                      "margin:5px;",
+                    ],
+                  },
+                  "displayName": "RequestResetstyle__inputText",
+                  "foldedComponentIds": Array [
+                    "inputstyle__input-bgiqmz-0",
+                  ],
+                  "render": [Function],
+                  "styledComponentId": "RequestResetstyle__inputText-sc-1cierfp-0",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              name="email"
+              onChange={[Function]}
+              placeholder="email"
+              type="email"
+              value=""
+            >
+              <input
+                className="c1"
+                name="email"
+                onChange={[Function]}
+                placeholder="email"
+                type="email"
+                value=""
+              />
+            </StyledComponent>
+          </RequestResetstyle__inputText>
+        </label>
+        <RequestResetstyle__inputBtn
+          disabled={true}
+          type="submit"
+          value="Request Reset"
+        >
+          <StyledComponent
+            disabled={true}
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "RequestResetstyle__inputBtn-sc-1cierfp-1",
+                  "isStatic": false,
+                  "lastClassName": "c2",
+                  "rules": Array [
+                    "text-decoration:none;text-shadow:1px 1px 0 #fff;font-size:1rem;font-weight:600;padding:0.3rem 1rem;border:2px solid;border-radius:3px;cursor:pointer;transition:background-color 0.3s ease-out;background:none;white-space:nowrap;&:hover{background-color:#eee;}&:active{box-shadow:0 2px 6px rgba(0,0,0,0.25) inset;}",
+                    "color:",
+                    [Function],
+                    ";",
+                    "margin-top:10px;margin-left:auto;",
+                  ],
+                },
+                "displayName": "RequestResetstyle__inputBtn",
+                "foldedComponentIds": Array [
+                  "buttonstyle__inputBtn-sc-5slzqu-3",
+                  "buttonstyle__submitInputBtn-sc-5slzqu-5",
+                ],
+                "render": [Function],
+                "styledComponentId": "RequestResetstyle__inputBtn-sc-1cierfp-1",
+                "target": "input",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            type="submit"
+            value="Request Reset"
+          >
+            <input
+              className="c2"
+              disabled={true}
+              type="submit"
+              value="Request Reset"
+            />
+          </StyledComponent>
+        </RequestResetstyle__inputBtn>
+      </fieldset>
+    </form>
+  </StyledComponent>
+</formstyle__form>
 `;
