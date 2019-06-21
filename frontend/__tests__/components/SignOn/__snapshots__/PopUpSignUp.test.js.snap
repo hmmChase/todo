@@ -1,180 +1,795 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PopUpSignUp matches snapshot 1`] = `
-<Mutation
-  errorPolicy="all"
-  mutation={
-    Object {
-      "definitions": Array [
-        Object {
-          "directives": Array [],
-          "kind": "OperationDefinition",
-          "name": Object {
-            "kind": "Name",
-            "value": "SIGN_UP_MUTATION",
-          },
-          "operation": "mutation",
-          "selectionSet": Object {
-            "kind": "SelectionSet",
-            "selections": Array [
-              Object {
-                "alias": undefined,
-                "arguments": Array [
-                  Object {
-                    "kind": "Argument",
-                    "name": Object {
-                      "kind": "Name",
-                      "value": "email",
-                    },
-                    "value": Object {
-                      "kind": "Variable",
-                      "name": Object {
-                        "kind": "Name",
-                        "value": "email",
-                      },
-                    },
-                  },
-                  Object {
-                    "kind": "Argument",
-                    "name": Object {
-                      "kind": "Name",
-                      "value": "password",
-                    },
-                    "value": Object {
-                      "kind": "Variable",
-                      "name": Object {
-                        "kind": "Name",
-                        "value": "password",
-                      },
-                    },
-                  },
-                  Object {
-                    "kind": "Argument",
-                    "name": Object {
-                      "kind": "Name",
-                      "value": "confirmPassword",
-                    },
-                    "value": Object {
-                      "kind": "Variable",
-                      "name": Object {
-                        "kind": "Name",
-                        "value": "confirmPassword",
-                      },
-                    },
-                  },
-                ],
-                "directives": Array [],
-                "kind": "Field",
-                "name": Object {
-                  "kind": "Name",
-                  "value": "signUp",
-                },
-                "selectionSet": Object {
-                  "kind": "SelectionSet",
-                  "selections": Array [
-                    Object {
-                      "alias": undefined,
-                      "arguments": Array [],
-                      "directives": Array [],
-                      "kind": "Field",
-                      "name": Object {
-                        "kind": "Name",
-                        "value": "id",
-                      },
-                      "selectionSet": undefined,
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-          "variableDefinitions": Array [
-            Object {
-              "defaultValue": undefined,
-              "directives": Array [],
-              "kind": "VariableDefinition",
-              "type": Object {
-                "kind": "NonNullType",
-                "type": Object {
-                  "kind": "NamedType",
-                  "name": Object {
-                    "kind": "Name",
-                    "value": "String",
-                  },
-                },
-              },
-              "variable": Object {
-                "kind": "Variable",
-                "name": Object {
-                  "kind": "Name",
-                  "value": "email",
-                },
-              },
-            },
-            Object {
-              "defaultValue": undefined,
-              "directives": Array [],
-              "kind": "VariableDefinition",
-              "type": Object {
-                "kind": "NonNullType",
-                "type": Object {
-                  "kind": "NamedType",
-                  "name": Object {
-                    "kind": "Name",
-                    "value": "String",
-                  },
-                },
-              },
-              "variable": Object {
-                "kind": "Variable",
-                "name": Object {
-                  "kind": "Name",
-                  "value": "password",
-                },
-              },
-            },
-            Object {
-              "defaultValue": undefined,
-              "directives": Array [],
-              "kind": "VariableDefinition",
-              "type": Object {
-                "kind": "NonNullType",
-                "type": Object {
-                  "kind": "NamedType",
-                  "name": Object {
-                    "kind": "Name",
-                    "value": "String",
-                  },
-                },
-              },
-              "variable": Object {
-                "kind": "Variable",
-                "name": Object {
-                  "kind": "Name",
-                  "value": "confirmPassword",
-                },
-              },
-            },
+exports[`PopUpSignUp matches snapshot - loaded 1`] = `
+.c0 > fieldset {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 {
+  border: 1px solid #393939;
+  padding: 4px;
+  border-radius: 2px;
+  margin: 5px;
+}
+
+.c4 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem 1rem;
+  border: 2px solid;
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease-out;
+  transition: background-color 0.3s ease-out;
+  background: none;
+  white-space: nowrap;
+  margin-top: 5px;
+  margin-left: auto;
+}
+
+.c4:hover {
+  background-color: #eee;
+}
+
+.c4:active {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25) inset;
+}
+
+.c2 {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.c3 {
+  margin: 5px 0 0 0;
+  padding-left: 20px;
+}
+
+<formstyle__form
+  onSubmit={[Function]}
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "formstyle__form-q97ky5-0",
+          "isStatic": true,
+          "lastClassName": "c0",
+          "rules": Array [
+            "> fieldset{display:flex;}",
           ],
         },
-      ],
-      "kind": "Document",
-      "loc": Object {
-        "end": 234,
-        "start": 0,
-      },
+        "displayName": "formstyle__form",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "formstyle__form-q97ky5-0",
+        "target": "form",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
     }
-  }
-  onCompleted={[Function]}
-  onError={[Function]}
-  variables={
-    Object {
-      "confirmPassword": "",
-      "email": "",
-      "password": "",
-    }
-  }
+    forwardedRef={null}
+    onSubmit={[Function]}
+  >
+    <form
+      className="c0"
+      onSubmit={[Function]}
+    >
+      <fieldset
+        aria-busy={false}
+        disabled={false}
+      >
+        <h2>
+          Create a new Account
+        </h2>
+        <label
+          htmlFor="email"
+        >
+          Email
+          <PopUpSignUpstyle__inputText
+            name="email"
+            onChange={[Function]}
+            placeholder="email"
+            type="email"
+            value=""
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                    "isStatic": false,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "border:1px solid ",
+                      [Function],
+                      ";padding:4px;border-radius:2px;",
+                      "margin:5px;",
+                    ],
+                  },
+                  "displayName": "PopUpSignUpstyle__inputText",
+                  "foldedComponentIds": Array [
+                    "inputstyle__input-bgiqmz-0",
+                  ],
+                  "render": [Function],
+                  "styledComponentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              name="email"
+              onChange={[Function]}
+              placeholder="email"
+              type="email"
+              value=""
+            >
+              <input
+                className="c1"
+                name="email"
+                onChange={[Function]}
+                placeholder="email"
+                type="email"
+                value=""
+              />
+            </StyledComponent>
+          </PopUpSignUpstyle__inputText>
+        </label>
+        <label
+          htmlFor="password"
+        >
+          Password
+          <PopUpSignUpstyle__inputText
+            name="password"
+            onChange={[Function]}
+            placeholder="password"
+            type="password"
+            value=""
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                    "isStatic": false,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "border:1px solid ",
+                      [Function],
+                      ";padding:4px;border-radius:2px;",
+                      "margin:5px;",
+                    ],
+                  },
+                  "displayName": "PopUpSignUpstyle__inputText",
+                  "foldedComponentIds": Array [
+                    "inputstyle__input-bgiqmz-0",
+                  ],
+                  "render": [Function],
+                  "styledComponentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              name="password"
+              onChange={[Function]}
+              placeholder="password"
+              type="password"
+              value=""
+            >
+              <input
+                className="c1"
+                name="password"
+                onChange={[Function]}
+                placeholder="password"
+                type="password"
+                value=""
+              />
+            </StyledComponent>
+          </PopUpSignUpstyle__inputText>
+        </label>
+        <label
+          htmlFor="confirmPassword"
+        >
+          Confirm Password
+          <PopUpSignUpstyle__inputText
+            name="confirmPassword"
+            onChange={[Function]}
+            placeholder="password"
+            type="password"
+            value=""
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                    "isStatic": false,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "border:1px solid ",
+                      [Function],
+                      ";padding:4px;border-radius:2px;",
+                      "margin:5px;",
+                    ],
+                  },
+                  "displayName": "PopUpSignUpstyle__inputText",
+                  "foldedComponentIds": Array [
+                    "inputstyle__input-bgiqmz-0",
+                  ],
+                  "render": [Function],
+                  "styledComponentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              name="confirmPassword"
+              onChange={[Function]}
+              placeholder="password"
+              type="password"
+              value=""
+            >
+              <input
+                className="c1"
+                name="confirmPassword"
+                onChange={[Function]}
+                placeholder="password"
+                type="password"
+                value=""
+              />
+            </StyledComponent>
+          </PopUpSignUpstyle__inputText>
+        </label>
+        <PopUpSignUpstyle__h3PassTitle>
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "PopUpSignUpstyle__h3PassTitle-t7y6si-2",
+                  "isStatic": true,
+                  "lastClassName": "c2",
+                  "rules": Array [
+                    "margin-bottom:0;font-size:1rem;",
+                  ],
+                },
+                "displayName": "PopUpSignUpstyle__h3PassTitle",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "PopUpSignUpstyle__h3PassTitle-t7y6si-2",
+                "target": "h3",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+          >
+            <h3
+              className="c2"
+            >
+              Password must contain:
+            </h3>
+          </StyledComponent>
+        </PopUpSignUpstyle__h3PassTitle>
+        <PopUpSignUpstyle__ulPassList
+          aria-label="Password must contain:"
+        >
+          <StyledComponent
+            aria-label="Password must contain:"
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "PopUpSignUpstyle__ulPassList-t7y6si-3",
+                  "isStatic": true,
+                  "lastClassName": "c3",
+                  "rules": Array [
+                    "margin:5px 0 0 0;padding-left:20px;",
+                  ],
+                },
+                "displayName": "PopUpSignUpstyle__ulPassList",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "PopUpSignUpstyle__ulPassList-t7y6si-3",
+                "target": "ul",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+          >
+            <ul
+              aria-label="Password must contain:"
+              className="c3"
+            >
+              <li>
+                at least 8 charactors
+              </li>
+              <li>
+                an uppercase letter
+              </li>
+              <li>
+                a lowercase letter
+              </li>
+              <li>
+                a number
+              </li>
+            </ul>
+          </StyledComponent>
+        </PopUpSignUpstyle__ulPassList>
+        <PopUpSignUpstyle__inputBtn
+          disabled={true}
+          type="submit"
+          value="Sign Up"
+        >
+          <StyledComponent
+            disabled={true}
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "PopUpSignUpstyle__inputBtn-t7y6si-1",
+                  "isStatic": false,
+                  "lastClassName": "c4",
+                  "rules": Array [
+                    "text-decoration:none;text-shadow:1px 1px 0 #fff;font-size:1rem;font-weight:600;padding:0.3rem 1rem;border:2px solid;border-radius:3px;cursor:pointer;transition:background-color 0.3s ease-out;background:none;white-space:nowrap;&:hover{background-color:#eee;}&:active{box-shadow:0 2px 6px rgba(0,0,0,0.25) inset;}",
+                    "color:",
+                    [Function],
+                    ";",
+                    "margin-top:5px;margin-left:auto;",
+                  ],
+                },
+                "displayName": "PopUpSignUpstyle__inputBtn",
+                "foldedComponentIds": Array [
+                  "buttonstyle__inputBtn-sc-5slzqu-3",
+                  "buttonstyle__submitInputBtn-sc-5slzqu-5",
+                ],
+                "render": [Function],
+                "styledComponentId": "PopUpSignUpstyle__inputBtn-t7y6si-1",
+                "target": "input",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            type="submit"
+            value="Sign Up"
+          >
+            <input
+              className="c4"
+              disabled={true}
+              type="submit"
+              value="Sign Up"
+            />
+          </StyledComponent>
+        </PopUpSignUpstyle__inputBtn>
+      </fieldset>
+    </form>
+  </StyledComponent>
+</formstyle__form>
+`;
+
+exports[`PopUpSignUp matches snapshot 1`] = `
+.c0 > fieldset {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 {
+  border: 1px solid #393939;
+  padding: 4px;
+  border-radius: 2px;
+  margin: 5px;
+}
+
+.c4 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem 1rem;
+  border: 2px solid;
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease-out;
+  transition: background-color 0.3s ease-out;
+  background: none;
+  white-space: nowrap;
+  margin-top: 5px;
+  margin-left: auto;
+}
+
+.c4:hover {
+  background-color: #eee;
+}
+
+.c4:active {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25) inset;
+}
+
+.c2 {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.c3 {
+  margin: 5px 0 0 0;
+  padding-left: 20px;
+}
+
+<formstyle__form
+  onSubmit={[Function]}
 >
-  <Component />
-</Mutation>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "formstyle__form-q97ky5-0",
+          "isStatic": true,
+          "lastClassName": "c0",
+          "rules": Array [
+            "> fieldset{display:flex;}",
+          ],
+        },
+        "displayName": "formstyle__form",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "formstyle__form-q97ky5-0",
+        "target": "form",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    onSubmit={[Function]}
+  >
+    <form
+      className="c0"
+      onSubmit={[Function]}
+    >
+      <fieldset
+        aria-busy={false}
+        disabled={false}
+      >
+        <h2>
+          Create a new Account
+        </h2>
+        <label
+          htmlFor="email"
+        >
+          Email
+          <PopUpSignUpstyle__inputText
+            name="email"
+            onChange={[Function]}
+            placeholder="email"
+            type="email"
+            value=""
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                    "isStatic": false,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "border:1px solid ",
+                      [Function],
+                      ";padding:4px;border-radius:2px;",
+                      "margin:5px;",
+                    ],
+                  },
+                  "displayName": "PopUpSignUpstyle__inputText",
+                  "foldedComponentIds": Array [
+                    "inputstyle__input-bgiqmz-0",
+                  ],
+                  "render": [Function],
+                  "styledComponentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              name="email"
+              onChange={[Function]}
+              placeholder="email"
+              type="email"
+              value=""
+            >
+              <input
+                className="c1"
+                name="email"
+                onChange={[Function]}
+                placeholder="email"
+                type="email"
+                value=""
+              />
+            </StyledComponent>
+          </PopUpSignUpstyle__inputText>
+        </label>
+        <label
+          htmlFor="password"
+        >
+          Password
+          <PopUpSignUpstyle__inputText
+            name="password"
+            onChange={[Function]}
+            placeholder="password"
+            type="password"
+            value=""
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                    "isStatic": false,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "border:1px solid ",
+                      [Function],
+                      ";padding:4px;border-radius:2px;",
+                      "margin:5px;",
+                    ],
+                  },
+                  "displayName": "PopUpSignUpstyle__inputText",
+                  "foldedComponentIds": Array [
+                    "inputstyle__input-bgiqmz-0",
+                  ],
+                  "render": [Function],
+                  "styledComponentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              name="password"
+              onChange={[Function]}
+              placeholder="password"
+              type="password"
+              value=""
+            >
+              <input
+                className="c1"
+                name="password"
+                onChange={[Function]}
+                placeholder="password"
+                type="password"
+                value=""
+              />
+            </StyledComponent>
+          </PopUpSignUpstyle__inputText>
+        </label>
+        <label
+          htmlFor="confirmPassword"
+        >
+          Confirm Password
+          <PopUpSignUpstyle__inputText
+            name="confirmPassword"
+            onChange={[Function]}
+            placeholder="password"
+            type="password"
+            value=""
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                    "isStatic": false,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "border:1px solid ",
+                      [Function],
+                      ";padding:4px;border-radius:2px;",
+                      "margin:5px;",
+                    ],
+                  },
+                  "displayName": "PopUpSignUpstyle__inputText",
+                  "foldedComponentIds": Array [
+                    "inputstyle__input-bgiqmz-0",
+                  ],
+                  "render": [Function],
+                  "styledComponentId": "PopUpSignUpstyle__inputText-t7y6si-0",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              name="confirmPassword"
+              onChange={[Function]}
+              placeholder="password"
+              type="password"
+              value=""
+            >
+              <input
+                className="c1"
+                name="confirmPassword"
+                onChange={[Function]}
+                placeholder="password"
+                type="password"
+                value=""
+              />
+            </StyledComponent>
+          </PopUpSignUpstyle__inputText>
+        </label>
+        <PopUpSignUpstyle__h3PassTitle>
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "PopUpSignUpstyle__h3PassTitle-t7y6si-2",
+                  "isStatic": true,
+                  "lastClassName": "c2",
+                  "rules": Array [
+                    "margin-bottom:0;font-size:1rem;",
+                  ],
+                },
+                "displayName": "PopUpSignUpstyle__h3PassTitle",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "PopUpSignUpstyle__h3PassTitle-t7y6si-2",
+                "target": "h3",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+          >
+            <h3
+              className="c2"
+            >
+              Password must contain:
+            </h3>
+          </StyledComponent>
+        </PopUpSignUpstyle__h3PassTitle>
+        <PopUpSignUpstyle__ulPassList
+          aria-label="Password must contain:"
+        >
+          <StyledComponent
+            aria-label="Password must contain:"
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "PopUpSignUpstyle__ulPassList-t7y6si-3",
+                  "isStatic": true,
+                  "lastClassName": "c3",
+                  "rules": Array [
+                    "margin:5px 0 0 0;padding-left:20px;",
+                  ],
+                },
+                "displayName": "PopUpSignUpstyle__ulPassList",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "PopUpSignUpstyle__ulPassList-t7y6si-3",
+                "target": "ul",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+          >
+            <ul
+              aria-label="Password must contain:"
+              className="c3"
+            >
+              <li>
+                at least 8 charactors
+              </li>
+              <li>
+                an uppercase letter
+              </li>
+              <li>
+                a lowercase letter
+              </li>
+              <li>
+                a number
+              </li>
+            </ul>
+          </StyledComponent>
+        </PopUpSignUpstyle__ulPassList>
+        <PopUpSignUpstyle__inputBtn
+          disabled={true}
+          type="submit"
+          value="Sign Up"
+        >
+          <StyledComponent
+            disabled={true}
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "PopUpSignUpstyle__inputBtn-t7y6si-1",
+                  "isStatic": false,
+                  "lastClassName": "c4",
+                  "rules": Array [
+                    "text-decoration:none;text-shadow:1px 1px 0 #fff;font-size:1rem;font-weight:600;padding:0.3rem 1rem;border:2px solid;border-radius:3px;cursor:pointer;transition:background-color 0.3s ease-out;background:none;white-space:nowrap;&:hover{background-color:#eee;}&:active{box-shadow:0 2px 6px rgba(0,0,0,0.25) inset;}",
+                    "color:",
+                    [Function],
+                    ";",
+                    "margin-top:5px;margin-left:auto;",
+                  ],
+                },
+                "displayName": "PopUpSignUpstyle__inputBtn",
+                "foldedComponentIds": Array [
+                  "buttonstyle__inputBtn-sc-5slzqu-3",
+                  "buttonstyle__submitInputBtn-sc-5slzqu-5",
+                ],
+                "render": [Function],
+                "styledComponentId": "PopUpSignUpstyle__inputBtn-t7y6si-1",
+                "target": "input",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            type="submit"
+            value="Sign Up"
+          >
+            <input
+              className="c4"
+              disabled={true}
+              type="submit"
+              value="Sign Up"
+            />
+          </StyledComponent>
+        </PopUpSignUpstyle__inputBtn>
+      </fieldset>
+    </form>
+  </StyledComponent>
+</formstyle__form>
 `;

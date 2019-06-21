@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import React from 'react';
 import { mount } from 'enzyme';
 import { ApolloConsumer } from 'react-apollo';
 import { MockedProvider } from 'react-apollo/test-utils';

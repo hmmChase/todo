@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import WithUser from '../../../components/wrappers/WithUser/WithUser';
 
@@ -8,7 +7,7 @@ describe('WithUser', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    mockProps = {};
+    mockProps = { children: jest.fn };
     wrapper = shallow(<WithUser {...mockProps} />, {
       disableLifecycleMethods: true
     });

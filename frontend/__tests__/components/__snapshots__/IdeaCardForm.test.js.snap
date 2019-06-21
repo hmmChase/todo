@@ -1,172 +1,211 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IdeaCardForm matches snapshot 1`] = `
-<Mutation
-  errorPolicy="all"
-  mutation={
-    Object {
-      "definitions": Array [
-        Object {
-          "directives": Array [],
-          "kind": "OperationDefinition",
-          "name": Object {
-            "kind": "Name",
-            "value": "CREATE_IDEA_MUTATION",
-          },
-          "operation": "mutation",
-          "selectionSet": Object {
-            "kind": "SelectionSet",
-            "selections": Array [
-              Object {
-                "alias": undefined,
-                "arguments": Array [
-                  Object {
-                    "kind": "Argument",
-                    "name": Object {
-                      "kind": "Name",
-                      "value": "content",
-                    },
-                    "value": Object {
-                      "kind": "Variable",
-                      "name": Object {
-                        "kind": "Name",
-                        "value": "content",
-                      },
-                    },
-                  },
-                ],
-                "directives": Array [],
-                "kind": "Field",
-                "name": Object {
-                  "kind": "Name",
-                  "value": "createIdea",
-                },
-                "selectionSet": Object {
-                  "kind": "SelectionSet",
-                  "selections": Array [
-                    Object {
-                      "alias": undefined,
-                      "arguments": Array [],
-                      "directives": Array [],
-                      "kind": "Field",
-                      "name": Object {
-                        "kind": "Name",
-                        "value": "id",
-                      },
-                      "selectionSet": undefined,
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-          "variableDefinitions": Array [
-            Object {
-              "defaultValue": undefined,
-              "directives": Array [],
-              "kind": "VariableDefinition",
-              "type": Object {
-                "kind": "NonNullType",
-                "type": Object {
-                  "kind": "NamedType",
-                  "name": Object {
-                    "kind": "Name",
-                    "value": "String",
-                  },
-                },
-              },
-              "variable": Object {
-                "kind": "Variable",
-                "name": Object {
-                  "kind": "Name",
-                  "value": "content",
-                },
-              },
-            },
-          ],
-        },
-      ],
-      "kind": "Document",
-      "loc": Object {
-        "end": 109,
-        "start": 0,
-      },
-    }
+exports[`IdeaCardForm matches snapshot - loaded 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  grid-column: span 2;
+  position: relative;
+}
+
+.c0 > img {
+  width: 50px;
+  position: absolute;
+  top: -30px;
+  left: 10px;
+}
+
+.c0 > textarea {
+  padding: 10px;
+  outline: none;
+  min-height: 56px;
+  width: 100%;
+  resize: vertical;
+  border: none;
+  margin-right: 1px;
+}
+
+.c0 > button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #fffacd;
+  padding: 0;
+}
+
+.c0 > button:active {
+  background-color: #FFFF99;
+}
+
+@media screen and (min-width:600px) {
+  .c0 > img {
+    left: 0;
   }
-  onError={[Function]}
-  refetchQueries={
-    Array [
-      Object {
-        "query": Object {
-          "definitions": Array [
-            Object {
-              "directives": Array [],
-              "kind": "OperationDefinition",
-              "name": Object {
-                "kind": "Name",
-                "value": "ME_IDEAS_QUERY",
-              },
-              "operation": "query",
-              "selectionSet": Object {
-                "kind": "SelectionSet",
-                "selections": Array [
-                  Object {
-                    "alias": undefined,
-                    "arguments": Array [],
-                    "directives": Array [],
-                    "kind": "Field",
-                    "name": Object {
-                      "kind": "Name",
-                      "value": "getUserIdeas",
-                    },
-                    "selectionSet": Object {
-                      "kind": "SelectionSet",
-                      "selections": Array [
-                        Object {
-                          "alias": undefined,
-                          "arguments": Array [],
-                          "directives": Array [],
-                          "kind": "Field",
-                          "name": Object {
-                            "kind": "Name",
-                            "value": "id",
-                          },
-                          "selectionSet": undefined,
-                        },
-                        Object {
-                          "alias": undefined,
-                          "arguments": Array [],
-                          "directives": Array [],
-                          "kind": "Field",
-                          "name": Object {
-                            "kind": "Name",
-                            "value": "content",
-                          },
-                          "selectionSet": undefined,
-                        },
-                      ],
-                    },
-                  },
-                ],
-              },
-              "variableDefinitions": Array [],
-            },
-          ],
-          "kind": "Document",
-          "loc": Object {
-            "end": 78,
-            "start": 0,
-          },
-        },
-      },
-    ]
-  }
-  variables={
-    Object {
-      "content": "",
-    }
-  }
+}
+
+<IdeaCardFormstyle__form
+  onSubmit={[Function]}
 >
-  <Component />
-</Mutation>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "IdeaCardFormstyle__form-sc-4er11-0",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "display:flex;width:100%;grid-column:span 2;position:relative;> img{width:50px;position:absolute;top:-30px;left:10px;}> textarea{padding:10px;outline:none;min-height:56px;width:100%;resize:vertical;border:none;margin-right:1px;}> button{border:none;outline:none;cursor:pointer;background-color:",
+            [Function],
+            ";padding:0;&:active{background-color:",
+            [Function],
+            ";}}@media screen and (min-width:600px){> img{left:0;}}",
+          ],
+        },
+        "displayName": "IdeaCardFormstyle__form",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "IdeaCardFormstyle__form-sc-4er11-0",
+        "target": "form",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    onSubmit={[Function]}
+  >
+    <form
+      className="c0"
+      onSubmit={[Function]}
+    >
+      <img
+        alt="ideabox"
+        src="static/ideabox.png"
+      />
+      <textarea
+        name="idea"
+        onChange={[Function]}
+        placeholder="What's on your mind?"
+        type="text"
+        value=""
+      />
+      <button
+        disabled={true}
+        type="submit"
+      >
+        Add Idea
+      </button>
+    </form>
+  </StyledComponent>
+</IdeaCardFormstyle__form>
+`;
+
+exports[`IdeaCardForm matches snapshot 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  grid-column: span 2;
+  position: relative;
+}
+
+.c0 > img {
+  width: 50px;
+  position: absolute;
+  top: -30px;
+  left: 10px;
+}
+
+.c0 > textarea {
+  padding: 10px;
+  outline: none;
+  min-height: 56px;
+  width: 100%;
+  resize: vertical;
+  border: none;
+  margin-right: 1px;
+}
+
+.c0 > button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #fffacd;
+  padding: 0;
+}
+
+.c0 > button:active {
+  background-color: #FFFF99;
+}
+
+@media screen and (min-width:600px) {
+  .c0 > img {
+    left: 0;
+  }
+}
+
+<IdeaCardFormstyle__form
+  onSubmit={[Function]}
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "IdeaCardFormstyle__form-sc-4er11-0",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "display:flex;width:100%;grid-column:span 2;position:relative;> img{width:50px;position:absolute;top:-30px;left:10px;}> textarea{padding:10px;outline:none;min-height:56px;width:100%;resize:vertical;border:none;margin-right:1px;}> button{border:none;outline:none;cursor:pointer;background-color:",
+            [Function],
+            ";padding:0;&:active{background-color:",
+            [Function],
+            ";}}@media screen and (min-width:600px){> img{left:0;}}",
+          ],
+        },
+        "displayName": "IdeaCardFormstyle__form",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "IdeaCardFormstyle__form-sc-4er11-0",
+        "target": "form",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    onSubmit={[Function]}
+  >
+    <form
+      className="c0"
+      onSubmit={[Function]}
+    >
+      <img
+        alt="ideabox"
+        src="static/ideabox.png"
+      />
+      <textarea
+        name="idea"
+        onChange={[Function]}
+        placeholder="What's on your mind?"
+        type="text"
+        value=""
+      />
+      <button
+        disabled={true}
+        type="submit"
+      >
+        Add Idea
+      </button>
+    </form>
+  </StyledComponent>
+</IdeaCardFormstyle__form>
 `;

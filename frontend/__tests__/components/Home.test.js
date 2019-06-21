@@ -1,5 +1,4 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { load } from '../../utils/load';
 import Home from '../../components/Home/Home';
