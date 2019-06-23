@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@zeit/next-bundle-analyzer": "^0.1.2",
+    "acorn": "^6.1.1",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link": "^1.2.11",
