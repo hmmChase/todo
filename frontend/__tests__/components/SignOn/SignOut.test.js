@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import SignOut from '../../../components/SignOn/SignOut/SignOut';
 
 describe('SignOut', () => {
@@ -9,7 +9,7 @@ describe('SignOut', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    wrapper = shallow(<SignOut {...mockProps} />, {
+    wrapper = mount(<SignOut {...mockProps} />, {
       disableLifecycleMethods: true
     });
   });

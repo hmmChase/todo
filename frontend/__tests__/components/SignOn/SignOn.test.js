@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import SignOn from '../../../components/SignOn/SignOn';
 
 describe('SignOn', () => {
@@ -9,7 +9,7 @@ describe('SignOn', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    wrapper = shallow(<SignOn {...mockProps} />, {
+    wrapper = mount(<SignOn {...mockProps} />, {
       disableLifecycleMethods: true
     });
   });
