@@ -31,7 +31,7 @@
     "dotenv-webpack": "^1.7.0",
     "graphql": "^14.3.0",
     "graphql-tag": "^2.10.1",
-    "next": "^8.1.0",
+    "next": "^9.0.0",
     "next-with-apollo": "^3.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
