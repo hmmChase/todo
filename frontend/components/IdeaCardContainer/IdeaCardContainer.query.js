@@ -25,6 +25,13 @@ export const MOCK_ME_IDEAS_QUERY = {
   }
 };
 
+export const MOCK_ERROR_ME_IDEAS_QUERY = {
+  request: {
+    query: ME_IDEAS_QUERY
+  },
+  error: new Error('mock error')
+};
+
 // export const ALL_IDEAS_QUERY = gql`
 //   query ALL_IDEAS_QUERY {
 //     ideas {
