@@ -42,4 +42,12 @@ describe('IdeaCardContainer', () => {
 
     expect(wrapSnap).toMatchSnapshot();
   });
+
+  it.only('should', () => {
+
+    console.log(wrapper.debug())
+
+
+    expect()
+  });
 });

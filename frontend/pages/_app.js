@@ -7,17 +7,17 @@ import theme from '../styles/theme.style';
 import Layout from '../components/Layout/Layout';
 
 export class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    console.log('_app GIP', new Date().getMilliseconds());
+  // static async getInitialProps({ Component, ctx }) {
+  //   console.log('_app GIP', new Date().getMilliseconds());
 
-    let pageProps = {};
+  //   let pageProps = {};
 
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
+  //   if (Component.getInitialProps) {
+  //     pageProps = await Component.getInitialProps(ctx);
+  //   }
 
-    return { pageProps };
-  }
+  //   return { pageProps };
+  // }
 
   render() {
     console.log('_app render', new Date().getMilliseconds());

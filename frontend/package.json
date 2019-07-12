@@ -9,6 +9,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "lint:check": "eslint --print-config index.js | eslint-config-prettier-check",
+    "lint:code": "prettier-eslint --write 'src/**/*.{js,jsx}' ",
+    "lint:styles": "prettier-stylelint --write 'src/**/*.{css,scss}' ",
     "test": "jest --watch",
     "analyze": "cross-env BUNDLE_ANALYZE=both npm run build",
     "test:cov": "jest --coverage",
@@ -51,8 +54,17 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.2",
     "jest": "^24.8.0",
-    "jest-styled-components": "^6.3.3"
+    "jest-styled-components": "^6.3.3",
+    "prettier": "1.18.2",
+    "prettier-eslint": "^9.0.0",
+    "prettier-eslint-cli": "^5.0.0",
+    "prettier-stylelint": "^0.4.2",
+    "stylelint": "^10.1.0",
+    "stylelint-config-recommended": "^2.2.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.8.0"
   }
 }

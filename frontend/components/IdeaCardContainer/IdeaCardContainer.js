@@ -18,6 +18,8 @@ const IdeaContainer = React.memo(() => {
       {({ loading, error, data }) => {
         if (error) return <DisplayError error={error} />;
 
+        if (loading) return <DisplayLoading />;
+
         return (
           <sc.IdeaContainer>
             {loading && <DisplayLoading />}
