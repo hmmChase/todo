@@ -7,12 +7,14 @@
   },
   "extends": [
     "airbnb",
-    "prettier"
+    "prettier",
+    "prettier/react",
   ],
   "plugins": [
     "react",
     "jsx-a11y",
-    "import"
+    "import",
+    "prettier"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -22,6 +24,12 @@
     }
   },
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true
+      }
+    ],
     "max-len": [
       "error",
       {

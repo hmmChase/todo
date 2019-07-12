@@ -4,7 +4,10 @@ import { load } from '../../utils/load';
 // eslint-disable-next-line max-len
 import IdeaCardContainer from '../../components/IdeaCardContainer/IdeaCardContainer';
 // eslint-disable-next-line max-len
-import { MOCK_ME_IDEAS_QUERY } from '../../components/IdeaCardContainer/IdeaCardContainer.query';
+import {
+  MOCK_ME_IDEAS_QUERY,
+  MOCK_ERROR_ME_IDEAS_QUERY
+} from '../../components/IdeaCardContainer/IdeaCardContainer.query';
 
 describe('IdeaCardContainer', () => {
   let mockProps;
@@ -25,21 +28,34 @@ describe('IdeaCardContainer', () => {
     );
   });
 
-  it('matches snapshot', () => {
-    const wrapSnap = wrapper.find('IdeaCardContainerstyle__IdeaContainer');
+  it('matches snapshot - loading', () => {
+    const snapWrap = wrapper.find('Memo()');
 
-    // console.log(wrapper.debug());
-
-    expect(wrapSnap).toMatchSnapshot();
+    expect(snapWrap).toMatchSnapshot();
   });
 
   it('matches snapshot - loaded', async () => {
-    const wrapSnap = wrapper.find('IdeaCardContainerstyle__IdeaContainer');
+    await load(wrapper);
+
+    const snapWrap = wrapper.find('IdeaCardContainerstyle__IdeaContainer');
+
+    expect(snapWrap).toMatchSnapshot();
+  });
+
+  it('matches snapshot - error', async () => {
+    wrapper = mount(
+      <MockedProvider mocks={[MOCK_ERROR_ME_IDEAS_QUERY]} addTypename={false}>
+        <IdeaCardContainer {...mockProps} />
+      </MockedProvider>,
+      {
+        disableLifecycleMethods: true
+      }
+    );
 
     await load(wrapper);
 
-    // console.log(wrapper.debug());
+    const snapWrap = wrapper.find('DisplayErrorstyle__divError');
 
-    expect(wrapSnap).toMatchSnapshot();
+    expect(snapWrap).toMatchSnapshot();
   });
 });
