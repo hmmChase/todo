@@ -26,12 +26,10 @@ export const deleteBtn = styled.button`
   }
 `;
 
-export const ideaP = styled.p`
+export const ideaInput = styled.input`
   width: 100%;
   outline: none;
-  border: black solid 1px;
   padding: 5px;
-  margin: 0;
   overflow-wrap: break-word;
   word-break: break-all;
 `;
