@@ -3,7 +3,6 @@ import { MockedProvider } from 'react-apollo/test-utils';
 import { load } from '../../utils/load';
 // eslint-disable-next-line max-len
 import IdeaCardContainer from '../../components/IdeaCardContainer/IdeaCardContainer';
-// eslint-disable-next-line max-len
 import {
   MOCK_ME_IDEAS_QUERY,
   MOCK_ERROR_ME_IDEAS_QUERY
