@@ -4,13 +4,10 @@ import * as query from './IdeaCard.query';
 import * as sc from './IdeaCard.style';
 
 class IdeaCard extends React.PureComponent {
-  state = {
-    prevContent: this.props.content,
-    nextContent: this.props.content
-  };
+  state = { content: this.props.content };
 
-  handleInputIdeaCard = (e, updateIdea) => {
-    this.setState({ nextContent: e.target.innerText }, updateIdea);
+  handleChangeideaInput = (e, updateIdea) => {
+    this.setState({ content: e.target.value }, updateIdea);
   };
 
   handleClickDeleteBtn = (e, deleteIdea) => {
@@ -42,20 +39,17 @@ class IdeaCard extends React.PureComponent {
           mutation={query.UPDATE_IDEA_MUTATION}
           variables={{
             id: this.props.id,
-            content: this.state.nextContent
+            content: this.state.content
           }}
-          refetchQueries={[{ query: query.ME_IDEAS_QUERY }]}
           onError={this.handleError}
           errorPolicy="all"
         >
           {updateIdea => (
-            <sc.ideaP
-              contentEditable
-              suppressContentEditableWarning
-              onInput={e => this.handleInputIdeaCard(e, updateIdea)}
-            >
-              {this.state.prevContent}
-            </sc.ideaP>
+            <sc.ideaInput
+              type="text"
+              value={this.state.content}
+              onChange={e => this.handleChangeideaInput(e, updateIdea)}
+            />
           )}
         </Mutation>
       </sc.li>
