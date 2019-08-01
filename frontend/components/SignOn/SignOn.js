@@ -1,21 +1,22 @@
-import WithUser from '../wrappers/WithUser/WithUser';
-import SignOut from './SignOut/SignOut';
+import { Query } from 'react-apollo';
+
+// import { SignOut, PopUps } from '..';
+import SignOut from '../SignOut/SignOut';
 import PopUps from './PopUps/PopUps';
+import { IS_LOGGED_IN } from '../../graphql/queries';
 import * as sc from './SignOn.style';
 
 class SignOn extends React.PureComponent {
-  state = {
-    popUp: ''
-  };
+  state = { popUp: '' };
 
   render() {
     const { popUp } = this.state;
 
     return (
-      <WithUser>
-        {me => (
+      <Query query={IS_LOGGED_IN}>
+        {({ loading, error, data }) => (
           <sc.signOn>
-            {me ? (
+            {data && data.isLoggedIn ? (
               <SignOut />
             ) : (
               <>
@@ -41,7 +42,7 @@ class SignOn extends React.PureComponent {
             )}
           </sc.signOn>
         )}
-      </WithUser>
+      </Query>
     );
   }
 }

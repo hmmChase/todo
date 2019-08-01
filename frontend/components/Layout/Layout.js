@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+
+// import { Header } from '..';
 import Header from '../Header/Header';
 import * as sc from './Layout.style';
 

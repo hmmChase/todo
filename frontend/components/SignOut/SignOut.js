@@ -1,5 +1,6 @@
 import { Mutation } from 'react-apollo';
-import * as query from './SignOut.query';
+
+import { SIGN_OUT_MUTATION } from '../../graphql/queries';
 import * as sc from './SignOut.style';
 
 const SignOut = React.memo(() => {
@@ -11,11 +12,7 @@ const SignOut = React.memo(() => {
   const handleError = error => error;
 
   return (
-    <Mutation
-      mutation={query.SIGN_OUT_MUTATION}
-      onError={handleError}
-      errorPolicy="all"
-    >
+    <Mutation mutation={SIGN_OUT_MUTATION} onError={handleError}>
       {(signOut, { loading, client }) => (
         <sc.purpleLinkBtn
           disabled={loading}

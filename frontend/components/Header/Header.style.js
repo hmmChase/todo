@@ -4,7 +4,6 @@ export const header = styled.header`
   grid-area: header;
   display: grid;
   grid-gap: 10px;
-
   background-color: ${props => props.theme.color.black};
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 'header-left header-right';

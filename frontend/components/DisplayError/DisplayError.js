@@ -1,26 +1,31 @@
-/* eslint-disable react/no-array-index-key */
 import PropTypes from 'prop-types';
+
 import * as sc from './DisplayError.style';
 
 const DisplayError = React.memo(props => {
   if (props.error.graphQLErrors) {
     return (
-      <sc.divError>
-        {props.error.graphQLErrors.map((e, i) => (
-          <p key={e.message.length + i}>{e.message}</p>
+      <sc.ulError>
+        {props.error.graphQLErrors.map((error, i) => (
+          <li key={`error${i}`}>{error.message}</li>
         ))}
-      </sc.divError>
+      </sc.ulError>
     );
   }
 
-  if (props.error.message)
+  if (props.error.message) {
     return (
-      <sc.divError>
-        <p>{props.error.message}</p>
-      </sc.divError>
+      <sc.ulError>
+        <li>{props.error.message}</li>
+      </sc.ulError>
     );
+  }
 
-  return <sc.divError>Opps, something went wrong.</sc.divError>;
+  return (
+    <sc.ulError>
+      <li>Opps, something went wrong.</li>
+    </sc.ulError>
+  );
 });
 
 DisplayError.defaultProps = {

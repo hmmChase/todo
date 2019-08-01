@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
+
+// import { DisplayError } from '../..';
 import DisplayError from '../../DisplayError/DisplayError';
-import * as query from './PopUpSignIn.query';
+import { SIGN_IN_MUTATION } from '../../../graphql/queries';
 import * as sc from './PopUpSignIn.style';
 
 class PopUpSignIn extends React.PureComponent {
-  state = {
-    email: '',
-    password: ''
-  };
+  state = { email: '', password: '' };
 
   handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -29,10 +28,9 @@ class PopUpSignIn extends React.PureComponent {
 
     return (
       <Mutation
-        mutation={query.SIGN_IN_MUTATION}
+        mutation={SIGN_IN_MUTATION}
         variables={this.state}
         onError={this.handleError}
-        errorPolicy="all"
         onCompleted={this.handleCompleted}
       >
         {(signIn, { loading, error, client }) => (

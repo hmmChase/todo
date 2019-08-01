@@ -1,17 +1,20 @@
-import { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import { withRouter } from 'next/router';
+
+// import { Head, DisplayError, RequestReset, ResetPassword } from '../components';
 import Head from '../components/Head/Head';
-import ResetPassword from '../components/ResetPassword/ResetPassword';
 import DisplayError from '../components/DisplayError/DisplayError';
-import { redirect } from '../utils/redirect';
-import { isLoggedIn } from '../utils/isLoggedIn';
+import RequestReset from '../components/RequestReset/RequestReset';
+import ResetPassword from '../components/ResetPassword/ResetPassword';
+import isLoggedIn from '../utils/isLoggedIn';
+import redirect from '../utils/redirect';
 
 const ResetPasswordPage = React.memo(props => {
   const { resetToken, resetTokenExpiry } = props.router.query;
 
-  const isTokenMissing = !resetToken || !resetTokenExpiry;
+  const isTokenPresent = resetToken && resetTokenExpiry;
   const isTokenExpired = Date.now() > resetTokenExpiry;
-  const isTokenValid = !isTokenMissing && !isTokenExpired;
+  const isTokenValid = isTokenPresent && !isTokenExpired;
 
   const tokenMissingError = {
     message: 'Your reset token is invalid.  Please request a new one.'
@@ -20,22 +23,38 @@ const ResetPasswordPage = React.memo(props => {
     message: 'Your reset token is expired.  Please request a new one.'
   };
 
+  if (isTokenValid) {
+    return (
+      <>
+        <Head title="Reset Password" />
+
+        <RequestReset />
+      </>
+    );
+  }
+
   return (
     <>
       <Head title="Reset Password" />
 
-      {isTokenMissing && <DisplayError error={tokenMissingError} />}
-      {isTokenExpired && <DisplayError error={tokenExpiredError} />}
+      <DisplayError
+        error={
+          (!isTokenPresent && tokenMissingError)
+          || (isTokenExpired && tokenExpiredError)
+        }
+      />
 
-      {isTokenValid && <ResetPassword resetToken={resetToken} />}
+      <ResetPassword resetToken={resetToken} />
     </>
   );
 });
 
 ResetPasswordPage.getInitialProps = async ctx => {
-  const me = await isLoggedIn(ctx.apolloClient);
+  const loggedIn = await isLoggedIn(ctx.apolloClient);
 
-  if (me) redirect(ctx, '/');
+  if (loggedIn) redirect(ctx, '/');
+
+  return {};
 };
 
 ResetPasswordPage.defaultProps = {

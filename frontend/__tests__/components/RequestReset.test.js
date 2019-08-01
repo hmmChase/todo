@@ -1,10 +1,10 @@
 import { mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { ThemeProvider } from 'styled-components';
-import { load } from '../../utils/load';
+
+import { load } from '../../utils/testing';
 import RequestReset from '../../components/RequestReset/RequestReset';
-// eslint-disable-next-line max-len
-import { MOCK_REQUEST_RESET_MUTATION } from '../../components/RequestReset/RequestReset.query';
+import { MOCK_REQUEST_RESET_MUTATION } from '../../__mocks__/queries';
 import theme from '../../styles/theme.style';
 
 describe('RequestReset', () => {

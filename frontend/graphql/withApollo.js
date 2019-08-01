@@ -1,28 +1,46 @@
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-import Router from 'next/router';
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-client';
-import { createHttpLink } from 'apollo-link-http';
-import { BatchHttpLink } from 'apollo-link-batch-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloLink } from 'apollo-link';
 import { onError } from 'apollo-link-error';
-import { ApolloLink, split } from 'apollo-link';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
-const createClient = ({ ctx, headers, initialState }) => {
+import initCache from './initCache';
+import typeDefs from './schema';
+import resolvers from './resolvers';
+
+// withApollo first fetches queries and hydrates the store server-side
+// before sending the page to the client
+// https://github.com/lfades/next-with-apollo/issues/69
+
+const createClient = ctx => {
   console.log('withApollo', new Date().getMilliseconds());
 
-  const consoleLink = new ApolloLink((operation, forward) => {
-    // console.log('ctx.req.headers: ', ctx.req.headers);
+  const isBrowser = typeof window !== 'undefined';
+  const isDevelopment = process.env.NODE_ENV === 'development';
 
-    // console.log('headers: ', headers);
+  /* initialState available on client */
+  // if (isBrowser) {
+  //   console.log(': withApollo ctx', Object.keys(ctx));
+  //   console.log(': withApollo initialState', ctx.initialState);
+  // }
 
+  /* ctx & headers available on server */
+  // if (!isBrowser) {
+  //   console.log(': withApollo ctx', Object.keys(ctx));
+  //   console.log(': withApollo ctx', Object.keys(ctx.ctx));
+  //   console.log(': withApollo headers', Object.keys(ctx.headers));
+  //   console.log(': withApollo cookie', ctx.headers.cookie);
+  // }
+
+  // Log GraphQL request & response
+  const consoleLogLink = new ApolloLink((operation, forward) => {
     console.log(
       '\n',
       `---------- starting request for ${operation.operationName}`,
       new Date().getMilliseconds(),
-      `(client: ${process.browser}, server: ${!process.browser})`
+      `(client: ${isBrowser}, server: ${!isBrowser})`
     );
 
     return forward(operation).map(op => {
@@ -32,6 +50,7 @@ const createClient = ({ ctx, headers, initialState }) => {
         `---------- ending request for ${operation.operationName}`,
         new Date().getMilliseconds()
       );
+
       return op;
     });
   });
@@ -199,59 +218,37 @@ const createClient = ({ ctx, headers, initialState }) => {
     }
   );
 
+  // Add cookie to request header
   const authLink = new ApolloLink((operation, forward) => {
-    operation.setContext({ headers });
+    operation.setContext({ headers: ctx.headers });
 
     return forward(operation);
   });
 
-  const uri =
-    process.env.NODE_ENV === 'production'
-      ? process.env.PROD_GRAPHQL_ENDPOINT
-      : process.env.DEV_GRAPHQL_ENDPOINT;
-
-  // Link to use if batching (default)
-  // Also adds a `batch: true` header to the request
-  // to prove it's a different link
-  const batchHttpLink = new BatchHttpLink({
-    uri,
-    credentials: 'include',
-    headers: { batch: 'true ' }
-  });
-
-  // link to use if not batching
   const httpLink = createHttpLink({
-    uri,
+    uri: isDevelopment
+      ? process.env.DEV_GRAPHQL_URL
+      : process.env.PROD_GRAPHQL_URL,
     credentials: 'include'
   });
 
-  const link = ApolloLink.from([
-    consoleLink,
-    errorLink,
-    authLink,
-    // Using the ability to split links, you can send data to each link
-    // depending on what kind of operation is being sent
-    split(
-      // Add `debatch: true` to the operation's context to debatch it
-      // <Query query={SOME_QUERY} context={{ debatch: true }}>
-      operation => operation.getContext().debatch === true,
-      httpLink, // if the test is true -- debatch
-      batchHttpLink // otherwise, batching is fine
-    )
-  ]);
+  const link = isDevelopment
+    ? ApolloLink.from([consoleLogLink, errorLink, authLink, httpLink])
+    : ApolloLink.from([errorLink, authLink, httpLink]);
 
-  const cache = new InMemoryCache().restore(initialState || {});
+  // hydrate cache with the initialState created server-side
+  const cache = new InMemoryCache().restore(ctx.initialState || {});
+
+  if (!isBrowser) initCache(cache, ctx.headers.cookie);
 
   return new ApolloClient({
     link,
     cache,
-    queryDeduplication: true,
-    ssrMode: !process.browser,
-    // ssrForceFetchDelay: 100,
-    connectToDevTools: process.browser
+    connectToDevTools: isBrowser,
+    ssrMode: !isBrowser,
+    typeDefs,
+    resolvers
   });
 };
 
-export default withApollo(createClient, {
-  getDataFromTree: 'ssr'
-});
+export default withApollo(createClient, { getDataFromTree: 'ssr' });

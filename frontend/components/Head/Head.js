@@ -1,5 +1,5 @@
-import NextHead from 'next/head';
 import PropTypes from 'prop-types';
+import NextHead from 'next/head';
 
 const Head = React.memo(props => (
   <NextHead>

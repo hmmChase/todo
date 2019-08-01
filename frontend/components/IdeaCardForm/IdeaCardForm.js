@@ -1,12 +1,13 @@
 import { Mutation } from 'react-apollo';
-import * as query from './IdeaCardForm.query';
+
+import {
+  CURRENT_USER_QUERY,
+  CREATE_IDEA_MUTATION
+} from '../../graphql/queries';
 import * as sc from './IdeaCardForm.style';
 
 class IdeaCardForm extends React.PureComponent {
-  state = {
-    idea: '',
-    isSubmitDisabled: true
-  };
+  state = { idea: '', isSubmitDisabled: true };
 
   canSubmit = () => {
     if (this.state.idea === '') {
@@ -33,11 +34,10 @@ class IdeaCardForm extends React.PureComponent {
   render() {
     return (
       <Mutation
-        mutation={query.CREATE_IDEA_MUTATION}
+        mutation={CREATE_IDEA_MUTATION}
         variables={{ content: this.state.idea }}
-        refetchQueries={[{ query: query.ME_IDEAS_QUERY }]}
         onError={this.handleError}
-        errorPolicy="all"
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
         {createIdea => (
           <sc.form

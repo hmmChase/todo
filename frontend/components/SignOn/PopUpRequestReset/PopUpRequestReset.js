@@ -1,12 +1,12 @@
 import { Mutation } from 'react-apollo';
+
+// import { DisplayError } from '../..';
 import DisplayError from '../../DisplayError/DisplayError';
-import * as query from './PopUpRequestReset.query';
+import { REQUEST_RESET_MUTATION } from '../../../graphql/queries';
 import * as sc from './PopUpRequestReset.style';
 
 class PopUpRequestReset extends React.PureComponent {
-  state = {
-    email: ''
-  };
+  state = { email: '' };
 
   handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -18,15 +18,13 @@ class PopUpRequestReset extends React.PureComponent {
   handleError = error => error;
 
   render() {
-    const { email } = this.state;
     const isInvalid = email === '';
 
     return (
       <Mutation
-        mutation={query.REQUEST_RESET_MUTATION}
+        mutation={REQUEST_RESET_MUTATION}
         variables={this.state}
         onError={this.handleError}
-        errorPolicy="all"
       >
         {(requestReset, { loading, error, called }) => (
           <sc.form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
@@ -45,7 +43,7 @@ class PopUpRequestReset extends React.PureComponent {
                   type="email"
                   name="email"
                   placeholder="email"
-                  value={email}
+                  value={this.state.email}
                   onChange={this.handleChangeInput}
                 />
               </label>

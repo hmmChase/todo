@@ -1,6 +1,6 @@
-import React from 'react';
 import { mount } from 'enzyme';
-import SignOut from '../../components/SignOn/SignOut/SignOut';
+
+import SignOut from '../../components/SignOut/SignOut';
 
 describe('SignOut', () => {
   let mockProps;

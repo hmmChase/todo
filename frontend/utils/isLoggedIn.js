@@ -1,12 +1,12 @@
-import * as query from '../components/wrappers/WithUser/WithUser.query';
+import { IS_LOGGED_IN } from '../graphql/queries';
 
-export const isLoggedIn = async client => {
+export default async client => {
   try {
     const {
-      data: { me }
-    } = await client.query({ query: query.ME_QUERY });
+      data: { isLoggedIn }
+    } = await client.query({ query: IS_LOGGED_IN });
 
-    return me;
+    return isLoggedIn;
   } catch {
     return null;
   }

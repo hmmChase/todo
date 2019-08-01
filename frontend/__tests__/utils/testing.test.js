@@ -1,4 +1,4 @@
-import { load } from '../../utils/redirect';
+import { load } from '../../utils/testing';
 
 describe('load', () => {
   it('is defined', () => {
