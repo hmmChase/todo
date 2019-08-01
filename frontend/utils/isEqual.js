@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
+// compare props
 
-export const isEqual = (prevProps, nextProps) => {
+export default (prevProps, nextProps) => {
   const obj1 = prevProps;
   console.log('TCL: isEqual -> obj1', obj1);
   const obj2 = nextProps;

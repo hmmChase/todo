@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import IndexPage from '../../pages/index';
 
@@ -7,14 +6,15 @@ describe('IndexPage', () => {
   let wrapper;
 
   beforeEach(() => {
-    jest.resetAllMocks();
     mockProps = {};
     wrapper = shallow(<IndexPage {...mockProps} />, {
       disableLifecycleMethods: true
     });
   });
 
-  it('matches snapshot', () => {
+  afterEach(() => jest.resetAllMocks());
+
+  it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });

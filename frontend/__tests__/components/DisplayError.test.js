@@ -6,18 +6,41 @@ describe('DisplayError', () => {
   let wrapper;
 
   beforeEach(() => {
-    jest.resetAllMocks();
     mockProps = {};
     wrapper = shallow(<DisplayError {...mockProps} />, {
       disableLifecycleMethods: true
     });
   });
 
-  it('matches snapshot - generic error', () => {
-    const wrapSnap = wrapper.find('DisplayErrorstyle__divError');
+  afterEach(() => jest.resetAllMocks());
 
-    expect(wrapSnap.text()).toContain('Opps, something went wrong.');
+  it('renders correctly - no props.error', () => {
+    expect(wrapper.text()).toContain('Opps, something went wrong.');
 
-    expect(wrapSnap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders correctly - props.error.message', () => {
+    mockProps = { error: { message: 'mock error message' } };
+    wrapper = shallow(<DisplayError {...mockProps} />, {
+      disableLifecycleMethods: true
+    });
+
+    expect(wrapper.text()).toContain('mock error message');
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders correctly - props.error.graphQLErrors', () => {
+    mockProps = {
+      error: { graphQLErrors: [{ message: 'mock graphQLErrors message' }] }
+    };
+    wrapper = shallow(<DisplayError {...mockProps} />, {
+      disableLifecycleMethods: true
+    });
+
+    expect(wrapper.text()).toContain('mock graphQLErrors message');
+
+    expect(wrapper).toMatchSnapshot();
   });
 });
