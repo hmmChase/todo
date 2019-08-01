@@ -16,27 +16,29 @@ export default (req, res, next) => {
     if (restArgs[0]) {
       chunks.push(Buffer.from(restArgs[0]));
     }
+
     const body = Buffer.concat(chunks).toString('utf8');
 
-    console.log({
-      // time: new Date().toUTCString(),
-      // fromIP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-      // method: req.method,
-      // originalUri: req.originalUrl,
-      // requestHeaders: req.headers,
-      // responseHeaders: res.header()._headers,
-      // statusCode: res.statusCode,
-      // host: req.headers.host,
-      // headersSent: res.headersSent,
-      cookies: req.cookies,
-      // uri: req.url,
-      requestData: req.body,
-      responseData: body
-      // referer: req.headers.referer || ''
-      // ua: req.headers['user-agent']
-    });
+    req.body.operationName === 'IntrospectionQuery'
+      ? console.log('IntrospectionQuery')
+      : console.log({
+          // time: new Date().toUTCString(),
+          // fromIP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+          // method: req.method,
+          // originalUri: req.originalUrl,
+          // requestHeaders: req.headers,
+          // responseHeaders: res.header()._headers,
+          // statusCode: res.statusCode,
+          // host: req.headers.host,
+          // headersSent: res.headersSent,
+          cookies: req.cookies,
+          // uri: req.url,
+          requestData: req.body,
+          responseData: body
+          // referer: req.headers.referer || ''
+          // ua: req.headers['user-agent']
+        });
 
-    // console.log(body);
     oldEnd.apply(res, restArgs);
   };
 
