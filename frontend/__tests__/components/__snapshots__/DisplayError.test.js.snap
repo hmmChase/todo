@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`DisplayError matches snapshot - generic error 1`] = `
-<DisplayErrorstyle__divError>
-  Opps, something went wrong.
-</DisplayErrorstyle__divError>
-`;
