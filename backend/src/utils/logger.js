@@ -2,15 +2,6 @@ export default (req, res, next) => {
   console.log('\n', '----------');
   console.log('New request', new Date().getMilliseconds());
 
-  // console.log('req host: ', req.headers.host);
-  // console.log('req headers: ', req.headers);
-  // console.log('req cookies: ', req.cookies);
-  console.log('req body: ', req.body);
-  // console.log('res headers : ', res.header()._headers);
-  // console.log('res statusCode: ', res.statusCode);
-  // console.log('headersSent: ', res.headersSent);
-
-  // Response Body
   const oldWrite = res.write;
   const oldEnd = res.end;
 
@@ -25,10 +16,27 @@ export default (req, res, next) => {
     if (restArgs[0]) {
       chunks.push(Buffer.from(restArgs[0]));
     }
-    const body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+    const body = Buffer.concat(chunks).toString('utf8');
 
-    body.forEach(data => console.log('res body: ', data));
+    console.log({
+      // time: new Date().toUTCString(),
+      // fromIP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      // method: req.method,
+      // originalUri: req.originalUrl,
+      // requestHeaders: req.headers,
+      // responseHeaders: res.header()._headers,
+      // statusCode: res.statusCode,
+      // host: req.headers.host,
+      // headersSent: res.headersSent,
+      cookies: req.cookies,
+      // uri: req.url,
+      requestData: req.body,
+      responseData: body
+      // referer: req.headers.referer || ''
+      // ua: req.headers['user-agent']
+    });
 
+    // console.log(body);
     oldEnd.apply(res, restArgs);
   };
 

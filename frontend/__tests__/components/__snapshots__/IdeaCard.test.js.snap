@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IdeaCard matches snapshot - update idea 1`] = `null`;
-
 exports[`IdeaCard matches snapshot 1`] = `
 .c0 {
   display: -webkit-box;
@@ -35,15 +33,13 @@ exports[`IdeaCard matches snapshot 1`] = `
 .c2 {
   width: 100%;
   outline: none;
-  border: black solid 1px;
   padding: 5px;
-  margin: 0;
   overflow-wrap: break-word;
   word-break: break-all;
 }
 
 <IdeaCard
-  content="mock content"
+  content="mock idea content"
   id="1"
 >
   <IdeaCardstyle__li>
@@ -420,123 +416,54 @@ exports[`IdeaCard matches snapshot 1`] = `
             }
           }
           onError={[Function]}
-          refetchQueries={
-            Array [
-              Object {
-                "query": Object {
-                  "definitions": Array [
-                    Object {
-                      "directives": Array [],
-                      "kind": "OperationDefinition",
-                      "name": Object {
-                        "kind": "Name",
-                        "value": "ME_IDEAS_QUERY",
-                      },
-                      "operation": "query",
-                      "selectionSet": Object {
-                        "kind": "SelectionSet",
-                        "selections": Array [
-                          Object {
-                            "alias": undefined,
-                            "arguments": Array [],
-                            "directives": Array [],
-                            "kind": "Field",
-                            "name": Object {
-                              "kind": "Name",
-                              "value": "getUserIdeas",
-                            },
-                            "selectionSet": Object {
-                              "kind": "SelectionSet",
-                              "selections": Array [
-                                Object {
-                                  "alias": undefined,
-                                  "arguments": Array [],
-                                  "directives": Array [],
-                                  "kind": "Field",
-                                  "name": Object {
-                                    "kind": "Name",
-                                    "value": "id",
-                                  },
-                                  "selectionSet": undefined,
-                                },
-                                Object {
-                                  "alias": undefined,
-                                  "arguments": Array [],
-                                  "directives": Array [],
-                                  "kind": "Field",
-                                  "name": Object {
-                                    "kind": "Name",
-                                    "value": "content",
-                                  },
-                                  "selectionSet": undefined,
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                      "variableDefinitions": Array [],
-                    },
-                  ],
-                  "kind": "Document",
-                  "loc": Object {
-                    "end": 78,
-                    "start": 0,
-                  },
-                },
-              },
-            ]
-          }
           variables={
             Object {
-              "content": "mock content",
+              "content": "mock idea content",
               "id": "1",
             }
           }
         >
-          <IdeaCardstyle__ideaP
-            contentEditable={true}
-            onInput={[Function]}
-            suppressContentEditableWarning={true}
+          <IdeaCardstyle__ideaInput
+            onChange={[Function]}
+            type="text"
+            value="mock idea content"
           >
             <StyledComponent
-              contentEditable={true}
               forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
                   "attrs": Array [],
                   "componentStyle": ComponentStyle {
-                    "componentId": "IdeaCardstyle__ideaP-wiedry-2",
+                    "componentId": "IdeaCardstyle__ideaInput-wiedry-2",
                     "isStatic": true,
                     "lastClassName": "c2",
                     "rules": Array [
-                      "width:100%;outline:none;border:black solid 1px;padding:5px;margin:0;overflow-wrap:break-word;word-break:break-all;",
+                      "width:100%;outline:none;padding:5px;overflow-wrap:break-word;word-break:break-all;",
                     ],
                   },
-                  "displayName": "IdeaCardstyle__ideaP",
+                  "displayName": "IdeaCardstyle__ideaInput",
                   "foldedComponentIds": Array [],
                   "render": [Function],
-                  "styledComponentId": "IdeaCardstyle__ideaP-wiedry-2",
-                  "target": "p",
+                  "styledComponentId": "IdeaCardstyle__ideaInput-wiedry-2",
+                  "target": "input",
                   "toString": [Function],
                   "warnTooManyClasses": [Function],
                   "withComponent": [Function],
                 }
               }
               forwardedRef={null}
-              onInput={[Function]}
-              suppressContentEditableWarning={true}
+              onChange={[Function]}
+              type="text"
+              value="mock idea content"
             >
-              <p
+              <input
                 className="c2"
-                contentEditable={true}
-                onInput={[Function]}
-                suppressContentEditableWarning={true}
-              >
-                mock content
-              </p>
+                onChange={[Function]}
+                type="text"
+                value="mock idea content"
+              />
             </StyledComponent>
-          </IdeaCardstyle__ideaP>
+          </IdeaCardstyle__ideaInput>
         </Mutation>
       </li>
     </StyledComponent>

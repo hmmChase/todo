@@ -19,8 +19,8 @@ export const MOCK_UPDATE_IDEA_MUTATION = {
   result: {
     data: {
       updateIdea: {
-        id: '1',
-        content: 'updated mock content'
+        id: '2',
+        content: 'updated mock idea 2 content'
       }
     }
   }

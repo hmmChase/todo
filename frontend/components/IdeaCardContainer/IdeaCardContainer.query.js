@@ -18,7 +18,11 @@ export const MOCK_ME_IDEAS_QUERY = {
       getUserIdeas: [
         {
           id: '1',
-          content: 'mock content'
+          content: 'mock idea 1 content'
+        },
+        {
+          id: '2',
+          content: 'mock idea 2 content'
         }
       ]
     }
