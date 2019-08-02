@@ -5,7 +5,7 @@ import { mount } from 'enzyme';
 import { ApolloConsumer } from 'react-apollo';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { load } from '../utils/load';
-import * as mock from '../__mocks__/mocks';
+import * as mock from '../../__mocks__/mocks';
 import MutationExample, {
   CREATE_USER_MUTATION
 } from '../../../components/Examples/MutationExample';

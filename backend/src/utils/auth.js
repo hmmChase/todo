@@ -34,14 +34,19 @@ export const signJWT = async payload =>
   });
 
 export const verifyJWT = async token => {
+  console.log(': token', token);
   try {
     // Return the decoded payload if the signature is valid
-    return jwt.verify(token, process.env.JWT_SECRET);
+    const verified = await jwt.verify(token, process.env.JWT_SECRET);
+    console.log(': verified', verified);
+
+    return verified;
   } catch (err) {
+    console.log(': err', err);
     // If not, throw the error
     if (err.name === 'TokenExpiredError') {
       // TODO: Figure out how to refresh token
-      // console.log('TokenExpiredError');
+      console.log('TokenExpiredError');
 
       //   const decodedPayload = await jwt.decode(token);
 

@@ -4,7 +4,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { load } from '../../../utils/tests';
-import * as mock from '../__mocks__/mocks';
+import * as mock from '../../__mocks__/mocks';
 import QueryExample, {
   USERS_QUERY
 } from '../../../components/Examples/QueryExample';

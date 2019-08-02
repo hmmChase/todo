@@ -10,6 +10,6 @@ export const inputText = styled(input)`
 `;
 
 export const inputBtn = styled(submitInputBtn)`
-  margin-top: 10px;
   margin-left: auto;
+  margin-top: 10px;
 `;

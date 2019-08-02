@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const header = styled.header`
-  grid-area: header;
-  display: grid;
-  grid-gap: 10px;
   background-color: ${props => props.theme.color.black};
-  grid-template-columns: 1fr 1fr;
+  display: grid;
+  grid-area: header;
+  grid-gap: 10px;
   grid-template-areas: 'header-left header-right';
-  place-items: center center;
+  grid-template-columns: 1fr 1fr;
   padding: 10px 0 1px 0;
+  place-items: center center;
 
   @media screen and (min-width: 600px) {
     padding: 10px 20px 1px 20px;
@@ -16,12 +16,12 @@ export const header = styled.header`
 `;
 
 export const h1 = styled.h1`
-  font-size: 1.5rem;
-  font-family: 'Play', sans-serif;
   color: ${props => props.theme.color.yellow_bright};
-  margin: 0 0 0 65px;
+  font-family: 'Play', sans-serif;
+  font-size: 1.5rem;
   justify-self: start;
   letter-spacing: 0.05rem;
+  margin: 0 0 0 65px;
 
   @media screen and (min-width: 600px) {
     margin-left: 70px;

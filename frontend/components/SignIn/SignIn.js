@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import { ApolloConsumer, Mutation } from 'react-apollo';
 
 // import { DisplayLoading, DisplayError } from '..';
@@ -17,6 +18,8 @@ class SignIn extends React.PureComponent {
     await signIn();
   };
 
+  handleForgotPassClick = () => Router.push({ pathname: '/requestreset' });
+
   handleError = error => error;
 
   handleCompleted = client => client.writeData({ data: { isLoggedIn: true } });
@@ -35,52 +38,50 @@ class SignIn extends React.PureComponent {
             onCompleted={() => this.handleCompleted(client)}
           >
             {(signIn, { loading, error }) => (
-              <>
-                <sc.form onSubmit={e => this.handleSubmitForm(e, signIn)}>
-                  <fieldset disabled={loading} aria-busy={loading}>
-                    <h2>Sign In</h2>
+              <sc.form onSubmit={e => this.handleSubmitForm(e, signIn)}>
+                <fieldset disabled={loading} aria-busy={loading}>
+                  <h2>Sign In</h2>
 
-                    {loading && <DisplayLoading />}
+                  {loading && <DisplayLoading />}
 
-                    {error && <DisplayError error={error} />}
+                  {error && <DisplayError error={error} />}
 
-                    <label htmlFor="email">
-                      Email
-                      <sc.inputText
-                        type="email"
-                        name="email"
-                        placeholder="email"
-                        value={email}
-                        onChange={this.handleChangeInput}
-                      />
-                    </label>
-
-                    <label htmlFor="password">
-                      Password
-                      <sc.inputText
-                        type="password"
-                        name="password"
-                        placeholder="password"
-                        value={password}
-                        onChange={this.handleChangeInput}
-                      />
-                    </label>
-
-                    <sc.inputBtn
-                      value="Sign In"
-                      type="submit"
-                      disabled={isInvalid}
+                  <label htmlFor="email">
+                    Email
+                    <sc.inputText
+                      type="email"
+                      name="email"
+                      placeholder="email"
+                      value={email}
+                      onChange={this.handleChangeInput}
                     />
-                  </fieldset>
-                </sc.form>
+                  </label>
 
-                <sc.aForgotPass
-                  value="Forgot password?"
-                  onClick={this.handleForgotPassClick}
-                >
-                  Forgot password?
-                </sc.aForgotPass>
-              </>
+                  <label htmlFor="password">
+                    Password
+                    <sc.inputText
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      value={password}
+                      onChange={this.handleChangeInput}
+                    />
+                  </label>
+
+                  <sc.aForgotPass
+                    value="Forgot password?"
+                    onClick={this.handleForgotPassClick}
+                  >
+                    Forgot password?
+                  </sc.aForgotPass>
+
+                  <sc.inputBtn
+                    value="Sign In"
+                    type="submit"
+                    disabled={isInvalid}
+                  />
+                </fieldset>
+              </sc.form>
             )}
           </Mutation>
         )}

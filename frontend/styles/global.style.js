@@ -6,23 +6,23 @@ export default createGlobalStyle`
   ${styledNormalize}
 
   @font-face {
+    font-display: fallback;
+    /* font-display: swap; */
     font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
     src: url('/static/fonts/open-sans-v15-latin-regular.woff2') format('woff2'),
          url('/static/fonts/open-sans-v15-latin-regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    /* font-display: swap; */
-    font-display: fallback;
   }
 
   @font-face {
+    font-display: fallback;
+    /* font-display: swap; */
     font-family: 'Play';
+    font-style: normal;
+    font-weight: normal;
     src: url('/static/fonts/play-v10-latin-regular.woff2') format('woff2'),
          url('/static/fonts/play-v10-latin-regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    /* font-display: swap; */
-    font-display: fallback;
   }
 
   html {
@@ -34,9 +34,9 @@ export default createGlobalStyle`
   }
 
   body {
-    padding: 0;
-    margin: 0;
     color: ${theme.color.black};
     font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
   }
 `;

@@ -13,7 +13,7 @@ const Layout = React.memo(props => (
     <sc.headerMarginRight />
 
     {/* Pages are rendered here */}
-    {props.children}
+    <sc.mainContainer>{props.children}</sc.mainContainer>
   </sc.divLayout>
 ));
 

@@ -2,32 +2,32 @@ import styled from 'styled-components';
 
 export const form = styled.form`
   display: flex;
-  width: 100%;
   grid-column: span 2;
   position: relative;
+  width: 100%;
 
   > img {
-    width: 50px;
+    left: 10px;
     position: absolute;
     top: -30px;
-    left: 10px;
+    width: 50px;
   }
 
   > textarea {
-    padding: 10px;
-    outline: none;
-    min-height: 56px;
-    width: 100%;
-    resize: vertical;
     border: none;
     margin-right: 1px;
+    min-height: 56px;
+    outline: none;
+    padding: 10px;
+    resize: vertical;
+    width: 100%;
   }
 
   > button {
-    border: none;
-    outline: none;
-    cursor: pointer;
     background-color: ${props => props.theme.color.yellow_light};
+    border: none;
+    cursor: pointer;
+    outline: none;
     padding: 0;
 
     &:active {
