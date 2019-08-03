@@ -11,20 +11,6 @@ import isEmail from 'isemail';
 
 import * as config from '../config';
 
-export const getCurrentUser = async token => {
-  if (!token) return null;
-
-  try {
-    return await verifyJWT(token);
-  } catch (err) {
-    return null;
-  }
-};
-
-export const isAuthenticated = currentUser => {
-  if (!currentUser) throw new ForbiddenError('Must be signed in.');
-};
-
 export const signJWT = async payload =>
   // TODO: Add CSRK token
   // https://www.youtube.com/watch?v=67mezK3NzpU&feature=youtu.be&t=36m30s
@@ -33,33 +19,23 @@ export const signJWT = async payload =>
     expiresIn: config.JWTExpiryTime
   });
 
-export const verifyJWT = async token => {
-  console.log(': token', token);
+export const verifyJWT = token => {
   try {
-    // Return the decoded payload if the signature is valid
-    const verified = await jwt.verify(token, process.env.JWT_SECRET);
-    console.log(': verified', verified);
-
-    return verified;
+    // Return the decoded payload if the signature is valid and not expired
+    return jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
-    console.log(': err', err);
+    console.log(err.name);
+
+    // if (err.name === 'TokenExpiredError') {
+    //   // TODO: Figure out how to refresh token
+    //   //   const decodedPayload = await jwt.decode(token);
+    //   //   await res.clearCookie('token');
+    //   //   payload = { user: { id: decodedPayload.userId } };
+    //   //   await sendCookie(res, payload);
+    // }
+
     // If not, throw the error
-    if (err.name === 'TokenExpiredError') {
-      // TODO: Figure out how to refresh token
-      console.log('TokenExpiredError');
-
-      //   const decodedPayload = await jwt.decode(token);
-
-      //   await res.clearCookie('token');
-
-      //   payload = { user: { id: decodedPayload.userId } };
-
-      //   await sendCookie(res, payload);
-
-      throw new AuthenticationError('JWT expired: ', err);
-    }
-
-    throw new AuthenticationError('JWT invalid: ', err);
+    throw new AuthenticationError('JWT invalid');
   }
 };
 
@@ -75,7 +51,7 @@ export const sendCookie = async (res, payload) => {
   try {
     await res.cookie('token', JWT, cookieOptions);
   } catch (err) {
-    throw new AuthenticationError('Error creating cookie: ', err);
+    throw new AuthenticationError('Error creating cookie');
   }
 };
 

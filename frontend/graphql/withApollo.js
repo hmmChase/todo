@@ -6,7 +6,7 @@ import { onError } from 'apollo-link-error';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import initCache from './initCache';
+import authenticate from '../utils/authenticate';
 import typeDefs from './schema';
 import resolvers from './resolvers';
 
@@ -245,7 +245,7 @@ const createClient = ctx => {
   // hydrate cache with the initialState created server-side
   const cache = new InMemoryCache().restore(ctx.initialState || {});
 
-  if (!isBrowser) initCache(cache, ctx.headers.cookie);
+  if (!isBrowser) authenticate(cache, ctx.headers.cookie);
 
   return new ApolloClient({
     link,

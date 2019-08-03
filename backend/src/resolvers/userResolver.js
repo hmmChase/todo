@@ -20,11 +20,12 @@ export default {
     },
 
     currentUser: (parent, args, ctx, info) => {
-      return ctx.currentUser
-        ? ctx.prisma.query.user(
-            { where: { id: ctx.currentUser.user.id } },
-            info
-          )
+      if (!ctx.req.cookies && !ctx.req.cookies.token) return null;
+
+      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
+
+      return currentUser
+        ? ctx.prisma.query.user({ where: { id: currentUser.user.id } }, info)
         : null;
     }
   },
