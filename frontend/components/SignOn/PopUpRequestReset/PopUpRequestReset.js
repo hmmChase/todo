@@ -18,7 +18,7 @@ class PopUpRequestReset extends React.PureComponent {
   handleError = error => error;
 
   render() {
-    const isInvalid = email === '';
+    const isInvalid = this.state.email === '';
 
     return (
       <Mutation

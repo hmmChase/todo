@@ -1,9 +1,9 @@
-import Router from 'next/router';
 import { ApolloConsumer, Mutation } from 'react-apollo';
 
 // import { DisplayLoading, DisplayError } from '..';
 import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
+import ForgotPassDialog from '../ForgotPassDialog/ForgotPassDialog';
 import { SIGN_IN_MUTATION } from '../../graphql/queries';
 import * as sc from './SignIn.style';
 
@@ -17,8 +17,6 @@ class SignIn extends React.PureComponent {
     this.setState({ password: '' });
     await signIn();
   };
-
-  handleForgotPassClick = () => Router.push({ pathname: '/requestreset' });
 
   handleError = error => error;
 
@@ -38,50 +36,47 @@ class SignIn extends React.PureComponent {
             onCompleted={() => this.handleCompleted(client)}
           >
             {(signIn, { loading, error }) => (
-              <sc.form onSubmit={e => this.handleSubmitForm(e, signIn)}>
-                <fieldset disabled={loading} aria-busy={loading}>
-                  <h2>Sign In</h2>
+              <>
+                <sc.form onSubmit={e => this.handleSubmitForm(e, signIn)}>
+                  <fieldset disabled={loading} aria-busy={loading}>
+                    <h2>Sign In</h2>
 
-                  {loading && <DisplayLoading />}
+                    {loading && <DisplayLoading />}
 
-                  {error && <DisplayError error={error} />}
+                    {error && <DisplayError error={error} />}
 
-                  <label htmlFor="email">
-                    Email
-                    <sc.inputText
-                      type="email"
-                      name="email"
-                      placeholder="email"
-                      value={email}
-                      onChange={this.handleChangeInput}
+                    <label htmlFor="email">
+                      Email
+                      <sc.inputText
+                        type="email"
+                        name="email"
+                        placeholder="email"
+                        value={email}
+                        onChange={this.handleChangeInput}
+                      />
+                    </label>
+
+                    <label htmlFor="password">
+                      Password
+                      <sc.inputText
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        value={password}
+                        onChange={this.handleChangeInput}
+                      />
+                    </label>
+
+                    <sc.inputBtn
+                      value="Sign In"
+                      type="submit"
+                      disabled={isInvalid}
                     />
-                  </label>
+                  </fieldset>
+                </sc.form>
 
-                  <label htmlFor="password">
-                    Password
-                    <sc.inputText
-                      type="password"
-                      name="password"
-                      placeholder="password"
-                      value={password}
-                      onChange={this.handleChangeInput}
-                    />
-                  </label>
-
-                  <sc.aForgotPass
-                    value="Forgot password?"
-                    onClick={this.handleForgotPassClick}
-                  >
-                    Forgot password?
-                  </sc.aForgotPass>
-
-                  <sc.inputBtn
-                    value="Sign In"
-                    type="submit"
-                    disabled={isInvalid}
-                  />
-                </fieldset>
-              </sc.form>
+                <ForgotPassDialog />
+              </>
             )}
           </Mutation>
         )}
