@@ -1,15 +1,12 @@
 import styled from 'styled-components';
-import { form } from '../../styles/form.style';
-import { submitInputBtn } from '../../styles/button.style';
-import { input } from '../../styles/input.style';
 
-export { form };
+export { form } from '../Styled/form.style';
 
-export const inputText = styled(input)`
+export const inputText = styled.input`
   margin: 5px;
 `;
 
-export const inputBtn = styled(submitInputBtn)`
+export const inputSubmit = styled.input`
   margin-top: 5px;
   margin-left: auto;
 `;

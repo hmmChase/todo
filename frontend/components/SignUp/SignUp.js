@@ -85,7 +85,7 @@ class SignUp extends React.PureComponent {
                     <li>a number</li>
                   </sc.ulPassList>
 
-                  <sc.inputBtn
+                  <sc.inputSubmit
                     type="submit"
                     value="Sign Up"
                     disabled={isInvalid}

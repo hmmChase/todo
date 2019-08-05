@@ -1,4 +1,3 @@
-// import { SignOut, modals } from '..';
 import Modal from '../Modal/Modal';
 import * as sc from './ForgotPassDialog.style';
 

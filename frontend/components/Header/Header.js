@@ -1,4 +1,3 @@
-// import { signOut, IdeaCardForm } from '..';
 import SignOut from '../SignOut/SignOut';
 import IdeaCardForm from '../IdeaCardForm/IdeaCardForm';
 import * as sc from './Header.style';

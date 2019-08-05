@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 // import { ReactComponent as loadingIcon } from '../../static/loading.svg';
 
 const DisplayLoading = React.memo(() => <div>Loading...</div>);

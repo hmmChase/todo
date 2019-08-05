@@ -14,13 +14,13 @@ const SignOut = React.memo(() => {
   return (
     <Mutation mutation={SIGN_OUT_MUTATION} onError={handleError}>
       {(signOut, { loading, client }) => (
-        <sc.purpleBtn
+        <sc.signOutBtn
           disabled={loading}
           aria-busy={loading}
           onClick={() => handleClickBtn(signOut, client)}
         >
           Sign Out
-        </sc.purpleBtn>
+        </sc.signOutBtn>
       )}
     </Mutation>
   );

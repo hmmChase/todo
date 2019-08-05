@@ -67,7 +67,7 @@ class SignIn extends React.PureComponent {
                       />
                     </label>
 
-                    <sc.inputBtn
+                    <sc.inputSubmit
                       value="Sign In"
                       type="submit"
                       disabled={isInvalid}
