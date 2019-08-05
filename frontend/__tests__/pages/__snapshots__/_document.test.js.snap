@@ -1,3 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`_document matches snapshot 1`] = `undefined`;
+exports[`_document matches snapshot 1`] = `
+<html
+  lang="en"
+>
+  <Head>
+    <meta
+      charSet="utf-8"
+    />
+    <meta
+      content=""
+      name="description"
+    />
+    <meta
+      content="
+ width=device-width,
+ height=device-height,
+ initial-scale=1,
+ minimum-scale=1,
+ user-scalable=0,
+ shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      href="/static/favicon.ico"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <link
+      as="font"
+      crossOrigin="anonymous"
+      href="/static/fonts/open-sans-v15-latin-regular.woff2"
+      rel="preload"
+      type="font/woff2"
+    />
+    <link
+      as="font"
+      crossOrigin="anonymous"
+      href="/static/fonts/play-v10-latin-regular.woff2"
+      rel="preload"
+      type="font/woff2"
+    />
+  </Head>
+  <body>
+    <Main />
+    <NextScript />
+  </body>
+</html>
+`;

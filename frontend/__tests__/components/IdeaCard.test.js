@@ -1,100 +1,105 @@
-/* eslint-disable no-console */
 import { mount } from 'enzyme';
 import { ApolloConsumer } from 'react-apollo';
 import { MockedProvider } from 'react-apollo/test-utils';
-import { load } from '../../utils/load';
+
+import { load } from '../../utils/testing';
 import IdeaCard from '../../components/IdeaCard/IdeaCard';
 import {
+  MOCK_CURRENT_USER_QUERY,
   MOCK_UPDATE_IDEA_MUTATION,
   MOCK_DELETE_IDEA_MUTATION
-} from '../../components/IdeaCard/IdeaCard.query';
-// eslint-disable-next-line max-len
-import {
-  ME_IDEAS_QUERY,
-  MOCK_ME_IDEAS_QUERY
-} from '../../components/IdeaCardContainer/IdeaCardContainer.query';
+} from '../../__mocks__/queries';
+import { CURRENT_USER_QUERY } from '../../graphql/queries';
 import * as mock from '../../__mocks__/mocks';
 
 describe('IdeaCard', () => {
   let mockProps;
   let mockQueries;
+  let apolloClient;
   let wrapper;
 
   beforeEach(() => {
     jest.resetAllMocks();
-    mockProps = { id: mock.idea.id, content: mock.idea.content };
+    mockProps = { id: '1', content: 'mock idea 1 content' };
     mockQueries = [
       MOCK_UPDATE_IDEA_MUTATION,
       MOCK_DELETE_IDEA_MUTATION,
-      MOCK_ME_IDEAS_QUERY
+      MOCK_CURRENT_USER_QUERY
     ];
 
     wrapper = mount(
-      <MockedProvider mocks={mockQueries} addTypename={false}>
-        <IdeaCard {...mockProps} />
-      </MockedProvider>,
+      // <MockedProvider mocks={mockQueries} addTypename={false}>
+      //   <IdeaCard {...mockProps} />
+      // </MockedProvider>,
+      <ApolloConsumer>
+        {client => {
+          apolloClient = client;
+          return <IdeaCard {...mockProps} />;
+        }}
+      </ApolloConsumer>,
       {
-        disableLifecycleMethods: true
+        disableLifecycleMethods: true,
+        wrappingComponent: MockedProvider,
+        wrappingComponentProps: { mocks: mockQueries, addTypename: false }
       }
     );
   });
 
   it('matches snapshot', () => {
-    const wrapSnap = wrapper.find('IdeaCard');
+    // expect(
+    //   wrapper
+    //     .find('Mutation')
+    //     .at(0)
+    //     .renderProp('children')()
+    // ).toMatchSnapshot();
 
-    expect(wrapSnap).toMatchSnapshot();
+    // expect(
+    //   wrapper
+    //     .find('Mutation')
+    //     .at(1)
+    //     .renderProp('children')()
+    // ).toMatchSnapshot();
+
+    expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders list item', () => {
-    const ideaLi = wrapper.find('li');
+  fit('matches snapshot - update idea - loading', async () => {
+    console.log(wrapper.debug());
 
-    expect(ideaLi).toHaveLength(1);
-    expect(ideaLi.text()).toContain('mock content');
-  });
+    // const handleClickDeleteBtn = (wrapper.find('IdeaCard').instance().handleClickDeleteBtn() = jest.fn());
 
-  it('matches snapshot - update idea', async () => {
-    let apolloClient;
-
-    wrapper = mount(
-      <MockedProvider mocks={mockQueries} addTypename={false}>
-        <ApolloConsumer>
-          {client => {
-            apolloClient = client;
-            return <IdeaCard {...mockProps} />;
-          }}
-        </ApolloConsumer>
-      </MockedProvider>,
-      {
-        disableLifecycleMethods: true
-      }
-    );
-
-    const wrapSnap = wrapper.find({ snapshot: 'IdeaCard' });
-
-    const userIdeas1 = await apolloClient.query({ query: ME_IDEAS_QUERY });
+    // const userIdeas1 = await apolloClient.query({ query: CURRENT_USER_QUERY });
     // console.log(': userIdeas1', userIdeas1.data.getUserIdeas);
 
-    // console.log('state: ', wrapper.find('IdeaCard').instance().state);
+    const ideaInput1 = wrapper.find('IdeaCardstyle__deleteBtn');
+    // console.log(': ideaInput1', ideaInput1.debug());
 
-    const ideaP = wrapper.find('p');
-    // console.log(': ideaP', ideaP.debug());
+    // await load(wrapper);
 
-    ideaP.simulate('input', { target: { innerText: 'new mock idea' } });
+    // console.log(ideaInput1.props());
 
-    // console.log('state: ', wrapper.find('IdeaCard').instance().state);
+    ideaInput1.prop('onClick')({ target: { disabled: false } });
 
-    await load(wrapper);
+    console.log(wrapper.debug());
 
-    const userIdeas2 = await apolloClient.query({ query: ME_IDEAS_QUERY });
-    // console.log(': userIdeas2', userIdeas2.data.getUserIdeas);
+    // expect(
+    //   wrapper.find('IdeaCard').instance().handleClickDeleteBtn
+    // ).toHaveBeenCalledTimes(1);
 
-    await load(wrapper);
+    // await load(wrapper);
+
+    // console.log(wrapper.find('IdeaCard').instance().state);
+
+    // console.log(apolloClient.readQuery({ query: CURRENT_USER_QUERY }));
+
+    // const userIdeas2 = await apolloClient.query({ query: CURRENT_USER_QUERY });
+    // console.log(': userIdeas2', userIdeas2);
+
+    // const ideaInput2 = wrapper.find('input');
+    // console.log(': ideaInput2', ideaInput2.debug());
+
+    // // wrapper.update();
 
     // console.log(wrapper.debug());
-
-    expect(wrapper.find('IdeaCard').instance().state.nextContent).toBe(
-      'new mock idea'
-    );
-    expect(wrapSnap).toMatchSnapshot();
   });
 });

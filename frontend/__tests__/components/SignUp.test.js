@@ -1,10 +1,13 @@
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import { ApolloConsumer } from 'react-apollo';
 import { MockedProvider } from 'react-apollo/test-utils';
-import { ThemeProvider } from 'styled-components';
-import { load } from '../../utils/load';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import gql from 'graphql-tag';
+
 import SignUp from '../../components/SignUp/SignUp';
-import { MOCK_SIGN_UP_MUTATION } from '../../components/SignUp/SignUp.query';
-import theme from '../../styles/theme.style';
+import * as query from '../../__mocks__/queries/user';
+import resolvers from '../../graphql/resolvers';
+import { load } from '../../utils/testing';
 
 describe('SignUp', () => {
   let mockProps;
@@ -12,36 +15,23 @@ describe('SignUp', () => {
   let wrapper;
 
   beforeEach(() => {
-    jest.resetAllMocks();
     mockProps = {};
-    mockQueries = [MOCK_SIGN_UP_MUTATION];
-    wrapper = mount(
-      <MockedProvider mocks={mockQueries} addTypename={false}>
-        <ThemeProvider theme={theme}>
-          <SignUp {...mockProps} />
-        </ThemeProvider>
-      </MockedProvider>,
-      {
-        disableLifecycleMethods: true
-      }
-    );
+    mockQueries = [query.MOCK_SIGN_UP_MUTATION];
+    wrapper = shallow(<SignUp {...mockProps} />, {
+      disableLifecycleMethods: true,
+      wrappingComponent: MockedProvider,
+      wrappingComponentProps: { mocks: mockQueries, addTypename: false }
+    });
   });
 
-  it('matches snapshot', () => {
-    const wrapSnap = wrapper.find('formstyle__form');
+  afterEach(() => jest.resetAllMocks());
 
-    // console.log(wrapper.debug());
+  it('renders correctly', () => {
+    const wrapperDive = wrapper
+      .dive()
+      .dive()
+      .dive();
 
-    expect(wrapSnap).toMatchSnapshot();
-  });
-
-  it('matches snapshot - loaded', async () => {
-    const wrapSnap = wrapper.find('formstyle__form');
-
-    await load(wrapper);
-
-    // console.log(wrapper.debug());
-
-    expect(wrapSnap).toMatchSnapshot();
+    expect(wrapperDive).toMatchSnapshot();
   });
 });

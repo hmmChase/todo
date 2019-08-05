@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-export const divError = styled.div`
-  padding-left: 1rem;
+export const ulError = styled.ul`
   border-left: 5px solid red;
+  list-style: none;
+  padding-left: 1rem;
 `;

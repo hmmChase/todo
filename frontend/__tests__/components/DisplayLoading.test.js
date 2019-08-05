@@ -6,15 +6,17 @@ describe('DisplayLoading', () => {
   let wrapper;
 
   beforeEach(() => {
-    jest.resetAllMocks();
     mockProps = {};
     wrapper = shallow(<DisplayLoading {...mockProps} />, {
       disableLifecycleMethods: true
     });
   });
 
-  it('matches snapshot', () => {
-    expect(wrapper.text()).toContain('Loading ...');
+  afterEach(() => jest.resetAllMocks());
+
+  it('renders correctly', () => {
+    expect(wrapper.text()).toContain('Loading...');
+
     expect(wrapper).toMatchSnapshot();
   });
 });

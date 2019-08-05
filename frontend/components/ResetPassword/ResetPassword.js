@@ -1,15 +1,14 @@
-import Router from 'next/router';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
 import { Mutation } from 'react-apollo';
+
+// import { DisplayError } from '..';
 import DisplayError from '../DisplayError/DisplayError';
-import * as query from './ResetPassword.query';
+import { RESET_PASSWORD_MUTATION } from '../../graphql/queries';
 import * as sc from './ResetPassword.style';
 
 class ResetPassword extends React.PureComponent {
-  state = {
-    password: '',
-    confirmPassword: ''
-  };
+  state = { password: '', confirmPassword: '' };
 
   handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -31,13 +30,9 @@ class ResetPassword extends React.PureComponent {
 
     return (
       <Mutation
-        mutation={query.RESET_PASSWORD_MUTATION}
-        variables={{
-          ...this.state,
-          resetToken: this.props.resetToken
-        }}
+        mutation={RESET_PASSWORD_MUTATION}
+        variables={{ ...this.state, resetToken: this.props.resetToken }}
         onError={this.handleError}
-        errorPolicy="all"
         onCompleted={this.handleCompleted}
       >
         {(resetPassword, { loading, error, client }) => (

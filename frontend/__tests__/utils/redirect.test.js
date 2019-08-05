@@ -1,7 +1,7 @@
-import { redirect } from '../../utils/redirect';
+import redirect from '../../utils/redirect';
 
-describe('bar', () => {
-  it('should do what I like', () => {
+describe('redirect', () => {
+  it('is defined', () => {
     expect(redirect).toBeDefined();
   });
 });

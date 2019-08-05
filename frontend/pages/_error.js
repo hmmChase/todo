@@ -1,4 +1,3 @@
-/* eslint-disable react/no-multi-comp */
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
@@ -10,15 +9,16 @@ const LinkHome = React.memo(() => (
 
 class ErrorPage extends React.PureComponent {
   static getInitialProps({ res, err }) {
-    const statusCode = res ? res.statusCode : err ? err.statusCode : null;
+    const statusCode = res.statusCode || err.statusCode || null;
 
     return { statusCode };
   }
 
   render() {
+    const { statusCode } = this.props;
     let response;
 
-    switch (this.props.statusCode) {
+    switch (statusCode) {
       case 404:
         response = (
           <>
@@ -42,7 +42,7 @@ class ErrorPage extends React.PureComponent {
       case true:
         response = (
           <>
-            <h3>HTTP {this.props.statusCode} Error</h3>
+            <h3>{`HTTP ${statusCode} Error`}</h3>
 
             <LinkHome />
           </>

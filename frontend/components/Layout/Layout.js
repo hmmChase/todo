@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+
+// import { Header } from '..';
 import Header from '../Header/Header';
 import * as sc from './Layout.style';
 
@@ -11,7 +13,7 @@ const Layout = React.memo(props => (
     <sc.headerMarginRight />
 
     {/* Pages are rendered here */}
-    {props.children}
+    <sc.mainContainer>{props.children}</sc.mainContainer>
   </sc.divLayout>
 ));
 

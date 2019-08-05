@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IndexPage matches snapshot 1`] = `
-<Fragment>
+exports[`IndexPage renders correctly 1`] = `
+<Memo()>
   <Memo()
     title="Home"
   />
   <Memo() />
-</Fragment>
+</Memo()>
 `;

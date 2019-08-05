@@ -1,10 +1,10 @@
 import { mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { ThemeProvider } from 'styled-components';
-import { load } from '../../utils/load';
+
+import { load } from '../../utils/testing';
 import ResetPassword from '../../components/ResetPassword/ResetPassword';
-// eslint-disable-next-line max-len
-import { MOCK_RESET_PASSWORD_MUTATION } from '../../components/ResetPassword/ResetPassword.query';
+import { MOCK_RESET_PASSWORD_MUTATION } from '../../__mocks__/queries';
 import theme from '../../styles/theme.style';
 
 describe('ResetPassword', () => {

@@ -1,39 +1,61 @@
+import {
+  AuthenticationError,
+  ForbiddenError,
+  UserInputError
+} from 'apollo-server-express';
+
 import * as auth from '../utils/auth';
 
 export default {
   Query: {
-    idea: async (parent, args, ctx, info) => {
+    idea: (parent, args, ctx, info) => {
       return ctx.prisma.query.idea({ where: { id: args.id } }, info);
     },
 
     ideas: async (parent, args, ctx, info) => {
-      return ctx.prisma.query.ideas();
-    },
-
-    getUserIdeas: async (parent, args, ctx, info) => {
-      await auth.isAuthenticated(ctx.me);
-
-      return ctx.prisma.query.ideas({
-        where: { author: { id: ctx.me.user.id } }
-      });
+      return ctx.prisma.query.ideas({}, info);
     }
   },
 
   Mutation: {
     createIdea: async (parent, args, ctx, info) => {
-      await auth.isAuthenticated(ctx.me);
+      // Check if token is available
+      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token)
+        throw new AuthenticationError('Must be signed in.');
 
+      // Get current user
+      const currentUser = await auth.verifyJWT(ctx.req.cookies.token);
+
+      // Call mutation
       return ctx.prisma.mutation.createIdea({
         data: {
-          author: { connect: { id: ctx.me.user.id } },
+          author: { connect: { id: currentUser.user.id } },
           content: args.content
         }
       });
     },
 
     updateIdea: async (parent, args, ctx, info) => {
-      await auth.isAuthenticated(ctx.me);
+      // Check if token is available
+      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token)
+        throw new AuthenticationError('Must be signed in.');
 
+      // Get current user
+      const currentUser = await auth.verifyJWT(ctx.req.cookies.token);
+
+      // find the item
+      const idea = await ctx.prisma.query.idea(
+        { where: { id: args.id } },
+        `{ id author { id }}`
+      );
+
+      // Check if they own that idea
+      const ownsIdea = idea.author.id === currentUser.user.id;
+
+      // If not, throw error
+      if (!ownsIdea) throw new ForbiddenError("That's not your idea.");
+
+      // If so, call mutation
       return ctx.prisma.mutation.updateIdea({
         where: { id: args.id },
         data: { content: args.content }
@@ -41,24 +63,27 @@ export default {
     },
 
     deleteIdea: async (parent, args, ctx, info) => {
-      await auth.isAuthenticated(ctx.me);
+      // Check if token is available
+      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token)
+        throw new ForbiddenError('Must be signed in.');
 
-      return ctx.prisma.mutation.deleteIdea({
-        where: { id: args.id }
-      });
-    }
-  },
+      // Get current user
+      const currentUser = await auth.verifyJWT(ctx.req.cookies.token);
 
-  // Further resolvers to resolve the connections on a per-field level
-  // The root (parent) resolver that ran, passes its data to any per-field resolvers
+      // find the item
+      const idea = await ctx.prisma.query.idea(
+        { where: { id: args.id } },
+        `{ id author { id }}`
+      );
 
-  Idea: {
-    author: (parent, args, ctx, info) => {
-      console.log('idea parent: ', parent);
+      // Check if they own that idea
+      const ownsIdea = idea.author.id === currentUser.user.id;
 
-      // return ctx.prisma.query.idea({ where: { id: parent.id } }).author();
+      // If not, throw error
+      if (!ownsIdea) throw new ForbiddenError("That's not your idea.");
 
-      return ctx.prisma.query.user({ where: { id: parent.author.id } });
+      // If so, call mutation
+      return ctx.prisma.mutation.deleteIdea({ where: { id: args.id } });
     }
   }
 };

@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
-import * as query from './IdeaCard.query';
+
+import {
+  CURRENT_USER_QUERY,
+  UPDATE_IDEA_MUTATION,
+  DELETE_IDEA_MUTATION
+} from '../../graphql/queries';
 import * as sc from './IdeaCard.style';
 
 class IdeaCard extends React.PureComponent {
@@ -21,11 +26,10 @@ class IdeaCard extends React.PureComponent {
     return (
       <sc.li>
         <Mutation
-          mutation={query.DELETE_IDEA_MUTATION}
+          mutation={DELETE_IDEA_MUTATION}
           variables={{ id: this.props.id }}
-          refetchQueries={[{ query: query.ME_IDEAS_QUERY }]}
           onError={this.handleError}
-          errorPolicy="all"
+          refetchQueries={[{ query: CURRENT_USER_QUERY }]}
         >
           {deleteIdea => (
             <sc.deleteBtn
@@ -36,13 +40,9 @@ class IdeaCard extends React.PureComponent {
         </Mutation>
 
         <Mutation
-          mutation={query.UPDATE_IDEA_MUTATION}
-          variables={{
-            id: this.props.id,
-            content: this.state.content
-          }}
+          mutation={UPDATE_IDEA_MUTATION}
+          variables={{ id: this.props.id, content: this.state.content }}
           onError={this.handleError}
-          errorPolicy="all"
         >
           {updateIdea => (
             <sc.ideaInput

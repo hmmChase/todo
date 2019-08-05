@@ -1,12 +1,12 @@
 import { mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
-import { load } from '../../utils/load';
-// eslint-disable-next-line max-len
+
+import { load } from '../../utils/testing';
 import IdeaCardContainer from '../../components/IdeaCardContainer/IdeaCardContainer';
 import {
-  MOCK_ME_IDEAS_QUERY,
-  MOCK_ERROR_ME_IDEAS_QUERY
-} from '../../components/IdeaCardContainer/IdeaCardContainer.query';
+  MOCK_CURRENT_USER_QUERY,
+  MOCK_ERROR_CURRENT_USER_QUERY
+} from '../../__mocks__/queries';
 
 describe('IdeaCardContainer', () => {
   let mockProps;
@@ -16,14 +16,12 @@ describe('IdeaCardContainer', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    mockQueries = [MOCK_ME_IDEAS_QUERY];
+    mockQueries = [MOCK_CURRENT_USER_QUERY];
     wrapper = mount(
       <MockedProvider mocks={mockQueries} addTypename={false}>
         <IdeaCardContainer {...mockProps} />
       </MockedProvider>,
-      {
-        disableLifecycleMethods: true
-      }
+      { disableLifecycleMethods: true }
     );
   });
 
@@ -43,12 +41,13 @@ describe('IdeaCardContainer', () => {
 
   it('matches snapshot - error', async () => {
     wrapper = mount(
-      <MockedProvider mocks={[MOCK_ERROR_ME_IDEAS_QUERY]} addTypename={false}>
+      <MockedProvider
+        mocks={[MOCK_ERROR_CURRENT_USER_QUERY]}
+        addTypename={false}
+      >
         <IdeaCardContainer {...mockProps} />
       </MockedProvider>,
-      {
-        disableLifecycleMethods: true
-      }
+      { disableLifecycleMethods: true }
     );
 
     await load(wrapper);

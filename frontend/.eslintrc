@@ -7,14 +7,14 @@
   },
   "extends": [
     "airbnb",
-    "prettier",
-    "prettier/react",
+    // "prettier",
+    // "prettier/react"
   ],
   "plugins": [
     "react",
     "jsx-a11y",
     "import",
-    "prettier"
+    // "prettier"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -24,30 +24,73 @@
     }
   },
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true
-      }
-    ],
+    // "prettier/prettier": [
+    //   "error",
+    //   {
+    //     "singleQuote": true
+    //   }
+    // ],
     "max-len": [
       "error",
       {
-        "code": 80
+        "code": 80,
+        "ignoreComments": true,
+        "ignoreStrings": true
       }
     ],
     "no-undef": "off",
+    "no-console": "off",
+    "no-unused-vars": "off",
     "linebreak-style": "off",
     "comma-dangle": "off",
-    "no-nested-ternary": "off",
+    "arrow-parens": "off",
+    "prefer-destructuring": "off",
+    "object-curly-newline": "off",
+    "implicit-arrow-linebreak": "off",
+    "react/no-array-index-key": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": "off",
     "react/destructuring-assignment": "off",
-    "react/jsx-one-expression-per-line": "off",
-    "react/prefer-stateless-function": "off",
-    "jsx-a11y/anchor-is-valid": "off",
-    "jsx-a11y/label-has-associated-control": "off",
-    "jsx-a11y/label-has-for": "off",
-    "import/prefer-default-export": "off"
+    // "react/jsx-one-expression-per-line": "off",
+    // "react/prefer-stateless-function": "off",
+    "import/prefer-default-export": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "hrefLeft",
+          "hrefRight"
+        ],
+        "aspects": [
+          "invalidHref",
+          "preferButton"
+        ]
+      }
+    ],
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "required": {
+          "some": [
+            "nesting",
+            "id"
+          ]
+        }
+      }
+    ],
+    "jsx-a11y/label-has-for": [
+      "error",
+      {
+        "required": {
+          "some": [
+            "nesting",
+            "id"
+          ]
+        }
+      }
+    ]
   }
 }

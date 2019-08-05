@@ -1,11 +1,11 @@
 import { mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { ThemeProvider } from 'styled-components';
-import { load } from '../../utils/load';
-import theme from '../../styles/theme.style';
+
+import { load } from '../../utils/testing';
 import IdeaCardForm from '../../components/IdeaCardForm/IdeaCardForm';
-// eslint-disable-next-line max-len
-import { MOCK_CREATE_IDEA_MUTATION } from '../../components/IdeaCardForm/IdeaCardForm.query';
+import { MOCK_CREATE_IDEA_MUTATION } from '../../__mocks__/queries';
+import theme from '../../styles/theme.style';
 
 describe('IdeaCardForm', () => {
   let mockProps;

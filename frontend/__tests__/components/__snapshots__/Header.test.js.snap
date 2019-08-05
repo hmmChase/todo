@@ -2,6 +2,62 @@
 
 exports[`Header matches snapshot 1`] = `
 .c2 {
+  white-space: nowrap;
+  justify-self: end;
+  grid-area: header-right;
+  margin-right: 10px;
+}
+
+.c3 {
+  display: inline-block;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem;
+  border: 2px solid;
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease-out;
+  transition: background-color 0.3s ease-out;
+  white-space: nowrap;
+  color: white;
+  border-color: blueviolet;
+}
+
+.c3:active {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3) inset;
+}
+
+.c3:hover {
+  background-color: blueviolet;
+}
+
+.c4 {
+  display: inline-block;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem;
+  border: 2px solid;
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease-out;
+  transition: background-color 0.3s ease-out;
+  white-space: nowrap;
+  color: white;
+  border-color: tomato;
+  margin-left: 10px;
+}
+
+.c4:active {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3) inset;
+}
+
+.c4:hover {
+  background-color: tomato;
+}
+
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -11,14 +67,14 @@ exports[`Header matches snapshot 1`] = `
   position: relative;
 }
 
-.c2 > img {
+.c5 > img {
   width: 50px;
   position: absolute;
   top: -30px;
   left: 10px;
 }
 
-.c2 > textarea {
+.c5 > textarea {
   padding: 10px;
   outline: none;
   min-height: 56px;
@@ -28,7 +84,7 @@ exports[`Header matches snapshot 1`] = `
   margin-right: 1px;
 }
 
-.c2 > button {
+.c5 > button {
   border: none;
   outline: none;
   cursor: pointer;
@@ -36,7 +92,7 @@ exports[`Header matches snapshot 1`] = `
   padding: 0;
 }
 
-.c2 > button:active {
+.c5 > button:active {
   background-color: #FFFF99;
 }
 
@@ -64,7 +120,25 @@ exports[`Header matches snapshot 1`] = `
 }
 
 @media screen and (min-width:600px) {
-  .c2 > img {
+  .c2 {
+    margin-right: 0;
+  }
+}
+
+@media screen and (min-width:600px) {
+  .c3 {
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+@media screen and (min-width:600px) {
+  .c4 {
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+@media screen and (min-width:600px) {
+  .c5 > img {
     left: 0;
   }
 }
@@ -148,84 +222,181 @@ exports[`Header matches snapshot 1`] = `
         </StyledComponent>
       </Headerstyle__h1>
       <SignOn>
-        <Memo()>
-          <Query
-            errorPolicy="all"
-            query={
-              Object {
-                "definitions": Array [
-                  Object {
-                    "directives": Array [],
-                    "kind": "OperationDefinition",
-                    "name": Object {
-                      "kind": "Name",
-                      "value": "ME_QUERY",
-                    },
-                    "operation": "query",
-                    "selectionSet": Object {
-                      "kind": "SelectionSet",
-                      "selections": Array [
-                        Object {
-                          "alias": undefined,
-                          "arguments": Array [],
-                          "directives": Array [],
-                          "kind": "Field",
-                          "name": Object {
-                            "kind": "Name",
-                            "value": "me",
-                          },
-                          "selectionSet": Object {
-                            "kind": "SelectionSet",
-                            "selections": Array [
-                              Object {
-                                "alias": undefined,
-                                "arguments": Array [],
-                                "directives": Array [],
-                                "kind": "Field",
-                                "name": Object {
-                                  "kind": "Name",
-                                  "value": "id",
-                                },
-                                "selectionSet": undefined,
-                              },
-                              Object {
-                                "alias": undefined,
-                                "arguments": Array [],
-                                "directives": Array [],
-                                "kind": "Field",
-                                "name": Object {
-                                  "kind": "Name",
-                                  "value": "email",
-                                },
-                                "selectionSet": undefined,
-                              },
-                            ],
-                          },
-                        },
-                      ],
-                    },
-                    "variableDefinitions": Array [],
+        <Query
+          query={
+            Object {
+              "definitions": Array [
+                Object {
+                  "directives": Array [],
+                  "kind": "OperationDefinition",
+                  "name": Object {
+                    "kind": "Name",
+                    "value": "IS_LOGGED_IN",
                   },
-                ],
-                "kind": "Document",
-                "loc": Object {
-                  "end": 60,
-                  "start": 0,
+                  "operation": "query",
+                  "selectionSet": Object {
+                    "kind": "SelectionSet",
+                    "selections": Array [
+                      Object {
+                        "alias": undefined,
+                        "arguments": Array [],
+                        "directives": Array [
+                          Object {
+                            "arguments": Array [],
+                            "kind": "Directive",
+                            "name": Object {
+                              "kind": "Name",
+                              "value": "client",
+                            },
+                          },
+                        ],
+                        "kind": "Field",
+                        "name": Object {
+                          "kind": "Name",
+                          "value": "isLoggedIn",
+                        },
+                        "selectionSet": undefined,
+                      },
+                    ],
+                  },
+                  "variableDefinitions": Array [],
                 },
-              }
+              ],
+              "kind": "Document",
+              "loc": Object {
+                "end": 51,
+                "start": 0,
+              },
             }
-          >
-            <Memo()>
-              <p>
-                Loading ...
-              </p>
-            </Memo()>
-          </Query>
-        </Memo()>
+          }
+        >
+          <SignOnstyle__signOn>
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "SignOnstyle__signOn-sc-17v8fz4-0",
+                    "isStatic": true,
+                    "lastClassName": "c2",
+                    "rules": Array [
+                      "white-space:nowrap;justify-self:end;grid-area:header-right;margin-right:10px;@media screen and (min-width:600px){margin-right:0;}",
+                    ],
+                  },
+                  "displayName": "SignOnstyle__signOn",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "SignOnstyle__signOn-sc-17v8fz4-0",
+                  "target": "div",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+            >
+              <div
+                className="c2"
+              >
+                <SignOnstyle__purpleBtn
+                  onClick={[Function]}
+                >
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "SignOnstyle__purpleBtn-sc-17v8fz4-1",
+                          "isStatic": false,
+                          "lastClassName": "c3",
+                          "rules": Array [
+                            "display:inline-block;text-shadow:1px 1px 0 #000;font-size:1rem;font-weight:600;padding:0.3rem;border:2px solid;border-radius:3px;cursor:pointer;transition:background-color 0.3s ease-out;white-space:nowrap;color:white;&:active{box-shadow:0 2px 6px rgba(0,0,0,0.3) inset;}@media screen and (min-width:600px){padding:0.3rem 0.6rem;}",
+                            "border-color:",
+                            [Function],
+                            ";&:hover{background-color:",
+                            [Function],
+                            ";}",
+                          ],
+                        },
+                        "displayName": "SignOnstyle__purpleBtn",
+                        "foldedComponentIds": Array [
+                          "buttonstyle__linkBtn-sc-5slzqu-0",
+                          "buttonstyle__purpleLinkBtn-sc-5slzqu-1",
+                        ],
+                        "render": [Function],
+                        "styledComponentId": "SignOnstyle__purpleBtn-sc-17v8fz4-1",
+                        "target": "a",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
+                    onClick={[Function]}
+                  >
+                    <a
+                      className="c3"
+                      onClick={[Function]}
+                    >
+                      Sign In
+                    </a>
+                  </StyledComponent>
+                </SignOnstyle__purpleBtn>
+                <SignOnstyle__orangeBtn
+                  onClick={[Function]}
+                >
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "SignOnstyle__orangeBtn-sc-17v8fz4-2",
+                          "isStatic": false,
+                          "lastClassName": "c4",
+                          "rules": Array [
+                            "display:inline-block;text-shadow:1px 1px 0 #000;font-size:1rem;font-weight:600;padding:0.3rem;border:2px solid;border-radius:3px;cursor:pointer;transition:background-color 0.3s ease-out;white-space:nowrap;color:white;&:active{box-shadow:0 2px 6px rgba(0,0,0,0.3) inset;}@media screen and (min-width:600px){padding:0.3rem 0.6rem;}",
+                            "border-color:",
+                            [Function],
+                            ";&:hover{background-color:",
+                            [Function],
+                            ";}",
+                            "margin-left:10px;",
+                          ],
+                        },
+                        "displayName": "SignOnstyle__orangeBtn",
+                        "foldedComponentIds": Array [
+                          "buttonstyle__linkBtn-sc-5slzqu-0",
+                          "buttonstyle__orangeLinkBtn-sc-5slzqu-2",
+                        ],
+                        "render": [Function],
+                        "styledComponentId": "SignOnstyle__orangeBtn-sc-17v8fz4-2",
+                        "target": "a",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
+                    onClick={[Function]}
+                  >
+                    <a
+                      className="c4"
+                      onClick={[Function]}
+                    >
+                      Sign Up
+                    </a>
+                  </StyledComponent>
+                </SignOnstyle__orangeBtn>
+              </div>
+            </StyledComponent>
+          </SignOnstyle__signOn>
+        </Query>
       </SignOn>
       <IdeaCardForm>
         <Mutation
-          errorPolicy="all"
           mutation={
             Object {
               "definitions": Array [
@@ -327,7 +498,7 @@ exports[`Header matches snapshot 1`] = `
                       "kind": "OperationDefinition",
                       "name": Object {
                         "kind": "Name",
-                        "value": "ME_IDEAS_QUERY",
+                        "value": "CURRENT_USER_QUERY",
                       },
                       "operation": "query",
                       "selectionSet": Object {
@@ -340,7 +511,7 @@ exports[`Header matches snapshot 1`] = `
                             "kind": "Field",
                             "name": Object {
                               "kind": "Name",
-                              "value": "getUserIdeas",
+                              "value": "currentUser",
                             },
                             "selectionSet": Object {
                               "kind": "SelectionSet",
@@ -363,7 +534,64 @@ exports[`Header matches snapshot 1`] = `
                                   "kind": "Field",
                                   "name": Object {
                                     "kind": "Name",
-                                    "value": "content",
+                                    "value": "email",
+                                  },
+                                  "selectionSet": undefined,
+                                },
+                                Object {
+                                  "alias": undefined,
+                                  "arguments": Array [],
+                                  "directives": Array [],
+                                  "kind": "Field",
+                                  "name": Object {
+                                    "kind": "Name",
+                                    "value": "ideas",
+                                  },
+                                  "selectionSet": Object {
+                                    "kind": "SelectionSet",
+                                    "selections": Array [
+                                      Object {
+                                        "alias": undefined,
+                                        "arguments": Array [],
+                                        "directives": Array [],
+                                        "kind": "Field",
+                                        "name": Object {
+                                          "kind": "Name",
+                                          "value": "id",
+                                        },
+                                        "selectionSet": undefined,
+                                      },
+                                      Object {
+                                        "alias": undefined,
+                                        "arguments": Array [],
+                                        "directives": Array [],
+                                        "kind": "Field",
+                                        "name": Object {
+                                          "kind": "Name",
+                                          "value": "content",
+                                        },
+                                        "selectionSet": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                                Object {
+                                  "alias": undefined,
+                                  "arguments": Array [],
+                                  "directives": Array [
+                                    Object {
+                                      "arguments": Array [],
+                                      "kind": "Directive",
+                                      "name": Object {
+                                        "kind": "Name",
+                                        "value": "client",
+                                      },
+                                    },
+                                  ],
+                                  "kind": "Field",
+                                  "name": Object {
+                                    "kind": "Name",
+                                    "value": "color",
                                   },
                                   "selectionSet": undefined,
                                 },
@@ -377,7 +605,7 @@ exports[`Header matches snapshot 1`] = `
                   ],
                   "kind": "Document",
                   "loc": Object {
-                    "end": 78,
+                    "end": 148,
                     "start": 0,
                   },
                 },
@@ -401,7 +629,7 @@ exports[`Header matches snapshot 1`] = `
                   "componentStyle": ComponentStyle {
                     "componentId": "IdeaCardFormstyle__form-sc-4er11-0",
                     "isStatic": false,
-                    "lastClassName": "c2",
+                    "lastClassName": "c5",
                     "rules": Array [
                       "display:flex;width:100%;grid-column:span 2;position:relative;> img{width:50px;position:absolute;top:-30px;left:10px;}> textarea{padding:10px;outline:none;min-height:56px;width:100%;resize:vertical;border:none;margin-right:1px;}> button{border:none;outline:none;cursor:pointer;background-color:",
                       [Function],
@@ -424,7 +652,7 @@ exports[`Header matches snapshot 1`] = `
               onSubmit={[Function]}
             >
               <form
-                className="c2"
+                className="c5"
                 onSubmit={[Function]}
               >
                 <img

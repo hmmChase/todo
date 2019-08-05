@@ -1,10 +1,13 @@
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import { ApolloConsumer } from 'react-apollo';
 import { MockedProvider } from 'react-apollo/test-utils';
-import { ThemeProvider } from 'styled-components';
-import { load } from '../../utils/load';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import gql from 'graphql-tag';
+
 import SignIn from '../../components/SignIn/SignIn';
-import { MOCK_SIGN_IN_MUTATION } from '../../components/SignIn/SignIn.query';
-import theme from '../../styles/theme.style';
+import * as query from '../../__mocks__/queries/user';
+import resolvers from '../../graphql/resolvers';
+import { load } from '../../utils/testing';
 
 describe('SignIn', () => {
   let mockProps;
@@ -12,36 +15,93 @@ describe('SignIn', () => {
   let wrapper;
 
   beforeEach(() => {
-    jest.resetAllMocks();
     mockProps = {};
-    mockQueries = [MOCK_SIGN_IN_MUTATION];
+    mockQueries = [query.MOCK_SIGN_IN_MUTATION];
+    wrapper = shallow(<SignIn {...mockProps} />, {
+      disableLifecycleMethods: true,
+      wrappingComponent: MockedProvider,
+      wrappingComponentProps: { mocks: mockQueries, addTypename: false }
+    });
+  });
+
+  afterEach(() => jest.resetAllMocks());
+
+  it('renders correctly', () => {
+    const wrapperDive = wrapper
+      .dive()
+      .dive()
+      .dive();
+
+    expect(wrapperDive).toMatchSnapshot();
+  });
+
+  xit('fires signIn and updates cache after done', async () => {
+    let apolloClient;
+
+    const cache = new InMemoryCache();
+
     wrapper = mount(
-      <MockedProvider mocks={mockQueries} addTypename={false}>
-        <ThemeProvider theme={theme}>
-          <SignIn {...mockProps} />
-        </ThemeProvider>
-      </MockedProvider>,
+      <ApolloConsumer>
+        {client => {
+          apolloClient = client;
+          return <SignIn {...mockProps} />;
+        }}
+      </ApolloConsumer>,
       {
-        disableLifecycleMethods: true
+        disableLifecycleMethods: true,
+        wrappingComponent: MockedProvider,
+        wrappingComponentProps: {
+          addTypename: false,
+          mocks: mockQueries,
+          cache,
+          resolvers
+        }
       }
     );
-  });
 
-  it('matches snapshot', () => {
-    const wrapSnap = wrapper.find('formstyle__form');
+    load(wrapper);
 
-    // console.log(wrapper.debug());
+    const email = wrapper.find('input[name="email"]');
+    email.simulate('change', {
+      target: { name: 'email', value: 'mock@email.com' }
+    });
 
-    expect(wrapSnap).toMatchSnapshot();
-  });
+    const password = wrapper.find('input[name="password"]');
+    password.simulate('change', {
+      target: { name: 'password', value: 'mockpass' }
+    });
 
-  it('matches snapshot - loaded', async () => {
-    const wrapSnap = wrapper.find('formstyle__form');
+    load(wrapper);
 
-    await load(wrapper);
+    console.log(wrapper.debug());
 
-    // console.log(wrapper.debug());
+    console.log(wrapper.find('SignIn').state());
 
-    expect(wrapSnap).toMatchSnapshot();
+    cache.writeData({ data: { isLoggedIn: false } });
+
+    const form = wrapper.find('form');
+    console.log(': form', form.debug());
+
+    await form.prop('onSubmit')({ preventDefault: jest.fn() });
+
+    // await load(wrapper, 100);
+
+    // console.log('cache: ', cache.extract());
+    console.log('cache: ', apolloClient.cache.extract());
+
+    // check to make sure the cache's contents have been updated
+    const response = await cache.readQuery({
+      query: gql`
+        query IS_LOGGED_IN {
+          isLoggedIn @client
+        }
+      `
+    });
+
+    // const response = await cache.readQuery({ query: query.MOCK_IS_LOGGED_IN });
+
+    console.log(': response', response);
+
+    // expect(isLoggedIn).toBeTruthy();
   });
 });

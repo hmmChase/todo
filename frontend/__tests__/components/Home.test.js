@@ -1,9 +1,9 @@
 import { mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
-import { load } from '../../utils/load';
+
+import { load } from '../../utils/testing';
 import Home from '../../components/Home/Home';
-// eslint-disable-next-line max-len
-import { MOCK_ME_QUERY } from '../../components/wrappers/WithUser/WithUser.query';
+import { MOCK_CURRENT_USER_QUERY } from '../../__mocks__/queries';
 
 describe('Home', () => {
   let mockProps;
@@ -13,7 +13,7 @@ describe('Home', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    mockQueries = [MOCK_ME_QUERY];
+    mockQueries = [MOCK_CURRENT_USER_QUERY];
     wrapper = mount(
       <MockedProvider mocks={mockQueries} addTypename={false}>
         <Home {...mockProps} />

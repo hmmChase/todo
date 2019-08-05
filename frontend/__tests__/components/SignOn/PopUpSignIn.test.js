@@ -1,9 +1,10 @@
 import { mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { ThemeProvider } from 'styled-components';
-import { load } from '../../../utils/load';
+
+import { load } from '../../../utils/testing';
 import PopUpSignIn from '../../../components/SignOn/PopUpSignIn/PopUpSignIn';
-import { MOCK_SIGN_IN_MUTATION } from '../../../components/SignIn/SignIn.query';
+import { MOCK_SIGN_IN_MUTATION } from '../../../__mocks__/queries';
 import theme from '../../../styles/theme.style';
 
 describe('PopUpSignIn', () => {

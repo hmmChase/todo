@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/hmmChase/next-graphql-starter#readme",
   "devDependencies": {
-    "concurrently": "^4.1.0"
+    "concurrently": "^4.1.1"
   }
 }
