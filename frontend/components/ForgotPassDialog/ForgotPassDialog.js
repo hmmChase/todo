@@ -7,23 +7,21 @@ class ForgotPassDialog extends React.PureComponent {
 
   render() {
     return (
-      <sc.signOn>
-        <>
-          <sc.aForgotPass
-            value="Forgot password?"
-            onClick={() => this.setState({ modal: 'requestReset' })}
-          >
-            Forgot password?
-          </sc.aForgotPass>
+      <>
+        <sc.aForgotPass
+          value="Forgot password?"
+          onClick={() => this.setState({ modal: 'requestReset' })}
+        >
+          Forgot password?
+        </sc.aForgotPass>
 
-          {this.state.modal && (
-            <Modal
-              modal={this.state.modal}
-              setModal={modalName => this.setState({ modal: modalName })}
-            />
-          )}
-        </>
-      </sc.signOn>
+        {this.state.modal && (
+          <Modal
+            modal={this.state.modal}
+            setModal={modalName => this.setState({ modal: modalName })}
+          />
+        )}
+      </>
     );
   }
 }
