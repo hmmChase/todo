@@ -20,7 +20,7 @@ export default {
     },
 
     currentUser: (parent, args, ctx, info) => {
-      if (!ctx.req.cookies && !ctx.req.cookies.token) return null;
+      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token) return null;
 
       const currentUser = auth.verifyJWT(ctx.req.cookies.token);
 

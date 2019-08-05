@@ -282,29 +282,15 @@ type PageInfo {
   endCursor: String
 }
 
-enum Permission {
-  PERMISSIONUPDATE
-  IDEACREATE
-  IDEAUPDATE
-  IDEADELETE
-}
-
-enum Role {
-  ADMIN
-  USER
-}
-
 type User {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String!
   password: String!
-  roles: [Role!]!
-  permissions: [Permission!]!
-  ideas(where: IdeaWhereInput, orderBy: IdeaOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Idea!]
   resetToken: String
   resetTokenExpiry: Float
+  ideas(where: IdeaWhereInput, orderBy: IdeaOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Idea!]
 }
 
 type UserConnection {
@@ -317,11 +303,9 @@ input UserCreateInput {
   id: ID
   email: String!
   password: String!
-  roles: UserCreaterolesInput
-  permissions: UserCreatepermissionsInput
-  ideas: IdeaCreateManyWithoutAuthorInput
   resetToken: String
   resetTokenExpiry: Float
+  ideas: IdeaCreateManyWithoutAuthorInput
 }
 
 input UserCreateOneWithoutIdeasInput {
@@ -329,20 +313,10 @@ input UserCreateOneWithoutIdeasInput {
   connect: UserWhereUniqueInput
 }
 
-input UserCreatepermissionsInput {
-  set: [Permission!]
-}
-
-input UserCreaterolesInput {
-  set: [Role!]
-}
-
 input UserCreateWithoutIdeasInput {
   id: ID
   email: String!
   password: String!
-  roles: UserCreaterolesInput
-  permissions: UserCreatepermissionsInput
   resetToken: String
   resetTokenExpiry: Float
 }
@@ -375,8 +349,6 @@ type UserPreviousValues {
   updatedAt: DateTime!
   email: String!
   password: String!
-  roles: [Role!]!
-  permissions: [Permission!]!
   resetToken: String
   resetTokenExpiry: Float
 }
@@ -402,18 +374,14 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   email: String
   password: String
-  roles: UserUpdaterolesInput
-  permissions: UserUpdatepermissionsInput
-  ideas: IdeaUpdateManyWithoutAuthorInput
   resetToken: String
   resetTokenExpiry: Float
+  ideas: IdeaUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateManyMutationInput {
   email: String
   password: String
-  roles: UserUpdaterolesInput
-  permissions: UserUpdatepermissionsInput
   resetToken: String
   resetTokenExpiry: Float
 }
@@ -425,19 +393,9 @@ input UserUpdateOneRequiredWithoutIdeasInput {
   connect: UserWhereUniqueInput
 }
 
-input UserUpdatepermissionsInput {
-  set: [Permission!]
-}
-
-input UserUpdaterolesInput {
-  set: [Role!]
-}
-
 input UserUpdateWithoutIdeasDataInput {
   email: String
   password: String
-  roles: UserUpdaterolesInput
-  permissions: UserUpdatepermissionsInput
   resetToken: String
   resetTokenExpiry: Float
 }
@@ -506,9 +464,6 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
-  ideas_every: IdeaWhereInput
-  ideas_some: IdeaWhereInput
-  ideas_none: IdeaWhereInput
   resetToken: String
   resetToken_not: String
   resetToken_in: [String!]
@@ -531,6 +486,9 @@ input UserWhereInput {
   resetTokenExpiry_lte: Float
   resetTokenExpiry_gt: Float
   resetTokenExpiry_gte: Float
+  ideas_every: IdeaWhereInput
+  ideas_some: IdeaWhereInput
+  ideas_none: IdeaWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
