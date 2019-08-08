@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export { form } from '../Styled/form.style';
 
+export const SignUp = styled.section``;
+
 export const inputText = styled.input`
   margin: 5px;
 `;

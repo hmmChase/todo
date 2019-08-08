@@ -36,7 +36,7 @@ class SignIn extends React.PureComponent {
             onCompleted={() => this.handleCompleted(client)}
           >
             {(signIn, { loading, error }) => (
-              <>
+              <sc.SignIn>
                 <sc.form onSubmit={e => this.handleSubmitForm(e, signIn)}>
                   <fieldset disabled={loading} aria-busy={loading}>
                     <h2>Sign In</h2>
@@ -76,7 +76,7 @@ class SignIn extends React.PureComponent {
                 </sc.form>
 
                 <ForgotPassDialog />
-              </>
+              </sc.SignIn>
             )}
           </Mutation>
         )}

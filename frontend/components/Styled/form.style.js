@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const form = styled.form`
   > fieldset {
     display: flex;
+    border: 0;
   }
 
   input[type='email'],
@@ -15,14 +16,13 @@ export const form = styled.form`
 
   input[type='submit'] {
     background: none;
-    border-radius: 3px;
+    border-radius: 2px;
     border: 2px solid;
     color: ${props => props.theme.color.green};
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
     padding: 0.3rem 1rem;
-    text-decoration: none;
     text-shadow: 1px 1px 0 #fff;
     transition: background-color 0.3s ease-out;
     white-space: nowrap;
