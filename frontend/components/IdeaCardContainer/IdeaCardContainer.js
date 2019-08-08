@@ -1,9 +1,8 @@
 import { Query } from 'react-apollo';
 
-// import { IdeaCard, DisplayError, DisplayLoading } from '..';
-import IdeaCard from '../IdeaCard/IdeaCard';
-import DisplayError from '../DisplayError/DisplayError';
 import DisplayLoading from '../DisplayLoading/DisplayLoading';
+import DisplayError from '../DisplayError/DisplayError';
+import IdeaCard from '../IdeaCard/IdeaCard';
 import { CURRENT_USER_QUERY } from '../../graphql/queries';
 import * as sc from './IdeaCardContainer.style';
 

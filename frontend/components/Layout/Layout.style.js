@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// Mobile size first
 export const divLayout = styled.div`
   display: grid;
   grid-template-areas:
@@ -8,6 +9,7 @@ export const divLayout = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
 
+  /* Desktop size */
   @media screen and (min-width: 900px) {
     grid-template-areas:
       'header-margin-left header header-margin-right'

@@ -1,50 +1,21 @@
-import { Query } from 'react-apollo';
-
-// import { SignOut, PopUps } from '..';
-import SignOut from '../SignOut/SignOut';
-import PopUps from './PopUps/PopUps';
-import { IS_LOGGED_IN } from '../../graphql/queries';
+import SignIn from '../SignIn/SignIn';
+import SignUp from '../SignUp/SignUp';
 import * as sc from './SignOn.style';
 
-class SignOn extends React.PureComponent {
-  state = { popUp: '' };
+const SignOn = React.memo(() => (
+  <sc.signOn>
+    <sc.logo>
+      <img src="static/ideabox.png" alt="ideabox" />
 
-  render() {
-    const { popUp } = this.state;
+      <h1>IdeaBox</h1>
+    </sc.logo>
 
-    return (
-      <Query query={IS_LOGGED_IN}>
-        {({ loading, error, data }) => (
-          <sc.signOn>
-            {data && data.isLoggedIn ? (
-              <SignOut />
-            ) : (
-              <>
-                <sc.purpleBtn
-                  onClick={() => this.setState({ popUp: 'signIn' })}
-                >
-                  Sign In
-                </sc.purpleBtn>
+    <SignIn />
 
-                <sc.orangeBtn
-                  onClick={() => this.setState({ popUp: 'signUp' })}
-                >
-                  Sign Up
-                </sc.orangeBtn>
+    <hr />
 
-                {popUp && (
-                  <PopUps
-                    popUp={popUp}
-                    setPopUp={popUpName => this.setState({ popUp: popUpName })}
-                  />
-                )}
-              </>
-            )}
-          </sc.signOn>
-        )}
-      </Query>
-    );
-  }
-}
+    <SignUp />
+  </sc.signOn>
+));
 
 export default SignOn;

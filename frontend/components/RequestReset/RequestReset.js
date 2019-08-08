@@ -1,6 +1,5 @@
 import { Mutation } from 'react-apollo';
 
-// import { DisplayError } from '..';
 import DisplayError from '../DisplayError/DisplayError';
 import { REQUEST_RESET_MUTATION } from '../../graphql/queries';
 import * as sc from './RequestReset.style';
@@ -48,7 +47,7 @@ class RequestReset extends React.PureComponent {
                 />
               </label>
 
-              <sc.inputBtn
+              <sc.inputSubmit
                 value="Request Reset"
                 type="submit"
                 disabled={isInvalid}

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { purpleLinkBtn } from '../../styles/button.style';
 
-export const purpleBtn = styled(purpleLinkBtn)`
+import { purpleLinkBtn } from '../Styled/button.style';
+
+export const signOutBtn = styled(purpleLinkBtn)`
   justify-self: end;
 `;

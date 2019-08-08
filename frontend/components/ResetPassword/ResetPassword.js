@@ -75,7 +75,7 @@ class ResetPassword extends React.PureComponent {
                 <li>a number</li>
               </sc.ulPassList>
 
-              <sc.inputBtn
+              <sc.inputSubmit
                 value="Reset Your Password"
                 type="submit"
                 disabled={isInvalidPass}
