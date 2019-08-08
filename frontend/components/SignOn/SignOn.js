@@ -4,9 +4,15 @@ import * as sc from './SignOn.style';
 
 const SignOn = React.memo(() => (
   <sc.signOn>
-    <sc.h1>IdeaBox</sc.h1>
+    <sc.logo>
+      <img src="static/ideabox.png" alt="ideabox" />
+
+      <h1>IdeaBox</h1>
+    </sc.logo>
 
     <SignIn />
+
+    <hr />
 
     <SignUp />
   </sc.signOn>
