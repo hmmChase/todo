@@ -20,7 +20,8 @@ class SignIn extends React.PureComponent {
 
   handleError = error => error;
 
-  handleCompleted = client => client.writeData({ data: { isLoggedIn: true } });
+  handleCompleted = apolloClient =>
+    apolloClient.writeData({ data: { isLoggedIn: true } });
 
   render() {
     const { email, password } = this.state;
@@ -28,12 +29,12 @@ class SignIn extends React.PureComponent {
 
     return (
       <ApolloConsumer>
-        {client => (
+        {apolloClient => (
           <Mutation
             mutation={SIGN_IN_MUTATION}
             variables={this.state}
             onError={this.handleError}
-            onCompleted={() => this.handleCompleted(client)}
+            onCompleted={() => this.handleCompleted(apolloClient)}
           >
             {(signIn, { loading, error }) => (
               <sc.SignIn>
