@@ -8,17 +8,13 @@ export const linkBtn = styled.a`
   display: inline-block;
   font-size: 1rem;
   font-weight: 600;
-  padding: 0.3rem;
-  text-shadow: 1px 1px 0 #000;
+  padding: 0.3rem 0.6rem;
+  text-shadow: 1px 1px ${props => props.theme.color.black};
   transition: background-color 0.3s ease-out;
   white-space: nowrap;
 
   &:active {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) inset;
-  }
-
-  @media screen and (min-width: 600px) {
-    padding: 0.3rem 0.6rem;
   }
 `;
 

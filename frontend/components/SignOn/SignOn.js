@@ -7,7 +7,7 @@ const SignOn = React.memo(() => (
     <sc.logo>
       <img src="static/ideabox.png" alt="ideabox" />
 
-      <h1>IdeaBox</h1>
+      <h1>Starter</h1>
     </sc.logo>
 
     <SignIn />
