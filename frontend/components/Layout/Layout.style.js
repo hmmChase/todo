@@ -19,7 +19,8 @@ export const divLayout = styled.div`
 `;
 
 export const headerMargin = styled.div`
-  background-color: ${props => props.theme.color.black};
+  background-color: ${props => props.theme.color.blue};
+  border-bottom: 1px solid ${props => props.theme.color.black};
   display: none;
 
   @media screen and (min-width: 900px) {
@@ -36,11 +37,5 @@ export const headerMarginRight = styled(headerMargin)`
 `;
 
 export const mainContainer = styled.main`
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* flex-grow: 1; */
   grid-area: main;
-  /* max-width: 600; */
-  /* margin: 0 auto; */
-  /* width: 100%; */
 `;

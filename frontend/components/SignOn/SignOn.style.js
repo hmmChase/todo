@@ -11,27 +11,17 @@ export const signOn = styled.div`
     'signIn'
     'hr'
     'signUp';
-  place-items: center center;
-  grid-template-rows: 100px auto 10px auto;
-  /* grid-auto-rows: min-content; */
-  /* grid-auto-columns: min-content; */
-
+  grid-template-columns: auto;
+  grid-template-rows: auto auto 10px auto;
   min-height: 100vh;
+  place-items: center center;
 
   ${SignIn} {
     grid-area: signIn;
-
-    @media screen and (min-width: 900px) {
-      align-self: start;
-    }
   }
 
   ${SignUp} {
     grid-area: signUp;
-
-    @media screen and (min-width: 900px) {
-      align-self: start;
-    }
   }
 
   > hr {
@@ -44,16 +34,7 @@ export const signOn = styled.div`
     border: 0;
     grid-area: hr;
     height: 2px;
-    width: 400px;
-
-    @media screen and (min-width: 900px) {
-      align-self: start;
-      position: relative;
-      right: 150px;
-      top: 150px;
-      transform: rotate(90deg);
-      width: 300px;
-    }
+    width: 300px;
   }
 
   @media screen and (min-width: 900px) {
@@ -61,21 +42,37 @@ export const signOn = styled.div`
       'logo logo logo'
       'signIn hr signUp';
     grid-template-columns: auto 2px auto;
-    /* grid-template-rows: auto; */
+    grid-template-rows: auto;
+
+    ${SignIn} {
+      align-self: start;
+    }
+
+    ${SignUp} {
+      align-self: start;
+    }
+
+    > hr {
+      align-self: start;
+      position: relative;
+      right: 150px;
+      top: 150px;
+      transform: rotate(90deg);
+    }
   }
 `;
 
 export const logo = styled.header`
   display: flex;
   grid-area: logo;
-  margin: 2rem 0 0 0;
 
   > h1 {
     color: ${props => props.theme.color.yellow_bright};
     font-family: 'Play', sans-serif;
     font-size: 3rem;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.2rem;
     margin: 0;
+    text-shadow: 1px 1px ${props => props.theme.color.black};
   }
 
   > img {
