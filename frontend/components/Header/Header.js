@@ -4,7 +4,7 @@ import * as sc from './Header.style';
 
 const Header = React.memo(() => (
   <sc.header>
-    <sc.h1>Starter</sc.h1>
+    <h1>Starter</h1>
 
     <SignOut />
 

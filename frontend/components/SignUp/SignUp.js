@@ -40,10 +40,6 @@ class SignUp extends React.PureComponent {
                   <fieldset disabled={loading} aria-busy={loading}>
                     <h2>Create a new Account</h2>
 
-                    {loading && <DisplayLoading />}
-
-                    {error && <DisplayError error={error} />}
-
                     <label htmlFor="email">
                       Email
                       <sc.inputText
@@ -76,6 +72,10 @@ class SignUp extends React.PureComponent {
                         onChange={this.handleChangeInput}
                       />
                     </label>
+
+                    {loading && <DisplayLoading />}
+
+                    {error && <DisplayError error={error} />}
 
                     <sc.h3PassTitle>Password must contain:</sc.h3PassTitle>
 

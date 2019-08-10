@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { SignIn } from '../SignIn/SignIn.style';
 import { SignUp } from '../SignUp/SignUp.style';
 
-export const signOn = styled.div`
+export const signOn = styled.section`
   background-color: ${props => props.theme.color.blue};
   display: grid;
   grid-template-areas:
@@ -16,11 +16,11 @@ export const signOn = styled.div`
   min-height: 100vh;
   place-items: center center;
 
-  ${SignIn} {
+  > ${SignIn} {
     grid-area: signIn;
   }
 
-  ${SignUp} {
+  > ${SignUp} {
     grid-area: signUp;
   }
 
@@ -44,11 +44,11 @@ export const signOn = styled.div`
     grid-template-columns: auto 2px auto;
     grid-template-rows: auto;
 
-    ${SignIn} {
+    > ${SignIn} {
       align-self: start;
     }
 
-    ${SignUp} {
+    > ${SignUp} {
       align-self: start;
     }
 

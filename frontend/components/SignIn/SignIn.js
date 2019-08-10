@@ -42,10 +42,6 @@ class SignIn extends React.PureComponent {
                   <fieldset disabled={loading} aria-busy={loading}>
                     <h2>Sign In</h2>
 
-                    {loading && <DisplayLoading />}
-
-                    {error && <DisplayError error={error} />}
-
                     <label htmlFor="email">
                       Email
                       <sc.inputText
@@ -67,6 +63,10 @@ class SignIn extends React.PureComponent {
                         onChange={this.handleChangeInput}
                       />
                     </label>
+
+                    {loading && <DisplayLoading />}
+
+                    {error && <DisplayError error={error} />}
 
                     <sc.inputSubmit
                       value="Sign In"
