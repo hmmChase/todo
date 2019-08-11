@@ -1,4 +1,4 @@
-import { ApolloConsumer, Mutation } from 'react-apollo';
+import { ApolloConsumer, Mutation } from '@apollo/react-components';
 
 import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';

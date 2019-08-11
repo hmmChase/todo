@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-import { MockedProvider } from 'react-apollo/test-utils';
+import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
+
 import { MyApp } from '../../pages/_app';
 import theme from '../../styles/theme.style';
 

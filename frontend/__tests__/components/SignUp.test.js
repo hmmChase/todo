@@ -1,8 +1,6 @@
 import { shallow, mount } from 'enzyme';
-import { ApolloConsumer } from 'react-apollo';
-import { MockedProvider } from 'react-apollo/test-utils';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import gql from 'graphql-tag';
+import { ApolloConsumer } from '@apollo/react-components';
+import { MockedProvider } from '@apollo/react-testing';
 
 import SignUp from '../../components/SignUp/SignUp';
 import * as query from '../../__mocks__/queries/user';

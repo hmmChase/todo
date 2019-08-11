@@ -1,5 +1,5 @@
 import { mount } from 'enzyme';
-import { MockedProvider } from 'react-apollo/test-utils';
+import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
 
 import { load } from '../../../utils/testing';

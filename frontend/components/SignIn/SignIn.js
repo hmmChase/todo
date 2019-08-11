@@ -1,6 +1,5 @@
-import { ApolloConsumer, Mutation } from 'react-apollo';
+import { ApolloConsumer, Mutation } from '@apollo/react-components';
 
-// import { DisplayLoading, DisplayError } from '..';
 import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
 import ForgotPassDialog from '../ForgotPassDialog/ForgotPassDialog';
