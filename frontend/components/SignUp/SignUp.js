@@ -18,7 +18,8 @@ class SignUp extends React.PureComponent {
 
   handleError = error => error;
 
-  handleCompleted = client => client.writeData({ data: { isLoggedIn: true } });
+  handleCompleted = apolloClient =>
+    apolloClient.writeData({ data: { isLoggedIn: true } });
 
   render() {
     const { email, password, confirmPassword } = this.state;
@@ -26,22 +27,18 @@ class SignUp extends React.PureComponent {
 
     return (
       <ApolloConsumer>
-        {client => (
+        {apolloClient => (
           <Mutation
             mutation={SIGN_UP_MUTATION}
             variables={this.state}
             onError={this.handleError}
-            onCompleted={() => this.handleCompleted(client)}
+            onCompleted={() => this.handleCompleted(apolloClient)}
           >
             {(signUp, { loading, error }) => (
               <sc.SignUp>
                 <sc.form onSubmit={e => this.handleSubmitForm(e, signUp)}>
                   <fieldset disabled={loading} aria-busy={loading}>
                     <h2>Create a new Account</h2>
-
-                    {loading && <DisplayLoading />}
-
-                    {error && <DisplayError error={error} />}
 
                     <label htmlFor="email">
                       Email
@@ -75,6 +72,10 @@ class SignUp extends React.PureComponent {
                         onChange={this.handleChangeInput}
                       />
                     </label>
+
+                    {loading && <DisplayLoading />}
+
+                    {error && <DisplayError error={error} />}
 
                     <sc.h3PassTitle>Password must contain:</sc.h3PassTitle>
 
