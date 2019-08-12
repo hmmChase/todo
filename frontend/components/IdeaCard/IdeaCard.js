@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/react-components';
+import debounce from 'lodash.debounce';
 
 import {
   CURRENT_USER_QUERY,
@@ -11,8 +12,11 @@ import * as sc from './IdeaCard.style';
 class IdeaCard extends React.PureComponent {
   state = { content: this.props.content };
 
+  debounced = debounce(updateIdea => updateIdea(), 200);
+
   handleChangeideaInput = (e, updateIdea) => {
-    this.setState({ content: e.target.value }, updateIdea);
+    this.setState({ content: e.target.value });
+    this.debounced(updateIdea);
   };
 
   handleClickDeleteBtn = (e, deleteIdea) => {
