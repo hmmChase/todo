@@ -1,4 +1,3 @@
-// import { Head, RequestReset } from '../components';
 import Head from '../components/Head/Head';
 import RequestReset from '../components/RequestReset/RequestReset';
 import redirect from '../utils/redirect';
