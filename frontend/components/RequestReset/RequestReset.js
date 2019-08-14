@@ -10,9 +10,9 @@ class RequestReset extends React.PureComponent {
 
   handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  handleSubmitForm = async (e, requestReset) => {
+  handleSubmitForm = (e, requestReset) => {
     e.preventDefault();
-    await requestReset();
+    requestReset();
   };
 
   handleError = error => error;

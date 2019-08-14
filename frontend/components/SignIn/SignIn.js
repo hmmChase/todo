@@ -11,10 +11,10 @@ class SignIn extends React.PureComponent {
 
   handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  handleSubmitForm = async (e, signIn) => {
+  handleSubmitForm = (e, signIn) => {
     e.preventDefault();
     this.setState({ password: '' });
-    await signIn();
+    signIn();
   };
 
   handleError = error => error;
