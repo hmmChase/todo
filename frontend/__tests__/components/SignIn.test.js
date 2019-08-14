@@ -1,6 +1,6 @@
 import { shallow, mount } from 'enzyme';
-import { ApolloConsumer } from 'react-apollo';
-import { MockedProvider } from 'react-apollo/test-utils';
+import { ApolloConsumer } from '@apollo/react-components';
+import { MockedProvider } from '@apollo/react-testing';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import gql from 'graphql-tag';
 

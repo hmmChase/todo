@@ -5,8 +5,8 @@ import {
   UserInputError
 } from 'apollo-server-express';
 
+import mailResetToken from '../utils/mail';
 import * as auth from '../utils/auth';
-import * as mail from '../utils/mail';
 import * as config from '../config';
 
 export default {
@@ -70,8 +70,8 @@ export default {
       return user;
     },
 
-    signOut: async (parent, args, ctx, info) => {
-      await ctx.res.clearCookie('token');
+    signOut: (parent, args, ctx, info) => {
+      ctx.res.clearCookie('token');
 
       return true;
     },
@@ -79,7 +79,8 @@ export default {
     requestReset: async (parent, args, ctx, info) => {
       const email = args.email.toLowerCase();
 
-      const user = ctx.prisma.query.user({ where: { email } });
+      const user = await ctx.prisma.query.user({ where: { email } });
+      console.log('TCL: requestReset user', user);
 
       if (!user) throw new AuthenticationError(`No account found for ${email}`);
 
@@ -90,42 +91,51 @@ export default {
         data: { resetToken, resetTokenExpiry }
       });
 
-      await mail.mailResetToken(email, resetToken, resetTokenExpiry);
+      mailResetToken(email, resetToken, resetTokenExpiry);
 
       return true;
     },
 
     resetPassword: async (parent, args, ctx, info) => {
+      // Check if password meet requirements
       auth.validatePassword(args.password);
+
+      // Check if password matches confirm password
       auth.comparePasswords(args.password, args.confirmPassword);
 
-      const [user] = ctx.prisma.query.users({
+      // Get user from resetToken
+      const [user] = await ctx.prisma.query.users({
         where: { resetToken: args.resetToken }
       });
 
+      // Return error if user not found
       if (!user)
         throw new AuthenticationError(
-          'Your reset token is invalid.  Please request a new one.'
+          'Error: Please submit a new password reset request.'
         );
 
+      // Check if token is expired
       auth.validateTokenExpiry(user.resetTokenExpiry);
 
+      // Encrypt new password
       const password = await bcrypt.hash(args.password, config.saltRounds);
 
-      const updatedUser = ctx.prisma.mutation.updateUser({
+      // Update user with new password and clear resetToken
+      ctx.prisma.mutation.updateUser({
         where: { id: user.id },
-        data: {
-          password,
-          resetToken: null,
-          resetTokenExpiry: null
-        }
+        data: { password, resetToken: null, resetTokenExpiry: null }
       });
 
+      /* Should it auto-login the user?
+      // Create payload for cookie
       const payload = { user: { id: updatedUser.id } };
 
-      await auth.sendCookie(ctx.res, payload);
+      // Send a fresh cookie
+      auth.sendCookie(ctx.res, payload);
+      */
 
-      return updatedUser;
+      // Return true
+      return true;
     }
   }
 };

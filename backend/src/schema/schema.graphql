@@ -17,7 +17,7 @@ type Mutation {
     resetToken: String!
     password: String!
     confirmPassword: String!
-  ): User!
+  ): Boolean!
   createIdea(content: String!): Idea!
   updateIdea(id: ID!, content: String!): Idea!
   deleteIdea(id: ID!): Idea!

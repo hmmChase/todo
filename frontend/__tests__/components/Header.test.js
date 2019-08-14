@@ -1,6 +1,7 @@
 import { mount } from 'enzyme';
-import { MockedProvider } from 'react-apollo/test-utils';
+import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
+
 import Header from '../../components/Header/Header';
 import theme from '../../styles/theme.style';
 

@@ -1,5 +1,6 @@
 import { Mutation } from 'react-apollo';
 
+import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
 import { REQUEST_RESET_MUTATION } from '../../graphql/queries';
 import * as sc from './RequestReset.style';
@@ -9,9 +10,9 @@ class RequestReset extends React.PureComponent {
 
   handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  handleSubmitForm = async (e, requestReset) => {
+  handleSubmitForm = (e, requestReset) => {
     e.preventDefault();
-    await requestReset();
+    requestReset();
   };
 
   handleError = error => error;
@@ -30,12 +31,6 @@ class RequestReset extends React.PureComponent {
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Request a password reset</h2>
 
-              {error && <DisplayError error={error} />}
-
-              {!error && !loading && called && (
-                <p>Check your email for a reset link.</p>
-              )}
-
               <label htmlFor="email">
                 Email
                 <sc.inputText
@@ -46,6 +41,14 @@ class RequestReset extends React.PureComponent {
                   onChange={this.handleChangeInput}
                 />
               </label>
+
+              {loading && <DisplayLoading />}
+
+              {error && <DisplayError error={error} />}
+
+              {!error && !loading && called && (
+                <p>Check your email for a reset link.</p>
+              )}
 
               <sc.inputSubmit
                 value="Request Reset"

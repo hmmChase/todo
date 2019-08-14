@@ -66,9 +66,6 @@ export const RESET_PASSWORD_MUTATION = gql`
       resetToken: $resetToken
       password: $password
       confirmPassword: $confirmPassword
-    ) {
-      id
-      email
-    }
+    )
   }
 `;

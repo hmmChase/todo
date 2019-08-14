@@ -3,10 +3,7 @@ import nodemailer from 'nodemailer';
 const transport = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
   port: process.env.MAIL_PORT,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS
-  }
+  auth: { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS }
 });
 
 const emailTemplate = body => `
@@ -21,7 +18,7 @@ const emailTemplate = body => `
   </div>
 `;
 
-export const mailResetToken = async (email, resetToken, resetTokenExpiry) => {
+export default async (email, resetToken, resetTokenExpiry) => {
   try {
     await transport.sendMail({
       from: 'test@email.com',

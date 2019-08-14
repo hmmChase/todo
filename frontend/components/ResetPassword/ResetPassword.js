@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/react-components';
 
-// import { DisplayError } from '..';
 import DisplayError from '../DisplayError/DisplayError';
 import { RESET_PASSWORD_MUTATION } from '../../graphql/queries';
 import * as sc from './ResetPassword.style';
@@ -12,11 +11,10 @@ class ResetPassword extends React.PureComponent {
 
   handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  handleSubmitForm = async (e, resetPassword, client) => {
+  handleSubmitForm = (e, resetPassword) => {
     e.preventDefault();
     this.setState({ password: '', confirmPassword: '' });
-    await resetPassword();
-    await client.resetStore();
+    resetPassword();
   };
 
   handleError = error => error;
@@ -25,7 +23,6 @@ class ResetPassword extends React.PureComponent {
 
   render() {
     const { password, confirmPassword } = this.state;
-
     const isInvalidPass = password === '' || confirmPassword === '';
 
     return (
@@ -35,14 +32,10 @@ class ResetPassword extends React.PureComponent {
         onError={this.handleError}
         onCompleted={this.handleCompleted}
       >
-        {(resetPassword, { loading, error, client }) => (
-          <sc.form
-            onSubmit={e => this.handleSubmitForm(e, resetPassword, client)}
-          >
+        {(resetPassword, { loading, error }) => (
+          <sc.form onSubmit={e => this.handleSubmitForm(e, resetPassword)}>
             <fieldset disabled={loading} aria-busy={loading}>
               <h2>Reset Your Password</h2>
-
-              {error && <DisplayError error={error} />}
 
               <label htmlFor="password">
                 Password
@@ -66,6 +59,8 @@ class ResetPassword extends React.PureComponent {
                 />
               </label>
 
+              {error && <DisplayError error={error} />}
+
               <sc.h3PassTitle>Password must contain:</sc.h3PassTitle>
 
               <sc.ulPassList aria-label="Password must contain:">
@@ -88,12 +83,8 @@ class ResetPassword extends React.PureComponent {
   }
 }
 
-ResetPassword.defaultProps = {
-  resetToken: ''
-};
-
 ResetPassword.propTypes = {
-  resetToken: PropTypes.string
+  resetToken: PropTypes.string.isRequired
 };
 
 export default ResetPassword;

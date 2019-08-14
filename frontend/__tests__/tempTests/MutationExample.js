@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import { ApolloConsumer } from 'react-apollo';
-import { MockedProvider } from 'react-apollo/test-utils';
+import { ApolloConsumer } from '@apollo/react-components';
+import { MockedProvider } from '@apollo/react-testing';
 import { load } from '../utils/load';
 import * as mock from '../../__mocks__/mocks';
 import MutationExample, {

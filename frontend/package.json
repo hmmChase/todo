@@ -21,6 +21,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/react-components": "^3.0.0",
+    "@apollo/react-hooks": "^3.0.0",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
@@ -31,6 +33,7 @@
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
     "jsonwebtoken": "^8.5.1",
+    "lodash.debounce": "^4.0.8",
     "next": "^9.0.3",
     "next-with-apollo": "^4.2.0",
     "prop-types": "^15.7.2",
@@ -41,6 +44,7 @@
     "styled-normalize": "^8.0.6"
   },
   "devDependencies": {
+    "@apollo/react-testing": "^3.0.0",
     "babel-eslint": "^10.0.2",
     "babel-plugin-styled-components": "^1.10.6",
     "cross-env": "^5.2.0",

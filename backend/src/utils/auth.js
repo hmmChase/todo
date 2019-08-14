@@ -55,10 +55,6 @@ export const sendCookie = async (res, payload) => {
   }
 };
 
-export const clearCookie = res => {
-  res.clearCookie('token');
-};
-
 export const validateEmail = email => {
   if (typeof email !== 'string')
     throw new AuthenticationError('Invalid email address');
@@ -77,12 +73,12 @@ export const validatePassword = password => {
   if (!hasLength)
     throw new AuthenticationError('Password must be at least 8 charactors');
 
-  const hasUpper = password.match(/[A-Z]/g);
-  if (!hasUpper)
+  const hasUpperCase = password.match(/[A-Z]/g);
+  if (!hasUpperCase)
     throw new AuthenticationError('Password must contain an uppercase letter');
 
-  const hasLower = password.match(/[a-z]/g);
-  if (!hasLower)
+  const hasLowerCase = password.match(/[a-z]/g);
+  if (!hasLowerCase)
     throw new AuthenticationError('Password must contain a lowercase letter');
 
   const hasNumber = password.match(/[0-9]/g);
@@ -116,6 +112,6 @@ export const validateTokenExpiry = resetTokenExpiry => {
 
   if (isTokenExpired)
     throw new AuthenticationError(
-      'Your reset token is expired.  Please request a new one.'
+      'Your reset request has expired.  Please submit a new one.'
     );
 };

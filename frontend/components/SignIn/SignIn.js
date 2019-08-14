@@ -1,6 +1,5 @@
-import { ApolloConsumer, Mutation } from 'react-apollo';
+import { ApolloConsumer, Mutation } from '@apollo/react-components';
 
-// import { DisplayLoading, DisplayError } from '..';
 import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
 import ForgotPassDialog from '../ForgotPassDialog/ForgotPassDialog';
@@ -12,10 +11,10 @@ class SignIn extends React.PureComponent {
 
   handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
 
-  handleSubmitForm = async (e, signIn) => {
+  handleSubmitForm = (e, signIn) => {
     e.preventDefault();
     this.setState({ password: '' });
-    await signIn();
+    signIn();
   };
 
   handleError = error => error;
