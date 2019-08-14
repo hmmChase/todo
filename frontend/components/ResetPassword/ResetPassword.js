@@ -23,7 +23,19 @@ class ResetPassword extends React.PureComponent {
 
   render() {
     const { password, confirmPassword } = this.state;
+    const { resetToken, resetTokenExpiry } = this.props;
     const isInvalidPass = password === '' || confirmPassword === '';
+
+    const isTokenPresent = resetToken && resetTokenExpiry;
+    const isTokenExpired = Date.now() > resetTokenExpiry;
+    const isTokenValid = isTokenPresent && !isTokenExpired;
+
+    const tokenMissingError = {
+      message: 'Error: Please submit a new password reset request.'
+    };
+    const tokenExpiredError = {
+      message: 'Your reset request is expired.  Please submit a new one.'
+    };
 
     return (
       <Mutation
@@ -33,58 +45,72 @@ class ResetPassword extends React.PureComponent {
         onCompleted={this.handleCompleted}
       >
         {(resetPassword, { loading, error }) => (
-          <sc.form onSubmit={e => this.handleSubmitForm(e, resetPassword)}>
-            <fieldset disabled={loading} aria-busy={loading}>
-              <h2>Reset Your Password</h2>
+          <sc.ResetPassword>
+            <sc.form onSubmit={e => this.handleSubmitForm(e, resetPassword)}>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <h2>Reset Your Password</h2>
 
-              <label htmlFor="password">
-                Password
-                <sc.inputText
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  value={password}
-                  onChange={this.handleChangeInput}
+                <label htmlFor="password">
+                  Password
+                  <sc.inputText
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    value={password}
+                    onChange={this.handleChangeInput}
+                  />
+                </label>
+
+                <label htmlFor="confirmPassword">
+                  Confirm Password
+                  <sc.inputText
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="confirmPassword"
+                    value={confirmPassword}
+                    onChange={this.handleChangeInput}
+                  />
+                </label>
+
+                {!isTokenPresent && <DisplayError error={tokenMissingError} />}
+
+                {isTokenPresent && isTokenExpired && (
+                  <DisplayError error={tokenExpiredError} />
+                )}
+
+                {isTokenValid && error && <DisplayError error={error} />}
+
+                <sc.h3PassTitle>Password must contain:</sc.h3PassTitle>
+
+                <sc.ulPassList aria-label="Password must contain:">
+                  <li>at least 8 charactors</li>
+                  <li>an uppercase letter</li>
+                  <li>a lowercase letter</li>
+                  <li>a number</li>
+                </sc.ulPassList>
+
+                <sc.inputSubmit
+                  value="Reset Your Password"
+                  type="submit"
+                  disabled={isInvalidPass}
                 />
-              </label>
-
-              <label htmlFor="confirmPassword">
-                Confirm Password
-                <sc.inputText
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="confirmPassword"
-                  value={confirmPassword}
-                  onChange={this.handleChangeInput}
-                />
-              </label>
-
-              {error && <DisplayError error={error} />}
-
-              <sc.h3PassTitle>Password must contain:</sc.h3PassTitle>
-
-              <sc.ulPassList aria-label="Password must contain:">
-                <li>at least 8 charactors</li>
-                <li>an uppercase letter</li>
-                <li>a lowercase letter</li>
-                <li>a number</li>
-              </sc.ulPassList>
-
-              <sc.inputSubmit
-                value="Reset Your Password"
-                type="submit"
-                disabled={isInvalidPass}
-              />
-            </fieldset>
-          </sc.form>
+              </fieldset>
+            </sc.form>
+          </sc.ResetPassword>
         )}
       </Mutation>
     );
   }
 }
 
+ResetPassword.defaultProps = {
+  resetToken: '',
+  resetTokenExpiry: ''
+};
+
 ResetPassword.propTypes = {
-  resetToken: PropTypes.string.isRequired
+  resetToken: PropTypes.string,
+  resetTokenExpiry: PropTypes.string
 };
 
 export default ResetPassword;

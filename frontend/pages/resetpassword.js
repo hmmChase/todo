@@ -9,26 +9,30 @@ const ResetPasswordPage = React.memo(props => (
   <>
     <Head title="Reset Password" />
 
-    <ResetPassword resetToken={props.resetToken} />
+    <ResetPassword
+      resetToken={props.resetToken}
+      resetTokenExpiry={props.resetTokenExpiry}
+    />
   </>
 ));
 
 ResetPasswordPage.getInitialProps = async ctx => {
+  const { resetToken, resetTokenExpiry } = ctx.query;
   const loggedIn = await isLoggedIn(ctx.apolloClient);
 
   if (loggedIn) redirect(ctx, '/');
 
-  const { resetToken, resetTokenExpiry } = ctx.query;
-  const isTokenPresent = resetToken && resetTokenExpiry;
-  const isTokenExpired = Date.now() > resetTokenExpiry;
+  return { resetToken, resetTokenExpiry };
+};
 
-  if (!isTokenPresent || isTokenExpired) redirect(ctx, '/requestreset');
-
-  return { resetToken };
+ResetPasswordPage.defaultProps = {
+  resetToken: '',
+  resetTokenExpiry: ''
 };
 
 ResetPasswordPage.propTypes = {
-  resetToken: PropTypes.string.isRequired
+  resetToken: PropTypes.string,
+  resetTokenExpiry: PropTypes.string
 };
 
 export default ResetPasswordPage;
