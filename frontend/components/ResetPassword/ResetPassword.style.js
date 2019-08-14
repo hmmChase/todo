@@ -2,6 +2,13 @@ import styled from 'styled-components';
 
 export { form } from '../Styled/form.style';
 
+export const ResetPassword = styled.section`
+  background-color: ${props => props.theme.color.blue};
+  display: grid;
+  min-height: 100vh;
+  place-items: center center;
+`;
+
 export const inputText = styled.input`
   margin: 5px;
 `;
