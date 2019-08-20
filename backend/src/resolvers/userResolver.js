@@ -21,6 +21,10 @@ export default {
       return ctx.prisma.query.users({}, info);
     },
 
+    usersConnection: (parent, args, ctx, info) => {
+      return ctx.prisma.query.usersConnection({}, info);
+    },
+
     currentUser: (parent, args, ctx, info) => {
       // if no token cookie present, return null
       if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token) return null;

@@ -14,17 +14,21 @@ export default {
 
     ideas: async (parent, args, ctx, info) => {
       return ctx.prisma.query.ideas({}, info);
+    },
+
+    ideasConnection: (parent, args, ctx, info) => {
+      return ctx.prisma.query.ideasConnection({}, info);
     }
   },
 
   Mutation: {
-    createIdea: async (parent, args, ctx, info) => {
+    createIdea: (parent, args, ctx, info) => {
       // Check if token is available
       if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token)
         throw new AuthenticationError('Must be signed in.');
 
       // Get current user
-      const currentUser = await auth.verifyJWT(ctx.req.cookies.token);
+      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
 
       // Call mutation
       return ctx.prisma.mutation.createIdea({
@@ -41,7 +45,7 @@ export default {
         throw new AuthenticationError('Must be signed in.');
 
       // Get current user
-      const currentUser = await auth.verifyJWT(ctx.req.cookies.token);
+      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
 
       // find the item
       const idea = await ctx.prisma.query.idea(
@@ -68,7 +72,7 @@ export default {
         throw new ForbiddenError('Must be signed in.');
 
       // Get current user
-      const currentUser = await auth.verifyJWT(ctx.req.cookies.token);
+      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
 
       // find the item
       const idea = await ctx.prisma.query.idea(

@@ -2,10 +2,40 @@
 
 type Query {
   user(id: ID!): User
-  users: [User!]!
+  users(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [User!]!
+  usersConnection: UserConnection!
   currentUser: User
   idea(id: ID!): Idea
-  ideas: [Idea!]!
+  ideas(
+    where: IdeaWhereInput
+    orderBy: IdeaOrderByInput
+    skip: Int
+    """
+    to seek forwards
+    """
+    first: Int
+    """
+    specify a starting node
+    """
+    after: String
+    """
+    to seek backwards
+    """
+    last: Int
+    """
+    specify a starting node
+    """
+    before: String
+  ): [Idea!]!
+  ideasConnection: IdeaConnection!
 }
 
 type Mutation {
