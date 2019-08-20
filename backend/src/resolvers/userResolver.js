@@ -12,18 +12,28 @@ import * as config from '../config';
 export default {
   Query: {
     user: (parent, args, ctx, info) => {
+      // Find and return user matching ID
       return ctx.prisma.query.user({ where: { id: args.id } }, info);
     },
 
     users: (parent, args, ctx, info) => {
-      return ctx.prisma.query.users({}, info);
+      // Return all users
+      return ctx.prisma.query.users({ orderBy: args.orderBy }, info);
+    },
+
+    usersConnection: (parent, args, ctx, info) => {
+      return ctx.prisma.query.usersConnection({}, info);
     },
 
     currentUser: (parent, args, ctx, info) => {
+      // if no token cookie present, return null
       if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token) return null;
 
+      // Verify cookie and decode payload
       const currentUser = auth.verifyJWT(ctx.req.cookies.token);
 
+      // Find and return user matching payload ID
+      // If not found, return null
       return currentUser
         ? ctx.prisma.query.user({ where: { id: currentUser.user.id } }, info)
         : null;
@@ -32,67 +42,97 @@ export default {
 
   Mutation: {
     signUp: async (parent, args, ctx, info) => {
+      // Normalize email
       const email = args.email.toLowerCase();
-      const accountExists = await ctx.prisma.query.user({ where: { email } });
 
-      if (accountExists)
+      // Find user matching email
+      const userExists = await ctx.prisma.query.user({ where: { email } });
+
+      // If user found, return error
+      if (userExists)
         throw new AuthenticationError(`An account already exists for ${email}`);
 
+      // Check if email address is well-formed
       auth.validateEmail(args.email);
+
+      // Check if password is well-formed
       auth.validatePassword(args.password);
+
+      // Check if user typed confirm password correctly
       auth.comparePasswords(args.password, args.confirmPassword);
 
+      // Encrypt password
       const password = await bcrypt.hash(args.password, config.saltRounds);
 
+      // Create user
       const user = await ctx.prisma.mutation.createUser({
         data: { email, password }
       });
 
+      // Create payload for cookie
       const payload = { user: { id: user.id } };
 
+      // Send cookie
       await auth.sendCookie(ctx.res, payload);
 
+      // Return User
       return user;
     },
 
     signIn: async (parent, args, ctx, info) => {
+      // Normalize email
       const email = args.email.toLowerCase();
+
+      // Find user matching email
       const user = await ctx.prisma.query.user({ where: { email } });
 
+      // If user not found, return error
       if (!user) throw new AuthenticationError(`No account found for ${email}`);
 
+      // Check if input password matches users password
       await auth.checkPassword(args.password, user.password);
 
+      // Create payload for cookie
       const payload = { user: { id: user.id } };
 
+      // Send cookie
       await auth.sendCookie(ctx.res, payload);
 
+      // Return User
       return user;
     },
 
     signOut: (parent, args, ctx, info) => {
+      // Clear cookie
       ctx.res.clearCookie('token');
 
+      // Return boolean
       return true;
     },
 
     requestReset: async (parent, args, ctx, info) => {
+      // Normalize email
       const email = args.email.toLowerCase();
 
+      // Find user matching email
       const user = await ctx.prisma.query.user({ where: { email } });
-      console.log('TCL: requestReset user', user);
 
+      // If user not found, return error
       if (!user) throw new AuthenticationError(`No account found for ${email}`);
 
+      // Generate reset token
       const { resetToken, resetTokenExpiry } = await auth.genResetToken();
 
+      // Update user with reset token
       ctx.prisma.mutation.updateUser({
         where: { id: user.id },
         data: { resetToken, resetTokenExpiry }
       });
 
+      // Send mail with reset link
       mailResetToken(email, resetToken, resetTokenExpiry);
 
+      // Return boolean
       return true;
     },
 
@@ -134,7 +174,7 @@ export default {
       auth.sendCookie(ctx.res, payload);
       */
 
-      // Return true
+      // Return boolean
       return true;
     }
   }

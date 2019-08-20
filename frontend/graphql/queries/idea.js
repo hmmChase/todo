@@ -24,3 +24,20 @@ export const DELETE_IDEA_MUTATION = gql`
     }
   }
 `;
+
+export const IDEAS_CONNECTION_QUERY = gql`
+  query IDEAS_CONNECTION_QUERY {
+    ideasConnection {
+      aggregate {
+        count
+      }
+      pageInfo {
+        endCursor
+        startCursor
+      }
+      edges {
+        cursor
+      }
+    }
+  }
+`;

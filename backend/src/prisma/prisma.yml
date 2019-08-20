@@ -11,3 +11,7 @@ secret: ${env:PRISMA_SECRET}
 generate:
   - generator: graphql-schema
     output: ../schema/generated/prisma.graphql
+
+# Seeds the database
+seed:
+  run: node ./src/prisma/seed.js
