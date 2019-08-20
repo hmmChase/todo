@@ -18,7 +18,7 @@ export default {
 
     users: (parent, args, ctx, info) => {
       // Return all users
-      return ctx.prisma.query.users({}, info);
+      return ctx.prisma.query.users({ orderBy: args.orderBy }, info);
     },
 
     usersConnection: (parent, args, ctx, info) => {

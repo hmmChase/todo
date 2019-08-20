@@ -9,11 +9,13 @@ import * as auth from '../utils/auth';
 export default {
   Query: {
     idea: (parent, args, ctx, info) => {
+      // Find and return idea matching ID
       return ctx.prisma.query.idea({ where: { id: args.id } }, info);
     },
 
     ideas: async (parent, args, ctx, info) => {
-      return ctx.prisma.query.ideas({}, info);
+      // Return all ideas
+      return ctx.prisma.query.ideas({ orderBy: args.orderBy }, info);
     },
 
     ideasConnection: (parent, args, ctx, info) => {

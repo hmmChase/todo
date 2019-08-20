@@ -6,10 +6,22 @@ type Query {
     where: UserWhereInput
     orderBy: UserOrderByInput
     skip: Int
-    after: String
-    before: String
+    """
+    Number of nodes per page
+    """
     first: Int
+    """
+    Return results after this cursor
+    """
+    after: String
+    """
+    Seek backwards
+    """
     last: Int
+    """
+    Return results before this cursor
+    """
+    before: String
   ): [User!]!
   usersConnection: UserConnection!
   currentUser: User
@@ -18,21 +30,9 @@ type Query {
     where: IdeaWhereInput
     orderBy: IdeaOrderByInput
     skip: Int
-    """
-    to seek forwards
-    """
     first: Int
-    """
-    specify a starting node
-    """
     after: String
-    """
-    to seek backwards
-    """
     last: Int
-    """
-    specify a starting node
-    """
     before: String
   ): [Idea!]!
   ideasConnection: IdeaConnection!
