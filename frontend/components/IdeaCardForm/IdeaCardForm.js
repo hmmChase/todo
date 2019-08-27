@@ -1,9 +1,10 @@
 import { Mutation } from 'react-apollo';
 
 import {
-  CURRENT_USER_QUERY,
+  CURRENT_USER_PAGINATED_IDEAS,
   CREATE_IDEA_MUTATION
 } from '../../graphql/queries';
+import { pageSize } from '../../config';
 import * as sc from './IdeaCardForm.style';
 
 class IdeaCardForm extends React.PureComponent {
@@ -31,13 +32,42 @@ class IdeaCardForm extends React.PureComponent {
 
   handleError = error => error;
 
+  handleUpdate = (cache, data) => {
+    // Read the data from cache for this query
+    const ideasData = cache.readQuery({
+      query: CURRENT_USER_PAGINATED_IDEAS,
+      variables: { orderBy: 'createdAt_DESC', first: pageSize }
+    });
+
+    const newIdeas = ideasData.currentUserPaginatedIdeas.edges;
+
+    // Add idea from the mutation to the beginning
+    newIdeas.unshift({
+      node: { ...data.data.createIdea },
+      __typename: 'IdeaEdge'
+    });
+
+    // Write data back to the cache
+    cache.writeQuery({
+      query: CURRENT_USER_PAGINATED_IDEAS,
+      variables: { orderBy: 'createdAt_DESC', first: pageSize },
+      data: {
+        ...ideasData,
+        currentUserPaginatedIdeas: {
+          ...ideasData.currentUserPaginatedIdeas,
+          edges: newIdeas
+        }
+      }
+    });
+  };
+
   render() {
     return (
       <Mutation
         mutation={CREATE_IDEA_MUTATION}
         variables={{ content: this.state.idea }}
         onError={this.handleError}
-        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+        update={this.handleUpdate}
       >
         {createIdea => (
           <sc.form

@@ -8,10 +8,10 @@ const SignOut = React.memo(() => {
 
   const handleError = error => error;
 
-  const handleCompleted = apolloClient => {
-    apolloClient.writeData({ data: { isLoggedIn: false } });
-    apolloClient.resetStore();
-  };
+  const handleUpdate = cache =>
+    cache.writeData({ data: { isLoggedIn: false } });
+
+  const handleCompleted = apolloClient => apolloClient.resetStore();
 
   return (
     <ApolloConsumer>
@@ -19,6 +19,7 @@ const SignOut = React.memo(() => {
         <Mutation
           mutation={SIGN_OUT_MUTATION}
           onError={handleError}
+          update={handleUpdate}
           onCompleted={() => handleCompleted(apolloClient)}
         >
           {(signOut, { loading }) => (

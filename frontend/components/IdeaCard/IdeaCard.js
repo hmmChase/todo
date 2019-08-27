@@ -3,10 +3,11 @@ import { Mutation } from '@apollo/react-components';
 import debounce from 'lodash.debounce';
 
 import {
-  CURRENT_USER_QUERY,
+  CURRENT_USER_PAGINATED_IDEAS,
   UPDATE_IDEA_MUTATION,
   DELETE_IDEA_MUTATION
 } from '../../graphql/queries';
+import { pageSize } from '../../config';
 import * as sc from './IdeaCard.style';
 
 class IdeaCard extends React.PureComponent {
@@ -26,6 +27,35 @@ class IdeaCard extends React.PureComponent {
 
   handleError = error => error;
 
+  handleUpdate = (cache, data) => {
+    // Read the data from cache for this query
+    const ideasData = cache.readQuery({
+      query: CURRENT_USER_PAGINATED_IDEAS,
+      variables: { orderBy: 'createdAt_DESC', first: pageSize }
+    });
+
+    // Get id of idea to delete
+    const ideaId = data.data.deleteIdea.id;
+
+    // Remove idea
+    const newIdeas = ideasData.currentUserPaginatedIdeas.edges.filter(
+      idea => idea.node.id !== ideaId
+    );
+
+    // Write data back to the cache
+    cache.writeQuery({
+      query: CURRENT_USER_PAGINATED_IDEAS,
+      variables: { orderBy: 'createdAt_DESC', first: pageSize },
+      data: {
+        ...ideasData,
+        currentUserPaginatedIdeas: {
+          ...ideasData.currentUserPaginatedIdeas,
+          edges: newIdeas
+        }
+      }
+    });
+  };
+
   render() {
     return (
       <sc.li>
@@ -33,7 +63,7 @@ class IdeaCard extends React.PureComponent {
           mutation={DELETE_IDEA_MUTATION}
           variables={{ id: this.props.id }}
           onError={this.handleError}
-          refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+          update={this.handleUpdate}
         >
           {deleteIdea => (
             <sc.deleteBtn

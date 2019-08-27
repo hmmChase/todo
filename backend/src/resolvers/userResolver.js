@@ -179,6 +179,7 @@ export default {
     }
   }
 };
+
 // // Mutation
 // refreshAccessToken: async (parent, args, ctx, info) => {
 //   // Get new access token

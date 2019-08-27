@@ -17,7 +17,7 @@ const Page = React.memo(props => (
       if (loading) return <DisplayLoading />;
       if (error) return <DisplayError error={error} />;
 
-      return data && data.isLoggedIn ? (
+      return data.isLoggedIn ? (
         <Authenticated {...props} />
       ) : (
         <UnAuthenticated {...props} />
