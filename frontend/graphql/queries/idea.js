@@ -4,6 +4,10 @@ export const CREATE_IDEA_MUTATION = gql`
   mutation CREATE_IDEA_MUTATION($content: String!) {
     createIdea(content: $content) {
       id
+      content
+      author {
+        id
+      }
     }
   }
 `;
@@ -37,6 +41,30 @@ export const IDEAS_CONNECTION_QUERY = gql`
       }
       edges {
         cursor
+      }
+    }
+  }
+`;
+
+export const CURRENT_USER_PAGINATED_IDEAS = gql`
+  query CURRENT_USER_PAGINATED_IDEAS($first: Int, $after: String) {
+    currentUserPaginatedIdeas(
+      orderBy: createdAt_DESC
+      first: $first
+      after: $after
+    ) {
+      edges {
+        node {
+          id
+          content
+          author {
+            id
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }

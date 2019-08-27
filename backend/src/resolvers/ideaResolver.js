@@ -20,6 +20,20 @@ export default {
 
     ideasConnection: (parent, args, ctx, info) => {
       return ctx.prisma.query.ideasConnection({}, info);
+    },
+
+    currentUserPaginatedIdeas: async (parent, args, ctx, info) => {
+      console.log('TCL: args', args);
+      // if no token cookie present, return null
+      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token) return null;
+
+      // Verify cookie and decode payload
+      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
+
+      return await ctx.prisma.query.ideasConnection(
+        { where: { author: { id: currentUser.user.id } } },
+        info
+      );
     }
   },
 
@@ -29,16 +43,19 @@ export default {
       if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token)
         throw new AuthenticationError('Must be signed in.');
 
-      // Get current user
+      // Get current user from JWT
       const currentUser = auth.verifyJWT(ctx.req.cookies.token);
 
       // Call mutation
-      return ctx.prisma.mutation.createIdea({
-        data: {
-          author: { connect: { id: currentUser.user.id } },
-          content: args.content
-        }
-      });
+      return ctx.prisma.mutation.createIdea(
+        {
+          data: {
+            content: args.content,
+            author: { connect: { id: currentUser.user.id } }
+          }
+        },
+        info
+      );
     },
 
     updateIdea: async (parent, args, ctx, info) => {
@@ -46,13 +63,13 @@ export default {
       if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token)
         throw new AuthenticationError('Must be signed in.');
 
-      // Get current user
+      // Get current user from JWT
       const currentUser = auth.verifyJWT(ctx.req.cookies.token);
 
-      // find the item
+      // Request idea's author ID using defined selection set
       const idea = await ctx.prisma.query.idea(
         { where: { id: args.id } },
-        `{ id author { id }}`
+        `{ author { id }}`
       );
 
       // Check if they own that idea
@@ -73,13 +90,13 @@ export default {
       if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token)
         throw new ForbiddenError('Must be signed in.');
 
-      // Get current user
+      // Get current user from JWT
       const currentUser = auth.verifyJWT(ctx.req.cookies.token);
 
-      // find the item
+      // Request idea's author ID using defined selection set
       const idea = await ctx.prisma.query.idea(
         { where: { id: args.id } },
-        `{ id author { id }}`
+        `{ author { id }}`
       );
 
       // Check if they own that idea

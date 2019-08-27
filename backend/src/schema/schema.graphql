@@ -2,10 +2,22 @@
 
 type Query {
   user(id: ID!): User
-  users(
-    where: UserWhereInput
-    orderBy: UserOrderByInput
-    skip: Int
+
+  users(where: UserWhereInput, orderBy: UserOrderByInput): [User!]!
+
+  usersConnection: UserConnection!
+
+  idea(id: ID!): Idea
+
+  ideas(where: IdeaWhereInput, orderBy: IdeaOrderByInput): [Idea!]!
+
+  ideasConnection: IdeaConnection!
+
+  currentUser: User
+
+  currentUserPaginatedIdeas(
+    where: IdeaWhereInput
+    orderBy: IdeaOrderByInput
     """
     Number of nodes per page
     """
@@ -22,35 +34,30 @@ type Query {
     Return results before this cursor
     """
     before: String
-  ): [User!]!
-  usersConnection: UserConnection!
-  currentUser: User
-  idea(id: ID!): Idea
-  ideas(
-    where: IdeaWhereInput
-    orderBy: IdeaOrderByInput
-    skip: Int
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): [Idea!]!
-  ideasConnection: IdeaConnection!
+  ): IdeaConnection
 }
 
 type Mutation {
   signUp(email: String!, password: String!, confirmPassword: String!): User!
+
   signIn(email: String!, password: String!): User!
+
   signOut: Boolean!
+
   requestReset(email: String!): Boolean!
+
   resetPassword(
     resetToken: String!
     password: String!
     confirmPassword: String!
   ): Boolean!
+
   createIdea(content: String!): Idea!
+
   updateIdea(id: ID!, content: String!): Idea!
+
   deleteIdea(id: ID!): Idea!
+
   # refreshAccessToken(refreshToken: String!): Token!
 }
 
@@ -62,8 +69,8 @@ type User {
 
 type Idea {
   id: ID!
-  author: User!
   content: String!
+  author: User!
 }
 
 # type Token {
