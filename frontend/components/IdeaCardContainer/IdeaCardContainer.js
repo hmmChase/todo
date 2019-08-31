@@ -55,30 +55,28 @@ const IdeaContainer = React.memo(() => {
         if (error) return <DisplayError error={error} />;
 
         return (
-          <>
-            <sc.IdeaContainer>
-              {data.currentUserPaginatedIdeas &&
-              data.currentUserPaginatedIdeas.edges &&
-              data.currentUserPaginatedIdeas.edges.length ? (
-                <sc.ul>
-                  {displayIdeaCards(data.currentUserPaginatedIdeas.edges)}
-                </sc.ul>
-                ) : (
-                  <p>Think of something!</p>
-                )}
-            </sc.IdeaContainer>
+          <sc.IdeaContainer>
+            {data.currentUserPaginatedIdeas &&
+            data.currentUserPaginatedIdeas.edges &&
+            data.currentUserPaginatedIdeas.edges.length ? (
+              <sc.ul>
+                {displayIdeaCards(data.currentUserPaginatedIdeas.edges)}
+              </sc.ul>
+              ) : (
+                <p>Think of something!</p>
+              )}
 
             {data.currentUserPaginatedIdeas &&
               data.currentUserPaginatedIdeas.pageInfo &&
               data.currentUserPaginatedIdeas.pageInfo.hasNextPage && (
-                <button
+                <sc.loadMoreBtn
                   type="button"
                   onClick={() => handleFetchMore(fetchMore, data)}
                 >
                   Load More
-                </button>
+                </sc.loadMoreBtn>
             )}
-          </>
+          </sc.IdeaContainer>
         );
       }}
     </Query>
