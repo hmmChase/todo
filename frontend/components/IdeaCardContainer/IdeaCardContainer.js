@@ -20,9 +20,7 @@ const IdeaContainer = React.memo(() => {
 
   const handleFetchMore = (fetchMore, data) => {
     fetchMore({
-      variables: {
-        after: data.currentUserPaginatedIdeas.pageInfo.endCursor
-      },
+      variables: { after: data.currentUserPaginatedIdeas.pageInfo.endCursor },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         const moreEdges = fetchMoreResult.currentUserPaginatedIdeas.edges;
         const nextPageInfo = fetchMoreResult.currentUserPaginatedIdeas.pageInfo;
@@ -55,30 +53,28 @@ const IdeaContainer = React.memo(() => {
         if (error) return <DisplayError error={error} />;
 
         return (
-          <>
-            <sc.IdeaContainer>
-              {data.currentUserPaginatedIdeas &&
-              data.currentUserPaginatedIdeas.edges &&
-              data.currentUserPaginatedIdeas.edges.length ? (
-                <sc.ul>
-                  {displayIdeaCards(data.currentUserPaginatedIdeas.edges)}
-                </sc.ul>
-                ) : (
-                  <p>Think of something!</p>
-                )}
-            </sc.IdeaContainer>
+          <sc.IdeaContainer>
+            {data.currentUserPaginatedIdeas &&
+            data.currentUserPaginatedIdeas.edges &&
+            data.currentUserPaginatedIdeas.edges.length ? (
+              <sc.ul>
+                {displayIdeaCards(data.currentUserPaginatedIdeas.edges)}
+              </sc.ul>
+              ) : (
+                <p>Add an Idea!</p>
+              )}
 
             {data.currentUserPaginatedIdeas &&
               data.currentUserPaginatedIdeas.pageInfo &&
               data.currentUserPaginatedIdeas.pageInfo.hasNextPage && (
-                <button
+                <sc.loadMoreBtn
                   type="button"
                   onClick={() => handleFetchMore(fetchMore, data)}
                 >
                   Load More
-                </button>
+                </sc.loadMoreBtn>
             )}
-          </>
+          </sc.IdeaContainer>
         );
       }}
     </Query>

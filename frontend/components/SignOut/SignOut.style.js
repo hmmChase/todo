@@ -1,5 +1,1 @@
-import styled from 'styled-components';
-
-import { purpleLinkBtn } from '../Styled/button.style';
-
-export const signOutBtn = styled(purpleLinkBtn)``;
+export { purpleLinkBtn as signOutBtn } from '../Styled/button.style';

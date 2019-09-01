@@ -24,3 +24,8 @@ export const purpleLinkBtn = styled(linkBtn)`
     background-color: ${props => props.theme.color.purple};
   }
 `;
+
+export const greenLinkBtn = styled(linkBtn)`
+  background-color: ${props => props.theme.color.green};
+  border-color: ${props => props.theme.color.green};
+`;

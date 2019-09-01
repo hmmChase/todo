@@ -25,6 +25,8 @@ class IdeaCard extends React.PureComponent {
     deleteIdea();
   };
 
+  handleClickDetailBtn = () => {}
+
   handleError = error => error;
 
   handleUpdate = (cache, data) => {
@@ -72,6 +74,11 @@ class IdeaCard extends React.PureComponent {
             />
           )}
         </Mutation>
+
+        <sc.detailBtn
+          type="button"
+          // onClick={e => this.handleClickDeleteBtn(e, deleteIdea)}
+        />
 
         <Mutation
           mutation={UPDATE_IDEA_MUTATION}
