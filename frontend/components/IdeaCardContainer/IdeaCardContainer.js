@@ -20,9 +20,7 @@ const IdeaContainer = React.memo(() => {
 
   const handleFetchMore = (fetchMore, data) => {
     fetchMore({
-      variables: {
-        after: data.currentUserPaginatedIdeas.pageInfo.endCursor
-      },
+      variables: { after: data.currentUserPaginatedIdeas.pageInfo.endCursor },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         const moreEdges = fetchMoreResult.currentUserPaginatedIdeas.edges;
         const nextPageInfo = fetchMoreResult.currentUserPaginatedIdeas.pageInfo;
@@ -63,7 +61,7 @@ const IdeaContainer = React.memo(() => {
                 {displayIdeaCards(data.currentUserPaginatedIdeas.edges)}
               </sc.ul>
               ) : (
-                <p>Think of something!</p>
+                <p>Add an Idea!</p>
               )}
 
             {data.currentUserPaginatedIdeas &&
