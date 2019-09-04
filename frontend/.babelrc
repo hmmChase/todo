@@ -15,7 +15,15 @@
             "pure": true,
             "transpileTemplateLiterals": true
           }
-        ]
+        ],
+        [
+          "import",
+          {
+            "libraryName": "antd",
+            "style": "css"
+          }
+        ],
+        // "add-react-displayname"
       ]
     },
     "production": {
@@ -33,7 +41,14 @@
             "pure": true,
             "transpileTemplateLiterals": true
           }
-        ]
+        ],
+        [
+          "import",
+          {
+            "libraryName": "antd",
+            "style": "css"
+          }
+        ],
       ]
     },
     "test": {
@@ -58,7 +73,14 @@
             "pure": true,
             "transpileTemplateLiterals": true
           }
-        ]
+        ],
+        [
+          "import",
+          {
+            "libraryName": "antd",
+            "style": "css"
+          }
+        ],
       ]
     }
   }

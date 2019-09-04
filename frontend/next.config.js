@@ -1,21 +1,48 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
+// https://nextjs.org/docs#customizing-webpack-config
+
 const path = require('path');
+const withPlugins = require('next-compose-plugins');
+const withCSS = require('@zeit/next-css');
 const DotenvWebpackPlugin = require('dotenv-webpack');
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 
-module.exports = withBundleAnalyzer({
+const nextConfig = {
   target: 'serverless',
 
-  webpack: config => {
-    config.plugins = [
-      ...(config.plugins || []),
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    config.plugins = config.plugins || [];
 
-      // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
+    // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
+    config.plugins.push(
       new DotenvWebpackPlugin({
         path: path.join(__dirname, '.env'),
         systemvars: true
       })
-    ];
+    );
+
+    // https://github.com/zeit/next.js/tree/canary/examples/with-ant-design
+    if (isServer) {
+      const antStyles = /antd\/.*?\/style\/css.*?/;
+      const origExternals = [...config.externals];
+      config.externals = [
+        (context, request, callback) => {
+          if (request.match(antStyles)) return callback();
+          if (typeof origExternals[0] === 'function') {
+            origExternals[0](context, request, callback);
+          } else {
+            callback();
+          }
+        },
+        ...(typeof origExternals[0] === 'function' ? [] : origExternals)
+      ];
+
+      config.module.rules.unshift({
+        test: antStyles,
+        use: 'null-loader'
+      });
+    }
 
     return config;
   },
@@ -33,4 +60,6 @@ module.exports = withBundleAnalyzer({
       reportFilename: '../bundles/client.html'
     }
   }
-});
+};
+
+module.exports = withPlugins([withCSS, withBundleAnalyzer], nextConfig);
