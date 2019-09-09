@@ -1,12 +1,24 @@
+import Page from '../containers/Page/Page';
 import Head from '../components/Head/Head';
-import Page from '../components/Page/Page';
-import Home from '../components/Home/Home';
+import HeaderIndex from '../components/HeaderIndex/HeaderIndex';
+import IdeaCardList from '../components/IdeaCardList/IdeaCardList';
+import * as sc from '../components/Styled/layout.style';
 
 const IndexPage = React.memo(() => (
   <Page>
-    <Head title="Home" />
+    <sc.AntLayout>
+      <Head title="Home" />
 
-    <Home />
+      <sc.AntHeader>
+        <HeaderIndex />
+      </sc.AntHeader>
+
+      <sc.AntContent>
+        <IdeaCardList />
+      </sc.AntContent>
+
+      <sc.AntFooter />
+    </sc.AntLayout>
   </Page>
 ));
 

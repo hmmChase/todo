@@ -5,7 +5,6 @@ import DisplayLoading from '../../components/DisplayLoading/DisplayLoading';
 import DisplayError from '../../components/DisplayError/DisplayError';
 import SignOn from '../../components/SignOn/SignOn';
 import { IS_LOGGED_IN } from '../../graphql/queries';
-import * as sc from './Page.style';
 
 const Authenticated = React.memo(props => props.children);
 
