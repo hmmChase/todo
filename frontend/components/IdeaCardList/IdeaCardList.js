@@ -8,9 +8,9 @@ import DisplayError from '../DisplayError/DisplayError';
 import IdeaCard from '../IdeaCard/IdeaCard';
 import { CURRENT_USER_PAGINATED_IDEAS } from '../../graphql/queries';
 import { pageSize } from '../../config';
-import * as sc from './IdeaCardContainer.style';
+import * as sc from './IdeaCardList.style';
 
-const IdeaContainer = React.memo(() => {
+const IdeaCardList = React.memo(() => {
   const displayIdeaCards = ideas =>
     ideas.map(idea => (
       <IdeaCard key={`ideaCard${idea.node.id}`} {...idea.node} />
@@ -47,19 +47,19 @@ const IdeaContainer = React.memo(() => {
       query={CURRENT_USER_PAGINATED_IDEAS}
       variables={{ first: pageSize }}
       onError={handleError}
+      notifyOnNetworkStatusChange
     >
       {({ loading, error, data, fetchMore }) => {
-        if (loading) return <DisplayLoading />;
         if (error) return <DisplayError error={error} />;
 
         return (
-          <sc.IdeaContainer>
+          <sc.IdeaCardList>
             {data.currentUserPaginatedIdeas &&
             data.currentUserPaginatedIdeas.edges &&
             data.currentUserPaginatedIdeas.edges.length ? (
-              <sc.ul>
+              <sc.IdeaList>
                 {displayIdeaCards(data.currentUserPaginatedIdeas.edges)}
-              </sc.ul>
+              </sc.IdeaList>
               ) : (
                 <p>Add an Idea!</p>
               )}
@@ -67,18 +67,19 @@ const IdeaContainer = React.memo(() => {
             {data.currentUserPaginatedIdeas &&
               data.currentUserPaginatedIdeas.pageInfo &&
               data.currentUserPaginatedIdeas.pageInfo.hasNextPage && (
-                <sc.loadMoreBtn
-                  type="button"
+                <sc.LoadMoreBtn
+                  type="primary"
+                  loading={loading}
                   onClick={() => handleFetchMore(fetchMore, data)}
                 >
                   Load More
-                </sc.loadMoreBtn>
+                </sc.LoadMoreBtn>
             )}
-          </sc.IdeaContainer>
+          </sc.IdeaCardList>
         );
       }}
     </Query>
   );
 });
 
-export default IdeaContainer;
+export default IdeaCardList;

@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 
-import DisplayLoading from '../DisplayLoading/DisplayLoading';
-import DisplayError from '../DisplayError/DisplayError';
-import Layout from '../Layout/Layout';
-import SignOn from '../SignOn/SignOn';
+import DisplayLoading from '../../components/DisplayLoading/DisplayLoading';
+import DisplayError from '../../components/DisplayError/DisplayError';
+import SignOn from '../../components/SignOn/SignOn';
 import { IS_LOGGED_IN } from '../../graphql/queries';
+import * as sc from './Page.style';
 
-const Authenticated = React.memo(props => <Layout {...props} />);
+const Authenticated = React.memo(props => props.children);
 
 const UnAuthenticated = React.memo(() => <SignOn />);
 

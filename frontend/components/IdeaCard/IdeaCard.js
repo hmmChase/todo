@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import { Mutation } from '@apollo/react-components';
 import debounce from 'lodash.debounce';
 
@@ -9,6 +10,11 @@ import {
 } from '../../graphql/queries';
 import { pageSize } from '../../config';
 import * as sc from './IdeaCard.style';
+
+// https://github.com/zeit/next.js/issues/7915
+const DetailIcon = React.forwardRef((props, ref) => (
+  <sc.DetailIcon {...props} forwardedRef={ref} />
+));
 
 class IdeaCard extends React.PureComponent {
   state = { content: this.props.content };
@@ -24,8 +30,6 @@ class IdeaCard extends React.PureComponent {
     e.target.disabled = true;
     deleteIdea();
   };
-
-  handleClickDetailBtn = () => {}
 
   handleError = error => error;
 
@@ -60,7 +64,15 @@ class IdeaCard extends React.PureComponent {
 
   render() {
     return (
-      <sc.li>
+      <sc.LI>
+        <Link
+          prefetch
+          href={{ pathname: '/idea', query: { id: this.props.id } }}
+          passHref
+        >
+          <DetailIcon />
+        </Link>
+
         <Mutation
           mutation={DELETE_IDEA_MUTATION}
           variables={{ id: this.props.id }}
@@ -68,17 +80,11 @@ class IdeaCard extends React.PureComponent {
           update={this.handleUpdate}
         >
           {deleteIdea => (
-            <sc.deleteBtn
-              type="button"
+            <sc.DeletIcon
               onClick={e => this.handleClickDeleteBtn(e, deleteIdea)}
             />
           )}
         </Mutation>
-
-        <sc.detailBtn
-          type="button"
-          // onClick={e => this.handleClickDeleteBtn(e, deleteIdea)}
-        />
 
         <Mutation
           mutation={UPDATE_IDEA_MUTATION}
@@ -86,14 +92,13 @@ class IdeaCard extends React.PureComponent {
           onError={this.handleError}
         >
           {updateIdea => (
-            <sc.ideaInput
-              type="text"
+            <sc.IdeaInput
               value={this.state.content}
               onChange={e => this.handleChangeideaInput(e, updateIdea)}
             />
           )}
         </Mutation>
-      </sc.li>
+      </sc.LI>
     );
   }
 }

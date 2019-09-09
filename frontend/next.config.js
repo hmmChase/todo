@@ -26,6 +26,7 @@ const nextConfig = {
     if (isServer) {
       const antStyles = /antd\/.*?\/style\/css.*?/;
       const origExternals = [...config.externals];
+
       config.externals = [
         (context, request, callback) => {
           if (request.match(antStyles)) return callback();
@@ -38,10 +39,7 @@ const nextConfig = {
         ...(typeof origExternals[0] === 'function' ? [] : origExternals)
       ];
 
-      config.module.rules.unshift({
-        test: antStyles,
-        use: 'null-loader'
-      });
+      config.module.rules.unshift({ test: antStyles, use: 'null-loader' });
     }
 
     return config;

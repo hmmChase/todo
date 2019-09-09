@@ -22,7 +22,7 @@
             "libraryName": "antd",
             "style": "css"
           }
-        ],
+        ]
         // "add-react-displayname"
       ]
     },
@@ -48,7 +48,7 @@
             "libraryName": "antd",
             "style": "css"
           }
-        ],
+        ]
       ]
     },
     "test": {
@@ -80,7 +80,7 @@
             "libraryName": "antd",
             "style": "css"
           }
-        ],
+        ]
       ]
     }
   }
