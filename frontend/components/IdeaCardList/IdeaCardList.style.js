@@ -11,8 +11,5 @@ export const IdeaList = styled(List)``;
 
 export const LoadMoreBtn = styled(Button)`
   align-self: center;
-
-  &:hover {
-    border: 3px solid ${props => props.theme.color.black};
-  }
+  border-radius: 4px;
 `;

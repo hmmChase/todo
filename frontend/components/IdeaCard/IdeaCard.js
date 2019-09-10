@@ -64,7 +64,7 @@ class IdeaCard extends React.PureComponent {
 
   render() {
     return (
-      <sc.LI>
+      <sc.IdeaCard>
         <Link
           prefetch
           href={{ pathname: '/idea', query: { id: this.props.id } }}
@@ -80,7 +80,7 @@ class IdeaCard extends React.PureComponent {
           update={this.handleUpdate}
         >
           {deleteIdea => (
-            <sc.DeletIcon
+            <sc.DeleteIcon
               onClick={e => this.handleClickDeleteBtn(e, deleteIdea)}
             />
           )}
@@ -98,7 +98,7 @@ class IdeaCard extends React.PureComponent {
             />
           )}
         </Mutation>
-      </sc.LI>
+      </sc.IdeaCard>
     );
   }
 }

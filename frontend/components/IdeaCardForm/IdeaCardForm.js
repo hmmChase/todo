@@ -70,23 +70,27 @@ class IdeaCardForm extends React.PureComponent {
         update={this.handleUpdate}
       >
         {createIdea => (
-          <sc.form
+          <sc.IdeaCardForm
             onSubmit={event => this.handleSubmitIdeaForm(event, createIdea)}
           >
-            <img src="static/ideabox.png" alt="ideabox" />
-
-            <textarea
+            {/* <sc.AntFormItem> */}
+            <sc.IdeaTextArea
               name="idea"
               type="text"
               placeholder="What's on your mind?"
               value={this.state.idea}
               onChange={event => this.handleChangeIdeaInput(event)}
             />
+            {/* </sc.AntFormItem> */}
 
-            <button type="submit" disabled={this.state.isSubmitDisabled}>
+            <sc.BoxImg src="static/ideabox.png" alt="ideabox" />
+
+            {/* <sc.AntFormItem> */}
+            <sc.SubmitBtn disabled={this.state.isSubmitDisabled}>
               Add Idea
-            </button>
-          </sc.form>
+            </sc.SubmitBtn>
+            {/* </sc.AntFormItem> */}
+          </sc.IdeaCardForm>
         )}
       </Mutation>
     );

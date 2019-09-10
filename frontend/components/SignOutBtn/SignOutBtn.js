@@ -1,9 +1,9 @@
 import { ApolloConsumer, Mutation } from '@apollo/react-components';
 
 import { SIGN_OUT_MUTATION } from '../../graphql/queries';
-import * as sc from './SignOut.style';
+import * as sc from './SignOutBtn.style';
 
-const SignOut = React.memo(() => {
+const SignOutBtn = React.memo(() => {
   const handleClickBtn = signOut => signOut();
 
   const handleError = error => error;
@@ -23,13 +23,13 @@ const SignOut = React.memo(() => {
           onCompleted={() => handleCompleted(apolloClient)}
         >
           {(signOut, { loading }) => (
-            <sc.signOutBtn
+            <sc.SignOutBtn
               disabled={loading}
               aria-busy={loading}
               onClick={() => handleClickBtn(signOut, apolloClient)}
             >
               Sign Out
-            </sc.signOutBtn>
+            </sc.SignOutBtn>
           )}
         </Mutation>
       )}
@@ -37,4 +37,4 @@ const SignOut = React.memo(() => {
   );
 });
 
-export default SignOut;
+export default SignOutBtn;

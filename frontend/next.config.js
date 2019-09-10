@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
+
 // https://nextjs.org/docs#customizing-webpack-config
 
 const fs = require('fs');

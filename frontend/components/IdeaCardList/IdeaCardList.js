@@ -1,6 +1,3 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable no-underscore-dangle */
-
 import { Query } from 'react-apollo';
 
 import DisplayLoading from '../DisplayLoading/DisplayLoading';
@@ -54,9 +51,9 @@ const IdeaCardList = React.memo(() => {
 
         return (
           <sc.IdeaCardList>
-            {data.currentUserPaginatedIdeas &&
-            data.currentUserPaginatedIdeas.edges &&
-            data.currentUserPaginatedIdeas.edges.length ? (
+            {data.currentUserPaginatedIdeas
+            && data.currentUserPaginatedIdeas.edges
+            && data.currentUserPaginatedIdeas.edges.length ? (
               <sc.IdeaList>
                 {displayIdeaCards(data.currentUserPaginatedIdeas.edges)}
               </sc.IdeaList>
@@ -64,9 +61,9 @@ const IdeaCardList = React.memo(() => {
                 <p>Add an Idea!</p>
               )}
 
-            {data.currentUserPaginatedIdeas &&
-              data.currentUserPaginatedIdeas.pageInfo &&
-              data.currentUserPaginatedIdeas.pageInfo.hasNextPage && (
+            {data.currentUserPaginatedIdeas
+              && data.currentUserPaginatedIdeas.pageInfo
+              && data.currentUserPaginatedIdeas.pageInfo.hasNextPage && (
                 <sc.LoadMoreBtn
                   type="primary"
                   loading={loading}

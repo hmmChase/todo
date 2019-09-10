@@ -1,12 +1,12 @@
-import SignOut from '../SignOut/SignOut';
+import SignOutBtn from '../SignOutBtn/SignOutBtn';
 import IdeaCardForm from '../IdeaCardForm/IdeaCardForm';
 import * as sc from './HeaderIndex.style';
 
 const HeaderIndex = React.memo(() => (
   <sc.HeaderIndex>
-    <sc.headerH1>Starter</sc.headerH1>
+    <sc.Title>Starter</sc.Title>
 
-    <SignOut />
+    <SignOutBtn />
 
     <IdeaCardForm />
   </sc.HeaderIndex>

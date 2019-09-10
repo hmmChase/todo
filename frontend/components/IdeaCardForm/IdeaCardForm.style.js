@@ -1,43 +1,42 @@
 import styled from 'styled-components';
+import { Form, Input, Button } from 'antd';
 
-export const form = styled.form`
+export const IdeaCardForm = styled(Form)`
   display: flex;
-  grid-column: span 2;
   position: relative;
   width: 100%;
+`;
 
-  > img {
-    left: 10px;
-    position: absolute;
-    top: -30px;
-    width: 50px;
-  }
+export const BoxImg = styled.img`
+  left: 10px;
+  position: absolute;
+  top: -30px;
+  width: 50px;
+`;
 
-  > textarea {
+export const IdeaFormItem = styled(Form.Item)``;
+
+export const IdeaTextArea = styled(Input.TextArea)`
+  margin-bottom: 0 !important;
+  border: none;
+  border-right: 1px solid black;
+
+  &:hover {
     border: none;
-    margin-right: 1px;
-    min-height: 56px;
-    outline: none;
-    padding: 10px;
-    resize: vertical;
-    width: 100%;
+    border-right: 1px solid black;
   }
 
-  > button {
-    background-color: ${props => props.theme.color.yellow_light};
+  &:focus {
     border: none;
-    cursor: pointer;
-    outline: none;
-    padding: 0;
-
-    &:active {
-      background-color: ${props => props.theme.color.yellow_bright};
-    }
+    border-right: 1px solid black;
+    box-shadow: none;
   }
+`;
 
-  @media screen and (min-width: 600px) {
-    > img {
-      left: 0;
-    }
-  }
+export const SubmitBtn = styled(Button).attrs({
+  type: 'primary',
+  htmlType: 'submit'
+})`
+  height: auto;
+  border: none;
 `;

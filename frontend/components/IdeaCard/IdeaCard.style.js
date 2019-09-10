@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import { Input, Icon, List } from 'antd';
+import { List, Input, Icon } from 'antd';
 
-export const LI = styled(List.Item)`
-  list-style: none;
-  margin: 15px;
-  position: relative;
+export const IdeaCard = styled(List.Item)`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 `;
 
 export const IdeaInput = styled(Input.TextArea).attrs({
-  autosize: { minRows: 1, maxRows: 50 }
+  autosize: { minRows: 1, maxRows: 10 }
 })``;
 
 export const DetailIcon = styled(Icon).attrs({
@@ -16,25 +16,11 @@ export const DetailIcon = styled(Icon).attrs({
   theme: 'twoTone'
 })`
   font-size: 1.2rem;
-  position: absolute;
-  right: 40px;
-  top: -10px;
-
-  &:hover {
-    border: 1px solid black;
-  }
 `;
 
-export const DeletIcon = styled(Icon).attrs({
+export const DeleteIcon = styled(Icon).attrs({
   type: 'close-square',
   theme: 'twoTone'
 })`
   font-size: 1.2rem;
-  position: absolute;
-  right: 10px;
-  top: -10px;
-
-  &:hover {
-    border: 1px solid black;
-  }
 `;
