@@ -20,7 +20,7 @@
           "import",
           {
             "libraryName": "antd",
-            "style": "css"
+            "style": true
           }
         ]
         // "add-react-displayname"
@@ -46,7 +46,7 @@
           "import",
           {
             "libraryName": "antd",
-            "style": "css"
+            "style": true
           }
         ]
       ]
@@ -78,7 +78,7 @@
           "import",
           {
             "libraryName": "antd",
-            "style": "css"
+            "style": true
           }
         ]
       ]
