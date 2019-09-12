@@ -1,19 +1,21 @@
 # import * from './schema_prep.graphql'
 
 type Query {
-  user(id: ID!, where: UserWhereUniqueInput): User
+  user(id: ID!): User
 
   users(orderBy: UserOrderByInput): [User!]!
 
   usersConnection: UserConnection!
 
-  idea(id: ID!, where: IdeaWhereUniqueInput): Idea
+  idea(id: ID!): Idea
 
   ideas(orderBy: IdeaOrderByInput): [Idea!]!
 
   ideasConnection: IdeaConnection!
 
   currentUser: User
+
+  currentUserIdea(id: ID!): Idea
 
   currentUserPaginatedIdeas(
     where: IdeaWhereInput

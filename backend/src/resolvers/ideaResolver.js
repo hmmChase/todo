@@ -22,9 +22,30 @@ export default {
       return ctx.prisma.query.ideasConnection({}, info);
     },
 
+    currentUserIdea: async (parent, args, ctx, info) => {
+      // If no token cookie present, return null
+      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token) return null;
+
+      // Verify cookie and decode payload
+      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
+
+      // Find and return idea matching ID
+      const idea = await ctx.prisma.query.idea(
+        { where: { id: args.id } },
+        info
+      );
+
+      // Verify current user owns idea
+      const ownsIdea = currentUser.user.id === idea.author.id;
+
+      // If not, throw error
+      if (!ownsIdea) throw new ForbiddenError("That's not your idea.");
+
+      return idea;
+    },
+
     currentUserPaginatedIdeas: async (parent, args, ctx, info) => {
-      console.log('TCL: args', args);
-      // if no token cookie present, return null
+      // If no token cookie present, return null
       if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token) return null;
 
       // Verify cookie and decode payload

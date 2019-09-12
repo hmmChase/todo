@@ -16,7 +16,7 @@ type Idea {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  author: User!
+  author: User! 
   content: String!
 }
 

@@ -46,6 +46,18 @@ export const IDEAS_CONNECTION_QUERY = gql`
   }
 `;
 
+export const CURRENT_USER_IDEA = gql`
+  query CURRENT_USER_IDEA($id: ID!) {
+    currentUserIdea(id: $id) {
+      id
+      content
+      author {
+        id
+      }
+    }
+  }
+`;
+
 export const CURRENT_USER_PAGINATED_IDEAS = gql`
   query CURRENT_USER_PAGINATED_IDEAS($first: Int, $after: String) {
     currentUserPaginatedIdeas(

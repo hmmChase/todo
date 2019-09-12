@@ -25,12 +25,21 @@ export const AntHeader = styled(Header)`
   border-bottom: 1px solid ${props => props.theme.color.black};
   display: flex;
   height: auto;
+  padding: 0;
   justify-content: center;
 `;
 
 export const AntContent = styled(Content)`
   display: flex;
   justify-content: center;
+  padding: 20px;
+
+  @media screen and (min-width: 940px) {
+    padding: 20px 0;
+  }
 `;
 
-export const AntFooter = styled(Footer)``;
+export const AntFooter = styled(Footer)`
+  display: flex;
+  justify-content: center;
+`;

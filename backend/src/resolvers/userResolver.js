@@ -35,7 +35,7 @@ export default {
       // Find and return user matching payload ID
       // If not found, return null
       return currentUser
-        ? ctx.prisma.query.user({ where: { id: currentUser.userId } }, info)
+        ? ctx.prisma.query.user({ where: { id: currentUser.user.id } }, info)
         : null;
     }
   },
