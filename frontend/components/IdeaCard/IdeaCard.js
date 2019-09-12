@@ -1,107 +1,19 @@
 import PropTypes from 'prop-types';
-import Link from 'next/link';
-import { Mutation } from '@apollo/react-components';
-import debounce from 'lodash.debounce';
 
-import {
-  CURRENT_USER_PAGINATED_IDEAS,
-  UPDATE_IDEA_MUTATION,
-  DELETE_IDEA_MUTATION
-} from '../../graphql/queries';
-import { pageSize } from '../../config';
+import DeleteIcon from '../DeleteIcon/DeleteIcon';
 import * as sc from './IdeaCard.style';
+import IdeaInput from '../IdeaInput.js/IdeaInput';
+import DetailIcon from '../DetailIcon/DetailIcon';
 
-// https://github.com/zeit/next.js/issues/7915
-const DetailIcon = React.forwardRef((props, ref) => (
-  <sc.DetailIcon {...props} forwardedRef={ref} />
+const IdeaCard = React.memo(props => (
+  <sc.IdeaCard>
+    <DetailIcon id={props.id} />
+
+    <DeleteIcon id={props.id} />
+
+    <IdeaInput id={props.id} content={props.content} />
+  </sc.IdeaCard>
 ));
-
-class IdeaCard extends React.PureComponent {
-  state = { content: this.props.content };
-
-  debounced = debounce(updateIdea => updateIdea(), 200);
-
-  handleChangeideaInput = (e, updateIdea) => {
-    this.setState({ content: e.target.value });
-    this.debounced(updateIdea);
-  };
-
-  handleClickDeleteBtn = (e, deleteIdea) => {
-    e.target.disabled = true;
-    deleteIdea();
-  };
-
-  handleError = error => error;
-
-  handleUpdate = (cache, data) => {
-    // Read the data from cache for this query
-    const ideasData = cache.readQuery({
-      query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: pageSize }
-    });
-
-    // Get id of idea to delete
-    const ideaId = data.data.deleteIdea.id;
-
-    // Remove idea
-    const newIdeas = ideasData.currentUserPaginatedIdeas.edges.filter(
-      idea => idea.node.id !== ideaId
-    );
-
-    // Write data back to the cache
-    cache.writeQuery({
-      query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: pageSize },
-      data: {
-        ...ideasData,
-        currentUserPaginatedIdeas: {
-          ...ideasData.currentUserPaginatedIdeas,
-          edges: newIdeas
-        }
-      }
-    });
-  };
-
-  render() {
-    return (
-      <sc.IdeaCard>
-        <Link
-          prefetch
-          href={{ pathname: '/idea', query: { id: this.props.id } }}
-          passHref
-        >
-          <DetailIcon />
-        </Link>
-
-        <Mutation
-          mutation={DELETE_IDEA_MUTATION}
-          variables={{ id: this.props.id }}
-          onError={this.handleError}
-          update={this.handleUpdate}
-        >
-          {deleteIdea => (
-            <sc.DeleteIcon
-              onClick={e => this.handleClickDeleteBtn(e, deleteIdea)}
-            />
-          )}
-        </Mutation>
-
-        <Mutation
-          mutation={UPDATE_IDEA_MUTATION}
-          variables={{ id: this.props.id, content: this.state.content }}
-          onError={this.handleError}
-        >
-          {updateIdea => (
-            <sc.IdeaInput
-              value={this.state.content}
-              onChange={e => this.handleChangeideaInput(e, updateIdea)}
-            />
-          )}
-        </Mutation>
-      </sc.IdeaCard>
-    );
-  }
-}
 
 IdeaCard.propTypes = {
   id: PropTypes.string.isRequired,
