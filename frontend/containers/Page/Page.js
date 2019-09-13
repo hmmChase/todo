@@ -12,7 +12,7 @@ const Page = React.memo(props => (
       if (loading) return <DisplayLoading />;
       if (error) return <DisplayError error={error} />;
 
-      return data.isLoggedIn ? props.children : <SignOn />;
+      return data && data.isLoggedIn ? props.children : <SignOn />;
     }}
   </Query>
 ));
