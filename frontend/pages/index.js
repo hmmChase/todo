@@ -1,7 +1,8 @@
 import Page from '../containers/Page/Page';
 import Head from '../components/Head/Head';
-import HeaderIndex from '../components/HeaderIndex/HeaderIndex';
-import IdeaCardList from '../components/IdeaCardList/IdeaCardList';
+import HeaderIndex from '../containers/HeaderIndex/HeaderIndex';
+import IdeaList from '../components/IdeaList/IdeaList';
+import Footer from '../components/Footer/Footer';
 import * as sc from '../components/Styled/layout.style';
 
 const IndexPage = React.memo(() => (
@@ -14,10 +15,12 @@ const IndexPage = React.memo(() => (
       </sc.AntHeader>
 
       <sc.AntContent>
-        <IdeaCardList />
+        <IdeaList />
       </sc.AntContent>
 
-      <sc.AntFooter />
+      <sc.AntFooter>
+        <Footer />
+      </sc.AntFooter>
     </sc.AntLayout>
   </Page>
 ));

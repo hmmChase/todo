@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import SignOutBtn from '../SignOutBtn/SignOutBtn';
+import SignOutBtn from '../../components/SignOutBtn/SignOutBtn';
 import * as sc from './HeaderDetail.style';
 
 const HeaderDetail = React.memo(props => (
