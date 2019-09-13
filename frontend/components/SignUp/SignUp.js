@@ -39,7 +39,7 @@ class SignUp extends React.PureComponent {
 
                 <label htmlFor="email">
                   Email
-                  <sc.inputText
+                  <sc.InputText
                     type="email"
                     name="email"
                     placeholder="email"

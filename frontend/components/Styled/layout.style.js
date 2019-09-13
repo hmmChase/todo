@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Layout } from 'antd';
 
 import { HeaderIndex } from '../../containers/HeaderIndex/HeaderIndex.style';
-import { IdeaList } from '../IdeaList/IdeaList.style';
+import { Ideas } from '../Ideas/Ideas.style';
 
 const { Header, Content, Footer } = Layout;
 
@@ -14,7 +14,7 @@ export const AntLayout = styled(Layout)`
     width: 100%;
   }
 
-  ${IdeaList} {
+  ${Ideas} {
     max-width: 900px;
     width: 100%;
   }

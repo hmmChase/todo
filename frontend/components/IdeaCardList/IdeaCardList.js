@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 
 import IdeaCard from '../../containers/IdeaCard/IdeaCard';
-import * as sc from './CardList.style';
+import * as sc from './IdeaCardList.style';
 
-const CardList = React.memo(props => {
+const IdeaCardList = React.memo(props => {
   const displayIdeaCards = props.ideas.map(idea => (
     <IdeaCard key={`ideaCard${idea.node.id}`} {...idea.node} />
   ));
 
-  return <sc.CardList>{displayIdeaCards}</sc.CardList>;
+  return <sc.IdeaCardList>{displayIdeaCards}</sc.IdeaCardList>;
 });
 
-CardList.propTypes = {
+IdeaCardList.propTypes = {
   ideas: PropTypes.arrayOf(
     PropTypes.shape({
       node: PropTypes.shape({
@@ -25,4 +25,4 @@ CardList.propTypes = {
   ).isRequired
 };
 
-export default CardList;
+export default IdeaCardList;

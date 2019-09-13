@@ -1,7 +1,7 @@
 import Page from '../containers/Page/Page';
 import Head from '../components/Head/Head';
 import HeaderIndex from '../containers/HeaderIndex/HeaderIndex';
-import IdeaList from '../components/IdeaList/IdeaList';
+import Ideas from '../components/Ideas/Ideas';
 import Footer from '../components/Footer/Footer';
 import * as sc from '../components/Styled/layout.style';
 
@@ -15,7 +15,7 @@ const IndexPage = React.memo(() => (
       </sc.AntHeader>
 
       <sc.AntContent>
-        <IdeaList />
+        <Ideas />
       </sc.AntContent>
 
       <sc.AntFooter>
