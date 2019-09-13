@@ -1,4 +1,4 @@
 import styled from 'styled-components';
 import { List } from 'antd';
 
-export const CardList = styled(List)``;
+export const IdeaCardList = styled(List)``;

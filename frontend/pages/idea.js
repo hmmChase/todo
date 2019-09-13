@@ -4,10 +4,7 @@ import Page from '../containers/Page/Page';
 import Head from '../components/Head/Head';
 import HeaderDetail from '../containers/HeaderDetail/HeaderDetail';
 import IdeaDetail from '../components/IdeaDetail/IdeaDetail';
-
-import isLoggedIn from '../utils/isLoggedIn';
-import redirect from '../utils/redirect';
-
+import Footer from '../components/Footer/Footer';
 import * as sc from '../components/Styled/layout.style';
 
 const IdeaPage = React.memo(props => (
@@ -23,16 +20,15 @@ const IdeaPage = React.memo(props => (
         <IdeaDetail ideaId={props.ideaId} />
       </sc.AntContent>
 
-      <sc.AntFooter />
+      <sc.AntFooter>
+        <Footer />
+      </sc.AntFooter>
     </sc.AntLayout>
   </Page>
 ));
 
 IdeaPage.getInitialProps = async ctx => {
   const ideaId = ctx.query.id;
-  // const loggedIn = await isLoggedIn(ctx.apolloClient);
-
-  // if (!loggedIn) redirect(ctx, '/');
 
   return { ideaId };
 };

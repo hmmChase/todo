@@ -2,13 +2,13 @@ import { Query } from 'react-apollo';
 
 // import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
-import CardList from '../CardList/CardList';
+import CardList from '../IdeaCardList/IdeaCardList';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import { CURRENT_USER_PAGINATED_IDEAS } from '../../graphql/queries';
 import { pageSize } from '../../config';
-import * as sc from './IdeaList.style';
+import * as sc from './Ideas.style';
 
-const IdeaList = React.memo(() => {
+const Ideas = React.memo(() => {
   const handleError = error => error;
 
   return (
@@ -23,8 +23,9 @@ const IdeaList = React.memo(() => {
         if (error) return <DisplayError error={error} />;
 
         return (
-          <sc.IdeaList>
-            {data.currentUserPaginatedIdeas
+          <sc.Ideas>
+            {data
+            && data.currentUserPaginatedIdeas
             && data.currentUserPaginatedIdeas.edges
             && data.currentUserPaginatedIdeas.edges.length ? (
               <CardList ideas={data.currentUserPaginatedIdeas.edges} />
@@ -32,7 +33,8 @@ const IdeaList = React.memo(() => {
                 <p>Add an Idea!</p>
               )}
 
-            {data.currentUserPaginatedIdeas
+            {data
+              && data.currentUserPaginatedIdeas
               && data.currentUserPaginatedIdeas.pageInfo
               && data.currentUserPaginatedIdeas.pageInfo.hasNextPage && (
                 <LoadMoreBtn
@@ -41,11 +43,11 @@ const IdeaList = React.memo(() => {
                   fetchMore={fetchMore}
                 />
             )}
-          </sc.IdeaList>
+          </sc.Ideas>
         );
       }}
     </Query>
   );
 });
 
-export default IdeaList;
+export default Ideas;

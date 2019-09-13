@@ -12,6 +12,7 @@ import {
 } from '../../graphql/queries';
 
 import * as sc from './IdeaDetail.style';
+import IdeaInput from '../IdeaInput.js/IdeaInput';
 
 const IdeaDetail = React.memo(props => {
   const handleError = error => error;
@@ -32,7 +33,10 @@ const IdeaDetail = React.memo(props => {
               <sc.BackBtn>{'<- Back'}</sc.BackBtn>
             </Link>
 
-            <p>{data.currentUserIdea.content}</p>
+            <IdeaInput
+              id={data.currentUserIdea.id}
+              content={data.currentUserIdea.content}
+            />
           </sc.IdeaDetail>
         );
       }}

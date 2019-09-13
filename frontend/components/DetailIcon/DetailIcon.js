@@ -9,7 +9,7 @@ const DetailIconRef = React.forwardRef((props, ref) => (
 ));
 
 const DetailIcon = React.memo(props => (
-  <Link prefetch href={{ pathname: '/idea', query: { id: props.id } }} passHref>
+  <Link href={{ pathname: '/idea', query: { id: props.id } }} passHref>
     <DetailIconRef />
   </Link>
 ));
