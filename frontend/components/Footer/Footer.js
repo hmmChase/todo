@@ -1,9 +1,9 @@
 import * as sc from './Footer.style';
 
 const Footer = React.memo(() => (
-  <sc.footer>
+  <sc.Footer>
     <p>Footer</p>
-  </sc.footer>
+  </sc.Footer>
 ));
 
 export default Footer;

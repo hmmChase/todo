@@ -1,17 +1,24 @@
 import styled from 'styled-components';
 
-import { SignOutBtn } from '../SignOutBtn/SignOutBtn.style';
+import { SignOutBtn } from '../../components/SignOutBtn/SignOutBtn.style';
+import { IdeaCardForm } from '../../components/IdeaCardForm/IdeaCardForm.style';
 
-export const HeaderDetail = styled.div`
+export const HeaderIndex = styled.div`
   align-items: center;
   display: grid;
-  grid-template-areas: 'left right';
+  grid-template-areas:
+    'top-left top-right'
+    'bottom bottom';
   justify-items: center;
   grid-template-columns: 1fr auto;
 
   > ${SignOutBtn} {
-    grid-area: right;
+    grid-area: top-right;
     margin-right: 20px;
+  }
+
+  > ${IdeaCardForm} {
+    grid-area: bottom;
   }
 
   @media screen and (min-width: 920px) {
@@ -26,7 +33,7 @@ export const Title = styled.h1`
   justify-self: flex-start;
   margin: 0 0 0 80px;
   font-family: 'Play', sans-serif;
-  grid-area: left;
+  grid-area: top-left;
   letter-spacing: 0.05rem;
   text-shadow: 1px 1px 1px ${props => props.theme.color.black};
 `;

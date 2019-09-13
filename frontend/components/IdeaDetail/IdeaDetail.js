@@ -5,7 +5,11 @@ import { Query } from 'react-apollo';
 import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
 
-import { CURRENT_USER_IDEA } from '../../graphql/queries';
+import {
+  CURRENT_USER_IDEA,
+  UPDATE_IDEA_MUTATION,
+  DELETE_IDEA_MUTATION
+} from '../../graphql/queries';
 
 import * as sc from './IdeaDetail.style';
 

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import Page from '../containers/Page/Page';
 import Head from '../components/Head/Head';
-import HeaderDetail from '../components/HeaderDetail/HeaderDetail';
+import HeaderDetail from '../containers/HeaderDetail/HeaderDetail';
 import IdeaDetail from '../components/IdeaDetail/IdeaDetail';
 
 import isLoggedIn from '../utils/isLoggedIn';

@@ -1,5 +1,5 @@
-import SignOutBtn from '../SignOutBtn/SignOutBtn';
-import IdeaCardForm from '../IdeaCardForm/IdeaCardForm';
+import SignOutBtn from '../../components/SignOutBtn/SignOutBtn';
+import IdeaCardForm from '../../components/IdeaCardForm/IdeaCardForm';
 import * as sc from './HeaderIndex.style';
 
 const HeaderIndex = React.memo(() => (

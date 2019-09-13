@@ -1,4 +1,5 @@
-import SignOutBtn from '../SignOutBtn/SignOutBtn';
+import PropTypes from 'prop-types';
+import SignOutBtn from '../../components/SignOutBtn/SignOutBtn';
 import * as sc from './HeaderDetail.style';
 
 const HeaderDetail = React.memo(props => (
@@ -8,5 +9,9 @@ const HeaderDetail = React.memo(props => (
     <SignOutBtn />
   </sc.HeaderDetail>
 ));
+
+HeaderDetail.propTypes = {
+  ideaId: PropTypes.string.isRequired
+};
 
 export default HeaderDetail;
