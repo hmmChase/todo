@@ -41,7 +41,7 @@ class SignIn extends React.PureComponent {
 
                 <label htmlFor="email">
                   Email
-                  <sc.inputText
+                  <sc.InputText
                     type="email"
                     name="email"
                     placeholder="email"
@@ -52,7 +52,7 @@ class SignIn extends React.PureComponent {
 
                 <label htmlFor="password">
                   Password
-                  <sc.inputText
+                  <sc.InputText
                     type="password"
                     name="password"
                     placeholder="password"
@@ -65,7 +65,7 @@ class SignIn extends React.PureComponent {
 
                 {error && <DisplayError error={error} />}
 
-                <sc.inputSubmit
+                <sc.InputSubmit
                   value="Sign In"
                   type="submit"
                   disabled={isInvalid}

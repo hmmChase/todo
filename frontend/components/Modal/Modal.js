@@ -16,11 +16,11 @@ const Modal = React.memo(props => {
   };
 
   return (
-    <sc.divModal>
-      <sc.divOuter onClick={() => props.setModal('')} />
+    <sc.Modal>
+      <sc.Outer onClick={() => props.setModal('')} />
 
-      <sc.divInner>{showModal()}</sc.divInner>
-    </sc.divModal>
+      <sc.Inner>{showModal()}</sc.Inner>
+    </sc.Modal>
   );
 });
 

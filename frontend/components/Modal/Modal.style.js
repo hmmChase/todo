@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const divModal = styled.div`
+export const Modal = styled.div`
   align-items: center;
   bottom: 0;
   display: flex;
@@ -11,7 +11,7 @@ export const divModal = styled.div`
   top: 0;
 `;
 
-export const divOuter = styled.div`
+export const Outer = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   bottom: 0;
   left: 0;
@@ -21,7 +21,7 @@ export const divOuter = styled.div`
   z-index: 666;
 `;
 
-export const divInner = styled.div`
+export const Inner = styled.div`
   background-color: white;
   padding: 10px;
   z-index: 999;

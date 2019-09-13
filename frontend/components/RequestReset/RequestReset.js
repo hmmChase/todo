@@ -33,7 +33,7 @@ class RequestReset extends React.PureComponent {
 
               <label htmlFor="email">
                 Email
-                <sc.inputText
+                <sc.InputText
                   type="email"
                   name="email"
                   placeholder="email"
@@ -50,7 +50,7 @@ class RequestReset extends React.PureComponent {
                 <p>Check your email for a reset link.</p>
               )}
 
-              <sc.inputSubmit
+              <sc.InputSubmit
                 value="Request Reset"
                 type="submit"
                 disabled={isInvalid}

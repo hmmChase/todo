@@ -1,21 +1,7 @@
-import styled from 'styled-components';
+import * as sc from './DisplayLoading.style';
 
-// import { ReactComponent as loadingIcon } from '../../static/loading.svg';
-
-const DisplayLoading = React.memo(() => <div>Loading...</div>);
+const DisplayLoading = React.memo(() => (
+  <sc.DisplayLoading>Loading...</sc.DisplayLoading>
+));
 
 export default DisplayLoading;
-
-// const spin = keyframes`
-//   to {
-//     transform: rotate(360deg);
-//   }
-// `;
-
-// const divLoading = styled.p`
-//   display: block;
-//   margin: auto;
-//   path: {
-//     transform-origin: center;
-//   }
-// `;

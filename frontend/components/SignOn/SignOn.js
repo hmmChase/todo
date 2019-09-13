@@ -3,19 +3,19 @@ import SignUp from '../SignUp/SignUp';
 import * as sc from './SignOn.style';
 
 const SignOn = React.memo(() => (
-  <sc.signOn>
-    <sc.logo>
+  <sc.SignOn>
+    <sc.Logo>
       <img src="static/ideabox.png" alt="ideabox" />
 
       <h1>Starter</h1>
-    </sc.logo>
+    </sc.Logo>
 
     <SignIn />
 
     <hr />
 
     <SignUp />
-  </sc.signOn>
+  </sc.SignOn>
 ));
 
 export default SignOn;

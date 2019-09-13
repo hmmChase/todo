@@ -5,26 +5,26 @@ import * as sc from './DisplayError.style';
 const DisplayError = React.memo(props => {
   if (props.error.graphQLErrors) {
     return (
-      <sc.ulError>
+      <sc.DisplayError>
         {props.error.graphQLErrors.map((error, i) => (
           <li key={`error${i}`}>{error.message}</li>
         ))}
-      </sc.ulError>
+      </sc.DisplayError>
     );
   }
 
   if (props.error.message) {
     return (
-      <sc.ulError>
+      <sc.DisplayError>
         <li>{props.error.message}</li>
-      </sc.ulError>
+      </sc.DisplayError>
     );
   }
 
   return (
-    <sc.ulError>
+    <sc.DisplayError>
       <li>Opps, something went wrong.</li>
-    </sc.ulError>
+    </sc.DisplayError>
   );
 });
 

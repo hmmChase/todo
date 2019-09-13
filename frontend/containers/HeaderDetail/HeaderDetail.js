@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import SignOutBtn from '../../components/SignOutBtn/SignOutBtn';
 import * as sc from './HeaderDetail.style';
 

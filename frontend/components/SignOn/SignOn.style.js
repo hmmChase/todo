@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { SignIn } from '../SignIn/SignIn.style';
 import { SignUp } from '../SignUp/SignUp.style';
 
-export const signOn = styled.section`
+export const SignOn = styled.section`
   background-color: ${props => props.theme.color.blue};
   display: grid;
   grid-template-areas:
@@ -62,7 +62,7 @@ export const signOn = styled.section`
   }
 `;
 
-export const logo = styled.header`
+export const Logo = styled.header`
   display: flex;
   grid-area: logo;
 
