@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
-export const aForgotPass = styled.a`
+export const ForgotPassDialog = styled.a`
   cursor: pointer;
 `;

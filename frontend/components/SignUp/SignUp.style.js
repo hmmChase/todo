@@ -4,21 +4,21 @@ export { form } from '../Styled/form.style';
 
 export const SignUp = styled.section``;
 
-export const inputText = styled.input`
+export const InputText = styled.input`
   margin: 5px;
 `;
 
-export const inputSubmit = styled.input`
+export const InputSubmit = styled.input`
   margin-top: 5px;
   margin-left: auto;
 `;
 
-export const h3PassTitle = styled.h3`
+export const PassTitle = styled.h3`
   margin-bottom: 0;
   font-size: 1rem;
 `;
 
-export const ulPassList = styled.ul`
+export const PassList = styled.ul`
   margin: 5px 0 0 0;
   padding-left: 20px;
 `;

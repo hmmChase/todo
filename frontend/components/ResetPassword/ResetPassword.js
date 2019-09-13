@@ -52,7 +52,7 @@ class ResetPassword extends React.PureComponent {
 
                 <label htmlFor="password">
                   Password
-                  <sc.inputText
+                  <sc.InputText
                     type="password"
                     name="password"
                     placeholder="password"
@@ -63,7 +63,7 @@ class ResetPassword extends React.PureComponent {
 
                 <label htmlFor="confirmPassword">
                   Confirm Password
-                  <sc.inputText
+                  <sc.InputText
                     type="password"
                     name="confirmPassword"
                     placeholder="confirmPassword"
@@ -80,16 +80,16 @@ class ResetPassword extends React.PureComponent {
 
                 {isTokenValid && error && <DisplayError error={error} />}
 
-                <sc.h3PassTitle>Password must contain:</sc.h3PassTitle>
+                <sc.PassTitle>Password must contain:</sc.PassTitle>
 
-                <sc.ulPassList aria-label="Password must contain:">
+                <sc.PassList aria-label="Password must contain:">
                   <li>at least 8 charactors</li>
                   <li>an uppercase letter</li>
                   <li>a lowercase letter</li>
                   <li>a number</li>
-                </sc.ulPassList>
+                </sc.PassList>
 
-                <sc.inputSubmit
+                <sc.InputSubmit
                   value="Reset Your Password"
                   type="submit"
                   disabled={isInvalidPass}

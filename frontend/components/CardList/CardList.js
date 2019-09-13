@@ -4,7 +4,6 @@ import IdeaCard from '../../containers/IdeaCard/IdeaCard';
 import * as sc from './CardList.style';
 
 const CardList = React.memo(props => {
-  console.log('TCL: props', props);
   const displayIdeaCards = props.ideas.map(idea => (
     <IdeaCard key={`ideaCard${idea.node.id}`} {...idea.node} />
   ));

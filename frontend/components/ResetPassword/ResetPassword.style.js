@@ -9,21 +9,21 @@ export const ResetPassword = styled.section`
   place-items: center center;
 `;
 
-export const inputText = styled.input`
+export const InputText = styled.input`
   margin: 5px;
 `;
 
-export const inputSubmit = styled.input`
+export const InputSubmit = styled.input`
   margin-left: auto;
   margin-top: 10px;
 `;
 
-export const h3PassTitle = styled.h3`
+export const PassTitle = styled.h3`
   font-size: 1rem;
   margin-bottom: 0;
 `;
 
-export const ulPassList = styled.ul`
+export const PassList = styled.ul`
   margin: 5px 0 0 0;
   padding-left: 20px;
 `;

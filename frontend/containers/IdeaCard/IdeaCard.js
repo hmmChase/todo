@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
-import DeleteIcon from '../../components/DeleteIcon/DeleteIcon';
-import * as sc from './IdeaCard.style';
-import IdeaInput from '../../components/IdeaInput.js/IdeaInput';
 import DetailIcon from '../../components/DetailIcon/DetailIcon';
+import DeleteIcon from '../../components/DeleteIcon/DeleteIcon';
+import IdeaInput from '../../components/IdeaInput.js/IdeaInput';
+import * as sc from './IdeaCard.style';
 
 const IdeaCard = React.memo(props => (
   <sc.IdeaCard>
