@@ -28,7 +28,10 @@ const Ideas = React.memo(() => {
             && data.currentUserPaginatedIdeas
             && data.currentUserPaginatedIdeas.edges
             && data.currentUserPaginatedIdeas.edges.length ? (
-              <CardList ideas={data.currentUserPaginatedIdeas.edges} />
+              <CardList
+                loading={loading}
+                ideas={data.currentUserPaginatedIdeas.edges}
+              />
               ) : (
                 <p>Add an Idea!</p>
               )}
