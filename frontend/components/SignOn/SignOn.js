@@ -1,20 +1,23 @@
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
+import { title } from '../../constants';
 import * as sc from './SignOn.style';
 
 const SignOn = React.memo(() => (
   <sc.SignOn>
-    <sc.Logo>
-      <img src="static/ideabox.png" alt="ideabox" />
+    <sc.Header>
+      <sc.Img src="static/ideabox.png" alt="ideabox" />
 
-      <h1>Starter</h1>
-    </sc.Logo>
+      <sc.Title>{title}</sc.Title>
+    </sc.Header>
 
-    <SignIn />
+    <sc.Content>
+      <SignIn />
 
-    <hr />
+      <sc.HR />
 
-    <SignUp />
+      <SignUp />
+    </sc.Content>
   </sc.SignOn>
 ));
 

@@ -5,7 +5,7 @@ import DisplayError from '../DisplayError/DisplayError';
 import CardList from '../IdeaCardList/IdeaCardList';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import { CURRENT_USER_PAGINATED_IDEAS } from '../../graphql/queries';
-import { pageSize } from '../../config';
+import { pageSize } from '../../constants';
 import * as sc from './Ideas.style';
 
 const Ideas = React.memo(() => {

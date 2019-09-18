@@ -1,24 +1,36 @@
 import styled from 'styled-components';
+import { Form, Input, Button, Icon, List, Typography } from 'antd';
 
-export { form } from '../Styled/form.style';
+export const SignUp = styled(Form)``;
 
-export const SignUp = styled.section``;
+export const TypographyText = styled(Typography.Text)``;
 
-export const InputText = styled.input`
-  margin: 5px;
+export const FormItem = styled(Form.Item)``;
+
+export const InputIcon = styled(Icon)``;
+
+export const InputEmail = styled(Input)``;
+
+export const InputPassword = styled(Input.Password)``;
+
+export const InputConfirmPassword = styled(Input.Password)``;
+
+export const PassList = styled(List)``;
+
+export const PassListTitle = styled.p`
+  margin: 0;
+  padding: 0;
 `;
 
-export const InputSubmit = styled.input`
-  margin-top: 5px;
-  margin-left: auto;
+export const ListIcon = styled(Icon)`
+  margin-right: 5px;
 `;
 
-export const PassTitle = styled.h3`
-  margin-bottom: 0;
-  font-size: 1rem;
+export const PassListItem = styled(List.Item)`
+  padding: 0;
 `;
 
-export const PassList = styled.ul`
-  margin: 5px 0 0 0;
-  padding-left: 20px;
+export const SubmitBtn = styled(Button)`
+  float: right;
+  margin-top: 20px;
 `;
