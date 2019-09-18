@@ -2,11 +2,10 @@ import PropTypes from 'prop-types';
 import { Mutation } from '@apollo/react-components';
 
 import DisplayError from '../DisplayError/DisplayError';
-import ForgotPassDialog from '../ForgotPassDialog/ForgotPassDialog';
 import { SIGN_IN_MUTATION } from '../../graphql/queries';
-import * as sc from './SignIn.style';
+import * as sc from './SignInForm.style';
 
-class SignIn extends React.PureComponent {
+class SignInForm extends React.PureComponent {
   componentDidMount() {
     // Disable submit button at the beginning
     this.props.form.validateFields();
@@ -48,7 +47,7 @@ class SignIn extends React.PureComponent {
         update={this.handleUpdate}
       >
         {(signIn, { loading, error }) => (
-          <sc.SignIn onSubmit={e => this.handleSubmitForm(e, signIn)}>
+          <sc.SignInForm onSubmit={e => this.handleSubmitForm(e, signIn)}>
             <h2>Sign In</h2>
 
             <sc.FormItem
@@ -113,16 +112,14 @@ class SignIn extends React.PureComponent {
                 Sign In
               </sc.SubmitBtn>
             </sc.FormItem>
-
-            <ForgotPassDialog />
-          </sc.SignIn>
+          </sc.SignInForm>
         )}
       </Mutation>
     );
   }
 }
 
-SignIn.propTypes = {
+SignInForm.propTypes = {
   form: PropTypes.shape({
     validateFields: PropTypes.func.isRequired,
     getFieldDecorator: PropTypes.func.isRequired,
@@ -133,4 +130,4 @@ SignIn.propTypes = {
   }).isRequired
 };
 
-export default sc.SignIn.create({ name: 'SignIn' })(SignIn);
+export default sc.SignInForm.create({ name: 'SignInForm' })(SignInForm);

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Form, Input, Button, Icon } from 'antd';
 
-export const SignIn = styled(Form)``;
+export const SignInForm = styled(Form)``;
 
 export const FormItem = styled(Form.Item)``;
 
