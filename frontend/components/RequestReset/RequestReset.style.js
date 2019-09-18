@@ -1,12 +1,12 @@
 import styled from 'styled-components';
+import { Form, Input, Button, Icon } from 'antd';
 
-export { form } from '../Styled/form.style';
+export const RequestReset = styled(Form)``;
 
-export const InputText = styled.input`
-  margin: 5px;
-`;
+export const FormItem = styled(Form.Item)``;
 
-export const InputSubmit = styled.input`
-  margin-left: auto;
-  margin-top: 10px;
-`;
+export const InputIcon = styled(Icon)``;
+
+export const InputEmail = styled(Input)``;
+
+export const SubmitBtn = styled(Button)``;

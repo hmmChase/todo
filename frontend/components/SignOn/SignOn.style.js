@@ -1,81 +1,71 @@
 import styled from 'styled-components';
+import { Layout } from 'antd';
 
 import { SignIn } from '../SignIn/SignIn.style';
 import { SignUp } from '../SignUp/SignUp.style';
 
-export const SignOn = styled.section`
+export const SignOn = styled(Layout)`
+  display: flex;
   background-color: ${props => props.theme.color.blue};
-  display: grid;
-  grid-template-areas:
-    'logo'
-    'signIn'
-    'hr'
-    'signUp';
-  grid-template-columns: auto;
-  grid-template-rows: auto auto 10px auto;
   min-height: 100vh;
-  place-items: center center;
+  justify-content: center;
+  align-items: center;
+`;
 
-  > ${SignIn} {
-    grid-area: signIn;
-  }
+export const Header = styled(Layout.Header)`
+  display: flex;
+  padding: 20px;
+`;
 
-  > ${SignUp} {
-    grid-area: signUp;
-  }
-
-  > hr {
-    background-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 0.75),
-      rgba(0, 0, 0, 0)
-    );
-    border: 0;
-    grid-area: hr;
-    height: 2px;
-    width: 300px;
-  }
+export const Content = styled(Layout.Content)`
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex-grow: 0;
 
   @media screen and (min-width: 900px) {
-    grid-template-areas:
-      'logo logo logo'
-      'signIn hr signUp';
-    grid-template-columns: auto 2px auto;
-    grid-template-rows: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 80%;
+    max-width: 900px;
 
     > ${SignIn} {
-      align-self: start;
+      width: 40%;
     }
 
     > ${SignUp} {
-      align-self: start;
-    }
-
-    > hr {
-      align-self: start;
-      position: relative;
-      right: 150px;
-      top: 150px;
-      transform: rotate(90deg);
+      width: 40%;
     }
   }
 `;
 
-export const Logo = styled.header`
-  display: flex;
-  grid-area: logo;
+export const Img = styled.img`
+  height: 4rem;
+`;
 
-  > h1 {
-    color: ${props => props.theme.color.yellow_bright};
-    font-family: 'Play', sans-serif;
-    font-size: 3rem;
-    letter-spacing: 0.2rem;
-    margin: 0;
-    text-shadow: 1px 1px ${props => props.theme.color.black};
-  }
+export const Title = styled.h1`
+  color: ${props => props.theme.color.yellow_bright};
+  font-family: 'Play', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 0.2rem;
+  margin: 0;
+  text-shadow: 1px 1px ${props => props.theme.color.black};
+`;
 
-  > img {
-    height: 4rem;
+export const HR = styled.hr`
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0)
+  );
+  border: 0;
+  height: 2px;
+  width: 300px;
+
+  @media screen and (min-width: 900px) {
+    position: absolute;
+    top: 150px;
+    transform: rotate(90deg);
   }
 `;

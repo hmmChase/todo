@@ -1,24 +1,42 @@
 import { Mutation } from 'react-apollo';
 
-import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
 import { REQUEST_RESET_MUTATION } from '../../graphql/queries';
 import * as sc from './RequestReset.style';
 
 class RequestReset extends React.PureComponent {
-  state = { email: '' };
+  componentDidMount() {
+    // Disable submit button at the beginning
+    this.props.form.validateFields();
+  }
 
-  handleChangeInput = e => this.setState({ [e.target.name]: e.target.value });
+  hasErrors = fieldsError =>
+    Object.keys(fieldsError).some(field => fieldsError[field]);
 
   handleSubmitForm = (e, requestReset) => {
     e.preventDefault();
-    requestReset();
+
+    this.props.form.validateFields((err, values) => {
+      requestReset({ variables: values });
+
+      this.props.form.resetFields();
+    });
   };
+
+  handleUpdate = cache => cache.writeData({ data: { isLoggedIn: true } });
 
   handleError = error => error;
 
   render() {
-    const isInvalid = this.state.email === '';
+    const {
+      getFieldDecorator,
+      getFieldsError,
+      getFieldError,
+      isFieldTouched
+    } = this.props.form;
+
+    // Only show error after a field is touched.
+    const emailError = isFieldTouched('email') && getFieldError('email');
 
     return (
       <Mutation
@@ -27,40 +45,42 @@ class RequestReset extends React.PureComponent {
         onError={this.handleError}
       >
         {(requestReset, { loading, error, called }) => (
-          <sc.form onSubmit={e => this.handleSubmitForm(e, requestReset)}>
-            <fieldset disabled={loading} aria-busy={loading}>
-              <h2>Request a password reset</h2>
-
-              <label htmlFor="email">
-                Email
-                <sc.InputText
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  value={this.state.email}
-                  onChange={this.handleChangeInput}
+          <sc.RequestReset
+            onSubmit={e => this.handleSubmitForm(e, requestReset)}
+          >
+            <sc.InputEmail
+              type="email"
+              placeholder="email"
+              onPressEnter={e => this.handleSubmitForm(e, signIn)}
+              prefix={(
+                <sc.InputIcon
+                  type="user"
+                  style={{ color: 'rgba(0,0,0,.25)' }}
                 />
-              </label>
+)}
+            />
 
-              {loading && <DisplayLoading />}
+            {error && <DisplayError error={error} />}
 
-              {error && <DisplayError error={error} />}
+            {!error && !loading && called && (
+              <p>Check your email for a reset link.</p>
+            )}
 
-              {!error && !loading && called && (
-                <p>Check your email for a reset link.</p>
-              )}
-
-              <sc.InputSubmit
-                value="Request Reset"
-                type="submit"
-                disabled={isInvalid}
-              />
-            </fieldset>
-          </sc.form>
+            <sc.FormItem>
+              <sc.SubmitBtn
+                loading={loading}
+                type="primary"
+                htmlType="submit"
+                disabled={this.hasErrors(getFieldsError())}
+              >
+                Submit
+              </sc.SubmitBtn>
+            </sc.FormItem>
+          </sc.RequestReset>
         )}
       </Mutation>
     );
   }
 }
 
-export default RequestReset;
+export default sc.RequestReset.create({ name: 'RequestReset' })(RequestReset);

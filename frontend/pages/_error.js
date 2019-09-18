@@ -1,10 +1,17 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { Button } from 'antd';
 
 const LinkHome = React.memo(() => (
   <Link href="/">
-    <a>Home</a>
+    <Button type="primary" ghost>
+      Home
+    </Button>
   </Link>
+
+  // <Button onClick={() => Router.push('/')} type="primary" ghost>
+  //   Home
+  // </Button>
 ));
 
 class ErrorPage extends React.PureComponent {
@@ -19,6 +26,9 @@ class ErrorPage extends React.PureComponent {
     let response;
 
     switch (statusCode) {
+      case 200:
+        break;
+
       case 404:
         response = (
           <>
@@ -65,7 +75,7 @@ class ErrorPage extends React.PureComponent {
 }
 
 ErrorPage.defaultProps = {
-  statusCode: null
+  statusCode: 200
 };
 
 ErrorPage.propTypes = {

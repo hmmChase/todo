@@ -24,7 +24,6 @@ export const AntHeader = styled(Header)`
   background-color: ${props => props.theme.color.blue};
   border-bottom: 1px solid ${props => props.theme.color.black};
   display: flex;
-  height: auto;
   padding: 0;
   justify-content: center;
 `;

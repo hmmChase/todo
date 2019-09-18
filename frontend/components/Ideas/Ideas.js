@@ -5,7 +5,7 @@ import DisplayError from '../DisplayError/DisplayError';
 import CardList from '../IdeaCardList/IdeaCardList';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import { CURRENT_USER_PAGINATED_IDEAS } from '../../graphql/queries';
-import { pageSize } from '../../config';
+import { pageSize } from '../../constants';
 import * as sc from './Ideas.style';
 
 const Ideas = React.memo(() => {
@@ -28,7 +28,10 @@ const Ideas = React.memo(() => {
             && data.currentUserPaginatedIdeas
             && data.currentUserPaginatedIdeas.edges
             && data.currentUserPaginatedIdeas.edges.length ? (
-              <CardList ideas={data.currentUserPaginatedIdeas.edges} />
+              <CardList
+                loading={loading}
+                ideas={data.currentUserPaginatedIdeas.edges}
+              />
               ) : (
                 <p>Add an Idea!</p>
               )}

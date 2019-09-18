@@ -5,7 +5,7 @@ import {
   CURRENT_USER_PAGINATED_IDEAS,
   DELETE_IDEA_MUTATION
 } from '../../graphql/queries';
-import { pageSize } from '../../config';
+import { pageSize } from '../../constants';
 import * as sc from './DeleteIcon.style';
 
 const DeleteIcon = React.memo(props => {
