@@ -33,10 +33,7 @@ export const IdeaTextArea = styled(Input.TextArea)`
   }
 `;
 
-export const SubmitBtn = styled(Button).attrs({
-  type: 'primary',
-  htmlType: 'submit'
-})`
+export const SubmitBtn = styled(Button)`
   height: auto;
   border: none;
 `;

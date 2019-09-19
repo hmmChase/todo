@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Layout } from 'antd';
 
-import { SignIn } from '../SignIn/SignIn.style';
+import { SignIn } from '../../containers/SignIn/SignIn.style';
 import { SignUp } from '../SignUp/SignUp.style';
 
 export const SignOn = styled(Layout)`

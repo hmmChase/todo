@@ -5,7 +5,12 @@ import * as sc from './DetailIcon.style';
 
 // https://github.com/zeit/next.js/issues/7915
 const DetailIconRef = React.forwardRef((props, ref) => (
-  <sc.DetailIcon {...props} forwardedRef={ref} />
+  <sc.DetailIcon
+    {...props}
+    forwardedRef={ref}
+    type="up-square"
+    theme="twoTone"
+  />
 ));
 
 const DetailIcon = React.memo(props => (

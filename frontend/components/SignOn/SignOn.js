@@ -1,4 +1,4 @@
-import SignIn from '../SignIn/SignIn';
+import SignIn from '../../containers/SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import { title } from '../../constants';
 import * as sc from './SignOn.style';

@@ -86,7 +86,11 @@ class IdeaCardForm extends React.PureComponent {
             <sc.BoxImg src="static/ideabox.png" alt="ideabox" />
 
             {/* <sc.AntFormItem> */}
-            <sc.SubmitBtn disabled={this.state.isSubmitDisabled}>
+            <sc.SubmitBtn
+              type="primary"
+              htmlType="submit"
+              disabled={this.state.isSubmitDisabled}
+            >
               Add Idea
             </sc.SubmitBtn>
             {/* </sc.AntFormItem> */}

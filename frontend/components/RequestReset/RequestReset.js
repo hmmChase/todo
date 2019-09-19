@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 
 import DisplayError from '../DisplayError/DisplayError';
@@ -48,17 +49,30 @@ class RequestReset extends React.PureComponent {
           <sc.RequestReset
             onSubmit={e => this.handleSubmitForm(e, requestReset)}
           >
-            <sc.InputEmail
-              type="email"
-              placeholder="email"
-              onPressEnter={e => this.handleSubmitForm(e, signIn)}
-              prefix={(
-                <sc.InputIcon
-                  type="user"
-                  style={{ color: 'rgba(0,0,0,.25)' }}
-                />
+            <sc.FormItem
+              validateStatus={emailError ? 'error' : ''}
+              help={emailError || ''}
+              hasFeedback
+            >
+              {getFieldDecorator('email', {
+                rules: [
+                  { required: true, message: 'Please enter your email' },
+                  { type: 'email', message: 'Not a valid email address' }
+                ]
+              })(
+                <sc.InputEmail
+                  type="email"
+                  placeholder="email"
+                  onPressEnter={e => this.handleSubmitForm(e, signIn)}
+                  prefix={(
+                    <sc.InputIcon
+                      type="user"
+                      style={{ color: 'rgba(0,0,0,.25)' }}
+                    />
 )}
-            />
+                />
+              )}
+            </sc.FormItem>
 
             {error && <DisplayError error={error} />}
 
@@ -82,5 +96,16 @@ class RequestReset extends React.PureComponent {
     );
   }
 }
+
+RequestReset.propTypes = {
+  form: PropTypes.shape({
+    validateFields: PropTypes.func.isRequired,
+    getFieldDecorator: PropTypes.func.isRequired,
+    getFieldsError: PropTypes.func.isRequired,
+    getFieldError: PropTypes.func.isRequired,
+    isFieldTouched: PropTypes.func.isRequired,
+    resetFields: PropTypes.func.isRequired
+  }).isRequired
+};
 
 export default sc.RequestReset.create({ name: 'RequestReset' })(RequestReset);

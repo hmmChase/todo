@@ -1,29 +1,19 @@
 import PropTypes from 'prop-types';
 
 import Page from '../containers/Page/Page';
-import Head from '../components/Head/Head';
+import Head from '../containers/Head/Head';
+import LayoutMain from '../containers/LayoutMain/LayoutMain';
 import HeaderDetail from '../containers/HeaderDetail/HeaderDetail';
 import IdeaDetail from '../components/IdeaDetail/IdeaDetail';
-import Footer from '../components/Footer/Footer';
-import * as sc from '../components/Styled/layout.style';
 
 const IdeaPage = React.memo(props => (
   <Page>
-    <sc.AntLayout>
-      <Head title="Idea Details" />
+    <Head title="Idea Detail" />
 
-      <sc.AntHeader>
-        <HeaderDetail ideaId={props.ideaId} />
-      </sc.AntHeader>
-
-      <sc.AntContent>
-        <IdeaDetail ideaId={props.ideaId} />
-      </sc.AntContent>
-
-      <sc.AntFooter>
-        <Footer />
-      </sc.AntFooter>
-    </sc.AntLayout>
+    <LayoutMain
+      header={<HeaderDetail ideaId={props.ideaId} />}
+      content={<IdeaDetail ideaId={props.ideaId} />}
+    />
   </Page>
 ));
 
