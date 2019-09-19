@@ -1,29 +1,34 @@
 import styled from 'styled-components';
+import { Form, Input, Button, Icon, List, Typography } from 'antd';
 
-export { form } from '../Styled/form.style';
+export const ResetPassword = styled(Form)``;
 
-export const ResetPassword = styled.section`
-  background-color: ${props => props.theme.color.blue};
-  display: grid;
-  min-height: 100vh;
-  place-items: center center;
+export const TypographyText = styled(Typography.Text)``;
+
+export const FormItem = styled(Form.Item)``;
+
+export const InputIcon = styled(Icon)``;
+
+export const InputPassword = styled(Input.Password)``;
+
+export const InputConfirmPassword = styled(Input.Password)``;
+
+export const PassList = styled(List)``;
+
+export const PassListTitle = styled.p`
+  margin: 0;
+  padding: 0;
 `;
 
-export const InputText = styled.input`
-  margin: 5px;
+export const PassListItem = styled(List.Item)`
+  padding: 0;
 `;
 
-export const InputSubmit = styled.input`
-  margin-left: auto;
-  margin-top: 10px;
+export const ListIcon = styled(Icon)`
+  margin-right: 5px;
 `;
 
-export const PassTitle = styled.h3`
-  font-size: 1rem;
-  margin-bottom: 0;
-`;
-
-export const PassList = styled.ul`
-  margin: 5px 0 0 0;
-  padding-left: 20px;
+export const SubmitBtn = styled(Button)`
+  float: right;
+  margin-top: 20px;
 `;
