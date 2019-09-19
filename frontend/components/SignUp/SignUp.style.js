@@ -22,12 +22,12 @@ export const PassListTitle = styled.p`
   padding: 0;
 `;
 
-export const ListIcon = styled(Icon)`
-  margin-right: 5px;
-`;
-
 export const PassListItem = styled(List.Item)`
   padding: 0;
+`;
+
+export const ListIcon = styled(Icon)`
+  margin-right: 5px;
 `;
 
 export const SubmitBtn = styled(Button)`

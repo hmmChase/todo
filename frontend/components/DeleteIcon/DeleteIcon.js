@@ -53,7 +53,11 @@ const DeleteIcon = React.memo(props => {
       update={handleUpdate}
     >
       {deleteIdea => (
-        <sc.DeleteIcon onClick={e => handleClickDeleteBtn(e, deleteIdea)} />
+        <sc.DeleteIcon
+          type="close-square"
+          theme="twoTone"
+          onClick={e => handleClickDeleteBtn(e, deleteIdea)}
+        />
       )}
     </Mutation>
   );

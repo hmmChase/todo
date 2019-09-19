@@ -26,6 +26,7 @@ class IdeaInput extends React.PureComponent {
       >
         {updateIdea => (
           <sc.IdeaInput
+            autosize={{ minRows: 1, maxRows: 10 }}
             value={this.state.content}
             onChange={e => this.handleChangeideaInput(e, updateIdea)}
           />
