@@ -77,7 +77,7 @@ class ResetPassword extends React.PureComponent {
               })(
                 <sc.InputPassword
                   placeholder="password"
-                  onPressEnter={e => this.handleSubmitForm(e, signUp)}
+                  onPressEnter={e => this.handleSubmitForm(e, resetPassword)}
                   prefix={(
                     <sc.InputIcon
                       type="lock"
@@ -100,7 +100,7 @@ class ResetPassword extends React.PureComponent {
               })(
                 <sc.InputConfirmPassword
                   placeholder="confirm password"
-                  onPressEnter={e => this.handleSubmitForm(e, signUp)}
+                  onPressEnter={e => this.handleSubmitForm(e, resetPassword)}
                   prefix={(
                     <sc.InputIcon
                       type="lock"
@@ -119,13 +119,12 @@ class ResetPassword extends React.PureComponent {
 
             {isTokenValid && error && <DisplayError error={error} />}
 
+            <sc.TypographyText strong>
+              {passwordRequirements.title}
+            </sc.TypographyText>
+
             <sc.PassList
               split={false}
-              header={(
-                <sc.PassListTitle>
-                  {passwordRequirements.title}
-                </sc.PassListTitle>
-)}
               dataSource={passwordRequirements.reqs}
               renderItem={item => (
                 <sc.PassListItem>
@@ -142,7 +141,7 @@ class ResetPassword extends React.PureComponent {
                 htmlType="submit"
                 disabled={this.hasErrors(getFieldsError())}
               >
-                Sign Up
+                Submit
               </sc.SubmitBtn>
             </sc.FormItem>
           </sc.ResetPassword>

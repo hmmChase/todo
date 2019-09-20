@@ -17,11 +17,6 @@ export const InputConfirmPassword = styled(Input.Password)``;
 
 export const PassList = styled(List)``;
 
-export const PassListTitle = styled.p`
-  margin: 0;
-  padding: 0;
-`;
-
 export const PassListItem = styled(List.Item)`
   padding: 0;
 `;

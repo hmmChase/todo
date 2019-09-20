@@ -63,7 +63,7 @@ class RequestReset extends React.PureComponent {
                 <sc.InputEmail
                   type="email"
                   placeholder="email"
-                  onPressEnter={e => this.handleSubmitForm(e, signIn)}
+                  onPressEnter={e => this.handleSubmitForm(e, requestReset)}
                   prefix={(
                     <sc.InputIcon
                       type="user"

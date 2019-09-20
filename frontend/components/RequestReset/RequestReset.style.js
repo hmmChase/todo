@@ -7,6 +7,10 @@ export const FormItem = styled(Form.Item)``;
 
 export const InputIcon = styled(Icon)``;
 
-export const InputEmail = styled(Input)``;
+export const InputEmail = styled(Input)`
+  max-width: 400px;
+`;
 
-export const SubmitBtn = styled(Button)``;
+export const SubmitBtn = styled(Button)`
+  float: right;
+`;

@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { Form, Input, Button, Icon, List, Typography } from 'antd';
 
-export const ResetPassword = styled(Form)``;
+export const ResetPassword = styled(Form)`
+  align-self: center;
+`;
 
 export const TypographyText = styled(Typography.Text)``;
 
@@ -9,9 +11,13 @@ export const FormItem = styled(Form.Item)``;
 
 export const InputIcon = styled(Icon)``;
 
-export const InputPassword = styled(Input.Password)``;
+export const InputPassword = styled(Input.Password)`
+  max-width: 300px;
+`;
 
-export const InputConfirmPassword = styled(Input.Password)``;
+export const InputConfirmPassword = styled(Input.Password)`
+  max-width: 300px;
+`;
 
 export const PassList = styled(List)``;
 
