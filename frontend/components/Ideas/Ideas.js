@@ -2,7 +2,7 @@ import { Query } from 'react-apollo';
 
 // import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
-import CardList from '../IdeaCardList/IdeaCardList';
+import IdeaCardList from '../IdeaCardList/IdeaCardList';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import { CURRENT_USER_PAGINATED_IDEAS } from '../../graphql/queries';
 import { pageSize } from '../../constants';
@@ -28,7 +28,7 @@ const Ideas = React.memo(() => {
             && data.currentUserPaginatedIdeas
             && data.currentUserPaginatedIdeas.edges
             && data.currentUserPaginatedIdeas.edges.length ? (
-              <CardList
+              <IdeaCardList
                 loading={loading}
                 ideas={data.currentUserPaginatedIdeas.edges}
               />

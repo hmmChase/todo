@@ -9,14 +9,10 @@ export const HeaderMain = styled.div`
   grid-template-areas:
     'top-left top-right'
     'bottom bottom';
-  justify-items: center;
   grid-template-columns: 1fr auto;
-  max-width: 900px;
-  width: 100%;
 
   > h1 {
     margin: 5px 0 5px 80px;
-    justify-self: flex-start;
   }
 
   > ${SignOutBtn} {

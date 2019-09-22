@@ -5,12 +5,18 @@ import * as sc from './LayoutMain.style';
 
 const LayoutMain = React.memo(props => (
   <sc.LayoutMain>
-    <sc.AntHeader>{props.header}</sc.AntHeader>
+    <sc.AntHeader>
+      <sc.Container>{props.header}</sc.Container>
+    </sc.AntHeader>
 
-    <sc.AntContent>{props.content}</sc.AntContent>
+    <sc.AntContent>
+      <sc.Container>{props.content}</sc.Container>
+    </sc.AntContent>
 
     <sc.AntFooter>
-      <Footer />
+      <sc.Container>
+        <Footer />
+      </sc.Container>
     </sc.AntFooter>
   </sc.LayoutMain>
 ));
