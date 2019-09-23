@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Form, Input, Button, Icon, List, Typography } from 'antd';
 
 export const ResetPassword = styled(Form)`
-  align-self: center;
+  /* align-self: center; */
 `;
 
 export const TypographyText = styled(Typography.Text)``;
@@ -35,6 +35,10 @@ export const ListIcon = styled(Icon)`
 `;
 
 export const SubmitBtn = styled(Button)`
-  float: right;
+  /* float: right; */
+  /* align-content: flex-end; */
+  /* justify-content: flex-end; */
+  /* align-items: flex-end; */
+  /* align-self: flex-end; */
   margin-top: 20px;
 `;

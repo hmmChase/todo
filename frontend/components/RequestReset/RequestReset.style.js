@@ -8,7 +8,7 @@ export const FormItem = styled(Form.Item)``;
 export const InputIcon = styled(Icon)``;
 
 export const InputEmail = styled(Input)`
-  max-width: 400px;
+  max-width: 300px;
 `;
 
 export const SubmitBtn = styled(Button)`
