@@ -9,9 +9,13 @@ export const FormItem = styled(Form.Item)``;
 
 export const InputIcon = styled(Icon)``;
 
-export const InputPassword = styled(Input.Password)``;
+export const InputPassword = styled(Input.Password)`
+  max-width: 300px;
+`;
 
-export const InputConfirmPassword = styled(Input.Password)``;
+export const InputConfirmPassword = styled(Input.Password)`
+  max-width: 300px;
+`;
 
 export const PassList = styled(List)``;
 
@@ -29,6 +33,10 @@ export const ListIcon = styled(Icon)`
 `;
 
 export const SubmitBtn = styled(Button)`
-  float: right;
+  /* float: right; */
+  /* align-content: flex-end; */
+  /* justify-content: flex-end; */
+  /* align-items: flex-end; */
+  /* align-self: flex-end; */
   margin-top: 20px;
 `;

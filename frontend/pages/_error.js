@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Button } from 'antd';
 
+import Head from '../containers/Head/Head';
+import LayoutMain from '../containers/LayoutMain/LayoutMain';
+
 const LinkHome = React.memo(() => (
   <Link href="/">
     <Button type="primary" ghost>
@@ -14,68 +17,63 @@ const LinkHome = React.memo(() => (
   // </Button>
 ));
 
+const Error = React.memo(({ message }) => (
+  <>
+    <Head title="Error" />
+
+    <LayoutMain header={<h1>{message}</h1>} content={<LinkHome />} />
+  </>
+));
+
+Error.propTypes = {
+  message: PropTypes.string.isRequired
+};
+
 class ErrorPage extends React.PureComponent {
   static getInitialProps({ res, err }) {
-    const statusCode = res.statusCode || err.statusCode || null;
+    // const statusCode = res.statusCode || err.statusCode || null;
+
+    let statusCode;
+
+    if (res && res.statusCode) {
+      statusCode = res.statusCode;
+    } else if (err && err.statusCode) {
+      statusCode = err.statusCode;
+    } else {
+      statusCode = null;
+    }
 
     return { statusCode };
   }
 
   render() {
     const { statusCode } = this.props;
-    let response;
+    let error;
 
     switch (statusCode) {
-      case 200:
-        break;
-
       case 404:
-        response = (
-          <>
-            <h3>Page Not Found</h3>
-
-            <LinkHome />
-          </>
-        );
+        error = <Error message="Page Not Found" />;
         break;
 
       case 500:
-        response = (
-          <>
-            <h3>Internal Server Error</h3>
-
-            <LinkHome />
-          </>
-        );
+        error = <Error message="Internal Server Error" />;
         break;
 
       case true:
-        response = (
-          <>
-            <h3>{`HTTP ${statusCode} Error`}</h3>
-
-            <LinkHome />
-          </>
-        );
+        error = <Error message={`HTTP ${statusCode} Error`} />;
         break;
 
       default:
-        response = (
-          <>
-            <h3>Unknown error, no status code to report.</h3>
-
-            <LinkHome />
-          </>
-        );
+        error = <Error message="Error" />;
         break;
     }
 
-    return response;
+    return error;
   }
 }
 
 ErrorPage.defaultProps = {
-  statusCode: 200
+  statusCode: null
 };
 
 ErrorPage.propTypes = {

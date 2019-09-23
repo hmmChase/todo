@@ -125,13 +125,12 @@ class SignUp extends React.PureComponent {
 
             {error && <DisplayError error={error} />}
 
+            <sc.TypographyText strong>
+              {passwordRequirements.title}
+            </sc.TypographyText>
+
             <sc.PassList
               split={false}
-              header={(
-                <sc.PassListTitle>
-                  {passwordRequirements.title}
-                </sc.PassListTitle>
-)}
               dataSource={passwordRequirements.reqs}
               renderItem={item => (
                 <sc.PassListItem>

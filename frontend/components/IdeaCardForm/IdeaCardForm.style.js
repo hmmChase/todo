@@ -4,12 +4,11 @@ import { Form, Input, Button } from 'antd';
 export const IdeaCardForm = styled(Form)`
   display: flex;
   position: relative;
-  width: 100%;
 `;
 
 export const BoxImg = styled.img`
-  left: 10px;
   position: absolute;
+  left: 10px;
   top: -30px;
   width: 50px;
 `;
@@ -21,14 +20,7 @@ export const IdeaTextArea = styled(Input.TextArea)`
   border: none;
   border-right: 1px solid black;
 
-  &:hover {
-    border: none;
-    border-right: 1px solid black;
-  }
-
   &:focus {
-    border: none;
-    border-right: 1px solid black;
     box-shadow: none;
   }
 `;

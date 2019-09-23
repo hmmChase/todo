@@ -16,6 +16,7 @@ class ForgotPassDialog extends React.PureComponent {
         <sc.ForgotPassModal
           title="Request a password reset"
           visible={this.state.visible}
+          width="364px"
           onCancel={this.handleCancel}
           footer={null}
         >
