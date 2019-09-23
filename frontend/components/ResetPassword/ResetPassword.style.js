@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import { Form, Input, Button, Icon, List, Typography } from 'antd';
 
-export const ResetPassword = styled(Form)`
-  /* align-self: center; */
-`;
+export const ResetPassword = styled(Form)``;
 
 export const TypographyText = styled(Typography.Text)``;
 

@@ -15,7 +15,6 @@ const LayoutMain = React.memo(props => (
 
     <sc.AntFooter>
       <sc.Container>
-        {/* footer */}
         <Footer />
       </sc.Container>
     </sc.AntFooter>

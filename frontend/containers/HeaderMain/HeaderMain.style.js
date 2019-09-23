@@ -4,12 +4,13 @@ import { SignOutBtn } from '../../components/SignOutBtn/SignOutBtn.style';
 import { IdeaCardForm } from '../../components/IdeaCardForm/IdeaCardForm.style';
 
 export const HeaderMain = styled.div`
-  align-items: center;
   display: grid;
   grid-template-areas:
     'top-left top-right'
     'bottom bottom';
   grid-template-columns: 1fr auto;
+  align-items: center;
+  flex-grow: 1;
 
   > h1 {
     margin: 5px 0 5px 80px;
