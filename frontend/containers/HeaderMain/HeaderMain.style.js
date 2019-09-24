@@ -18,7 +18,7 @@ export const HeaderMain = styled.div`
 
   > ${SignOutBtn} {
     grid-area: top-right;
-    margin-right: 20px;
+    margin-right: 10px;
   }
 
   > ${IdeaCardForm} {

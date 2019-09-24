@@ -1,25 +1,22 @@
 import styled from 'styled-components';
 
-import { SignOutBtn } from '../../components/SignOutBtn/SignOutBtn.style';
-
 export const HeaderDetail = styled.div`
   display: flex;
+  flex-grow: 1;
+  padding: 10px;
+  justify-content: space-between;
   align-items: center;
-  /* justify-items: center; */
-
-  > ${SignOutBtn} {
-    /* align-self: flex-end; */
-    /* grid-area: right; */
-    /* margin-right: 20px; */
-  }
-
-  @media screen and (min-width: 920px) {
-    > ${SignOutBtn} {
-      /* margin-right: 0; */
-    }
-  }
 `;
 
 export const Title = styled.h1`
-  font-size: 0.8rem;
+  font-size: 1rem;
+  margin: 0;
+
+  @media screen and (min-width: 550px) {
+    font-size: 1.5rem;
+  }
+
+  @media screen and (min-width: 420px) {
+    margin-left: 70px;
+  }
 `;

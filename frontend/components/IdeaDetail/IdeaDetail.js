@@ -30,7 +30,10 @@ const IdeaDetail = React.memo(props => {
         return (
           <sc.IdeaDetail>
             <Link href={{ pathname: '/' }}>
-              <sc.BackBtn>{'<- Back'}</sc.BackBtn>
+              <sc.BackBtn type="primary">
+                <sc.BackIcon type="arrow-left" />
+                Back
+              </sc.BackBtn>
             </Link>
 
             <IdeaInput
