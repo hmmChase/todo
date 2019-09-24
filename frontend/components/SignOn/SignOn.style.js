@@ -23,7 +23,7 @@ export const Content = styled(Layout.Content)`
   flex-direction: column;
   flex-grow: 0;
 
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 800px) {
     flex-direction: row;
     justify-content: space-around;
     width: 80%;
@@ -62,10 +62,12 @@ export const HR = styled.hr`
   border: 0;
   height: 2px;
   width: 300px;
+  margin: 40px 0;
 
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 800px) {
     position: absolute;
     top: 150px;
     transform: rotate(90deg);
+    margin: 0;
   }
 `;
