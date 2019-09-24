@@ -61,7 +61,7 @@ class ResetPassword extends React.PureComponent {
         onError={this.handleError}
         // onCompleted={this.handleCompleted}
       >
-        {(resetPassword, { loading, error }) => (
+        {(resetPassword, { loading, error, data }) => (
           <sc.ResetPassword
             onSubmit={e => this.handleSubmitForm(e, resetPassword)}
           >
@@ -118,6 +118,10 @@ class ResetPassword extends React.PureComponent {
             )}
 
             {isTokenValid && error && <DisplayError error={error} />}
+
+            {data && data.resetPassword && (
+              <p>Your password has been successfully changed.</p>
+            )}
 
             <sc.TypographyText strong>
               {passwordRequirements.title}

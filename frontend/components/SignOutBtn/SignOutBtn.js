@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import { ApolloConsumer, Mutation } from '@apollo/react-components';
 
 import { SIGN_OUT_MUTATION } from '../../graphql/queries';
@@ -11,7 +12,11 @@ const SignOutBtn = React.memo(() => {
   const handleUpdate = cache =>
     cache.writeData({ data: { isLoggedIn: false } });
 
-  const handleCompleted = apolloClient => apolloClient.resetStore();
+  const handleCompleted = apolloClient => {
+    apolloClient.resetStore();
+
+    Router.push('/');
+  };
 
   return (
     <ApolloConsumer>
