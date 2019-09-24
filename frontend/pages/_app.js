@@ -1,4 +1,5 @@
-// https://spectrum.chat/next-js/general/next-js-9-automatic-prerendering-and-apollo~7060c02c-3de8-4c78-ab76-ced60c76c093
+/* eslint-disable max-len */
+/* eslint-disable react/no-danger */
 import App from 'next/app';
 import { ApolloProvider } from 'react-apollo';
 import { ThemeProvider } from 'styled-components';
@@ -28,6 +29,13 @@ export class MyApp extends App {
       </ApolloProvider>
     );
   }
+}
+
+// For FOUC issue, see _document.js
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('holderStyle').remove();
+  });
 }
 
 export default withApollo(MyApp);
