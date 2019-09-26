@@ -2,12 +2,36 @@
   "name": "next-graphql-starter",
   "version": 2,
   "builds": [
-    { "src": "backend/src/index.js", "use": "@now/node-server" },
-    { "src": "frontend/next.config.js", "use": "@now/next" }
+    {
+      "src": "backend/src/index.js",
+      "use": "@now/node-server"
+    },
+    {
+      "src": "frontend/next.config.js",
+      "use": "@now/next"
+    }
   ],
   "routes": [
-    { "src": "/graphql", "dest": "backend/src/index.js" },
-    { "src": "/(.*)", "dest": "frontend/$1" }
+    {
+      "src": "/graphql",
+      "dest": "backend/src/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/$1",
+      "headers": {
+        "cache-control": "public, s-maxage=43200, max-age=43200, immutable",
+        "Service-Worker-Allowed": "/"
+      }
+    },
+    {
+      "src": "^/service-worker.js$",
+      "dest": "_next/static/service-worker.js",
+      "headers": {
+        "cache-control": "public, max-age=43200, immutable",
+        "Service-Worker-Allowed": "/"
+      }
+    }
   ],
   "env": {
     "DEV_GRAPHQL_ENDPOINT": "@dev_graphql_endpoint",
