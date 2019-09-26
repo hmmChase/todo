@@ -1,17 +1,15 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
-
 // https://nextjs.org/docs#customizing-webpack-config
 
 const fs = require('fs');
 const path = require('path');
-const withPlugins = require('next-compose-plugins');
-const DotenvWebpackPlugin = require('dotenv-webpack');
-const withCSS = require('@zeit/next-css');
+const Dotenv = require('dotenv-webpack');
 const withLess = require('@zeit/next-less');
 const lessToJS = require('less-vars-to-js');
 const withOffline = require('next-offline');
-const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
@@ -28,24 +26,15 @@ const nextConfig = {
     modifyVars: themeVariables // make your antd custom effective
   },
 
-  // github.com/zeit/next-plugins/tree/master/packages/next-bundle-analyzer
-  analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
-  analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
-  bundleAnalyzerConfig: {
-    server: {
-      analyzerMode: 'static',
-      reportFilename: '../bundles/server.html'
-    },
-    browser: {
-      analyzerMode: 'static',
-      reportFilename: '../bundles/client.html'
-    }
-  },
+  // https://github.com/hanford/next-offline/tree/master/packages/now2-example
+  // add the homepage to the cache
+  // transformManifest: manifest => ['/'].concat(manifest),
 
-  // Add the homepage to the cache
-  transformManifest: manifest => ['/'].concat(manifest),
+  // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
+  // turn on the SW in dev mode so that we can actually test it
+  // generateInDevMode: true,
 
-  // https://github.com/hanford/next-offline
+  // By default next-offline will precache all the Next.js webpack emitted files and the user-defined static ones (inside /static)
   workboxOpts: {
     swDest: 'static/service-worker.js',
     runtimeCaching: [
@@ -67,19 +56,35 @@ const nextConfig = {
     ]
   },
 
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config, options) => {
     config.plugins = config.plugins || [];
 
     // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
+    // Read the .env file
     config.plugins.push(
-      new DotenvWebpackPlugin({
+      new Dotenv({
         path: path.join(__dirname, '.env'),
         systemvars: true
       })
     );
 
-    // https://github.com/zeit/next.js/blob/canary/examples/with-ant-design-less/next.config.js
-    if (isServer) {
+    // https://github.com/webpack-contrib/webpack-bundle-analyzer
+    if (process.env.ANALYZE_BUILD) {
+      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
+      config.plugins.push(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          openAnalyzer: true,
+          reportFilename: options.isServer
+            ? '../analyze/server.html'
+            : './analyze/client.html'
+        })
+      );
+    }
+
+    // https://github.com/zeit/next.js/tree/canary/examples/with-ant-design-less
+    if (options.isServer) {
       const antStyles = /antd\/.*?\/style.*?/;
       const origExternals = [...config.externals];
       config.externals = [
@@ -101,7 +106,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withPlugins(
-  [[withOffline], [withCSS], [withLess], [withBundleAnalyzer]],
-  nextConfig
-);
+module.exports = withOffline(withLess(nextConfig));
