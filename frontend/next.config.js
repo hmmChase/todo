@@ -7,6 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
+const withCSS = require('@zeit/next-css');
 const withLess = require('@zeit/next-less');
 const lessToJS = require('less-vars-to-js');
 // const withOffline = require('next-offline');
@@ -111,4 +112,4 @@ const nextConfig = {
 };
 
 // module.exports = withOffline(withLess(nextConfig));
-module.exports = withLess(nextConfig);
+module.exports = withCSS(withLess(nextConfig));
