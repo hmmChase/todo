@@ -9,7 +9,7 @@ const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const withLess = require('@zeit/next-less');
 const lessToJS = require('less-vars-to-js');
-const withOffline = require('next-offline');
+// const withOffline = require('next-offline');
 
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
@@ -30,34 +30,40 @@ const nextConfig = {
   // add the homepage to the cache
   // transformManifest: manifest => ['/'].concat(manifest),
 
-  // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
-  // turn on the SW in dev mode so that we can actually test it
+  // Trying to set NODE_ENV=production when running yarn dev causes a build-time error
+  // so we turn on the SW in dev mode so that we can actually test it
   // generateInDevMode: true,
 
-  // By default next-offline will precache all the Next.js webpack emitted files and the user-defined static ones (inside /static)
-  workboxOpts: {
-    swDest: 'static/service-worker.js',
-    runtimeCaching: [
-      {
-        urlPattern: /^https?.*/,
-        handler: 'NetworkFirst',
-        options: {
-          cacheName: 'https-calls',
-          networkTimeoutSeconds: 15,
-          expiration: {
-            maxEntries: 150,
-            maxAgeSeconds: 30 * 24 * 60 * 60 // 1 month
-          },
-          cacheableResponse: {
-            statuses: [0, 200]
-          }
-        }
-      }
-    ]
-  },
+  // By default next-offline will precache all the Next.js webpack emitted files
+  // and the user-defined static ones (inside /static)
+  // workboxOpts: {
+  //   swDest: 'static/service-worker.js',
+  //   runtimeCaching: [
+  //     {
+  //       urlPattern: /^https?.*/,
+  //       handler: 'NetworkFirst',
+  //       options: {
+  //         cacheName: 'https-calls',
+  //         networkTimeoutSeconds: 15,
+  //         expiration: {
+  //           maxEntries: 150,
+  //           maxAgeSeconds: 30 * 24 * 60 * 60 // 1 month
+  //         },
+  //         cacheableResponse: {
+  //           statuses: [0, 200]
+  //         }
+  //       }
+  //     }
+  //   ]
+  // },
 
   webpack: (config, options) => {
     config.plugins = config.plugins || [];
+
+    // Ignore __tests__
+    config.plugins.push(
+      new options.webpack.IgnorePlugin(/[\\/]__tests__[\\/]/)
+    );
 
     // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
     // Read the .env file
@@ -106,4 +112,5 @@ const nextConfig = {
   }
 };
 
-module.exports = withOffline(withLess(nextConfig));
+// module.exports = withOffline(withLess(nextConfig));
+module.exports = withLess(nextConfig);

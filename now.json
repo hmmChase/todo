@@ -9,6 +9,10 @@
     {
       "src": "frontend/next.config.js",
       "use": "@now/next"
+    },
+    {
+      "src": "frontend/static/*",
+      "use": "@now/static"
     }
   ],
   "routes": [

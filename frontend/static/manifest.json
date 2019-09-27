@@ -5,13 +5,13 @@
   "dir": "ltr",
   "lang": "en",
   "start_url": "/?source=pwa",
-  "display": "standalone",
+  "display": "fullscreen",
   "scope": "/",
   "theme_color": "#477CBF",
   "background_color": "#477CBF",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "/static/favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
