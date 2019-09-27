@@ -28,15 +28,16 @@ const nextConfig = {
 
   // https://github.com/hanford/next-offline/tree/master/packages/now2-example
   // add the homepage to the cache
-  // transformManifest: manifest => ['/'].concat(manifest),
+  transformManifest: manifest => ['/'].concat(manifest),
 
-  // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
-  // turn on the SW in dev mode so that we can actually test it
-  // generateInDevMode: true,
+  // Trying to set NODE_ENV=production when running yarn dev causes a build-time error
+  // so we turn on the SW in dev mode so that we can actually test it
+  generateInDevMode: true,
 
-  // By default next-offline will precache all the Next.js webpack emitted files and the user-defined static ones (inside /static)
+  // By default next-offline will precache all the Next.js webpack emitted files
+  // and the user-defined static ones (inside /static)
   workboxOpts: {
-    swDest: 'static/service-worker.js',
+    swDest: './static/service-worker.js',
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
@@ -58,6 +59,11 @@ const nextConfig = {
 
   webpack: (config, options) => {
     config.plugins = config.plugins || [];
+
+    // Ignore __tests__
+    config.plugins.push(
+      new options.webpack.IgnorePlugin(/[\\/]__tests__[\\/]/)
+    );
 
     // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
     // Read the .env file
@@ -107,3 +113,4 @@ const nextConfig = {
 };
 
 module.exports = withOffline(withLess(nextConfig));
+// module.exports = withLess(nextConfig);
