@@ -9,10 +9,6 @@
     {
       "src": "frontend/next.config.js",
       "use": "@now/next"
-    },
-    {
-      "src": "frontend/static/*",
-      "use": "@now/static"
     }
   ],
   "routes": [
@@ -23,14 +19,6 @@
     {
       "src": "/(.*)",
       "dest": "frontend/$1"
-    },
-    {
-      "src": "^/service-worker.js$",
-      "dest": "frontend/_next/static/service-worker.js",
-      "headers": {
-        "cache-control": "public, max-age=43200, immutable",
-        "Service-Worker-Allowed": "/"
-      }
     }
   ],
   "env": {
