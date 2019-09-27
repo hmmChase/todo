@@ -60,19 +60,17 @@ const nextConfig = {
   webpack: (config, options) => {
     config.plugins = config.plugins || [];
 
-    // Ignore __tests__
-    config.plugins.push(
-      new options.webpack.IgnorePlugin(/[\\/]__tests__[\\/]/)
-    );
-
     // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
     // Read the .env file
-    config.plugins.push(
+    config.plugins = [
+      ...config.plugins,
+
+      // Read the .env file
       new Dotenv({
         path: path.join(__dirname, '.env'),
         systemvars: true
       })
-    );
+    ];
 
     // https://github.com/webpack-contrib/webpack-bundle-analyzer
     if (process.env.ANALYZE_BUILD) {
