@@ -1,15 +1,9 @@
-import Page from '../containers/Page/Page';
-import Head from '../containers/Head/Head';
-import LayoutMain from '../containers/LayoutMain/LayoutMain';
-import HeaderMain from '../containers/HeaderMain/HeaderMain';
-import Ideas from '../components/Ideas/Ideas';
+import DisplayError from '../DisplayError/DisplayError';
+import DeleteIcon from '../DeleteIcon/DeleteIcon';
 
-const IndexPage = React.memo(() => (
-  <Page>
-    <Head title="Home" />
-
-    <LayoutMain header={<HeaderMain />} content={<Ideas />} />
-  </Page>
-));
-
-export default IndexPage;
+export default () => (
+  <>
+    <DisplayError error={{ message: 'this is a test' }}></DisplayError>
+    <DeleteIcon></DeleteIcon>
+  </>
+);

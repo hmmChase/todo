@@ -23,7 +23,6 @@
             "style": true
           }
         ]
-        // "add-react-displayname"
       ]
     },
     "production": {
