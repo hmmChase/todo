@@ -1,7 +1,9 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
+// https://nextjs.org/docs#customizing-webpack-config
 const fs = require('fs');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const withLess = require('@zeit/next-less');
 const lessToJS = require('less-vars-to-js');
 const withOffline = require('next-offline');
@@ -11,19 +13,23 @@ const themeVariables = lessToJS(
   fs.readFileSync(path.resolve(__dirname, './styles/antd-custom.less'), 'utf8')
 );
 
-// https://github.com/hanford/next-offline#now-20
 const nextConfig = {
+  // Now by ZEIT deployment target
+  target: 'serverless',
+
   // custom webpack config for Ant Design Less
   lessLoaderOptions: {
     javascriptEnabled: true,
     modifyVars: themeVariables // make your antd custom effective
   },
-  // NOTE: this is present in the example, but breaks on dev
-  // target: "serverless",
-  transformManifest: manifest => ['/'].concat(manifest), // add the homepage to the cache
-  // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
-  // turn on the SW in dev mode so that we can actually test it
+
+  // https://github.com/hanford/next-offline#now-20
+  // Add the homepage to the cache
+  transformManifest: manifest => ['/'].concat(manifest),
+
+  // PWA Doesn't work in Dev
   generateInDevMode: false,
+
   workboxOpts: {
     swDest: 'static/service-worker.js',
     runtimeCaching: [
@@ -46,6 +52,17 @@ const nextConfig = {
   },
 
   webpack: (config, options) => {
+    config.plugins = config.plugins || [];
+
+    // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
+    config.plugins.push(
+      // Read the .env file
+      new Dotenv({
+        path: path.join(__dirname, '.env'),
+        systemvars: true
+      })
+    );
+
     // https://github.com/zeit/next.js/tree/canary/examples/with-ant-design-less
     if (options.isServer) {
       const antStyles = /antd\/.*?\/style.*?/;
