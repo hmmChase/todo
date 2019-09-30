@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-param-reassign */
 const fs = require('fs');
 const path = require('path');
 const withLess = require('@zeit/next-less');
