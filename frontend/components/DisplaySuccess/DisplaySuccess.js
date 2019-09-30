@@ -2,41 +2,14 @@ import PropTypes from 'prop-types';
 
 import * as sc from './DisplaySuccess.style';
 
-const DisplayError = React.memo(props => {
-  if (props.error.graphQLErrors) {
-    return (
-      <sc.DisplayError>
-        {props.error.graphQLErrors.map((error, i) => (
-          <li key={`error${i}`}>{error.message}</li>
-        ))}
-      </sc.DisplayError>
-    );
-  }
+const DisplaySuccess = React.memo(props => (
+  <sc.DisplaySuccess>
+    <li>{props.message}</li>
+  </sc.DisplaySuccess>
+));
 
-  if (props.error.message) {
-    return (
-      <sc.DisplayError>
-        <li>{props.error.message}</li>
-      </sc.DisplayError>
-    );
-  }
-
-  return (
-    <sc.DisplayError>
-      <li>Opps, something went wrong.</li>
-    </sc.DisplayError>
-  );
-});
-
-DisplayError.defaultProps = {
-  error: {}
+DisplaySuccess.propTypes = {
+  message: PropTypes.string.isRequired
 };
 
-DisplayError.propTypes = {
-  error: PropTypes.shape({
-    graphQLErrors: PropTypes.array,
-    message: PropTypes.string
-  })
-};
-
-export default DisplayError;
+export default DisplaySuccess;

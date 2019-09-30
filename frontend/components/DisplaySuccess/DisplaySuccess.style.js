@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const DisplayError = styled.ul`
-  border-left: 5px solid red;
+export const DisplaySuccess = styled.ul`
+  border-left: 5px solid green;
   list-style: none;
   padding-left: 1rem;
 `;

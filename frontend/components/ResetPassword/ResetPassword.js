@@ -3,6 +3,7 @@ import Router from 'next/router';
 import { Mutation } from '@apollo/react-components';
 
 import DisplayError from '../DisplayError/DisplayError';
+import DisplaySuccess from '../DisplaySuccess/DisplaySuccess';
 import { RESET_PASSWORD_MUTATION } from '../../graphql/queries';
 import { passwordRequirements } from '../../constants';
 import * as sc from './ResetPassword.style';
@@ -120,7 +121,7 @@ class ResetPassword extends React.PureComponent {
             {isTokenValid && error && <DisplayError error={error} />}
 
             {data && data.resetPassword && (
-              <p>Your password has been successfully changed.</p>
+              <DisplaySuccess message="Your password has been successfully changed." />
             )}
 
             <sc.TypographyText strong>
