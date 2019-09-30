@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page matches snapshot - Authenticated 1`] = `
+<Memo()>
+  <div
+    key="1"
+  >
+    mock component
+  </div>
+</Memo()>
+`;
+
+exports[`Page matches snapshot - UnAuthenticated 1`] = `
+<Fragment>
+  <SignIn />
+  <SignUp />
+</Fragment>
+`;
