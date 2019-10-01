@@ -60,7 +60,7 @@ class ResetPassword extends React.PureComponent {
         mutation={RESET_PASSWORD_MUTATION}
         variables={{ ...this.state, resetToken: this.props.resetToken }}
         onError={this.handleError}
-        // onCompleted={this.handleCompleted}
+      // onCompleted={this.handleCompleted}
       >
         {(resetPassword, { loading, error, data }) => (
           <sc.ResetPassword
@@ -84,7 +84,7 @@ class ResetPassword extends React.PureComponent {
                       type="lock"
                       style={{ color: 'rgba(0,0,0,.25)' }}
                     />
-)}
+                  )}
                 />
               )}
             </sc.FormItem>
@@ -107,7 +107,7 @@ class ResetPassword extends React.PureComponent {
                       type="lock"
                       style={{ color: 'rgba(0,0,0,.25)' }}
                     />
-)}
+                  )}
                 />
               )}
             </sc.FormItem>

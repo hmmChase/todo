@@ -6,15 +6,12 @@
     "jest": true
   },
   "extends": [
-    "airbnb",
-    // "prettier",
-    // "prettier/react"
+    "airbnb"
   ],
   "plugins": [
     "react",
     "jsx-a11y",
-    "import",
-    // "prettier"
+    "import"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -24,12 +21,6 @@
     }
   },
   "rules": {
-    // "prettier/prettier": [
-    //   "error",
-    //   {
-    //     "singleQuote": true
-    //   }
-    // ],
     "max-len": [
       "error",
       {
@@ -53,8 +44,6 @@
     "react/destructuring-assignment": "off",
     "react/jsx-props-no-spreading": "off",
     "react/state-in-constructor": "off",
-    // "react/jsx-one-expression-per-line": "off",
-    // "react/prefer-stateless-function": "off",
     "import/prefer-default-export": "off",
     "jsx-a11y/anchor-is-valid": [
       "error",

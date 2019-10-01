@@ -17,7 +17,7 @@ const ResetPasswordPage = React.memo(props => (
           resetToken={props.resetToken}
           resetTokenExpiry={props.resetTokenExpiry}
         />
-)}
+      )}
     />
   </>
 ));

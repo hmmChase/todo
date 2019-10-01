@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 // https://nextjs.org/docs#customizing-webpack-config
@@ -62,6 +64,22 @@ const nextConfig = {
         systemvars: true
       })
     );
+
+    // https://github.com/webpack-contrib/webpack-bundle-analyzer
+    if (process.env.ANALYZE_BUILD) {
+      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
+      config.plugins.push(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          openAnalyzer: true,
+          reportFilename: options.isServer
+            ? '../analyze/server.html'
+            : './analyze/client.html'
+        })
+      );
+    }
+
 
     // https://github.com/zeit/next.js/tree/canary/examples/with-ant-design-less
     if (options.isServer) {
