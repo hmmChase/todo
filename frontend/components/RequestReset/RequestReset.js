@@ -69,7 +69,7 @@ class RequestReset extends React.PureComponent {
                       type="user"
                       style={{ color: 'rgba(0,0,0,.25)' }}
                     />
-)}
+                  )}
                 />
               )}
             </sc.FormItem>
