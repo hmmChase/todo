@@ -1,14 +1,9 @@
-import gql from 'graphql-tag';
+import { makeExecutableSchema } from 'graphql-tools';
 
-export default gql`
-  extend type Query {
-    isLoggedIn: Boolean!
-  }
+import { typeDefs } from './typeDefs';
+import { resolvers } from './resolvers';
 
-  # extend type Mutation {
-  # }
-
-  extend type User {
-    color: String!
-  }
-`;
+export const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+});

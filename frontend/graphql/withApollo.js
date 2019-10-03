@@ -1,260 +1,135 @@
-/* eslint-disable no-restricted-syntax */
-import withApollo from 'next-with-apollo';
-import ApolloClient from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
-import { onError } from 'apollo-link-error';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+/* eslint-disable operator-linebreak */
+/* eslint-disable no-multi-assign */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
+import React from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { initApolloClient } from './initApolloClient';
 
-import authenticate from '../utils/authenticate';
-import typeDefs from './schema';
-import resolvers from './resolvers';
+/**
+ * Creates and provides the apolloContext
+ * to a next.js PageTree. Use it by wrapping
+ * your PageComponent via HOC pattern.
+ * @param {Function|Class} PageComponent
+ * @param {Object} [config]
+ * @param {Boolean} [config.ssr=true]
+ */
 
-// withApollo first fetches queries and hydrates the store server-side
-// before sending the page to the client
-// https://github.com/lfades/next-with-apollo/issues/69
-
-const createClient = ctx => {
-  console.log('withApollo', new Date().getMilliseconds());
-
+export function withApollo(PageComponent, { ssr = true } = {}) {
   const isBrowser = typeof window !== 'undefined';
-  const isDevelopment = process.env.NODE_ENV === 'development';
+  const isDev = process.env.NODE_ENV === 'development';
 
-  /* initialState available on client */
-  // if (isBrowser) {
-  //   console.log(': withApollo ctx', Object.keys(ctx));
-  //   console.log(': withApollo initialState', ctx.initialState);
-  // }
+  // destructure props provided by getInitialProps
+  const WithApollo = ({ apolloClient, apolloState, headers, ...pageProps }) => {
+    // If apolloClient doesn't exist, create it
+    const client =
+      apolloClient || initApolloClient(apolloClient, apolloState, headers);
 
-  /* ctx & headers available on server */
-  // if (!isBrowser) {
-  //   console.log(': withApollo ctx', Object.keys(ctx));
-  //   console.log(': withApollo ctx', Object.keys(ctx.ctx));
-  //   console.log(': withApollo headers', Object.keys(ctx.headers));
-  //   console.log(': withApollo cookie', ctx.headers.cookie);
-  // }
-
-  // Log GraphQL request & response
-  const consoleLogLink = new ApolloLink((operation, forward) => {
-    console.log(
-      '\n',
-      `---------- starting request for ${operation.operationName}`,
-      new Date().getMilliseconds(),
-      `(client: ${isBrowser}, server: ${!isBrowser})`
+    return (
+      <ApolloProvider client={client}>
+        <PageComponent {...pageProps} />
+      </ApolloProvider>
     );
+  };
 
-    return forward(operation).map(op => {
-      console.log(`${operation.operationName} res: `, op);
-      console.log(
-        '\n',
-        `---------- ending request for ${operation.operationName}`,
-        new Date().getMilliseconds()
-      );
+  // Set the correct displayName in development
+  if (process.env.NODE_ENV !== 'production') {
+    // Find correct display name
+    const displayName =
+      PageComponent.displayName || PageComponent.name || 'Component';
 
-      return op;
-    });
-  });
-
-  // const refreshAuthToken = async refreshToken => {
-  //   // Get refresh token from cookies
-  //   console.log('.............................................');
-  //   console.log('refresh auth token with token:');
-  //   console.log(refreshToken);
-  //   console.log('.............................................');
-
-  //   // Get new auth token from server
-  //   return client.mutate({
-  //     mutation: REFRESH_AUTH_TOKEN,
-  //     variables: { refreshToken }
-  //   });
-  // };
-
-  const errorLink = onError(
-    ({ graphQLErrors, networkError, operation, forward }) => {
-      console.log(': networkError', networkError);
-      console.log(': graphQLErrors', graphQLErrors);
-      //   if (graphQLErrors) {
-      //     for (const err of graphQLErrors) {
-      //       const errorObject = {
-      //         code: err.extensions.code,
-      //         operation: operation.operationName,
-      //         message: err.message
-      //       };
-
-      //       console.log(
-      //         '[GraphQL error]: ',
-      //         new Date().getMilliseconds(),
-      //         errorObject
-      //       );
-
-      //       switch (err.extensions.code) {
-      //         // AuthenticationError
-      //         case 'UNAUTHENTICATED':
-      //           // return forward(operation);
-      //           break;
-
-      //         // ForbiddenError
-      //         case 'FORBIDDEN':
-      //           if (process.browser) Router.push('/');
-
-      //           // return forward(operation);
-      //           break;
-
-      //         default:
-      //           // return forward(operation);
-      //           break;
-      //       }
-      //     }
-      //   }
-
-      //   // ----------------------------------------
-
-      //   // If error is due to unathenticated user request
-      //   // and a refresh token is available
-      //   // const { extensions } = graphQLErrors[0];
-      //   // const refreshToken = getTokens()['x-token-refresh'];
-
-      //   // if (extensions.code === 'UNAUTHENTICATED' && refreshToken) {
-      //   //   // Create a new Observerable
-      //   //   return new Observable(async observer => {
-      //   //     // Refresh the access token
-      //   //     refreshAccessToken(refreshToken, client)
-      //   //       // On successful refresh...
-      //   //       .then(newTokens => {
-      //   //         // Handle cookies
-      //   //         if (!newTokens.token) {
-      //   //           // Delete cookies if no new access token provided
-      //   //           destroyCookie(ctx, 'x-token');
-      //   //           destroyCookie(ctx, 'x-token-refresh');
-      //   //         } else {
-      //   //           // Update cookies if new access token available
-      //   //           setCookie(ctx, 'x-token', newTokens.token, {
-      //   //             maxAge: 30 * 60
-      //   //           });
-
-      //   //           setCookie(ctx, 'x-token-refresh', newTokens.refreshToken, {
-      //   //             maxAge: 30 * 24 * 60 * 60
-      //   //           });
-      //   //         }
-
-      //   //         // Bind observable subscribers
-      //   //         const subscriber = {
-      //   //           next: observer.next.bind(observer),
-      //   //           error: observer.error.bind(observer),
-      //   //           complete: observer.complete.bind(observer)
-      //   //         };
-
-      //   //         // Retry last failed request
-      //   //         forward(operation).subscribe(subscriber);
-      //   //       })
-
-      //   //       // On refresh failure...
-      //   //       .catch(error => {
-      //   //         observer.error(error);
-      //   //       });
-      //   //   });
-      //   // }
-
-      //   // ----------------------------------------
-
-      //   // for (const err of graphQLErrors) {
-      //   //   switch (err.extensions.code) {
-      //   //     // AuthenticationError
-      //   //     case 'UNAUTHENTICATED':
-      //   //       // Modify the operation context with a new token
-      //   //       // const oldHeaders = operation.getContext().headers;
-
-      //   //       // operation.setContext({
-      //   //       //   headers: {
-      //   //       //     ...oldHeaders,
-      //   //       //     authorization: getNewToken()
-      //   //       //   }
-      //   //       // });
-
-      //   //       // Retry the request, returning the new observable
-      //   //       return forward(operation);
-
-      //   //     // ----------------------------------------
-
-      //   //     // const doRefresh = async () => {
-      //   //     //   const refreshToken = await getTokens()['x-token-refresh'];
-      //   //     //   const data = await refreshAuthToken(refreshToken);
-
-      //   //     //   console.log('.......................');
-      //   //     //   console.log('results of refreshAuthToken (success!!)');
-      //   //     //   console.log(data.data.refreshAuthToken.token);
-      //   //     //   console.log('.......................');
-
-      //   //     //   await cookie.serialize(
-      //   //     //     'x-token-new',
-      //   //     //     data.data.refreshAuthToken.token,
-      //   //     //     {}
-      //   //     //   );
-
-      //   //     //   await operation.setContext({
-      //   //     //     headers: {
-      //   //     //       ...headers,
-      //   //     //       'x-token': data.data.refreshAuthToken.token
-      //   //     //     }
-      //   //     //   });
-
-      //   // return forward(operation);
-      //   //     // };
-
-      //   //     // doRefresh();
-      //   //   }
-      //   // }
-
-      //   if (networkError) {
-      //     const errorObject = {
-      //       code: networkError.code,
-      //       message: networkError.message
-      //     };
-
-      //     console.log('[Network error]: ', errorObject);
-
-      //     // if you would also like to retry automatically on
-      //     // network errors, we recommend that you use
-      //     // apollo-link-retry
-      //   }
-
-      // if (operation.operationName === 'IgnoreErrorsQuery') {
-      //   response.errors = null;
-      // }
+    // Warn if old way of installing apollo is used
+    if (displayName === 'App') {
+      console.warn('This withApollo HOC only works with PageComponents.');
     }
-  );
 
-  // Add cookie to request header
-  const authLink = new ApolloLink((operation, forward) => {
-    operation.setContext({ headers: ctx.headers });
+    // Set correct display name for devtools
+    WithApollo.displayName = `withApollo(${displayName})`;
 
-    return forward(operation);
-  });
+    // Add some prop types
+    WithApollo.propTypes = {
+      // Used for getDataFromTree rendering
+      apolloClient: PropTypes.object,
+      // Used for client/server rendering
+      apolloState: PropTypes.object,
+      headers: PropTypes.object
+    };
+  }
 
-  const httpLink = createHttpLink({
-    uri: isDevelopment
-      ? process.env.DEV_GRAPHQL_ENDPOINT
-      : process.env.PROD_GRAPHQL_ENDPOINT,
-    credentials: 'include'
-  });
+  // Retrieve data server-side
+  if (ssr || PageComponent.getInitialProps) {
+    WithApollo.getInitialProps = async ctx => {
+      const { req, res, AppTree } = ctx;
+      const headers = req ? req.headers : {};
 
-  const link = isDevelopment
-    ? ApolloLink.from([consoleLogLink, errorLink, authLink, httpLink])
-    : ApolloLink.from([errorLink, authLink, httpLink]);
+      // Initialize ApolloClient, add it to the ctx object so
+      // we can use it in `PageComponent.getInitialProp`.
 
-  // hydrate cache with the initialState created server-side
-  const cache = new InMemoryCache().restore(ctx.initialState || {});
+      // Run all GraphQL queries in the component tree
+      // and extract the resulting data
+      const apolloClient = (ctx.apolloClient = initApolloClient(
+        {},
+        {},
+        headers
+      ));
 
-  if (!isBrowser) authenticate(cache, ctx.headers.cookie);
+      // Run wrapped getInitialProps methods
+      const pageProps = PageComponent.getInitialProps
+        ? await PageComponent.getInitialProps(ctx)
+        : {};
 
-  return new ApolloClient({
-    link,
-    cache,
-    connectToDevTools: isBrowser,
-    ssrMode: !isBrowser,
-    typeDefs,
-    resolvers
-  });
-};
+      // Only on the server:
+      if (typeof window === 'undefined') {
+        // When redirecting, the response is finished.
+        // No point in continuing to render
+        if (ctx.res && (ctx.res.headersSent || ctx.res.finished)) {
+          // return {};
+          return pageProps;
+        }
 
-export default withApollo(createClient, { getDataFromTree: 'ssr' });
+        // Only if ssr is enabled
+        if (ssr) {
+          try {
+            // On initial page load, while on the server and inside
+            // getInitialProps, we invoke the Apollo method, getDataFromTree.
+
+            // This method returns a promise; at the point in which the promise
+            // resolves, our Apollo Client store is completely initialized.
+            const { getDataFromTree } = await import('@apollo/react-ssr');
+
+            // Run all GraphQL queries
+            await getDataFromTree(
+              <AppTree pageProps={{ ...pageProps, apolloClient }} />
+            );
+          } catch (error) {
+            // Prevent Apollo Client GraphQL errors from crashing SSR.
+            // Handle them in components via the data.error prop:
+            // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
+            if (process.env.NODE_ENV !== 'production') {
+              console.error('GraphQL error occurred [getDataFromTree]', error);
+            }
+          }
+
+        // getDataFromTree does not call componentWillUnmount
+        // head side effect therefore need to be cleared manually
+        Head.rewind();
+      }
+      }
+
+      // Extract query data from the Apollo store
+      const apolloState = apolloClient.cache.extract();
+
+      // To avoid calling initApollo() twice in the server we send the Apollo Client as a prop
+      // to the component, otherwise the component would have to call initApollo() again but this
+      // time without the context, once that happens the following code will make sure we send
+      // the prop as `null` to the browser
+      // apolloClient.toJSON = () => null;
+
+      return { ...pageProps, apolloState };
+    };
+  }
+
+  return WithApollo;
+}

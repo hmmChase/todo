@@ -1,10 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable react/no-danger */
 import App from 'next/app';
-import { ApolloProvider } from 'react-apollo';
 import { ThemeProvider } from 'styled-components';
 
-import withApollo from '../graphql/withApollo';
 import theme from '../styles/theme.style';
 
 export class MyApp extends App {
@@ -19,14 +17,12 @@ export class MyApp extends App {
 
     // pageProps includes data returned from getInitialProps
 
-    const { Component, pageProps, apollo } = this.props;
+    const { Component, pageProps } = this.props;
 
     return (
-      <ApolloProvider client={apollo}>
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </ApolloProvider>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
     );
   }
 }
@@ -38,4 +34,4 @@ if (typeof window !== 'undefined') {
   });
 }
 
-export default withApollo(MyApp);
+export default MyApp;

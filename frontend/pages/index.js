@@ -1,3 +1,4 @@
+import { withApollo } from '../graphql/withApollo';
 import Page from '../containers/Page/Page';
 import Head from '../containers/Head/Head';
 import LayoutMain from '../containers/LayoutMain/LayoutMain';
@@ -12,4 +13,4 @@ const IndexPage = React.memo(() => (
   </Page>
 ));
 
-export default IndexPage;
+export default withApollo(IndexPage);

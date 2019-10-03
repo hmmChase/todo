@@ -1,5 +1,7 @@
-export default {
-  // Query: {},
+export const resolvers = {
+  Query: {
+    renderedOn: () => (typeof window === 'undefined' ? 'Server' : 'Client')
+  },
 
   // Mutation: {},
 

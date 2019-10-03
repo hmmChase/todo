@@ -1,4 +1,4 @@
-// compare props
+// Compare props
 
 export default (prevProps, nextProps) => {
   const obj1 = prevProps;

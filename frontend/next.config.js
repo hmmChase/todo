@@ -109,5 +109,5 @@ const nextConfig = {
   }
 };
 
-module.exports = withOffline(withLess(nextConfig));
-// module.exports = withLess(nextConfig);
+// module.exports = withOffline(withLess(nextConfig));
+module.exports = withLess(nextConfig);
