@@ -25,13 +25,13 @@ const Ideas = React.memo(() => {
         return (
           <sc.Ideas>
             {data
-              && data.currentUserPaginatedIdeas
-              && data.currentUserPaginatedIdeas.edges
-              && data.currentUserPaginatedIdeas.edges.length ? (
-                <IdeaCardList
-                  loading={loading}
-                  ideas={data.currentUserPaginatedIdeas.edges}
-                />
+            && data.currentUserPaginatedIdeas
+            && data.currentUserPaginatedIdeas.edges
+            && data.currentUserPaginatedIdeas.edges.length ? (
+              <IdeaCardList
+                loading={loading}
+                ideas={data.currentUserPaginatedIdeas.edges}
+              />
               ) : (
                 <p>Add an Idea!</p>
               )}

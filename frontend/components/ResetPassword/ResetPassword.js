@@ -60,7 +60,7 @@ class ResetPassword extends React.PureComponent {
         mutation={RESET_PASSWORD_MUTATION}
         variables={{ ...this.state, resetToken: this.props.resetToken }}
         onError={this.handleError}
-      // onCompleted={this.handleCompleted}
+        // onCompleted={this.handleCompleted}
       >
         {(resetPassword, { loading, error, data }) => (
           <sc.ResetPassword

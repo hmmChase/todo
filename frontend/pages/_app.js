@@ -7,16 +7,18 @@ import theme from '../styles/theme.style';
 
 export class MyApp extends App {
   render() {
-    console.log('_app render', new Date().getMilliseconds());
+    if (process.env.NODE_ENV === 'development') {
+      console.log('_app render', new Date().getMilliseconds());
 
-    // console.log('_app props: ', Object.keys(this.props));
-    // console.log('_app props.apolloState: ', this.props.apolloState);
+      // console.log('_app props: ', Object.keys(this.props));
+      // console.log('_app props.apolloState: ', this.props.apolloState);
 
-    // const cache = this.props.apollo.cache.extract();
-    // console.log('apollo cache: ', cache);
+      // const cache = this.props.apollo.cache.extract();
+      // console.log('apollo cache: ', cache);
 
-    // pageProps includes data returned from getInitialProps
-    // console.log('_app props.pageProps: ', Object.keys(this.props.pageProps));
+      // pageProps includes data returned from getInitialProps
+      // console.log('_app props.pageProps: ', Object.keys(this.props.pageProps));
+    }
 
     const { Component, pageProps } = this.props;
 
