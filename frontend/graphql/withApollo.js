@@ -6,6 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/react-hooks';
+
 import { initApolloClient } from './initApolloClient';
 
 /**
@@ -18,14 +19,10 @@ import { initApolloClient } from './initApolloClient';
  */
 
 export function withApollo(PageComponent, { ssr = true } = {}) {
-  const isBrowser = typeof window !== 'undefined';
-  const isDev = process.env.NODE_ENV === 'development';
-
-  // destructure props provided by getInitialProps
-  const WithApollo = ({ apolloClient, apolloState, headers, ...pageProps }) => {
+  // Destructure props provided by getInitialProps
+  const WithApollo = ({ apolloClient, apolloState, ...pageProps }) => {
     // If apolloClient doesn't exist, create it
-    const client =
-      apolloClient || initApolloClient(apolloClient, apolloState, headers);
+    const client = apolloClient || initApolloClient(apolloState);
 
     return (
       <ApolloProvider client={client}>
@@ -66,16 +63,10 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
 
       // Initialize ApolloClient, add it to the ctx object so
       // we can use it in `PageComponent.getInitialProp`.
+      const apolloClient = (ctx.apolloClient = initApolloClient());
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
-      const apolloClient = (ctx.apolloClient = initApolloClient(
-        {},
-        {},
-        headers
-      ));
-
-      // Run wrapped getInitialProps methods
       const pageProps = PageComponent.getInitialProps
         ? await PageComponent.getInitialProps(ctx)
         : {};
@@ -112,10 +103,10 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
             }
           }
 
-        // getDataFromTree does not call componentWillUnmount
-        // head side effect therefore need to be cleared manually
-        Head.rewind();
-      }
+          // getDataFromTree does not call componentWillUnmount
+          // head side effect therefore need to be cleared manually
+          Head.rewind();
+        }
       }
 
       // Extract query data from the Apollo store

@@ -16,6 +16,7 @@ export class MyApp extends App {
     // console.log('apollo cache: ', cache);
 
     // pageProps includes data returned from getInitialProps
+    // console.log('_app props.pageProps: ', Object.keys(this.props.pageProps));
 
     const { Component, pageProps } = this.props;
 

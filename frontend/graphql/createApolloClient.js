@@ -1,12 +1,14 @@
+/* eslint-disable global-require */
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import fetch from 'isomorphic-unfetch';
 import { ApolloLink } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
+import fetch from 'isomorphic-unfetch';
 
-import resolvers from './resolvers';
-import typeDefs from './schema';
+// import { schema } from './schema';
+import { typeDefs } from './typeDefs';
+import { resolvers } from './resolvers';
 
 /**
  * Creates and configures the ApolloClient
@@ -17,18 +19,6 @@ import typeDefs from './schema';
 export const createApolloClient = (initialState = {}) => {
   const isBrowser = typeof window !== 'undefined';
   const isDev = process.env.NODE_ENV === 'development';
-
-  const fetchOptions = {};
-
-  // // If you are using a https_proxy, add fetchOptions with 'https-proxy-agent' agent instance
-  // // 'https-proxy-agent' is required here because it's a sever-side only module
-  // if (typeof window === 'undefined') {
-  //   if (process.env.https_proxy) {
-  //     fetchOptions.agent = new (require('https-proxy-agent'))(
-  //       process.env.https_proxy
-  //     )
-  //   }
-  // }
 
   // Log GraphQL request & response
   const consoleLogLink = new ApolloLink((operation, forward) => {
@@ -63,8 +53,7 @@ export const createApolloClient = (initialState = {}) => {
       ? process.env.DEV_GRAPHQL_ENDPOINT
       : process.env.PROD_GRAPHQL_ENDPOINT,
     credentials: 'include',
-    fetch,
-    fetchOptions
+    fetch
   });
 
   const cache = new InMemoryCache().restore(initialState);
@@ -73,11 +62,9 @@ export const createApolloClient = (initialState = {}) => {
     ? ApolloLink.from([consoleLogLink, errorLink, newHttpLink])
     : ApolloLink.from([errorLink, newHttpLink]);
 
-  // if (!isBrowser) {
-  //   console.log('jdslkfjds token: ', token);
-
-  //   authenticate(cache, token);
-  // }
+  // const link = isDev
+  //   ? ApolloLink.from([consoleLogLink, errorLink, createIsomorphLink()])
+  //   : ApolloLink.from([errorLink, createIsomorphLink()]);
 
   return new ApolloClient({
     link,
@@ -85,7 +72,28 @@ export const createApolloClient = (initialState = {}) => {
     connectToDevTools: isBrowser,
     // Disables forceFetch on the server (so queries are only run once)
     ssrMode: !isBrowser,
+    // schema,
     typeDefs,
     resolvers
   });
 };
+
+// function createIsomorphLink() {
+//   const fetchOptions = {};
+
+//   if (!isBrowser) {
+//     const { SchemaLink } = require('apollo-link-schema');
+//     const { schema } = require('./schema');
+//     return new SchemaLink({ schema });
+//   }
+
+//   const { HttpLink } = require('apollo-link-http');
+
+//   return new HttpLink({
+//     uri: isDev
+//       ? process.env.DEV_GRAPHQL_ENDPOINT
+//       : process.env.PROD_GRAPHQL_ENDPOINT,
+//     credentials: 'include',
+//     fetch
+//   });
+// }

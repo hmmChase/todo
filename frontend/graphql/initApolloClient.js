@@ -5,12 +5,12 @@ import { createApolloClient } from './createApolloClient';
  * Creates or reuses apollo client in the browser.
  */
 
-export const initApolloClient = (...args) => {
-  const isBrowser = typeof window !== 'undefined';
+let apolloClient = null;
 
+export const initApolloClient = (...args) => {
   // Make sure to create a new client for every server-side request so
   // that dataisn't shared between connections (which would be bad)
-  if (!isBrowser) return createApolloClient(...args);
+  if (typeof window === 'undefined') return createApolloClient(...args);
 
   // Reuse client on the client-side
   if (!apolloClient) apolloClient = createApolloClient(...args);
