@@ -2,7 +2,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
+
 // https://nextjs.org/docs#customizing-webpack-config
+
 const fs = require('fs');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
