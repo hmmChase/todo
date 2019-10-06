@@ -15,11 +15,9 @@ const IndexPage = React.memo(() => (
 ));
 
 IndexPage.getInitialProps = async props => {
-  const { apolloClient, req } = props;
+  const { req, apolloClient } = props;
 
-  if (req && req.headers && req.headers.cookie) {
-    authenticate(apolloClient, req.headers.cookie);
-  }
+  if (req) authenticate(req, apolloClient);
 
   return {};
 };

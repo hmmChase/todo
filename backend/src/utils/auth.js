@@ -11,11 +11,11 @@ import isEmail from 'isemail';
 
 import * as config from '../config';
 
-export const signJWT = async payload =>
+export const signJWT = payload =>
   // TODO: Add CSRK token
   // https://www.youtube.com/watch?v=67mezK3NzpU&feature=youtu.be&t=36m30s
 
-  await jwt.sign(payload, process.env.JWT_SECRET, {
+  jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: config.JWTExpiryTime
   });
 
@@ -40,7 +40,7 @@ export const verifyJWT = token => {
 };
 
 export const sendCookie = async (res, payload) => {
-  const JWT = await signJWT(payload);
+  const JWT = signJWT(payload);
 
   const cookieOptions = {
     httpOnly: true,

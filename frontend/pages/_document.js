@@ -74,7 +74,7 @@ class MyDocument extends Document {
             href="/static/favicon.ico"
           />
 
-          {/* Webfonts */}
+          {/* Fonts */}
           <link
             rel="preload"
             href="/static/fonts/open-sans-v15-latin-regular.woff2"

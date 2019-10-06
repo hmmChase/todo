@@ -1,17 +1,18 @@
 import jwt from 'jsonwebtoken';
-// import redirect from './redirect';
 
-export default (apolloClient, cookie) => {
-  const token = cookie.slice(6);
-  const secret = process.env.JWT_SECRET;
+export default (req, apolloClient) => {
+  if (req.headers.cookie) {
+    const token = req.headers.cookie.replace('token=', '');
+    const secret = process.env.JWT_SECRET;
 
-  try {
-    jwt.verify(token, secret);
+    try {
+      jwt.verify(token, secret);
 
-    apolloClient.cache.writeData({ data: { isLoggedIn: true } });
-  } catch (err) {
-    console.warn('jwt verify err', err);
-
+      apolloClient.cache.writeData({ data: { isLoggedIn: true } });
+    } catch (err) {
+      apolloClient.cache.writeData({ data: { isLoggedIn: false } });
+    }
+  } else {
     apolloClient.cache.writeData({ data: { isLoggedIn: false } });
   }
 };

@@ -37,7 +37,7 @@ class SignUp extends React.PureComponent {
       isFieldTouched
     } = this.props.form;
 
-    // Only show error after a field is touched.
+    // Only show error after a field is touched
     const emailError = isFieldTouched('email') && getFieldError('email');
     const passwordError = isFieldTouched('password') && getFieldError('password');
     const confirmPasswordError = isFieldTouched('confirmPassword') && getFieldError('confirmPassword');
