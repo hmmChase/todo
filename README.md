@@ -1,10 +1,8 @@
 # next-graphql-starter
 
-> A boilerplate/example app that includes functionality to sign up/in/out, and reset password.
+> A boilerplate/example CRUD app that includes functionality to sign up/in/out, and reset password.
 
 > View the app at https://next-graphql-starter.hmmchase.now.sh/
->
-> - Don't use a real email address to sign up.
 
 ## Built with
 
@@ -13,11 +11,11 @@
 - Apollo Server
 - Prisma
 - Styled Components
+- Ant Design
 
 ### Notes
 
 - User authentication implemented with a JWT and cookie.
-- I'm always looking for better ways to do things, so please give suggestions/pull requests.
 
 ## Getting Started
 
