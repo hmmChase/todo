@@ -1,49 +1,50 @@
+/* eslint-disable no-nested-ternary */
+
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Query } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
 
 import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
-
-import {
-  CURRENT_USER_IDEA,
-  UPDATE_IDEA_MUTATION,
-  DELETE_IDEA_MUTATION
-} from '../../graphql/queries';
-
+import IdeaInput from '../IdeaInput/IdeaInput';
+// import DeleteIcon from '../DeleteIcon/DeleteIcon';
+import { CURRENT_USER_IDEA } from '../../graphql/queries';
 import * as sc from './IdeaDetail.style';
-import IdeaInput from '../IdeaInput.js/IdeaInput';
 
 const IdeaDetail = React.memo(props => {
-  const handleError = error => error;
+  // Suppress console output
+  const handleError = err => err;
+
+  const { loading, error, data } = useQuery(CURRENT_USER_IDEA, {
+    variables: { id: props.ideaId },
+    onError(err) {
+      handleError(err);
+    }
+  });
 
   return (
-    <Query
-      query={CURRENT_USER_IDEA}
-      variables={{ id: props.ideaId }}
-      onError={handleError}
-    >
-      {({ loading, error, data }) => {
-        if (loading) return <DisplayLoading />;
-        if (error) return <DisplayError error={error} />;
+    <sc.IdeaDetail>
+      <Link href={{ pathname: '/' }}>
+        <sc.BackBtn type="primary">
+          <sc.BackIcon type="arrow-left" />
+          Back
+        </sc.BackBtn>
+      </Link>
 
-        return (
-          <sc.IdeaDetail>
-            <Link href={{ pathname: '/' }}>
-              <sc.BackBtn type="primary">
-                <sc.BackIcon type="arrow-left" />
-                Back
-              </sc.BackBtn>
-            </Link>
-
-            <IdeaInput
-              id={data.currentUserIdea.id}
-              content={data.currentUserIdea.content}
-            />
-          </sc.IdeaDetail>
-        );
-      }}
-    </Query>
+      {loading ? (
+        <DisplayLoading />
+      ) : error ? (
+        <DisplayError error={error} />
+      ) : (
+        <>
+          <IdeaInput
+            id={data.currentUserIdea.id}
+            content={data.currentUserIdea.content}
+          />
+          {/* <DeleteIcon id={data.currentUserIdea.id} /> */}
+        </>
+      )}
+    </sc.IdeaDetail>
   );
 });
 

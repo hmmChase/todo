@@ -7,7 +7,9 @@ export const TypographyText = styled(Typography.Text)``;
 
 export const FormItem = styled(Form.Item)``;
 
-export const InputIcon = styled(Icon)``;
+export const InputIcon = styled(Icon)`
+  color: rgba(0, 0, 0, 0.25);
+`;
 
 export const InputEmail = styled(Input)``;
 

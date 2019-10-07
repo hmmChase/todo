@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
+// import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
 
 import {
@@ -9,7 +9,7 @@ import {
 import { pageSize } from '../../constants';
 import * as sc from './IdeaCardForm.style';
 
-const IdeaCardForm = React.memo(props => {
+const IdeaCardForm = React.memo(() => {
   const [idea, setIdea] = useState('');
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 

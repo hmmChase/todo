@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable react/no-danger */
+
 import App from 'next/app';
 import { ThemeProvider } from 'styled-components';
 

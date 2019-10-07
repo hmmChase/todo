@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 
+import { withApollo } from '../graphql/withApollo';
 import Head from '../containers/Head/Head';
 import LayoutMain from '../containers/LayoutMain/LayoutMain';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
@@ -41,4 +42,4 @@ ResetPasswordPage.propTypes = {
   resetTokenExpiry: PropTypes.string
 };
 
-export default ResetPasswordPage;
+export default withApollo(ResetPasswordPage);

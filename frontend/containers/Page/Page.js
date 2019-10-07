@@ -6,7 +6,7 @@ import SignOn from '../../components/SignOn/SignOn';
 import { IS_LOGGED_IN } from '../../graphql/queries';
 
 const Page = React.memo(props => {
-  const { loading, error, data } = useQuery(IS_LOGGED_IN);
+  const { data } = useQuery(IS_LOGGED_IN);
 
   return data && data.isLoggedIn ? (
     props.children
