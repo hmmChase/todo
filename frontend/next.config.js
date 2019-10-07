@@ -82,7 +82,6 @@ const nextConfig = {
       );
     }
 
-
     // https://github.com/zeit/next.js/tree/canary/examples/with-ant-design-less
     if (options.isServer) {
       const antStyles = /antd\/.*?\/style.*?/;
@@ -109,5 +108,5 @@ const nextConfig = {
   }
 };
 
-// module.exports = withOffline(withLess(nextConfig));
-module.exports = withLess(nextConfig);
+module.exports = withOffline(withLess(nextConfig));
+// module.exports = withLess(nextConfig);

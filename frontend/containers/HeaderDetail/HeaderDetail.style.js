@@ -6,6 +6,10 @@ export const HeaderDetail = styled.div`
   padding: 10px;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (min-width: 920px) {
+    padding: 10px 0;
+  }
 `;
 
 export const Title = styled.h1`
