@@ -60,7 +60,7 @@ export const createApolloClient = (initialState = {}) => {
 
   const link = isDev
     ? ApolloLink.from([consoleLogLink, errorLink, newHttpLink])
-    : ApolloLink.from([errorLink, newHttpLink]);
+    : ApolloLink.from([newHttpLink]);
 
   // const link = isDev
   //   ? ApolloLink.from([consoleLogLink, errorLink, createIsomorphLink()])
