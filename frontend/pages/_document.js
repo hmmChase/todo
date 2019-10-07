@@ -7,7 +7,9 @@ import GlobalStyle from '../styles/global.style';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    console.log('_document GIP', new Date().getMilliseconds());
+    if (process.env.NODE_ENV === 'development') {
+      console.log('_document GIP', new Date().getMilliseconds());
+    }
 
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
@@ -41,7 +43,9 @@ class MyDocument extends Document {
   }
 
   render() {
-    console.log('_document render', new Date().getMilliseconds());
+    if (process.env.NODE_ENV === 'development') {
+      console.log('_document render', new Date().getMilliseconds());
+    }
 
     return (
       <html lang="en">
@@ -70,7 +74,7 @@ class MyDocument extends Document {
             href="/static/favicon.ico"
           />
 
-          {/* Webfonts */}
+          {/* Fonts */}
           <link
             rel="preload"
             href="/static/fonts/open-sans-v15-latin-regular.woff2"

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Mutation } from '@apollo/react-components';
+import { useMutation } from '@apollo/react-hooks';
 
 import {
   CURRENT_USER_PAGINATED_IDEAS,
@@ -9,13 +9,6 @@ import { pageSize } from '../../constants';
 import * as sc from './DeleteIcon.style';
 
 const DeleteIcon = React.memo(props => {
-  const handleError = error => error;
-
-  const handleClickDeleteBtn = (e, deleteIdea) => {
-    e.target.disabled = true;
-    deleteIdea();
-  };
-
   const handleUpdate = (cache, data) => {
     // Read the data from cache for this query
     const ideasData = cache.readQuery({
@@ -24,12 +17,13 @@ const DeleteIcon = React.memo(props => {
     });
 
     // Get id of idea to delete
-    const ideaId = data.data.deleteIdea.id;
+    const ideaId = data.deleteIdea.id;
+
+    // Copy the ideas
+    const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges];
 
     // Remove idea
-    const newIdeas = ideasData.currentUserPaginatedIdeas.edges.filter(
-      idea => idea.node.id !== ideaId
-    );
+    const filteredIdeas = newIdeas.filter(idea => idea.node.id !== ideaId);
 
     // Write data back to the cache
     cache.writeQuery({
@@ -39,27 +33,37 @@ const DeleteIcon = React.memo(props => {
         ...ideasData,
         currentUserPaginatedIdeas: {
           ...ideasData.currentUserPaginatedIdeas,
-          edges: newIdeas
+          edges: filteredIdeas
         }
       }
     });
   };
 
+  // Suppress console output
+  const handleError = err => err;
+
+  const [deleteIdea] = useMutation(DELETE_IDEA_MUTATION, {
+    update(cache, { data }) {
+      handleUpdate(cache, data);
+    },
+    onError(err) {
+      handleError(err);
+    }
+  });
+
+  const handleClickDeleteBtn = e => {
+    // ? not working
+    e.target.disabled = true;
+
+    deleteIdea({ variables: { id: props.id } });
+  };
+
   return (
-    <Mutation
-      mutation={DELETE_IDEA_MUTATION}
-      variables={{ id: props.id }}
-      onError={handleError}
-      update={handleUpdate}
-    >
-      {deleteIdea => (
-        <sc.DeleteIcon
-          type="close-square"
-          theme="twoTone"
-          onClick={e => handleClickDeleteBtn(e, deleteIdea)}
-        />
-      )}
-    </Mutation>
+    <sc.DeleteIcon
+      type="close-square"
+      theme="twoTone"
+      onClick={handleClickDeleteBtn}
+    />
   );
 });
 

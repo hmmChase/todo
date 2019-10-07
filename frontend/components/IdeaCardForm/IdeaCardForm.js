@@ -1,4 +1,6 @@
-import { Mutation } from 'react-apollo';
+import { useState } from 'react';
+// import PropTypes from 'prop-types';
+import { useMutation } from '@apollo/react-hooks';
 
 import {
   CURRENT_USER_PAGINATED_IDEAS,
@@ -7,43 +9,23 @@ import {
 import { pageSize } from '../../constants';
 import * as sc from './IdeaCardForm.style';
 
-class IdeaCardForm extends React.PureComponent {
-  state = { idea: '', isSubmitDisabled: true };
+const IdeaCardForm = React.memo(() => {
+  const [idea, setIdea] = useState('');
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
-  canSubmit = () => {
-    if (this.state.idea === '') {
-      this.setState({ isSubmitDisabled: true });
-    } else {
-      this.setState({ isSubmitDisabled: false });
-    }
-  };
-
-  handleChangeIdeaInput = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value }, this.canSubmit);
-  };
-
-  handleSubmitIdeaForm = async (event, createIdea) => {
-    event.preventDefault();
-    this.setState({ isSubmitDisabled: true });
-    createIdea();
-    this.setState({ idea: '' }, this.canSubmit);
-  };
-
-  handleError = error => error;
-
-  handleUpdate = (cache, data) => {
-    // Read the data from cache for this query
+  const handleUpdate = (cache, data) => {
+    // Read the data from cache for query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
       variables: { orderBy: 'createdAt_DESC', first: pageSize }
     });
 
-    const newIdeas = ideasData.currentUserPaginatedIdeas.edges;
+    // Copy the ideas
+    const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges];
 
     // Add idea from the mutation to the beginning
     newIdeas.unshift({
-      node: { ...data.data.createIdea },
+      node: { ...data.createIdea },
       __typename: 'IdeaEdge'
     });
 
@@ -61,44 +43,71 @@ class IdeaCardForm extends React.PureComponent {
     });
   };
 
-  render() {
-    return (
-      <Mutation
-        mutation={CREATE_IDEA_MUTATION}
-        variables={{ content: this.state.idea }}
-        onError={this.handleError}
-        update={this.handleUpdate}
+  // Suppress console output
+  const handleError = err => err;
+
+  const [createIdea] = useMutation(CREATE_IDEA_MUTATION, {
+    update(cache, { data }) {
+      handleUpdate(cache, data);
+    },
+    onError(err) {
+      handleError(err);
+    }
+  });
+
+  const canSubmit = value => {
+    if (value === '') {
+      setIsSubmitDisabled(true);
+    } else {
+      setIsSubmitDisabled(false);
+    }
+  };
+
+  const handleChangeIdeaInput = e => {
+    setIdea(e.target.value);
+    canSubmit(e.target.value);
+  };
+
+  const handleSubmitIdeaForm = e => {
+    e.preventDefault();
+    setIsSubmitDisabled(true);
+    createIdea({ variables: { content: idea } });
+    // props.form.resetFields();
+    setIdea('');
+  };
+
+  return (
+    <sc.IdeaCardForm onSubmit={handleSubmitIdeaForm}>
+      {/* <sc.FormItem> */}
+      <sc.InputTextArea
+        name="idea"
+        type="text"
+        placeholder="What's on your mind?"
+        value={idea}
+        onChange={handleChangeIdeaInput}
+      />
+      {/* </sc.FormItem> */}
+
+      <sc.BoxImg src="static/ideabox.png" alt="ideabox" />
+
+      {/* <sc.FormItem> */}
+      <sc.SubmitBtn
+        type="primary"
+        htmlType="submit"
+        disabled={isSubmitDisabled}
       >
-        {createIdea => (
-          <sc.IdeaCardForm
-            onSubmit={event => this.handleSubmitIdeaForm(event, createIdea)}
-          >
-            {/* <sc.AntFormItem> */}
-            <sc.IdeaTextArea
-              name="idea"
-              type="text"
-              placeholder="What's on your mind?"
-              value={this.state.idea}
-              onChange={event => this.handleChangeIdeaInput(event)}
-            />
-            {/* </sc.AntFormItem> */}
+        Add Idea
+      </sc.SubmitBtn>
+      {/* </sc.FormItem> */}
+    </sc.IdeaCardForm>
+  );
+});
 
-            <sc.BoxImg src="static/ideabox.png" alt="ideabox" />
-
-            {/* <sc.AntFormItem> */}
-            <sc.SubmitBtn
-              type="primary"
-              htmlType="submit"
-              disabled={this.state.isSubmitDisabled}
-            >
-              Add Idea
-            </sc.SubmitBtn>
-            {/* </sc.AntFormItem> */}
-          </sc.IdeaCardForm>
-        )}
-      </Mutation>
-    );
-  }
-}
+// IdeaCardForm.propTypes = {
+//   form: PropTypes.shape({
+//     resetFields: PropTypes.func.isRequired
+//   }).isRequired
+// };
 
 export default IdeaCardForm;
+// export default sc.IdeaCardForm.create({ name: 'IdeaCardForm' })(IdeaCardForm);

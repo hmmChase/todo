@@ -5,11 +5,11 @@ export const RequestReset = styled(Form)``;
 
 export const FormItem = styled(Form.Item)``;
 
-export const InputIcon = styled(Icon)``;
-
-export const InputEmail = styled(Input)`
-  max-width: 300px;
+export const InputIcon = styled(Icon)`
+  color: rgba(0, 0, 0, 0.5);
 `;
+
+export const InputEmail = styled(Input)``;
 
 export const SubmitBtn = styled(Button)`
   float: right;

@@ -45,15 +45,8 @@ export default {
       // Normalize email
       const email = args.email.toLowerCase();
 
-      // Find user matching email
-      const userExists = await ctx.prisma.query.user({ where: { email } });
-
-      // If user found, return error
-      if (userExists)
-        throw new AuthenticationError(`An account already exists for ${email}`);
-
       // Check if email address is well-formed
-      auth.validateEmail(args.email);
+      auth.validateEmail(email);
 
       // Check if password is well-formed
       auth.validatePassword(args.password);
@@ -61,11 +54,18 @@ export default {
       // Check if user typed confirm password correctly
       auth.comparePasswords(args.password, args.confirmPassword);
 
+      // Find user matching email
+      const user = await ctx.prisma.query.user({ where: { email } });
+
+      // If user found, return error
+      if (user)
+        throw new AuthenticationError(`An account already exists for ${email}`);
+
       // Encrypt password
       const password = await bcrypt.hash(args.password, config.saltRounds);
 
       // Create user
-      const user = await ctx.prisma.mutation.createUser({
+      const newUser = await ctx.prisma.mutation.createUser({
         data: { email, password }
       });
 
@@ -76,7 +76,7 @@ export default {
       await auth.sendCookie(ctx.res, payload);
 
       // Return User
-      return user;
+      return newUser;
     },
 
     signIn: async (parent, args, ctx, info) => {
