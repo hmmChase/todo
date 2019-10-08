@@ -38,7 +38,17 @@ const nextConfig = {
     swDest: 'static/service-worker.js',
     runtimeCaching: [
       {
-        urlPattern: /^https?.*/,
+        urlPattern: /[.](png|jpg|ico|css)/,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'assets-cache',
+          cacheableResponse: {
+            statuses: [0, 200]
+          }
+        }
+      },
+      {
+        urlPattern: /^http.*/,
         handler: 'NetworkFirst',
         options: {
           cacheName: 'https-calls',
