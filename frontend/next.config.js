@@ -49,6 +49,9 @@ const nextConfig = {
           },
           cacheableResponse: {
             statuses: [0, 200]
+          },
+          fetchOptions: {
+            credentials: 'include'
           }
         }
       }

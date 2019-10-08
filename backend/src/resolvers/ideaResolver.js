@@ -23,8 +23,9 @@ export default {
     },
 
     currentUserIdea: async (parent, args, ctx, info) => {
-      // If no token cookie present, return null
-      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token) return null;
+      // If no token cookie present, throw error
+      if (!ctx.req.cookies.token)
+        throw new AuthenticationError('Must be signed in.');
 
       // Verify cookie and decode payload
       const currentUser = auth.verifyJWT(ctx.req.cookies.token);
@@ -45,8 +46,9 @@ export default {
     },
 
     currentUserPaginatedIdeas: async (parent, args, ctx, info) => {
-      // If no token cookie present, return null
-      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token) return null;
+      // If no token cookie present, throw error
+      if (!ctx.req.cookies.token)
+        throw new AuthenticationError('Must be signed in.');
 
       // Verify cookie and decode payload
       const currentUser = auth.verifyJWT(ctx.req.cookies.token);
@@ -60,8 +62,8 @@ export default {
 
   Mutation: {
     createIdea: (parent, args, ctx, info) => {
-      // Check if token is available
-      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token)
+      // If no token cookie present, throw error
+      if (!ctx.req.cookies.token)
         throw new AuthenticationError('Must be signed in.');
 
       // Get current user from JWT
@@ -80,8 +82,8 @@ export default {
     },
 
     updateIdea: async (parent, args, ctx, info) => {
-      // Check if token is available
-      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token)
+      // If no token cookie present, throw error
+      if (!ctx.req.cookies.token)
         throw new AuthenticationError('Must be signed in.');
 
       // Get current user from JWT
@@ -107,9 +109,9 @@ export default {
     },
 
     deleteIdea: async (parent, args, ctx, info) => {
-      // Check if token is available
-      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token)
-        throw new ForbiddenError('Must be signed in.');
+      // If no token cookie present, throw error
+      if (!ctx.req.cookies.token)
+        throw new AuthenticationError('Must be signed in.');
 
       // Get current user from JWT
       const currentUser = auth.verifyJWT(ctx.req.cookies.token);
