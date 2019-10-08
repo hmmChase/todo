@@ -29,7 +29,7 @@ const nextConfig = {
 
   // https://github.com/hanford/next-offline#now-20
   // Add the homepage to the cache
-  // transformManifest: manifest => ['/'].concat(manifest),
+  transformManifest: manifest => ['/'].concat(manifest),
 
   // PWA Doesn't work in Dev
   generateInDevMode: true,
