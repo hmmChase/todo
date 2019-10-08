@@ -26,8 +26,8 @@ export default {
     },
 
     currentUser: (parent, args, ctx, info) => {
-      // if no token cookie present, return null
-      if (!ctx.req && !ctx.req.cookies && !ctx.req.cookies.token) return null;
+      // If no token cookie present, throw error
+      if (!ctx.req.cookies.token) return null;
 
       // Verify cookie and decode payload
       const currentUser = auth.verifyJWT(ctx.req.cookies.token);

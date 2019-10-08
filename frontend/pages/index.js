@@ -4,7 +4,7 @@ import Head from '../containers/Head/Head';
 import LayoutMain from '../containers/LayoutMain/LayoutMain';
 import HeaderMain from '../containers/HeaderMain/HeaderMain';
 import Ideas from '../components/Ideas/Ideas';
-import authenticate from '../utils/authenticate';
+import { cookieAuth, graphQLAuth } from '../utils/authenticate';
 
 const IndexPage = React.memo(() => (
   <Page>
@@ -17,7 +17,8 @@ const IndexPage = React.memo(() => (
 IndexPage.getInitialProps = async props => {
   const { req, apolloClient } = props;
 
-  if (req) authenticate(req, apolloClient);
+  if (req) cookieAuth(req, apolloClient);
+  // await graphQLAuth(apolloClient);
 
   return {};
 };

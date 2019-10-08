@@ -9,6 +9,7 @@
     "backend:install": "cd backend && npm install",
     "frontend": "cd frontend && npm run dev",
     "frontend:install": "cd frontend && npm install",
+    "now-dev": "now dev -p 8008",
     "app": "concurrently -c red,green --kill-others-on-fail \"npm run backend\" \"npm run frontend\""
   },
   "repository": {
