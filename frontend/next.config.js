@@ -5,6 +5,8 @@
 
 // https://nextjs.org/docs#customizing-webpack-config
 
+require('dotenv').config();
+
 const fs = require('fs');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
@@ -71,6 +73,9 @@ const nextConfig = {
 
   webpack: (config, options) => {
     config.plugins = config.plugins || [];
+
+    // Zeit Now: Fixes npm packages that depend on `fs` module
+    config.node = { fs: 'empty' };
 
     // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
     config.plugins.push(
