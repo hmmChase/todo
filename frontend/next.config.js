@@ -28,12 +28,12 @@ const nextConfig = {
     modifyVars: themeVariables // make your antd custom effective
   },
 
-  // https://github.com/hanford/next-offline#now-20
-  // Add the homepage to the cache
-  transformManifest: manifest => ['/'].concat(manifest),
+  // // https://github.com/hanford/next-offline#now-20
+  // // Add the homepage to the cache
+  // transformManifest: manifest => ['/'].concat(manifest),
 
-  // PWA Doesn't work in Dev
-  generateInDevMode: true,
+  // // PWA Doesn't work in Dev
+  // generateInDevMode: false,
 
   workboxOpts: {
     swDest: 'static/service-worker.js',
@@ -49,10 +49,10 @@ const nextConfig = {
         }
       },
       {
-        urlPattern: /^https?.*/,
+        urlPattern: /^https.*/,
         handler: 'NetworkFirst',
         options: {
-          cacheName: 'https-calls',
+          cacheName: 'http-cache',
           networkTimeoutSeconds: 15,
           expiration: {
             maxEntries: 150,
@@ -129,5 +129,5 @@ const nextConfig = {
   }
 };
 
-module.exports = withOffline(withLess(nextConfig));
+module.exports = withLess(withOffline(nextConfig));
 // module.exports = withLess(nextConfig);

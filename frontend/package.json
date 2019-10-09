@@ -60,6 +60,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.1.2",
     "jest": "^24.9.0",
     "jest-styled-components": "^6.3.3",
     "react-axe": "^3.3.0",
