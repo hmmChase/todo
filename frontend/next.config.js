@@ -11,6 +11,7 @@ const Dotenv = require('dotenv-webpack');
 const withLess = require('@zeit/next-less');
 const lessToJS = require('less-vars-to-js');
 const withOffline = require('next-offline');
+const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
@@ -27,21 +28,31 @@ const nextConfig = {
     modifyVars: themeVariables // make your antd custom effective
   },
 
-  // https://github.com/hanford/next-offline#now-20
-  // Add the homepage to the cache
-  transformManifest: manifest => ['/'].concat(manifest),
+  // // https://github.com/hanford/next-offline#now-20
+  // // Add the homepage to the cache
+  // transformManifest: manifest => ['/'].concat(manifest),
 
-  // PWA Doesn't work in Dev
-  generateInDevMode: false,
+  // // PWA Doesn't work in Dev
+  // generateInDevMode: false,
 
   workboxOpts: {
     swDest: 'static/service-worker.js',
     runtimeCaching: [
       {
-        urlPattern: /^https?.*/,
+        urlPattern: /[.](png|jpg|ico|css)/,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'assets-cache',
+          cacheableResponse: {
+            statuses: [0, 200]
+          }
+        }
+      },
+      {
+        urlPattern: /^https.*/,
         handler: 'NetworkFirst',
         options: {
-          cacheName: 'https-calls',
+          cacheName: 'http-cache',
           networkTimeoutSeconds: 15,
           expiration: {
             maxEntries: 150,
@@ -67,6 +78,13 @@ const nextConfig = {
       new Dotenv({
         path: path.join(__dirname, '.env'),
         systemvars: true
+      })
+    );
+
+    // https://spectrum.chat/next-js/general/conflicting-order-between~25834bb9-fe91-44dd-ba47-b016b6518d67
+    config.plugins.push(
+      new FilterWarningsPlugin({
+        exclude: /mini-css-extract-plugin[^]*Conflicting order between:/
       })
     );
 
@@ -111,5 +129,5 @@ const nextConfig = {
   }
 };
 
-module.exports = withOffline(withLess(nextConfig));
+module.exports = withLess(withOffline(nextConfig));
 // module.exports = withLess(nextConfig);

@@ -4,7 +4,7 @@
   "description": "",
   "dir": "ltr",
   "lang": "en",
-  "start_url": "/?source=pwa",
+  "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",

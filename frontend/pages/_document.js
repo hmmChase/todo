@@ -14,6 +14,7 @@ class MyDocument extends Document {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
+    // Render app and page and get the context of the page with collected side effects
     try {
       ctx.renderPage = () =>
         originalRenderPage({
