@@ -1,12 +1,22 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable max-len */
 /* eslint-disable react/no-danger */
 
 import App from 'next/app';
+import ReactDom from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 
 import theme from '../styles/theme.style';
 
 export class MyApp extends App {
+  componentDidMount() {
+    if (process.env.NODE_ENV !== 'production') {
+      const axe = require('react-axe');
+      axe(React, ReactDom, 1000);
+    }
+  }
+
   render() {
     if (process.env.NODE_ENV === 'development') {
       console.log('_app render', new Date().getMilliseconds());

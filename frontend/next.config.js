@@ -11,6 +11,7 @@ const Dotenv = require('dotenv-webpack');
 const withLess = require('@zeit/next-less');
 const lessToJS = require('less-vars-to-js');
 const withOffline = require('next-offline');
+const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
@@ -48,7 +49,7 @@ const nextConfig = {
         }
       },
       {
-        urlPattern: /^http.*/,
+        urlPattern: /^https?.*/,
         handler: 'NetworkFirst',
         options: {
           cacheName: 'https-calls',
@@ -77,6 +78,13 @@ const nextConfig = {
       new Dotenv({
         path: path.join(__dirname, '.env'),
         systemvars: true
+      })
+    );
+
+    // https://spectrum.chat/next-js/general/conflicting-order-between~25834bb9-fe91-44dd-ba47-b016b6518d67
+    config.plugins.push(
+      new FilterWarningsPlugin({
+        exclude: /mini-css-extract-plugin[^]*Conflicting order between:/
       })
     );
 
