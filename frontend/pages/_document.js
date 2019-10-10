@@ -54,7 +54,10 @@ class MyDocument extends Document {
           <meta charSet="utf-8" />
 
           {/* SEO */}
-          <meta name="description" content="" />
+          <meta
+            name="description"
+            content="An example CRUD app with user authentification."
+          />
 
           {/* Responsive */}
           <meta
