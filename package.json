@@ -1,6 +1,5 @@
 {
   "name": "next-graphql-starter",
-  "alias": "ngs.now.sh",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -25,6 +24,6 @@
   },
   "homepage": "https://github.com/hmmChase/next-graphql-starter#readme",
   "devDependencies": {
-    "concurrently": "^4.1.1"
+    "concurrently": "^5.0.0"
   }
 }

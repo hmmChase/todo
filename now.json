@@ -1,5 +1,6 @@
 {
   "name": "next-graphql-starter",
+  "alias": "ngs.now.sh",
   "version": 2,
   "builds": [
     {
