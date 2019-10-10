@@ -78,6 +78,55 @@ class MyDocument extends Document {
             href="/static/favicon.ico"
           />
 
+          {/* PWA images */}
+          <link
+            rel="icon"
+            type="image/png"
+            href="/img/android-36x36.png"
+            sizes="36x36"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="/img/android-48x48.png"
+            sizes="48x48"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="/img/android-72x72.png"
+            sizes="72x72"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="/img/android-96x96.png"
+            sizes="96x96"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="/img/android-144x144.png"
+            sizes="144x144"
+          />
+          <link
+            rel="apple-touch-icon"
+            href="/img/apple-touch-icon-180x180.png"
+            sizes="180x180"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="/img/pwa-192x192.png"
+            sizes="192x192"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="/img/pwa-512x512.png"
+            sizes="512x512"
+          />
+
           {/* Fonts */}
           <link
             rel="preload"
@@ -101,6 +150,7 @@ class MyDocument extends Document {
           {/* Fixes flash of unstyled content for first load (Chromium bug)
             https://github.com/ant-design/ant-design/issues/16037
             Not only antd, but also any other style if you want to use ssr */}
+
           <style
             id="holderStyle"
             dangerouslySetInnerHTML={{
