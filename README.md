@@ -1,21 +1,40 @@
 # next-graphql-starter
 
-> A boilerplate/example CRUD app that includes functionality to sign up/in/out, and reset password.
+> An example CRUD PWA app with user authentification.
 
 > View the app at https://next-graphql-starter.hmmchase.now.sh/
 
 ## Built with
 
 - Next.js
+- Styled Components
+- Ant Design
 - Apollo Client
 - Apollo Server
 - Prisma
-- Styled Components
-- Ant Design
 
-### Notes
+## Features
 
-- User authentication implemented with a JWT and cookie.
+- User sign up/in/out
+- Create/Read/Update/Delete ideas
+- Password resets
+- Individual routes for ideas
+- Progressive Web App
+- Local GraphQL schema
+- Normalize CSS
+- Global CSS Theme
+- Webpack Bundle Analyzer
+- Accessibility auditing
+
+## Testing
+
+- This is a work-in-progress
+
+### Authentication
+
+- User authentication is implemented with a JWT cookie, handled by the Apollo server.
+- The JWT is verified on the client, server-side, which sets a boolean in the local schema.
+- A client query is then used to determine if a user is logged in for each page.
 
 ## Getting Started
 
