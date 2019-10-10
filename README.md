@@ -1,8 +1,8 @@
 # next-graphql-starter
 
 > An example CRUD PWA app with user authentification.
-
-> View the app at https://next-graphql-starter.hmmchase.now.sh/
+>
+> View the app at <https://next-graphql-starter.hmmchase.now.sh/>
 
 ## Built with
 
@@ -15,15 +15,15 @@
 
 ## Features
 
+- Progressive Web App
 - User sign up/in/out
-- Create/Read/Update/Delete ideas
 - Password resets
+- Create/Read/Update/Delete ideas
 - Individual routes for ideas
 - Cursor based pagination
-- Progressive Web App
 - Local GraphQL schema
 - Normalize CSS
-- Global CSS Theme
+- Global CSS style and theming
 - Webpack Bundle Analyzer
 - Accessibility auditing
 
