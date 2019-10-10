@@ -5,7 +5,6 @@ import Head from '../containers/Head/Head';
 import LayoutMain from '../containers/LayoutMain/LayoutMain';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import isLoggedIn from '../utils/isLoggedIn';
-// import { cookieAuth, graphQLAuth } from '../utils/authenticate';
 import redirect from '../utils/redirect';
 
 const ResetPasswordPage = React.memo(props => (
@@ -30,9 +29,6 @@ ResetPasswordPage.getInitialProps = async ctx => {
   const loggedIn = await isLoggedIn(ctx.apolloClient);
 
   if (loggedIn) redirect(ctx, '/');
-
-  // if (req) cookieAuth(req, apolloClient);
-  // graphQLAuth(apolloClient);
 
   return { resetToken, resetTokenExpiry };
 };

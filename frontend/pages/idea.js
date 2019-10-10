@@ -6,7 +6,7 @@ import Head from '../containers/Head/Head';
 import LayoutMain from '../containers/LayoutMain/LayoutMain';
 import HeaderDetail from '../containers/HeaderDetail/HeaderDetail';
 import IdeaDetail from '../components/IdeaDetail/IdeaDetail';
-import { cookieAuth, graphQLAuth } from '../utils/authenticate';
+import authenticate from '../utils/authenticate';
 
 const IdeaPage = React.memo(props => (
   <Page>
@@ -23,8 +23,7 @@ IdeaPage.getInitialProps = async props => {
   const { req, query, apolloClient } = props;
   const ideaId = query.id;
 
-  if (req) cookieAuth(req, apolloClient);
-  // graphQLAuth(apolloClient);
+  if (req) authenticate(req, apolloClient);
 
   return { ideaId };
 };

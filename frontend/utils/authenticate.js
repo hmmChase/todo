@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { CURRENT_USER_QUERY } from '../graphql/queries';
 
-export const cookieAuth = (req, apolloClient) => {
+export default (req, apolloClient) => {
   if (req.headers.cookie) {
     const token = req.headers.cookie.replace('token=', '');
     const secret = process.env.JWT_SECRET;
