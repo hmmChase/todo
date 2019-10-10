@@ -19,6 +19,7 @@
 - Create/Read/Update/Delete ideas
 - Password resets
 - Individual routes for ideas
+- Cursor based pagination
 - Progressive Web App
 - Local GraphQL schema
 - Normalize CSS
