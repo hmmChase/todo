@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { SignOutBtn } from '../../components/SignOutBtn/SignOutBtn.style';
-import { IdeaCardForm } from '../../components/IdeaCardForm/IdeaCardForm.style';
+import { SignOutBtn } from '../SignOutBtn/SignOutBtn.style';
+import { IdeaCardForm } from '../IdeaCardForm/IdeaCardForm.style';
 
 export const HeaderMain = styled.div`
   display: grid;

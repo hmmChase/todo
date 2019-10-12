@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 
-import IdeaCard from '../../containers/IdeaCard/IdeaCard';
+import IdeaCard from '../IdeaCard/IdeaCard';
 import * as sc from './IdeaCardList.style';
 
-const IdeaCardList = React.memo(props => (
+const IdeaCardList = props => (
   <sc.IdeaCardList
     loading={props.loading}
     dataSource={props.ideas}
     rowKey={idea => `ideaCard${idea.node.id}`}
     renderItem={idea => <IdeaCard {...idea.node} />}
   />
-));
+);
 
 IdeaCardList.propTypes = {
   loading: PropTypes.bool.isRequired,
@@ -27,4 +27,4 @@ IdeaCardList.propTypes = {
   ).isRequired
 };
 
-export default IdeaCardList;
+export default React.memo(IdeaCardList);

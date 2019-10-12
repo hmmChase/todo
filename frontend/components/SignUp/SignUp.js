@@ -7,7 +7,7 @@ import { SIGN_UP_MUTATION } from '../../graphql/queries';
 import { passwordRequirements } from '../../constants';
 import * as sc from './SignUp.style';
 
-const SignUp = React.memo(props => {
+const SignUp = props => {
   const {
     form: {
       validateFields,
@@ -71,6 +71,7 @@ const SignUp = React.memo(props => {
           ]
         })(
           <sc.InputEmail
+            aria-label="email"
             type="email"
             placeholder="email"
             onPressEnter={handleSubmitForm}
@@ -88,6 +89,7 @@ const SignUp = React.memo(props => {
           rules: [{ required: true, message: 'Please enter your password' }]
         })(
           <sc.InputPassword
+            aria-label="password"
             placeholder="password"
             onPressEnter={handleSubmitForm}
             prefix={<sc.InputIcon type="lock" />}
@@ -104,6 +106,7 @@ const SignUp = React.memo(props => {
           rules: [{ required: true, message: 'Please confirm your password' }]
         })(
           <sc.InputConfirmPassword
+            aria-label="confirm password"
             placeholder="confirm password"
             onPressEnter={handleSubmitForm}
             prefix={<sc.InputIcon type="lock" />}
@@ -139,7 +142,7 @@ const SignUp = React.memo(props => {
       </sc.FormItem>
     </sc.SignUp>
   );
-});
+};
 
 SignUp.propTypes = {
   form: PropTypes.shape({
@@ -152,4 +155,4 @@ SignUp.propTypes = {
   }).isRequired
 };
 
-export default sc.SignUp.create({ name: 'SignUp' })(SignUp);
+export default sc.SignUp.create({ name: 'SignUp' })(React.memo(SignUp));

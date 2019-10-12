@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 
 import { withApollo } from '../graphql/withApollo';
-import Page from '../containers/Page/Page';
-import Head from '../containers/Head/Head';
-import LayoutMain from '../containers/LayoutMain/LayoutMain';
-import HeaderDetail from '../containers/HeaderDetail/HeaderDetail';
+import Page from '../components/Page/Page';
+import Head from '../components/Head/Head';
+import LayoutMain from '../components/LayoutMain/LayoutMain';
+import HeaderDetail from '../components/HeaderDetail/HeaderDetail';
 import IdeaDetail from '../components/IdeaDetail/IdeaDetail';
 import authenticate from '../utils/authenticate';
 
-const IdeaPage = React.memo(props => (
+const IdeaPage = props => (
   <Page>
     <Head title="Idea Detail" />
 
@@ -17,9 +17,9 @@ const IdeaPage = React.memo(props => (
       content={<IdeaDetail ideaId={props.ideaId} />}
     />
   </Page>
-));
+);
 
-IdeaPage.getInitialProps = async props => {
+IdeaPage.getInitialProps = props => {
   const { req, query, apolloClient } = props;
   const ideaId = query.id;
 
@@ -32,4 +32,4 @@ IdeaPage.propTypes = {
   ideaId: PropTypes.string.isRequired
 };
 
-export default withApollo(IdeaPage);
+export default withApollo(React.memo(IdeaPage));

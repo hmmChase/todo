@@ -1,43 +1,45 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Mutation } from '@apollo/react-components';
+import { useMutation } from '@apollo/react-hooks';
 import debounce from 'lodash.debounce';
 
 import { UPDATE_IDEA_MUTATION } from '../../graphql/queries';
 import * as sc from './IdeaInput.style';
 
-class IdeaInput extends React.PureComponent {
-  state = { content: this.props.content };
+const IdeaInput = props => {
+  const [content, setContent] = useState(props.content);
 
-  debounced = debounce(updateIdea => updateIdea(), 200);
+  // Suppress console output
+  const handleError = err => err;
 
-  handleChangeideaInput = (e, updateIdea) => {
-    this.setState({ content: e.target.value });
-    this.debounced(updateIdea);
+  const [updateIdea] = useMutation(UPDATE_IDEA_MUTATION, {
+    update(cache, { data }) {
+      handleUpdate(cache, data);
+    },
+    onError(err) {
+      handleError(err);
+    }
+  });
+
+  const handleChangeideaInput = e => {
+    setContent(e.target.value);
+
+    debounce(() => updateIdea({ variables: { id: props.id, content } }), 200);
   };
 
-  handleError = error => error;
+  return (
+    <sc.IdeaInput
+      aria-label="idea input"
+      autosize={{ minRows: 1, maxRows: 10 }}
+      value={content}
+      onChange={handleChangeideaInput}
+    />
+  );
+};
 
-  render() {
-    return (
-      <Mutation
-        mutation={UPDATE_IDEA_MUTATION}
-        variables={{ id: this.props.id, content: this.state.content }}
-        onError={this.handleError}
-      >
-        {updateIdea => (
-          <sc.IdeaInput
-            autosize={{ minRows: 1, maxRows: 10 }}
-            value={this.state.content}
-            onChange={e => this.handleChangeideaInput(e, updateIdea)}
-          />
-        )}
-      </Mutation>
-    );
-  }
-}
 IdeaInput.propTypes = {
   id: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired
 };
 
-export default IdeaInput;
+export default React.memo(IdeaInput);

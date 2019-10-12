@@ -4,8 +4,8 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { SIGN_OUT_MUTATION } from '../../graphql/queries';
 import * as sc from './SignOutBtn.style';
 
-const SignOutBtn = React.memo(() => {
-  // `client` is now set to the `ApolloClient` instance being used by the
+const SignOutBtn = () => {
+  // `apolloClient` is now set to the `ApolloClient` instance being used by the
   // application (that was configured using something like `ApolloProvider`)
   const apolloClient = useApolloClient();
 
@@ -44,6 +44,6 @@ const SignOutBtn = React.memo(() => {
       Sign Out
     </sc.SignOutBtn>
   );
-});
+};
 
 export default SignOutBtn;

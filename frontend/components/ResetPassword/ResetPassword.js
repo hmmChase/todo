@@ -8,7 +8,7 @@ import { RESET_PASSWORD_MUTATION } from '../../graphql/queries';
 import { passwordRequirements } from '../../constants';
 import * as sc from './ResetPassword.style';
 
-const ResetPassword = React.memo(props => {
+const ResetPassword = props => {
   const {
     resetToken,
     resetTokenExpiry,
@@ -79,6 +79,7 @@ const ResetPassword = React.memo(props => {
           rules: [{ required: true, message: 'Please enter your password' }]
         })(
           <sc.InputPassword
+            aria-label="password"
             placeholder="password"
             onPressEnter={handleSubmitForm}
             prefix={
@@ -97,6 +98,7 @@ const ResetPassword = React.memo(props => {
           rules: [{ required: true, message: 'Please confirm your password' }]
         })(
           <sc.InputConfirmPassword
+            aria-label="confirm password"
             placeholder="confirm password"
             onPressEnter={handleSubmitForm}
             prefix={
@@ -144,7 +146,7 @@ const ResetPassword = React.memo(props => {
       </sc.FormItem>
     </sc.ResetPassword>
   );
-});
+};
 
 ResetPassword.defaultProps = {
   resetToken: '',
@@ -165,5 +167,5 @@ ResetPassword.propTypes = {
 };
 
 export default sc.ResetPassword.create({ name: 'ResetPassword' })(
-  ResetPassword
+  React.memo(ResetPassword)
 );

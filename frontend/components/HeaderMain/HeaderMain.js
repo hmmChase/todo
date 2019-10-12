@@ -1,9 +1,9 @@
-import SignOutBtn from '../../components/SignOutBtn/SignOutBtn';
-import IdeaCardForm from '../../components/IdeaCardForm/IdeaCardForm';
+import SignOutBtn from '../SignOutBtn/SignOutBtn';
+import IdeaCardForm from '../IdeaCardForm/IdeaCardForm';
 import { title } from '../../constants';
 import * as sc from './HeaderMain.style';
 
-const HeaderMain = React.memo(() => (
+const HeaderMain = () => (
   <sc.HeaderMain>
     <sc.Title>{title}</sc.Title>
 
@@ -11,6 +11,6 @@ const HeaderMain = React.memo(() => (
 
     <IdeaCardForm />
   </sc.HeaderMain>
-));
+);
 
 export default HeaderMain;

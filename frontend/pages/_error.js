@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Button } from 'antd';
 
-import Head from '../containers/Head/Head';
-import LayoutMain from '../containers/LayoutMain/LayoutMain';
+import Head from '../components/Head/Head';
+import LayoutMain from '../components/LayoutMain/LayoutMain';
 
-const LinkHome = React.memo(() => (
+const LinkHome = () => (
   <Link href="/">
     <Button type="primary" ghost>
       Home
@@ -15,13 +15,13 @@ const LinkHome = React.memo(() => (
   // <Button onClick={() => Router.push('/')} type="primary" ghost>
   //   Home
   // </Button>
-));
+);
 
-const Error = React.memo(({ message }) => (
+const Error = React.memo(props => (
   <>
     <Head title="Error" />
 
-    <LayoutMain header={<h1>{message}</h1>} content={<LinkHome />} />
+    <LayoutMain header={<h1>{props.message}</h1>} content={<LinkHome />} />
   </>
 ));
 
@@ -29,48 +29,47 @@ Error.propTypes = {
   message: PropTypes.string.isRequired
 };
 
-class ErrorPage extends React.PureComponent {
-  static getInitialProps({ res, err }) {
-    // const statusCode = res.statusCode || err.statusCode || null;
+const ErrorPage = React.memo(props => {
+  const { statusCode } = props;
+  let error;
 
-    let statusCode;
+  switch (statusCode) {
+    case 404:
+      error = <Error message="Page Not Found" />;
+      break;
 
-    if (res && res.statusCode) {
-      statusCode = res.statusCode;
-    } else if (err && err.statusCode) {
-      statusCode = err.statusCode;
-    } else {
-      statusCode = null;
-    }
+    case 500:
+      error = <Error message="Internal Server Error" />;
+      break;
 
-    return { statusCode };
+    case true:
+      error = <Error message={`HTTP ${statusCode} Error`} />;
+      break;
+
+    default:
+      error = <Error message="Error" />;
+      break;
   }
 
-  render() {
-    const { statusCode } = this.props;
-    let error;
+  return error;
+});
 
-    switch (statusCode) {
-      case 404:
-        error = <Error message="Page Not Found" />;
-        break;
+ErrorPage.getInitialProps = props => {
+  const { res, err } = props;
+  // const statusCode = res.statusCode || err.statusCode || null;
 
-      case 500:
-        error = <Error message="Internal Server Error" />;
-        break;
+  let statusCode;
 
-      case true:
-        error = <Error message={`HTTP ${statusCode} Error`} />;
-        break;
-
-      default:
-        error = <Error message="Error" />;
-        break;
-    }
-
-    return error;
+  if (res && res.statusCode) {
+    statusCode = res.statusCode;
+  } else if (err && err.statusCode) {
+    statusCode = err.statusCode;
+  } else {
+    statusCode = null;
   }
-}
+
+  return { statusCode };
+};
 
 ErrorPage.defaultProps = {
   statusCode: null
@@ -80,4 +79,4 @@ ErrorPage.propTypes = {
   statusCode: PropTypes.number
 };
 
-export default ErrorPage;
+export default React.memo(ErrorPage);

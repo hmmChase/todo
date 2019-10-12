@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
-import DetailIcon from '../../components/DetailIcon/DetailIcon';
-import DeleteIcon from '../../components/DeleteIcon/DeleteIcon';
-import IdeaInput from '../../components/IdeaInput/IdeaInput';
+import DetailIcon from '../DetailIcon/DetailIcon';
+import DeleteIcon from '../DeleteIcon/DeleteIcon';
+import IdeaInput from '../IdeaInput/IdeaInput';
 import * as sc from './IdeaCard.style';
 
-const IdeaCard = React.memo(props => (
+const IdeaCard = props => (
   <sc.IdeaCard>
     <DetailIcon id={props.id} />
 
@@ -13,11 +13,11 @@ const IdeaCard = React.memo(props => (
 
     <IdeaInput id={props.id} content={props.content} />
   </sc.IdeaCard>
-));
+);
 
 IdeaCard.propTypes = {
   id: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired
 };
 
-export default IdeaCard;
+export default React.memo(IdeaCard);

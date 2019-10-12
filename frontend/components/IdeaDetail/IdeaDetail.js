@@ -11,7 +11,7 @@ import IdeaInput from '../IdeaInput/IdeaInput';
 import { CURRENT_USER_IDEA } from '../../graphql/queries';
 import * as sc from './IdeaDetail.style';
 
-const IdeaDetail = React.memo(props => {
+const IdeaDetail = props => {
   // Suppress console output
   const handleError = err => err;
 
@@ -46,10 +46,10 @@ const IdeaDetail = React.memo(props => {
       )}
     </sc.IdeaDetail>
   );
-});
+};
 
 IdeaDetail.propTypes = {
   ideaId: PropTypes.string.isRequired
 };
 
-export default IdeaDetail;
+export default React.memo(IdeaDetail);

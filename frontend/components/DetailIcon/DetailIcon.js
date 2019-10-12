@@ -13,14 +13,14 @@ const DetailIconRef = React.forwardRef((props, ref) => (
   />
 ));
 
-const DetailIcon = React.memo(props => (
+const DetailIcon = props => (
   <Link href={{ pathname: '/idea', query: { id: props.id } }} passHref>
     <DetailIconRef />
   </Link>
-));
+);
 
 DetailIcon.propTypes = {
   id: PropTypes.string.isRequired
 };
 
-export default DetailIcon;
+export default React.memo(DetailIcon);

@@ -6,7 +6,7 @@ import DisplayError from '../DisplayError/DisplayError';
 import { SIGN_IN_MUTATION } from '../../graphql/queries';
 import * as sc from './SignInForm.style';
 
-const SignInForm = React.memo(props => {
+const SignInForm = props => {
   const {
     form: {
       validateFields,
@@ -70,6 +70,7 @@ const SignInForm = React.memo(props => {
           ]
         })(
           <sc.InputEmail
+            aria-label="email"
             type="email"
             placeholder="email"
             onPressEnter={handleSubmitForm}
@@ -88,6 +89,7 @@ const SignInForm = React.memo(props => {
           rules: [{ required: true, message: 'Please enter your password' }]
         })(
           <sc.InputPassword
+            aria-label="password"
             placeholder="password"
             onPressEnter={handleSubmitForm}
             prefix={<sc.InputIcon type="lock" />}
@@ -109,7 +111,7 @@ const SignInForm = React.memo(props => {
       </sc.FormItem>
     </sc.SignInForm>
   );
-});
+};
 
 SignInForm.propTypes = {
   form: PropTypes.shape({
@@ -122,4 +124,6 @@ SignInForm.propTypes = {
   }).isRequired
 };
 
-export default sc.SignInForm.create({ name: 'SignInForm' })(SignInForm);
+export default sc.SignInForm.create({ name: 'SignInForm' })(
+  React.memo(SignInForm)
+);

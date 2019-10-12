@@ -28,7 +28,6 @@ export default createGlobalStyle`
 
   html {
     box-sizing: border-box;
-    /* https://stackoverflow.com/questions/47307689/lighthouse-audit-says-content-not-sized-correctly-for-viewport-despite-body-wid */
     overflow-x: hidden;
   }
 
@@ -37,8 +36,6 @@ export default createGlobalStyle`
   }
 
   body {
-    color: ${theme.color.black};
-    font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
   }

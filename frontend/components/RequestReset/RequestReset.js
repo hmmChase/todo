@@ -7,7 +7,7 @@ import DisplaySuccess from '../DisplaySuccess/DisplaySuccess';
 import { REQUEST_RESET_MUTATION } from '../../graphql/queries';
 import * as sc from './RequestReset.style';
 
-const RequestReset = React.memo(props => {
+const RequestReset = props => {
   const {
     form: {
       validateFields,
@@ -65,6 +65,7 @@ const RequestReset = React.memo(props => {
           ]
         })(
           <sc.InputEmail
+            aria-label="email"
             type="email"
             placeholder="email"
             onPressEnter={handleSubmitForm}
@@ -91,7 +92,7 @@ const RequestReset = React.memo(props => {
       </sc.FormItem>
     </sc.RequestReset>
   );
-});
+};
 
 RequestReset.propTypes = {
   form: PropTypes.shape({
@@ -104,4 +105,6 @@ RequestReset.propTypes = {
   }).isRequired
 };
 
-export default sc.RequestReset.create({ name: 'RequestReset' })(RequestReset);
+export default sc.RequestReset.create({ name: 'RequestReset' })(
+  React.memo(RequestReset)
+);

@@ -25,10 +25,9 @@ export const AntHeader = styled(Layout.Header)`
   padding: 0;
 
   h1 {
-    color: ${props => props.theme.color.yellow_bright};
     font-family: 'Play', sans-serif;
     letter-spacing: 0.05rem;
-    text-shadow: 1px 1px 1px ${props => props.theme.color.black};
+    /* text-shadow: 1px 1px 1px ${props => props.theme.color.black}; */
   }
 `;
 
