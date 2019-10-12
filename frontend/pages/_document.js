@@ -60,16 +60,18 @@ class MyDocument extends Document {
           />
 
           {/* Responsive */}
-          <meta
+          {/* <meta
             name="viewport"
             content="
               width=device-width,
               height=device-height,
               initial-scale=1,
               minimum-scale=1,
+              maximum-scale=1,
               user-scalable=0,
               shrink-to-fit=no"
-          />
+          /> */}
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
 
           {/* Favicon */}
           <link
@@ -164,6 +166,7 @@ class MyDocument extends Document {
         </Head>
 
         <body>
+          <noscript>You need to enable JavaScript to run this app.</noscript>
           <Main />
           <NextScript />
         </body>
