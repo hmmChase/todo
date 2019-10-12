@@ -22,6 +22,7 @@
 - Individual routes for ideas
 - Cursor based pagination
 - Local GraphQL schema
+- Mailtrap.io integration
 - Normalize CSS
 - Global CSS style and theming
 - Webpack Bundle Analyzer
