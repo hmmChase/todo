@@ -5,6 +5,7 @@
 
 // https://nextjs.org/docs#customizing-webpack-config
 
+// import 'dotenv/config';
 require('dotenv').config();
 
 const fs = require('fs');

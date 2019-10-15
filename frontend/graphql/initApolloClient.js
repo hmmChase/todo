@@ -8,12 +8,28 @@ import { createApolloClient } from './createApolloClient';
 let apolloClient = null;
 
 export const initApolloClient = (...args) => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log(
+      '----------start initApolloClient----------',
+      new Date().getMilliseconds()
+    );
+  }
+
+  console.log('initApolloClient ...args: ', args);
+
   // Make sure to create a new client for every server-side request so
   // that dataisn't shared between connections (which would be bad)
   if (typeof window === 'undefined') return createApolloClient(...args);
 
   // Reuse client on the client-side
   if (!apolloClient) apolloClient = createApolloClient(...args);
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log(
+      '----------end initApolloClient----------',
+      new Date().getMilliseconds()
+    );
+  }
 
   return apolloClient;
 };

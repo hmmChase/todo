@@ -8,7 +8,10 @@ import GlobalStyle from '../styles/global.style';
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     if (process.env.NODE_ENV === 'development') {
-      console.log('_document GIP', new Date().getMilliseconds());
+      console.log(
+        '----------_document GIP----------',
+        new Date().getMilliseconds()
+      );
     }
 
     const sheet = new ServerStyleSheet();
@@ -45,7 +48,10 @@ class MyDocument extends Document {
 
   render() {
     if (process.env.NODE_ENV === 'development') {
-      console.log('_document render', new Date().getMilliseconds());
+      console.log(
+        '----------_document render----------',
+        new Date().getMilliseconds()
+      );
     }
 
     return (

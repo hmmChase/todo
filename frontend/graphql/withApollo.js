@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import { initApolloClient } from './initApolloClient';
+import { getAccessToken, setAccessToken } from '../utils/authenticate';
 
 /**
  * Creates and provides the apolloContext
@@ -19,10 +20,52 @@ import { initApolloClient } from './initApolloClient';
  */
 
 export function withApollo(PageComponent, { ssr = true } = {}) {
-  // Destructure props provided by getInitialProps
-  const WithApollo = ({ apolloClient, apolloState, ...pageProps }) => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log(
+      '----------start withApollo----------',
+      new Date().getMilliseconds()
+    );
+  }
+
+  // WithApollo HOC
+  const WithApollo = ({
+    // Destructure props provided by WithApollo.getInitialProps
+    apolloClient,
+    apolloState,
+    serverAccessToken,
+    ...pageProps
+  }) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(
+        '----------start withApollo HOC----------',
+        new Date().getMilliseconds()
+      );
+    }
+
+    // ----------Access/Refresh token code----------
+
+    console.log('WithApollo getAccessToken(): ', getAccessToken());
+    console.log('WithApollo on server?: ', typeof window === 'undefined');
+    console.log('WithApollo serverAccessToken: ', serverAccessToken);
+
+    // Server-side, if access token is undefined, set it
+    if (typeof window === 'undefined' && !getAccessToken()) {
+      console.log('WithApollo SS serverAccessToken: ', serverAccessToken);
+
+      setAccessToken(serverAccessToken);
+    }
+
+    // ---------------------------------------------
+
     // If apolloClient doesn't exist, create it
     const client = apolloClient || initApolloClient(apolloState);
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log(
+        '----------end withApollo HOC----------',
+        new Date().getMilliseconds()
+      );
+    }
 
     return (
       <ApolloProvider client={client}>
@@ -31,6 +74,7 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
     );
   };
 
+  // For Development
   // Set the correct displayName in development
   if (process.env.NODE_ENV !== 'production') {
     // Find correct display name
@@ -51,22 +95,80 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
       apolloClient: PropTypes.object,
       // Used for client/server rendering
       apolloState: PropTypes.object,
+      serverAccessToken: PropTypes.string,
       headers: PropTypes.object
     };
   }
 
   // Retrieve data server-side
   if (ssr || PageComponent.getInitialProps) {
+    // Code exectution starts here
     WithApollo.getInitialProps = async ctx => {
       const { req, res, AppTree } = ctx;
-      const headers = req ? req.headers : {};
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          '----------start withApollo GIP----------',
+          new Date().getMilliseconds()
+        );
+      }
 
-      // Initialize ApolloClient, add it to the ctx object so
-      // we can use it in `PageComponent.getInitialProp`.
-      const apolloClient = (ctx.apolloClient = initApolloClient());
+      // ----------Access/Refresh token code----------
+
+      // Declare access token
+      let serverAccessToken = '';
+
+      // Only on the server:
+      if (typeof window === 'undefined') {
+        // Read refresh token
+        const refreshToken =
+          req.headers.cookie && req.headers.cookie.replace('rt=', '');
+
+        // If theres a refresh token (user logged in), fetch an access token
+        if (refreshToken) {
+          console.log('req.headers.cookie: ', req.headers.cookie);
+
+          try {
+            const response = await fetch(
+              'http://localhost:6969/refresh_token',
+              {
+                method: 'POST',
+                credentials: 'include',
+                headers: { cookie: `rt=${refreshToken}` }
+              }
+            );
+
+            const data = await response.json();
+            console.log('TCL: data', data);
+
+            serverAccessToken = data.accessToken;
+
+            console.log('TCL: serverAccessToken', serverAccessToken);
+          } catch (err) {
+            console.log('WithApollo err: ', err);
+          }
+        }
+      }
+
+      // ---------------------------------------------
+
+      // Initialize ApolloClient
+      // Add it to the ctx object
+      // so it's available in `PageComponent.getInitialProps`.
+
+      const apolloClient = (ctx.apolloClient = initApolloClient(
+        // This is empty initialState object
+        {},
+        // After the access token is fetched
+        // Pass it to the apollo client
+        // Will still be empty string if no refresh token cookie present
+        serverAccessToken
+      ));
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
+
+      // If a page has a getInitialProps, call it
+      // pageProps is now equal to the data returned server-side
       const pageProps = PageComponent.getInitialProps
         ? await PageComponent.getInitialProps(ctx)
         : {};
@@ -102,11 +204,10 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
               console.error('GraphQL error occurred [getDataFromTree]', error);
             }
           }
-
-          // getDataFromTree does not call componentWillUnmount
-          // head side effect therefore need to be cleared manually
-          Head.rewind();
         }
+        // getDataFromTree does not call componentWillUnmount
+        // head side effect therefore need to be cleared manually
+        Head.rewind();
       }
 
       // Extract query data from the Apollo store
@@ -116,10 +217,25 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
       // to the component, otherwise the component would have to call initApollo() again but this
       // time without the context, once that happens the following code will make sure we send
       // the prop as `null` to the browser
-      // apolloClient.toJSON = () => null;
+      apolloClient.toJSON = () => null;
 
-      return { ...pageProps, apolloState };
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          '----------end withApollo GIP----------',
+          new Date().getMilliseconds()
+        );
+      }
+
+      // Send data to WithApollo HOC
+      return { ...pageProps, apolloClient, apolloState, serverAccessToken };
     };
+  }
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log(
+      '----------end withApollo----------',
+      new Date().getMilliseconds()
+    );
   }
 
   return WithApollo;

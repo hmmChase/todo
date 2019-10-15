@@ -11,49 +11,7 @@ import isEmail from 'isemail';
 
 import * as config from '../config';
 
-export const signJWT = payload =>
-  // TODO: Add CSRK token
-  // https://www.youtube.com/watch?v=67mezK3NzpU&feature=youtu.be&t=36m30s
-
-  jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: config.JWTExpiryTime
-  });
-
-export const verifyJWT = token => {
-  try {
-    // Return the decoded payload if the signature is valid and not expired
-    return jwt.verify(token, process.env.JWT_SECRET);
-  } catch (err) {
-    console.log(err.name);
-
-    // if (err.name === 'TokenExpiredError') {
-    //   // TODO: Figure out how to refresh token
-    //   //   const decodedPayload = await jwt.decode(token);
-    //   //   await res.clearCookie('token');
-    //   //   payload = { user: { id: decodedPayload.userId } };
-    //   //   await sendCookie(res, payload);
-    // }
-
-    // If not, throw the error
-    throw new AuthenticationError('JWT invalid');
-  }
-};
-
-export const sendCookie = async (res, payload) => {
-  const JWT = signJWT(payload);
-
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: config.cookieMaxAge
-  };
-
-  try {
-    await res.cookie('token', JWT, cookieOptions);
-  } catch (err) {
-    throw new AuthenticationError('Error creating cookie');
-  }
-};
+/* Email */
 
 export const validateEmail = email => {
   if (typeof email !== 'string')
@@ -64,6 +22,8 @@ export const validateEmail = email => {
   if (!isvalid)
     throw new AuthenticationError('Please provide a valid email address');
 };
+
+/* Password */
 
 export const validatePassword = password => {
   if (typeof password !== 'string')
@@ -86,18 +46,69 @@ export const validatePassword = password => {
     throw new AuthenticationError('Password must contain a number');
 };
 
-export const comparePasswords = (password, confirmPassword) => {
-  if (password !== confirmPassword)
-    throw new AuthenticationError("Passwords don't match.");
-};
-
 export const checkPassword = async (password, hashedPassword) => {
   const valid = await bcrypt.compare(password, hashedPassword);
 
   if (!valid) throw new AuthenticationError('Invalid Password');
 };
 
-export const genResetToken = async () => {
+export const comparePasswords = (password, confirmPassword) => {
+  if (password !== confirmPassword)
+    throw new AuthenticationError("Passwords don't match.");
+};
+
+/* Acess Token */
+
+export const createAccessToken = userId => {
+  // TODO: Add CSRK token
+  // https://www.youtube.com/watch?v=67mezK3NzpU&feature=youtu.be&t=36m30s
+
+  return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: config.accessTokenExpiryTime
+  });
+};
+
+/* Refesh Token */
+
+export const createRefreshToken = (userId, tokenVersion) => {
+  return jwt.sign({ userId, tokenVersion }, process.env.REFRESH_TOKEN_SECRET, {
+    expiresIn: config.refreshTokenExpiryTime
+  });
+};
+
+export const verifyRefreshToken = refreshToken => {
+  try {
+    // Return the decoded payload if the signature is valid and not expired
+    return jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+  } catch (err) {
+    // if (err.name === 'TokenExpiredError') {
+    //   // TODO: Figure out how to refresh token
+    //   //   const decodedPayload = await jwt.decode(token);
+    //   //   await res.clearCookie('token');
+    //   //   payload = { user: { id: decodedPayload.userId } };
+    //   //   await sendCookie(res, payload);
+    // }
+
+    // If not, throw the error
+    throw new AuthenticationError('Refresh Token invalid');
+  }
+};
+
+export const sendRefreshToken = (res, refreshToken) => {
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: config.refreshTokenCookieMaxAge
+    // domain: '.now.sh',
+    // path: "/refresh_token"
+  };
+
+  res.cookie('rt', refreshToken, cookieOptions);
+};
+
+/* Password Reset Token */
+
+export const createPasswordResetToken = async () => {
   const randomBytesPromisified = promisify(randomBytes);
   const resetTokenBytes = await randomBytesPromisified(20);
 
@@ -107,7 +118,7 @@ export const genResetToken = async () => {
   return { resetToken, resetTokenExpiry };
 };
 
-export const validateTokenExpiry = resetTokenExpiry => {
+export const validateResetTokenExpiry = resetTokenExpiry => {
   const isTokenExpired = Date.now() > resetTokenExpiry;
 
   if (isTokenExpired)

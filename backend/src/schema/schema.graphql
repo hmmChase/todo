@@ -42,7 +42,7 @@ type Query {
 type Mutation {
   signUp(email: String!, password: String!, confirmPassword: String!): User!
 
-  signIn(email: String!, password: String!): User!
+  signIn(email: String!, password: String!): LoginResponse!
 
   signOut: Boolean!
 
@@ -53,6 +53,8 @@ type Mutation {
     password: String!
     confirmPassword: String!
   ): Boolean!
+
+  revokeRefreshTokensForUser(userId: Int!): Boolean!
 
   createIdea(content: String!): Idea!
 
@@ -73,6 +75,11 @@ type Idea {
   id: ID!
   content: String!
   author: User!
+}
+
+type LoginResponse {
+  accessToken: String!
+  user: User!
 }
 
 # type Token {

@@ -19,14 +19,14 @@ const IdeaPage = props => (
   </Page>
 );
 
-IdeaPage.getInitialProps = props => {
-  const { req, query, apolloClient } = props;
-  const ideaId = query.id;
+// IdeaPage.getInitialProps = props => {
+//   const { req, query, apolloClient } = props;
+//   const ideaId = query.id;
 
-  if (req) authenticate(req, apolloClient);
+//   if (req) authenticate(req, apolloClient);
 
-  return { ideaId };
-};
+//   return { ideaId };
+// };
 
 IdeaPage.propTypes = {
   ideaId: PropTypes.string.isRequired

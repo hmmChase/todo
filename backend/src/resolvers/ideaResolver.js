@@ -24,11 +24,11 @@ export default {
 
     currentUserIdea: async (parent, args, ctx, info) => {
       // If no token cookie present, throw error
-      if (!ctx.req.cookies.token)
+      if (!ctx.req.cookies.rt)
         throw new AuthenticationError('Must be signed in.');
 
       // Verify cookie and decode payload
-      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
+      const currentUser = auth.verifyRefreshToken(ctx.req.cookies.rt);
 
       // Find and return idea matching ID
       const idea = await ctx.prisma.query.idea(
@@ -46,15 +46,18 @@ export default {
     },
 
     currentUserPaginatedIdeas: async (parent, args, ctx, info) => {
+      console.log('currentUserPaginatedIdeas rt: ', ctx.req.cookies);
+
       // If no token cookie present, throw error
-      if (!ctx.req.cookies.token)
+      if (!ctx.req.cookies.rt)
         throw new AuthenticationError('Must be signed in.');
 
       // Verify cookie and decode payload
-      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
+      const userId = auth.verifyRefreshToken(ctx.req.cookies.rt);
+      console.log('TCL: userId', userId);
 
       return await ctx.prisma.query.ideasConnection(
-        { where: { author: { id: currentUser.user.id } } },
+        { where: { author: { id: userId.userId } } },
         info
       );
     }
@@ -63,11 +66,11 @@ export default {
   Mutation: {
     createIdea: (parent, args, ctx, info) => {
       // If no token cookie present, throw error
-      if (!ctx.req.cookies.token)
+      if (!ctx.req.cookies.rt)
         throw new AuthenticationError('Must be signed in.');
 
       // Get current user from JWT
-      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
+      const currentUser = auth.verifyRefreshToken(ctx.req.cookies.rt);
 
       // Call mutation
       return ctx.prisma.mutation.createIdea(
@@ -83,11 +86,11 @@ export default {
 
     updateIdea: async (parent, args, ctx, info) => {
       // If no token cookie present, throw error
-      if (!ctx.req.cookies.token)
+      if (!ctx.req.cookies.rt)
         throw new AuthenticationError('Must be signed in.');
 
       // Get current user from JWT
-      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
+      const currentUser = auth.verifyRefreshToken(ctx.req.cookies.rt);
 
       // Request idea's author ID using defined selection set
       const idea = await ctx.prisma.query.idea(
@@ -110,11 +113,11 @@ export default {
 
     deleteIdea: async (parent, args, ctx, info) => {
       // If no token cookie present, throw error
-      if (!ctx.req.cookies.token)
+      if (!ctx.req.cookies.rt)
         throw new AuthenticationError('Must be signed in.');
 
       // Get current user from JWT
-      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
+      const currentUser = auth.verifyRefreshToken(ctx.req.cookies.rt);
 
       // Request idea's author ID using defined selection set
       const idea = await ctx.prisma.query.idea(

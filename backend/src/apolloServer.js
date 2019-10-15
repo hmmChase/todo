@@ -14,9 +14,6 @@ export default () =>
     debug: false,
     introspection: dev,
     playground: dev && {
-      settings: {
-        'editor.theme': 'light',
-        'request.credentials': 'include'
-      }
+      settings: { 'editor.theme': 'light', 'request.credentials': 'include' }
     }
   });

@@ -5,7 +5,12 @@ import {
   UserInputError
 } from 'apollo-server-express';
 
-import mailResetToken from '../utils/mail';
+import mailPasswordResetToken from '../utils/mail';
+import {
+  createRefreshToken,
+  sendRefreshToken,
+  createAccessToken
+} from '../utils/auth';
 import * as auth from '../utils/auth';
 import * as config from '../config';
 
@@ -30,7 +35,7 @@ export default {
       if (!ctx.req.cookies.token) return null;
 
       // Verify cookie and decode payload
-      const currentUser = auth.verifyJWT(ctx.req.cookies.token);
+      const currentUser = auth.verifyAccessToken(ctx.req.cookies.token);
 
       // Find and return user matching payload ID
       // If not found, return null
@@ -85,6 +90,7 @@ export default {
 
       // Find user matching email
       const user = await ctx.prisma.query.user({ where: { email } });
+      console.log('TCL: user', user);
 
       // If user not found, return error
       if (!user) throw new AuthenticationError(`No account found for ${email}`);
@@ -92,19 +98,36 @@ export default {
       // Check if input password matches users password
       await auth.checkPassword(args.password, user.password);
 
-      // Create payload for cookie
-      const payload = { user: { id: user.id } };
+      // // Create payload for cookie
+      // const payload = {
+      //   user: { id: user.id, tokenVersion: user.tokenVersion }
+      // };
 
-      // Send cookie
-      await auth.sendCookie(ctx.res, payload);
+      // // Send cookie
+      // await auth.sendCookie(ctx.res, payload);
 
-      // Return User
-      return user;
+      // // Return User
+      // return user;
+
+      // Create refresh token
+      const refreshToken = createRefreshToken(user.id, user.tokenVersion);
+
+      // Send a new refresh token cookie
+      sendRefreshToken(ctx.res, refreshToken);
+
+      // Create access token
+      const accessToken = createAccessToken(user.id);
+
+      // Return access token and user info
+      return {
+        accessToken,
+        user: { id: user.id, email: user.email, ideas: user.ideas }
+      };
     },
 
     signOut: (parent, args, ctx, info) => {
       // Clear cookie
-      ctx.res.clearCookie('token');
+      ctx.res.clearCookie('rt');
 
       // Return boolean
       return true;
@@ -120,8 +143,11 @@ export default {
       // If user not found, return error
       if (!user) throw new AuthenticationError(`No account found for ${email}`);
 
-      // Generate reset token
-      const { resetToken, resetTokenExpiry } = await auth.genResetToken();
+      // Generate password reset token
+      const {
+        resetToken,
+        resetTokenExpiry
+      } = await auth.createPasswordResetToken();
 
       // Update user with reset token
       ctx.prisma.mutation.updateUser({
@@ -130,7 +156,7 @@ export default {
       });
 
       // Send mail with reset link
-      mailResetToken(email, resetToken, resetTokenExpiry);
+      mailPasswordResetToken(email, resetToken, resetTokenExpiry);
 
       // Return boolean
       return true;
@@ -155,7 +181,7 @@ export default {
         );
 
       // Check if token is expired
-      auth.validateTokenExpiry(user.resetTokenExpiry);
+      auth.validateResetTokenExpiry(user.resetTokenExpiry);
 
       // Encrypt new password
       const password = await bcrypt.hash(args.password, config.saltRounds);
@@ -175,6 +201,13 @@ export default {
       */
 
       // Return boolean
+      return true;
+    },
+
+    revokeRefreshTokensForUser: async (parent, args, ctx, info) => {
+      // await getConnection()
+      //   .increment({ id: userId }, "tokenVersion", 1);
+
       return true;
     }
   }

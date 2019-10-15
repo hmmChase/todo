@@ -5,9 +5,16 @@ import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import jwt from 'jsonwebtoken';
 
 import apolloServer from './apolloServer';
+import prisma from './prismaClient';
 import logger from './utils/logger';
+import {
+  sendRefreshToken,
+  createAccessToken,
+  createRefreshToken
+} from './utils/auth';
 
 const app = express();
 const server = apolloServer();
@@ -27,6 +34,47 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === 'development') app.use(logger);
+
+app.post('/refresh_token', async (req, res) => {
+  // Read refresh token
+  const refreshToken = req.cookies.rt;
+
+  // If no refresh token, return empty access token
+  if (!refreshToken) return res.send({ ok: false, accessToken: '' });
+
+  // Declare payload
+  let payload = null;
+
+  // Verify refresh token
+  try {
+    payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+  } catch (err) {
+    // If error, return empty access token
+    return res.send({ ok: false, accessToken: '' });
+  }
+
+  // Get user
+  const user = await prisma.query.user({ where: { id: payload.userId } });
+
+  // If no user found, return empty access token
+  if (!user) return res.send({ ok: false, accessToken: '' });
+
+  // If token version does not match, return empty access token
+  if (user.tokenVersion !== payload.tokenVersion)
+    return res.send({ ok: false, accessToken: '' });
+
+  // Create a new refresh token
+  const newRefreshToken = createRefreshToken(user.id, user.tokenVersion);
+
+  // Send a new refresh token cookie
+  sendRefreshToken(res, newRefreshToken);
+
+  // Create access token
+  const accessToken = createAccessToken(user.id);
+
+  // Send access token
+  return res.send({ ok: true, accessToken });
+});
 
 server.applyMiddleware({ app, path: '/graphql', cors: corsOptions });
 

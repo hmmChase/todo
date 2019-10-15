@@ -3,11 +3,11 @@ import { CURRENT_USER_QUERY } from '../graphql/queries';
 
 export default (req, apolloClient) => {
   if (req.headers.cookie) {
-    const token = req.headers.cookie.replace('token=', '');
-    const secret = process.env.JWT_SECRET;
+    const refreshToken = req.headers.cookie.replace('rt=', '');
+    const secret = process.env.REFRESH_TOKEN_SECRET;
 
     try {
-      jwt.verify(token, secret);
+      jwt.verify(refreshToken, secret);
 
       apolloClient.cache.writeData({ data: { isLoggedIn: true } });
     } catch (err) {
@@ -32,3 +32,13 @@ export const graphQLAuth = async apolloClient => {
     apolloClient.cache.writeData({ data: { isLoggedIn: false } });
   }
 };
+
+let accessToken = '';
+
+export const setAccessToken = token => {
+  console.log('setAccessToken token: ', token);
+
+  accessToken = token;
+};
+
+export const getAccessToken = () => accessToken;
