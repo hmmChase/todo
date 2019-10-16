@@ -15,8 +15,6 @@ export const initApolloClient = (...args) => {
     );
   }
 
-  console.log('initApolloClient ...args: ', args);
-
   // Make sure to create a new client for every server-side request so
   // that dataisn't shared between connections (which would be bad)
   if (typeof window === 'undefined') return createApolloClient(...args);

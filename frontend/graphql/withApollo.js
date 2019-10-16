@@ -44,10 +44,6 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
 
     // ----------Access/Refresh token code----------
 
-    console.log('WithApollo getAccessToken(): ', getAccessToken());
-    console.log('WithApollo on server?: ', typeof window === 'undefined');
-    console.log('WithApollo serverAccessToken: ', serverAccessToken);
-
     // Server-side, if access token is undefined, set it
     if (typeof window === 'undefined' && !getAccessToken()) {
       console.log('WithApollo SS serverAccessToken: ', serverAccessToken);

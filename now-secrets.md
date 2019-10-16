@@ -22,7 +22,8 @@ To add a new secret:
 ## Backend
 
 - `now secret add PORT ""`
-- `now secret add JWT_SECRET ""`
+- `now secret add ACCESS_TOKEN_SECRET ""`
+- `now secret add REFRESH_TOKEN_SECRET ""`
 - `now secret add DEV_FRONTEND_URL ""`
 - `now secret add PROD_FRONTEND_URL ""`
 
