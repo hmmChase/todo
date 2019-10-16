@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === 'development') app.use(logger);
 
-app.post('/refresh_token', async (req, res) => {
+app.post('/refresh', async (req, res) => {
   // Read refresh token
   const refreshToken = req.cookies.rt;
 

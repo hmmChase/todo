@@ -121,20 +121,19 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
 
         // If theres a refresh token (user logged in), fetch an access token
         if (refreshToken) {
-          console.log('req.headers.cookie: ', req.headers.cookie);
+          const url =
+            process.env.NODE_ENV === 'development'
+              ? process.env.DEV_REFRESH_ENDPOINT
+              : process.env.PROD_REFRESH_ENDPOINT;
 
           try {
-            const response = await fetch(
-              'http://localhost:6969/refresh_token',
-              {
-                method: 'POST',
-                credentials: 'include',
-                headers: { cookie: `rt=${refreshToken}` }
-              }
-            );
+            const response = await fetch(url, {
+              method: 'POST',
+              credentials: 'include',
+              headers: { cookie: `rt=${refreshToken}` }
+            });
 
             const data = await response.json();
-            console.log('TCL: data', data);
 
             serverAccessToken = data.accessToken;
 

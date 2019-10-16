@@ -82,7 +82,11 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
     fetchAccessToken: () => {
       console.log('----------fetchAccessToken----------');
 
-      return fetch('http://localhost:6969/refresh_token', {
+      const url = isDev
+        ? process.env.DEV_REFRESH_ENDPOINT
+        : process.env.PROD_REFRESH_ENDPOINT;
+
+      return fetch(url, {
         method: 'POST',
         credentials: 'include',
         headers: { cookie: `rt=${refreshToken}` }
