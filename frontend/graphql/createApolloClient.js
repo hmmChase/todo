@@ -62,7 +62,12 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
     accessTokenField: 'accessToken',
 
     isTokenValidOrUndefined: () => {
-      console.log('----------isTokenValidOrUndefined----------');
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          '----------isTokenValidOrUndefined----------',
+          new Date().getMilliseconds()
+        );
+      }
 
       const accessToken = getAccessToken();
 
@@ -80,11 +85,16 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
     },
 
     fetchAccessToken: () => {
-      console.log('----------fetchAccessToken----------');
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          '----------fetchAccessToken----------',
+          new Date().getMilliseconds()
+        );
+      }
 
       const url = isDev
-        ? process.env.DEV_REFRESH_ENDPOINT
-        : process.env.PROD_REFRESH_ENDPOINT;
+        ? process.env.DEV_REFRESH_URL
+        : process.env.PROD_REFRESH_URL;
 
       return fetch(url, {
         method: 'POST',
@@ -94,14 +104,21 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
     },
 
     handleFetch: accessToken => {
-      console.log('----------handleFetch----------');
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          '----------handleFetch----------',
+          new Date().getMilliseconds()
+        );
+      }
 
       setAccessToken(accessToken);
     },
 
     handleError: err => {
-      console.warn('Your refresh token is invalid. Try to relogin');
-      console.error(err);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Your refresh token is invalid. Try to relogin');
+        console.error('refreshLink handleError: ', err);
+      }
     }
   });
 
@@ -120,9 +137,7 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
   });
 
   const httpLink = new HttpLink({
-    uri: isDev
-      ? process.env.DEV_GRAPHQL_ENDPOINT
-      : process.env.PROD_GRAPHQL_ENDPOINT,
+    uri: isDev ? process.env.DEV_GRAPHQL_URL : process.env.PROD_GRAPHQL_URL,
     credentials: 'include',
     fetch
   });
@@ -175,8 +190,8 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
 
 //   return new HttpLink({
 //     uri: isDev
-//       ? process.env.DEV_GRAPHQL_ENDPOINT
-//       : process.env.PROD_GRAPHQL_ENDPOINT,
+//       ? process.env.DEV_GRAPHQL_URL
+//       : process.env.PROD_GRAPHQL_URL,
 //     credentials: 'include',
 //     fetch
 //   });

@@ -123,8 +123,8 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
         if (refreshToken) {
           const url =
             process.env.NODE_ENV === 'development'
-              ? process.env.DEV_REFRESH_ENDPOINT
-              : process.env.PROD_REFRESH_ENDPOINT;
+              ? process.env.DEV_REFRESH_URL
+              : process.env.PROD_REFRESH_URL;
 
           try {
             const response = await fetch(url, {
