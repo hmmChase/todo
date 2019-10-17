@@ -35,8 +35,7 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
     console.log(
       '\n',
       `---------- starting request for ${operation.operationName}`,
-      new Date().getMilliseconds(),
-      `(client: ${isBrowser}, server: ${!isBrowser})`
+      new Date().getMilliseconds()
     );
 
     return forward(operation).map(op => {
@@ -58,83 +57,87 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
     }
   );
 
-  const refreshLink = new TokenRefreshLink({
-    accessTokenField: 'accessToken',
+  // const refreshLink = new TokenRefreshLink({
+  //   accessTokenField: 'accessToken',
 
-    isTokenValidOrUndefined: () => {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(
-          '----------isTokenValidOrUndefined----------',
-          new Date().getMilliseconds()
-        );
-      }
+  //   isTokenValidOrUndefined: () => {
+  //     if (process.env.NODE_ENV === 'development') {
+  //       console.log(
+  //         '----------isTokenValidOrUndefined----------',
+  //         new Date().getMilliseconds()
+  //       );
+  //     }
 
-      const accessToken = getAccessToken();
+  //     const accessToken = getAccessToken();
 
-      if (!accessToken) return true;
+  //     if (!accessToken) return true;
 
-      try {
-        const { exp } = jwtDecode(accessToken);
+  //     try {
+  //       const { exp } = jwtDecode(accessToken);
 
-        if (Date.now() >= exp * 1000) return false;
+  //       if (Date.now() >= exp * 1000) return false;
 
-        return true;
-      } catch {
-        return false;
-      }
-    },
+  //       return true;
+  //     } catch {
+  //       return false;
+  //     }
+  //   },
 
-    fetchAccessToken: () => {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(
-          '----------fetchAccessToken----------',
-          new Date().getMilliseconds()
-        );
-      }
+  //   fetchAccessToken: () => {
+  //     if (process.env.NODE_ENV === 'development') {
+  //       console.log(
+  //         '----------fetchAccessToken----------',
+  //         new Date().getMilliseconds()
+  //       );
+  //     }
 
-      const url = isDev
-        ? process.env.DEV_REFRESH_URL
-        : process.env.PROD_REFRESH_URL;
+  //     const url = isDev
+  //       ? process.env.DEV_REFRESH_URL
+  //       : process.env.PROD_REFRESH_URL;
 
-      return fetch(url, {
-        method: 'POST',
-        credentials: 'include',
-        headers: { cookie: `rt=${refreshToken}` }
-      });
-    },
+  //     return fetch(url, {
+  //       method: 'POST',
+  //       credentials: 'include'
+  //       // headers: { cookie: `rt=${refreshToken}` }
+  //     });
+  //   },
 
-    handleFetch: accessToken => {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(
-          '----------handleFetch----------',
-          new Date().getMilliseconds()
-        );
-      }
+  //   handleFetch: accessToken => {
+  //     if (process.env.NODE_ENV === 'development') {
+  //       console.log(
+  //         '----------handleFetch----------',
+  //         new Date().getMilliseconds()
+  //       );
+  //     }
 
-      setAccessToken(accessToken);
-    },
+  //     setAccessToken(accessToken);
+  //   },
 
-    handleError: err => {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('Your refresh token is invalid. Try to relogin');
-        console.error('refreshLink handleError: ', err);
-      }
-    }
-  });
+  //   handleError: err => {
+  //     if (process.env.NODE_ENV === 'development') {
+  //       console.warn('Your refresh token is invalid. Try to relogin');
+  //       console.error('refreshLink handleError: ', err);
+  //     }
+  //   }
+  // });
 
-  const authLink = setContext((req, previousContext) => {
-    let accessToken = '';
+  // // Send the access token with each request
+  // const authLink = setContext((req, previousContext) => {
+  //   console.log('TCL: authLink req', Object.keys(req));
+  //   console.log('TCL: authLink req', Object.keys(previousContext));
 
-    if (typeof window === 'undefined') accessToken = serverAccessToken;
-    else accessToken = getAccessToken();
+  //   let accessToken = '';
 
-    return {
-      headers: {
-        ...previousContext.headers,
-        authorization: accessToken ? `bearer ${accessToken}` : ''
-      }
-    };
-  });
+  //   if (typeof window === 'undefined') accessToken = serverAccessToken;
+  //   else accessToken = getAccessToken();
+
+  //   return {
+  //     headers: {
+  //       ...previousContext.headers,
+  //       authorization: accessToken ? `bearer ${accessToken}` : ''
+  //     }
+  //   };
+  // });
 
   const httpLink = new HttpLink({
     uri: isDev ? process.env.DEV_GRAPHQL_URL : process.env.PROD_GRAPHQL_URL,
@@ -144,15 +147,19 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
 
   const cache = new InMemoryCache().restore(initialState);
 
+  // const link = isDev
+  //   ? ApolloLink.from([
+  //       consoleLogLink,
+  //       errorLink,
+  //       refreshLink,
+  //       authLink,
+  //       httpLink
+  //     ])
+  //   : ApolloLink.from([refreshLink, authLink, httpLink]);
+
   const link = isDev
-    ? ApolloLink.from([
-      consoleLogLink,
-      errorLink,
-      refreshLink,
-      authLink,
-      httpLink
-    ])
-    : ApolloLink.from([refreshLink, authLink, httpLink]);
+    ? ApolloLink.from([consoleLogLink, errorLink, httpLink])
+    : ApolloLink.from([httpLink]);
 
   // const link = isDev
   //   ? ApolloLink.from([consoleLogLink, errorLink, createIsomorphLink()])

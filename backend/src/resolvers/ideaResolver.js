@@ -46,7 +46,14 @@ export default {
     },
 
     currentUserPaginatedIdeas: async (parent, args, ctx, info) => {
-      console.log('currentUserPaginatedIdeas rt: ', ctx.req.cookies);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          '----------currentUserPaginatedIdeas----------',
+          new Date().getMilliseconds()
+        );
+      }
+
+      console.log('currentUserPaginatedIdeas cookies: ', ctx.req.cookies);
 
       // If no token cookie present, throw error
       if (!ctx.req.cookies.rt)
@@ -54,7 +61,6 @@ export default {
 
       // Verify cookie and decode payload
       const userId = auth.verifyRefreshToken(ctx.req.cookies.rt);
-      console.log('TCL: userId', userId);
 
       return await ctx.prisma.query.ideasConnection(
         { where: { author: { id: userId.userId } } },

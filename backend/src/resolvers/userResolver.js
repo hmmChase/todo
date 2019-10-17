@@ -90,7 +90,6 @@ export default {
 
       // Find user matching email
       const user = await ctx.prisma.query.user({ where: { email } });
-      console.log('TCL: user', user);
 
       // If user not found, return error
       if (!user) throw new AuthenticationError(`No account found for ${email}`);

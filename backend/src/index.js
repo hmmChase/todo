@@ -33,9 +33,13 @@ app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-if (process.env.NODE_ENV === 'development') app.use(logger);
+// if (process.env.NODE_ENV === 'development') app.use(logger);
 
 app.post('/refresh', async (req, res) => {
+  console.log('/refresh');
+  console.log('headers: ', req.headers);
+  console.log('cookies: ', req.cookies);
+
   // Read refresh token
   const refreshToken = req.cookies.rt;
 
@@ -49,6 +53,8 @@ app.post('/refresh', async (req, res) => {
   try {
     payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
   } catch (err) {
+    console.log('TCL: err', err);
+
     // If error, return empty access token
     return res.send({ ok: false, accessToken: '' });
   }

@@ -6,6 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/react-hooks';
+import fetch from 'isomorphic-unfetch';
 
 import { initApolloClient } from './initApolloClient';
 import { getAccessToken, setAccessToken } from '../utils/authenticate';
@@ -46,8 +47,6 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
 
     // Server-side, if access token is undefined, set it
     if (typeof window === 'undefined' && !getAccessToken()) {
-      console.log('WithApollo SS serverAccessToken: ', serverAccessToken);
-
       setAccessToken(serverAccessToken);
     }
 
@@ -68,6 +67,8 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
         <PageComponent {...pageProps} />
       </ApolloProvider>
     );
+
+    // return <PageComponent {...pageProps} client={client} />;
   };
 
   // For Development
@@ -136,8 +137,6 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
             const data = await response.json();
 
             serverAccessToken = data.accessToken;
-
-            console.log('TCL: serverAccessToken', serverAccessToken);
           } catch (err) {
             console.log('WithApollo err: ', err);
           }
