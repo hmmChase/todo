@@ -19,7 +19,11 @@ import { setAccessToken, getAccessToken } from '../utils/authenticate';
  * @param  {Object} config
  */
 
-export const createApolloClient = (initialState = {}, serverAccessToken) => {
+export const createApolloClient = (
+  initialState = {},
+  refreshToken,
+  serverAccessToken
+) => {
   if (process.env.NODE_ENV === 'development') {
     console.log(
       '----------start createApolloClient----------',
@@ -57,69 +61,71 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
     }
   );
 
-  // const refreshLink = new TokenRefreshLink({
-  //   accessTokenField: 'accessToken',
+  const refreshLink = new TokenRefreshLink({
+    accessTokenField: 'accessToken',
 
-  //   isTokenValidOrUndefined: () => {
-  //     if (process.env.NODE_ENV === 'development') {
-  //       console.log(
-  //         '----------isTokenValidOrUndefined----------',
-  //         new Date().getMilliseconds()
-  //       );
-  //     }
+    isTokenValidOrUndefined: () => {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          '----------isTokenValidOrUndefined----------',
+          new Date().getMilliseconds()
+        );
+      }
 
-  //     const accessToken = getAccessToken();
+      const accessToken = getAccessToken();
 
-  //     if (!accessToken) return true;
+      if (!accessToken) return true;
 
-  //     try {
-  //       const { exp } = jwtDecode(accessToken);
+      try {
+        const { exp } = jwtDecode(accessToken);
 
-  //       if (Date.now() >= exp * 1000) return false;
+        if (Date.now() >= exp * 1000) return false;
 
-  //       return true;
-  //     } catch {
-  //       return false;
-  //     }
-  //   },
+        return true;
+      } catch {
+        return false;
+      }
+    },
 
-  //   fetchAccessToken: () => {
-  //     if (process.env.NODE_ENV === 'development') {
-  //       console.log(
-  //         '----------fetchAccessToken----------',
-  //         new Date().getMilliseconds()
-  //       );
-  //     }
+    fetchAccessToken: () => {
+      console.log('refreshToken: ', refreshToken);
 
-  //     const url = isDev
-  //       ? process.env.DEV_REFRESH_URL
-  //       : process.env.PROD_REFRESH_URL;
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          '----------fetchAccessToken----------',
+          new Date().getMilliseconds()
+        );
+      }
 
-  //     return fetch(url, {
-  //       method: 'POST',
-  //       credentials: 'include'
-  //       // headers: { cookie: `rt=${refreshToken}` }
-  //     });
-  //   },
+      const url = isDev
+        ? process.env.DEV_REFRESH_URL
+        : process.env.PROD_REFRESH_URL;
 
-  //   handleFetch: accessToken => {
-  //     if (process.env.NODE_ENV === 'development') {
-  //       console.log(
-  //         '----------handleFetch----------',
-  //         new Date().getMilliseconds()
-  //       );
-  //     }
+      return fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { cookie: `rt=${refreshToken}` }
+      });
+    },
 
-  //     setAccessToken(accessToken);
-  //   },
+    handleFetch: accessToken => {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          '----------handleFetch----------',
+          new Date().getMilliseconds()
+        );
+      }
 
-  //   handleError: err => {
-  //     if (process.env.NODE_ENV === 'development') {
-  //       console.warn('Your refresh token is invalid. Try to relogin');
-  //       console.error('refreshLink handleError: ', err);
-  //     }
-  //   }
-  // });
+      setAccessToken(accessToken);
+    },
+
+    handleError: err => {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Your refresh token is invalid. Try to relogin');
+        console.error('refreshLink handleError: ', err);
+      }
+    }
+  });
 
   // // Send the access token with each request
   // const authLink = setContext((req, previousContext) => {
@@ -142,6 +148,7 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
   const httpLink = new HttpLink({
     uri: isDev ? process.env.DEV_GRAPHQL_URL : process.env.PROD_GRAPHQL_URL,
     credentials: 'include',
+    headers: { cookie: `rt=${refreshToken}` },
     fetch
   });
 
@@ -158,8 +165,8 @@ export const createApolloClient = (initialState = {}, serverAccessToken) => {
   //   : ApolloLink.from([refreshLink, authLink, httpLink]);
 
   const link = isDev
-    ? ApolloLink.from([consoleLogLink, errorLink, httpLink])
-    : ApolloLink.from([httpLink]);
+    ? ApolloLink.from([consoleLogLink, errorLink, refreshLink, httpLink])
+    : ApolloLink.from([refreshLink, httpLink]);
 
   // const link = isDev
   //   ? ApolloLink.from([consoleLogLink, errorLink, createIsomorphLink()])

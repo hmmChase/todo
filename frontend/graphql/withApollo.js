@@ -73,7 +73,7 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
 
   // For Development
   // Set the correct displayName in development
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'development') {
     // Find correct display name
     const displayName =
       PageComponent.displayName || PageComponent.name || 'Component';
@@ -102,6 +102,7 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
     // Code exectution starts here
     WithApollo.getInitialProps = async ctx => {
       const { req, res, AppTree } = ctx;
+
       if (process.env.NODE_ENV === 'development') {
         console.log(
           '----------start withApollo GIP----------',
@@ -111,34 +112,35 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
 
       // ----------Access/Refresh token code----------
 
+      // Read cookie
+      const cookie = req.headers.cookie || '';
+
       // Declare access token
       let serverAccessToken = '';
 
-      // Only on the server:
-      if (typeof window === 'undefined') {
-        // Read refresh token
-        const refreshToken =
-          req.headers.cookie && req.headers.cookie.replace('rt=', '');
+      // Parse refresh token
+      const refreshToken = cookie && cookie.replace('rt=', '');
 
-        // If theres a refresh token (user logged in), fetch an access token
-        if (refreshToken) {
-          const url =
-            process.env.NODE_ENV === 'development'
-              ? process.env.DEV_REFRESH_URL
-              : process.env.PROD_REFRESH_URL;
+      // If theres a refresh token (user logged in), fetch an access token
+      if (refreshToken) {
+        const url =
+          process.env.NODE_ENV === 'development'
+            ? process.env.DEV_REFRESH_URL
+            : process.env.PROD_REFRESH_URL;
 
-          try {
-            const response = await fetch(url, {
-              method: 'POST',
-              credentials: 'include',
-              headers: { cookie: `rt=${refreshToken}` }
-            });
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: { cookie: `rt=${refreshToken}` }
+          });
 
-            const data = await response.json();
+          const data = await response.json();
 
-            serverAccessToken = data.accessToken;
-          } catch (err) {
-            console.log('WithApollo err: ', err);
+          serverAccessToken = data.accessToken;
+        } catch (err) {
+          if (process.env.NODE_ENV === 'development') {
+            console.log('WithApollo refresh fetch error: ', err);
           }
         }
       }
@@ -152,9 +154,9 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
       const apolloClient = (ctx.apolloClient = initApolloClient(
         // This is empty initialState object
         {},
-        // After the access token is fetched
-        // Pass it to the apollo client
-        // Will still be empty string if no refresh token cookie present
+        // After the auth tokens are fetched
+        // Pass them to the apollo client
+        refreshToken,
         serverAccessToken
       ));
 
@@ -194,7 +196,7 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
             // Prevent Apollo Client GraphQL errors from crashing SSR.
             // Handle them in components via the data.error prop:
             // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
-            if (process.env.NODE_ENV !== 'production') {
+            if (process.env.NODE_ENV === 'development') {
               console.error('GraphQL error occurred [getDataFromTree]', error);
             }
           }
@@ -221,7 +223,13 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
       }
 
       // Send data to WithApollo HOC
-      return { ...pageProps, apolloClient, apolloState, serverAccessToken };
+      return {
+        ...pageProps,
+        apolloClient,
+        apolloState,
+        refreshToken,
+        serverAccessToken
+      };
     };
   }
 

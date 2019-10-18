@@ -46,15 +46,6 @@ export default {
     },
 
     currentUserPaginatedIdeas: async (parent, args, ctx, info) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(
-          '----------currentUserPaginatedIdeas----------',
-          new Date().getMilliseconds()
-        );
-      }
-
-      console.log('currentUserPaginatedIdeas cookies: ', ctx.req.cookies);
-
       // If no token cookie present, throw error
       if (!ctx.req.cookies.rt)
         throw new AuthenticationError('Must be signed in.');
