@@ -111,36 +111,37 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
       }
 
       // ----------Access/Refresh token code----------
-
-      // Read cookie
-      const cookie = req.headers.cookie || '';
-
-      // Declare access token
+      // Declare auth tokens
       let serverAccessToken = '';
+      let refreshToken = '';
 
-      // Parse refresh token
-      const refreshToken = cookie && cookie.replace('rt=', '');
+      if (typeof window === 'undefined') {
+        // Get refresh token
+        if (req && req.headers && req.headers.cookie) {
+          refreshToken = req.headers.cookie.replace('rt=', '');
+        }
 
-      // If theres a refresh token (user logged in), fetch an access token
-      if (refreshToken) {
-        const url =
-          process.env.NODE_ENV === 'development'
-            ? process.env.DEV_REFRESH_URL
-            : process.env.PROD_REFRESH_URL;
+        // If theres a refresh token (user logged in), fetch an access token
+        if (refreshToken) {
+          const url =
+            process.env.NODE_ENV === 'development'
+              ? process.env.DEV_REFRESH_URL
+              : process.env.PROD_REFRESH_URL;
 
-        try {
-          const response = await fetch(url, {
-            method: 'POST',
-            credentials: 'include',
-            headers: { cookie: `rt=${refreshToken}` }
-          });
+          try {
+            const response = await fetch(url, {
+              method: 'POST',
+              credentials: 'include',
+              headers: { cookie: `rt=${refreshToken}` }
+            });
 
-          const data = await response.json();
+            const data = await response.json();
 
-          serverAccessToken = data.accessToken;
-        } catch (err) {
-          if (process.env.NODE_ENV === 'development') {
-            console.log('WithApollo refresh fetch error: ', err);
+            serverAccessToken = data.accessToken;
+          } catch (err) {
+            if (process.env.NODE_ENV === 'development') {
+              console.log('WithApollo refresh fetch error: ', err);
+            }
           }
         }
       }

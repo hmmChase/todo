@@ -37,11 +37,11 @@ app.use(bodyParser.json());
 
 app.post('/refresh', async (req, res) => {
   console.log('/refresh');
-  console.log('headers: ', req.headers);
-  console.log('cookies: ', req.cookies);
 
   // Read refresh token
   const refreshToken = req.cookies.rt;
+
+  console.log('/refresh refreshToken', refreshToken);
 
   // If no refresh token, return empty access token
   if (!refreshToken) return res.send({ ok: false, accessToken: '' });
