@@ -30,7 +30,7 @@ const IdeaInput = props => {
   return (
     <sc.IdeaInput
       aria-label="idea input"
-      autosize={{ minRows: 1, maxRows: 10 }}
+      autoSize={{ minRows: 1, maxRows: 10 }}
       value={content}
       onChange={handleChangeideaInput}
     />
