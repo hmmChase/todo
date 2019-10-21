@@ -24,12 +24,21 @@ const SignInForm = props => {
 
   const handleUpdate = cache => cache.writeData({ data: { isLoggedIn: true } });
 
+  const handleCompleted = data => {
+    if (data && data.signIn && data.signIn.accessToken) {
+      setAccessToken(data.signIn.accessToken);
+    }
+  };
+
   // Suppress console output
   const handleError = err => err;
 
   const [signIn, { loading, error }] = useMutation(SIGN_IN_MUTATION, {
     update(cache) {
       handleUpdate(cache);
+    },
+    onCompleted(data) {
+      handleCompleted(data);
     },
     onError(err) {
       handleError(err);

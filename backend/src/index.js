@@ -33,15 +33,13 @@ app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-// if (process.env.NODE_ENV === 'development') app.use(logger);
+if (process.env.NODE_ENV === 'development') app.use(logger);
 
 app.post('/refresh', async (req, res) => {
   console.log('/refresh');
 
   // Read refresh token
   const refreshToken = req.cookies.rt;
-
-  console.log('/refresh refreshToken', refreshToken);
 
   // If no refresh token, return empty access token
   if (!refreshToken) return res.send({ ok: false, accessToken: '' });

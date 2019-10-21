@@ -68,6 +68,18 @@ export const createAccessToken = userId => {
   });
 };
 
+export const verifyAccessToken = accessToken => {
+  try {
+    // Return the decoded payload if the signature is valid and not expired
+    return jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+  } catch (err) {
+    console.log('TCL: err', err);
+
+    // If not, throw the error
+    throw new AuthenticationError('Access Token invalid');
+  }
+};
+
 /* Refesh Token */
 
 export const createRefreshToken = (userId, tokenVersion) => {
