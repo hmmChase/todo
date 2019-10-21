@@ -36,8 +36,6 @@ export const graphQLAuth = async apolloClient => {
 let accessToken = '';
 
 export const setAccessToken = token => {
-  console.log('setAccessToken token: ', token);
-
   accessToken = token;
 };
 

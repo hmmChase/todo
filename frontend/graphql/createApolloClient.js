@@ -32,6 +32,8 @@ export const createApolloClient = (
     );
   }
 
+  console.log('createApolloClient serverAccessToken: ', serverAccessToken);
+
   const isBrowser = typeof window !== 'undefined';
   const isDev = process.env.NODE_ENV === 'development';
 
@@ -85,8 +87,8 @@ export const createApolloClient = (
 
       try {
         const { exp } = jwtDecode(accessToken);
-        console.log('isTokenValidOrUndefined exp: ', exp);
-        console.log('Date.now() >= exp * 1000: ', Date.now() >= exp * 1000);
+        // console.log('isTokenValidOrUndefined exp: ', exp);
+        // console.log('Date.now() >= exp * 1000: ', Date.now() >= exp * 1000);
 
         if (Date.now() >= exp * 1000) {
           console.log('false 2');
@@ -121,13 +123,13 @@ export const createApolloClient = (
 
       return fetch(url, {
         method: 'POST',
-        credentials: 'include',
-        headers: {
-          ...headers
-          // cookie: `rt=${headers.cookie.replace('rt=', '')}`,
-          // cookie: `rt=${getRefreshToken()}`,
-          // server: `server=${!server}`
-        }
+        credentials: 'include'
+        // headers: {
+        // ...headers
+        // cookie: `rt=${headers.cookie.replace('rt=', '')}`,
+        // cookie: `rt=${getRefreshToken()}`,
+        // server: `server=${!server}`
+        // }
       });
     },
 
@@ -152,28 +154,29 @@ export const createApolloClient = (
 
   // Send the access token with each request
   const authLink = setContext((req, previousContext) => {
-    // const accessToken = typeof window === 'undefined' ? serverAccessToken : getAccessToken();
+    const accessToken = typeof window === 'undefined' ? serverAccessToken : getAccessToken();
 
-    let accessToken = '';
+    // let accessToken = '';
 
-    if (typeof window === 'undefined') {
-      console.log('authLink server, ', typeof window === 'undefined');
+    // if (typeof window === 'undefined') {
+    //   console.log('authLink server, ', typeof window === 'undefined');
 
-      accessToken = serverAccessToken;
+    //   accessToken = serverAccessToken;
 
-      console.log('authLink accessToken 1: ', accessToken);
-    } else {
-      console.log('authLink server, ', typeof window === 'undefined');
+    //   console.log('authLink accessToken 1: ', accessToken);
+    // } else {
+    //   console.log('authLink server, ', typeof window === 'undefined');
 
-      accessToken = getAccessToken();
+    //   accessToken = getAccessToken();
 
-      console.log('authLink accessToken 2: ', accessToken);
-    }
+    //   console.log('authLink accessToken 2: ', accessToken);
+    // }
 
     return {
       headers: {
         server: `server=${typeof window === 'undefined'}`,
         authorization: accessToken ? `Bearer ${accessToken}` : ''
+        // cookie: `rt=${headers.cookie.replace('rt=', '')}`
       }
     };
   });

@@ -46,12 +46,11 @@ export default {
     },
 
     currentUserPaginatedIdeas: async (parent, args, ctx, info) => {
-      // If no token cookie present, throw error
-      if (!ctx.req.cookies.rt)
-        throw new AuthenticationError('Must be signed in.');
+      // If no access token present, throw error
+      if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
-      // Verify cookie and decode payload
-      const userId = auth.verifyRefreshToken(ctx.req.cookies.rt);
+      // Verify JWT and decode payload
+      const userId = auth.verifyAccessToken(ctx.accessToken);
 
       return await ctx.prisma.query.ideasConnection(
         { where: { author: { id: userId.userId } } },

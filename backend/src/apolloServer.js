@@ -8,7 +8,6 @@ export default () =>
   new ApolloServer({
     schema,
     context: async ({ req, res }) => {
-      console.log('context req cookie: ', req.headers.cookie);
       console.log('context req server: ', req.headers.server);
       console.log('context req authorization: ', req.headers.authorization);
 
