@@ -8,6 +8,8 @@ import { createApolloClient } from './createApolloClient';
 let apolloClient = null;
 
 export const initApolloClient = (...args) => {
+  console.log('initApolloClient ...args: ', args);
+
   if (process.env.NODE_ENV === 'development') {
     console.log(
       '----------start initApolloClient----------',

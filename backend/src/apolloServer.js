@@ -8,7 +8,17 @@ export default () =>
   new ApolloServer({
     schema,
     context: async ({ req, res }) => {
-      return { req, res, prisma };
+      console.log('context req cookie: ', req.headers.cookie);
+      console.log('context req server: ', req.headers.server);
+      console.log('context req authorization: ', req.headers.authorization);
+
+      let accessToken = '';
+
+      if (req && req.headers && req.headers.authorization) {
+        accessToken = req.headers.authorization.replace('Bearer ', '');
+      }
+
+      return { req, res, prisma, accessToken };
     },
     tracing: false,
     debug: false,
