@@ -46,9 +46,19 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
 
     // ----------Access/Refresh token code----------
 
-    // Server-side, if access token is undefined, set it
-    if (typeof window === 'undefined' && !getAccessToken()) {
+    // Client-side, set access token with access token returned from GIP
+
+    const accessToken = getAccessToken();
+
+    console.log('WithApollo accessToken: ', accessToken);
+    console.log('WithApollo serverAccessToken: ', serverAccessToken);
+
+    if (typeof window !== 'undefined' && !accessToken) {
+      console.log('WithApollo setting access token');
+
       setAccessToken(serverAccessToken);
+    } else {
+      console.log('WithApollo NOT setting access token');
     }
 
     // ---------------------------------------------
