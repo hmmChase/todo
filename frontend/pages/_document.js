@@ -3,7 +3,7 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
-import GlobalStyle from '../styles/global.style';
+import GlobalStyle from '../public/static/styles/global.style';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -66,7 +66,7 @@ class MyDocument extends Document {
           />
 
           {/* Responsive */}
-          {/* <meta
+          <meta
             name="viewport"
             content="
               width=device-width,
@@ -76,62 +76,61 @@ class MyDocument extends Document {
               maximum-scale=1,
               user-scalable=0,
               shrink-to-fit=no"
-          /> */}
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          />
 
           {/* Favicon */}
           <link
             rel="shortcut icon"
             type="image/x-icon"
-            href="/static/favicon.ico"
+            href="/static/images/favicon.ico"
           />
 
           {/* PWA images */}
           <link
             rel="icon"
             type="image/png"
-            href="/img/android-36x36.png"
+            href="/static/images/pwa/android-36x36.png"
             sizes="36x36"
           />
           <link
             rel="icon"
             type="image/png"
-            href="/img/android-48x48.png"
+            href="/static/images/pwa/android-48x48.png"
             sizes="48x48"
           />
           <link
             rel="icon"
             type="image/png"
-            href="/img/android-72x72.png"
+            href="/static/images/pwa/android-72x72.png"
             sizes="72x72"
           />
           <link
             rel="icon"
             type="image/png"
-            href="/img/android-96x96.png"
+            href="/static/images/pwa/android-96x96.png"
             sizes="96x96"
           />
           <link
             rel="icon"
             type="image/png"
-            href="/img/android-144x144.png"
+            href="/static/images/pwa/android-144x144.png"
             sizes="144x144"
           />
           <link
             rel="apple-touch-icon"
-            href="/img/apple-touch-icon-180x180.png"
+            href="/static/images/pwa/apple-touch-icon-180x180.png"
             sizes="180x180"
           />
           <link
             rel="icon"
             type="image/png"
-            href="/img/pwa-192x192.png"
+            href="/static/images/pwa/pwa-192x192.png"
             sizes="192x192"
           />
           <link
             rel="icon"
             type="image/png"
-            href="/img/pwa-512x512.png"
+            href="/static/images/pwa/pwa-512x512.png"
             sizes="512x512"
           />
 
@@ -152,13 +151,12 @@ class MyDocument extends Document {
           />
 
           {/* Progressive Web App Manifest + Theme Color */}
-          <link rel="manifest" href="/static/manifest.json" />
+          <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content="#477CBF" />
 
           {/* Fixes flash of unstyled content for first load (Chromium bug)
             https://github.com/ant-design/ant-design/issues/16037
             Not only antd, but also any other style if you want to use ssr */}
-
           <style
             id="holderStyle"
             dangerouslySetInnerHTML={{
