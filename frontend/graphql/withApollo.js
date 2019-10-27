@@ -1,12 +1,14 @@
 /* eslint-disable no-multi-assign */
 /* eslint-disable react/prop-types */
+
 import React from 'react';
 import Head from 'next/head';
 import fetch from 'isomorphic-unfetch';
+import cookie from 'cookie';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import { getAccessToken, setAccessToken } from '../utils/authenticate';
-import { initApolloClient } from './initApollo';
+import initApollo from './initApollo';
 
 const isServer = () => typeof window === 'undefined';
 
@@ -18,19 +20,19 @@ const isServer = () => typeof window === 'undefined';
  * @param {Object} [config]
  * @param {Boolean} [config.ssr=true]
  */
-export function withApollo(PageComponent, { ssr = true } = {}) {
+
+export const withApollo = (PageComponent, { ssr = true } = {}) => {
   const WithApollo = ({
     apolloClient,
-    apolloState,
     serverAccessToken,
-    refreshToken,
+    apolloState,
     ...pageProps
   }) => {
     if (!isServer() && !getAccessToken()) {
       setAccessToken(serverAccessToken);
     }
 
-    const client = apolloClient || initApolloClient(apolloState, null, refreshToken);
+    const client = apolloClient || initApollo(apolloState);
 
     return (
       <ApolloProvider client={client}>
@@ -57,14 +59,15 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
       const { req, res, AppTree } = ctx;
 
       let serverAccessToken = '';
-      let refreshToken = '';
 
       if (isServer()) {
+        let cookies = {};
+
         if (req && req.headers && req.headers.cookie) {
-          refreshToken = req.headers.cookie.replace('rt=', '');
+          cookies = cookie.parse(req.headers.cookie);
         }
 
-        if (refreshToken) {
+        if (cookies.rt) {
           const url = process.env.NODE_ENV === 'development'
             ? process.env.DEV_REFRESH_URL
             : process.env.PROD_REFRESH_URL;
@@ -72,8 +75,9 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
           const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
-            headers: { cookie: `rt=${refreshToken}`, LOC: 'GIP' }
+            headers: { cookie: `rt=${cookies.rt}` }
           });
+
           const data = await response.json();
           serverAccessToken = data.accessToken;
         }
@@ -81,10 +85,9 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
-      const apolloClient = (ctx.apolloClient = initApolloClient(
+      const apolloClient = (ctx.apolloClient = initApollo(
         {},
-        serverAccessToken,
-        refreshToken
+        serverAccessToken
       ));
 
       const pageProps = PageComponent.getInitialProps
@@ -105,10 +108,7 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
             const { getDataFromTree } = await import('@apollo/react-ssr');
             await getDataFromTree(
               <AppTree
-                pageProps={{
-                  ...pageProps,
-                  apolloClient
-                }}
+                pageProps={{ ...pageProps, apolloClient }}
                 apolloClient={apolloClient}
               />
             );
@@ -131,14 +131,13 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
       return {
         ...pageProps,
         apolloState,
-        serverAccessToken,
-        refreshToken
+        serverAccessToken
       };
     };
   }
 
   return WithApollo;
-}
+};
 
 // /* eslint-disable operator-linebreak */
 // /* eslint-disable no-multi-assign */

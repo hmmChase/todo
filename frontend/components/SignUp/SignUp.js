@@ -23,15 +23,10 @@ const SignUp = props => {
     validateFields();
   }, []);
 
-  const handleUpdate = cache => cache.writeData({ data: { isLoggedIn: true } });
-
   // Suppress console output
   const handleError = err => err;
 
   const [signUp, { loading, error }] = useMutation(SIGN_UP_MUTATION, {
-    update(cache) {
-      handleUpdate(cache);
-    },
     onError(err) {
       handleError(err);
     }
