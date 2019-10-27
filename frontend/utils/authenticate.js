@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken';
+
+import redirect from './redirect';
 import { CURRENT_USER_QUERY } from '../graphql/queries';
 
-export default (req, apolloClient) => {
+export default (req, res, pathname) => {
   if (req.headers.cookie) {
     const refreshToken = req.headers.cookie.replace('rt=', '');
     const secret = process.env.REFRESH_TOKEN_SECRET;
@@ -9,12 +11,12 @@ export default (req, apolloClient) => {
     try {
       jwt.verify(refreshToken, secret);
 
-      apolloClient.cache.writeData({ data: { isLoggedIn: true } });
+      if (pathname !== '/') redirect(res, '/');
     } catch (err) {
-      apolloClient.cache.writeData({ data: { isLoggedIn: false } });
+      if (pathname !== '/welcome') redirect(res, '/welcome');
     }
-  } else {
-    apolloClient.cache.writeData({ data: { isLoggedIn: false } });
+  } else if (pathname !== '/welcome') {
+    redirect(res, '/welcome');
   }
 };
 
@@ -22,9 +24,6 @@ export const graphQLAuth = async apolloClient => {
   const { loading, error, data } = await apolloClient.query({
     query: CURRENT_USER_QUERY
   });
-  console.log('TCL: loading', loading);
-  console.log('TCL: error', error);
-  console.log('TCL: data', data);
 
   if (!loading && !error && data) {
     apolloClient.cache.writeData({ data: { isLoggedIn: true } });

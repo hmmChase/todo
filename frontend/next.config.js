@@ -18,7 +18,10 @@ const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
-  fs.readFileSync(path.resolve(__dirname, './styles/antd-custom.less'), 'utf8')
+  fs.readFileSync(
+    path.resolve(__dirname, './static/styles/antd-custom.less'),
+    'utf8'
+  )
 );
 
 const nextConfig = {

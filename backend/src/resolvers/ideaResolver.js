@@ -45,6 +45,22 @@ export default {
       return idea;
     },
 
+    currentUserIdeas: async (parent, args, ctx, info) => {
+      console.log('----------currentUserIdeas');
+
+      // If no access token, throw error
+      if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
+
+      // Verify JWT and decode payload
+      const userId = auth.verifyAccessToken(ctx.accessToken);
+
+      // Find and return idea matching ID
+      return await ctx.prisma.query.ideas(
+        { where: { author: { id: userId.userId } } },
+        info
+      );
+    },
+
     currentUserPaginatedIdeas: async (parent, args, ctx, info) => {
       // If no access token present, throw error
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');

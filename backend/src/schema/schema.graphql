@@ -17,6 +17,8 @@ type Query {
 
   currentUserIdea(id: ID!): Idea
 
+  currentUserIdeas: [Idea!]!
+
   currentUserPaginatedIdeas(
     where: IdeaWhereInput
     orderBy: IdeaOrderByInput

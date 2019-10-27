@@ -1,15 +1,13 @@
 import Head from '../components/Head/Head';
-import LayoutMain from '../components/LayoutMain/LayoutMain';
-import HeaderMain from '../components/HeaderMain/HeaderMain';
-import Ideas from '../components/Ideas/Ideas';
+import SignOn from '../components/SignOn/SignOn';
 import { withApollo } from '../graphql/withApollo';
 import authenticate from '../utils/authenticate';
 
-const IndexPage = () => (
+const WelcomePage = () => (
   <>
-    <Head title="Home" />
+    <Head title="Welcome" />
 
-    <LayoutMain header={<HeaderMain />} content={<Ideas />} />
+    <SignOn />
   </>
 );
 
@@ -23,4 +21,4 @@ IndexPage.getInitialProps = ctx => {
   return {};
 };
 
-export default withApollo(IndexPage);
+export default withApollo(WelcomePage);

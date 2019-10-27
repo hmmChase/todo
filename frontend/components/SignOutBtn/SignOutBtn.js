@@ -9,22 +9,16 @@ const SignOutBtn = () => {
   // application (that was configured using something like `ApolloProvider`)
   const apolloClient = useApolloClient();
 
-  const handleUpdate = cache =>
-    cache.writeData({ data: { isLoggedIn: false } });
-
   const handleCompleted = () => {
-    apolloClient.resetStore();
+    apolloClient.clearStore();
 
-    Router.push('/');
+    Router.push('/welcome');
   };
 
   // Suppress console output
   const handleError = err => err;
 
   const [signOut, { loading }] = useMutation(SIGN_OUT_MUTATION, {
-    update(cache, { data }) {
-      handleUpdate(cache, data);
-    },
     onCompleted() {
       handleCompleted();
     },

@@ -57,7 +57,7 @@ export const comparePasswords = (password, confirmPassword) => {
     throw new AuthenticationError("Passwords don't match.");
 };
 
-/* Acess Token */
+/* Access Token */
 
 export const createAccessToken = userId => {
   // TODO: Add CSRK token
@@ -70,17 +70,15 @@ export const createAccessToken = userId => {
 
 export const verifyAccessToken = accessToken => {
   try {
-    // Return the decoded payload if the signature is valid and not expired
+    // Return the decoded payload if the signature is valid and JWT not expired
     return jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
   } catch (err) {
-    console.log('TCL: err', err);
-
     // If not, throw the error
     throw new AuthenticationError('Access Token invalid');
   }
 };
 
-/* Refesh Token */
+/* Refresh Token */
 
 export const createRefreshToken = (userId, tokenVersion) => {
   return jwt.sign({ userId, tokenVersion }, process.env.REFRESH_TOKEN_SECRET, {
@@ -90,7 +88,7 @@ export const createRefreshToken = (userId, tokenVersion) => {
 
 export const verifyRefreshToken = refreshToken => {
   try {
-    // Return the decoded payload if the signature is valid and not expired
+    // Return the decoded payload if the signature is valid and JWT not expired
     return jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
   } catch (err) {
     // if (err.name === 'TokenExpiredError') {
@@ -112,7 +110,7 @@ export const sendRefreshToken = (res, refreshToken) => {
     secure: process.env.NODE_ENV === 'production',
     maxAge: config.refreshTokenCookieMaxAge
     // domain: '.now.sh',
-    // path: "/refresh_token"
+    // path: "/refresh"
   };
 
   res.cookie('rt', refreshToken, cookieOptions);

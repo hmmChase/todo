@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 
 import DisplayError from '../DisplayError/DisplayError';
 import { SIGN_IN_MUTATION } from '../../graphql/queries';
 import * as sc from './SignInForm.style';
+import { setAccessToken } from '../../utils/authenticate';
 
 const SignInForm = props => {
   const {
@@ -22,11 +24,11 @@ const SignInForm = props => {
     validateFields();
   }, []);
 
-  const handleUpdate = cache => cache.writeData({ data: { isLoggedIn: true } });
-
   const handleCompleted = data => {
     if (data && data.signIn && data.signIn.accessToken) {
       setAccessToken(data.signIn.accessToken);
+
+      Router.push('/');
     }
   };
 
@@ -34,9 +36,6 @@ const SignInForm = props => {
   const handleError = err => err;
 
   const [signIn, { loading, error }] = useMutation(SIGN_IN_MUTATION, {
-    update(cache) {
-      handleUpdate(cache);
-    },
     onCompleted(data) {
       handleCompleted(data);
     },
@@ -52,7 +51,13 @@ const SignInForm = props => {
     e.preventDefault();
 
     validateFields((err, values) => {
-      signIn({ variables: values });
+      const response = signIn({ variables: values });
+
+      if (response && response.data) {
+        console.log('handleSubmitForm: ', response.data.signIn.accessToken);
+
+        setAccessToken(response.data.signIn.accessToken);
+      }
 
       resetFields();
     });

@@ -22,6 +22,14 @@ export default {
     },
 
     users: (parent, args, ctx, info) => {
+      console.log('----------users');
+
+      // If no access token, throw error
+      if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
+
+      // Verify access token
+      auth.verifyAccessToken(ctx.accessToken);
+
       // Return all users
       return ctx.prisma.query.users({ orderBy: args.orderBy }, info);
     },
@@ -30,18 +38,26 @@ export default {
       return ctx.prisma.query.usersConnection({}, info);
     },
 
-    currentUser: (parent, args, ctx, info) => {
-      // If no token cookie present, throw error
-      if (!ctx.req.cookies.token) return null;
+    currentUser: async (parent, args, ctx, info) => {
+      console.log('----------currentUser');
 
-      // Verify cookie and decode payload
-      const currentUser = auth.verifyAccessToken(ctx.req.cookies.token);
+      // If no access token, return nothing
+      if (!ctx.accessToken) return null;
 
-      // Find and return user matching payload ID
-      // If not found, return null
-      return currentUser
-        ? ctx.prisma.query.user({ where: { id: currentUser.user.id } }, info)
-        : null;
+      // Verify access token and decode payload
+      const userId = auth.verifyAccessToken(ctx.accessToken);
+
+      // Find user matching payload ID
+      const user = await ctx.prisma.query.user(
+        { where: { id: userId.userId } },
+        info
+      );
+
+      // If no user found, return null
+      if (!user) return null;
+
+      // Return user
+      return user;
     }
   },
 

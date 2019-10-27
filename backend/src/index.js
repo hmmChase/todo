@@ -51,7 +51,7 @@ app.post('/refresh', async (req, res) => {
   try {
     payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
   } catch (err) {
-    console.log('TCL: err', err);
+    // console.log('TCL: err', err);
 
     // If error, return empty access token
     return res.send({ ok: false, accessToken: '' });
