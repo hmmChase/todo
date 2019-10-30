@@ -22,8 +22,6 @@ export default {
     },
 
     users: (parent, args, ctx, info) => {
-      console.log('----------users');
-
       // If no access token, throw error
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
@@ -39,8 +37,6 @@ export default {
     },
 
     currentUser: async (parent, args, ctx, info) => {
-      console.log('----------currentUser');
-
       // If no access token, return nothing
       if (!ctx.accessToken) return null;
 

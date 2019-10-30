@@ -46,8 +46,6 @@ export default {
     },
 
     currentUserIdeas: async (parent, args, ctx, info) => {
-      console.log('----------currentUserIdeas');
-
       // If no access token, throw error
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 

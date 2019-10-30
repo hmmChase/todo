@@ -11,7 +11,7 @@ const WelcomePage = () => (
   </>
 );
 
-IndexPage.getInitialProps = ctx => {
+WelcomePage.getInitialProps = ctx => {
   const { req, res, pathname } = ctx;
 
   if (req && res && pathname) {

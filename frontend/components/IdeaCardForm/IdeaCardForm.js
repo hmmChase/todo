@@ -89,7 +89,7 @@ const IdeaCardForm = () => {
       />
       {/* </sc.FormItem> */}
 
-      <sc.BoxImg src="static/ideabox.png" alt="ideabox" />
+      <sc.BoxImg src="static/images/ideabox.png" alt="ideabox" />
 
       {/* <sc.FormItem> */}
       <sc.SubmitBtn
