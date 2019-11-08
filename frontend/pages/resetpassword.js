@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Head from '../components/Head/Head';
 import LayoutMain from '../components/LayoutMain/LayoutMain';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
-import { withApollo } from '../graphql/withApollo';
+import withApollo from '../graphql/withApollo';
 import isLoggedIn from '../utils/isLoggedIn';
 import redirect from '../utils/redirect';
 

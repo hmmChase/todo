@@ -2,7 +2,7 @@ import Head from '../components/Head/Head';
 import LayoutMain from '../components/LayoutMain/LayoutMain';
 import HeaderMain from '../components/HeaderMain/HeaderMain';
 import Ideas from '../components/Ideas/Ideas';
-import { withApollo } from '../graphql/withApollo';
+import withApollo from '../graphql/withApollo';
 import authenticate from '../utils/authenticate';
 
 const IndexPage = () => (

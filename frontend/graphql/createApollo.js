@@ -7,8 +7,8 @@ import { onError } from 'apollo-link-error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import fetch from 'isomorphic-unfetch';
-
 import { getAccessToken, setAccessToken } from '../utils/authenticate';
+// import { schema } from './schema';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 
@@ -30,14 +30,6 @@ const createApollo = (initialState = {}, serverAccessToken) => {
   // if (isBrowser) {
   //   console.log(': withApollo ctx', Object.keys(ctx));
   //   console.log(': withApollo initialState', ctx.initialState);
-  // }
-
-  /* ctx & headers available on server */
-  // if (!isBrowser) {
-  //   console.log(': withApollo ctx', Object.keys(ctx));
-  //   console.log(': withApollo ctx', Object.keys(ctx.ctx));
-  //   console.log(': withApollo headers', Object.keys(ctx.headers));
-  //   console.log(': withApollo cookie', ctx.headers.cookie);
   // }
 
   // Log GraphQL request & response
@@ -87,25 +79,31 @@ const createApollo = (initialState = {}, serverAccessToken) => {
       }
     },
 
-    fetchAccessToken: () =>
-      fetch('http://localhost:6969/refresh', {
+    fetchAccessToken: () => {
+      const url = isDev
+        ? process.env.DEV_REFRESH_URL
+        : process.env.PROD_REFRESH_URL;
+
+      return fetch(url, {
         method: 'POST',
         credentials: 'include'
-      }),
-
-    handleFetch: accessToken => {
-      setAccessToken(accessToken);
+      });
     },
 
+    handleFetch: accessToken => setAccessToken(accessToken),
+
     handleError: err => {
-      // console.error(err);
-      console.warn('Your refresh token is invalid. Try to relogin');
+      if (isDev()) {
+        console.warn('Your refresh token is invalid. Try to relogin');
+        console.error('refreshLink handleError: ', err);
+      }
     }
   });
 
   // Add cookie to request header
   const authLink = setContext((request, previousContext) => {
     const token = isServer() ? serverAccessToken : getAccessToken();
+
     return {
       headers: { authorization: token ? `Bearer ${token}` : '' }
     };
@@ -140,8 +138,9 @@ const createApollo = (initialState = {}, serverAccessToken) => {
     link,
     cache,
     connectToDevTools: !isServer(),
-    ssrMode: isServer(), // Disables forceFetch on the server (so queries are only run once)
-
+    // Disables forceFetch on the server (so queries are only run once)
+    ssrMode: isServer(),
+    // schema,
     typeDefs,
     resolvers
   });
@@ -149,369 +148,195 @@ const createApollo = (initialState = {}, serverAccessToken) => {
 
 export default createApollo;
 
-// import { ApolloClient } from 'apollo-client';
-// import { InMemoryCache } from 'apollo-cache-inmemory';
-// import { HttpLink } from 'apollo-link-http';
-// import { setContext } from 'apollo-link-context';
-// import fetch from 'isomorphic-unfetch';
-// import { TokenRefreshLink } from 'apollo-link-token-refresh';
-// import jwtDecode from 'jwt-decode';
-// import { onError } from 'apollo-link-error';
-// import { ApolloLink } from 'apollo-link';
-// import { getAccessToken, setAccessToken } from '../utils/authenticate';
+// ---------------------------------------
 
-// import { typeDefs } from './typeDefs';
-// import { resolvers } from './resolvers';
+// // function createIsomorphLink() {
+// //   const fetchOptions = {};
 
-// const isServer = () => typeof window === 'undefined';
-// const isDev = () => process.env.NODE_ENV === 'development';
+// //   if (!isBrowser) {
+// //     const { SchemaLink } = require('apollo-link-schema');
+// //     const { schema } = require('./schema');
+// //     return new SchemaLink({ schema });
+// //   }
 
-// /**
-//  * Creates and configures the ApolloClient
-//  * @param  {Object} [initialState={}]
-//  * @param  {Object} config
-//  */
+// //   const { HttpLink } = require('apollo-link-http');
 
-// export const createApolloClient = (initialState = {}, serverAccessToken) => {
-//   const httpLink = new HttpLink({
-//     uri: isDev() ? process.env.DEV_GRAPHQL_URL : process.env.PROD_GRAPHQL_URL,
-//     credentials: 'include',
-//     fetch
-//   });
+// //   return new HttpLink({
+// //     uri: isDev
+// //       ? process.env.DEV_GRAPHQL_URL
+// //       : process.env.PROD_GRAPHQL_URL,
+// //     credentials: 'include',
+// //     fetch
+// //   });
+// // }
 
-//   const consoleLogLink = new ApolloLink((operation, forward) => {
-//     console.log(
-//       '\n',
-//       `---------- starting request for ${operation.operationName}`,
-//       new Date().getMilliseconds(),
-//       `(client: ${!isServer()}, server: ${isServer()})`
-//     );
+// ---------------------------------------
 
-//     return forward(operation).map(op => {
-//       console.log(`${operation.operationName} res: `, op);
-//       console.log(
-//         '\n',
-//         `---------- ending request for ${operation.operationName}`,
-//         new Date().getMilliseconds()
-//       );
+// const refreshAuthToken = async refreshToken => {
+//   // Get refresh token from cookies
+//   console.log('.............................................');
+//   console.log('refresh auth token with token:');
+//   console.log(refreshToken);
+//   console.log('.............................................');
 
-//       return op;
-//     });
-//   });
-
-//   const refreshLink = new TokenRefreshLink({
-//     accessTokenField: 'accessToken',
-//     isTokenValidOrUndefined: () => {
-//       const token = getAccessToken();
-
-//       if (!token) {
-//         return true;
-//       }
-
-//       try {
-//         const { exp } = jwtDecode(token);
-//         if (Date.now() >= exp * 1000) {
-//           return false;
-//         }
-//         return true;
-//       } catch {
-//         return false;
-//       }
-//     },
-//     fetchAccessToken: () =>
-//       fetch('http://localhost:6969/refresh', {
-//         method: 'POST',
-//         credentials: 'include'
-//       }),
-//     handleFetch: accessToken => {
-//       setAccessToken(accessToken);
-//     },
-//     handleError: err => {
-//       console.warn('Your refresh token is invalid. Try to relogin');
-//       console.error(err);
-//     }
-//   });
-
-//   const authLink = setContext((_request, { headers }) => {
-//     const token = isServer() ? serverAccessToken : getAccessToken();
-//     return {
-//       headers: {
-//         ...headers,
-//         authorization: token ? `Bearer ${token}` : ''
-//       }
-//     };
-//   });
-
-//   const errorLink = onError(({ graphQLErrors, networkError }) => {
-//     console.log('errorLink graphQLErrors: ', graphQLErrors);
-//     console.log('errorLink networkError: ', networkError);
-//   });
-
-//   return new ApolloClient({
-//     ssrMode: typeof window === 'undefined', // Disables forceFetch on the server (so queries are only run once)
-//     link: ApolloLink.from([
-//       consoleLogLink,
-//       refreshLink,
-//       authLink,
-//       errorLink,
-//       httpLink
-//     ]),
-//     cache: new InMemoryCache().restore(initialState),
-//     typeDefs,
-//     resolvers
+//   // Get new auth token from server
+//   return client.mutate({
+//     mutation: REFRESH_AUTH_TOKEN,
+//     variables: { refreshToken }
 //   });
 // };
 
-// /* eslint-disable global-require */
-// import { ApolloClient } from 'apollo-client';
-// import { InMemoryCache } from 'apollo-cache-inmemory';
-// import { ApolloLink } from 'apollo-link';
-// import { HttpLink } from 'apollo-link-http';
-// import { setContext } from 'apollo-link-context';
-// import { TokenRefreshLink } from 'apollo-link-token-refresh';
-// import { onError } from 'apollo-link-error';
-// import jwtDecode from 'jwt-decode';
-// import fetch from 'isomorphic-unfetch';
+// const errorLink = onError(
+//   ({ graphQLErrors, networkError, operation, forward }) => {
+//     console.log(': networkError', networkError);
+//     console.log(': graphQLErrors', graphQLErrors);
+//     if (graphQLErrors) {
+//       for (const err of graphQLErrors) {
+//         const errorObject = {
+//           code: err.extensions.code,
+//           operation: operation.operationName,
+//           message: err.message
+//         };
 
-// // import { schema } from './schema';
-// import { typeDefs } from './typeDefs';
-// import { resolvers } from './resolvers';
-// import { setAccessToken, getAccessToken } from '../utils/authenticate';
-
-// /**
-//  * Creates and configures the ApolloClient
-//  * @param  {Object} [initialState={}]
-//  * @param  {Object} config
-//  */
-
-// export const createApolloClient = (
-//   initialState = {},
-//   headers,
-//   serverAccessToken
-// ) => {
-//   if (process.env.NODE_ENV === 'development') {
-//     console.log(
-//       '----------start createApolloClient----------',
-//       new Date().getMilliseconds()
-//     );
-//   }
-
-//   console.log('createApolloClient serverAccessToken: ', serverAccessToken);
-
-//   const isBrowser = typeof window !== 'undefined';
-//   const isDev = process.env.NODE_ENV === 'development';
-
-//   // Log GraphQL request & response
-//   const consoleLogLink = new ApolloLink((operation, forward) => {
-//     console.log(
-//       '\n',
-//       `---------- starting request for ${operation.operationName}`,
-//       new Date().getMilliseconds(),
-//       `(client: ${isBrowser}, server: ${!isBrowser})`
-//     );
-
-//     return forward(operation).map(op => {
-//       console.log(`${operation.operationName} res: `, op);
-//       console.log(
-//         '\n',
-//         `---------- ending request for ${operation.operationName}`,
-//         new Date().getMilliseconds()
-//       );
-
-//       return op;
-//     });
-//   });
-
-//   const errorLink = onError(
-//     ({ graphQLErrors, networkError, operation, forward }) => {
-//       console.log('networkError: ', networkError);
-//       console.log('graphQLErrors: ', graphQLErrors);
-//     }
-//   );
-
-//   const refreshLink = new TokenRefreshLink({
-//     accessTokenField: 'accessToken',
-
-//     isTokenValidOrUndefined: () => {
-//       if (process.env.NODE_ENV === 'development') {
 //         console.log(
-//           '----------isTokenValidOrUndefined----------',
-//           new Date().getMilliseconds()
+//           '[GraphQL error]: ',
+//           new Date().getMilliseconds(),
+//           errorObject
 //         );
-//       }
 
-//       const accessToken = getAccessToken();
-//       console.log('isTokenValidOrUndefined accessToken', accessToken);
+//         switch (err.extensions.code) {
+//           // AuthenticationError
+//           case 'UNAUTHENTICATED':
+//             // return forward(operation);
+//             break;
 
-//       if (!accessToken) {
-//         console.log('true 1');
+//           // ForbiddenError
+//           case 'FORBIDDEN':
+//             if (process.browser) Router.push('/');
 
-//         return true;
-//       }
+//             // return forward(operation);
+//             break;
 
-//       try {
-//         const { exp } = jwtDecode(accessToken);
-//         // console.log('isTokenValidOrUndefined exp: ', exp);
-//         // console.log('Date.now() >= exp * 1000: ', Date.now() >= exp * 1000);
-
-//         if (Date.now() >= exp * 1000) {
-//           console.log('false 2');
-
-//           return false;
+//           default:
+//             // return forward(operation);
+//             break;
 //         }
-
-//         console.log('true 3');
-
-//         return true;
-//       } catch (err) {
-//         console.log('TCL: err', err);
-//         console.log('false 4');
-
-//         return false;
-//       }
-//     },
-
-//     fetchAccessToken: () => {
-//       if (process.env.NODE_ENV === 'development') {
-//         console.log(
-//           '----------fetchAccessToken----------',
-//           new Date().getMilliseconds()
-//         );
-//       }
-
-//       const url = isDev
-//         ? process.env.DEV_REFRESH_URL
-//         : process.env.PROD_REFRESH_URL;
-
-//       // const server = typeof window === 'undefined';
-
-//       return fetch(url, {
-//         method: 'POST',
-//         credentials: 'include'
-//         // headers: {
-//         // ...headers
-//         // cookie: `rt=${headers.cookie.replace('rt=', '')}`,
-//         // cookie: `rt=${getRefreshToken()}`,
-//         // server: `server=${!server}`
-//         // }
-//       });
-//     },
-
-//     handleFetch: accessToken => {
-//       if (process.env.NODE_ENV === 'development') {
-//         console.log(
-//           '----------handleFetch----------',
-//           new Date().getMilliseconds()
-//         );
-//       }
-
-//       setAccessToken(accessToken);
-//     },
-
-//     handleError: err => {
-//       if (process.env.NODE_ENV === 'development') {
-//         console.warn('Your refresh token is invalid. Try to relogin');
-//         console.error('refreshLink handleError: ', err);
 //       }
 //     }
-//   });
 
-//   // Send the access token with each request
-//   const authLink = setContext((req, previousContext) => {
-//     const accessToken =      typeof window === 'undefined' ? serverAccessToken : getAccessToken();
+//     // ----------------------------------------
 
-//     // let accessToken = '';
+//     // If error is due to unathenticated user request
+//     // and a refresh token is available
+//     // const { extensions } = graphQLErrors[0];
+//     // const refreshToken = getTokens()['x-token-refresh'];
 
-//     // if (typeof window === 'undefined') {
-//     //   console.log('authLink server, ', typeof window === 'undefined');
+//     // if (extensions.code === 'UNAUTHENTICATED' && refreshToken) {
+//     //   // Create a new Observerable
+//     //   return new Observable(async observer => {
+//     //     // Refresh the access token
+//     //     refreshAccessToken(refreshToken, client)
+//     //       // On successful refresh...
+//     //       .then(newTokens => {
+//     //         // Handle cookies
+//     //         if (!newTokens.token) {
+//     //           // Delete cookies if no new access token provided
+//     //           destroyCookie(ctx, 'x-token');
+//     //           destroyCookie(ctx, 'x-token-refresh');
+//     //         } else {
+//     //           // Update cookies if new access token available
+//     //           setCookie(ctx, 'x-token', newTokens.token, {
+//     //             maxAge: 30 * 60
+//     //           });
 
-//     //   accessToken = serverAccessToken;
+//     //           setCookie(ctx, 'x-token-refresh', newTokens.refreshToken, {
+//     //             maxAge: 30 * 24 * 60 * 60
+//     //           });
+//     //         }
 
-//     //   console.log('authLink accessToken 1: ', accessToken);
-//     // } else {
-//     //   console.log('authLink server, ', typeof window === 'undefined');
+//     //         // Bind observable subscribers
+//     //         const subscriber = {
+//     //           next: observer.next.bind(observer),
+//     //           error: observer.error.bind(observer),
+//     //           complete: observer.complete.bind(observer)
+//     //         };
 
-//     //   accessToken = getAccessToken();
+//     //         // Retry last failed request
+//     //         forward(operation).subscribe(subscriber);
+//     //       })
 
-//     //   console.log('authLink accessToken 2: ', accessToken);
+//     //       // On refresh failure...
+//     //       .catch(error => {
+//     //         observer.error(error);
+//     //       });
+//     //   });
 //     // }
 
-//     return {
-//       headers: {
-//         server: `server=${typeof window === 'undefined'}`,
-//         authorization: accessToken ? `Bearer ${accessToken}` : ''
-//         // cookie: `rt=${headers.cookie.replace('rt=', '')}`
-//       }
-//     };
-//   });
+//     // ----------------------------------------
 
-//   const httpLink = new HttpLink({
-//     uri: isDev ? process.env.DEV_GRAPHQL_URL : process.env.PROD_GRAPHQL_URL,
-//     credentials: 'include',
-//     fetch
-//   });
+//     // for (const err of graphQLErrors) {
+//     //   switch (err.extensions.code) {
+//     //     // AuthenticationError
+//     //     case 'UNAUTHENTICATED':
+//     //       // Modify the operation context with a new token
+//     //       // const oldHeaders = operation.getContext().headers;
 
-//   const cache = new InMemoryCache().restore(initialState);
+//     //       // operation.setContext({
+//     //       //   headers: {
+//     //       //     ...oldHeaders,
+//     //       //     authorization: getNewToken()
+//     //       //   }
+//     //       // });
 
-//   // const link = isDev
-//   //   ? ApolloLink.from([
-//   //       consoleLogLink,
-//   //       errorLink,
-//   //       refreshLink,
-//   //       authLink,
-//   //       httpLink
-//   //     ])
-//   //   : ApolloLink.from([refreshLink, authLink, httpLink]);
+//     //       // Retry the request, returning the new observable
+//     //       return forward(operation);
 
-//   const link = isDev
-//     ? ApolloLink.from([
-//       consoleLogLink,
-//       errorLink,
-//       refreshLink,
-//       authLink,
-//       httpLink
-//     ])
-//     : ApolloLink.from([refreshLink, authLink, httpLink]);
+//     //     // ----------------------------------------
 
-//   // const link = isDev
-//   //   ? ApolloLink.from([consoleLogLink, errorLink, createIsomorphLink()])
-//   //   : ApolloLink.from([errorLink, createIsomorphLink()]);
+//     //     // const doRefresh = async () => {
+//     //     //   const refreshToken = await getTokens()['x-token-refresh'];
+//     //     //   const data = await refreshAuthToken(refreshToken);
 
-//   if (process.env.NODE_ENV === 'development') {
-//     console.log(
-//       '----------end createApolloClient----------',
-//       new Date().getMilliseconds()
-//     );
+//     //     //   console.log('.......................');
+//     //     //   console.log('results of refreshAuthToken (success!!)');
+//     //     //   console.log(data.data.refreshAuthToken.token);
+//     //     //   console.log('.......................');
+
+//     //     //   await cookie.serialize(
+//     //     //     'x-token-new',
+//     //     //     data.data.refreshAuthToken.token,
+//     //     //     {}
+//     //     //   );
+
+//     //     //   await operation.setContext({
+//     //     //     headers: {
+//     //     //       ...headers,
+//     //     //       'x-token': data.data.refreshAuthToken.token
+//     //     //     }
+//     //     //   });
+
+//     // return forward(operation);
+//     //     // };
+
+//     //     // doRefresh();
+//     //   }
+//     // }
+
+//     if (networkError) {
+//       const errorObject = {
+//         code: networkError.code,
+//         message: networkError.message
+//       };
+
+//       console.log('[Network error]: ', errorObject);
+
+//       // if you would also like to retry automatically on
+//       // network errors, we recommend that you use
+//       // apollo-link-retry
+//     }
+
+//     if (operation.operationName === 'IgnoreErrorsQuery') {
+//       response.errors = null;
+//     }
 //   }
-
-//   return new ApolloClient({
-//     link,
-//     cache,
-//     connectToDevTools: isBrowser,
-//     // Disables forceFetch on the server (so queries are only run once)
-//     ssrMode: !isBrowser,
-//     // schema,
-//     typeDefs,
-//     resolvers
-//   });
-// };
-
-// // // function createIsomorphLink() {
-// // //   const fetchOptions = {};
-
-// // //   if (!isBrowser) {
-// // //     const { SchemaLink } = require('apollo-link-schema');
-// // //     const { schema } = require('./schema');
-// // //     return new SchemaLink({ schema });
-// // //   }
-
-// // //   const { HttpLink } = require('apollo-link-http');
-
-// // //   return new HttpLink({
-// // //     uri: isDev
-// // //       ? process.env.DEV_GRAPHQL_URL
-// // //       : process.env.PROD_GRAPHQL_URL,
-// // //     credentials: 'include',
-// // //     fetch
-// // //   });
-// // // }
+// );

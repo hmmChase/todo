@@ -1,4 +1,4 @@
-import { withApollo } from '../graphql/withApollo';
+import withApollo from '../graphql/withApollo';
 
 const ClientOnlyPage = () => (
   <div>

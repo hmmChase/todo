@@ -1,6 +1,6 @@
 import Head from '../components/Head/Head';
 import SignOn from '../components/SignOn/SignOn';
-import { withApollo } from '../graphql/withApollo';
+import withApollo from '../graphql/withApollo';
 import authenticate from '../utils/authenticate';
 
 const WelcomePage = () => (

@@ -4,7 +4,7 @@ import Head from '../components/Head/Head';
 import LayoutMain from '../components/LayoutMain/LayoutMain';
 import HeaderDetail from '../components/HeaderDetail/HeaderDetail';
 import IdeaDetail from '../components/IdeaDetail/IdeaDetail';
-import { withApollo } from '../graphql/withApollo';
+import withApollo from '../graphql/withApollo';
 import authenticate from '../utils/authenticate';
 
 const IdeaPage = props => (
