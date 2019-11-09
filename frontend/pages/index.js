@@ -14,7 +14,7 @@ const IndexPage = () => (
 );
 
 IndexPage.getInitialProps = ctx => {
-  const { req, res, pathname } = ctx;
+  const { req, res, pathname, apolloClient } = ctx;
 
   if (req && res && pathname) {
     authenticate(req, res, pathname);

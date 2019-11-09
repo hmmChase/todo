@@ -104,9 +104,7 @@ const createApollo = (initialState = {}, serverAccessToken) => {
   const authLink = setContext((request, previousContext) => {
     const token = isServer() ? serverAccessToken : getAccessToken();
 
-    return {
-      headers: { authorization: token ? `Bearer ${token}` : '' }
-    };
+    return { headers: { authorization: token ? `Bearer ${token}` : '' } };
   });
 
   // const authLink = new ApolloLink((operation, forward) => {

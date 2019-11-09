@@ -9,7 +9,6 @@ import fetch from 'isomorphic-unfetch';
 import cookie from 'cookie';
 import { ApolloProvider } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
-
 import { getAccessToken, setAccessToken } from '../utils/authenticate';
 import initApollo from './initApollo';
 
@@ -23,6 +22,10 @@ const isServer = () => typeof window === 'undefined';
  * @param {Object} [config]
  * @param {Boolean} [config.ssr=true]
  */
+
+// withApollo first fetches queries and hydrates the store server-side
+// before sending the page to the client
+// https://github.com/lfades/next-with-apollo/issues/69
 
 const withApollo = (PageComponent, { ssr = true } = {}) => {
   if (process.env.NODE_ENV === 'development') {

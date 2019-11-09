@@ -1,7 +1,7 @@
 {
   "name": "next-graphql-starter",
   "short_name": "ngs",
-  "description": "An example CRUD app with user authentification.",
+  "description": "An example CRUD app with user authentication.",
   "start_url": "/",
   "scope": "/",
   "dir": "ltr",
