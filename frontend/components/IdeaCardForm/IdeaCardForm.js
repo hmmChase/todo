@@ -9,7 +9,7 @@ import {
 import { pageSize } from '../../constants';
 import * as sc from './IdeaCardForm.style';
 
-const IdeaCardForm = React.memo(() => {
+const IdeaCardForm = () => {
   const [idea, setIdea] = useState('');
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
@@ -80,6 +80,7 @@ const IdeaCardForm = React.memo(() => {
     <sc.IdeaCardForm onSubmit={handleSubmitIdeaForm}>
       {/* <sc.FormItem> */}
       <sc.InputTextArea
+        aria-label="idea"
         name="idea"
         type="text"
         placeholder="What's on your mind?"
@@ -88,7 +89,7 @@ const IdeaCardForm = React.memo(() => {
       />
       {/* </sc.FormItem> */}
 
-      <sc.BoxImg src="static/ideabox.png" alt="ideabox" />
+      <sc.BoxImg src="static/images/ideabox.png" alt="ideabox" />
 
       {/* <sc.FormItem> */}
       <sc.SubmitBtn
@@ -101,7 +102,7 @@ const IdeaCardForm = React.memo(() => {
       {/* </sc.FormItem> */}
     </sc.IdeaCardForm>
   );
-});
+};
 
 // IdeaCardForm.propTypes = {
 //   form: PropTypes.shape({

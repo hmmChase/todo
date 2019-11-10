@@ -8,7 +8,7 @@ import { CURRENT_USER_PAGINATED_IDEAS } from '../../graphql/queries';
 import { pageSize } from '../../constants';
 import * as sc from './Ideas.style';
 
-const Ideas = React.memo(() => {
+const Ideas = () => {
   // Suppress console output
   const handleError = err => err;
 
@@ -52,6 +52,6 @@ const Ideas = React.memo(() => {
       )}
     </sc.Ideas>
   );
-});
+};
 
 export default Ideas;

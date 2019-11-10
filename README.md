@@ -1,6 +1,6 @@
 # next-graphql-starter
 
-> An example CRUD PWA app with user authentification.
+> An example CRUD PWA app with user authentication.
 >
 > View the app at <https://next-graphql-starter.hmmchase.now.sh/>
 
@@ -22,6 +22,7 @@
 - Individual routes for ideas
 - Cursor based pagination
 - Local GraphQL schema
+- Mailtrap.io integration
 - Normalize CSS
 - Global CSS style and theming
 - Webpack Bundle Analyzer

@@ -1,12 +1,12 @@
-import SignIn from '../../containers/SignIn/SignIn';
+import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import { title } from '../../constants';
 import * as sc from './SignOn.style';
 
-const SignOn = React.memo(() => (
+const SignOn = () => (
   <sc.SignOn>
     <sc.Header>
-      <sc.Img src="static/ideabox.png" alt="ideabox" />
+      <sc.Img src="static/images/ideabox.png" alt="ideabox" />
 
       <sc.Title>{title}</sc.Title>
     </sc.Header>
@@ -19,6 +19,6 @@ const SignOn = React.memo(() => (
       <SignUp />
     </sc.Content>
   </sc.SignOn>
-));
+);
 
 export default SignOn;

@@ -1,6 +1,6 @@
-import { withApollo } from '../graphql/withApollo';
+import withApollo from '../graphql/withApollo';
 
-const ClientOnlyPage = React.memo(() => (
+const ClientOnlyPage = () => (
   <div>
     This example shows how to disable apollos query fetching on the server. If
     you
@@ -34,7 +34,7 @@ const ClientOnlyPage = React.memo(() => (
       </p>
     </article>
   </div>
-));
+);
 
 // Disable Apollo ssr fetching in favor of automatic static optimization
 export default withApollo(ClientOnlyPage, { ssr: false });

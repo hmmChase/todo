@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import styledNormalize from 'styled-normalize';
-
-import theme from './theme.style';
+// import theme from './theme.style';
 
 export default createGlobalStyle`
   ${styledNormalize}
@@ -28,8 +27,6 @@ export default createGlobalStyle`
 
   html {
     box-sizing: border-box;
-    /* https://stackoverflow.com/questions/47307689/lighthouse-audit-says-content-not-sized-correctly-for-viewport-despite-body-wid */
-    overflow-x: hidden;
   }
 
   *, *:before, *:after {
@@ -37,9 +34,11 @@ export default createGlobalStyle`
   }
 
   body {
-    color: ${theme.color.black};
-    font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
   }
 `;
+
+// overflow-x: hidden;
+// color: ${theme.color.black};
+// font-family: 'Open Sans', sans-serif;

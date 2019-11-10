@@ -5,6 +5,7 @@
 
 // https://nextjs.org/docs#customizing-webpack-config
 
+// import 'dotenv/config';
 require('dotenv').config();
 
 const fs = require('fs');
@@ -24,11 +25,8 @@ const nextConfig = {
   // Now by ZEIT deployment target
   target: 'serverless',
 
-  // custom webpack config for Ant Design Less
-  lessLoaderOptions: {
-    javascriptEnabled: true,
-    modifyVars: themeVariables // make your antd custom effective
-  },
+  // Custom webpack config for Ant Design Less
+  lessLoaderOptions: { javascriptEnabled: true, modifyVars: themeVariables },
 
   // // https://github.com/hanford/next-offline#now-20
   // // Add the homepage to the cache
@@ -38,16 +36,16 @@ const nextConfig = {
   // generateInDevMode: false,
 
   workboxOpts: {
+    // swDest: '../public/service-worker.js',
     swDest: 'static/service-worker.js',
+    maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {
         urlPattern: /[.](png|jpg|ico|css)/,
         handler: 'CacheFirst',
         options: {
           cacheName: 'assets-cache',
-          cacheableResponse: {
-            statuses: [0, 200]
-          }
+          cacheableResponse: { statuses: [0, 200] }
         }
       },
       {
@@ -60,12 +58,8 @@ const nextConfig = {
             maxEntries: 150,
             maxAgeSeconds: 30 * 24 * 60 * 60 // 1 month
           },
-          cacheableResponse: {
-            statuses: [0, 200]
-          },
-          fetchOptions: {
-            credentials: 'include'
-          }
+          cacheableResponse: { statuses: [0, 200] },
+          fetchOptions: { credentials: 'include' }
         }
       }
     ]
@@ -80,10 +74,7 @@ const nextConfig = {
     // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
     config.plugins.push(
       // Read the .env file
-      new Dotenv({
-        path: path.join(__dirname, '.env'),
-        systemvars: true
-      })
+      new Dotenv({ path: path.join(__dirname, '.env'), systemvars: true })
     );
 
     // https://spectrum.chat/next-js/general/conflicting-order-between~25834bb9-fe91-44dd-ba47-b016b6518d67
@@ -124,10 +115,7 @@ const nextConfig = {
         ...(typeof origExternals[0] === 'function' ? [] : origExternals)
       ];
 
-      config.module.rules.unshift({
-        test: antStyles,
-        use: 'null-loader'
-      });
+      config.module.rules.unshift({ test: antStyles, use: 'null-loader' });
     }
 
     return config;
@@ -135,4 +123,3 @@ const nextConfig = {
 };
 
 module.exports = withLess(withOffline(nextConfig));
-// module.exports = withLess(nextConfig);

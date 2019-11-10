@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
-import { withApollo } from '../graphql/withApollo';
-import Head from '../containers/Head/Head';
-import LayoutMain from '../containers/LayoutMain/LayoutMain';
+import Head from '../components/Head/Head';
+import LayoutMain from '../components/LayoutMain/LayoutMain';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
+import withApollo from '../graphql/withApollo';
 import isLoggedIn from '../utils/isLoggedIn';
 import redirect from '../utils/redirect';
 
-const ResetPasswordPage = React.memo(props => (
+const ResetPasswordPage = props => (
   <>
     <Head title="Reset Password" />
 
@@ -21,14 +21,20 @@ const ResetPasswordPage = React.memo(props => (
       )}
     />
   </>
-));
+);
 
 ResetPasswordPage.getInitialProps = async ctx => {
-  const { resetToken, resetTokenExpiry } = ctx.query;
+  const { req, res, pathname, query } = ctx;
+
+  // if (req && res && pathname) {
+  //   authenticate(req, res, pathname);
+  // }
 
   const loggedIn = await isLoggedIn(ctx.apolloClient);
 
   if (loggedIn) redirect(ctx, '/');
+
+  const { resetToken, resetTokenExpiry } = query;
 
   return { resetToken, resetTokenExpiry };
 };
@@ -43,4 +49,4 @@ ResetPasswordPage.propTypes = {
   resetTokenExpiry: PropTypes.string
 };
 
-export default withApollo(ResetPasswordPage);
+export default withApollo(React.memo(ResetPasswordPage));

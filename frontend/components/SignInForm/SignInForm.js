@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 
 import DisplayError from '../DisplayError/DisplayError';
 import { SIGN_IN_MUTATION } from '../../graphql/queries';
 import * as sc from './SignInForm.style';
+import { setAccessToken } from '../../utils/authenticate';
 
-const SignInForm = React.memo(props => {
+const SignInForm = props => {
   const {
     form: {
       validateFields,
@@ -22,14 +24,20 @@ const SignInForm = React.memo(props => {
     validateFields();
   }, []);
 
-  const handleUpdate = cache => cache.writeData({ data: { isLoggedIn: true } });
+  const handleCompleted = data => {
+    if (data && data.signIn && data.signIn.accessToken) {
+      setAccessToken(data.signIn.accessToken);
+
+      Router.push('/');
+    }
+  };
 
   // Suppress console output
   const handleError = err => err;
 
   const [signIn, { loading, error }] = useMutation(SIGN_IN_MUTATION, {
-    update(cache) {
-      handleUpdate(cache);
+    onCompleted(data) {
+      handleCompleted(data);
     },
     onError(err) {
       handleError(err);
@@ -43,7 +51,13 @@ const SignInForm = React.memo(props => {
     e.preventDefault();
 
     validateFields((err, values) => {
-      signIn({ variables: values });
+      const response = signIn({ variables: values });
+
+      if (response && response.data) {
+        console.log('handleSubmitForm: ', response.data.signIn.accessToken);
+
+        setAccessToken(response.data.signIn.accessToken);
+      }
 
       resetFields();
     });
@@ -70,6 +84,7 @@ const SignInForm = React.memo(props => {
           ]
         })(
           <sc.InputEmail
+            aria-label="email"
             type="email"
             placeholder="email"
             onPressEnter={handleSubmitForm}
@@ -88,6 +103,7 @@ const SignInForm = React.memo(props => {
           rules: [{ required: true, message: 'Please enter your password' }]
         })(
           <sc.InputPassword
+            aria-label="password"
             placeholder="password"
             onPressEnter={handleSubmitForm}
             prefix={<sc.InputIcon type="lock" />}
@@ -109,7 +125,7 @@ const SignInForm = React.memo(props => {
       </sc.FormItem>
     </sc.SignInForm>
   );
-});
+};
 
 SignInForm.propTypes = {
   form: PropTypes.shape({
@@ -122,4 +138,6 @@ SignInForm.propTypes = {
   }).isRequired
 };
 
-export default sc.SignInForm.create({ name: 'SignInForm' })(SignInForm);
+export default sc.SignInForm.create({ name: 'SignInForm' })(
+  React.memo(SignInForm)
+);

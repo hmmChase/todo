@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import * as sc from './DisplayError.style';
 
-const DisplayError = React.memo(props => {
+const DisplayError = props => {
   if (props.error.graphQLErrors) {
     return (
       <sc.DisplayError>
@@ -26,7 +26,7 @@ const DisplayError = React.memo(props => {
       <li>Opps, something went wrong.</li>
     </sc.DisplayError>
   );
-});
+};
 
 DisplayError.defaultProps = {
   error: {}
@@ -39,4 +39,4 @@ DisplayError.propTypes = {
   })
 };
 
-export default DisplayError;
+export default React.memo(DisplayError);

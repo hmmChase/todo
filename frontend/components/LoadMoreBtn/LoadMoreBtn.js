@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import * as sc from './LoadMoreBtn.style';
 
-const LoadMoreBtn = React.memo(props => {
+const LoadMoreBtn = props => {
   const handleFetchMore = (fetchMore, ideas) => {
     fetchMore({
       variables: { after: ideas.pageInfo.endCursor },
@@ -36,7 +36,7 @@ const LoadMoreBtn = React.memo(props => {
       Load More
     </sc.LoadMoreBtn>
   );
-});
+};
 
 LoadMoreBtn.propTypes = {
   loading: PropTypes.bool.isRequired,
@@ -56,4 +56,4 @@ LoadMoreBtn.propTypes = {
   }).isRequired
 };
 
-export default LoadMoreBtn;
+export default React.memo(LoadMoreBtn);

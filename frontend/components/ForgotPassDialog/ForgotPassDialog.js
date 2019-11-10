@@ -1,30 +1,30 @@
+import { useState } from 'react';
+
 import RequestReset from '../RequestReset/RequestReset';
 import * as sc from './ForgotPassDialog.style';
 
-class ForgotPassDialog extends React.PureComponent {
-  state = { visible: false };
+const ForgotPassDialog = () => {
+  const [visible, setVisible] = useState(false);
 
-  showModal = () => this.setState({ visible: true });
+  const showModal = () => setVisible(true);
 
-  handleCancel = () => this.setState({ visible: false });
+  const handleCancel = () => setVisible(false);
 
-  render() {
-    return (
-      <sc.ForgotPassDialog>
-        <sc.ModalLink onClick={this.showModal}>Forgot password?</sc.ModalLink>
+  return (
+    <sc.ForgotPassDialog>
+      <sc.ModalLink onClick={showModal}>Forgot password?</sc.ModalLink>
 
-        <sc.ForgotPassModal
-          title="Request a password reset"
-          visible={this.state.visible}
-          width="364px"
-          onCancel={this.handleCancel}
-          footer={null}
-        >
-          <RequestReset />
-        </sc.ForgotPassModal>
-      </sc.ForgotPassDialog>
-    );
-  }
-}
+      <sc.ForgotPassModal
+        title="Request a password reset"
+        visible={visible}
+        width="364px"
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <RequestReset />
+      </sc.ForgotPassModal>
+    </sc.ForgotPassDialog>
+  );
+};
 
 export default ForgotPassDialog;

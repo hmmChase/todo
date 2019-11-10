@@ -1,23 +1,24 @@
-import { withApollo } from '../graphql/withApollo';
-import Page from '../containers/Page/Page';
-import Head from '../containers/Head/Head';
-import LayoutMain from '../containers/LayoutMain/LayoutMain';
-import HeaderMain from '../containers/HeaderMain/HeaderMain';
+import Head from '../components/Head/Head';
+import LayoutMain from '../components/LayoutMain/LayoutMain';
+import HeaderMain from '../components/HeaderMain/HeaderMain';
 import Ideas from '../components/Ideas/Ideas';
+import withApollo from '../graphql/withApollo';
 import authenticate from '../utils/authenticate';
 
-const IndexPage = React.memo(() => (
-  <Page>
+const IndexPage = () => (
+  <>
     <Head title="Home" />
 
     <LayoutMain header={<HeaderMain />} content={<Ideas />} />
-  </Page>
-));
+  </>
+);
 
-IndexPage.getInitialProps = async props => {
-  const { req, apolloClient } = props;
+IndexPage.getInitialProps = ctx => {
+  const { req, res, pathname, apolloClient } = ctx;
 
-  if (req) authenticate(req, apolloClient);
+  if (req && res && pathname) {
+    authenticate(req, res, pathname);
+  }
 
   return {};
 };

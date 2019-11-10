@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Footer from '../Footer/Footer';
 import * as sc from './LayoutMain.style';
 
-const LayoutMain = React.memo(props => (
+const LayoutMain = props => (
   <sc.LayoutMain>
     <sc.AntHeader>
       <sc.Container>{props.header}</sc.Container>
@@ -19,7 +19,7 @@ const LayoutMain = React.memo(props => (
       </sc.Container>
     </sc.AntFooter>
   </sc.LayoutMain>
-));
+);
 
 LayoutMain.defaultProps = {
   header: null,
@@ -31,4 +31,4 @@ LayoutMain.propTypes = {
   content: PropTypes.node
 };
 
-export default LayoutMain;
+export default React.memo(LayoutMain);

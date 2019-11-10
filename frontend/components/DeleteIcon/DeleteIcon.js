@@ -8,7 +8,7 @@ import {
 import { pageSize } from '../../constants';
 import * as sc from './DeleteIcon.style';
 
-const DeleteIcon = React.memo(props => {
+const DeleteIcon = props => {
   const handleUpdate = (cache, data) => {
     // Read the data from cache for this query
     const ideasData = cache.readQuery({
@@ -65,10 +65,10 @@ const DeleteIcon = React.memo(props => {
       onClick={handleClickDeleteBtn}
     />
   );
-});
+};
 
 DeleteIcon.propTypes = {
   id: PropTypes.string.isRequired
 };
 
-export default DeleteIcon;
+export default React.memo(DeleteIcon);

@@ -1,5 +1,5 @@
 export default (req, res, next) => {
-  console.log('\n', '----------');
+  console.log('\n', '--------------------');
   console.log('New request', new Date().getMilliseconds());
 
   const oldWrite = res.write;
@@ -31,7 +31,7 @@ export default (req, res, next) => {
           // statusCode: res.statusCode,
           // host: req.headers.host,
           // headersSent: res.headersSent,
-          cookies: req.cookies,
+          // cookies: req.cookies,
           // uri: req.url,
           requestData: req.body,
           responseData: body

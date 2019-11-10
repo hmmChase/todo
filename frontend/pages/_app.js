@@ -19,7 +19,10 @@ export class MyApp extends App {
 
   render() {
     if (process.env.NODE_ENV === 'development') {
-      console.log('_app render', new Date().getMilliseconds());
+      console.log(
+        '----------_app render----------',
+        new Date().getMilliseconds()
+      );
 
       // console.log('_app props: ', Object.keys(this.props));
       // console.log('_app props.apolloState: ', this.props.apolloState);
