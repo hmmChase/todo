@@ -1,8 +1,7 @@
 /* eslint-disable react/no-danger */
-// https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
+
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-
 import GlobalStyle from '../public/static/styles/global.style';
 
 class MyDocument extends Document {
@@ -14,6 +13,7 @@ class MyDocument extends Document {
       );
     }
 
+    // https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
@@ -62,7 +62,7 @@ class MyDocument extends Document {
           {/* SEO */}
           <meta
             name="description"
-            content="An example CRUD app with user authentification."
+            content="An example CRUD app with user authentication."
           />
 
           {/* Responsive */}
@@ -151,7 +151,7 @@ class MyDocument extends Document {
           />
 
           {/* Progressive Web App Manifest + Theme Color */}
-          <link rel="manifest" href="/manifest.json" />
+          <link rel="manifest" href="/public/static/manifest.json" />
           <meta name="theme-color" content="#477CBF" />
 
           {/* Fixes flash of unstyled content for first load (Chromium bug)

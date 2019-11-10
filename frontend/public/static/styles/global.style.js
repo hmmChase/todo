@@ -27,7 +27,6 @@ export default createGlobalStyle`
 
   html {
     box-sizing: border-box;
-    overflow-x: hidden;
   }
 
   *, *:before, *:after {
@@ -39,3 +38,7 @@ export default createGlobalStyle`
     padding: 0;
   }
 `;
+
+// overflow-x: hidden;
+// color: ${theme.color.black};
+// font-family: 'Open Sans', sans-serif;
