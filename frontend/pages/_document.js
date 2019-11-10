@@ -2,7 +2,7 @@
 
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import GlobalStyle from '../public/static/styles/global.style';
+import GlobalStyle from '../styles/global.style';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -14,9 +14,11 @@ class MyDocument extends Document {
     }
 
     // https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
+    // Step 1: Create an instance of ServerStyleSheet
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
+    // Step 2: Retrieve styles from components in the page
     // Render app and page and get the context of the page with collected side effects
     try {
       ctx.renderPage = () =>
@@ -34,6 +36,8 @@ class MyDocument extends Document {
 
       return {
         ...initialProps,
+        // Step 3: Extract the styles as <style> tags using getStyleElement
+        // Step 4: Pass styleTags as a prop
         styles: (
           <>
             {initialProps.styles}
@@ -149,10 +153,6 @@ class MyDocument extends Document {
             type="font/woff2"
             crossOrigin="anonymous"
           />
-
-          {/* Progressive Web App Manifest + Theme Color */}
-          <link rel="manifest" href="/public/static/manifest.json" />
-          <meta name="theme-color" content="#477CBF" />
 
           {/* Fixes flash of unstyled content for first load (Chromium bug)
             https://github.com/ant-design/ant-design/issues/16037

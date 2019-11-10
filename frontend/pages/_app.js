@@ -7,7 +7,7 @@ import App from 'next/app';
 import ReactDom from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 
-import theme from '../public/static/styles/theme.style';
+import theme from '../styles/theme.style';
 
 export class MyApp extends App {
   componentDidMount() {

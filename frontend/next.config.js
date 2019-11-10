@@ -18,10 +18,7 @@ const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
-  fs.readFileSync(
-    path.resolve(__dirname, './public/static/styles/antd-custom.less'),
-    'utf8'
-  )
+  fs.readFileSync(path.resolve(__dirname, './styles/antd-custom.less'), 'utf8')
 );
 
 const nextConfig = {
@@ -39,7 +36,9 @@ const nextConfig = {
   // generateInDevMode: false,
 
   workboxOpts: {
-    swDest: '../public/service-worker.js',
+    // swDest: '../public/service-worker.js',
+    swDest: 'static/service-worker.js',
+    maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {
         urlPattern: /[.](png|jpg|ico|css)/,
