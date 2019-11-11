@@ -155,7 +155,7 @@ class MyDocument extends Document {
           />
 
           {/* Progressive Web App Manifest + Theme Color */}
-          <link rel="manifest" href="/public/static/manifest.json" />
+          <link rel="manifest" href="/static/manifest.json" />
           <meta name="theme-color" content="#477CBF" />
 
           {/* Fixes flash of unstyled content for first load (Chromium bug)
