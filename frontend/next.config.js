@@ -37,7 +37,7 @@ const nextConfig = {
 
   workboxOpts: {
     // swDest: '../public/service-worker.js',
-    swDest: 'public/static/service-worker.js',
+    swDest: 'static/service-worker.js',
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {
