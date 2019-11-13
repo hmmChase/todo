@@ -13,7 +13,7 @@ export default (req, res, pathname, apolloClient) => {
 
       // apolloClient.cache.writeData({ data: { isLoggedIn: true } });
 
-      if (pathname !== '/') redirect(res, '/');
+      // if (pathname !== '/') redirect(res, '/');
     } catch (err) {
       // apolloClient.cache.writeData({ data: { isLoggedIn: false } });
 
