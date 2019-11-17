@@ -24,12 +24,10 @@ const SignInForm = props => {
     validateFields();
   }, []);
 
-  const handleCompleted = data => {
-    if (data && data.signIn && data.signIn.accessToken) {
-      setAccessToken(data.signIn.accessToken);
+  const handleCompleted = accessToken => {
+    setAccessToken(accessToken);
 
-      Router.push('/');
-    }
+    Router.push('/');
   };
 
   // Suppress console output
@@ -37,7 +35,9 @@ const SignInForm = props => {
 
   const [signIn, { loading, error }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted(data) {
-      handleCompleted(data);
+      if (data && data.signIn && data.signIn.accessToken) {
+        handleCompleted(data.signIn.accessToken);
+      }
     },
     onError(err) {
       handleError(err);
@@ -53,9 +53,12 @@ const SignInForm = props => {
     validateFields((err, values) => {
       const response = signIn({ variables: values });
 
-      if (response && response.data) {
-        console.log('handleSubmitForm: ', response.data.signIn.accessToken);
-
+      if (
+        response
+        && response.data
+        && response.data.signIn
+        && response.data.signIn.accessToken
+      ) {
         setAccessToken(response.data.signIn.accessToken);
       }
 

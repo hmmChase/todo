@@ -3,7 +3,6 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useQuery } from '@apollo/react-hooks';
-
 import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
 import IdeaInput from '../IdeaInput/IdeaInput';
@@ -52,4 +51,4 @@ IdeaDetail.propTypes = {
   ideaId: PropTypes.string.isRequired
 };
 
-export default React.memo(IdeaDetail);
+export default IdeaDetail;

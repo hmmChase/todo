@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import Head from '../components/Head/Head';
 import LayoutMain from '../components/LayoutMain/LayoutMain';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
@@ -49,4 +48,4 @@ ResetPasswordPage.propTypes = {
   resetTokenExpiry: PropTypes.string
 };
 
-export default withApollo(React.memo(ResetPasswordPage));
+export default withApollo(ResetPasswordPage);

@@ -34,4 +34,4 @@ IdeaPage.propTypes = {
   ideaId: PropTypes.string.isRequired
 };
 
-export default withApollo(React.memo(IdeaPage));
+export default withApollo(IdeaPage);

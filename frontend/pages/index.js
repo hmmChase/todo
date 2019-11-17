@@ -8,6 +8,7 @@ import authenticate from '../utils/authenticate';
 // If no stylesheet is imported in the first route page rendered by client,
 // nextjs links won't work
 // https://github.com/zeit/next-plugins/issues/282
+// https://github.com/zeit/next.js/issues/8626
 // https://github.com/zeit/next.js/issues/5291
 
 const IndexPage = () => (
