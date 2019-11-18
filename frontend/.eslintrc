@@ -3,10 +3,16 @@
   "parser": "babel-eslint",
   "plugins": [
     "import",
-    "flowtype",
     "jsx-a11y",
     "react",
     "react-hooks"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
   "env": {
     "browser": true,
@@ -28,6 +34,8 @@
     }
   },
   "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "max-len": [
       "error",
       {
