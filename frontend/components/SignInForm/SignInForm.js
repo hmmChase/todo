@@ -1,120 +1,105 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
-import { Formik, Field, Form, useField, FieldArray } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
-
 import DisplayError from '../DisplayError/DisplayError';
 import { SIGN_IN_MUTATION } from '../../graphql/queries';
-import * as sc from './SignInForm.style';
 import { setAccessToken } from '../../utils/authenticate';
+import * as sc from './SignInForm.style';
 
 const validationSchema = yup.object({
   email: yup
     .string()
     .email('Invalid email')
+    .max(255, 'Must be 255 characters or less')
     .required('Required'),
 
   password: yup
     .string()
     .min(8, 'Must be at least 8 characters')
-    .max(15, 'Must be 15 characters or less')
+    .max(255, 'Must be 255 characters or less')
     .required('Required')
 });
 
-const SignInForm = props => {
-  const handleCompleted = accessToken => {
-    setAccessToken(accessToken);
+const SignInForm = () => {
+  const handleCompleted = data => {
+    if (data && data.signIn && data.signIn.accessToken) {
+      setAccessToken(data.signIn.accessToken);
 
-    Router.push('/');
+      Router.push('/');
+    }
   };
 
   const [signIn, { loading, error }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted(data) {
-      if (data && data.signIn && data.signIn.accessToken) {
-        handleCompleted(data.signIn.accessToken);
-      }
-    }
+      handleCompleted(data);
+    },
+    onError(_err) {}
   });
 
-  const handleSubmitForm = async (values, formikHelpers) => {
-    console.log('TCL: formikHelpers', formikHelpers);
-    try {
-      const response = await signIn({ variables: values });
+  const handleSubmitForm = (values, formikHelpers) => {
+    signIn({ variables: values });
 
-      if (
-        response &&
-        response.data &&
-        response.data.signIn &&
-        response.data.signIn.accessToken
-      ) {
-        setAccessToken(response.data.signIn.accessToken);
-      }
-    } catch (err) {
-      // console.log('TCL: err', JSON.stringify(err.graphQLErrors));
-      err.graphQLErrors.forEach(graphQLError => {
-        console.log('TCL: graphQLError', graphQLError);
-        formikHelpers.setErrors({ graphQLError: graphQLError.message });
-      });
-    }
-
-    // formikHelpers.resetForm();
+    formikHelpers.resetForm();
   };
 
   return (
     <Formik
       initialValues={{ email: 'user@email.com', password: 'User123#' }}
       validationSchema={validationSchema}
-      validateOnChange={true}
+      validateOnChange={false}
       validateOnBlur={true}
       onSubmit={handleSubmitForm}
     >
       {formikProps => {
-        console.log('TCL: formikProps', formikProps.isSubmitting);
-
         return (
-          <Form>
+          <sc.SignInForm>
             <h2>Sign In</h2>
 
-            <sc.InputEmail
-              aria-label='email'
-              type='email'
-              placeholder='email'
-              defaultValue={formikProps.initialValues.email}
-              onPressEnter={formikProps.handleSubmit}
-              prefix={<sc.InputIcon type='user' />}
-              {...formikProps.getFieldProps('email')}
-            />
-
-            {formikProps.touched.email && formikProps.errors.email ? (
-              <DisplayError error={{ message: formikProps.errors.email }} />
-            ) : null}
-
-            <sc.InputPassword
-              aria-label='password'
-              placeholder='password'
-              defaultValue={formikProps.initialValues.password}
-              onPressEnter={formikProps.handleSubmit}
-              prefix={<sc.InputIcon type='lock' />}
-              {...formikProps.getFieldProps('password')}
-            />
-
-            {formikProps.touched.password && formikProps.errors.password ? (
-              <DisplayError error={{ message: formikProps.errors.password }} />
-            ) : null}
-
-            {formikProps.errors.graphQLError ? (
-              <DisplayError
-                error={{ message: formikProps.errors.graphQLError }}
+            <sc.FormItem
+              label='Email'
+              htmlFor='signInEmail'
+              help={formikProps.touched.email && formikProps.errors.email}
+              validateStatus={
+                formikProps.touched.email && formikProps.errors.email && 'error'
+              }
+            >
+              <sc.InputEmail
+                id='signInEmail'
+                type='email'
+                onPressEnter={formikProps.handleSubmit}
+                prefix={<sc.InputIcon type='user' />}
+                {...formikProps.getFieldProps('email')}
               />
-            ) : null}
+            </sc.FormItem>
+
+            <sc.FormItem
+              label='Password'
+              htmlFor='signInPassword'
+              help={formikProps.touched.password && formikProps.errors.password}
+              validateStatus={
+                formikProps.touched.password &&
+                formikProps.errors.password &&
+                'error'
+              }
+            >
+              <sc.InputPassword
+                id='signInPassword'
+                onPressEnter={formikProps.handleSubmit}
+                prefix={<sc.InputIcon type='lock' />}
+                {...formikProps.getFieldProps('password')}
+              />
+            </sc.FormItem>
+
+            {error && <DisplayError error={error} />}
 
             <sc.SubmitBtn
-              loading={formikProps.isSubmitting}
+              loading={loading}
               type='primary'
               htmlType='submit'
               disabled={
+                !formikProps.values.email ||
+                !formikProps.values.password ||
                 formikProps.isSubmitting ||
                 formikProps.errors.email ||
                 formikProps.errors.password
@@ -122,11 +107,7 @@ const SignInForm = props => {
             >
               Sign In
             </sc.SubmitBtn>
-
-            <pre>values: {JSON.stringify(formikProps.values, null, 2)}</pre>
-            <pre>touched: {JSON.stringify(formikProps.touched, null, 2)}</pre>
-            <pre>errors: {JSON.stringify(formikProps.errors, null, 2)}</pre>
-          </Form>
+          </sc.SignInForm>
         );
       }}
     </Formik>
@@ -136,6 +117,15 @@ const SignInForm = props => {
 export default SignInForm;
 
 // ---------- Ant Design form validation ----------
+
+// import { useEffect } from 'react';
+// import PropTypes from 'prop-types';
+// import Router from 'next/router';
+// import { useMutation } from '@apollo/react-hooks';
+// import DisplayError from '../DisplayError/DisplayError';
+// import { SIGN_IN_MUTATION } from '../../graphql/queries';
+// import * as sc from './SignInForm.style';
+// import { setAccessToken } from '../../utils/authenticate';
 
 // const SignInForm = props => {
 //   const {

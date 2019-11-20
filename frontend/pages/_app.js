@@ -4,7 +4,6 @@
 /* eslint-disable react/no-danger */
 
 import App from 'next/app';
-import ReactDom from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 
 import theme from '../styles/theme.style';
@@ -12,8 +11,16 @@ import theme from '../styles/theme.style';
 export class MyApp extends App {
   componentDidMount() {
     if (process.env.NODE_ENV !== 'production') {
-      const axe = require('react-axe');
-      axe(React, ReactDom, 1000);
+      const ReactDOM = require('react-dom');
+      const ReactAxe = require('react-axe');
+
+      // https://github.com/dequelabs/react-axe/issues/123
+      const matches = node =>
+        !(node.getAttribute('data-axe-reject') === 'true');
+
+      ReactAxe(React, ReactDOM, 1000, {
+        rules: [{ id: 'color-contrast', matches }]
+      });
     }
   }
 

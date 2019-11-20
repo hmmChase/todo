@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { Form as formikForm } from 'formik';
 import { Form, Input, Button, Icon, List, Typography } from 'antd';
 
-export const SignUp = styled(Form)``;
+export const SignUpForm = styled(formikForm)``;
 
 export const TypographyText = styled(Typography.Text)``;
 
@@ -17,6 +18,10 @@ export const InputPassword = styled(Input.Password)``;
 
 export const InputConfirmPassword = styled(Input.Password)``;
 
+export const PassListContainer = styled.div`
+  display: inline-block;
+`;
+
 export const PassList = styled(List)``;
 
 export const PassListItem = styled(List.Item)`
@@ -29,5 +34,4 @@ export const ListIcon = styled(Icon)`
 
 export const SubmitBtn = styled(Button)`
   float: right;
-  margin-top: 20px;
 `;
