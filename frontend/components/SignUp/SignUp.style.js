@@ -8,6 +8,10 @@ export const TypographyText = styled(Typography.Text)``;
 
 export const FormItem = styled(Form.Item)``;
 
+export const FormItemBtn = styled(Form.Item)`
+  float: right;
+`;
+
 export const InputIcon = styled(Icon)`
   color: rgba(0, 0, 0, 0.25);
 `;

@@ -6,6 +6,10 @@ export const SignInForm = styled(formikForm)``;
 
 export const FormItem = styled(Form.Item)``;
 
+export const FormItemBtn = styled(Form.Item)`
+  float: right;
+`;
+
 export const InputIcon = styled(Icon)`
   color: rgba(0, 0, 0, 0.25);
 `;
@@ -14,6 +18,4 @@ export const InputEmail = styled(Input)``;
 
 export const InputPassword = styled(Input.Password)``;
 
-export const SubmitBtn = styled(Button)`
-  float: right;
-`;
+export const SubmitBtn = styled(Button)``;

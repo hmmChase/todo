@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 import DisplayError from '../DisplayError/DisplayError';
 import { SIGN_IN_MUTATION } from '../../graphql/queries';
@@ -56,57 +56,69 @@ const SignInForm = () => {
           <sc.SignInForm>
             <h2>Sign In</h2>
 
-            <sc.FormItem
-              label='Email'
-              htmlFor='signInEmail'
-              help={formikProps.touched.email && formikProps.errors.email}
-              validateStatus={
-                formikProps.touched.email && formikProps.errors.email && 'error'
-              }
-            >
-              <sc.InputEmail
-                id='signInEmail'
-                type='email'
-                onPressEnter={formikProps.handleSubmit}
-                prefix={<sc.InputIcon type='user' />}
-                {...formikProps.getFieldProps('email')}
-              />
-            </sc.FormItem>
+            <Field name='email'>
+              {fieldProps => (
+                <sc.FormItem
+                  label='Email'
+                  htmlFor='signInEmail'
+                  help={fieldProps.meta.touched && fieldProps.meta.error}
+                  validateStatus={
+                    fieldProps.meta.touched && fieldProps.meta.error
+                      ? 'error'
+                      : ''
+                  }
+                >
+                  <sc.InputEmail
+                    id='signInEmail'
+                    type='email'
+                    onPressEnter={fieldProps.form.handleSubmit}
+                    prefix={<sc.InputIcon type='user' />}
+                    {...fieldProps.field}
+                  />
+                </sc.FormItem>
+              )}
+            </Field>
 
-            <sc.FormItem
-              label='Password'
-              htmlFor='signInPassword'
-              help={formikProps.touched.password && formikProps.errors.password}
-              validateStatus={
-                formikProps.touched.password &&
-                formikProps.errors.password &&
-                'error'
-              }
-            >
-              <sc.InputPassword
-                id='signInPassword'
-                onPressEnter={formikProps.handleSubmit}
-                prefix={<sc.InputIcon type='lock' />}
-                {...formikProps.getFieldProps('password')}
-              />
-            </sc.FormItem>
+            <Field name='password'>
+              {fieldProps => (
+                <sc.FormItem
+                  label='Password'
+                  htmlFor='signInPassword'
+                  help={fieldProps.touched && fieldProps.errors}
+                  validateStatus={
+                    fieldProps.meta.touched && fieldProps.meta.error
+                      ? 'error'
+                      : ''
+                  }
+                >
+                  <sc.InputPassword
+                    id='signInPassword'
+                    onPressEnter={fieldProps.handleSubmit}
+                    prefix={<sc.InputIcon type='lock' />}
+                    {...fieldProps.field}
+                  />
+                </sc.FormItem>
+              )}
+            </Field>
 
             {error && <DisplayError error={error} />}
 
-            <sc.SubmitBtn
-              loading={loading}
-              type='primary'
-              htmlType='submit'
-              disabled={
-                !formikProps.values.email ||
-                !formikProps.values.password ||
-                formikProps.isSubmitting ||
-                formikProps.errors.email ||
-                formikProps.errors.password
-              }
-            >
-              Sign In
-            </sc.SubmitBtn>
+            <sc.FormItemBtn>
+              <sc.SubmitBtn
+                loading={loading}
+                type='primary'
+                htmlType='submit'
+                disabled={
+                  !formikProps.values.email ||
+                  !formikProps.values.password ||
+                  formikProps.isSubmitting ||
+                  formikProps.errors.email ||
+                  formikProps.errors.password
+                }
+              >
+                Sign In
+              </sc.SubmitBtn>
+            </sc.FormItemBtn>
           </sc.SignInForm>
         );
       }}

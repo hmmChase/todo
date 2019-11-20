@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
 import * as yup from 'yup';
 import DisplayError from '../DisplayError/DisplayError';
@@ -63,61 +63,72 @@ const SignUp = () => {
           <sc.SignUpForm>
             <h2>Create a new Account</h2>
 
-            <sc.FormItem
-              label='Email'
-              htmlFor='signUpEmail'
-              help={formikProps.touched.email && formikProps.errors.email}
-              validateStatus={
-                formikProps.touched.email && formikProps.errors.email && 'error'
-              }
-            >
-              <sc.InputEmail
-                id='signUpEmail'
-                type='email'
-                onPressEnter={formikProps.handleSubmit}
-                prefix={<sc.InputIcon type='user' />}
-                {...formikProps.getFieldProps('email')}
-              />
-            </sc.FormItem>
+            <Field name='email'>
+              {fieldProps => (
+                <sc.FormItem
+                  label='Email'
+                  htmlFor='signUpEmail'
+                  help={fieldProps.touched && fieldProps.errors}
+                  validateStatus={
+                    fieldProps.meta.touched && fieldProps.meta.error
+                      ? 'error'
+                      : ''
+                  }
+                >
+                  <sc.InputEmail
+                    id='signUpEmail'
+                    type='email'
+                    onPressEnter={fieldProps.handleSubmit}
+                    prefix={<sc.InputIcon type='user' />}
+                    {...fieldProps.field}
+                  />
+                </sc.FormItem>
+              )}
+            </Field>
 
-            <sc.FormItem
-              label='Password'
-              htmlFor='signUpPassword'
-              help={formikProps.touched.password && formikProps.errors.password}
-              validateStatus={
-                formikProps.touched.password &&
-                formikProps.errors.password &&
-                'error'
-              }
-            >
-              <sc.InputPassword
-                id='signUpPassword'
-                onPressEnter={formikProps.handleSubmit}
-                prefix={<sc.InputIcon type='lock' />}
-                {...formikProps.getFieldProps('password')}
-              />
-            </sc.FormItem>
+            <Field name='password'>
+              {fieldProps => (
+                <sc.FormItem
+                  label='Password'
+                  htmlFor='signUpPassword'
+                  help={fieldProps.touched && fieldProps.errors}
+                  validateStatus={
+                    fieldProps.meta.touched && fieldProps.meta.error
+                      ? 'error'
+                      : ''
+                  }
+                >
+                  <sc.InputPassword
+                    id='signUpPassword'
+                    onPressEnter={fieldProps.handleSubmit}
+                    prefix={<sc.InputIcon type='lock' />}
+                    {...fieldProps.field}
+                  />
+                </sc.FormItem>
+              )}
+            </Field>
 
-            <sc.FormItem
-              label='Confirm Password'
-              htmlFor='signUpConfirmPassword'
-              help={
-                formikProps.touched.confirmPassword &&
-                formikProps.errors.confirmPassword
-              }
-              validateStatus={
-                formikProps.touched.confirmPassword &&
-                formikProps.errors.confirmPassword &&
-                'error'
-              }
-            >
-              <sc.InputConfirmPassword
-                id='signUpConfirmPassword'
-                onPressEnter={formikProps.handleSubmit}
-                prefix={<sc.InputIcon type='lock' />}
-                {...formikProps.getFieldProps('confirmPassword')}
-              />
-            </sc.FormItem>
+            <Field name='password'>
+              {fieldProps => (
+                <sc.FormItem
+                  label='Password'
+                  htmlFor='signUpConfirmPassword'
+                  help={fieldProps.touched && fieldProps.errors}
+                  validateStatus={
+                    fieldProps.meta.touched && fieldProps.meta.error
+                      ? 'error'
+                      : ''
+                  }
+                >
+                  <sc.InputPassword
+                    id='signUpConfirmPassword'
+                    onPressEnter={fieldProps.handleSubmit}
+                    prefix={<sc.InputIcon type='lock' />}
+                    {...fieldProps.field}
+                  />
+                </sc.FormItem>
+              )}
+            </Field>
 
             {error && <DisplayError error={error} />}
 
@@ -139,21 +150,22 @@ const SignUp = () => {
               />
             </sc.PassListContainer>
 
-            <sc.SubmitBtn
-              loading={loading}
-              type='primary'
-              htmlType='submit'
-              disabled={
-                !formikProps.values.email ||
-                !formikProps.values.password ||
-                !formikProps.values.confirmPassword ||
-                formikProps.isSubmitting ||
-                formikProps.errors.email ||
-                formikProps.errors.password
-              }
-            >
-              Sign Up
-            </sc.SubmitBtn>
+            <sc.FormItemBtn>
+              <sc.SubmitBtn
+                loading={loading}
+                type='primary'
+                htmlType='submit'
+                disabled={
+                  !formikProps.values.email ||
+                  !formikProps.values.password ||
+                  formikProps.isSubmitting ||
+                  formikProps.errors.email ||
+                  formikProps.errors.password
+                }
+              >
+                Sign In
+              </sc.SubmitBtn>
+            </sc.FormItemBtn>
           </sc.SignUpForm>
         );
       }}
