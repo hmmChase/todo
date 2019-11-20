@@ -36,6 +36,4 @@ export const ListIcon = styled(Icon)`
   margin-right: 5px;
 `;
 
-export const SubmitBtn = styled(Button)`
-  float: right;
-`;
+export const SubmitBtn = styled(Button)``;
