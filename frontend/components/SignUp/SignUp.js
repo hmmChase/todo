@@ -58,117 +58,117 @@ const SignUp = () => {
       validateOnBlur={true}
       onSubmit={handleSubmitForm}
     >
-      {formikProps => {
-        return (
-          <sc.SignUpForm>
-            <h2>Create a new Account</h2>
+      {formikProps => (
+        <sc.SignUpForm>
+          <h2>Create a new Account</h2>
 
-            <Field name='email'>
-              {fieldProps => (
-                <sc.FormItem
-                  label='Email'
-                  htmlFor='signUpEmail'
-                  help={fieldProps.touched && fieldProps.errors}
-                  validateStatus={
-                    fieldProps.meta.touched && fieldProps.meta.error
-                      ? 'error'
-                      : ''
-                  }
-                >
-                  <sc.InputEmail
-                    id='signUpEmail'
-                    type='email'
-                    onPressEnter={fieldProps.handleSubmit}
-                    prefix={<sc.InputIcon type='user' />}
-                    {...fieldProps.field}
-                  />
-                </sc.FormItem>
-              )}
-            </Field>
-
-            <Field name='password'>
-              {fieldProps => (
-                <sc.FormItem
-                  label='Password'
-                  htmlFor='signUpPassword'
-                  help={fieldProps.touched && fieldProps.errors}
-                  validateStatus={
-                    fieldProps.meta.touched && fieldProps.meta.error
-                      ? 'error'
-                      : ''
-                  }
-                >
-                  <sc.InputPassword
-                    id='signUpPassword'
-                    onPressEnter={fieldProps.handleSubmit}
-                    prefix={<sc.InputIcon type='lock' />}
-                    {...fieldProps.field}
-                  />
-                </sc.FormItem>
-              )}
-            </Field>
-
-            <Field name='password'>
-              {fieldProps => (
-                <sc.FormItem
-                  label='Password'
-                  htmlFor='signUpConfirmPassword'
-                  help={fieldProps.touched && fieldProps.errors}
-                  validateStatus={
-                    fieldProps.meta.touched && fieldProps.meta.error
-                      ? 'error'
-                      : ''
-                  }
-                >
-                  <sc.InputPassword
-                    id='signUpConfirmPassword'
-                    onPressEnter={fieldProps.handleSubmit}
-                    prefix={<sc.InputIcon type='lock' />}
-                    {...fieldProps.field}
-                  />
-                </sc.FormItem>
-              )}
-            </Field>
-
-            {error && <DisplayError error={error} />}
-
-            <sc.PassListContainer>
-              <sc.TypographyText strong>
-                {passwordRequirements.title}
-              </sc.TypographyText>
-
-              <sc.PassList
-                split={false}
-                dataSource={passwordRequirements.reqs}
-                renderItem={item => (
-                  <sc.PassListItem>
-                    <sc.ListIcon type='minus' />
-
-                    <sc.TypographyText>{item}</sc.TypographyText>
-                  </sc.PassListItem>
-                )}
-              />
-            </sc.PassListContainer>
-
-            <sc.FormItemBtn>
-              <sc.SubmitBtn
-                loading={loading}
-                type='primary'
-                htmlType='submit'
-                disabled={
-                  !formikProps.values.email ||
-                  !formikProps.values.password ||
-                  formikProps.isSubmitting ||
-                  formikProps.errors.email ||
-                  formikProps.errors.password
+          <Field name='email'>
+            {fieldProps => (
+              <sc.FormItem
+                label='Email'
+                htmlFor='signUpEmail'
+                help={fieldProps.meta.touched && fieldProps.meta.error}
+                validateStatus={
+                  fieldProps.meta.touched && fieldProps.meta.error
+                    ? 'error'
+                    : ''
                 }
               >
-                Sign In
-              </sc.SubmitBtn>
-            </sc.FormItemBtn>
-          </sc.SignUpForm>
-        );
-      }}
+                <sc.InputEmail
+                  id='signUpEmail'
+                  type='email'
+                  onPressEnter={fieldProps.handleSubmit}
+                  prefix={<sc.InputIcon type='user' />}
+                  {...fieldProps.field}
+                />
+              </sc.FormItem>
+            )}
+          </Field>
+
+          <Field name='password'>
+            {fieldProps => (
+              <sc.FormItem
+                label='Password'
+                htmlFor='signUpPassword'
+                help={fieldProps.meta.touched && fieldProps.meta.error}
+                validateStatus={
+                  fieldProps.meta.touched && fieldProps.meta.error
+                    ? 'error'
+                    : ''
+                }
+              >
+                <sc.InputPassword
+                  id='signUpPassword'
+                  onPressEnter={fieldProps.handleSubmit}
+                  prefix={<sc.InputIcon type='lock' />}
+                  {...fieldProps.field}
+                />
+              </sc.FormItem>
+            )}
+          </Field>
+
+          <Field name='confirmPassword'>
+            {fieldProps => (
+              <sc.FormItem
+                label='Password'
+                htmlFor='signUpConfirmPassword'
+                help={fieldProps.meta.touched && fieldProps.meta.error}
+                validateStatus={
+                  fieldProps.meta.touched && fieldProps.meta.error
+                    ? 'error'
+                    : ''
+                }
+              >
+                <sc.InputPassword
+                  id='signUpConfirmPassword'
+                  onPressEnter={fieldProps.handleSubmit}
+                  prefix={<sc.InputIcon type='lock' />}
+                  {...fieldProps.field}
+                />
+              </sc.FormItem>
+            )}
+          </Field>
+
+          {error && <DisplayError error={error} />}
+
+          <sc.PassListContainer>
+            <sc.TypographyText strong>
+              {passwordRequirements.title}
+            </sc.TypographyText>
+
+            <sc.PassList
+              split={false}
+              dataSource={passwordRequirements.reqs}
+              renderItem={item => (
+                <sc.PassListItem>
+                  <sc.ListIcon type='minus' />
+
+                  <sc.TypographyText>{item}</sc.TypographyText>
+                </sc.PassListItem>
+              )}
+            />
+          </sc.PassListContainer>
+
+          <sc.FormItemBtn>
+            <sc.SubmitBtn
+              loading={loading}
+              type='primary'
+              htmlType='submit'
+              disabled={
+                !formikProps.values.email ||
+                !formikProps.values.password ||
+                !formikProps.values.confirmPassword ||
+                formikProps.errors.email ||
+                formikProps.errors.password ||
+                formikProps.errors.confirmPassword ||
+                formikProps.isSubmitting
+              }
+            >
+              Sign In
+            </sc.SubmitBtn>
+          </sc.FormItemBtn>
+        </sc.SignUpForm>
+      )}
     </Formik>
   );
 };

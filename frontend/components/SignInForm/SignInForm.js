@@ -51,77 +51,75 @@ const SignInForm = () => {
       validateOnBlur={true}
       onSubmit={handleSubmitForm}
     >
-      {formikProps => {
-        return (
-          <sc.SignInForm>
-            <h2>Sign In</h2>
+      {formikProps => (
+        <sc.SignInForm>
+          <h2>Sign In</h2>
 
-            <Field name='email'>
-              {fieldProps => (
-                <sc.FormItem
-                  label='Email'
-                  htmlFor='signInEmail'
-                  help={fieldProps.meta.touched && fieldProps.meta.error}
-                  validateStatus={
-                    fieldProps.meta.touched && fieldProps.meta.error
-                      ? 'error'
-                      : ''
-                  }
-                >
-                  <sc.InputEmail
-                    id='signInEmail'
-                    type='email'
-                    onPressEnter={fieldProps.form.handleSubmit}
-                    prefix={<sc.InputIcon type='user' />}
-                    {...fieldProps.field}
-                  />
-                </sc.FormItem>
-              )}
-            </Field>
-
-            <Field name='password'>
-              {fieldProps => (
-                <sc.FormItem
-                  label='Password'
-                  htmlFor='signInPassword'
-                  help={fieldProps.touched && fieldProps.errors}
-                  validateStatus={
-                    fieldProps.meta.touched && fieldProps.meta.error
-                      ? 'error'
-                      : ''
-                  }
-                >
-                  <sc.InputPassword
-                    id='signInPassword'
-                    onPressEnter={fieldProps.handleSubmit}
-                    prefix={<sc.InputIcon type='lock' />}
-                    {...fieldProps.field}
-                  />
-                </sc.FormItem>
-              )}
-            </Field>
-
-            {error && <DisplayError error={error} />}
-
-            <sc.FormItemBtn>
-              <sc.SubmitBtn
-                loading={loading}
-                type='primary'
-                htmlType='submit'
-                disabled={
-                  !formikProps.values.email ||
-                  !formikProps.values.password ||
-                  formikProps.isSubmitting ||
-                  formikProps.errors.email ||
-                  formikProps.errors.password
+          <Field name='email'>
+            {fieldProps => (
+              <sc.FormItem
+                label='Email'
+                htmlFor='signInEmail'
+                help={fieldProps.meta.touched && fieldProps.meta.error}
+                validateStatus={
+                  fieldProps.meta.touched && fieldProps.meta.error
+                    ? 'error'
+                    : ''
                 }
               >
-                Sign In
-              </sc.SubmitBtn>
-            </sc.FormItemBtn>
-          </sc.SignInForm>
-        );
-      }}
+                <sc.InputEmail
+                  id='signInEmail'
+                  type='email'
+                  onPressEnter={fieldProps.form.handleSubmit}
+                  prefix={<sc.InputIcon type='user' />}
+                  {...fieldProps.field}
+                />
+              </sc.FormItem>
+            )}
+          </Field>
+
+          <Field name='password'>
+            {fieldProps => (
+              <sc.FormItem
+                label='Password'
+                htmlFor='signInPassword'
+                help={fieldProps.meta.touched && fieldProps.meta.error}
+                validateStatus={
+                  fieldProps.meta.touched && fieldProps.meta.error
+                    ? 'error'
+                    : ''
+                }
+              >
+                <sc.InputPassword
+                  id='signInPassword'
+                  onPressEnter={fieldProps.handleSubmit}
+                  prefix={<sc.InputIcon type='lock' />}
+                  {...fieldProps.field}
+                />
+              </sc.FormItem>
+            )}
+          </Field>
+
+          {error && <DisplayError error={error} />}
+
+          <sc.FormItemBtn>
+            <sc.SubmitBtn
+              loading={loading}
+              type='primary'
+              htmlType='submit'
+              disabled={
+                !formikProps.values.email ||
+                !formikProps.values.password ||
+                formikProps.errors.email ||
+                formikProps.errors.password ||
+                formikProps.isSubmitting
+              }
+            >
+              Sign In
+            </sc.SubmitBtn>
+          </sc.FormItemBtn>
+        </sc.SignInForm>
+      )}
     </Formik>
   );
 };
