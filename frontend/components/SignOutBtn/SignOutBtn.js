@@ -1,6 +1,5 @@
 import Router from 'next/router';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
-
 import { SIGN_OUT_MUTATION } from '../../graphql/queries';
 import * as sc from './SignOutBtn.style';
 
@@ -15,16 +14,11 @@ const SignOutBtn = () => {
     Router.push('/welcome');
   };
 
-  // Suppress console output
-  const handleError = err => err;
-
   const [signOut, { loading }] = useMutation(SIGN_OUT_MUTATION, {
     onCompleted() {
       handleCompleted();
     },
-    onError(err) {
-      handleError(err);
-    }
+    onError(_err) {}
   });
 
   const handleClickBtn = () => signOut();

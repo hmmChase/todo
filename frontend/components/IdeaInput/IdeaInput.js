@@ -5,14 +5,7 @@ import { UPDATE_IDEA_MUTATION } from '../../graphql/queries';
 import * as sc from './IdeaInput.style';
 
 const IdeaInput = props => {
-  // Suppress console output
-  const handleError = err => err;
-
-  const [updateIdea] = useMutation(UPDATE_IDEA_MUTATION, {
-    onError(err) {
-      handleError(err);
-    }
-  });
+  const [updateIdea] = useMutation(UPDATE_IDEA_MUTATION, { onError(_err) {} });
 
   const handleChangeideaInput = debounce(e => {
     updateIdea({ variables: { id: props.id, content: e.target.value } });
@@ -20,7 +13,7 @@ const IdeaInput = props => {
 
   return (
     <sc.IdeaInput
-      aria-label="idea input"
+      aria-label='idea input'
       autoSize={{ minRows: 1, maxRows: 10 }}
       defaultValue={props.content}
       onChange={e => {

@@ -66,7 +66,8 @@ const ResetPassword = props => {
 
   // Only show error after a field is touched.
   const passwordError = isFieldTouched('password') && getFieldError('password');
-  const confirmPasswordError = isFieldTouched('confirmPassword') && getFieldError('confirmPassword');
+  const confirmPasswordError =
+    isFieldTouched('confirmPassword') && getFieldError('confirmPassword');
 
   return (
     <sc.ResetPassword onSubmit={handleSubmitForm}>
@@ -79,11 +80,11 @@ const ResetPassword = props => {
           rules: [{ required: true, message: 'Please enter your password' }]
         })(
           <sc.InputPassword
-            aria-label="password"
-            placeholder="password"
+            aria-label='password'
+            placeholder='password'
             onPressEnter={handleSubmitForm}
             prefix={
-              <sc.InputIcon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+              <sc.InputIcon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />
             }
           />
         )}
@@ -98,11 +99,11 @@ const ResetPassword = props => {
           rules: [{ required: true, message: 'Please confirm your password' }]
         })(
           <sc.InputConfirmPassword
-            aria-label="confirm password"
-            placeholder="confirm password"
+            aria-label='confirm password'
+            placeholder='confirm password'
             onPressEnter={handleSubmitForm}
             prefix={
-              <sc.InputIcon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+              <sc.InputIcon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />
             }
           />
         )}
@@ -117,7 +118,7 @@ const ResetPassword = props => {
       {isTokenValid && error && <DisplayError error={error} />}
 
       {data && data.resetPassword && (
-        <DisplaySuccess message="Your password has been successfully changed." />
+        <DisplaySuccess message='Your password has been successfully changed.' />
       )}
 
       <sc.TypographyText strong>{passwordRequirements.title}</sc.TypographyText>
@@ -127,7 +128,7 @@ const ResetPassword = props => {
         dataSource={passwordRequirements.reqs}
         renderItem={item => (
           <sc.PassListItem>
-            <sc.ListIcon type="minus" />
+            <sc.ListIcon type='minus' />
 
             <sc.TypographyText>{item}</sc.TypographyText>
           </sc.PassListItem>
@@ -137,8 +138,8 @@ const ResetPassword = props => {
       <sc.FormItem>
         <sc.SubmitBtn
           loading={loading}
-          type="primary"
-          htmlType="submit"
+          type='primary'
+          htmlType='submit'
           disabled={hasErrors(getFieldsError())}
         >
           Submit

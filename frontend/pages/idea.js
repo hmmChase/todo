@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import Head from '../components/Head/Head';
 import LayoutMain from '../components/LayoutMain/LayoutMain';
 import HeaderDetail from '../components/HeaderDetail/HeaderDetail';
@@ -9,7 +8,7 @@ import authenticate from '../utils/authenticate';
 
 const IdeaPage = props => (
   <>
-    <Head title="Idea Detail" />
+    <Head title='Idea Detail' />
 
     <LayoutMain
       header={<HeaderDetail ideaId={props.ideaId} />}
@@ -21,17 +20,13 @@ const IdeaPage = props => (
 IdeaPage.getInitialProps = ctx => {
   const { req, res, pathname, query } = ctx;
 
-  if (req && res && pathname) {
-    authenticate(req, res, pathname);
-  }
+  if (req && res && pathname) authenticate(req, res, pathname);
 
   const ideaId = query.id;
 
   return { ideaId };
 };
 
-IdeaPage.propTypes = {
-  ideaId: PropTypes.string.isRequired
-};
+IdeaPage.propTypes = { ideaId: PropTypes.string.isRequired };
 
 export default withApollo(IdeaPage);

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
-
 import Head from '../Head/Head';
 import SignOn from '../SignOn/SignOn';
 import { IS_LOGGED_IN } from '../../graphql/queries';
@@ -12,15 +11,13 @@ const Page = props => {
     props.children
   ) : (
     <>
-      <Head title="Welcome" />
+      <Head title='Welcome' />
 
       <SignOn />
     </>
   );
 };
 
-Page.propTypes = {
-  children: PropTypes.node.isRequired
-};
+Page.propTypes = { children: PropTypes.node.isRequired };
 
 export default Page;

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import DetailIcon from '../DetailIcon/DetailIcon';
 import DeleteIcon from '../DeleteIcon/DeleteIcon';
 import IdeaInput from '../IdeaInput/IdeaInput';

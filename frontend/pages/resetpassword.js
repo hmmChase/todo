@@ -8,22 +8,22 @@ import redirect from '../utils/redirect';
 
 const ResetPasswordPage = props => (
   <>
-    <Head title="Reset Password" />
+    <Head title='Reset Password' />
 
     <LayoutMain
       header={<h1>Reset Your Password</h1>}
-      content={(
+      content={
         <ResetPassword
           resetToken={props.resetToken}
           resetTokenExpiry={props.resetTokenExpiry}
         />
-      )}
+      }
     />
   </>
 );
 
 ResetPasswordPage.getInitialProps = async ctx => {
-  const { req, res, pathname, query } = ctx;
+  const { _req, _res, _pathname, query } = ctx;
 
   // if (req && res && pathname) {
   //   authenticate(req, res, pathname);
@@ -38,10 +38,7 @@ ResetPasswordPage.getInitialProps = async ctx => {
   return { resetToken, resetTokenExpiry };
 };
 
-ResetPasswordPage.defaultProps = {
-  resetToken: '',
-  resetTokenExpiry: ''
-};
+ResetPasswordPage.defaultProps = { resetToken: '', resetTokenExpiry: '' };
 
 ResetPasswordPage.propTypes = {
   resetToken: PropTypes.string,

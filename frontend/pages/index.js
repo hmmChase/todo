@@ -13,18 +13,16 @@ import authenticate from '../utils/authenticate';
 
 const IndexPage = () => (
   <>
-    <Head title="Home" />
+    <Head title='Home' />
 
     <LayoutMain header={<HeaderMain />} content={<Ideas />} />
   </>
 );
 
 IndexPage.getInitialProps = ctx => {
-  const { req, res, pathname, apolloClient } = ctx;
+  const { req, res, pathname } = ctx;
 
-  if (req && res && pathname) {
-    authenticate(req, res, pathname);
-  }
+  if (req && res && pathname) authenticate(req, res, pathname);
 
   return {};
 };

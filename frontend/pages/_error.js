@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Button } from 'antd';
-
 import Head from '../components/Head/Head';
 import LayoutMain from '../components/LayoutMain/LayoutMain';
 
 const LinkHome = () => (
-  <Link href="/">
-    <Button type="primary" ghost>
+  <Link href='/'>
+    <Button type='primary' ghost>
       Home
     </Button>
   </Link>
@@ -19,27 +18,28 @@ const LinkHome = () => (
 
 const Error = React.memo(props => (
   <>
-    <Head title="Error" />
+    <Head title='Error' />
 
     <LayoutMain header={<h1>{props.message}</h1>} content={<LinkHome />} />
   </>
 ));
 
-Error.propTypes = {
-  message: PropTypes.string.isRequired
-};
+Error.propTypes = { message: PropTypes.string.isRequired };
+
+Error.displayName = 'Error';
 
 const ErrorPage = React.memo(props => {
   const { statusCode } = props;
+
   let error;
 
   switch (statusCode) {
     case 404:
-      error = <Error message="Page Not Found" />;
+      error = <Error message='Page Not Found' />;
       break;
 
     case 500:
-      error = <Error message="Internal Server Error" />;
+      error = <Error message='Internal Server Error' />;
       break;
 
     case true:
@@ -47,12 +47,14 @@ const ErrorPage = React.memo(props => {
       break;
 
     default:
-      error = <Error message="Error" />;
+      error = <Error message='Error' />;
       break;
   }
 
   return error;
 });
+
+ErrorPage.displayName = 'ErrorPage';
 
 ErrorPage.getInitialProps = props => {
   const { res, err } = props;
@@ -71,12 +73,8 @@ ErrorPage.getInitialProps = props => {
   return { statusCode };
 };
 
-ErrorPage.defaultProps = {
-  statusCode: null
-};
+ErrorPage.defaultProps = { statusCode: null };
 
-ErrorPage.propTypes = {
-  statusCode: PropTypes.number
-};
+ErrorPage.propTypes = { statusCode: PropTypes.number };
 
 export default React.memo(ErrorPage);

@@ -1,5 +1,3 @@
-/* eslint-disable react/no-danger */
-
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 import GlobalStyle from '../styles/global.style';
@@ -59,100 +57,100 @@ class MyDocument extends Document {
     }
 
     return (
-      <html lang="en">
+      <html lang='en'>
         <Head>
-          <meta charSet="utf-8" />
+          <meta charSet='utf-8' />
 
           {/* SEO */}
           <meta
-            name="description"
-            content="An example CRUD app with user authentication."
+            name='description'
+            content='An example CRUD app with user authentication.'
           />
 
           {/* Responsive */}
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name='viewport' content='width=device-width, initial-scale=1' />
 
           {/* Favicon */}
           <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="/static/images/favicon.ico"
+            rel='shortcut icon'
+            type='image/x-icon'
+            href='/static/images/favicon.ico'
           />
 
           {/* PWA images */}
           <link
-            rel="icon"
-            type="image/png"
-            href="/static/images/pwa/android-36x36.png"
-            sizes="36x36"
+            rel='icon'
+            type='image/png'
+            href='/static/images/pwa/android-36x36.png'
+            sizes='36x36'
           />
           <link
-            rel="icon"
-            type="image/png"
-            href="/static/images/pwa/android-48x48.png"
-            sizes="48x48"
+            rel='icon'
+            type='image/png'
+            href='/static/images/pwa/android-48x48.png'
+            sizes='48x48'
           />
           <link
-            rel="icon"
-            type="image/png"
-            href="/static/images/pwa/android-72x72.png"
-            sizes="72x72"
+            rel='icon'
+            type='image/png'
+            href='/static/images/pwa/android-72x72.png'
+            sizes='72x72'
           />
           <link
-            rel="icon"
-            type="image/png"
-            href="/static/images/pwa/android-96x96.png"
-            sizes="96x96"
+            rel='icon'
+            type='image/png'
+            href='/static/images/pwa/android-96x96.png'
+            sizes='96x96'
           />
           <link
-            rel="icon"
-            type="image/png"
-            href="/static/images/pwa/android-144x144.png"
-            sizes="144x144"
+            rel='icon'
+            type='image/png'
+            href='/static/images/pwa/android-144x144.png'
+            sizes='144x144'
           />
           <link
-            rel="apple-touch-icon"
-            href="/static/images/pwa/apple-touch-icon-180x180.png"
-            sizes="180x180"
+            rel='apple-touch-icon'
+            href='/static/images/pwa/apple-touch-icon-180x180.png'
+            sizes='180x180'
           />
           <link
-            rel="icon"
-            type="image/png"
-            href="/static/images/pwa/pwa-192x192.png"
-            sizes="192x192"
+            rel='icon'
+            type='image/png'
+            href='/static/images/pwa/pwa-192x192.png'
+            sizes='192x192'
           />
           <link
-            rel="icon"
-            type="image/png"
-            href="/static/images/pwa/pwa-512x512.png"
-            sizes="512x512"
+            rel='icon'
+            type='image/png'
+            href='/static/images/pwa/pwa-512x512.png'
+            sizes='512x512'
           />
 
           {/* Fonts */}
           <link
-            rel="preload"
-            href="/static/fonts/open-sans-v15-latin-regular.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
+            rel='preload'
+            href='/static/fonts/open-sans-v15-latin-regular.woff2'
+            as='font'
+            type='font/woff2'
+            crossOrigin='anonymous'
           />
           <link
-            rel="preload"
-            href="/static/fonts/play-v10-latin-regular.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
+            rel='preload'
+            href='/static/fonts/play-v10-latin-regular.woff2'
+            as='font'
+            type='font/woff2'
+            crossOrigin='anonymous'
           />
 
           {/* Progressive Web App Manifest + Theme Color */}
-          <link rel="manifest" href="static/manifest.json" />
-          <meta name="theme-color" content="#477CBF" />
+          <link rel='manifest' href='static/manifest.json' />
+          <meta name='theme-color' content='#477CBF' />
 
           {/* Fixes flash of unstyled content for first load (Chromium bug)
             https://github.com/ant-design/ant-design/issues/16037
             Not only antd, but also any other style if you want to use ssr */}
           <style
-            id="holderStyle"
+            id='holderStyle'
             dangerouslySetInnerHTML={{
               __html: `
                 *, *::before, *::after {

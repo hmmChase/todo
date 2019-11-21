@@ -101,7 +101,7 @@ const createApollo = (initialState = {}, serverAccessToken) => {
   });
 
   // Add cookie to request header
-  const authLink = setContext((request, previousContext) => {
+  const authLink = setContext((_request, _previousContext) => {
     const token = isServer() ? serverAccessToken : getAccessToken();
 
     return { headers: { authorization: token ? `Bearer ${token}` : '' } };
@@ -121,12 +121,12 @@ const createApollo = (initialState = {}, serverAccessToken) => {
 
   const link = isDev()
     ? ApolloLink.from([
-      consoleLogLink,
-      errorLink,
-      refreshLink,
-      authLink,
-      httpLink
-    ])
+        consoleLogLink,
+        errorLink,
+        refreshLink,
+        authLink,
+        httpLink
+      ])
     : ApolloLink.from([refreshLink, authLink, httpLink]);
 
   // Hydrate cache with the initialState created server-side

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import { SignOutBtn } from '../SignOutBtn/SignOutBtn.style';
 import { IdeaCardForm } from '../IdeaCardForm/IdeaCardForm.style';
 

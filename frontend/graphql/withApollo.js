@@ -1,7 +1,4 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-multi-assign */
-/* eslint-disable react/prop-types */
+/* eslint-disable require-atomic-updates */
 
 import React from 'react';
 import Head from 'next/head';
@@ -82,7 +79,8 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
   // Set the correct displayName in development
   if (process.env.NODE_ENV !== 'production') {
     // Find correct display name
-    const displayName = PageComponent.displayName || PageComponent.name || 'Component';
+    const displayName =
+      PageComponent.displayName || PageComponent.name || 'Component';
 
     // Warn if old way of installing apollo is used
     if (displayName === 'App') {
@@ -107,7 +105,6 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
     // Code exectution starts here
     WithApollo.getInitialProps = async ctx => {
       const { req, res, AppTree } = ctx;
-      const headers = req ? req.headers : {};
 
       if (process.env.NODE_ENV === 'development') {
         console.log(
@@ -129,9 +126,10 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
         }
 
         if (cookies.rt) {
-          const url = process.env.NODE_ENV === 'development'
-            ? process.env.DEV_REFRESH_URL
-            : process.env.PROD_REFRESH_URL;
+          const url =
+            process.env.NODE_ENV === 'development'
+              ? process.env.DEV_REFRESH_URL
+              : process.env.PROD_REFRESH_URL;
 
           const response = await fetch(url, {
             method: 'POST',

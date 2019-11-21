@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import SignOutBtn from '../SignOutBtn/SignOutBtn';
 import * as sc from './HeaderDetail.style';
 
@@ -11,8 +10,6 @@ const HeaderDetail = props => (
   </sc.HeaderDetail>
 );
 
-HeaderDetail.propTypes = {
-  ideaId: PropTypes.string.isRequired
-};
+HeaderDetail.propTypes = { ideaId: PropTypes.string.isRequired };
 
 export default React.memo(HeaderDetail);

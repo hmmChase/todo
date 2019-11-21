@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import IdeaCard from '../IdeaCard/IdeaCard';
 import * as sc from './IdeaCardList.style';
 
@@ -19,9 +18,7 @@ IdeaCardList.propTypes = {
       node: PropTypes.shape({
         id: PropTypes.string.isRequired,
         content: PropTypes.string.isRequired,
-        author: PropTypes.shape({
-          id: PropTypes.string.isRequired
-        }).isRequired
+        author: PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired
       }).isRequired
     }).isRequired
   ).isRequired
