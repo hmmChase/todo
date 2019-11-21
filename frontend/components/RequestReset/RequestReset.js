@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 import * as yup from 'yup';
 import DisplayError from '../DisplayError/DisplayError';
 import DisplaySuccess from '../DisplaySuccess/DisplaySuccess';
-import { REQUEST_RESET_MUTATION } from '../../graphql/queries';
+import { REQUEST_RESET } from '../../graphql/queries';
 import * as sc from './RequestReset.style';
 
 const validationSchema = yup.object({
@@ -16,13 +16,12 @@ const validationSchema = yup.object({
 
 const RequestReset = () => {
   const [requestReset, { loading, error, called }] = useMutation(
-    REQUEST_RESET_MUTATION,
-    {
-      onError(_err) {}
-    }
+    REQUEST_RESET,
+    { onError(_err) {} }
   );
 
   const handleSubmitForm = (values, formikHelpers) => {
+    console.log('TCL: values', values);
     requestReset({ variables: values });
 
     formikHelpers.resetForm();
@@ -96,7 +95,7 @@ export default RequestReset;
 // import { useMutation } from '@apollo/react-hooks';
 // import DisplayError from '../DisplayError/DisplayError';
 // import DisplaySuccess from '../DisplaySuccess/DisplaySuccess';
-// import { REQUEST_RESET_MUTATION } from '../../graphql/queries';
+// import { REQUEST_RESET } from '../../graphql/queries';
 // import * as sc from './RequestReset.style';
 
 // const RequestReset = props => {
@@ -119,7 +118,7 @@ export default RequestReset;
 //   const handleError = err => err;
 
 //   const [requestReset, { loading, error, called }] = useMutation(
-//     REQUEST_RESET_MUTATION,
+//     REQUEST_RESET,
 //     {
 //       onError(err) {
 //         handleError(err);

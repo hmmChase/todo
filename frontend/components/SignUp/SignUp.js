@@ -3,7 +3,7 @@ import { Formik, Field } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
 import * as yup from 'yup';
 import DisplayError from '../DisplayError/DisplayError';
-import { SIGN_UP_MUTATION } from '../../graphql/queries';
+import { SIGN_UP } from '../../graphql/queries';
 import { setAccessToken } from '../../utils/authenticate';
 import { passwordRequirements } from '../../constants';
 import * as sc from './SignUp.style';
@@ -37,7 +37,7 @@ const SignUp = () => {
     }
   };
 
-  const [signUp, { loading, error }] = useMutation(SIGN_UP_MUTATION, {
+  const [signUp, { loading, error }] = useMutation(SIGN_UP, {
     onCompleted(data) {
       handleCompleted(data);
     },
@@ -196,7 +196,7 @@ export default SignUp;
 //   // Suppress console output
 //   const handleError = err => err;
 
-//   const [signUp, { loading, error }] = useMutation(SIGN_UP_MUTATION, {
+//   const [signUp, { loading, error }] = useMutation(SIGN_UP, {
 //     onError(err) {
 //       handleError(err);
 //     }

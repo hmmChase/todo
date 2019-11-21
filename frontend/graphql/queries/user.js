@@ -6,8 +6,8 @@ export const IS_LOGGED_IN = gql`
   }
 `;
 
-export const CURRENT_USER_QUERY = gql`
-  query CURRENT_USER_QUERY {
+export const CURRENT_USER = gql`
+  query CURRENT_USER {
     currentUser {
       id
       email
@@ -20,8 +20,8 @@ export const CURRENT_USER_QUERY = gql`
   }
 `;
 
-export const SIGN_UP_MUTATION = gql`
-  mutation SIGN_UP_MUTATION(
+export const SIGN_UP = gql`
+  mutation SIGN_UP(
     $email: String!
     $password: String!
     $confirmPassword: String!
@@ -36,8 +36,8 @@ export const SIGN_UP_MUTATION = gql`
   }
 `;
 
-export const SIGN_IN_MUTATION = gql`
-  mutation SIGN_IN_MUTATION($email: String!, $password: String!) {
+export const SIGN_IN = gql`
+  mutation SIGN_IN($email: String!, $password: String!) {
     signIn(email: $email, password: $password) {
       accessToken
       user {
@@ -47,20 +47,20 @@ export const SIGN_IN_MUTATION = gql`
   }
 `;
 
-export const SIGN_OUT_MUTATION = gql`
-  mutation SIGN_OUT_MUTATION {
+export const SIGN_OUT = gql`
+  mutation SIGN_OUT {
     signOut
   }
 `;
 
-export const REQUEST_RESET_MUTATION = gql`
-  mutation REQUEST_RESET_MUTATION($email: String!) {
+export const REQUEST_RESET = gql`
+  mutation REQUEST_RESET($email: String!) {
     requestReset(email: $email)
   }
 `;
 
-export const RESET_PASSWORD_MUTATION = gql`
-  mutation RESET_PASSWORD_MUTATION(
+export const RESET_PASSWORD = gql`
+  mutation RESET_PASSWORD(
     $resetToken: String!
     $password: String!
     $confirmPassword: String!

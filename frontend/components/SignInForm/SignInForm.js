@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 import DisplayError from '../DisplayError/DisplayError';
-import { SIGN_IN_MUTATION } from '../../graphql/queries';
+import { SIGN_IN } from '../../graphql/queries';
 import { setAccessToken } from '../../utils/authenticate';
 import * as sc from './SignInForm.style';
 
@@ -30,7 +30,7 @@ const SignInForm = () => {
     }
   };
 
-  const [signIn, { loading, error }] = useMutation(SIGN_IN_MUTATION, {
+  const [signIn, { loading, error }] = useMutation(SIGN_IN, {
     onCompleted(data) {
       handleCompleted(data);
     },
@@ -133,7 +133,7 @@ export default SignInForm;
 // import Router from 'next/router';
 // import { useMutation } from '@apollo/react-hooks';
 // import DisplayError from '../DisplayError/DisplayError';
-// import { SIGN_IN_MUTATION } from '../../graphql/queries';
+// import { SIGN_IN } from '../../graphql/queries';
 // import * as sc from './SignInForm.style';
 // import { setAccessToken } from '../../utils/authenticate';
 
@@ -162,7 +162,7 @@ export default SignInForm;
 //   // Suppress console output
 //   const handleError = err => err;
 
-//   const [signIn, { loading, error }] = useMutation(SIGN_IN_MUTATION, {
+//   const [signIn, { loading, error }] = useMutation(SIGN_IN, {
 //     onCompleted(data) {
 //       if (data && data.signIn && data.signIn.accessToken) {
 //         handleCompleted(data.signIn.accessToken);

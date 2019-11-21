@@ -3,7 +3,7 @@ import { MockedProvider } from '@apollo/react-testing';
 
 import { load } from '../../utils/testing';
 import Home from '../../components/Home/Home';
-import { MOCK_CURRENT_USER_QUERY } from '../../__mocks__/queries';
+import { MOCK_CURRENT_USER } from '../../__mocks__/queries';
 
 describe('Home', () => {
   let mockProps;
@@ -13,7 +13,7 @@ describe('Home', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    mockQueries = [MOCK_CURRENT_USER_QUERY];
+    mockQueries = [MOCK_CURRENT_USER];
     wrapper = mount(
       <MockedProvider mocks={mockQueries} addTypename={false}>
         <Home {...mockProps} />

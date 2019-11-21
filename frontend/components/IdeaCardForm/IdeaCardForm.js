@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
-  CREATE_IDEA_MUTATION
+  CREATE_IDEA
 } from '../../graphql/queries';
 import { pageSize } from '../../constants';
 import * as sc from './IdeaCardForm.style';
@@ -39,7 +39,7 @@ const IdeaCardForm = () => {
     });
   };
 
-  const [createIdea] = useMutation(CREATE_IDEA_MUTATION, {
+  const [createIdea] = useMutation(CREATE_IDEA, {
     update(cache, { data }) {
       handleUpdate(cache, data);
     },

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import redirect from './redirect';
-import { CURRENT_USER_QUERY } from '../graphql/queries';
+import { CURRENT_USER } from '../graphql/queries';
 
 export default (req, res, pathname, apolloClient) => {
   if (req.headers.cookie) {
@@ -28,7 +28,7 @@ export default (req, res, pathname, apolloClient) => {
 
 export const graphQLAuth = async apolloClient => {
   const { loading, error, data } = await apolloClient.query({
-    query: CURRENT_USER_QUERY
+    query: CURRENT_USER
   });
 
   if (!loading && !error && data) {

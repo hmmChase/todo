@@ -125,6 +125,8 @@ export const createPasswordResetToken = async () => {
   const resetToken = resetTokenBytes.toString('hex');
   const resetTokenExpiry = Date.now() + config.resetTokenExpiryTime;
 
+  console.log('TCL: resetTokenExpiry', resetTokenExpiry);
+
   return { resetToken, resetTokenExpiry };
 };
 

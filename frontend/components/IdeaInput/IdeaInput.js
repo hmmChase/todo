@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
 import debounce from 'lodash.debounce';
-import { UPDATE_IDEA_MUTATION } from '../../graphql/queries';
+import { UPDATE_IDEA } from '../../graphql/queries';
 import * as sc from './IdeaInput.style';
 
 const IdeaInput = props => {
-  const [updateIdea] = useMutation(UPDATE_IDEA_MUTATION, { onError(_err) {} });
+  const [updateIdea] = useMutation(UPDATE_IDEA, { onError(_err) {} });
 
   const handleChangeideaInput = debounce(e => {
     updateIdea({ variables: { id: props.id, content: e.target.value } });

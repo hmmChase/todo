@@ -5,7 +5,7 @@ type User @db(name: "user") {
   email: String! @unique
   password: String!
   resetToken: String
-  resetTokenExpiry: Int
+  resetTokenExpiry: Float
   tokenVersion: Int! @default(value: 0)
   ideas: [Idea!]! @relation(name: "IdeaAuthor")
 }

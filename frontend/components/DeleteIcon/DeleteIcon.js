@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
-  DELETE_IDEA_MUTATION
+  DELETE_IDEA
 } from '../../graphql/queries';
 import { pageSize } from '../../constants';
 import * as sc from './DeleteIcon.style';
@@ -38,7 +38,7 @@ const DeleteIcon = props => {
     });
   };
 
-  const [deleteIdea] = useMutation(DELETE_IDEA_MUTATION, {
+  const [deleteIdea] = useMutation(DELETE_IDEA, {
     update(cache, { data }) {
       handleUpdate(cache, data);
     },

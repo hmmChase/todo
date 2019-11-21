@@ -5,11 +5,11 @@ import { MockedProvider } from '@apollo/react-testing';
 import { load } from '../../utils/testing';
 import IdeaCard from '../../components/IdeaCard/IdeaCard';
 import {
-  MOCK_CURRENT_USER_QUERY,
-  MOCK_UPDATE_IDEA_MUTATION,
-  MOCK_DELETE_IDEA_MUTATION
+  MOCK_CURRENT_USER,
+  MOCK_UPDATE_IDEA,
+  MOCK_DELETE_IDEA
 } from '../../__mocks__/queries';
-import { CURRENT_USER_QUERY } from '../../graphql/queries';
+import { CURRENT_USER } from '../../graphql/queries';
 import * as mock from '../../__mocks__/mocks';
 
 describe('IdeaCard', () => {
@@ -22,9 +22,9 @@ describe('IdeaCard', () => {
     jest.resetAllMocks();
     mockProps = { id: '1', content: 'mock idea 1 content' };
     mockQueries = [
-      MOCK_UPDATE_IDEA_MUTATION,
-      MOCK_DELETE_IDEA_MUTATION,
-      MOCK_CURRENT_USER_QUERY
+      MOCK_UPDATE_IDEA,
+      MOCK_DELETE_IDEA,
+      MOCK_CURRENT_USER
     ];
 
     wrapper = mount(
@@ -68,7 +68,7 @@ describe('IdeaCard', () => {
 
     // const handleClickDeleteBtn = (wrapper.find('IdeaCard').instance().handleClickDeleteBtn() = jest.fn());
 
-    // const userIdeas1 = await apolloClient.query({ query: CURRENT_USER_QUERY });
+    // const userIdeas1 = await apolloClient.query({ query: CURRENT_USER });
     // console.log(': userIdeas1', userIdeas1.data.getUserIdeas);
 
     const ideaInput1 = wrapper.find('IdeaCardstyle__deleteBtn');
@@ -90,9 +90,9 @@ describe('IdeaCard', () => {
 
     // console.log(wrapper.find('IdeaCard').instance().state);
 
-    // console.log(apolloClient.readQuery({ query: CURRENT_USER_QUERY }));
+    // console.log(apolloClient.readQuery({ query: CURRENT_USER }));
 
-    // const userIdeas2 = await apolloClient.query({ query: CURRENT_USER_QUERY });
+    // const userIdeas2 = await apolloClient.query({ query: CURRENT_USER });
     // console.log(': userIdeas2', userIdeas2);
 
     // const ideaInput2 = wrapper.find('input');

@@ -289,7 +289,7 @@ type User {
   email: String!
   password: String!
   resetToken: String
-  resetTokenExpiry: Int
+  resetTokenExpiry: Float
   tokenVersion: Int!
   ideas(where: IdeaWhereInput, orderBy: IdeaOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Idea!]
 }
@@ -305,7 +305,7 @@ input UserCreateInput {
   email: String!
   password: String!
   resetToken: String
-  resetTokenExpiry: Int
+  resetTokenExpiry: Float
   tokenVersion: Int
   ideas: IdeaCreateManyWithoutAuthorInput
 }
@@ -320,7 +320,7 @@ input UserCreateWithoutIdeasInput {
   email: String!
   password: String!
   resetToken: String
-  resetTokenExpiry: Int
+  resetTokenExpiry: Float
   tokenVersion: Int
 }
 
@@ -355,7 +355,7 @@ type UserPreviousValues {
   email: String!
   password: String!
   resetToken: String
-  resetTokenExpiry: Int
+  resetTokenExpiry: Float
   tokenVersion: Int!
 }
 
@@ -381,7 +381,7 @@ input UserUpdateInput {
   email: String
   password: String
   resetToken: String
-  resetTokenExpiry: Int
+  resetTokenExpiry: Float
   tokenVersion: Int
   ideas: IdeaUpdateManyWithoutAuthorInput
 }
@@ -390,7 +390,7 @@ input UserUpdateManyMutationInput {
   email: String
   password: String
   resetToken: String
-  resetTokenExpiry: Int
+  resetTokenExpiry: Float
   tokenVersion: Int
 }
 
@@ -405,7 +405,7 @@ input UserUpdateWithoutIdeasDataInput {
   email: String
   password: String
   resetToken: String
-  resetTokenExpiry: Int
+  resetTokenExpiry: Float
   tokenVersion: Int
 }
 
@@ -487,14 +487,14 @@ input UserWhereInput {
   resetToken_not_starts_with: String
   resetToken_ends_with: String
   resetToken_not_ends_with: String
-  resetTokenExpiry: Int
-  resetTokenExpiry_not: Int
-  resetTokenExpiry_in: [Int!]
-  resetTokenExpiry_not_in: [Int!]
-  resetTokenExpiry_lt: Int
-  resetTokenExpiry_lte: Int
-  resetTokenExpiry_gt: Int
-  resetTokenExpiry_gte: Int
+  resetTokenExpiry: Float
+  resetTokenExpiry_not: Float
+  resetTokenExpiry_in: [Float!]
+  resetTokenExpiry_not_in: [Float!]
+  resetTokenExpiry_lt: Float
+  resetTokenExpiry_lte: Float
+  resetTokenExpiry_gt: Float
+  resetTokenExpiry_gte: Float
   tokenVersion: Int
   tokenVersion_not: Int
   tokenVersion_in: [Int!]

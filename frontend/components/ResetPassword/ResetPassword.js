@@ -5,7 +5,7 @@ import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 import DisplayError from '../DisplayError/DisplayError';
 import DisplaySuccess from '../DisplaySuccess/DisplaySuccess';
-import { RESET_PASSWORD_MUTATION } from '../../graphql/queries';
+import { RESET_PASSWORD } from '../../graphql/queries';
 import { passwordRequirements } from '../../constants';
 import * as sc from './ResetPassword.style';
 
@@ -29,7 +29,7 @@ const ResetPassword = props => {
   // handleCompleted = () => Router.push({ pathname: '/' });
 
   const [resetPassword, { loading, error, data }] = useMutation(
-    RESET_PASSWORD_MUTATION,
+    RESET_PASSWORD,
     {
       // onCompleted() {
       //   handleCompleted();
@@ -68,7 +68,7 @@ const ResetPassword = props => {
           <Field name='password'>
             {fieldProps => (
               <sc.FormItem
-                label='Password'
+                label='New password'
                 htmlFor='resetPasswordPassword'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
                 validateStatus={
@@ -90,7 +90,7 @@ const ResetPassword = props => {
           <Field name='confirmPassword'>
             {fieldProps => (
               <sc.FormItem
-                label='Confirm Password'
+                label='Confirm new password'
                 htmlFor='resetPasswordConfirmPassword'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
                 validateStatus={
@@ -178,7 +178,7 @@ export default React.memo(ResetPassword);
 
 // import DisplayError from '../DisplayError/DisplayError';
 // import DisplaySuccess from '../DisplaySuccess/DisplaySuccess';
-// import { RESET_PASSWORD_MUTATION } from '../../graphql/queries';
+// import { RESET_PASSWORD } from '../../graphql/queries';
 // import { passwordRequirements } from '../../constants';
 // import * as sc from './ResetPassword.style';
 
@@ -201,7 +201,7 @@ export default React.memo(ResetPassword);
 //   const handleError = error => error;
 
 //   const [resetPassword, { loading, error, data }] = useMutation(
-//     RESET_PASSWORD_MUTATION,
+//     RESET_PASSWORD,
 //     {
 //       // onCompleted() {
 //       //   handleCompleted();

@@ -7,9 +7,9 @@ import { MockedProvider } from '@apollo/react-testing';
 import { load } from '../utils/load';
 import * as mock from '../../__mocks__/mocks';
 import MutationExample, {
-  CREATE_USER_MUTATION
+  CREATE_USER
 } from '../../../components/Examples/MutationExample';
-import { USERS_QUERY } from '../../../components/Examples/QueryExample';
+import { USERS } from '../../../components/Examples/QueryExample';
 
 describe('MutationExample', () => {
   let mockProps;
@@ -21,21 +21,13 @@ describe('MutationExample', () => {
     mockProps = {};
     mockQueries = [
       {
-        request: {
-          query: CREATE_USER_MUTATION,
-          variables: { name: mock.user.name }
-        },
+        request: { query: CREATE_USER, variables: { name: mock.user.name } },
         result: {
-          data: {
-            createUser: {
-              id: mock.user.id,
-              name: mock.user.name
-            }
-          }
+          data: { createUser: { id: mock.user.id, name: mock.user.name } }
         }
       },
       {
-        request: { query: USERS_QUERY },
+        request: { query: USERS },
         result: {
           data: {
             users: mock.users
@@ -114,7 +106,7 @@ describe('MutationExample', () => {
       }
     );
 
-    const users = await apolloClient.query({ query: USERS_QUERY });
+    const users = await apolloClient.query({ query: USERS });
 
     expect(users.data.users).toEqual(mock.users);
   });
@@ -123,7 +115,7 @@ describe('MutationExample', () => {
     mockQueries = [
       {
         request: {
-          query: CREATE_USER_MUTATION,
+          query: CREATE_USER,
           variables: { name: mock.user.name }
         },
         result: {
@@ -140,7 +132,7 @@ describe('MutationExample', () => {
         // error: Error('aw shucks')
       },
       {
-        request: { query: USERS_QUERY },
+        request: { query: USERS },
         result: {
           data: {
             users: [mock.user]

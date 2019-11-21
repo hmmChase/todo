@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { load } from '../../utils/testing';
 import RequestReset from '../../components/RequestReset/RequestReset';
-import { MOCK_REQUEST_RESET_MUTATION } from '../../__mocks__/queries';
+import { MOCK_REQUEST_RESET } from '../../__mocks__/queries';
 import theme from '../../styles/theme.style';
 
 describe('RequestReset', () => {
@@ -15,7 +15,7 @@ describe('RequestReset', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    mockQueries = [MOCK_REQUEST_RESET_MUTATION];
+    mockQueries = [MOCK_REQUEST_RESET];
     wrapper = mount(
       <MockedProvider mocks={mockQueries} addTypename={false}>
         <ThemeProvider theme={theme}>
