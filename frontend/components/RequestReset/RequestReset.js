@@ -78,7 +78,7 @@ const RequestReset = () => {
                 formikProps.isSubmitting
               }
             >
-              Sign In
+              Submit
             </sc.SubmitBtn>
           </sc.FormItemBtn>
         </sc.RequestReset>

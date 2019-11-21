@@ -7,7 +7,7 @@ export const RequestReset = styled(formikForm)``;
 export const FormItem = styled(Form.Item)``;
 
 export const FormItemBtn = styled(Form.Item)`
-  float: right;
+  text-align: right;
 `;
 
 export const InputIcon = styled(Icon)`

@@ -16,7 +16,7 @@ const ForgotPassDialog = () => {
       <sc.ForgotPassModal
         title='Request a password reset'
         visible={visible}
-        width='364px'
+        width='20rem'
         onCancel={handleCancel}
         footer={null}
       >
