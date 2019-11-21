@@ -110,7 +110,7 @@ const SignUp = () => {
           <Field name='confirmPassword'>
             {fieldProps => (
               <sc.FormItem
-                label='Password'
+                label='Confirm Password'
                 htmlFor='signUpConfirmPassword'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
                 validateStatus={

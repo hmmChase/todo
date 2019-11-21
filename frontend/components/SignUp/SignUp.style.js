@@ -4,8 +4,6 @@ import { Form, Input, Button, Icon, List, Typography } from 'antd';
 
 export const SignUpForm = styled(formikForm)``;
 
-export const TypographyText = styled(Typography.Text)``;
-
 export const FormItem = styled(Form.Item)``;
 
 export const FormItemBtn = styled(Form.Item)`
@@ -21,6 +19,8 @@ export const InputEmail = styled(Input)``;
 export const InputPassword = styled(Input.Password)``;
 
 export const InputConfirmPassword = styled(Input.Password)``;
+
+export const TypographyText = styled(Typography.Text)``;
 
 export const PassListContainer = styled.div`
   display: inline-block;
