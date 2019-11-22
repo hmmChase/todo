@@ -2,7 +2,7 @@
 
 > An example CRUD PWA app with user authentication.
 >
-> View the app at <https://next-graphql-starter.hmmchase.now.sh/>
+> View the app at <https://next-graphql-starter.now.sh/>
 
 ## Built with
 
