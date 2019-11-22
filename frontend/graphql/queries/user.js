@@ -31,7 +31,10 @@ export const SIGN_UP = gql`
       password: $password
       confirmPassword: $confirmPassword
     ) {
-      id
+      accessToken
+      user {
+        id
+      }
     }
   }
 `;

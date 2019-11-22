@@ -30,8 +30,8 @@ const validationSchema = yup.object({
 
 const SignUp = () => {
   const handleCompleted = data => {
-    if (data && data.signIn && data.signIn.accessToken) {
-      setAccessToken(data.signIn.accessToken);
+    if (data && data.signUp && data.signUp.accessToken) {
+      setAccessToken(data.signUp.accessToken);
 
       Router.push('/');
     }
@@ -164,7 +164,7 @@ const SignUp = () => {
                 formikProps.isSubmitting
               }
             >
-              Sign In
+              Sign Up
             </sc.SubmitBtn>
           </sc.FormItemBtn>
         </sc.SignUpForm>

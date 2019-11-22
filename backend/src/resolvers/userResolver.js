@@ -65,18 +65,18 @@ export default {
       // Check if email address is well-formed
       auth.validateEmail(email);
 
-      // Check if password is well-formed
-      auth.validatePassword(args.password);
-
-      // Check if user typed confirm password correctly
-      auth.comparePasswords(args.password, args.confirmPassword);
-
       // Find user matching email
       const user = await ctx.prisma.query.user({ where: { email } });
 
       // If user found, return error
       if (user)
         throw new AuthenticationError(`An account already exists for ${email}`);
+
+      // Check if password is well-formed
+      auth.validatePassword(args.password);
+
+      // Check if user confirmed password correctly
+      auth.comparePasswords(args.password, args.confirmPassword);
 
       // Encrypt password
       const password = await bcrypt.hash(args.password, config.saltRounds);
@@ -86,14 +86,34 @@ export default {
         data: { email, password }
       });
 
-      // Create payload for cookie
-      const payload = { user: { id: user.id } };
+      console.log('TCL: newUser', newUser);
 
-      // Send cookie
-      await auth.sendCookie(ctx.res, payload);
+      // // Create payload for cookie
+      // const payload = { user: { id: user.id } };
 
-      // Return User
-      return newUser;
+      // // Send cookie
+      // await auth.sendCookie(ctx.res, payload);
+
+      // // Return User
+      // return newUser;
+
+      // Create refresh token
+      const refreshToken = createRefreshToken(
+        newUser.id,
+        newUser.refreshTokenVersion
+      );
+
+      // Send a new refresh token cookie
+      sendRefreshToken(ctx.res, refreshToken);
+
+      // Create access token
+      const accessToken = createAccessToken(newUser.id);
+
+      // Return access token and user info
+      return {
+        accessToken,
+        user: { id: newUser.id, email: newUser.email, ideas: newUser.ideas }
+      };
     },
 
     signIn: async (parent, args, ctx, info) => {
@@ -106,7 +126,7 @@ export default {
       // If user not found, return error
       if (!user) throw new AuthenticationError(`No account found for ${email}`);
 
-      // Check if input password matches users password
+      // Check if typed password matches users password
       await auth.checkPassword(args.password, user.password);
 
       // // Create payload for cookie
@@ -121,7 +141,10 @@ export default {
       // return user;
 
       // Create refresh token
-      const refreshToken = createRefreshToken(user.id, user.tokenVersion);
+      const refreshToken = createRefreshToken(
+        user.id,
+        user.refreshTokenVersion
+      );
 
       // Send a new refresh token cookie
       sendRefreshToken(ctx.res, refreshToken);
@@ -215,9 +238,17 @@ export default {
       return true;
     },
 
-    revokeRefreshTokensForUser: async (parent, args, ctx, info) => {
-      // await getConnection()
-      //   .increment({ id: userId }, "tokenVersion", 1);
+    revokeRefreshToken: async (parent, args, ctx, info) => {
+      // Get user data
+      const user = await ctx.prisma.query.user({ where: { id: args.id } });
+
+      const incrementedVersion = user.refreshTokenVersion + 1;
+
+      // Increment refreshTokenVersion
+      ctx.prisma.mutation.updateUser({
+        where: { id: user.id },
+        data: { refreshTokenVersion: incrementedVersion }
+      });
 
       return true;
     }

@@ -42,7 +42,11 @@ type Query {
 }
 
 type Mutation {
-  signUp(email: String!, password: String!, confirmPassword: String!): User!
+  signUp(
+    email: String!
+    password: String!
+    confirmPassword: String!
+  ): LoginResponse!
 
   signIn(email: String!, password: String!): LoginResponse!
 
@@ -56,15 +60,13 @@ type Mutation {
     confirmPassword: String!
   ): Boolean!
 
-  revokeRefreshTokensForUser(userId: Int!): Boolean!
+  revokeRefreshToken(id: ID!): Boolean!
 
   createIdea(content: String!): Idea!
 
   updateIdea(id: ID!, content: String!): Idea!
 
   deleteIdea(id: ID!): Idea!
-
-  # refreshAccessToken(refreshToken: String!): Token!
 }
 
 type User {
@@ -83,8 +85,3 @@ type LoginResponse {
   accessToken: String!
   user: User!
 }
-
-# type Token {
-#   token: String!
-#   refreshToken: String!
-# }

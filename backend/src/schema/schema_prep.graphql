@@ -290,7 +290,7 @@ type User {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
-  tokenVersion: Int!
+  refreshTokenVersion: Int!
   ideas(where: IdeaWhereInput, orderBy: IdeaOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Idea!]
 }
 
@@ -306,7 +306,7 @@ input UserCreateInput {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
-  tokenVersion: Int
+  refreshTokenVersion: Int
   ideas: IdeaCreateManyWithoutAuthorInput
 }
 
@@ -321,7 +321,7 @@ input UserCreateWithoutIdeasInput {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
-  tokenVersion: Int
+  refreshTokenVersion: Int
 }
 
 type UserEdge {
@@ -344,8 +344,8 @@ enum UserOrderByInput {
   resetToken_DESC
   resetTokenExpiry_ASC
   resetTokenExpiry_DESC
-  tokenVersion_ASC
-  tokenVersion_DESC
+  refreshTokenVersion_ASC
+  refreshTokenVersion_DESC
 }
 
 type UserPreviousValues {
@@ -356,7 +356,7 @@ type UserPreviousValues {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
-  tokenVersion: Int!
+  refreshTokenVersion: Int!
 }
 
 type UserSubscriptionPayload {
@@ -382,7 +382,7 @@ input UserUpdateInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
-  tokenVersion: Int
+  refreshTokenVersion: Int
   ideas: IdeaUpdateManyWithoutAuthorInput
 }
 
@@ -391,7 +391,7 @@ input UserUpdateManyMutationInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
-  tokenVersion: Int
+  refreshTokenVersion: Int
 }
 
 input UserUpdateOneRequiredWithoutIdeasInput {
@@ -406,7 +406,7 @@ input UserUpdateWithoutIdeasDataInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
-  tokenVersion: Int
+  refreshTokenVersion: Int
 }
 
 input UserUpsertWithoutIdeasInput {
@@ -495,14 +495,14 @@ input UserWhereInput {
   resetTokenExpiry_lte: Float
   resetTokenExpiry_gt: Float
   resetTokenExpiry_gte: Float
-  tokenVersion: Int
-  tokenVersion_not: Int
-  tokenVersion_in: [Int!]
-  tokenVersion_not_in: [Int!]
-  tokenVersion_lt: Int
-  tokenVersion_lte: Int
-  tokenVersion_gt: Int
-  tokenVersion_gte: Int
+  refreshTokenVersion: Int
+  refreshTokenVersion_not: Int
+  refreshTokenVersion_in: [Int!]
+  refreshTokenVersion_not_in: [Int!]
+  refreshTokenVersion_lt: Int
+  refreshTokenVersion_lte: Int
+  refreshTokenVersion_gt: Int
+  refreshTokenVersion_gte: Int
   ideas_every: IdeaWhereInput
   ideas_some: IdeaWhereInput
   ideas_none: IdeaWhereInput

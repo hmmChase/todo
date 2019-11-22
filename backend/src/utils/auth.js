@@ -80,10 +80,14 @@ export const verifyAccessToken = accessToken => {
 
 /* Refresh Token */
 
-export const createRefreshToken = (userId, tokenVersion) => {
-  return jwt.sign({ userId, tokenVersion }, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: config.refreshTokenExpiryTime
-  });
+export const createRefreshToken = (userId, refreshTokenVersion) => {
+  return jwt.sign(
+    { userId, refreshTokenVersion },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: config.refreshTokenExpiryTime
+    }
+  );
 };
 
 export const verifyRefreshToken = refreshToken => {

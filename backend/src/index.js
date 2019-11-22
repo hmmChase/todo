@@ -51,8 +51,6 @@ app.post('/refresh', async (req, res) => {
   try {
     payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
   } catch (err) {
-    // console.log('TCL: err', err);
-
     // If error, return empty access token
     return res.send({ ok: false, accessToken: '' });
   }
@@ -64,11 +62,11 @@ app.post('/refresh', async (req, res) => {
   if (!user) return res.send({ ok: false, accessToken: '' });
 
   // If token version does not match, return empty access token
-  if (user.tokenVersion !== payload.tokenVersion)
+  if (user.refreshTokenVersion !== payload.refreshTokenVersion)
     return res.send({ ok: false, accessToken: '' });
 
   // Create a new refresh token
-  const newRefreshToken = createRefreshToken(user.id, user.tokenVersion);
+  const newRefreshToken = createRefreshToken(user.id, user.refreshTokenVersion);
 
   // Send a new refresh token cookie
   sendRefreshToken(res, newRefreshToken);
