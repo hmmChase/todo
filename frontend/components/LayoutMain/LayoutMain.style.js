@@ -20,14 +20,13 @@ export const Container = styled.div`
 `;
 
 export const AntHeader = styled(Layout.Header)`
-  background-color: ${props => props.theme.color.blue};
+  background-color: ${props => props.theme.color.lightBlue};
   border-bottom: 1px solid ${props => props.theme.color.black};
   padding: 0;
 
   h1 {
     font-family: 'Play', sans-serif;
     letter-spacing: 0.05rem;
-    /* text-shadow: 1px 1px 1px ${props => props.theme.color.black}; */
   }
 `;
 

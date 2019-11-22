@@ -5,7 +5,7 @@ import { SignUpForm } from '../SignUp/SignUp.style';
 
 export const SignOn = styled(Layout)`
   display: flex;
-  background-color: ${props => props.theme.color.blue};
+  background-color: ${props => props.theme.color.lightBlue};
   min-height: 100vh;
   justify-content: center;
   align-items: center;
@@ -47,12 +47,11 @@ export const Img = styled.img`
 `;
 
 export const Title = styled.h1`
-  color: ${props => props.theme.color.yellow};
+  color: ${props => props.theme.color.darkRed};
   font-family: 'Play', sans-serif;
   font-size: 3rem;
   letter-spacing: 0.2rem;
   margin: 0;
-  text-shadow: 1px 1px ${props => props.theme.color.black};
 `;
 
 export const HR = styled.hr`
