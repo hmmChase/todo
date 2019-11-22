@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { load } from '../../../utils/testing';
 import PopUpSignIn from '../../../components/SignOn/PopUpSignIn/PopUpSignIn';
-import { MOCK_SIGN_IN_MUTATION } from '../../../__mocks__/queries';
+import { MOCK_SIGN_IN } from '../../../__mocks__/queries';
 import theme from '../../../styles/theme.style';
 
 describe('PopUpSignIn', () => {
@@ -15,7 +15,7 @@ describe('PopUpSignIn', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = { close: jest.fn(), requestReset: jest.fn() };
-    mockQueries = [MOCK_SIGN_IN_MUTATION];
+    mockQueries = [MOCK_SIGN_IN];
     wrapper = mount(
       <MockedProvider mocks={mockQueries} addTypename={false}>
         <ThemeProvider theme={theme}>

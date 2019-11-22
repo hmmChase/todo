@@ -4,8 +4,8 @@ import { MockedProvider } from '@apollo/react-testing';
 import { load } from '../../utils/testing';
 import IdeaCardContainer from '../../components/IdeaCardContainer/IdeaCardContainer';
 import {
-  MOCK_CURRENT_USER_QUERY,
-  MOCK_ERROR_CURRENT_USER_QUERY
+  MOCK_CURRENT_USER,
+  MOCK_ERROR_CURRENT_USER
 } from '../../__mocks__/queries';
 
 describe('IdeaCardContainer', () => {
@@ -16,7 +16,7 @@ describe('IdeaCardContainer', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    mockQueries = [MOCK_CURRENT_USER_QUERY];
+    mockQueries = [MOCK_CURRENT_USER];
     wrapper = mount(
       <MockedProvider mocks={mockQueries} addTypename={false}>
         <IdeaCardContainer {...mockProps} />
@@ -42,7 +42,7 @@ describe('IdeaCardContainer', () => {
   it('matches snapshot - error', async () => {
     wrapper = mount(
       <MockedProvider
-        mocks={[MOCK_ERROR_CURRENT_USER_QUERY]}
+        mocks={[MOCK_ERROR_CURRENT_USER]}
         addTypename={false}
       >
         <IdeaCardContainer {...mockProps} />

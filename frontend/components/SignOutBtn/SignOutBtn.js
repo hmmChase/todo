@@ -1,30 +1,25 @@
 import Router from 'next/router';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
-
-import { SIGN_OUT_MUTATION } from '../../graphql/queries';
+import { SIGN_OUT } from '../../graphql/queries';
+import { setAccessToken } from '../../utils/authenticate';
 import * as sc from './SignOutBtn.style';
 
 const SignOutBtn = () => {
-  // `apolloClient` is now set to the `ApolloClient` instance being used by the
-  // application (that was configured using something like `ApolloProvider`)
   const apolloClient = useApolloClient();
 
   const handleCompleted = () => {
     apolloClient.clearStore();
 
+    setAccessToken('');
+
     Router.push('/welcome');
   };
 
-  // Suppress console output
-  const handleError = err => err;
-
-  const [signOut, { loading }] = useMutation(SIGN_OUT_MUTATION, {
+  const [signOut, { loading }] = useMutation(SIGN_OUT, {
     onCompleted() {
       handleCompleted();
     },
-    onError(err) {
-      handleError(err);
-    }
+    onError(_err) {}
   });
 
   const handleClickBtn = () => signOut();

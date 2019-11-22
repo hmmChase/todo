@@ -6,9 +6,9 @@ import * as sc from './SignOn.style';
 const SignOn = () => (
   <sc.SignOn>
     <sc.Header>
-      <sc.Img src="static/images/ideabox.png" alt="ideabox" />
+      <sc.Img src='static/images/ideabox.png' alt='ideabox' />
 
-      <sc.Title>{title}</sc.Title>
+      <sc.Title data-axe-reject={true}>{title}</sc.Title>
     </sc.Header>
 
     <sc.Content>

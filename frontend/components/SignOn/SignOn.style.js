@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { Layout } from 'antd';
-
 import { SignIn } from '../SignIn/SignIn.style';
-import { SignUp } from '../SignUp/SignUp.style';
+import { SignUpForm } from '../SignUp/SignUp.style';
 
 export const SignOn = styled(Layout)`
   display: flex;
@@ -10,30 +9,34 @@ export const SignOn = styled(Layout)`
   min-height: 100vh;
   justify-content: center;
   align-items: center;
+  padding-bottom: 20px;
 `;
 
 export const Header = styled(Layout.Header)`
   display: flex;
+  align-items: center;
   padding: 20px;
 `;
 
 export const Content = styled(Layout.Content)`
   display: flex;
-  position: relative;
   flex-direction: column;
+  min-width: 15rem;
+  width: 80%;
+  max-width: 20rem;
   flex-grow: 0;
 
   @media screen and (min-width: 800px) {
+    position: relative;
     flex-direction: row;
     justify-content: space-around;
-    width: 80%;
     max-width: 900px;
 
     > ${SignIn} {
       width: 40%;
     }
 
-    > ${SignUp} {
+    > ${SignUpForm} {
       width: 40%;
     }
   }
@@ -44,7 +47,7 @@ export const Img = styled.img`
 `;
 
 export const Title = styled.h1`
-  color: ${props => props.theme.color.yellow_bright};
+  color: ${props => props.theme.color.yellow};
   font-family: 'Play', sans-serif;
   font-size: 3rem;
   letter-spacing: 0.2rem;
@@ -60,14 +63,13 @@ export const HR = styled.hr`
     rgba(0, 0, 0, 0)
   );
   border: 0;
-  height: 2px;
-  width: 300px;
-  margin: 40px 0;
+  height: 0.2rem;
+  margin: 2rem 0;
 
   @media screen and (min-width: 800px) {
+    width: 20rem;
     position: absolute;
-    top: 150px;
+    top: 160px;
     transform: rotate(90deg);
-    margin: 0;
   }
 `;

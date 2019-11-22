@@ -7,8 +7,6 @@ const Head = props => (
   </NextHead>
 );
 
-Head.propTypes = {
-  title: PropTypes.string.isRequired
-};
+Head.propTypes = { title: PropTypes.string.isRequired };
 
 export default React.memo(Head);

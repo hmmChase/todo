@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import RequestReset from '../RequestReset/RequestReset';
 import * as sc from './ForgotPassDialog.style';
 
@@ -15,9 +14,9 @@ const ForgotPassDialog = () => {
       <sc.ModalLink onClick={showModal}>Forgot password?</sc.ModalLink>
 
       <sc.ForgotPassModal
-        title="Request a password reset"
+        title='Request a password reset'
         visible={visible}
-        width="364px"
+        width='20rem'
         onCancel={handleCancel}
         footer={null}
       >

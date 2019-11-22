@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import * as sc from './DisplayError.style';
 
 const DisplayError = props => {
@@ -28,9 +27,7 @@ const DisplayError = props => {
   );
 };
 
-DisplayError.defaultProps = {
-  error: {}
-};
+DisplayError.defaultProps = { error: {} };
 
 DisplayError.propTypes = {
   error: PropTypes.shape({

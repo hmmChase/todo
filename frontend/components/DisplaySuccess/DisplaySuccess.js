@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import * as sc from './DisplaySuccess.style';
 
 const DisplaySuccess = props => (
@@ -8,8 +7,6 @@ const DisplaySuccess = props => (
   </sc.DisplaySuccess>
 );
 
-DisplaySuccess.propTypes = {
-  message: PropTypes.string.isRequired
-};
+DisplaySuccess.propTypes = { message: PropTypes.string.isRequired };
 
 export default React.memo(DisplaySuccess);

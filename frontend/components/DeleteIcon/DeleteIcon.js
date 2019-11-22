@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
-
 import {
   CURRENT_USER_PAGINATED_IDEAS,
-  DELETE_IDEA_MUTATION
+  DELETE_IDEA
 } from '../../graphql/queries';
 import { pageSize } from '../../constants';
 import * as sc from './DeleteIcon.style';
@@ -39,16 +38,11 @@ const DeleteIcon = props => {
     });
   };
 
-  // Suppress console output
-  const handleError = err => err;
-
-  const [deleteIdea] = useMutation(DELETE_IDEA_MUTATION, {
+  const [deleteIdea] = useMutation(DELETE_IDEA, {
     update(cache, { data }) {
       handleUpdate(cache, data);
     },
-    onError(err) {
-      handleError(err);
-    }
+    onError(_err) {}
   });
 
   const handleClickDeleteBtn = e => {
@@ -60,8 +54,8 @@ const DeleteIcon = props => {
 
   return (
     <sc.DeleteIcon
-      type="close-square"
-      theme="twoTone"
+      type='close-square'
+      theme='twoTone'
       onClick={handleClickDeleteBtn}
     />
   );

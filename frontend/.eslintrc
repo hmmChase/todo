@@ -1,26 +1,41 @@
+// https://github.com/facebook/create-react-app/tree/master/packages/eslint-config-react-app
 {
+  "parser": "babel-eslint",
+  "plugins": [
+    "import",
+    "jsx-a11y",
+    "react",
+    "react-hooks"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
   "env": {
     "browser": true,
+    "commonjs": true,
     "node": true,
     "es6": true,
     "jest": true
   },
-  "extends": [
-    "airbnb"
-  ],
-  "plugins": [
-    "react",
-    "jsx-a11y",
-    "import"
-  ],
-  "parser": "babel-eslint",
   "parserOptions": {
+    "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "max-len": [
       "error",
       {

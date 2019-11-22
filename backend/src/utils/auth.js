@@ -80,10 +80,14 @@ export const verifyAccessToken = accessToken => {
 
 /* Refresh Token */
 
-export const createRefreshToken = (userId, tokenVersion) => {
-  return jwt.sign({ userId, tokenVersion }, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: config.refreshTokenExpiryTime
-  });
+export const createRefreshToken = (userId, refreshTokenVersion) => {
+  return jwt.sign(
+    { userId, refreshTokenVersion },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: config.refreshTokenExpiryTime
+    }
+  );
 };
 
 export const verifyRefreshToken = refreshToken => {
@@ -124,6 +128,8 @@ export const createPasswordResetToken = async () => {
 
   const resetToken = resetTokenBytes.toString('hex');
   const resetTokenExpiry = Date.now() + config.resetTokenExpiryTime;
+
+  console.log('TCL: resetTokenExpiry', resetTokenExpiry);
 
   return { resetToken, resetTokenExpiry };
 };

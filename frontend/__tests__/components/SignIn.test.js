@@ -16,7 +16,7 @@ describe('SignIn', () => {
 
   beforeEach(() => {
     mockProps = {};
-    mockQueries = [query.MOCK_SIGN_IN_MUTATION];
+    mockQueries = [query.MOCK_SIGN_IN];
     wrapper = shallow(<SignIn {...mockProps} />, {
       disableLifecycleMethods: true,
       wrappingComponent: MockedProvider,

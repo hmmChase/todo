@@ -1,56 +1,47 @@
 import PropTypes from 'prop-types';
 // import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
-
+import { Formik, Field } from 'formik';
+import * as yup from 'yup';
 import DisplayError from '../DisplayError/DisplayError';
 import DisplaySuccess from '../DisplaySuccess/DisplaySuccess';
-import { RESET_PASSWORD_MUTATION } from '../../graphql/queries';
+import { RESET_PASSWORD } from '../../graphql/queries';
 import { passwordRequirements } from '../../constants';
 import * as sc from './ResetPassword.style';
 
+const validationSchema = yup.object({
+  password: yup
+    .string()
+    .min(8, 'Must be at least 8 characters')
+    .max(255, 'Must be 255 characters or less')
+    .required('Required'),
+
+  confirmPassword: yup
+    .string()
+    .min(8, 'Must be at least 8 characters')
+    .max(255, 'Must be 255 characters or less')
+    .required('Required')
+});
+
 const ResetPassword = props => {
-  const {
-    resetToken,
-    resetTokenExpiry,
-    form: {
-      validateFields,
-      getFieldDecorator,
-      getFieldsError,
-      getFieldError,
-      isFieldTouched,
-      resetFields
-    }
-  } = props;
+  const { resetToken, resetTokenExpiry } = props;
 
   // handleCompleted = () => Router.push({ pathname: '/' });
 
-  const handleError = error => error;
-
   const [resetPassword, { loading, error, data }] = useMutation(
-    RESET_PASSWORD_MUTATION,
+    RESET_PASSWORD,
     {
       // onCompleted() {
       //   handleCompleted();
       // },
-      onError(err) {
-        handleError(err);
-      }
+      onError(_err) {}
     }
   );
 
-  const hasErrors = fieldsError =>
-    Object.keys(fieldsError).some(field => fieldsError[field]);
+  const handleSubmitForm = (values, formikHelpers) => {
+    resetPassword({ variables: { ...values, resetToken: props.resetToken } });
 
-  const handleSubmitForm = e => {
-    e.preventDefault();
-
-    validateFields((err, values) => {
-      resetPassword({
-        variables: { ...values, resetToken: props.resetToken }
-      });
-
-      resetFields();
-    });
+    formikHelpers.resetForm();
   };
 
   const isTokenPresent = resetToken && resetTokenExpiry;
@@ -64,108 +55,292 @@ const ResetPassword = props => {
     message: 'Your reset request is expired.  Please submit a new one.'
   };
 
-  // Only show error after a field is touched.
-  const passwordError = isFieldTouched('password') && getFieldError('password');
-  const confirmPasswordError = isFieldTouched('confirmPassword') && getFieldError('confirmPassword');
-
   return (
-    <sc.ResetPassword onSubmit={handleSubmitForm}>
-      <sc.FormItem
-        validateStatus={passwordError ? 'error' : ''}
-        help={passwordError || ''}
-        hasFeedback
-      >
-        {getFieldDecorator('password', {
-          rules: [{ required: true, message: 'Please enter your password' }]
-        })(
-          <sc.InputPassword
-            aria-label="password"
-            placeholder="password"
-            onPressEnter={handleSubmitForm}
-            prefix={
-              <sc.InputIcon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
-            }
-          />
-        )}
-      </sc.FormItem>
+    <Formik
+      initialValues={{ password: '', confirmPassword: '' }}
+      validationSchema={validationSchema}
+      validateOnChange={false}
+      validateOnBlur={true}
+      onSubmit={handleSubmitForm}
+    >
+      {formikProps => (
+        <sc.ResetPassword>
+          <Field name='password'>
+            {fieldProps => (
+              <sc.FormItem
+                label='New password'
+                htmlFor='resetPasswordPassword'
+                help={fieldProps.meta.touched && fieldProps.meta.error}
+                validateStatus={
+                  fieldProps.meta.touched && fieldProps.meta.error
+                    ? 'error'
+                    : ''
+                }
+              >
+                <sc.InputPassword
+                  id='resetPasswordPassword'
+                  onPressEnter={fieldProps.handleSubmit}
+                  prefix={<sc.InputIcon type='lock' />}
+                  {...fieldProps.field}
+                />
+              </sc.FormItem>
+            )}
+          </Field>
 
-      <sc.FormItem
-        validateStatus={confirmPasswordError ? 'error' : ''}
-        help={confirmPasswordError || ''}
-        hasFeedback
-      >
-        {getFieldDecorator('confirmPassword', {
-          rules: [{ required: true, message: 'Please confirm your password' }]
-        })(
-          <sc.InputConfirmPassword
-            aria-label="confirm password"
-            placeholder="confirm password"
-            onPressEnter={handleSubmitForm}
-            prefix={
-              <sc.InputIcon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
-            }
-          />
-        )}
-      </sc.FormItem>
+          <Field name='confirmPassword'>
+            {fieldProps => (
+              <sc.FormItem
+                label='Confirm new password'
+                htmlFor='resetPasswordConfirmPassword'
+                help={fieldProps.meta.touched && fieldProps.meta.error}
+                validateStatus={
+                  fieldProps.meta.touched && fieldProps.meta.error
+                    ? 'error'
+                    : ''
+                }
+              >
+                <sc.InputPassword
+                  id='resetPasswordConfirmPassword'
+                  onPressEnter={fieldProps.handleSubmit}
+                  prefix={<sc.InputIcon type='lock' />}
+                  {...fieldProps.field}
+                />
+              </sc.FormItem>
+            )}
+          </Field>
 
-      {!isTokenPresent && <DisplayError error={tokenMissingError} />}
+          {!isTokenPresent && <DisplayError error={tokenMissingError} />}
 
-      {isTokenPresent && isTokenExpired && (
-        <DisplayError error={tokenExpiredError} />
+          {isTokenPresent && isTokenExpired && (
+            <DisplayError error={tokenExpiredError} />
+          )}
+
+          {isTokenValid && error && <DisplayError error={error} />}
+
+          {data && data.resetPassword && (
+            <DisplaySuccess message='Your password has been successfully changed.' />
+          )}
+
+          <sc.PassListContainer>
+            <sc.TypographyText strong>
+              {passwordRequirements.title}
+            </sc.TypographyText>
+
+            <sc.PassList
+              split={false}
+              dataSource={passwordRequirements.reqs}
+              renderItem={item => (
+                <sc.PassListItem>
+                  <sc.ListIcon type='minus' />
+
+                  <sc.TypographyText>{item}</sc.TypographyText>
+                </sc.PassListItem>
+              )}
+            />
+          </sc.PassListContainer>
+
+          <sc.FormItemBtn>
+            <sc.SubmitBtn
+              loading={loading}
+              type='primary'
+              htmlType='submit'
+              disabled={
+                !formikProps.values.password ||
+                !formikProps.values.confirmPassword ||
+                formikProps.errors.password ||
+                formikProps.errors.confirmPassword ||
+                formikProps.isSubmitting
+              }
+            >
+              Submit
+            </sc.SubmitBtn>
+          </sc.FormItemBtn>
+        </sc.ResetPassword>
       )}
-
-      {isTokenValid && error && <DisplayError error={error} />}
-
-      {data && data.resetPassword && (
-        <DisplaySuccess message="Your password has been successfully changed." />
-      )}
-
-      <sc.TypographyText strong>{passwordRequirements.title}</sc.TypographyText>
-
-      <sc.PassList
-        split={false}
-        dataSource={passwordRequirements.reqs}
-        renderItem={item => (
-          <sc.PassListItem>
-            <sc.ListIcon type="minus" />
-
-            <sc.TypographyText>{item}</sc.TypographyText>
-          </sc.PassListItem>
-        )}
-      />
-
-      <sc.FormItem>
-        <sc.SubmitBtn
-          loading={loading}
-          type="primary"
-          htmlType="submit"
-          disabled={hasErrors(getFieldsError())}
-        >
-          Submit
-        </sc.SubmitBtn>
-      </sc.FormItem>
-    </sc.ResetPassword>
+    </Formik>
   );
 };
 
-ResetPassword.defaultProps = {
-  resetToken: '',
-  resetTokenExpiry: ''
-};
+ResetPassword.defaultProps = { resetToken: '', resetTokenExpiry: '' };
 
 ResetPassword.propTypes = {
   resetToken: PropTypes.string,
-  resetTokenExpiry: PropTypes.string,
-  form: PropTypes.shape({
-    validateFields: PropTypes.func.isRequired,
-    getFieldDecorator: PropTypes.func.isRequired,
-    getFieldsError: PropTypes.func.isRequired,
-    getFieldError: PropTypes.func.isRequired,
-    isFieldTouched: PropTypes.func.isRequired,
-    resetFields: PropTypes.func.isRequired
-  }).isRequired
+  resetTokenExpiry: PropTypes.string
 };
 
-export default sc.ResetPassword.create({ name: 'ResetPassword' })(
-  React.memo(ResetPassword)
-);
+export default React.memo(ResetPassword);
+
+// ---------- Ant Design form validation ----------
+
+// import PropTypes from 'prop-types';
+// // import Router from 'next/router';
+// import { useMutation } from '@apollo/react-hooks';
+
+// import DisplayError from '../DisplayError/DisplayError';
+// import DisplaySuccess from '../DisplaySuccess/DisplaySuccess';
+// import { RESET_PASSWORD } from '../../graphql/queries';
+// import { passwordRequirements } from '../../constants';
+// import * as sc from './ResetPassword.style';
+
+// const ResetPassword = props => {
+//   const {
+//     resetToken,
+//     resetTokenExpiry,
+//     form: {
+//       validateFields,
+//       getFieldDecorator,
+//       getFieldsError,
+//       getFieldError,
+//       isFieldTouched,
+//       resetFields
+//     }
+//   } = props;
+
+//   // handleCompleted = () => Router.push({ pathname: '/' });
+
+//   const handleError = error => error;
+
+//   const [resetPassword, { loading, error, data }] = useMutation(
+//     RESET_PASSWORD,
+//     {
+//       // onCompleted() {
+//       //   handleCompleted();
+//       // },
+//       onError(err) {
+//         handleError(err);
+//       }
+//     }
+//   );
+
+//   const hasErrors = fieldsError =>
+//     Object.keys(fieldsError).some(field => fieldsError[field]);
+
+//   const handleSubmitForm = e => {
+//     e.preventDefault();
+
+//     validateFields((err, values) => {
+//       resetPassword({
+//         variables: { ...values, resetToken: props.resetToken }
+//       });
+
+//       resetFields();
+//     });
+//   };
+
+//   const isTokenPresent = resetToken && resetTokenExpiry;
+//   const isTokenExpired = Date.now() > resetTokenExpiry;
+//   const isTokenValid = isTokenPresent && !isTokenExpired;
+
+//   const tokenMissingError = {
+//     message: 'Error: Please submit a new password reset request.'
+//   };
+//   const tokenExpiredError = {
+//     message: 'Your reset request is expired.  Please submit a new one.'
+//   };
+
+//   // Only show error after a field is touched.
+//   const passwordError = isFieldTouched('password') && getFieldError('password');
+//   const confirmPasswordError =
+//     isFieldTouched('confirmPassword') && getFieldError('confirmPassword');
+
+//   return (
+//     <sc.ResetPassword onSubmit={handleSubmitForm}>
+//       <sc.FormItem
+//         validateStatus={passwordError ? 'error' : ''}
+//         help={passwordError || ''}
+//         hasFeedback
+//       >
+//         {getFieldDecorator('password', {
+//           rules: [{ required: true, message: 'Please enter your password' }]
+//         })(
+//           <sc.InputPassword
+//             aria-label='password'
+//             placeholder='password'
+//             onPressEnter={handleSubmitForm}
+//             prefix={
+//               <sc.InputIcon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />
+//             }
+//           />
+//         )}
+//       </sc.FormItem>
+
+//       <sc.FormItem
+//         validateStatus={confirmPasswordError ? 'error' : ''}
+//         help={confirmPasswordError || ''}
+//         hasFeedback
+//       >
+//         {getFieldDecorator('confirmPassword', {
+//           rules: [{ required: true, message: 'Please confirm your password' }]
+//         })(
+//           <sc.InputConfirmPassword
+//             aria-label='confirm password'
+//             placeholder='confirm password'
+//             onPressEnter={handleSubmitForm}
+//             prefix={
+//               <sc.InputIcon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />
+//             }
+//           />
+//         )}
+//       </sc.FormItem>
+
+//       {!isTokenPresent && <DisplayError error={tokenMissingError} />}
+
+//       {isTokenPresent && isTokenExpired && (
+//         <DisplayError error={tokenExpiredError} />
+//       )}
+
+//       {isTokenValid && error && <DisplayError error={error} />}
+
+//       {data && data.resetPassword && (
+//         <DisplaySuccess message='Your password has been successfully changed.' />
+//       )}
+
+//       <sc.TypographyText strong>{passwordRequirements.title}</sc.TypographyText>
+
+//       <sc.PassList
+//         split={false}
+//         dataSource={passwordRequirements.reqs}
+//         renderItem={item => (
+//           <sc.PassListItem>
+//             <sc.ListIcon type='minus' />
+
+//             <sc.TypographyText>{item}</sc.TypographyText>
+//           </sc.PassListItem>
+//         )}
+//       />
+
+//       <sc.FormItem>
+//         <sc.SubmitBtn
+//           loading={loading}
+//           type='primary'
+//           htmlType='submit'
+//           disabled={hasErrors(getFieldsError())}
+//         >
+//           Submit
+//         </sc.SubmitBtn>
+//       </sc.FormItem>
+//     </sc.ResetPassword>
+//   );
+// };
+
+// ResetPassword.defaultProps = {
+//   resetToken: '',
+//   resetTokenExpiry: ''
+// };
+
+// ResetPassword.propTypes = {
+//   resetToken: PropTypes.string,
+//   resetTokenExpiry: PropTypes.string,
+//   form: PropTypes.shape({
+//     validateFields: PropTypes.func.isRequired,
+//     getFieldDecorator: PropTypes.func.isRequired,
+//     getFieldsError: PropTypes.func.isRequired,
+//     getFieldError: PropTypes.func.isRequired,
+//     isFieldTouched: PropTypes.func.isRequired,
+//     resetFields: PropTypes.func.isRequired
+//   }).isRequired
+// };
+
+// export default sc.ResetPassword.create({ name: 'ResetPassword' })(
+//   React.memo(ResetPassword)
+// );

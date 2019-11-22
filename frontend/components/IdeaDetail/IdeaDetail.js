@@ -1,9 +1,6 @@
-/* eslint-disable no-nested-ternary */
-
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useQuery } from '@apollo/react-hooks';
-
 import DisplayLoading from '../DisplayLoading/DisplayLoading';
 import DisplayError from '../DisplayError/DisplayError';
 import IdeaInput from '../IdeaInput/IdeaInput';
@@ -12,21 +9,16 @@ import { CURRENT_USER_IDEA } from '../../graphql/queries';
 import * as sc from './IdeaDetail.style';
 
 const IdeaDetail = props => {
-  // Suppress console output
-  const handleError = err => err;
-
   const { loading, error, data } = useQuery(CURRENT_USER_IDEA, {
     variables: { id: props.ideaId },
-    onError(err) {
-      handleError(err);
-    }
+    onError(_err) {}
   });
 
   return (
     <sc.IdeaDetail>
       <Link href={{ pathname: '/' }}>
-        <sc.BackBtn type="primary">
-          <sc.BackIcon type="arrow-left" />
+        <sc.BackBtn type='primary'>
+          <sc.BackIcon type='arrow-left' />
           Back
         </sc.BackBtn>
       </Link>
@@ -48,8 +40,6 @@ const IdeaDetail = props => {
   );
 };
 
-IdeaDetail.propTypes = {
-  ideaId: PropTypes.string.isRequired
-};
+IdeaDetail.propTypes = { ideaId: PropTypes.string.isRequired };
 
-export default React.memo(IdeaDetail);
+export default IdeaDetail;

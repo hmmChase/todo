@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { load } from '../../utils/testing';
 import ResetPassword from '../../components/ResetPassword/ResetPassword';
-import { MOCK_RESET_PASSWORD_MUTATION } from '../../__mocks__/queries';
+import { MOCK_RESET_PASSWORD } from '../../__mocks__/queries';
 import theme from '../../styles/theme.style';
 
 describe('ResetPassword', () => {
@@ -15,7 +15,7 @@ describe('ResetPassword', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockProps = {};
-    mockQueries = [MOCK_RESET_PASSWORD_MUTATION];
+    mockQueries = [MOCK_RESET_PASSWORD];
     wrapper = mount(
       <MockedProvider mocks={mockQueries} addTypename={false}>
         <ThemeProvider theme={theme}>

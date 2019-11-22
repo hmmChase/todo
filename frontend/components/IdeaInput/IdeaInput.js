@@ -1,38 +1,25 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
 import debounce from 'lodash.debounce';
-
-import { UPDATE_IDEA_MUTATION } from '../../graphql/queries';
+import { UPDATE_IDEA } from '../../graphql/queries';
 import * as sc from './IdeaInput.style';
 
 const IdeaInput = props => {
-  const [content, setContent] = useState(props.content);
+  const [updateIdea] = useMutation(UPDATE_IDEA, { onError(_err) {} });
 
-  // Suppress console output
-  const handleError = err => err;
-
-  const [updateIdea] = useMutation(UPDATE_IDEA_MUTATION, {
-    update(cache, { data }) {
-      handleUpdate(cache, data);
-    },
-    onError(err) {
-      handleError(err);
-    }
-  });
-
-  const handleChangeideaInput = e => {
-    setContent(e.target.value);
-
-    debounce(() => updateIdea({ variables: { id: props.id, content } }), 200);
-  };
+  const handleChangeideaInput = debounce(e => {
+    updateIdea({ variables: { id: props.id, content: e.target.value } });
+  }, 200);
 
   return (
     <sc.IdeaInput
-      aria-label="idea input"
+      aria-label='idea input'
       autoSize={{ minRows: 1, maxRows: 10 }}
-      value={content}
-      onChange={handleChangeideaInput}
+      defaultValue={props.content}
+      onChange={e => {
+        e.persist();
+        handleChangeideaInput(e);
+      }}
     />
   );
 };
@@ -42,4 +29,4 @@ IdeaInput.propTypes = {
   content: PropTypes.string.isRequired
 };
 
-export default React.memo(IdeaInput);
+export default IdeaInput;

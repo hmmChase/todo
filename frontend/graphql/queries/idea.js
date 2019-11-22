@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-export const CREATE_IDEA_MUTATION = gql`
-  mutation CREATE_IDEA_MUTATION($content: String!) {
+export const CREATE_IDEA = gql`
+  mutation CREATE_IDEA($content: String!) {
     createIdea(content: $content) {
       id
       content
@@ -12,8 +12,8 @@ export const CREATE_IDEA_MUTATION = gql`
   }
 `;
 
-export const UPDATE_IDEA_MUTATION = gql`
-  mutation UPDATE_IDEA_MUTATION($id: ID!, $content: String!) {
+export const UPDATE_IDEA = gql`
+  mutation UPDATE_IDEA($id: ID!, $content: String!) {
     updateIdea(id: $id, content: $content) {
       id
       content
@@ -21,16 +21,16 @@ export const UPDATE_IDEA_MUTATION = gql`
   }
 `;
 
-export const DELETE_IDEA_MUTATION = gql`
-  mutation DELETE_IDEA_MUTATION($id: ID!) {
+export const DELETE_IDEA = gql`
+  mutation DELETE_IDEA($id: ID!) {
     deleteIdea(id: $id) {
       id
     }
   }
 `;
 
-export const IDEAS_CONNECTION_QUERY = gql`
-  query IDEAS_CONNECTION_QUERY {
+export const IDEAS_CONNECTION = gql`
+  query IDEAS_CONNECTION {
     ideasConnection {
       aggregate {
         count

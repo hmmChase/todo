@@ -6,7 +6,7 @@ import { MockedProvider } from '@apollo/react-testing';
 import { load } from '../../../utils/tests';
 import * as mock from '../../__mocks__/mocks';
 import QueryExample, {
-  USERS_QUERY
+  USERS
 } from '../../../components/Examples/QueryExample';
 
 describe('QueryExample', () => {
@@ -20,7 +20,7 @@ describe('QueryExample', () => {
     mockProps = {};
     mockQueries = [
       {
-        request: { query: USERS_QUERY },
+        request: { query: USERS },
         result: {
           data: {
             users: [mock.user]
