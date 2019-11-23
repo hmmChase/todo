@@ -116,8 +116,8 @@ export const sendRefreshToken = (res, refreshToken) => {
     secure: production,
     maxAge: config.refreshTokenCookieMaxAge,
     sameSite: 'strict',
-    path: '/',
-    domain: production ? '.now.sh' : 'localhost'
+    // path: '/',
+    // domain: production ? '.now.sh' : 'localhost'
   };
 
   res.cookie('rt', refreshToken, cookieOptions);
