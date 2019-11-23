@@ -109,12 +109,15 @@ export const verifyRefreshToken = refreshToken => {
 };
 
 export const sendRefreshToken = (res, refreshToken) => {
+  const production = process.env.NODE_ENV === 'production';
+
   const cookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: config.refreshTokenCookieMaxAge
-    // domain: '.now.sh',
-    // path: "/refresh"
+    secure: production,
+    maxAge: config.refreshTokenCookieMaxAge,
+    sameSite: 'strict',
+    path: '/',
+    domain: production ? '.now.sh' : 'localhost'
   };
 
   res.cookie('rt', refreshToken, cookieOptions);

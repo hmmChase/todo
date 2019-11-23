@@ -1,9 +1,8 @@
 import jwt from 'jsonwebtoken';
-
 import redirect from './redirect';
 import { CURRENT_USER } from '../graphql/queries';
 
-export default (req, res, pathname, apolloClient) => {
+export default (req, res, pathname) => {
   if (req.headers.cookie) {
     const refreshToken = req.headers.cookie.replace('rt=', '');
     const secret = process.env.REFRESH_TOKEN_SECRET;
@@ -13,7 +12,7 @@ export default (req, res, pathname, apolloClient) => {
 
       // apolloClient.cache.writeData({ data: { isLoggedIn: true } });
 
-      // if (pathname !== '/') redirect(res, '/');
+      if (pathname === '/welcome') redirect(res, '/');
     } catch (err) {
       // apolloClient.cache.writeData({ data: { isLoggedIn: false } });
 
@@ -36,6 +35,27 @@ export const graphQLAuth = async apolloClient => {
   } else if (error) {
     apolloClient.cache.writeData({ data: { isLoggedIn: false } });
   }
+};
+
+export const checkLoggedIn = apolloClient => {
+  apolloClient
+    .query({
+      query: gql`
+        query getUser {
+          user {
+            id
+            name
+          }
+        }
+      `
+    })
+    .then(({ data }) => {
+      return { loggedInUser: data };
+    })
+    .catch(() => {
+      // Fail gracefully
+      return { loggedInUser: {} };
+    });
 };
 
 let accessToken = '';
