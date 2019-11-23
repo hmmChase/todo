@@ -1,4 +1,5 @@
-import Router from 'next/router';
+// import Router from 'next/router';
+import Link from 'next/link';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { SIGN_OUT } from '../../graphql/queries';
 import { setAccessToken } from '../../utils/authenticate';
@@ -8,11 +9,13 @@ const SignOutBtn = () => {
   const apolloClient = useApolloClient();
 
   const handleCompleted = () => {
-    apolloClient.clearStore();
-
     setAccessToken('');
 
-    Router.push('/welcome');
+    apolloClient.clearStore();
+
+    // Router.push('/welcome');
+
+    // location.reload();
   };
 
   const [signOut, { loading }] = useMutation(SIGN_OUT, {
@@ -25,13 +28,25 @@ const SignOutBtn = () => {
   const handleClickBtn = () => signOut();
 
   return (
-    <sc.SignOutBtn
-      disabled={loading}
-      aria-busy={loading}
-      onClick={handleClickBtn}
-    >
-      Sign Out
-    </sc.SignOutBtn>
+    <>
+      {/* <sc.SignOutBtn
+        disabled={loading}
+        aria-busy={loading}
+        onClick={handleClickBtn}
+      >
+        Sign Out
+      </sc.SignOutBtn> */}
+
+      <Link href='/welcome'>
+        <sc.SignOutBtn
+          disabled={loading}
+          aria-busy={loading}
+          onClick={handleClickBtn}
+        >
+          Sign Out
+        </sc.SignOutBtn>
+      </Link>
+    </>
   );
 };
 
