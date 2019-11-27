@@ -52,8 +52,6 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
     if (!isServer() && !getAccessToken()) {
       // Client-side, set access token with access token returned from GIP
       setAccessToken(serverAccessToken);
-    } else {
-      console.log('WithApollo NOT setting access token');
     }
 
     // ---------------------------------------------
