@@ -80,7 +80,7 @@ const createApollo = (initialState = {}, serverAccessToken) => {
     },
 
     fetchAccessToken: () => {
-      const url = isDev
+      const url = isDev()
         ? process.env.DEV_REFRESH_URL
         : process.env.PROD_REFRESH_URL;
 

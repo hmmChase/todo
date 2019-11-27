@@ -14,8 +14,13 @@
   ],
   "routes": [
     {
-      "src": "/graphql",
+      "src": "/api/(.*)",
       "dest": "backend/src/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/$1",
+      "continue": true
     },
     {
       "src": "^/service-worker.js$",
@@ -24,11 +29,6 @@
         "cache-control": "public, max-age=43200, immutable",
         "Service-Worker-Allowed": "/"
       }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "frontend/$1",
-      "continue": true
     }
   ],
   "env": {

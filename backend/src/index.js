@@ -6,7 +6,6 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
-
 import apolloServer from './apolloServer';
 import prisma from './prismaClient';
 import logger from './utils/logger';
@@ -35,8 +34,8 @@ app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === 'development') app.use(logger);
 
-app.post('/refresh', async (req, res) => {
-  console.log('/refresh');
+app.post('/api/refresh', async (req, res) => {
+  console.log('/api/refresh');
 
   // Read refresh token
   const refreshToken = req.cookies.rt;
@@ -78,11 +77,11 @@ app.post('/refresh', async (req, res) => {
   return res.send({ ok: true, accessToken });
 });
 
-server.applyMiddleware({ app, path: '/graphql', cors: corsOptions });
+server.applyMiddleware({ app, path: '/api/graphql', cors: corsOptions });
 
 app.listen({ port: process.env.PORT || 4000 }, err => {
   if (err) throw err;
   console.log(
-    `Apollo Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`
+    `Apollo Server ready at http://localhost:${process.env.PORT}/api/`
   );
 });
