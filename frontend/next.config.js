@@ -119,14 +119,6 @@ const nextConfig = {
     }
 
     return config;
-  },
-
-  env: {
-    DEV_GRAPHQL_URL: process.env.DEV_GRAPHQL_URL,
-    PROD_GRAPHQL_URL: process.env.PROD_GRAPHQL_URL,
-    DEV_REFRESH_URL: process.env.DEV_REFRESH_URL,
-    PROD_REFRESH_URL: process.env.PROD_REFRESH_URL,
-    REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET
   }
 };
 
