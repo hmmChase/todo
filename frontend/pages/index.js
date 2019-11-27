@@ -19,8 +19,6 @@ const IndexPage = () => (
   </>
 );
 
-
-
 IndexPage.getInitialProps = ctx => {
   const { req, res, pathname } = ctx;
 
