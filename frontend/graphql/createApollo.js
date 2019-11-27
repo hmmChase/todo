@@ -113,6 +113,8 @@ const createApollo = (initialState = {}, serverAccessToken) => {
   //   return forward(operation);
   // });
 
+  console.log('process.env.PROD_GRAPHQL_URL: ', process.env.PROD_GRAPHQL_URL);
+
   const httpLink = new HttpLink({
     uri: isDev() ? process.env.DEV_GRAPHQL_URL : process.env.PROD_GRAPHQL_URL,
     credentials: 'include',
