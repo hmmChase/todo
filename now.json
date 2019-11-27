@@ -31,22 +31,24 @@
       }
     }
   ],
-  "env": {
-    "DEV_GRAPHQL_URL": "@dev_graphql_url",
-    "PROD_GRAPHQL_URL": "@prod_graphql_url",
-    "DEV_REFRESH_URL": "@dev_refresh_url",
-    "PROD_REFRESH_URL": "@prod_refresh_url",
-    "PORT": "@port",
-    "DEV_FRONTEND_URL": "@dev_frontend_url",
-    "PROD_FRONTEND_URL": "@prod_frontend_url",
-    "ACCESS_TOKEN_SECRET": "@access_token_secret",
-    "REFRESH_TOKEN_SECRET": "@refresh_token_secret",
-    "PRISMA_URL": "@prisma_url",
-    "PRISMA_SECRET": "@prisma_secret",
-    "PRISMA_MANAGEMENT_API_SECRET": "",
-    "MAIL_HOST": "@mail_host",
-    "MAIL_PORT": "@mail_port",
-    "MAIL_USER": "@mail_user",
-    "MAIL_PASS": "@mail_pass"
+  "build": {
+    "env": {
+      "DEV_GRAPHQL_URL": "@dev_graphql_url",
+      "PROD_GRAPHQL_URL": "@prod_graphql_url",
+      "DEV_REFRESH_URL": "@dev_refresh_url",
+      "PROD_REFRESH_URL": "@prod_refresh_url",
+      "PORT": "@port",
+      "DEV_FRONTEND_URL": "@dev_frontend_url",
+      "PROD_FRONTEND_URL": "@prod_frontend_url",
+      "ACCESS_TOKEN_SECRET": "@access_token_secret",
+      "REFRESH_TOKEN_SECRET": "@refresh_token_secret",
+      "PRISMA_URL": "@prisma_url",
+      "PRISMA_SECRET": "@prisma_secret",
+      "PRISMA_MANAGEMENT_API_SECRET": "",
+      "MAIL_HOST": "@mail_host",
+      "MAIL_PORT": "@mail_port",
+      "MAIL_USER": "@mail_user",
+      "MAIL_PASS": "@mail_pass"
+    }
   }
 }
