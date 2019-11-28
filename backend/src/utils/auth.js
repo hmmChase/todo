@@ -84,9 +84,7 @@ export const createRefreshToken = (userId, refreshTokenVersion) => {
   return jwt.sign(
     { userId, refreshTokenVersion },
     process.env.REFRESH_TOKEN_SECRET,
-    {
-      expiresIn: config.refreshTokenExpiryTime
-    }
+    { expiresIn: config.refreshTokenExpiryTime }
   );
 };
 

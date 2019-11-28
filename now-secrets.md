@@ -11,9 +11,7 @@ To add a new secret:
 1. Add to `.env`
 2. Add to `.env.example`
 3. Add to `now.json`
-4. Expose secrets to the client by adding them to `next.config.js`
-   - [Expose secrets client side](https://www.leighhalliday.com/secrets-env-vars-nextjs-now)
-5. Add to this list and run the command
+4. Add to this list and run the command
    - Requires [Now CLI](https://zeit.co/download#now-cli)
 
 ## Frontend

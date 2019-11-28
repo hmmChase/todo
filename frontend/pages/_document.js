@@ -34,6 +34,7 @@ class MyDocument extends Document {
 
       return {
         ...initialProps,
+
         // Step 3: Extract the styles as <style> tags using getStyleElement
         // Step 4: Pass styleTags as a prop
         styles: (
