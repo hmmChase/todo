@@ -85,7 +85,5 @@ server.applyMiddleware({ app, path: '/api/graphql', cors: corsOptions });
 
 app.listen({ port: process.env.PORT || 4000 }, err => {
   if (err) throw err;
-  console.log(
-    `Apollo Server ready at http://localhost:${process.env.PORT}/api/`
-  );
+  console.log(`Server ready at http://localhost:${process.env.PORT}/api/`);
 });
