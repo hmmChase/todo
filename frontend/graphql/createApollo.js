@@ -61,12 +61,32 @@ const createApollo = (initialState = {}, serverAccessToken) => {
   const refreshLink = new TokenRefreshLink({
     accessTokenField: 'accessToken',
 
+    // isTokenValidOrUndefined: () => {
+    //   console.log('=================================: isTokenValidOrUndefined');
+
+    //   const accessToken = getAccessToken();
+
+    //   console.log('TCL: accessToken', accessToken);
+
+    //   if (!accessToken) return true;
+
+    //   try {
+    //     const { exp } = jwtDecode(accessToken);
+
+    //     console.log('TCL: exp', exp);
+
+    //     if (Date.now() >= exp * 1000) return false;
+
+    //     return true;
+    //   } catch {
+    //     return false;
+    //   }
+    // },
+
     isTokenValidOrUndefined: () => {
       const token = getAccessToken();
 
-      if (!token) {
-        return true;
-      }
+      if (!token) return true;
 
       try {
         const { exp } = jwtDecode(token);
@@ -78,6 +98,27 @@ const createApollo = (initialState = {}, serverAccessToken) => {
         return false;
       }
     },
+
+    // fetchAccessToken: async () => {
+    //   console.log('=================================: fetchAccessToken');
+
+    //   const url = isDev
+    //     ? 'http://localhost:6969/api/refresh'
+    //     : 'https://hmmtest.now.sh/api/refresh';
+
+    //   const response = await fetch(url, {
+    //     method: 'POST',
+    //     credentials: 'include'
+    //   });
+
+    //   console.log('TCL: response', response);
+
+    //   const data = await response.json();
+
+    //   console.log('TCL: data', data);
+
+    //   return data;
+    // },
 
     fetchAccessToken: () => {
       const url = isDev()
@@ -92,19 +133,33 @@ const createApollo = (initialState = {}, serverAccessToken) => {
 
     handleFetch: accessToken => setAccessToken(accessToken),
 
+    handleResponse: (operation, accessTokenField) => response => {
+      // here you can parse response, handle errors, prepare returned token to
+      // further operations
+      // returned object should be like this:
+      // {
+      //    access_token: 'token string here'
+      // }
+    },
+
     handleError: err => {
       if (isDev()) {
         console.warn('Your refresh token is invalid. Try to relogin');
         console.error('refreshLink handleError: ', err);
+
+        // your custom action here
+        // user.logout();
       }
     }
   });
 
   // Add cookie to request header
   const authLink = setContext((_request, _previousContext) => {
-    const token = isServer() ? serverAccessToken : getAccessToken();
+    const accessToken = isServer() ? serverAccessToken : getAccessToken();
 
-    return { headers: { authorization: token ? `Bearer ${token}` : '' } };
+    return {
+      headers: { authorization: accessToken ? `Bearer ${accessToken}` : '' }
+    };
   });
 
   // const authLink = new ApolloLink((operation, forward) => {
@@ -113,11 +168,11 @@ const createApollo = (initialState = {}, serverAccessToken) => {
   //   return forward(operation);
   // });
 
-  const httpLink = new HttpLink({
-    uri: isDev() ? process.env.DEV_GRAPHQL_URL : process.env.PROD_GRAPHQL_URL,
-    credentials: 'include',
-    fetch
-  });
+  const url = isDev()
+    ? process.env.DEV_GRAPHQL_URL
+    : process.env.PROD_GRAPHQL_URL;
+
+  const httpLink = new HttpLink({ uri: url, credentials: 'include', fetch });
 
   const link = isDev()
     ? ApolloLink.from([

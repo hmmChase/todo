@@ -20,6 +20,15 @@ export const CURRENT_USER = gql`
   }
 `;
 
+export const USERS = gql`
+  query USERS {
+    users {
+      id
+      email
+    }
+  }
+`;
+
 export const SIGN_UP = gql`
   mutation SIGN_UP(
     $email: String!

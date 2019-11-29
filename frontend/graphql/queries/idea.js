@@ -58,6 +58,15 @@ export const CURRENT_USER_IDEA = gql`
   }
 `;
 
+export const CURRENT_USER_IDEAS = gql`
+  query CURRENT_USER_IDEAS {
+    currentUserIdeas {
+      id
+      content
+    }
+  }
+`;
+
 export const CURRENT_USER_PAGINATED_IDEAS = gql`
   query CURRENT_USER_PAGINATED_IDEAS($first: Int, $after: String) {
     currentUserPaginatedIdeas(

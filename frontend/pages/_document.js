@@ -1,15 +1,14 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import GlobalStyle from '../styles/global.style';
+import GlobalStyle from '../public/styles/global.style';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development')
       console.log(
         '----------_document GIP----------',
         new Date().getMilliseconds()
       );
-    }
 
     // https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
     // Step 1: Create an instance of ServerStyleSheet
@@ -34,6 +33,7 @@ class MyDocument extends Document {
 
       return {
         ...initialProps,
+
         // Step 3: Extract the styles as <style> tags using getStyleElement
         // Step 4: Pass styleTags as a prop
         styles: (
@@ -49,12 +49,11 @@ class MyDocument extends Document {
   }
 
   render() {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development')
       console.log(
         '----------_document render----------',
         new Date().getMilliseconds()
       );
-    }
 
     return (
       <html lang='en'>
@@ -70,81 +69,81 @@ class MyDocument extends Document {
           {/* Responsive */}
           <meta name='viewport' content='width=device-width, initial-scale=1' />
 
+          {/* Progressive Web App Manifest + Theme Color */}
+          <meta name='theme-color' content='#C8DCF0' />
+          <link rel='manifest' href='manifest.json' />
+
           {/* Favicon */}
           <link
             rel='shortcut icon'
             type='image/x-icon'
-            href='/static/images/favicon.ico'
+            href='images/favicon.ico'
           />
 
           {/* PWA images */}
           <link
             rel='icon'
             type='image/png'
-            href='/static/images/pwa/android-36x36.png'
+            href='images/pwa/android-36x36.png'
             sizes='36x36'
           />
           <link
             rel='icon'
             type='image/png'
-            href='/static/images/pwa/android-48x48.png'
+            href='images/pwa/android-48x48.png'
             sizes='48x48'
           />
           <link
             rel='icon'
             type='image/png'
-            href='/static/images/pwa/android-72x72.png'
+            href='images/pwa/android-72x72.png'
             sizes='72x72'
           />
           <link
             rel='icon'
             type='image/png'
-            href='/static/images/pwa/android-96x96.png'
+            href='images/pwa/android-96x96.png'
             sizes='96x96'
           />
           <link
             rel='icon'
             type='image/png'
-            href='/static/images/pwa/android-144x144.png'
+            href='images/pwa/android-144x144.png'
             sizes='144x144'
           />
           <link
             rel='apple-touch-icon'
-            href='/static/images/pwa/apple-touch-icon-180x180.png'
+            href='images/pwa/apple-touch-icon-180x180.png'
             sizes='180x180'
           />
           <link
             rel='icon'
             type='image/png'
-            href='/static/images/pwa/pwa-192x192.png'
+            href='images/pwa/pwa-192x192.png'
             sizes='192x192'
           />
           <link
             rel='icon'
             type='image/png'
-            href='/static/images/pwa/pwa-512x512.png'
+            href='images/pwa/pwa-512x512.png'
             sizes='512x512'
           />
 
           {/* Fonts */}
           <link
             rel='preload'
-            href='/static/fonts/open-sans-v15-latin-regular.woff2'
+            href='fonts/open-sans-v15-latin-regular.woff2'
             as='font'
             type='font/woff2'
             crossOrigin='anonymous'
           />
           <link
             rel='preload'
-            href='/static/fonts/play-v10-latin-regular.woff2'
+            href='fonts/play-v10-latin-regular.woff2'
             as='font'
             type='font/woff2'
             crossOrigin='anonymous'
           />
-
-          {/* Progressive Web App Manifest + Theme Color */}
-          <link rel='manifest' href='static/manifest.json' />
-          <meta name='theme-color' content='#477CBF' />
 
           {/* Fixes flash of unstyled content for first load (Chromium bug)
             https://github.com/ant-design/ant-design/issues/16037

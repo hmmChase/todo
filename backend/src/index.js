@@ -31,8 +31,13 @@ app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === 'development') app.use(logger);
+
+app.get('/', (_req, res) => res.send('hello'));
+
+app.get('/api', (_req, res) => res.send('hello'));
 
 app.post('/api/refresh', async (req, res) => {
   console.log('/api/refresh');
@@ -41,7 +46,7 @@ app.post('/api/refresh', async (req, res) => {
   const refreshToken = req.cookies.rt;
 
   // If no refresh token, return empty access token
-  if (!refreshToken) return res.send({ ok: false, accessToken: '' });
+  if (!refreshToken) return res.status(422).json({ accessToken: '' });
 
   // Declare payload
   let payload = null;
@@ -51,18 +56,18 @@ app.post('/api/refresh', async (req, res) => {
     payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
   } catch (err) {
     // If error, return empty access token
-    return res.send({ ok: false, accessToken: '' });
+    return res.status(422).json({ accessToken: '' });
   }
 
-  // Get user
+  // Token is valid and we can send back an access token
   const user = await prisma.query.user({ where: { id: payload.userId } });
 
   // If no user found, return empty access token
-  if (!user) return res.send({ ok: false, accessToken: '' });
+  if (!user) return res.status(422).json({ accessToken: '' });
 
   // If token version does not match, return empty access token
   if (user.refreshTokenVersion !== payload.refreshTokenVersion)
-    return res.send({ ok: false, accessToken: '' });
+    return res.status(422).json({ accessToken: '' });
 
   // Create a new refresh token
   const newRefreshToken = createRefreshToken(user.id, user.refreshTokenVersion);
@@ -71,17 +76,16 @@ app.post('/api/refresh', async (req, res) => {
   sendRefreshToken(res, newRefreshToken);
 
   // Create access token
-  const accessToken = createAccessToken(user.id);
+  const newAccessToken = createAccessToken(user.id);
 
   // Send access token
-  return res.send({ ok: true, accessToken });
+  return res.status(200).json({ accessToken: newAccessToken });
 });
 
 server.applyMiddleware({ app, path: '/api/graphql', cors: corsOptions });
 
 app.listen({ port: process.env.PORT || 4000 }, err => {
   if (err) throw err;
-  console.log(
-    `Apollo Server ready at http://localhost:${process.env.PORT}/api/`
-  );
+
+  console.log(`Server ready at http://localhost:${process.env.PORT}/api/`);
 });

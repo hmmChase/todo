@@ -2,10 +2,10 @@ import { ApolloServer } from 'apollo-server-express';
 import prisma from './prismaClient';
 import schema from './schema';
 
-const dev = process.env.NODE_ENV === 'development';
+export default () => {
+  const dev = process.env.NODE_ENV === 'development';
 
-export default () =>
-  new ApolloServer({
+  return new ApolloServer({
     schema,
     context: async ({ req, res }) => {
       let accessToken = '';
@@ -23,3 +23,4 @@ export default () =>
       settings: { 'editor.theme': 'light', 'request.credentials': 'include' }
     }
   });
+};

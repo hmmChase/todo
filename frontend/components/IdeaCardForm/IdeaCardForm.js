@@ -77,7 +77,7 @@ const IdeaCardForm = () => {
         onChange={handleChangeIdeaInput}
       />
 
-      <sc.BoxImg src='static/images/ideabox.png' alt='ideabox' />
+      <sc.BoxImg src='images/ideabox.png' alt='ideabox' />
 
       <sc.SubmitBtn
         type='primary'

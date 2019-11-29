@@ -2,9 +2,9 @@ import {
   AuthenticationError,
   ForbiddenError,
   UserInputError
-} from "apollo-server-express";
+} from 'apollo-server-express';
 
-import * as auth from "../utils/auth";
+import * as auth from '../utils/auth';
 
 export default {
   Query: {
@@ -25,7 +25,7 @@ export default {
     currentUserIdea: async (parent, args, ctx, info) => {
       // If no token cookie present, throw error
       if (!ctx.req.cookies.rt)
-        throw new AuthenticationError("Must be signed in.");
+        throw new AuthenticationError('Must be signed in.');
 
       // Verify cookie and decode payload
       const currentUser = auth.verifyRefreshToken(ctx.req.cookies.rt);
@@ -47,7 +47,7 @@ export default {
 
     currentUserIdeas: async (parent, args, ctx, info) => {
       // If no access token, throw error
-      if (!ctx.accessToken) throw new AuthenticationError("Must be signed in.");
+      if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify JWT and decode payload
       const userId = auth.verifyAccessToken(ctx.accessToken);
@@ -61,7 +61,7 @@ export default {
 
     currentUserPaginatedIdeas: async (parent, args, ctx, info) => {
       // If no access token present, throw error
-      if (!ctx.accessToken) throw new AuthenticationError("Must be signed in.");
+      if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify JWT and decode payload
       const userId = auth.verifyAccessToken(ctx.accessToken);
@@ -77,7 +77,7 @@ export default {
     createIdea: (parent, args, ctx, info) => {
       // If no token cookie present, throw error
       if (!ctx.req.cookies.rt)
-        throw new AuthenticationError("Must be signed in.");
+        throw new AuthenticationError('Must be signed in.');
 
       // Get current user from JWT
       const currentUser = auth.verifyRefreshToken(ctx.req.cookies.rt);
@@ -97,7 +97,7 @@ export default {
     updateIdea: async (parent, args, ctx, info) => {
       // If no token cookie present, throw error
       if (!ctx.req.cookies.rt)
-        throw new AuthenticationError("Must be signed in.");
+        throw new AuthenticationError('Must be signed in.');
 
       // Get current user from JWT
       const currentUser = auth.verifyRefreshToken(ctx.req.cookies.rt);
@@ -124,7 +124,7 @@ export default {
     deleteIdea: async (parent, args, ctx, info) => {
       // If no token cookie present, throw error
       if (!ctx.req.cookies.rt)
-        throw new AuthenticationError("Must be signed in.");
+        throw new AuthenticationError('Must be signed in.');
 
       // Get current user from JWT
       const currentUser = auth.verifyRefreshToken(ctx.req.cookies.rt);
