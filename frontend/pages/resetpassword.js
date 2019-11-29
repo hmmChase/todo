@@ -3,8 +3,6 @@ import Head from '../components/Head/Head';
 import LayoutMain from '../components/LayoutMain/LayoutMain';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import withApollo from '../graphql/withApollo';
-import isLoggedIn from '../utils/isLoggedIn';
-import redirect from '../utils/redirect';
 
 const ResetPasswordPage = props => (
   <>
@@ -25,13 +23,9 @@ const ResetPasswordPage = props => (
 ResetPasswordPage.getInitialProps = async ctx => {
   const { _req, _res, _pathname, query } = ctx;
 
-  // if (req && res && pathname) {
-  //   authenticate(req, res, pathname);
-  // }
-
-  const loggedIn = await isLoggedIn(ctx.apolloClient);
-
-  if (loggedIn) redirect(ctx, '/');
+  if (req && res && pathname) {
+    authenticate(req, res, pathname);
+  }
 
   const { resetToken, resetTokenExpiry } = query;
 
