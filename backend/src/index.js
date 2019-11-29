@@ -31,6 +31,7 @@ app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === 'development') app.use(logger);
 
@@ -85,5 +86,6 @@ server.applyMiddleware({ app, path: '/api/graphql', cors: corsOptions });
 
 app.listen({ port: process.env.PORT || 4000 }, err => {
   if (err) throw err;
+
   console.log(`Server ready at http://localhost:${process.env.PORT}/api/`);
 });

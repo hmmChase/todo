@@ -65,5 +65,8 @@ typings/
 build
 dist
 bundles
-README.md
+
+# Now
+package-lock.json
 yarn.lock
+README.md

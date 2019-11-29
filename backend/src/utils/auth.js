@@ -1,7 +1,7 @@
 import {
   AuthenticationError,
-  ForbiddenError,
-  UserInputError
+  _ForbiddenError,
+  _UserInputError
 } from 'apollo-server-express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -12,7 +12,6 @@ import isEmail from 'isemail';
 import * as config from '../config';
 
 /* Email */
-
 export const validateEmail = email => {
   if (typeof email !== 'string')
     throw new AuthenticationError('Invalid email address');
@@ -24,7 +23,6 @@ export const validateEmail = email => {
 };
 
 /* Password */
-
 export const validatePassword = password => {
   if (typeof password !== 'string')
     throw new AuthenticationError('Invalid password');
@@ -58,15 +56,10 @@ export const comparePasswords = (password, confirmPassword) => {
 };
 
 /* Access Token */
-
-export const createAccessToken = userId => {
-  // TODO: Add CSRK token
-  // https://www.youtube.com/watch?v=67mezK3NzpU&feature=youtu.be&t=36m30s
-
-  return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
+export const createAccessToken = userId =>
+  jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: config.accessTokenExpiryTime
   });
-};
 
 export const verifyAccessToken = accessToken => {
   try {
@@ -79,14 +72,10 @@ export const verifyAccessToken = accessToken => {
 };
 
 /* Refresh Token */
-
-export const createRefreshToken = (userId, refreshTokenVersion) => {
-  return jwt.sign(
-    { userId, refreshTokenVersion },
-    process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: config.refreshTokenExpiryTime }
-  );
-};
+export const createRefreshToken = (userId, refreshTokenVersion) =>
+  jwt.sign({ userId, refreshTokenVersion }, process.env.REFRESH_TOKEN_SECRET, {
+    expiresIn: config.refreshTokenExpiryTime
+  });
 
 export const verifyRefreshToken = refreshToken => {
   try {
@@ -122,7 +111,6 @@ export const sendRefreshToken = (res, refreshToken) => {
 };
 
 /* Password Reset Token */
-
 export const createPasswordResetToken = async () => {
   const randomBytesPromisified = promisify(randomBytes);
   const resetTokenBytes = await randomBytesPromisified(20);
@@ -143,3 +131,6 @@ export const validateResetTokenExpiry = resetTokenExpiry => {
       'Your reset request has expired.  Please submit a new one.'
     );
 };
+
+// TODO: Add CSRF token
+// https://www.youtube.com/watch?v=67mezK3NzpU&feature=youtu.be&t=36m30s

@@ -25,12 +25,11 @@ const isServer = () => typeof window === 'undefined';
 // https://github.com/lfades/next-with-apollo/issues/69
 
 const withApollo = (PageComponent, { ssr = true } = {}) => {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development')
     console.log(
       '----------start withApollo----------',
       new Date().getMilliseconds()
     );
-  }
 
   // WithApollo HOC
   const WithApollo = ({
@@ -40,31 +39,27 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
     serverAccessToken,
     ...pageProps
   }) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development')
       console.log(
         '----------start withApollo HOC----------',
         new Date().getMilliseconds()
       );
-    }
 
     // ----------Access/Refresh token code----------
 
-    if (!isServer() && !getAccessToken()) {
-      // Client-side, set access token with access token returned from GIP
-      setAccessToken(serverAccessToken);
-    }
+    // Client-side, set access token with access token returned from GIP
+    if (!isServer() && !getAccessToken()) setAccessToken(serverAccessToken);
 
     // ---------------------------------------------
 
     // If apolloClient doesn't exist, create it
     const client = apolloClient || initApollo(apolloState);
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development')
       console.log(
         '----------end withApollo HOC----------',
         new Date().getMilliseconds()
       );
-    }
 
     return (
       <ApolloProvider client={client}>
@@ -81,9 +76,8 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
       PageComponent.displayName || PageComponent.name || 'Component';
 
     // Warn if old way of installing apollo is used
-    if (displayName === 'App') {
+    if (displayName === 'App')
       console.warn('This withApollo HOC only works with PageComponents.');
-    }
 
     // Set correct display name for devtools
     WithApollo.displayName = `withApollo(${displayName})`;
@@ -104,12 +98,11 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
     WithApollo.getInitialProps = async ctx => {
       const { req, res, AppTree } = ctx;
 
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === 'development')
         console.log(
           '----------start withApollo GIP----------',
           new Date().getMilliseconds()
         );
-      }
 
       // ----------Access/Refresh token code----------
 
@@ -136,6 +129,7 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
           });
 
           const data = await response.json();
+
           serverAccessToken = data.accessToken;
         }
       }
@@ -192,9 +186,8 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
             // Prevent Apollo Client GraphQL errors from crashing SSR.
             // Handle them in components via the data.error prop:
             // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
-            if (process.env.NODE_ENV === 'development') {
+            if (process.env.NODE_ENV === 'development')
               console.error('GraphQL error occurred [getDataFromTree]', error);
-            }
           }
         }
 
@@ -212,24 +205,22 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
       // the prop as `null` to the browser
       // apolloClient.toJSON = () => null;
 
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === 'development')
         console.log(
           '----------end withApollo GIP----------',
           new Date().getMilliseconds()
         );
-      }
 
       // Send data to WithApollo HOC
       return { ...pageProps, apolloState, serverAccessToken };
     };
   }
 
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development')
     console.log(
       '----------end withApollo----------',
       new Date().getMilliseconds()
     );
-  }
 
   return WithApollo;
 };

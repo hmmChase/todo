@@ -1,13 +1,7 @@
-/* eslint-disable global-require */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable consistent-return */
-/* eslint-disable no-param-reassign */
-
 // https://nextjs.org/docs#customizing-webpack-config
 
 // import 'dotenv/config';
 require('dotenv').config();
-
 const fs = require('fs');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
@@ -18,7 +12,10 @@ const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
-  fs.readFileSync(path.resolve(__dirname, './styles/antd-custom.less'), 'utf8')
+  fs.readFileSync(
+    path.resolve(__dirname, './public/styles/antd-custom.less'),
+    'utf8'
+  )
 );
 
 const nextConfig = {
@@ -36,7 +33,6 @@ const nextConfig = {
   // generateInDevMode: false,
 
   workboxOpts: {
-    // swDest: '../public/service-worker.js',
     swDest: 'static/service-worker.js',
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [

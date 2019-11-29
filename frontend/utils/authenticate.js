@@ -1,14 +1,22 @@
 import jwt from 'jsonwebtoken';
 import redirect from './redirect';
-import { CURRENT_USER } from '../graphql/queries';
+// import { CURRENT_USER } from '../graphql/queries';
+
+let accessToken = '';
+
+export const setAccessToken = token => {
+  accessToken = token;
+};
+
+export const getAccessToken = () => accessToken;
 
 export default (req, res, pathname) => {
   if (req.headers.cookie) {
     const refreshToken = req.headers.cookie.replace('rt=', '');
-    const secret = process.env.REFRESH_TOKEN_SECRET;
+    const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 
     try {
-      jwt.verify(refreshToken, secret);
+      jwt.verify(refreshToken, refreshTokenSecret);
 
       // apolloClient.cache.writeData({ data: { isLoggedIn: true } });
 
@@ -25,6 +33,7 @@ export default (req, res, pathname) => {
   }
 };
 
+// Not used
 export const graphQLAuth = async apolloClient => {
   const { loading, error, data } = await apolloClient.query({
     query: CURRENT_USER
@@ -37,6 +46,7 @@ export const graphQLAuth = async apolloClient => {
   }
 };
 
+// Not used
 export const checkLoggedIn = apolloClient => {
   apolloClient
     .query({
@@ -58,10 +68,15 @@ export const checkLoggedIn = apolloClient => {
     });
 };
 
-let accessToken = '';
+// Not used
+export const isLoggedIn = async client => {
+  try {
+    const {
+      data: { isLoggedIn }
+    } = await client.query({ query: IS_LOGGED_IN });
 
-export const setAccessToken = token => {
-  accessToken = token;
+    return isLoggedIn;
+  } catch {
+    return null;
+  }
 };
-
-export const getAccessToken = () => accessToken;
