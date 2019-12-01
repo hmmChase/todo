@@ -34,6 +34,14 @@ const nextConfig = {
 
   workboxOpts: {
     swDest: 'static/service-worker.js',
+    // staticFileGlobs: [
+    //   'www/manifest.json',
+    //   'www/**/*.css',
+    //   'www/**/*.{ttf,woff,woff2,eof}',
+    //   'www/**/*.js',
+    //   'www/**/*.html',
+    //   'www/**/*.{png,jpg,gif,svg,mp3}'
+    // ],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {

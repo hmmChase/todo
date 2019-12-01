@@ -101,7 +101,7 @@ export const sendRefreshToken = (res, refreshToken) => {
   const cookieOptions = {
     httpOnly: true,
     secure: production,
-    maxAge: config.refreshTokenCookieMaxAge
+    maxAge: config.refreshTokenCookieMaxAge,
     sameSite: 'strict'
     // path: '/'
     // domain: production ? 'next-graphql-starter.now.sh' : 'localhost'
