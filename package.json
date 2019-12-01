@@ -2,7 +2,7 @@
   "name": "next-graphql-starter",
   "version": "1.0.0",
   "private": true,
-  "description": "An example CRUD app with user authentification.",
+  "description": "An example CRUD app with user authentication.",
   "main": "index.js",
   "scripts": {
     "backend": "cd backend && npm run dev",
