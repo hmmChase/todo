@@ -1,7 +1,7 @@
 import {
   AuthenticationError,
   ForbiddenError,
-  UserInputError
+  _UserInputError
 } from 'apollo-server-express';
 
 import * as auth from '../utils/auth';
