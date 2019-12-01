@@ -4,13 +4,10 @@
   "description": "An example CRUD app with user authentication.",
   "dir": "ltr",
   "lang": "en",
-  "start_url": "/?source=pwa",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "/",
-  "theme_color": "#C8DCF0",
-  "background_color": "#EEE",
-  "splash_pages": null,
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
   "icons": [
     {
       "src": "images/pwa/android-36x36.png",

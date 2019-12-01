@@ -1,6 +1,6 @@
 {
   "name": "next-graphql-starter",
-  "alias": "next-graphql-starter.now.sh",
+  "alias": "next-graphql-starter",
   "version": 2,
   "builds": [
     {
@@ -14,10 +14,6 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "backend/src/index.js"
-    },
-    {
       "src": "^/service-worker.js$",
       "dest": "frontend/_next/static/service-worker.js",
       "headers": {
@@ -26,10 +22,14 @@
       }
     },
     {
+      "src": "/api/(.*)",
+      "dest": "backend/src/index.js"
+    },
+    {
       "src": "/(.*)",
       "dest": "frontend/$1",
       "continue": true
-    },
+    }
   ],
   "build": {
     "env": {

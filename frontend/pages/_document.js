@@ -70,7 +70,7 @@ class MyDocument extends Document {
           <meta name='viewport' content='width=device-width, initial-scale=1' />
 
           {/* Progressive Web App Manifest + Theme Color */}
-          <meta name='theme-color' content='#C8DCF0' />
+          <meta name='theme-color' content='#000000' />
           <link rel='manifest' href='manifest.json' />
 
           {/* Favicon */}
