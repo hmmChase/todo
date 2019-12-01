@@ -18,18 +18,18 @@
       "dest": "backend/src/index.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "frontend/$1",
-      "continue": true
-    },
-    {
       "src": "^/service-worker.js$",
       "dest": "frontend/_next/static/service-worker.js",
       "headers": {
         "cache-control": "public, max-age=43200, immutable",
         "Service-Worker-Allowed": "/"
       }
-    }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/$1",
+      "continue": true
+    },
   ],
   "build": {
     "env": {
