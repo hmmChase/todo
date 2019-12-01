@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import theme from '../styles/theme.style';
+import theme from '../public/styles/theme.style';
 // import '../public/styles/empty.less';
 
 const MyApp = props => {
