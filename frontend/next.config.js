@@ -25,6 +25,9 @@ const nextConfig = {
   // Custom webpack config for Ant Design Less
   lessLoaderOptions: { javascriptEnabled: true, modifyVars: themeVariables },
 
+  // https://developers.google.com/web/tools/workbox
+  // https://medium.com/google-developer-experts/add-offline-support-to-any-web-app-c20edc4bea0e
+
   // // https://github.com/hanford/next-offline#now-20
   // // Add the homepage to the cache
   // transformManifest: manifest => ['/'].concat(manifest),
