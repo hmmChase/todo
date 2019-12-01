@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
 import {
   AuthenticationError,
-  ForbiddenError,
-  UserInputError
+  _ForbiddenError,
+  _UserInputError
 } from 'apollo-server-express';
 
 import mailPasswordResetToken from '../utils/mail';
