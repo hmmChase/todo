@@ -2,9 +2,9 @@
 
 export default (prevProps, nextProps) => {
   const obj1 = prevProps;
-  console.log('TCL: isEqual -> obj1', obj1);
+  console.log('isEqual -> obj1', obj1);
   const obj2 = nextProps;
-  console.log('TCL: isEqual -> obj2', obj2);
+  console.log('isEqual -> obj2', obj2);
 
   const diff = Object.keys(obj1).reduce((result, key) => {
     if (!Object.prototype.hasOwnProperty.call(obj2, key)) {
@@ -18,11 +18,11 @@ export default (prevProps, nextProps) => {
     return result;
   }, Object.keys(obj2));
 
-  console.log('TCL: areEqual -> diff', diff);
+  console.log('areEqual -> diff', diff);
 
   const areEqual = !diff;
 
-  console.log('TCL: areEqual -> areEqual', areEqual);
+  console.log('areEqual -> areEqual', areEqual);
 
   return areEqual;
 };
