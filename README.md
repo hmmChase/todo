@@ -9,7 +9,7 @@
 - Next.js
 - Styled Components
 - Ant Design
-- Formik & Yup
+- Formik
 - Apollo Client
 - Apollo Server
 - Prisma
