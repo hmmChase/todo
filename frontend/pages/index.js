@@ -14,6 +14,7 @@ import authenticate from '../utils/authenticate';
 const IndexPage = () => (
   <>
     <Head title='Home' />
+
     <LayoutMain header={<HeaderMain />} content={<Ideas />} />
   </>
 );

@@ -96,15 +96,11 @@ export const verifyRefreshToken = refreshToken => {
 };
 
 export const sendRefreshToken = (res, refreshToken) => {
-  const production = process.env.NODE_ENV === 'production';
-
   const cookieOptions = {
     httpOnly: true,
-    secure: production,
+    secure: process.env.NODE_ENV === 'production',
     maxAge: config.refreshTokenCookieMaxAge,
     sameSite: 'strict'
-    // path: '/'
-    // domain: production ? 'next-graphql-starter.now.sh' : 'localhost'
   };
 
   res.cookie('rt', refreshToken, cookieOptions);
@@ -117,8 +113,6 @@ export const createPasswordResetToken = async () => {
 
   const resetToken = resetTokenBytes.toString('hex');
   const resetTokenExpiry = Date.now() + config.resetTokenExpiryTime;
-
-  console.log('TCL: resetTokenExpiry', resetTokenExpiry);
 
   return { resetToken, resetTokenExpiry };
 };

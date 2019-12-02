@@ -160,10 +160,7 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
       if (typeof window === 'undefined') {
         // When redirecting, the response is finished.
         // No point in continuing to render
-        if (res && (res.headersSent || res.finished)) {
-          // return {};
-          return pageProps;
-        }
+        if (res && (res.headersSent || res.finished)) return pageProps;
 
         // Only if ssr is enabled
         if (ssr) {

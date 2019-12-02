@@ -25,23 +25,10 @@ const nextConfig = {
   // Custom webpack config for Ant Design Less
   lessLoaderOptions: { javascriptEnabled: true, modifyVars: themeVariables },
 
-  // // https://github.com/hanford/next-offline#now-20
-  // // Add the homepage to the cache
-  // transformManifest: manifest => ['/'].concat(manifest),
-
-  // // PWA Doesn't work in Dev
-  // generateInDevMode: false,
-
+  // https://developers.google.com/web/tools/workbox
+  // https://medium.com/google-developer-experts/add-offline-support-to-any-web-app-c20edc4bea0e
   workboxOpts: {
     swDest: 'static/service-worker.js',
-    // staticFileGlobs: [
-    //   'www/manifest.json',
-    //   'www/**/*.css',
-    //   'www/**/*.{ttf,woff,woff2,eof}',
-    //   'www/**/*.js',
-    //   'www/**/*.html',
-    //   'www/**/*.{png,jpg,gif,svg,mp3}'
-    // ],
     maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     runtimeCaching: [
       {
