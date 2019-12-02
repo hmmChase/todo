@@ -58,7 +58,6 @@ ErrorPage.displayName = 'ErrorPage';
 
 ErrorPage.getInitialProps = props => {
   const { res, err } = props;
-  // const statusCode = res.statusCode || err.statusCode || null;
 
   let statusCode;
 

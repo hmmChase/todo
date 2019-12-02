@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import Footer from '../Footer/Footer';
 import * as sc from './LayoutMain.style';
 

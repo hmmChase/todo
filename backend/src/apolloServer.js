@@ -2,25 +2,21 @@ import { ApolloServer } from 'apollo-server-express';
 import prisma from './prismaClient';
 import schema from './schema';
 
-export default () => {
-  const dev = process.env.NODE_ENV === 'development';
-
-  return new ApolloServer({
+export default () =>
+  new ApolloServer({
     schema,
     context: async ({ req, res }) => {
       let accessToken = '';
 
-      if (req && req.headers && req.headers.authorization) {
+      if (req && req.headers && req.headers.authorization)
         accessToken = req.headers.authorization.replace('Bearer ', '');
-      }
 
       return { req, res, prisma, accessToken };
     },
     tracing: false,
     debug: false,
-    introspection: dev,
-    playground: dev && {
+    introspection: process.env.NODE_ENV === 'development',
+    playground: process.env.NODE_ENV === 'development' && {
       settings: { 'editor.theme': 'light', 'request.credentials': 'include' }
     }
   });
-};

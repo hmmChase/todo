@@ -23,9 +23,7 @@ const ResetPasswordPage = props => (
 ResetPasswordPage.getInitialProps = async ctx => {
   const { _req, _res, _pathname, query } = ctx;
 
-  if (req && res && pathname) {
-    authenticate(req, res, pathname);
-  }
+  if (req && res && pathname) authenticate(req, res, pathname);
 
   const { resetToken, resetTokenExpiry } = query;
 

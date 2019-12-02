@@ -5,9 +5,9 @@ import createApollo from './createApollo';
  * Creates or reuses apollo client in the browser.
  */
 
-let apolloClient = null;
-
 export default (initState, serverAccessToken) => {
+  let apolloClient = null;
+
   const isServer = typeof window === 'undefined';
 
   // Make sure to create a new client for every server-side request so that data
@@ -15,10 +15,7 @@ export default (initState, serverAccessToken) => {
   if (isServer) return createApollo(initState, serverAccessToken);
 
   // Reuse client on the client-side
-  if (!apolloClient) {
-    // setAccessToken(cookie.parse(document.cookie).test);
-    apolloClient = createApollo(initState);
-  }
+  if (!apolloClient) apolloClient = createApollo(initState);
 
   return apolloClient;
 };
