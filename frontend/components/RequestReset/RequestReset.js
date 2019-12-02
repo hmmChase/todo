@@ -21,7 +21,6 @@ const RequestReset = () => {
   );
 
   const handleSubmitForm = (values, formikHelpers) => {
-    console.log('TCL: values', values);
     requestReset({ variables: values });
 
     formikHelpers.resetForm();

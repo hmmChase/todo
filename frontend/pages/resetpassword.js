@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import Head from '../components/Head/Head';
 import LayoutMain from '../components/LayoutMain/LayoutMain';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
+import authenticate from '../utils/authenticate';
 import withApollo from '../graphql/withApollo';
 
 const ResetPasswordPage = props => (
@@ -21,9 +22,9 @@ const ResetPasswordPage = props => (
 );
 
 ResetPasswordPage.getInitialProps = async ctx => {
-  const { _req, _res, _pathname, query } = ctx;
+  const { req, res, pathname, query } = ctx;
 
-  if (req && res && pathname) authenticate(req, res, pathname);
+  // if (req && res && pathname) authenticate(req, res, pathname);
 
   const { resetToken, resetTokenExpiry } = query;
 
