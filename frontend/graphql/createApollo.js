@@ -8,18 +8,13 @@ import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import fetch from 'isomorphic-unfetch';
 import { getAccessToken, setAccessToken } from '../utils/authenticate';
-// import { schema } from './schema';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
-
-// withApollo first fetches queries and hydrates the store server-side
-// before sending the page to the client
-// https://github.com/lfades/next-with-apollo/issues/69
+// import { schema } from './schema';
 
 /**
  * Creates and configures the ApolloClient
- * @param  {Object} [initialState={}]
- * @param  {Object} config
+ * @param {Object} [initialState={}]
  */
 
 const isServer = () => typeof window === 'undefined';
@@ -56,13 +51,22 @@ const createApollo = (initialState = {}, serverAccessToken) => {
     accessTokenField: 'accessToken',
 
     isTokenValidOrUndefined: () => {
+      // Return true if:
+      // 1. Access token doesn't exist
+      // 2. Access token isn't expired
+
+      // Read Access token
       const accessToken = getAccessToken();
 
+      // If it's blank, return true
       if (!accessToken) return true;
 
+      // Check if Access token is expired
       try {
+        // Get expiration date
         const { exp } = jwtDecode(accessToken);
 
+        // If expired, return false
         if (Date.now() >= exp * 1000) return false;
 
         return true;
@@ -72,14 +76,11 @@ const createApollo = (initialState = {}, serverAccessToken) => {
     },
 
     fetchAccessToken: () => {
-      const url = isDev()
+      const refreshUrl = isDev()
         ? process.env.DEV_REFRESH_URL
         : process.env.PROD_REFRESH_URL;
 
-      return fetch(url, {
-        method: 'POST',
-        credentials: 'include'
-      });
+      return fetch(refreshUrl, { method: 'GET', credentials: 'include' });
     },
 
     handleFetch: accessToken => setAccessToken(accessToken),
@@ -106,15 +107,19 @@ const createApollo = (initialState = {}, serverAccessToken) => {
     const accessToken = isServer() ? serverAccessToken : getAccessToken();
 
     return {
-      headers: { authorization: accessToken ? `Bearer ${accessToken}` : '' }
+      headers: { Authorization: accessToken ? `Bearer ${accessToken}` : '' }
     };
   });
 
-  const url = isDev()
+  const graphqlUrl = isDev()
     ? process.env.DEV_GRAPHQL_URL
     : process.env.PROD_GRAPHQL_URL;
 
-  const httpLink = new HttpLink({ uri: url, credentials: 'include', fetch });
+  const httpLink = new HttpLink({
+    uri: graphqlUrl,
+    credentials: 'include',
+    fetch
+  });
 
   const link = isDev()
     ? ApolloLink.from([
@@ -135,9 +140,9 @@ const createApollo = (initialState = {}, serverAccessToken) => {
     connectToDevTools: !isServer(),
     // Disables forceFetch on the server (so queries are only run once)
     ssrMode: isServer(),
-    // schema,
     typeDefs,
     resolvers
+    // schema
   });
 };
 

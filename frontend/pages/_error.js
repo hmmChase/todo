@@ -24,11 +24,11 @@ const Error = React.memo(props => (
   </>
 ));
 
-Error.propTypes = { message: PropTypes.string.isRequired };
-
 Error.displayName = 'Error';
 
-const ErrorPage = React.memo(props => {
+Error.propTypes = { message: PropTypes.string.isRequired };
+
+const ErrorPage = props => {
   const { statusCode } = props;
 
   let error;
@@ -52,9 +52,7 @@ const ErrorPage = React.memo(props => {
   }
 
   return error;
-});
-
-ErrorPage.displayName = 'ErrorPage';
+};
 
 ErrorPage.getInitialProps = props => {
   const { res, err } = props;
@@ -71,6 +69,8 @@ ErrorPage.getInitialProps = props => {
 
   return { statusCode };
 };
+
+ErrorPage.displayName = 'ErrorPage';
 
 ErrorPage.defaultProps = { statusCode: null };
 

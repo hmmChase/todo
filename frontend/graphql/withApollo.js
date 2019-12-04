@@ -21,8 +21,7 @@ const isServer = () => typeof window === 'undefined';
  */
 
 // withApollo first fetches queries and hydrates the store server-side
-// before sending the page to the client
-// https://github.com/lfades/next-with-apollo/issues/69
+// then passes the data to pages through HOC
 
 const withApollo = (PageComponent, { ssr = true } = {}) => {
   if (process.env.NODE_ENV === 'development')
@@ -92,9 +91,9 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
     };
   }
 
-  // Retrieve data server-side
+  // Code execution starts here
   if (ssr || PageComponent.getInitialProps) {
-    // Code exectution starts here
+    // Retrieve data server-side
     WithApollo.getInitialProps = async ctx => {
       const { req, res, AppTree } = ctx;
 
@@ -106,15 +105,17 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
 
       // ----------Access/Refresh token code----------
 
+      // On first load or refresh, if a Refresh token exists
+      // attempt to get an Access token and store as a global variable
+
       // Declare access token
       let serverAccessToken = '';
 
       if (isServer()) {
         let cookies = {};
 
-        if (req && req.headers && req.headers.cookie) {
+        if (req && req.headers && req.headers.cookie)
           cookies = cookie.parse(req.headers.cookie);
-        }
 
         if (cookies.rt) {
           const url =

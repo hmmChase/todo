@@ -16,6 +16,12 @@ import * as config from '../config';
 export default {
   Query: {
     user: (parent, args, ctx, info) => {
+      // If no access token, throw error
+      if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
+
+      // Verify access token
+      auth.verifyAccessToken(ctx.accessToken);
+
       // Find and return user matching ID
       return ctx.prisma.query.user({ where: { id: args.id } }, info);
     },
@@ -32,6 +38,13 @@ export default {
     },
 
     usersConnection: (parent, args, ctx, info) => {
+      // If no access token, throw error
+      if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
+
+      // Verify access token
+      auth.verifyAccessToken(ctx.accessToken);
+
+      // Return all users
       return ctx.prisma.query.usersConnection({}, info);
     },
 
@@ -40,15 +53,15 @@ export default {
       if (!ctx.accessToken) return null;
 
       // Verify access token and decode payload
-      const userId = auth.verifyAccessToken(ctx.accessToken);
+      const payload = auth.verifyAccessToken(ctx.accessToken);
 
-      // Find user matching payload ID
+      // Find user matching userId
       const user = await ctx.prisma.query.user(
-        { where: { id: userId.userId } },
+        { where: { id: payload.userId } },
         info
       );
 
-      // If no user found, return null
+      // If no user found, return nothing
       if (!user) return null;
 
       // Return user
@@ -97,7 +110,7 @@ export default {
       // Create access token
       const accessToken = createAccessToken(newUser.id);
 
-      // Return access token and user info
+      // Return access token and user data
       return {
         accessToken,
         user: { id: newUser.id, email: newUser.email, ideas: newUser.ideas }
@@ -129,7 +142,7 @@ export default {
       // Create access token
       const accessToken = createAccessToken(user.id);
 
-      // Return access token and user info
+      // Return access token and user data
       return {
         accessToken,
         user: { id: user.id, email: user.email, ideas: user.ideas }
@@ -208,17 +221,19 @@ export default {
     },
 
     revokeRefreshToken: async (parent, args, ctx, info) => {
-      // Get user data
+      // Get user
       const user = await ctx.prisma.query.user({ where: { id: args.id } });
 
+      // Increment refresh token version
       const incrementedVersion = user.refreshTokenVersion + 1;
 
-      // Increment refreshTokenVersion
+      // Update refresh token version
       ctx.prisma.mutation.updateUser({
         where: { id: user.id },
         data: { refreshTokenVersion: incrementedVersion }
       });
 
+      // Return boolean
       return true;
     }
   }
