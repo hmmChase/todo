@@ -11,7 +11,7 @@ import * as sc from './IdeaDetail.style';
 const IdeaDetail = props => {
   const { loading, error, data } = useQuery(CURRENT_USER_IDEA, {
     variables: { id: props.ideaId },
-    onError(_err) {}
+    onError(_error) {}
   });
 
   return (

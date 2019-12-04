@@ -17,7 +17,7 @@ const validationSchema = yup.object({
 const RequestReset = () => {
   const [requestReset, { loading, error, called }] = useMutation(
     REQUEST_RESET,
-    { onError(_err) {} }
+    { onError(_error) {} }
   );
 
   const handleSubmitForm = (values, formikHelpers) => {

@@ -7,7 +7,7 @@ import { onError } from 'apollo-link-error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import fetch from 'isomorphic-unfetch';
-import { getAccessToken, setAccessToken } from '../utils/authenticate';
+import { getAccessToken, setAccessToken } from '../utils/accessToken';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 // import { schema } from './schema';
@@ -20,7 +20,7 @@ import { resolvers } from './resolvers';
 const isServer = () => typeof window === 'undefined';
 const isDev = () => process.env.NODE_ENV === 'development';
 
-const createApollo = (initialState = {}, serverAccessToken) => {
+const createApollo = (initialState = {}) => {
   // Log GraphQL request & response
   const consoleLogLink = new ApolloLink((operation, forward) => {
     console.log(
@@ -47,6 +47,7 @@ const createApollo = (initialState = {}, serverAccessToken) => {
     console.log('errorLink networkError: ', networkError);
   });
 
+  // Fetch a new Access token if one is present and expired
   const refreshLink = new TokenRefreshLink({
     accessTokenField: 'accessToken',
 
@@ -54,11 +55,12 @@ const createApollo = (initialState = {}, serverAccessToken) => {
       // Return true if:
       // 1. Access token doesn't exist
       // 2. Access token isn't expired
+      // False triggers fetchAccessToken
 
       // Read Access token
       const accessToken = getAccessToken();
 
-      // If it's blank, return true
+      // If Access token doesn't exist
       if (!accessToken) return true;
 
       // Check if Access token is expired
@@ -66,11 +68,13 @@ const createApollo = (initialState = {}, serverAccessToken) => {
         // Get expiration date
         const { exp } = jwtDecode(accessToken);
 
-        // If expired, return false
+        // If expired
         if (Date.now() >= exp * 1000) return false;
 
+        // If not expired
         return true;
       } catch {
+        // If invalid
         return false;
       }
     },
@@ -85,17 +89,8 @@ const createApollo = (initialState = {}, serverAccessToken) => {
 
     handleFetch: accessToken => setAccessToken(accessToken),
 
-    handleResponse: (_operation, _accessTokenField) => _response => {
-      // here you can parse response, handle errors, prepare returned token to
-      // further operations
-      // returned object should be like this:
-      // {
-      //    access_token: 'token string here'
-      // }
-    },
-
-    handleError: err => {
-      if (isDev()) console.error('refreshLink handleError: ', err);
+    handleError: error => {
+      if (isDev()) console.error('refreshLink handleError: ', error);
 
       // your custom action here
       // user.logout();
@@ -104,7 +99,7 @@ const createApollo = (initialState = {}, serverAccessToken) => {
 
   // Add cookie to request header
   const authLink = setContext((_request, _previousContext) => {
-    const accessToken = isServer() ? serverAccessToken : getAccessToken();
+    const accessToken = getAccessToken();
 
     return {
       headers: { Authorization: accessToken ? `Bearer ${accessToken}` : '' }

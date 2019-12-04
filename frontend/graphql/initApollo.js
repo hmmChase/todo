@@ -6,13 +6,12 @@ import createApollo from './createApollo';
  * @param {Object} initialState
  */
 
-export default (initialState, serverAccessToken) => {
+export default initialState => {
   let apolloClient = null;
 
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
-  if (typeof window === 'undefined')
-    return createApollo(initialState, serverAccessToken);
+  if (typeof window === 'undefined') return createApollo(initialState);
 
   // Reuse client on the client-side
   if (!apolloClient) apolloClient = createApollo(initialState);

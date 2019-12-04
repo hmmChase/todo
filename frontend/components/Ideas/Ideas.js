@@ -13,7 +13,7 @@ const Ideas = () => {
     {
       variables: { first: pageSize },
       notifyOnNetworkStatusChange: true,
-      onError(_err) {}
+      onError(_error) {}
     }
   );
 

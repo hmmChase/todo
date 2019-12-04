@@ -34,7 +34,7 @@ const ResetPassword = props => {
       // onCompleted() {
       //   handleCompleted();
       // },
-      onError(_err) {}
+      onError(_error) {}
     }
   );
 

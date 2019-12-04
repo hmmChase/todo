@@ -43,7 +43,7 @@ const IdeaCardForm = () => {
     update(cache, { data }) {
       handleUpdate(cache, data);
     },
-    onError(_err) {}
+    onError(_error) {}
   });
 
   const canSubmit = value => {

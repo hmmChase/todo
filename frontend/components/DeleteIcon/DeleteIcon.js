@@ -42,7 +42,7 @@ const DeleteIcon = props => {
     update(cache, { data }) {
       handleUpdate(cache, data);
     },
-    onError(_err) {}
+    onError(_error) {}
   });
 
   const handleClickDeleteBtn = e => {

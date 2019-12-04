@@ -52,7 +52,7 @@ app.get('/api/refresh', async (req, res) => {
   // Verify refresh token and decode payload
   try {
     payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-  } catch (err) {
+  } catch (error) {
     // If error, return empty access token
     return res.status(422).json({ accessToken: '' });
   }

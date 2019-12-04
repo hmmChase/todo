@@ -2,14 +2,6 @@ import jwt from 'jsonwebtoken';
 import redirect from './redirect';
 // import { CURRENT_USER } from '../graphql/queries';
 
-let accessToken = '';
-
-export const setAccessToken = token => {
-  accessToken = token;
-};
-
-export const getAccessToken = () => accessToken;
-
 export default (req, res, pathname) => {
   if (req.headers.cookie) {
     const refreshToken = req.headers.cookie.replace('rt=', '');
@@ -21,7 +13,7 @@ export default (req, res, pathname) => {
       // apolloClient.cache.writeData({ data: { isLoggedIn: true } });
 
       if (pathname === '/welcome') redirect(res, '/');
-    } catch (err) {
+    } catch (error) {
       // apolloClient.cache.writeData({ data: { isLoggedIn: false } });
 
       if (pathname !== '/welcome') redirect(res, '/welcome');

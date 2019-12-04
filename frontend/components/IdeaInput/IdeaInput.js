@@ -5,7 +5,7 @@ import { UPDATE_IDEA } from '../../graphql/queries';
 import * as sc from './IdeaInput.style';
 
 const IdeaInput = props => {
-  const [updateIdea] = useMutation(UPDATE_IDEA, { onError(_err) {} });
+  const [updateIdea] = useMutation(UPDATE_IDEA, { onError(_error) {} });
 
   const handleChangeideaInput = debounce(
     e => updateIdea({ variables: { id: props.id, content: e.target.value } }),
