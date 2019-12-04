@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import { useEffect } from 'react';
+import { StrictMode, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import theme from '../public/styles/theme.style';
@@ -30,14 +30,16 @@ const MyApp = props => {
     );
 
   return (
+    // <StrictMode>
     <ThemeProvider theme={theme}>
       <Component {...pageProps} />
     </ThemeProvider>
+    // </StrictMode>
   );
 };
 
 MyApp.propTypes = {
-  Component: PropTypes.func.isRequired,
+  Component: PropTypes.any.isRequired,
   pageProps: PropTypes.object.isRequired
 };
 

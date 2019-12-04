@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import * as yup from 'yup';
 import DisplayError from '../DisplayError/DisplayError';
 import { SIGN_UP } from '../../graphql/queries';
-import { setAccessToken } from '../../utils/authenticate';
+import { setAccessToken } from '../../utils/accessToken';
 import { passwordRequirements } from '../../constants';
 import * as sc from './SignUp.style';
 
@@ -41,7 +41,7 @@ const SignUp = () => {
     onCompleted(data) {
       handleCompleted(data);
     },
-    onError(_err) {}
+    onError(_error) {}
   });
 
   const handleSubmitForm = async (values, formikHelpers) => {

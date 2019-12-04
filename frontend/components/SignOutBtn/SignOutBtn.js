@@ -2,14 +2,14 @@
 import Link from 'next/link';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { SIGN_OUT } from '../../graphql/queries';
-import { setAccessToken } from '../../utils/authenticate';
+import { clearAccessToken } from '../../utils/accessToken';
 import * as sc from './SignOutBtn.style';
 
 const SignOutBtn = () => {
   const apolloClient = useApolloClient();
 
   const handleCompleted = () => {
-    setAccessToken('');
+    clearAccessToken();
 
     apolloClient.clearStore();
 
@@ -22,7 +22,7 @@ const SignOutBtn = () => {
     onCompleted() {
       handleCompleted();
     },
-    onError(_err) {}
+    onError(_error) {}
   });
 
   const handleClickBtn = () => signOut();

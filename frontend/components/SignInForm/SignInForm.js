@@ -4,7 +4,7 @@ import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 import DisplayError from '../DisplayError/DisplayError';
 import { SIGN_IN } from '../../graphql/queries';
-import { setAccessToken } from '../../utils/authenticate';
+import { setAccessToken } from '../../utils/accessToken';
 import * as sc from './SignInForm.style';
 
 const validationSchema = yup.object({
@@ -34,7 +34,7 @@ const SignInForm = () => {
     onCompleted(data) {
       handleCompleted(data);
     },
-    onError(_err) {}
+    onError(_error) {}
   });
 
   const handleSubmitForm = (values, formikHelpers) => {

@@ -1,12 +1,13 @@
 /* eslint-disable require-atomic-updates */
 
-import React from 'react';
 import Head from 'next/head';
-import fetch from 'isomorphic-unfetch';
-import cookie from 'cookie';
 import { ApolloProvider } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
-import { getAccessToken, setAccessToken } from '../utils/authenticate';
+import {
+  fetchAccessToken,
+  getAccessToken,
+  setAccessToken
+} from '../utils/accessToken';
 import initApollo from './initApollo';
 
 const isServer = () => typeof window === 'undefined';
@@ -21,8 +22,7 @@ const isServer = () => typeof window === 'undefined';
  */
 
 // withApollo first fetches queries and hydrates the store server-side
-// before sending the page to the client
-// https://github.com/lfades/next-with-apollo/issues/69
+// then passes the data to pages through HOC
 
 const withApollo = (PageComponent, { ssr = true } = {}) => {
   if (process.env.NODE_ENV === 'development')
@@ -47,8 +47,10 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
 
     // ----------Access/Refresh token code----------
 
-    // Client-side, set access token with access token returned from GIP
-    if (!isServer() && !getAccessToken()) setAccessToken(serverAccessToken);
+    // Client-side, if no Access token set,
+    // set Access token with Access token returned from GIP
+    if (!isServer() && !getAccessToken() && serverAccessToken)
+      setAccessToken(serverAccessToken);
 
     // ---------------------------------------------
 
@@ -92,9 +94,9 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
     };
   }
 
-  // Retrieve data server-side
+  // Code execution starts here
   if (ssr || PageComponent.getInitialProps) {
-    // Code exectution starts here
+    // Retrieve data server-side
     WithApollo.getInitialProps = async ctx => {
       const { req, res, AppTree } = ctx;
 
@@ -106,51 +108,25 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
 
       // ----------Access/Refresh token code----------
 
-      // Declare access token
+      // On first load or refresh, if a Refresh token exists,
+      // attempt to fetch an Access token and store as a global variable
+
       let serverAccessToken = '';
 
-      if (isServer()) {
-        let cookies = {};
-
-        if (req && req.headers && req.headers.cookie) {
-          cookies = cookie.parse(req.headers.cookie);
-        }
-
-        if (cookies.rt) {
-          const url =
-            process.env.NODE_ENV === 'development'
-              ? process.env.DEV_REFRESH_URL
-              : process.env.PROD_REFRESH_URL;
-
-          const response = await fetch(url, {
-            method: 'POST',
-            credentials: 'include',
-            headers: { cookie: `rt=${cookies.rt}` }
-          });
-
-          const data = await response.json();
-
-          serverAccessToken = data.accessToken;
-        }
-      }
+      if (req && req.headers && req.headers.cookie)
+        serverAccessToken = await fetchAccessToken(req.headers.cookie);
 
       // ---------------------------------------------
 
-      // Initialize ApolloClient
-      // Add it to the ctx object
+      // Initialize ApolloClient and add it to the ctx object,
       // so it's available in `PageComponent.getInitialProps`.
 
-      const apolloClient = (ctx.apolloClient = initApollo(
-        // Empty initialState object
-        {},
-        // After the access token is fetched
-        // Pass it to the apollo client
-        serverAccessToken
-      ));
+      // Pass an empty initialState object to initApollo
+      const apolloClient = (ctx.apolloClient = initApollo({}));
 
-      // Run all GraphQL queries in the component tree
-      // and extract the resulting data
-      // If a page has a getInitialProps, call it
+      // Run all GraphQL queries in the component tree,
+      // and extract the resulting data.
+      // If a page has a getInitialProps, call it.
       // pageProps is now equal to the data returned server-side
       const pageProps = PageComponent.getInitialProps
         ? await PageComponent.getInitialProps(ctx)

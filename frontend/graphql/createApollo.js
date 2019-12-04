@@ -7,25 +7,20 @@ import { onError } from 'apollo-link-error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import fetch from 'isomorphic-unfetch';
-import { getAccessToken, setAccessToken } from '../utils/authenticate';
-// import { schema } from './schema';
+import { getAccessToken, setAccessToken } from '../utils/accessToken';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
-
-// withApollo first fetches queries and hydrates the store server-side
-// before sending the page to the client
-// https://github.com/lfades/next-with-apollo/issues/69
+// import { schema } from './schema';
 
 /**
  * Creates and configures the ApolloClient
- * @param  {Object} [initialState={}]
- * @param  {Object} config
+ * @param {Object} [initialState={}]
  */
 
 const isServer = () => typeof window === 'undefined';
 const isDev = () => process.env.NODE_ENV === 'development';
 
-const createApollo = (initialState = {}, serverAccessToken) => {
+const createApollo = (initialState = {}) => {
   // Log GraphQL request & response
   const consoleLogLink = new ApolloLink((operation, forward) => {
     console.log(
@@ -52,49 +47,50 @@ const createApollo = (initialState = {}, serverAccessToken) => {
     console.log('errorLink networkError: ', networkError);
   });
 
+  // Fetch a new Access token if one is present and expired
   const refreshLink = new TokenRefreshLink({
     accessTokenField: 'accessToken',
 
     isTokenValidOrUndefined: () => {
+      // Return true if:
+      // 1. Access token doesn't exist
+      // 2. Access token isn't expired
+      // False triggers fetchAccessToken
+
+      // Read Access token
       const accessToken = getAccessToken();
 
+      // If Access token doesn't exist
       if (!accessToken) return true;
 
+      // Check if Access token is expired
       try {
+        // Get expiration date
         const { exp } = jwtDecode(accessToken);
 
+        // If expired
         if (Date.now() >= exp * 1000) return false;
 
+        // If not expired
         return true;
       } catch {
+        // If invalid
         return false;
       }
     },
 
     fetchAccessToken: () => {
-      const url = isDev()
+      const refreshUrl = isDev()
         ? process.env.DEV_REFRESH_URL
         : process.env.PROD_REFRESH_URL;
 
-      return fetch(url, {
-        method: 'POST',
-        credentials: 'include'
-      });
+      return fetch(refreshUrl, { method: 'GET', credentials: 'include' });
     },
 
     handleFetch: accessToken => setAccessToken(accessToken),
 
-    handleResponse: (_operation, _accessTokenField) => _response => {
-      // here you can parse response, handle errors, prepare returned token to
-      // further operations
-      // returned object should be like this:
-      // {
-      //    access_token: 'token string here'
-      // }
-    },
-
-    handleError: err => {
-      if (isDev()) console.error('refreshLink handleError: ', err);
+    handleError: error => {
+      if (isDev()) console.error('refreshLink handleError: ', error);
 
       // your custom action here
       // user.logout();
@@ -103,18 +99,22 @@ const createApollo = (initialState = {}, serverAccessToken) => {
 
   // Add cookie to request header
   const authLink = setContext((_request, _previousContext) => {
-    const accessToken = isServer() ? serverAccessToken : getAccessToken();
+    const accessToken = getAccessToken();
 
     return {
-      headers: { authorization: accessToken ? `Bearer ${accessToken}` : '' }
+      headers: { Authorization: accessToken ? `Bearer ${accessToken}` : '' }
     };
   });
 
-  const url = isDev()
+  const graphqlUrl = isDev()
     ? process.env.DEV_GRAPHQL_URL
     : process.env.PROD_GRAPHQL_URL;
 
-  const httpLink = new HttpLink({ uri: url, credentials: 'include', fetch });
+  const httpLink = new HttpLink({
+    uri: graphqlUrl,
+    credentials: 'include',
+    fetch
+  });
 
   const link = isDev()
     ? ApolloLink.from([
@@ -135,9 +135,9 @@ const createApollo = (initialState = {}, serverAccessToken) => {
     connectToDevTools: !isServer(),
     // Disables forceFetch on the server (so queries are only run once)
     ssrMode: isServer(),
-    // schema,
     typeDefs,
     resolvers
+    // schema
   });
 };
 

@@ -35,13 +35,11 @@ app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === 'development') app.use(logger);
 
-app.get('/', (_req, res) => res.send('hello'));
+app.get('/', (_req, res) => res.send('/'));
 
-app.get('/api', (_req, res) => res.send('hello'));
+app.get('/api', (_req, res) => res.send('api'));
 
-app.post('/api/refresh', async (req, res) => {
-  console.log('/api/refresh');
-
+app.get('/api/refresh', async (req, res) => {
   // Read refresh token
   const refreshToken = req.cookies.rt;
 
@@ -51,25 +49,25 @@ app.post('/api/refresh', async (req, res) => {
   // Declare payload
   let payload = null;
 
-  // Verify refresh token
+  // Verify refresh token and decode payload
   try {
     payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-  } catch (err) {
+  } catch (error) {
     // If error, return empty access token
     return res.status(422).json({ accessToken: '' });
   }
 
-  // Token is valid and we can send back an access token
+  // Get user matching userId
   const user = await prisma.query.user({ where: { id: payload.userId } });
 
   // If no user found, return empty access token
   if (!user) return res.status(422).json({ accessToken: '' });
 
-  // If token version does not match, return empty access token
+  // If refresh token versions don't match, return empty access token
   if (user.refreshTokenVersion !== payload.refreshTokenVersion)
     return res.status(422).json({ accessToken: '' });
 
-  // Create a new refresh token
+  // Create a fresh refresh token
   const newRefreshToken = createRefreshToken(user.id, user.refreshTokenVersion);
 
   // Send a new refresh token cookie

@@ -36,7 +36,10 @@ export default async (email, resetToken, resetTokenExpiry) => {
         </a>`
       )
     });
-  } catch (err) {
-    throw Error(`Error sending email. (${err})`);
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development')
+      console.error('mailPasswordResetToken error: ', error);
+
+    throw Error(`Error sending email. (${error})`);
   }
 };
