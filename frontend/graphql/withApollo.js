@@ -3,6 +3,8 @@
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
+import jwt from 'jsonwebtoken';
+import cookie from 'cookie';
 import {
   fetchAccessToken,
   getAccessToken,
@@ -108,13 +110,51 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
 
       // ----------Access/Refresh token code----------
 
-      // On first load or refresh, if a Refresh token exists,
-      // attempt to fetch an Access token and store as a global variable
+      // On first load or refresh, if a Refresh token exists, verify it,
+      // then attempt to fetch an Access token and store as a global variable
 
       let serverAccessToken = '';
 
-      if (req && req.headers && req.headers.cookie)
-        serverAccessToken = await fetchAccessToken(req.headers.cookie);
+      // Check for cookie header
+      if (req && req.headers && req.headers.cookie) {
+        // Get cookies
+        const parsedCookies = cookie.parse(req.headers.cookie);
+
+        // If Refresh token available
+        if (parsedCookies.rt) {
+          try {
+            // Verify Refresh token
+            await jwt.verify(
+              parsedCookies.rt,
+              process.env.REFRESH_TOKEN_SECRET,
+
+              // Fetch Access token
+              async (err, _decoded) => {
+                if (!err) {
+                  try {
+                    // Fetch Access Token
+                    const accessToken = await fetchAccessToken(
+                      parsedCookies.rt
+                    );
+
+                    // Set Access Token
+                    setAccessToken(accessToken);
+
+                    // Update serverAccessToken
+                    serverAccessToken = accessToken;
+                  } catch (error) {
+                    if (process.env.NODE_ENV === 'development')
+                      console.error('withApollo token fetch error: ', error);
+                  }
+                }
+              }
+            );
+          } catch (error) {
+            if (process.env.NODE_ENV === 'development')
+              console.error('withApollo token verify error: ', error);
+          }
+        }
+      }
 
       // ---------------------------------------------
 

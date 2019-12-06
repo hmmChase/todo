@@ -1,14 +1,14 @@
 import jwt from 'jsonwebtoken';
 import redirect from './redirect';
+import { getAccessToken } from './accessToken';
 // import { CURRENT_USER } from '../graphql/queries';
 
-export default (req, res, pathname) => {
-  if (req.headers.cookie) {
-    const refreshToken = req.headers.cookie.replace('rt=', '');
-    const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
+export default (_req, res, pathname) => {
+  const accessToken = getAccessToken();
 
+  if (accessToken) {
     try {
-      jwt.verify(refreshToken, refreshTokenSecret);
+      jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
 
       // apolloClient.cache.writeData({ data: { isLoggedIn: true } });
 

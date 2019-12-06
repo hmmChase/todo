@@ -5,11 +5,12 @@ import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
-import jwtDecode from 'jwt-decode';
+import jwt from 'jsonwebtoken';
 import fetch from 'isomorphic-unfetch';
 import { getAccessToken, setAccessToken } from '../utils/accessToken';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
+import initCache from './initCache';
 // import { schema } from './schema';
 
 /**
@@ -43,8 +44,8 @@ const createApollo = (initialState = {}) => {
   });
 
   const errorLink = onError(({ graphQLErrors, networkError }) => {
-    console.log('errorLink graphQLErrors: ', graphQLErrors);
-    console.log('errorLink networkError: ', networkError);
+    if (graphQLErrors) console.log('errorLink graphQLErrors: ', graphQLErrors);
+    if (networkError) console.log('errorLink networkError: ', networkError);
   });
 
   // Fetch a new Access token if one is present and expired
@@ -63,17 +64,15 @@ const createApollo = (initialState = {}) => {
       // If Access token doesn't exist
       if (!accessToken) return true;
 
-      // Check if Access token is expired
+      // Check if Access token is valid
       try {
-        // Get expiration date
-        const { exp } = jwtDecode(accessToken);
+        jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
 
-        // If expired
-        if (Date.now() >= exp * 1000) return false;
-
-        // If not expired
+        // If valid
         return true;
-      } catch {
+      } catch (error) {
+        if (isDev()) console.error('isTokenValidOrUndefined error: ', error);
+
         // If invalid
         return false;
       }
@@ -128,6 +127,8 @@ const createApollo = (initialState = {}) => {
 
   // Hydrate cache with the initialState created server-side
   const cache = new InMemoryCache().restore(initialState);
+
+  if (isServer) initCache(cache);
 
   return new ApolloClient({
     link,
