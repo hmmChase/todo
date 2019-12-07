@@ -38,6 +38,9 @@ const SignUp = () => {
   };
 
   const [signUp, { loading, error }] = useMutation(SIGN_UP, {
+    update(cache) {
+      cache.writeData({ data: { isLoggedIn: true } });
+    },
     onCompleted(data) {
       handleCompleted(data);
     },

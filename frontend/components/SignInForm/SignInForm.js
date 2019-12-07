@@ -31,6 +31,9 @@ const SignInForm = () => {
   };
 
   const [signIn, { loading, error }] = useMutation(SIGN_IN, {
+    update(cache) {
+      cache.writeData({ data: { isLoggedIn: true } });
+    },
     onCompleted(data) {
       handleCompleted(data);
     },
