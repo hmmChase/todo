@@ -10,16 +10,16 @@ export default (_req, res, pathname) => {
     try {
       jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
 
-      // apolloClient.cache.writeData({ data: { isLoggedIn: true } });
+      apolloClient.cache.writeData({ data: { isLoggedIn: true } });
 
       if (pathname === '/welcome') redirect(res, '/');
     } catch (error) {
-      // apolloClient.cache.writeData({ data: { isLoggedIn: false } });
+      apolloClient.cache.writeData({ data: { isLoggedIn: false } });
 
       if (pathname !== '/welcome') redirect(res, '/welcome');
     }
   } else if (pathname !== '/welcome') {
-    // apolloClient.cache.writeData({ data: { isLoggedIn: false } });
+    apolloClient.cache.writeData({ data: { isLoggedIn: false } });
 
     redirect(res, '/welcome');
   }
