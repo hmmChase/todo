@@ -72,13 +72,6 @@
             "pure": true,
             "transpileTemplateLiterals": true
           }
-        ],
-        [
-          "import",
-          {
-            "libraryName": "antd",
-            "style": true
-          }
         ]
       ]
     }

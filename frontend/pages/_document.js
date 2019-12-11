@@ -146,7 +146,6 @@ class MyDocument extends Document {
           />
 
           {/* Fixes flash of unstyled content for first load (Chromium bug)
-            https://github.com/ant-design/ant-design/issues/16037
             Not only antd, but also any other style if you want to use ssr */}
           <style
             id='holderStyle'
