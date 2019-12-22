@@ -1,4 +1,4 @@
-import * as query from '../../graphql/queries/idea';
+import * as query from '../../../graphql/queries/idea';
 
 // export const MOCK_ME_IDEAS = {
 //   request: { query: query.ME_IDEAS },

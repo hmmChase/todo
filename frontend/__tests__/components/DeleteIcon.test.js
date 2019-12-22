@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, wait, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 import { pageSize } from '../../constants';
 import DeleteIcon from '../../components/DeleteIcon/DeleteIcon';
 import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
-import { MOCK_CURRENT_USER_PAGINATED_IDEAS } from '../../__mocks__/graphql/ideas';
+import { MOCK_CURRENT_USER_PAGINATED_IDEAS } from '../__mocks__/graphql/ideas';
 import theme from '../../public/styles/theme.style';
 
 // import { DeleteIcon } from '../../components/DeleteIcon/DeleteIcon.style';

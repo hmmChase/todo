@@ -1,3 +1,4 @@
+// https://nextjs.org/docs#customizing-babel-config
 {
   "env": {
     "development": {
@@ -5,6 +6,9 @@
         "next/babel"
       ],
       "plugins": [
+        [
+          "graphql-tag"
+        ],
         [
           "styled-components",
           {
@@ -30,6 +34,9 @@
         "next/babel"
       ],
       "plugins": [
+        [
+          "graphql-tag"
+        ],
         [
           "styled-components",
           {
@@ -62,6 +69,9 @@
         ]
       ],
       "plugins": [
+        [
+          "graphql-tag"
+        ],
         [
           "styled-components",
           {
