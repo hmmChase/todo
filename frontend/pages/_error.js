@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Button } from 'antd';
+import withApollo from '../graphql/withApollo';
 import Head from '../components/Head/Head';
 import LayoutMain from '../components/LayoutMain/LayoutMain';
 
@@ -10,70 +11,50 @@ const LinkHome = () => (
       Home
     </Button>
   </Link>
-
-  // <Button onClick={() => Router.push('/')} type="primary" ghost>
-  //   Home
-  // </Button>
 );
 
-const Error = React.memo(props => (
-  <>
-    <Head title='Error' />
-
-    <LayoutMain header={<h1>{props.message}</h1>} content={<LinkHome />} />
-  </>
-));
-
-Error.displayName = 'Error';
-
-Error.propTypes = { message: PropTypes.string.isRequired };
-
-const ErrorPage = props => {
-  const { statusCode } = props;
-
+const Error = props => {
   let error;
 
-  switch (statusCode) {
+  switch (props.statusCode) {
     case 404:
-      error = <Error message='Page Not Found' />;
+      error = 'Page Not Found';
       break;
 
     case 500:
-      error = <Error message='Internal Server Error' />;
+      error = 'Internal Server Error';
       break;
 
     case true:
-      error = <Error message={`HTTP ${statusCode} Error`} />;
+      error = `HTTP ${statusCode} Error`;
       break;
 
     default:
-      error = <Error message='Error' />;
+      error = 'Error';
       break;
   }
 
-  return error;
+  return (
+    <>
+      <Head title='Error' />
+
+      <LayoutMain header={<h1>{error}</h1>} content={<LinkHome />} />
+    </>
+  );
 };
 
-ErrorPage.getInitialProps = props => {
-  const { res, err } = props;
+Error.getInitialProps = ctx => {
+  const { res, err } = ctx;
 
   let statusCode;
 
-  if (res && res.statusCode) {
-    statusCode = res.statusCode;
-  } else if (err && err.statusCode) {
-    statusCode = err.statusCode;
-  } else {
-    statusCode = null;
-  }
+  if (res && res.statusCode) statusCode = res.statusCode;
+  else if (err && err.statusCode) statusCode = err.statusCode;
+  else statusCode = 404;
 
   return { statusCode };
 };
 
-ErrorPage.displayName = 'ErrorPage';
+Error.propTypes = { statusCode: PropTypes.number };
 
-ErrorPage.defaultProps = { statusCode: null };
-
-ErrorPage.propTypes = { statusCode: PropTypes.number };
-
-export default React.memo(ErrorPage);
+export default withApollo(React.memo(Error, { ssr: false }));

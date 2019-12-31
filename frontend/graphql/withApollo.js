@@ -1,16 +1,15 @@
-/* eslint-disable require-atomic-updates */
-
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/react-hooks';
-import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
-import cookie from 'cookie';
+import initApollo from './initApollo';
 import {
   fetchAccessToken,
   getAccessToken,
   setAccessToken
 } from '../utils/accessToken';
-import initApollo from './initApollo';
+import { devConLog, devConErr } from '../utils/devLog';
+import { refreshTokenSecret } from '../constants';
 
 const isServer = () => typeof window === 'undefined';
 
@@ -27,11 +26,7 @@ const isServer = () => typeof window === 'undefined';
 // then passes the data to pages through HOC
 
 const withApollo = (PageComponent, { ssr = true } = {}) => {
-  if (process.env.NODE_ENV === 'development')
-    console.log(
-      '----------start withApollo----------',
-      new Date().getMilliseconds()
-    );
+  devConLog(['----- start withApollo -----']);
 
   // WithApollo HOC
   const WithApollo = ({
@@ -41,29 +36,21 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
     serverAccessToken,
     ...pageProps
   }) => {
-    if (process.env.NODE_ENV === 'development')
-      console.log(
-        '----------start withApollo HOC----------',
-        new Date().getMilliseconds()
-      );
+    devConLog(['----- start withApollo HOC -----']);
 
-    // ----------Access/Refresh token code----------
+    // ----- Access/Refresh token code -----
 
     // Client-side, if no Access token set,
     // set Access token with Access token returned from GIP
     if (!isServer() && !getAccessToken() && serverAccessToken)
       setAccessToken(serverAccessToken);
 
-    // ---------------------------------------------
+    // -------------------------------------
 
     // If apolloClient doesn't exist, create it
     const client = apolloClient || initApollo(apolloState);
 
-    if (process.env.NODE_ENV === 'development')
-      console.log(
-        '----------end withApollo HOC----------',
-        new Date().getMilliseconds()
-      );
+    devConLog(['----- end withApollo HOC -----']);
 
     return (
       <ApolloProvider client={client}>
@@ -72,9 +59,8 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
     );
   };
 
-  // For Development
   // Set the correct displayName in development
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'development') {
     // Find correct display name
     const displayName =
       PageComponent.displayName || PageComponent.name || 'Component';
@@ -98,79 +84,60 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
 
   // Code execution starts here
   if (ssr || PageComponent.getInitialProps) {
-    // Retrieve data server-side
     WithApollo.getInitialProps = async ctx => {
       const { req, res, AppTree } = ctx;
 
-      if (process.env.NODE_ENV === 'development')
-        console.log(
-          '----------start withApollo GIP----------',
-          new Date().getMilliseconds()
-        );
+      devConLog(['----- start withApollo GIP -----']);
 
-      // ----------Access/Refresh token code----------
+      // ----- Access/Refresh token code -----
 
-      // On first load or refresh, if a Refresh token exists, verify it,
-      // then attempt to fetch an Access token and store as a global variable
+      // On initial page load (server-side), if a Refresh token exists,
+      // verify it, then attempt to fetch an Access token and store as a
+      // global variable
 
       let serverAccessToken = '';
 
       // Check for cookie header
       if (req && req.headers && req.headers.cookie) {
-        // Get cookies
-        const parsedCookies = cookie.parse(req.headers.cookie);
+        // Parse Refresh token
+        const refreshToken = req.headers.cookie.replace('rt=', '');
 
         // If Refresh token available
-        if (parsedCookies.rt) {
+        if (refreshToken) {
+          // Verify Refresh token
           try {
-            // Verify Refresh token
-            await jwt.verify(
-              parsedCookies.rt,
-              process.env.REFRESH_TOKEN_SECRET,
+            jwt.verify(refreshToken, refreshTokenSecret);
 
-              // Fetch Access token
-              async (err, _decoded) => {
-                if (!err) {
-                  try {
-                    // Fetch Access Token
-                    const accessToken = await fetchAccessToken(
-                      parsedCookies.rt
-                    );
+            // Fetch Access token
+            serverAccessToken = await fetchAccessToken(refreshToken);
 
-                    // Set Access Token
-                    setAccessToken(accessToken);
-
-                    // Update serverAccessToken
-                    serverAccessToken = accessToken;
-                  } catch (error) {
-                    if (process.env.NODE_ENV === 'development')
-                      console.error('withApollo token fetch error: ', error);
-                  }
-                }
-              }
-            );
+            // Set Access Token
+            // setAccessToken(accessToken);
           } catch (error) {
-            if (process.env.NODE_ENV === 'development')
-              console.error('withApollo token verify error: ', error);
+            devConErr(['WithApollo Refresh token verify error: ', error]);
           }
         }
       }
 
-      // ---------------------------------------------
+      // -------------------------------------
 
       // Initialize ApolloClient and add it to the ctx object,
       // so it's available in `PageComponent.getInitialProps`.
 
       // Pass an empty initialState object to initApollo
-      const apolloClient = (ctx.apolloClient = initApollo({}));
+      const apolloClient = (ctx.apolloClient = initApollo(
+        {},
+        serverAccessToken
+      ));
 
       // Run all GraphQL queries in the component tree,
       // and extract the resulting data.
       // If a page has a getInitialProps, call it.
       // pageProps is now equal to the data returned server-side
-      const pageProps = PageComponent.getInitialProps
-        ? await PageComponent.getInitialProps(ctx)
-        : {};
+      let pageProps = {};
+
+      if (PageComponent.getInitialProps)
+        pageProps = await PageComponent.getInitialProps(ctx);
 
       // Only on the server
       if (typeof window === 'undefined') {
@@ -190,50 +157,39 @@ const withApollo = (PageComponent, { ssr = true } = {}) => {
 
             // Run all GraphQL queries
             await getDataFromTree(
-              <AppTree
-                pageProps={{ ...pageProps, apolloClient }}
-                apolloClient={apolloClient}
-              />
+              <AppTree pageProps={{ ...pageProps, apolloClient }} />
             );
           } catch (error) {
             // Prevent Apollo Client GraphQL errors from crashing SSR.
             // Handle them in components via the data.error prop:
             // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
-            if (process.env.NODE_ENV === 'development')
-              console.error('GraphQL error occurred [getDataFromTree]', error);
+            devConErr(['GraphQL error occurred [getDataFromTree]', error]);
           }
-        }
 
-        // getDataFromTree does not call componentWillUnmount
-        // head side effect therefore need to be cleared manually
-        Head.rewind();
+          // getDataFromTree does not call componentWillUnmount
+          // head side effect therefore need to be cleared manually
+          Head.rewind();
+        }
       }
 
       // Extract query data from the Apollo store
       const apolloState = apolloClient.cache.extract();
 
-      // To avoid calling initApollo() twice in the server we send the Apollo Client as a prop
-      // to the component, otherwise the component would have to call initApollo() again but this
-      // time without the context, once that happens the following code will make sure we send
+      // To avoid calling initApollo() twice in the server we send the
+      // Apollo Client as a prop to the component, otherwise the component
+      // would have to call initApollo() again but this time without the
+      // context, once that happens the following code will make sure we send
       // the prop as `null` to the browser
       // apolloClient.toJSON = () => null;
 
-      if (process.env.NODE_ENV === 'development')
-        console.log(
-          '----------end withApollo GIP----------',
-          new Date().getMilliseconds()
-        );
+      devConLog(['----- end withApollo GIP -----']);
 
       // Send data to WithApollo HOC
       return { ...pageProps, apolloState, serverAccessToken };
     };
   }
 
-  if (process.env.NODE_ENV === 'development')
-    console.log(
-      '----------end withApollo----------',
-      new Date().getMilliseconds()
-    );
+  devConLog(['----- end withApollo -----']);
 
   return WithApollo;
 };

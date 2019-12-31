@@ -1,14 +1,11 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+import { devConLog } from '../utils/devLog';
 import GlobalStyle from '../public/styles/global.style';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    if (process.env.NODE_ENV === 'development')
-      console.log(
-        '----------_document GIP----------',
-        new Date().getMilliseconds()
-      );
+    devConLog(['----- _document GIP -----']);
 
     // https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
     // Step 1: Create an instance of ServerStyleSheet
@@ -49,11 +46,7 @@ class MyDocument extends Document {
   }
 
   render() {
-    if (process.env.NODE_ENV === 'development')
-      console.log(
-        '----------_document render----------',
-        new Date().getMilliseconds()
-      );
+    devConLog(['----- _document render -----']);
 
     return (
       <html lang='en'>
@@ -146,7 +139,6 @@ class MyDocument extends Document {
           />
 
           {/* Fixes flash of unstyled content for first load (Chromium bug)
-            https://github.com/ant-design/ant-design/issues/16037
             Not only antd, but also any other style if you want to use ssr */}
           <style
             id='holderStyle'
