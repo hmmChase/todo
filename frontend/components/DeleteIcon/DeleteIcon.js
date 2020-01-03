@@ -54,6 +54,7 @@ const DeleteIcon = props => {
 
   return (
     <sc.DeleteIcon
+      data-testid='deleteIcon'
       type='close-square'
       theme='twoTone'
       onClick={handleClickDeleteBtn}

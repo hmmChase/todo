@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, wait, fireEvent } from '@testing-library/react';
+import { render, wait, fireEvent, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 import { pageSize } from '../../constants';
@@ -12,6 +12,10 @@ import theme from '../../public/styles/theme.style';
 // import { DeleteIcon } from '../../components/DeleteIcon/DeleteIcon.style';
 
 describe('DeleteIcon', () => {
+  afterEach(() => {
+    cleanup;
+  });
+
   it('matches snapshot', () => {
     const mockProps = { id: '1' };
     const mockQueries = [MOCK_CURRENT_USER_PAGINATED_IDEAS];
@@ -29,7 +33,22 @@ describe('DeleteIcon', () => {
     expect(result.asFragment()).toMatchSnapshot();
   });
 
-  it('matches snapshot', () => {
+  it('has correct content', () => {
+    const mockProps = { id: '1' };
+    const mockQueries = [MOCK_CURRENT_USER_PAGINATED_IDEAS];
+
+    const { getByTestId } = render(
+      <MockedProvider mocks={mockQueries} addTypename={false}>
+        <ThemeProvider theme={theme}>
+          <DeleteIcon {...mockProps} />
+        </ThemeProvider>
+      </MockedProvider>
+    );
+
+    expect(getByTestId('deleteIcon')).toHaveTextContent('');
+  });
+
+  it('calls mutation on click', () => {
     const mockProps = { id: '1' };
     const mockQueries = [MOCK_CURRENT_USER_PAGINATED_IDEAS];
 
@@ -41,8 +60,8 @@ describe('DeleteIcon', () => {
       </MockedProvider>
     );
 
-    // result.fireEvent.click(getByText('Load Greeting'));
+    result.fireEvent.click(getByTestId('deleteIcon'));
 
-    expect(result.asFragment()).toHaveBeenCalled();
+    expect(getByTestId('deleteIcon')).toHaveBeenCalledTimes(1);
   });
 });
