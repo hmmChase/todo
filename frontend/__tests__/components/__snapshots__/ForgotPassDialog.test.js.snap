@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ForgotPassDialog matches snapshot 1`] = `
+<div
+  class=""
+>
+  <a
+    class=""
+  >
+    Forgot password?
+  </a>
+</div>
+`;

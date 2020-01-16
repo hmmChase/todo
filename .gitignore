@@ -69,3 +69,4 @@ typings/
 build
 dist
 bundles
+.history

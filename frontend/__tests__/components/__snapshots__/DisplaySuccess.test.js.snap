@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DisplaySuccess renders message 1`] = `
+.c0 {
+  border-left: 5px solid limegreen;
+  list-style: none;
+  padding-left: 1rem;
+}
+
+<ul
+  class="c0"
+>
+  <li>
+    mock success message
+  </li>
+</ul>
+`;
