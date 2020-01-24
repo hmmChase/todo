@@ -47,11 +47,8 @@ const IdeaCardForm = () => {
   });
 
   const canSubmit = value => {
-    if (value === '') {
-      setIsSubmitDisabled(true);
-    } else {
-      setIsSubmitDisabled(false);
-    }
+    if (value === '') setIsSubmitDisabled(true);
+    else setIsSubmitDisabled(false);
   };
 
   const handleChangeIdeaInput = e => {
@@ -69,7 +66,7 @@ const IdeaCardForm = () => {
   return (
     <sc.IdeaCardForm onSubmit={handleSubmitIdeaForm}>
       <sc.InputTextArea
-        aria-label='idea'
+        aria-label='idea input'
         name='idea'
         type='text'
         placeholder="What's on your mind?"
@@ -80,6 +77,7 @@ const IdeaCardForm = () => {
       <sc.BoxImg src='images/ideabox.png' alt='ideabox' />
 
       <sc.SubmitBtn
+        aria-label='submit idea'
         type='primary'
         htmlType='submit'
         disabled={isSubmitDisabled}

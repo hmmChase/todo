@@ -1,4 +1,4 @@
-import * as query from '../../graphql/queries/user';
+import * as query from '../../../graphql/queries/user';
 
 export const MOCK_IS_LOGGED_IN = {
   request: { query: query.IS_LOGGED_IN },
@@ -9,7 +9,7 @@ export const MOCK_CURRENT_USER = {
   request: { query: query.CURRENT_USER },
   result: {
     data: {
-      currentUser: { id: '1', email: 'mock@email.com', color: 'mock color' }
+      currentUser: { id: '1', email: 'mock@email.com', color: 'mock olor' }
     }
   }
 };
@@ -17,6 +17,18 @@ export const MOCK_CURRENT_USER = {
 export const MOCK_ERROR_CURRENT_USER = {
   request: { query: query.CURRENT_USER },
   error: new Error('mock error')
+};
+
+export const MOCK_USERS = {
+  request: { query: query.USERS },
+  result: {
+    data: {
+      users: [
+        { id: '1', email: 'mock1@email.com' },
+        { id: '2', email: 'mock2@email.com' }
+      ]
+    }
+  }
 };
 
 export const MOCK_SIGN_UP = {
@@ -28,7 +40,7 @@ export const MOCK_SIGN_UP = {
       confirmPassword: 'confirmed mockpass'
     }
   },
-  result: { data: { signUp: [{ id: '1' }] } }
+  result: { data: { signUp: { accessToken: '534978', user: { id: '1' } } } }
 };
 
 export const MOCK_SIGN_IN = {
@@ -36,7 +48,7 @@ export const MOCK_SIGN_IN = {
     query: query.SIGN_IN,
     variables: { email: 'mock@email.com', password: 'mockpass' }
   },
-  result: { data: { signIn: [{ id: '1' }] } }
+  result: { data: { signIn: { accessToken: '534978', user: { id: '1' } } } }
 };
 
 export const MOCK_SIGN_OUT = {
@@ -61,5 +73,5 @@ export const MOCK_RESET_PASSWORD = {
       confirmPassword: 'mockpass'
     }
   },
-  result: { data: { resetPassword: [{ id: '1', email: 'mock@email.com' }] } }
+  result: { data: { resetPassword: true } }
 };

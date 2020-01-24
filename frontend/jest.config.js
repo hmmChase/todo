@@ -3,7 +3,7 @@
 
 module.exports = {
   resetMocks: true,
-  coverageDirectory: '__tests__/__coverage__',
+  coverageDirectory: '__tests__/coverage',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testMatch: ['**/__tests__/**/*.test.js?(x)', '**/?(*.)+(spec|test).js?(x)'],

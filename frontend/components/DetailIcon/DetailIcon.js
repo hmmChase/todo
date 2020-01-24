@@ -4,7 +4,7 @@ import * as sc from './DetailIcon.style';
 
 const DetailIcon = props => (
   <Link href={{ pathname: '/idea', query: { id: props.id } }}>
-    <sc.aLink>
+    <sc.aLink aria-label='detail icon'>
       <sc.DetailIcon type='up-square' theme='twoTone' />
     </sc.aLink>
   </Link>
