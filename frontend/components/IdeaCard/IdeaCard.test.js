@@ -9,12 +9,13 @@ jest.mock('../DeleteIcon/DeleteIcon', () => () => <div>DeleteIcon</div>);
 
 jest.mock('../IdeaInput/IdeaInput', () => () => <div>IdeaInput</div>);
 
-const arrage = (props = {}) => {
-  const defaultProps = { id: '1', content: 'mock content', ...props };
+const arrage = (newProps = {}) => {
+  const defaultProps = { id: '1', content: 'mock content' };
+  const mockProps = { ...defaultProps, ...newProps };
 
   const utils = render(
     <ThemeProvider theme={theme}>
-      <IdeaCard {...defaultProps} />
+      <IdeaCard {...mockProps} />
     </ThemeProvider>
   );
 

@@ -3,12 +3,13 @@ import { ThemeProvider } from 'styled-components';
 import Footer from './Footer';
 import theme from '../../public/styles/theme.style';
 
-const arrage = (props = {}) => {
-  const defaultProps = { ...props };
+const arrage = (newProps = {}) => {
+  const defaultProps = {};
+  const mockProps = { ...defaultProps, ...newProps };
 
   const utils = render(
     <ThemeProvider theme={theme}>
-      <Footer {...defaultProps} />
+      <Footer {...mockProps} />
     </ThemeProvider>
   );
 

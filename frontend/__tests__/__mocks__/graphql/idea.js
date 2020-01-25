@@ -73,9 +73,23 @@ export const MOCK_CURRENT_USER_PAGINATED_IDEAS = {
           { node: { id: '2', content: 'b', author: { id: '2' } } },
           { node: { id: '3', content: 'c', author: { id: '3' } } },
           { node: { id: '4', content: 'd', author: { id: '4' } } },
-          { node: { id: '5', content: 'e', author: { id: '5' } } },
-          { node: { id: '6', content: 'f', author: { id: '6' } } }
+          { node: { id: '5', content: 'e', author: { id: '5' } } }
         ],
+        pageInfo: { endCursor: '87cvybx', hasNextPage: true }
+      }
+    }
+  }
+};
+
+export const MOCK_CURRENT_USER_PAGINATED_IDEAS_EMPTY = {
+  request: {
+    query: query.CURRENT_USER_PAGINATED_IDEAS,
+    variables: { first: 5 }
+  },
+  result: {
+    data: {
+      currentUserPaginatedIdeas: {
+        edges: [],
         pageInfo: { endCursor: '87cvybx', hasNextPage: false }
       }
     }

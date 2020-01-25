@@ -3,12 +3,13 @@ import { ThemeProvider } from 'styled-components';
 import DisplayLoading from './DisplayLoading';
 import theme from '../../public/styles/theme.style';
 
-const arrage = (props = {}) => {
-  const defaultProps = { ...props };
+const arrage = (newProps = {}) => {
+  const defaultProps = {};
+  const mockProps = { ...defaultProps, ...newProps };
 
   const utils = render(
     <ThemeProvider theme={theme}>
-      <DisplayLoading {...defaultProps} />
+      <DisplayLoading {...mockProps} />
     </ThemeProvider>
   );
 

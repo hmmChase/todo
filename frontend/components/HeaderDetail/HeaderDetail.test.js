@@ -5,13 +5,14 @@ import theme from '../../public/styles/theme.style';
 
 jest.mock('../SignOutBtn/SignOutBtn', () => () => <div>SignOutBtn</div>);
 
-const arrage = (props = {}) => {
+const arrage = (newProps = {}) => {
   const titleText = '3jd9k4jkf8n4';
-  const defaultProps = { ideaId: titleText, ...props };
+  const defaultProps = { ideaId: titleText };
+  const mockProps = { ...defaultProps, ...newProps };
 
   const utils = render(
     <ThemeProvider theme={theme}>
-      <HeaderDetail {...defaultProps} />
+      <HeaderDetail {...mockProps} />
     </ThemeProvider>
   );
 

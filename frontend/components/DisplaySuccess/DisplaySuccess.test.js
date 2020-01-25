@@ -3,13 +3,14 @@ import { ThemeProvider } from 'styled-components';
 import DisplaySuccess from './DisplaySuccess';
 import theme from '../../public/styles/theme.style';
 
-const arrage = (props = {}) => {
+const arrage = (newProps = {}) => {
   const successText = 'mock success message';
-  const defaultProps = { message: successText, ...props };
+  const defaultProps = { message: successText };
+  const mockProps = { ...defaultProps, ...newProps };
 
   const utils = render(
     <ThemeProvider theme={theme}>
-      <DisplaySuccess {...defaultProps} />
+      <DisplaySuccess {...mockProps} />
     </ThemeProvider>
   );
 

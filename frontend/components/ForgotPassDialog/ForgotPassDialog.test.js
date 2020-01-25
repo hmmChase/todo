@@ -5,12 +5,13 @@ import theme from '../../public/styles/theme.style';
 
 jest.mock('../RequestReset/RequestReset', () => () => <div>RequestReset</div>);
 
-const arrage = (props = {}) => {
-  const defaultProps = { ...props };
+const arrage = (newProps = {}) => {
+  const defaultProps = {};
+  const mockProps = { ...defaultProps, ...newProps };
 
   const utils = render(
     <ThemeProvider theme={theme}>
-      <ForgotPassDialog {...defaultProps} />
+      <ForgotPassDialog {...mockProps} />
     </ThemeProvider>
   );
 

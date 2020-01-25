@@ -3,12 +3,13 @@ import { ThemeProvider } from 'styled-components';
 import DetailIcon from './DetailIcon';
 import theme from '../../public/styles/theme.style';
 
-const arrage = (props = {}) => {
-  const defaultProps = { id: '1', ...props };
+const arrage = (newProps = {}) => {
+  const defaultProps = { id: '1' };
+  const mockProps = { ...defaultProps, ...newProps };
 
   const utils = render(
     <ThemeProvider theme={theme}>
-      <DetailIcon {...defaultProps} />
+      <DetailIcon {...mockProps} />
     </ThemeProvider>
   );
 

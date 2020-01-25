@@ -16,16 +16,16 @@ import theme from '../../public/styles/theme.style';
 
 jest.mock('../IdeaInput/IdeaInput', () => () => <div>IdeaInput</div>);
 
-const arrage = (props = {}, error = false) => {
-  const defaultProps = { ideaId: '1', ...props };
-  const defaultQueries = error
-    ? [MOCK_ERROR_CURRENT_USER_IDEA]
-    : [MOCK_CURRENT_USER_IDEA];
+const arrage = (newProps = {}, newQueries = []) => {
+  const defaultProps = { ideaId: '1' };
+  const defaultQueries = [MOCK_CURRENT_USER_IDEA];
+  const mockQueries = newQueries.length ? newQueries : defaultQueries;
+  const mockProps = { ...defaultProps, ...newProps };
 
   const utils = render(
-    <MockedProvider mocks={defaultQueries} addTypename={false}>
+    <MockedProvider mocks={mockQueries} addTypename={false}>
       <ThemeProvider theme={theme}>
-        <IdeaDetail {...defaultProps} />
+        <IdeaDetail {...mockProps} />
       </ThemeProvider>
     </MockedProvider>
   );
@@ -53,7 +53,7 @@ describe('IdeaDetail', () => {
   });
 
   it('renders IdeaInput on success', async () => {
-    const com = arrage({}, false);
+    const com = arrage();
 
     await act(() => new Promise(setTimeout));
 
@@ -61,7 +61,7 @@ describe('IdeaDetail', () => {
   });
 
   it('renders DisplayError on error', async () => {
-    const com = arrage({}, true);
+    const com = arrage({}, [MOCK_ERROR_CURRENT_USER_IDEA]);
 
     await act(() => new Promise(setTimeout));
 

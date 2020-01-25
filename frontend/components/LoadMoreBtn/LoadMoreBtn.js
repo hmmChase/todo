@@ -28,6 +28,7 @@ const LoadMoreBtn = props => {
 
   return (
     <sc.LoadMoreBtn
+      aria-label='load more button'
       type='primary'
       loading={props.loading}
       onClick={handleFetchMore}

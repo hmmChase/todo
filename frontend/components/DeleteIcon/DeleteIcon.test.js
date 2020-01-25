@@ -8,14 +8,16 @@ import {
 } from '../../__tests__/__mocks__/graphql/idea';
 import theme from '../../public/styles/theme.style';
 
-const arrage = (props = {}) => {
-  const defaultProps = { id: '1', ...props };
-  const mockQueries = [MOCK_CURRENT_USER_PAGINATED_IDEAS, MOCK_DELETE_IDEA];
+const arrage = (newProps = {}, newQueries = []) => {
+  const defaultProps = { id: '1' };
+  const defaultQueries = [MOCK_CURRENT_USER_PAGINATED_IDEAS, MOCK_DELETE_IDEA];
+  const mockQueries = newQueries.length ? newQueries : defaultQueries;
+  const mockProps = { ...defaultProps, ...newProps };
 
   const utils = render(
     <MockedProvider mocks={mockQueries} addTypename={false}>
       <ThemeProvider theme={theme}>
-        <DeleteIcon {...defaultProps} />
+        <DeleteIcon {...mockProps} />
       </ThemeProvider>
     </MockedProvider>
   );

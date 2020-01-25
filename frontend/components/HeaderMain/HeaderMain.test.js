@@ -7,12 +7,13 @@ jest.mock('../SignOutBtn/SignOutBtn', () => () => <div>SignOutBtn</div>);
 
 jest.mock('../IdeaCardForm/IdeaCardForm', () => () => <div>IdeaCardForm</div>);
 
-const arrage = (props = {}) => {
-  const defaultProps = { ...props };
+const arrage = (newProps = {}) => {
+  const defaultProps = {};
+  const mockProps = { ...defaultProps, ...newProps };
 
   const utils = render(
     <ThemeProvider theme={theme}>
-      <HeaderMain {...defaultProps} />
+      <HeaderMain {...mockProps} />
     </ThemeProvider>
   );
 
