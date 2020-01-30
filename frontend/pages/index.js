@@ -7,7 +7,7 @@ import withApollo from '../graphql/withApollo';
 import redirect from '../utils/redirect';
 import jwt from 'jsonwebtoken';
 import { togLoggedCache } from '../utils/authenticate';
-import { devConErr } from '../utils/devLog';
+import { devConErr } from '../utils/devCon';
 import { refreshTokenSecret } from '../constants';
 
 // import { useEffect } from 'react';

@@ -1,6 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import { devConLog } from '../utils/devLog';
+import { devConLog } from '../utils/devCon';
 import GlobalStyle from '../public/styles/global.style';
 
 class MyDocument extends Document {

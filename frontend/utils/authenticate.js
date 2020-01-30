@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import redirect from './redirect';
 import { getAccessToken } from './accessToken';
 // import { CURRENT_USER } from '../graphql/queries';
-import { devConErr } from './devLog';
+import { devConErr } from './devCon';
 import { accessTokenSecret, refreshTokenSecret } from '../constants';
 import cookie from 'cookie';
 

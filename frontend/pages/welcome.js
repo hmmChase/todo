@@ -5,7 +5,7 @@ import withApollo from '../graphql/withApollo';
 import jwt from 'jsonwebtoken';
 import redirect from '../utils/redirect';
 import { togLoggedCache } from '../utils/authenticate';
-import { devConErr } from '../utils/devLog';
+import { devConErr } from '../utils/devCon';
 import { refreshTokenSecret } from '../constants';
 
 const WelcomePage = () => (

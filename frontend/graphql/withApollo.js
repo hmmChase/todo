@@ -8,7 +8,7 @@ import {
   getAccessToken,
   setAccessToken
 } from '../utils/accessToken';
-import { devConLog, devConErr } from '../utils/devLog';
+import { devConLog, devConErr } from '../utils/devCon';
 import { refreshTokenSecret } from '../constants';
 
 const isServer = () => typeof window === 'undefined';
