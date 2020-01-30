@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import * as sc from './DisplayError.style';
 
 const DisplayError = props => {
-  if (props.error.graphQLErrors) {
+  if (props.error.graphQLErrors && props.error.graphQLErrors.length) {
     return (
-      <sc.DisplayError>
+      <sc.DisplayError data-testid='DisplayError'>
         {props.error.graphQLErrors.map((error, i) => (
           <li key={`error${i}`}>{error.message}</li>
         ))}
@@ -14,14 +14,14 @@ const DisplayError = props => {
 
   if (props.error.message) {
     return (
-      <sc.DisplayError>
+      <sc.DisplayError data-testid='DisplayError'>
         <li>{props.error.message}</li>
       </sc.DisplayError>
     );
   }
 
   return (
-    <sc.DisplayError>
+    <sc.DisplayError data-testid='DisplayError'>
       <li>Opps, something went wrong.</li>
     </sc.DisplayError>
   );

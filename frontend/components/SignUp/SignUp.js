@@ -134,7 +134,7 @@ const SignUp = () => {
 
           {error && <DisplayError error={error} />}
 
-          <sc.PassListContainer>
+          <sc.PassListContainer data-testid='passList'>
             <sc.TypographyText strong>
               {passwordRequirements.title}
             </sc.TypographyText>
@@ -154,6 +154,7 @@ const SignUp = () => {
 
           <sc.FormItemBtn>
             <sc.SubmitBtn
+              aria-label='submit button'
               loading={loading}
               type='primary'
               htmlType='submit'

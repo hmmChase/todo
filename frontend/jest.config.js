@@ -2,6 +2,15 @@
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
+  resetMocks: true,
+  coverageDirectory: '__tests__/coverage',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  snapshotSerializers: ['enzyme-to-json/serializer'],
+  testMatch: ['**/__tests__/**/*.test.js?(x)', '**/?(*.)+(spec|test).js?(x)'],
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/']
+
+  // ---------- Reference ----------
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -15,7 +24,7 @@ module.exports = {
   // cacheDirectory: "C:\\Users\\hmmch\\AppData\\Local\\Temp\\jest",
 
   // Automatically clear mock calls and instances between every test
-  clearMocks: true,
+  // clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
@@ -24,10 +33,10 @@ module.exports = {
   // collectCoverageFrom: null,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: 'coverage',
+  // coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['\\\\node_modules\\\\'],
+  // coveragePathIgnorePatterns: ['\\\\node_modules\\\\'],
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -125,11 +134,9 @@ module.exports = {
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   // setupFilesAfterEnv: [],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   // snapshotSerializers: [],
-  snapshotSerializers: ['enzyme-to-json/serializer'],
 
   // The test environment that will be used for testing
   // testEnvironment: "jest-environment-jsdom",
@@ -145,13 +152,11 @@ module.exports = {
   //   "**/__tests__/**/*.[jt]s?(x)",
   //   "**/?(*.)+(spec|test).[tj]s?(x)"
   // ],
-  testMatch: ['**/__tests__/**/*.test.js?(x)', '**/?(*.)+(spec|test).js?(x)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
   //   "\\\\node_modules\\\\"
   // ],
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/']
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],

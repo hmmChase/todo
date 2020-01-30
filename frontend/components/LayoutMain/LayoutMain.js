@@ -20,8 +20,6 @@ const LayoutMain = props => (
   </sc.LayoutMain>
 );
 
-LayoutMain.defaultProps = { header: null, content: null };
-
 LayoutMain.propTypes = { header: PropTypes.node, content: PropTypes.node };
 
 export default React.memo(LayoutMain);

@@ -5,7 +5,7 @@ import IdeaInput from '../IdeaInput/IdeaInput';
 import * as sc from './IdeaCard.style';
 
 const IdeaCard = props => (
-  <sc.IdeaCard>
+  <sc.IdeaCard data-testid='IdeaCard'>
     <DetailIcon id={props.id} />
 
     <DeleteIcon id={props.id} />
