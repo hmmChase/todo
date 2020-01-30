@@ -10,30 +10,25 @@ const arrage = (newProps = {}) => {
   const defaultProps = { ideaId: titleText };
   const mockProps = { ...defaultProps, ...newProps };
 
-  const utils = render(
+  const result = render(
     <ThemeProvider theme={theme}>
       <HeaderDetail {...mockProps} />
     </ThemeProvider>
   );
 
-  const title = () => utils.queryByText(titleText);
-  const signOutBtn = () => utils.queryByText('SignOutBtn');
+  const title = () => result.queryByText(titleText);
+  const signOutBtn = () => result.queryByText('SignOutBtn');
 
-  return { ...utils, title, signOutBtn };
+  return { ...result, title, signOutBtn };
 };
 
 describe('HeaderDetail', () => {
   afterEach(cleanup);
 
-  it('renders Title', () => {
+  it('renders elements', () => {
     const com = arrage();
 
     expect(com.title()).toBeInTheDocument();
-  });
-
-  it('renders SignOutBtn', () => {
-    const com = arrage();
-
     expect(com.signOutBtn()).toBeInTheDocument();
   });
 });

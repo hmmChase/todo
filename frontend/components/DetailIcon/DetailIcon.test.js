@@ -7,21 +7,21 @@ const arrage = (newProps = {}) => {
   const defaultProps = { id: '1' };
   const mockProps = { ...defaultProps, ...newProps };
 
-  const utils = render(
+  const result = render(
     <ThemeProvider theme={theme}>
       <DetailIcon {...mockProps} />
     </ThemeProvider>
   );
 
-  const detailIcon = () => utils.queryByLabelText('detail icon');
+  const detailIcon = () => result.queryByLabelText('detail icon');
 
-  return { ...utils, detailIcon };
+  return { ...result, detailIcon };
 };
 
 describe('DetailIcon', () => {
   afterEach(cleanup);
 
-  it('renders DetailIcon', () => {
+  it('renders elements', () => {
     const com = arrage();
 
     expect(com.detailIcon()).toBeInTheDocument();

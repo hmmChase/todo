@@ -17,7 +17,7 @@ const IdeaDetail = props => {
   return (
     <sc.IdeaDetail>
       <Link href={{ pathname: '/' }}>
-        <sc.BackBtn type='primary'>
+        <sc.BackBtn aria-label='back button' type='primary'>
           <sc.BackIcon type='arrow-left' />
           Back
         </sc.BackBtn>
@@ -33,6 +33,7 @@ const IdeaDetail = props => {
             id={data.currentUserIdea.id}
             content={data.currentUserIdea.content}
           />
+
           {/* <DeleteIcon id={data.currentUserIdea.id} /> */}
         </>
       )}

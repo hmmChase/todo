@@ -1,38 +1,36 @@
 import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
 import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
-import DeleteIcon from './DeleteIcon';
-import {
-  MOCK_CURRENT_USER_PAGINATED_IDEAS,
-  MOCK_DELETE_IDEA
-} from '../../__tests__/__mocks__/graphql/idea';
+import SignOutBtn from './SignOutBtn';
+import { MOCK_SIGN_OUT } from '../../__tests__/__mocks__/graphql/user';
 import theme from '../../public/styles/theme.style';
 
 const arrage = (newProps = {}, newQueries = []) => {
-  const defaultProps = { id: '1' };
-  const defaultQueries = [MOCK_CURRENT_USER_PAGINATED_IDEAS, MOCK_DELETE_IDEA];
+  const defaultProps = {};
+  const defaultQueries = [MOCK_SIGN_OUT];
   const mockQueries = newQueries.length ? newQueries : defaultQueries;
   const mockProps = { ...defaultProps, ...newProps };
 
-  const result = render(
+  const utils = render(
     <MockedProvider mocks={mockQueries} addTypename={false}>
       <ThemeProvider theme={theme}>
-        <DeleteIcon {...mockProps} />
+        <SignOutBtn {...mockProps} />
       </ThemeProvider>
     </MockedProvider>
   );
 
-  const deleteIcon = () => result.queryByLabelText('delete icon');
+  const signOutBtn = () => utils.queryByLabelText('sign out button');
+  const clickSignOutBtn = () => fireEvent.click(signOutBtn());
 
-  return { ...result, deleteIcon };
+  return { ...utils, signOutBtn, clickSignOutBtn };
 };
 
-describe('DeleteIcon', () => {
+describe('SignOutBtn', () => {
   afterEach(cleanup);
 
   it('renders elements', () => {
     const com = arrage();
 
-    expect(com.deleteIcon()).toBeInTheDocument();
+    expect(com.signOutBtn()).toBeInTheDocument();
   });
 });

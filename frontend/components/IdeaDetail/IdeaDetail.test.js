@@ -22,7 +22,7 @@ const arrage = (newProps = {}, newQueries = []) => {
   const mockQueries = newQueries.length ? newQueries : defaultQueries;
   const mockProps = { ...defaultProps, ...newProps };
 
-  const utils = render(
+  const result = render(
     <MockedProvider mocks={mockQueries} addTypename={false}>
       <ThemeProvider theme={theme}>
         <IdeaDetail {...mockProps} />
@@ -30,25 +30,21 @@ const arrage = (newProps = {}, newQueries = []) => {
     </MockedProvider>
   );
 
-  const displayLoading = () => utils.getByText('Loading...');
-  const ideaInput = () => utils.getByText('IdeaInput');
-  const displayError = () => utils.getByText('Network error: mock error');
+  const backBtn = () => result.queryByLabelText('back button');
+  const displayLoading = () => result.getByText('Loading...');
+  const ideaInput = () => result.getByText('IdeaInput');
+  const displayError = () => result.getByText('Network error: mock error');
 
-  return { ...utils, displayLoading, ideaInput, displayError };
+  return { ...result, backBtn, displayLoading, ideaInput, displayError };
 };
 
 describe('IdeaDetail', () => {
   afterEach(cleanup);
 
-  it('renders IdeaDetail', () => {
+  it('renders elements', () => {
     const com = arrage();
 
-    expect(com.baseElement).toBeInTheDocument();
-  });
-
-  it('renders DisplayLoading when loading', () => {
-    const com = arrage();
-
+    expect(com.backBtn()).toBeInTheDocument();
     expect(com.displayLoading()).toBeInTheDocument();
   });
 

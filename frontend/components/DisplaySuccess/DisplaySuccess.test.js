@@ -8,23 +8,23 @@ const arrage = (newProps = {}) => {
   const defaultProps = { message: successText };
   const mockProps = { ...defaultProps, ...newProps };
 
-  const utils = render(
+  const result = render(
     <ThemeProvider theme={theme}>
       <DisplaySuccess {...mockProps} />
     </ThemeProvider>
   );
 
-  const li = () => utils.queryByText(successText);
+  const li = () => result.queryByText(successText);
 
-  return { ...utils, successText, li };
+  return { ...result, li };
 };
 
 describe('DisplaySuccess', () => {
   afterEach(cleanup);
 
-  it('renders message', () => {
+  it('renders elements', () => {
     const com = arrage();
 
-    expect(com.li()).toHaveTextContent(com.successText);
+    expect(com.li()).toBeInTheDocument();
   });
 });

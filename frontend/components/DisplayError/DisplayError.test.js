@@ -7,15 +7,15 @@ const arrage = (newProps = {}) => {
   const defaultProps = {};
   const mockProps = { ...defaultProps, ...newProps };
 
-  const utils = render(
+  const result = render(
     <ThemeProvider theme={theme}>
       <DisplayError {...mockProps} />
     </ThemeProvider>
   );
 
-  const displayLoading = () => utils.queryByTestId('DisplayError');
+  const displayError = () => result.queryByTestId('DisplayError');
 
-  return { ...utils, displayLoading };
+  return { ...result, displayError };
 };
 
 describe('DisplayError', () => {
@@ -25,7 +25,7 @@ describe('DisplayError', () => {
     const errorMessage = 'Opps, something went wrong.';
     const com = arrage();
 
-    expect(com.displayLoading()).toHaveTextContent(errorMessage);
+    expect(com.displayError()).toHaveTextContent(errorMessage);
   });
 
   it('renders error message', () => {
@@ -33,7 +33,7 @@ describe('DisplayError', () => {
     const mockProps = { error: { message: errorMessage } };
     const com = arrage(mockProps);
 
-    expect(com.displayLoading()).toHaveTextContent(errorMessage);
+    expect(com.displayError()).toHaveTextContent(errorMessage);
   });
 
   it('renders graphQLErrors message', () => {
@@ -42,6 +42,6 @@ describe('DisplayError', () => {
 
     const com = arrage(props);
 
-    expect(com.displayLoading()).toHaveTextContent(errorMessage);
+    expect(com.displayError()).toHaveTextContent(errorMessage);
   });
 });

@@ -1,7 +1,9 @@
 import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import Footer from './Footer';
+import SignIn from './SignIn';
 import theme from '../../public/styles/theme.style';
+
+jest.mock('../SignInForm/SignInForm', () => () => <div>SignInForm</div>);
 
 const arrage = (newProps = {}) => {
   const defaultProps = {};
@@ -9,21 +11,23 @@ const arrage = (newProps = {}) => {
 
   const result = render(
     <ThemeProvider theme={theme}>
-      <Footer {...mockProps} />
+      <SignIn {...mockProps} />
     </ThemeProvider>
   );
 
-  const footer = result.queryByText('Footer');
+  const signInForm = () => result.queryByText('SignInForm');
+  const forgotPassDialog = () => result.queryByText('Forgot password?');
 
-  return { ...result, footer };
+  return { ...result, signInForm, forgotPassDialog };
 };
 
-describe('Footer', () => {
+describe('SignIn', () => {
   afterEach(cleanup);
 
   it('renders elements', () => {
     const com = arrage();
 
-    expect(com.footer).toBeInTheDocument();
+    expect(com.signInForm()).toBeInTheDocument();
+    expect(com.forgotPassDialog()).toBeInTheDocument();
   });
 });

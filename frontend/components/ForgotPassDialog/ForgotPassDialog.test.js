@@ -9,40 +9,30 @@ const arrage = (newProps = {}) => {
   const defaultProps = {};
   const mockProps = { ...defaultProps, ...newProps };
 
-  const utils = render(
+  const result = render(
     <ThemeProvider theme={theme}>
       <ForgotPassDialog {...mockProps} />
     </ThemeProvider>
   );
 
   const modalLinkText = 'Forgot password?';
-  const modalLink = () => utils.queryByText(modalLinkText);
-
   const modalTitleText = 'Request a password reset';
-  const modalTitle = () => utils.queryByText(modalTitleText);
-
-  const forgotPassModal = () => utils.queryByRole('dialog');
+  const modalLink = () => result.queryByText(modalLinkText);
+  const modalTitle = () => result.queryByText(modalTitleText);
+  const forgotPassModal = () => result.queryByRole('dialog');
 
   const clickModalLink = () => fireEvent.click(modalLink());
 
-  return {
-    ...utils,
-    modalLinkText,
-    modalLink,
-    modalTitleText,
-    modalTitle,
-    forgotPassModal,
-    clickModalLink
-  };
+  return { ...result, modalLink, modalTitle, forgotPassModal, clickModalLink };
 };
 
 describe('ForgotPassDialog', () => {
   afterEach(cleanup);
 
-  it('renders modalLink', () => {
+  it('renders elements', () => {
     const com = arrage();
 
-    expect(com.modalLink()).toHaveTextContent(com.modalLinkText);
+    expect(com.modalLink()).toBeInTheDocument();
   });
 
   it('renders ForgotPassModal on click', () => {
@@ -52,6 +42,7 @@ describe('ForgotPassDialog', () => {
 
     com.clickModalLink();
 
+    expect(com.modalTitle()).toBeInTheDocument();
     expect(com.forgotPassModal()).toBeInTheDocument();
   });
 });

@@ -1,10 +1,10 @@
 import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import HeaderMain from './HeaderMain';
+import SignOn from './SignOn';
 import theme from '../../public/styles/theme.style';
 
-jest.mock('../SignOutBtn/SignOutBtn', () => () => <div>SignOutBtn</div>);
-jest.mock('../IdeaCardForm/IdeaCardForm', () => () => <div>IdeaCardForm</div>);
+jest.mock('../SignIn/SignIn', () => () => <div>SignIn</div>);
+jest.mock('../SignUp/SignUp', () => () => <div>SignUp</div>);
 
 const arrage = (newProps = {}) => {
   const defaultProps = {};
@@ -12,25 +12,27 @@ const arrage = (newProps = {}) => {
 
   const result = render(
     <ThemeProvider theme={theme}>
-      <HeaderMain {...mockProps} />
+      <SignOn {...mockProps} />
     </ThemeProvider>
   );
 
+  const ideaboxImg = () => result.queryByAltText('ideabox');
   const title = () => result.queryByText('Starter');
-  const signOutBtn = () => result.queryByText('SignOutBtn');
-  const ideaCardForm = () => result.queryByText('IdeaCardForm');
+  const signIn = () => result.queryByText('SignIn');
+  const signUp = () => result.queryByText('SignUp');
 
-  return { ...result, title, signOutBtn, ideaCardForm };
+  return { ...result, ideaboxImg, title, signIn, signUp };
 };
 
-describe('HeaderMain', () => {
+describe('SignOn', () => {
   afterEach(cleanup);
 
   it('renders elements', () => {
     const com = arrage();
 
+    expect(com.ideaboxImg()).toBeInTheDocument();
     expect(com.title()).toBeInTheDocument();
-    expect(com.signOutBtn()).toBeInTheDocument();
-    expect(com.ideaCardForm()).toBeInTheDocument();
+    expect(com.signIn()).toBeInTheDocument();
+    expect(com.signUp()).toBeInTheDocument();
   });
 });

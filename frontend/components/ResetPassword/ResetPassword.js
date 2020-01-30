@@ -52,7 +52,7 @@ const ResetPassword = props => {
     message: 'Error: Please submit a new password reset request.'
   };
   const tokenExpiredError = {
-    message: 'Your reset request is expired.  Please submit a new one.'
+    message: 'Your reset request is expired. Please submit a new one.'
   };
 
   return (
@@ -121,7 +121,7 @@ const ResetPassword = props => {
             <DisplaySuccess message='Your password has been successfully changed.' />
           )}
 
-          <sc.PassListContainer>
+          <sc.PassListContainer data-testid='passList'>
             <sc.TypographyText strong>
               {passwordRequirements.title}
             </sc.TypographyText>
@@ -141,6 +141,7 @@ const ResetPassword = props => {
 
           <sc.FormItemBtn>
             <sc.SubmitBtn
+              aria-label='submit button'
               loading={loading}
               type='primary'
               htmlType='submit'

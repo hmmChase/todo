@@ -14,7 +14,7 @@ const arrage = (newProps = {}, newQueries = []) => {
   const mockQueries = newQueries.length ? newQueries : defaultQueries;
   const mockProps = { ...defaultProps, ...newProps };
 
-  const utils = render(
+  const result = render(
     <MockedProvider mocks={mockQueries} addTypename={false}>
       <ThemeProvider theme={theme}>
         <IdeaCardForm {...mockProps} />
@@ -22,37 +22,21 @@ const arrage = (newProps = {}, newQueries = []) => {
     </MockedProvider>
   );
 
-  const inputTextArea = () => utils.queryByLabelText('idea input');
-  const boxImg = () => utils.queryByAltText('ideabox');
-  const submitBtn = () => utils.queryByLabelText('submit idea');
+  const inputTextArea = () => result.queryByLabelText('idea input');
+  const boxImg = () => result.queryByAltText('ideabox');
+  const submitBtn = () => result.queryByLabelText('submit idea');
 
-  return { ...utils, inputTextArea, boxImg, submitBtn };
+  return { ...result, inputTextArea, boxImg, submitBtn };
 };
 
 describe('IdeaCardForm', () => {
   afterEach(cleanup);
 
-  it('renders IdeaCardForm', () => {
-    const com = arrage();
-
-    expect(com.baseElement).toBeInTheDocument();
-  });
-
-  it('renders InputTextArea', () => {
+  it('renders elements', () => {
     const com = arrage();
 
     expect(com.inputTextArea()).toBeInTheDocument();
-  });
-
-  it('renders BoxImg', () => {
-    const com = arrage();
-
     expect(com.boxImg()).toBeInTheDocument();
-  });
-
-  it('renders SubmitBtn', () => {
-    const com = arrage();
-
     expect(com.submitBtn()).toBeInTheDocument();
   });
 });

@@ -13,27 +13,21 @@ const arrage = (newProps = {}) => {
   const defaultProps = { loading: false, ideas };
   const mockProps = { ...defaultProps, ...newProps };
 
-  const utils = render(
+  const result = render(
     <ThemeProvider theme={theme}>
       <IdeaCardList {...mockProps} />
     </ThemeProvider>
   );
 
-  const ideaCards = () => utils.queryAllByText('IdeaCard');
+  const ideaCards = () => result.queryAllByText('IdeaCard');
 
-  return { ...utils, ideaCards };
+  return { ...result, ideaCards };
 };
 
 describe('IdeaCardList', () => {
   afterEach(cleanup);
 
-  it('renders IdeaCardList', () => {
-    const com = arrage();
-
-    expect(com.baseElement).toBeInTheDocument();
-  });
-
-  it('renders IdeaCard for each idea', () => {
+  it('renders elements', () => {
     const com = arrage();
 
     expect(com.ideaCards()).toHaveLength(2);
@@ -43,7 +37,5 @@ describe('IdeaCardList', () => {
     const com = arrage({ loading: true });
 
     console.log('TCL: com', prettyDOM(com.baseElement));
-
-    expect(com.ideaCards()).toHaveLength(2);
   });
 });

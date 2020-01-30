@@ -56,7 +56,7 @@ const SignInForm = () => {
     >
       {formikProps => (
         <sc.SignInForm>
-          <h2>Sign In</h2>
+          <h2 data-testid='SignInFormTitle'>Sign In</h2>
 
           <Field name='email'>
             {fieldProps => (
@@ -107,6 +107,7 @@ const SignInForm = () => {
 
           <sc.FormItemBtn>
             <sc.SubmitBtn
+              aria-label='submit button'
               loading={loading}
               type='primary'
               htmlType='submit'

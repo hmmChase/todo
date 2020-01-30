@@ -7,22 +7,21 @@ const arrage = (newProps = {}) => {
   const defaultProps = {};
   const mockProps = { ...defaultProps, ...newProps };
 
-  const utils = render(
+  const result = render(
     <ThemeProvider theme={theme}>
       <DisplayLoading {...mockProps} />
     </ThemeProvider>
   );
 
-  const loadingText = 'Loading...';
-  const displayLoading = () => utils.queryByText(loadingText);
+  const displayLoading = () => result.queryByText('Loading...');
 
-  return { ...utils, loadingText, displayLoading };
+  return { ...result, displayLoading };
 };
 
 describe('DisplayLoading', () => {
   afterEach(cleanup);
 
-  it('renders DisplayLoading', () => {
+  it('renders elements', () => {
     const com = arrage();
 
     expect(com.displayLoading()).toBeInTheDocument();

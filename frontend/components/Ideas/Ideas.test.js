@@ -21,7 +21,7 @@ const arrage = (newProps = {}, newQueries = []) => {
   const mockQueries = newQueries.length ? newQueries : defaultQueries;
   const mockProps = { ...defaultProps, ...newProps };
 
-  const utils = render(
+  const result = render(
     <MockedProvider mocks={mockQueries} addTypename={false}>
       <ThemeProvider theme={theme}>
         <Ideas {...mockProps} />
@@ -29,14 +29,14 @@ const arrage = (newProps = {}, newQueries = []) => {
     </MockedProvider>
   );
 
-  const displayLoading = () => utils.queryByText('Loading...');
-  const displayError = () => utils.queryByText('Network error: mock error');
-  const ideas = () => utils.queryAllByLabelText('idea input');
-  const loadMoreBtn = () => utils.queryByLabelText('load more button');
-  const addIdeaMessage = () => utils.queryByText('Add an Idea!');
+  const displayLoading = () => result.queryByText('Loading...');
+  const displayError = () => result.queryByText('Network error: mock error');
+  const ideas = () => result.queryAllByLabelText('idea input');
+  const loadMoreBtn = () => result.queryByLabelText('load more button');
+  const addIdeaMessage = () => result.queryByText('Add an Idea!');
 
   return {
-    ...utils,
+    ...result,
     displayLoading,
     ideas,
     displayError,
@@ -48,13 +48,7 @@ const arrage = (newProps = {}, newQueries = []) => {
 describe('Ideas', () => {
   afterEach(cleanup);
 
-  it('renders Ideas', () => {
-    const com = arrage();
-
-    expect(com.baseElement).toBeInTheDocument();
-  });
-
-  it('renders DisplayLoading when loading', () => {
+  it('renders elements', () => {
     const com = arrage();
 
     expect(com.displayLoading()).toBeInTheDocument();
@@ -68,19 +62,12 @@ describe('Ideas', () => {
     expect(com.displayError()).toBeInTheDocument();
   });
 
-  it('renders correct amt of ideas', async () => {
+  it('renders elements after loaded', async () => {
     const com = arrage();
 
     await act(() => new Promise(setTimeout));
 
     expect(com.ideas()).toHaveLength(5);
-  });
-
-  it('renders LoadMoreBtn if hasNextPage is true', async () => {
-    const com = arrage();
-
-    await act(() => new Promise(setTimeout));
-
     expect(com.loadMoreBtn()).toBeInTheDocument();
   });
 
