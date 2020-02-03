@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-unfetch';
 import jwt from 'jsonwebtoken';
-import { devConErr } from './devLog';
+import { devConErr } from './devCon';
 import { refreshUrl, accessTokenSecret } from '../constants';
 
 let accessToken = '';

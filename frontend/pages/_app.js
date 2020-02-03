@@ -3,7 +3,7 @@
 import { _StrictMode, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import { devConLog } from '../utils/devLog';
+import { devConLog } from '../utils/devCon';
 import theme from '../public/styles/theme.style';
 // import '../public/styles/empty.less';
 

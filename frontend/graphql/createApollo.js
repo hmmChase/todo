@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken';
 import { getAccessToken, setAccessToken } from '../utils/accessToken';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
-import { devConLog, devConErr } from '../utils/devLog';
+import { devConLog, devConErr } from '../utils/devCon';
 import { graphqlUrl, refreshUrl, accessTokenSecret } from '../constants';
 // import initCache from './initCache';
 // import { schema } from './schema';

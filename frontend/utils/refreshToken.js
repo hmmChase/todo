@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { devConErr } from './devLog';
+import { devConErr } from './devCon';
 import { refreshTokenSecret } from '../constants';
 
 export const verifyRefreshToken = refreshToken => {
