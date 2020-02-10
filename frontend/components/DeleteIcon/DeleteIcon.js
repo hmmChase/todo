@@ -5,7 +5,8 @@ import {
   DELETE_IDEA
 } from '../../graphql/queries';
 import { pageSize } from '../../constants';
-import * as sc from './DeleteIcon.style';
+import IconBtn from '../atoms/buttons/IconBtn/IconBtn';
+// import * as sc from './DeleteIcon.style';
 
 const DeleteIcon = props => {
   const handleUpdate = (cache, data) => {
@@ -53,11 +54,9 @@ const DeleteIcon = props => {
   };
 
   return (
-    <sc.DeleteIcon
-      style={{ ...props.style }}
+    <IconBtn
       aria-label='delete icon'
       type='close-square'
-      theme='twoTone'
       onClick={handleClickDeleteBtn}
     />
   );

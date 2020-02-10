@@ -1,7 +1,7 @@
 import allCombos from '../../../../.storybook/allCombos';
 import { action } from '@storybook/addon-actions';
 
-import Icon from './Icon';
+import Icon from './IconBtn';
 
 export default { title: 'Icon', component: Icon };
 

@@ -1,6 +1,6 @@
 import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import Icon from './Icon';
+import Icon from './IconBtn';
 import theme from '../../../../public/styles/theme.style';
 
 // jest.mock('../SomeComponent/SomeComponent', () => () => (

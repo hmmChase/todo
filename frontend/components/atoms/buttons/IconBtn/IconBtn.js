@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as sc from './Icon.style';
+import * as sc from './IconBtn.style';
 
-const Icon = props => (
+const IconBtn = props => (
   <sc.AntIcon type={props.type} theme='twoTone' onClick={props.onClick} />
 );
 
-Icon.propTypes = {
+IconBtn.propTypes = {
   type: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired
 };
 
-export default React.memo(Icon);
+export default React.memo(IconBtn);
