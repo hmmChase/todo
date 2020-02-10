@@ -54,6 +54,7 @@ const DeleteIcon = props => {
 
   return (
     <sc.DeleteIcon
+      style={{ ...props.style }}
       aria-label='delete icon'
       type='close-square'
       theme='twoTone'
