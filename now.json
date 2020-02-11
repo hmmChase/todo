@@ -2,6 +2,9 @@
   "name": "next-graphql-starter",
   "alias": "next-graphql-starter",
   "version": 2,
+  "github": {
+    "silent": true
+  },
   "builds": [
     {
       "src": "backend/src/index.js",
