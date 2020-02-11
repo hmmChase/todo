@@ -7,8 +7,6 @@ const IconBtn = props => (
   <sc.AntIcon type={props.type} theme='twoTone' onClick={props.onClick} />
 );
 
-// test2
-
 IconBtn.propTypes = {
   type: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired
