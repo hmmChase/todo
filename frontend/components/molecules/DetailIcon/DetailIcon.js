@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 // import { useRouter } from 'next/router';
 
-import IconBtn from '../atoms/buttons/IconBtn/IconBtn';
+import IconBtn from '../../atoms/IconBtn/IconBtn';
 import * as sc from './DetailIcon.style';
 
 const DetailIcon = props => {

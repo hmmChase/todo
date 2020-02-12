@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Footer from '../Footer/Footer';
+import Footer from '../molecules/Footer/Footer';
 import * as sc from './LayoutMain.style';
 
 const LayoutMain = props => (

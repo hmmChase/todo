@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
-import DisplayLoading from '../DisplayLoading/DisplayLoading';
-import DisplayError from '../DisplayError/DisplayError';
+import DisplayLoading from '../molecules/DisplayLoading/DisplayLoading';
+import DisplayError from '../molecules/DisplayError/DisplayError';
 import IdeaCardList from '../IdeaCardList/IdeaCardList';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import { CURRENT_USER_PAGINATED_IDEAS } from '../../graphql/queries';

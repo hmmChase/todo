@@ -3,9 +3,9 @@ import { useMutation } from '@apollo/react-hooks';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
   DELETE_IDEA
-} from '../../graphql/queries';
-import { pageSize } from '../../constants';
-import IconBtn from '../atoms/buttons/IconBtn/IconBtn';
+} from '../../../graphql/queries';
+import { pageSize } from '../../../constants';
+import IconBtn from '../../atoms/IconBtn/IconBtn';
 // import * as sc from './DeleteIcon.style';
 
 const DeleteIcon = props => {

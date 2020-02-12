@@ -5,8 +5,8 @@ import DeleteIcon from './DeleteIcon';
 import {
   MOCK_CURRENT_USER_PAGINATED_IDEAS,
   MOCK_DELETE_IDEA
-} from '../../__tests__/__mocks__/graphql/idea';
-import theme from '../../public/styles/theme.style';
+} from '../../../__tests__/__mocks__/graphql/idea';
+import theme from '../../../public/styles/theme.style';
 
 const arrage = (newProps = {}, newQueries = []) => {
   const defaultProps = { id: '1' };

@@ -6,34 +6,55 @@ const getCombinations = (data, currIndex = 0, combos = [], combo = {}) => {
   const currProp = propNames[currIndex];
   const currPropValues = data[currProp];
 
-  // loop over values of current prop
-  currPropValues.forEach(value => {
+  if (Array.isArray(currPropValues)) {
+    // loop over values of current prop
+    currPropValues.forEach(value => {
+      // update the combo object
+      // create/update prop key with current value
+      combo[currProp] = value;
+
+      // if next index is less than the number of props
+      if (currIndex + 1 < propNames.length) {
+        // rerun function on the next prop
+        getCombinations(data, currIndex + 1, combos, combo);
+
+        // if no more props
+      } else {
+        // clone current prop combination
+        const clone = Object.assign({}, combo);
+
+        // push prop combo object to combos array
+        combos.push(clone);
+
+        // go on to the next prop value
+      }
+    });
+  } else {
     // update the combo object
     // create/update prop key with current value
-    combo[currProp] = value;
+    combo[currProp] = currPropValues;
 
     // if next index is less than the number of props
     if (currIndex + 1 < propNames.length) {
       // rerun function on the next prop
-      getCombinations(props, currIndex + 1, combos, combo);
+      getCombinations(data, currIndex + 1, combos, combo);
 
       // if no more props
     } else {
       // clone current prop combination
-      // the easiest way to clone an object
-      const clone = JSON.parse(JSON.stringify(combo));
+      const clone = Object.assign({}, combo);
 
       // push prop combo object to combos array
       combos.push(clone);
 
       // go on to the next prop value
     }
-  });
+  }
 
   return combos;
 };
 
-export default (baseComp, data, actions) => {
+export default (baseComp, data = [], actions = {}) => {
   if (!data || (data && !Object.keys(data).length)) {
     object('key 1', {});
 

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import AlertMsg from '../../atoms/AlertMsg/AlertMsg';
 import * as sc from './DisplayError.style';
 
 const DisplayError = props => {
@@ -6,7 +7,7 @@ const DisplayError = props => {
     return (
       <sc.DisplayError data-testid='DisplayError'>
         {props.error.graphQLErrors.map((error, i) => (
-          <li key={`error${i}`}>{error.message}</li>
+          <AlertMsg key={`error${i}`} message={error.message} type='error' />
         ))}
       </sc.DisplayError>
     );
@@ -15,14 +16,14 @@ const DisplayError = props => {
   if (props.error.message) {
     return (
       <sc.DisplayError data-testid='DisplayError'>
-        <li>{props.error.message}</li>
+        <AlertMsg message={props.error.message} type='error' />
       </sc.DisplayError>
     );
   }
 
   return (
     <sc.DisplayError data-testid='DisplayError'>
-      <li>Opps, something went wrong.</li>
+      <AlertMsg message='Opps, something went wrong.' type='error' />
     </sc.DisplayError>
   );
 };

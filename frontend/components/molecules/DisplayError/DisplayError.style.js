@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const DisplayError = styled.ul`
-  border-left: 5px solid red;
+  padding: 0;
   list-style: none;
-  padding-left: 1rem;
 `;

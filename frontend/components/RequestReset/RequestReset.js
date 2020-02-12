@@ -1,8 +1,8 @@
 import { Formik, Field } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
 import * as yup from 'yup';
-import DisplayError from '../DisplayError/DisplayError';
-import DisplaySuccess from '../DisplaySuccess/DisplaySuccess';
+import DisplayError from '../molecules/DisplayError/DisplayError';
+import DisplaySuccess from '../molecules/DisplaySuccess/DisplaySuccess';
 import { REQUEST_RESET } from '../../graphql/queries';
 import * as sc from './RequestReset.style';
 

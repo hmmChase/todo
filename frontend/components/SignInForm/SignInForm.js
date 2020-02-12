@@ -2,7 +2,7 @@ import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
-import DisplayError from '../DisplayError/DisplayError';
+import DisplayError from '../molecules/DisplayError/DisplayError';
 import { SIGN_IN } from '../../graphql/queries';
 import { setAccessToken } from '../../utils/accessToken';
 import * as sc from './SignInForm.style';
