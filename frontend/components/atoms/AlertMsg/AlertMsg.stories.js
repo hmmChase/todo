@@ -1,11 +1,11 @@
 import allCombos from '../../../.storybook/allCombos';
-import Alert from './AlertMsg';
+import AlertMsg from './AlertMsg';
 
-export default { title: 'Alert', component: Alert };
+export default { title: 'Atoms', component: AlertMsg };
 
 const data = {
   message: 'mock message',
   type: ['success', 'info', 'warning', 'error']
 };
 
-export const all = () => allCombos(Alert, data);
+export const alertMsg = () => allCombos(AlertMsg, data);

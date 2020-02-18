@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import allCombos from '../../../.storybook/allCombos';
 import PopupModal from './PopupModal';
 
-export default { title: 'PopupModal', component: PopupModal };
+export default { title: 'Atoms/Popup Modal', component: PopupModal };
 
 const children = <div>Children</div>;
 const footer = <div>Footer</div>;

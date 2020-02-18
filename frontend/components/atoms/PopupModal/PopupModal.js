@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
-
 // import * as sc from './PopupModal.style';
 
 const PopupModal = props => {
@@ -13,7 +12,7 @@ const PopupModal = props => {
       onCancel={props.onCancel}
       footer={props.footer}
     >
-      <div>{props.children}</div>
+      {props.children}
     </Modal>
   );
 };

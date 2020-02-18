@@ -6,12 +6,12 @@ const fs = require('fs');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const withLess = require('@zeit/next-less');
-const lessToJS = require('less-vars-to-js');
+const lessToJs = require('less-vars-to-js');
 const withOffline = require('next-offline');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
 // Where your antd-custom.less file lives
-const themeVariables = lessToJS(
+const themeVars = lessToJs(
   fs.readFileSync(
     path.resolve(__dirname, './public/styles/antd-custom.less'),
     'utf8'
@@ -23,7 +23,7 @@ const nextConfig = {
   target: 'serverless',
 
   // Custom webpack config for Ant Design Less
-  lessLoaderOptions: { javascriptEnabled: true, modifyVars: themeVariables },
+  lessLoaderOptions: { javascriptEnabled: true, modifyVars: themeVars },
 
   // https://developers.google.com/web/tools/workbox
   // https://medium.com/google-developer-experts/add-offline-support-to-any-web-app-c20edc4bea0e

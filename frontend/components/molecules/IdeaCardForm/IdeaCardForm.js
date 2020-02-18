@@ -3,8 +3,8 @@ import { useMutation } from '@apollo/react-hooks';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
   CREATE_IDEA
-} from '../../graphql/queries';
-import { pageSize } from '../../constants';
+} from '../../../graphql/queries';
+import { pageSize } from '../../../constants';
 import * as sc from './IdeaCardForm.style';
 
 const IdeaCardForm = () => {
@@ -65,7 +65,7 @@ const IdeaCardForm = () => {
 
   return (
     <sc.IdeaCardForm onSubmit={handleSubmitIdeaForm}>
-      <sc.InputTextArea
+      <sc.IdeaInput
         aria-label='idea input'
         name='idea'
         type='text'
@@ -77,7 +77,7 @@ const IdeaCardForm = () => {
       <sc.BoxImg src='images/ideabox.png' alt='ideabox' />
 
       <sc.SubmitBtn
-        aria-label='submit idea'
+        aria-label='add idea'
         type='primary'
         htmlType='submit'
         disabled={isSubmitDisabled}

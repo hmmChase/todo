@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Button } from 'antd';
 import withApollo from '../graphql/withApollo';
 import Head from '../components/Head/Head';
-import LayoutMain from '../components/LayoutMain/LayoutMain';
+import Layout from '../components/organisms/Layout/Layout';
 
 const LinkHome = () => (
   <Link href='/'>
@@ -38,7 +38,7 @@ const Error = props => {
     <>
       <Head title='Error' />
 
-      <LayoutMain header={<h1>{error}</h1>} content={<LinkHome />} />
+      <Layout header={<h1>{error}</h1>} content={<LinkHome />} />
     </>
   );
 };

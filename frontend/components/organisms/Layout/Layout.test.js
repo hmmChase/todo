@@ -1,7 +1,7 @@
 import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import LayoutMain from './LayoutMain';
-import theme from '../../public/styles/theme.style';
+import Layout from './Layout';
+import theme from '../../../public/styles/theme.style';
 
 const arrage = (newProps = {}) => {
   const defaultProps = { header: 'mock header', content: 'mock content' };
@@ -9,7 +9,7 @@ const arrage = (newProps = {}) => {
 
   const result = render(
     <ThemeProvider theme={theme}>
-      <LayoutMain {...mockProps} />
+      <Layout {...mockProps} />
     </ThemeProvider>
   );
 
@@ -20,7 +20,7 @@ const arrage = (newProps = {}) => {
   return { ...result, antHeader, antContent, antFooter };
 };
 
-describe('LayoutMain', () => {
+describe('Layout', () => {
   afterEach(cleanup);
 
   it('renders elements', () => {

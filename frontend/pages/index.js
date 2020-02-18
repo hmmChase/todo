@@ -1,7 +1,8 @@
 // import Page from '../components/Page/Page';
 import Head from '../components/Head/Head';
-import LayoutMain from '../components/LayoutMain/LayoutMain';
-import HeaderMain from '../components/HeaderMain/HeaderMain';
+import Layout from '../components/organisms/Layout/Layout';
+import Header from '../components/organisms/Header/Header';
+import IdeaCardForm from '../components/molecules/IdeaCardForm/IdeaCardForm';
 import Ideas from '../components/Ideas/Ideas';
 import withApollo from '../graphql/withApollo';
 import redirect from '../utils/redirect';
@@ -36,7 +37,14 @@ const IndexPage = () => {
     <>
       <Head title='Home' />
 
-      <LayoutMain header={<HeaderMain />} content={<Ideas />} />
+      <Layout
+        header={
+          <Header>
+            <IdeaCardForm />
+          </Header>
+        }
+        content={<Ideas />}
+      />
     </>
   );
 };

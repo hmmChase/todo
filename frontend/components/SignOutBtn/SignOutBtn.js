@@ -45,9 +45,9 @@ const SignOutBtn = () => {
       {/* <Link href='/welcome'> */}
 
       <sc.SignOutBtn
-        aria-label='sign out button'
+        ariaLabel='sign out button'
         disabled={loading}
-        aria-busy={loading}
+        ariaBusy={loading}
         onClick={handleClickBtn}
       >
         Sign Out

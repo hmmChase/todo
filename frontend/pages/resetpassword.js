@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Head from '../components/Head/Head';
-import LayoutMain from '../components/LayoutMain/LayoutMain';
+import Layout from '../components/organisms/Layout/Layout';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import authenticate from '../utils/authenticate';
 import withApollo from '../graphql/withApollo';
@@ -9,7 +9,7 @@ const ResetPasswordPage = props => (
   <>
     <Head title='Reset Password' />
 
-    <LayoutMain
+    <Layout
       header={<h1>Reset Your Password</h1>}
       content={
         <ResetPassword

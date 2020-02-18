@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import PopupModal from '../atoms/PopupModal/PopupModal';
-import RequestReset from '../RequestReset/RequestReset';
-import * as sc from './ForgotPassDialog.style';
+import PopupModal from '../../atoms/PopupModal/PopupModal';
+import RequestReset from '../../RequestReset/RequestReset';
+// import * as sc from './ForgotPassDialog.style';
 
 const ForgotPassDialog = () => {
   const [visible, setVisible] = useState(false);
@@ -11,8 +11,8 @@ const ForgotPassDialog = () => {
   const handleCancel = () => setVisible(false);
 
   return (
-    <sc.ForgotPassDialog>
-      <sc.ModalLink onClick={showModal}>Forgot password?</sc.ModalLink>
+    <>
+      <a onClick={showModal}>Forgot password?</a>
 
       <PopupModal
         title='Request a password reset'
@@ -23,7 +23,7 @@ const ForgotPassDialog = () => {
       >
         <RequestReset />
       </PopupModal>
-    </sc.ForgotPassDialog>
+    </>
   );
 };
 

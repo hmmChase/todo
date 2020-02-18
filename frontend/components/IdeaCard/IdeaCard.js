@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import DetailIcon from '../DetailIcon/DetailIcon';
-import DeleteIcon from '../DeleteIcon/DeleteIcon';
+import DetailIcon from '../molecules/DetailIcon/DetailIcon';
+import DeleteIcon from '../molecules/DeleteIcon/DeleteIcon';
 import IdeaInput from '../IdeaInput/IdeaInput';
 import * as sc from './IdeaCard.style';
 

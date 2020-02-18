@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import Footer from '../molecules/Footer/Footer';
-import * as sc from './LayoutMain.style';
+import Footer from '../../molecules/Footer/Footer';
+import * as sc from './Layout.style';
 
-const LayoutMain = props => (
-  <sc.LayoutMain>
+const Layout = props => (
+  <sc.AntLayout>
     <sc.AntHeader>
       <sc.Container>{props.header}</sc.Container>
     </sc.AntHeader>
@@ -17,9 +17,12 @@ const LayoutMain = props => (
         <Footer />
       </sc.Container>
     </sc.AntFooter>
-  </sc.LayoutMain>
+  </sc.AntLayout>
 );
 
-LayoutMain.propTypes = { header: PropTypes.node, content: PropTypes.node };
+Layout.propTypes = {
+  header: PropTypes.element,
+  content: PropTypes.element
+};
 
-export default React.memo(LayoutMain);
+export default React.memo(Layout);

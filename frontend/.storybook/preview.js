@@ -3,15 +3,17 @@ import { addDecorator, addParameters } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withA11y } from '@storybook/addon-a11y';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
-
 import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
+import GlobalStyle from '../public/styles/global.style';
 import theme from '../public/styles/theme.style';
 
-// import { GlobalStyle } from '../src/shared/global';
+// loadFontsForStorybook();
 
 addParameters({
   options: {
+    // showRoots: true,
+
     storySort: (a, b) =>
       a[1].kind === b[1].kind
         ? 0
@@ -26,7 +28,7 @@ addDecorator(story => (
   <div style={{ padding: '1rem' }}>
     <MockedProvider>
       <ThemeProvider theme={theme}>
-        {/* <GlobalStyle /> */}
+        <GlobalStyle />
         {story()}
       </ThemeProvider>
     </MockedProvider>
@@ -64,4 +66,12 @@ addParameters({
   }
 });
 
-// loadFontsForStorybook();
+addParameters({
+  backgrounds: [
+    { name: 'white', value: '#FFF' },
+    { name: 'gray', value: '#d3d3d3', default: true },
+    { name: 'black', value: '#000' },
+    { name: 'twitter', value: '#00aced' },
+    { name: 'facebook', value: '#3b5998' }
+  ]
+});
