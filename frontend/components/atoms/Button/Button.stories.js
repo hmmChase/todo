@@ -7,10 +7,11 @@ export default { title: 'Atoms', component: Button };
 const data = {
   ariaBusy: [false, true],
   ariaLabel: 'mock label',
-  children: ['', 'button text'],
+  children: [null, 'button text'],
   disabled: [false, true],
   htmlType: 'submit',
-  type: 'primary'
+  loading: [false, true],
+  type: [null, 'primary']
 };
 
 const actions = {
@@ -18,3 +19,4 @@ const actions = {
 };
 
 export const button = () => allCombos(Button, data, actions);
+

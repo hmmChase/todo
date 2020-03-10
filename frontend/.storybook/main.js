@@ -40,7 +40,7 @@ module.exports = {
         { loader: 'css-loader' },
         {
           loader: 'less-loader',
-          options: { javascriptEnabled: true, modifyVars: themeVars }
+          options: { modifyVars: themeVars, javascriptEnabled: true }
         }
       ]
     });

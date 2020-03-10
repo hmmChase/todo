@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import * as sc from './LoadMoreBtn.style';
+import Button from '../../atoms/Button/Button';
+// import * as sc from './LoadMoreBtn.style';
 
 const LoadMoreBtn = props => {
   const handleFetchMore = () => {
@@ -27,14 +28,14 @@ const LoadMoreBtn = props => {
   };
 
   return (
-    <sc.LoadMoreBtn
-      aria-label='load more button'
-      type='primary'
+    <Button
+      ariaLabel='load more button'
       loading={props.loading}
       onClick={handleFetchMore}
+      type='primary'
     >
       Load More
-    </sc.LoadMoreBtn>
+    </Button>
   );
 };
 
@@ -52,8 +53,10 @@ LoadMoreBtn.propTypes = {
         }).isRequired
       }).isRequired
     ).isRequired,
-    pageInfo: PropTypes.shape({ endCursor: PropTypes.string.isRequired })
-      .isRequired
+    pageInfo: PropTypes.shape({
+      endCursor: PropTypes.string.isRequired,
+      hasNextPage: PropTypes.bool.isRequired
+    }).isRequired
   }).isRequired
 };
 

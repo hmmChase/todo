@@ -7,6 +7,7 @@ const Button = props => (
     aria-label={props.ariaLabel}
     disabled={props.disabled}
     htmlType={props.htmlType}
+    loading={props.loading}
     onClick={props.onClick}
     type={props.type}
   >
@@ -16,12 +17,13 @@ const Button = props => (
 
 Button.propTypes = {
   ariaBusy: PropTypes.bool,
-  ariaLabel: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  htmlType: PropTypes.string.isRequired,
+  ariaLabel: PropTypes.string,
+  children: PropTypes.string,
+  disabled: PropTypes.bool,
+  htmlType: PropTypes.string,
+  loading: PropTypes.bool,
   onClick: PropTypes.func,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string
 };
 
 export default React.memo(Button);

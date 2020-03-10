@@ -1,7 +1,7 @@
 import Header from './Header';
 import allCombos from '../../../.storybook/allCombos';
 
-export default { title: 'Organisms', component: Header };
+export default { title: 'Molecules', component: Header };
 
 const data = {
   ideaId: [null, '43kljkl4243ltsda98'],

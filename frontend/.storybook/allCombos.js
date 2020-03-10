@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from '@storybook/addon-knobs';
+// import { object } from '@storybook/addon-knobs';
 
 const getCombinations = (data, currIndex = 0, combos = [], combo = {}) => {
   const propNames = Object.keys(data);
@@ -56,11 +56,11 @@ const getCombinations = (data, currIndex = 0, combos = [], combo = {}) => {
 
 export default (baseComp, data = [], actions = {}) => {
   if (!data || (data && !Object.keys(data).length)) {
-    object('key 1', {});
+    // object('key 1', {});
 
     const propComp = React.createElement(baseComp, { ...actions });
 
-    object(data, propComp.props);
+    // object(data, propComp.props);
 
     return <div style={{ margin: '1rem' }}>{propComp}</div>;
   }
@@ -71,7 +71,7 @@ export default (baseComp, data = [], actions = {}) => {
   return combos.map(combo => {
     const propComp = React.createElement(baseComp, { ...combo, ...actions });
 
-    object(`key ${key} data`, propComp.props);
+    // object(`key ${key} data`, propComp.props);
 
     return (
       <div key={key++} style={{ margin: '1rem' }}>
