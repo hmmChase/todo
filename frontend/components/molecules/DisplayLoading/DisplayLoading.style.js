@@ -1,8 +1,6 @@
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 // import { ReactComponent as loadingIcon } from '../../static/loading.svg';
-
-export const DisplayLoading = styled.div``;
 
 // const spin = keyframes`
 //   to {

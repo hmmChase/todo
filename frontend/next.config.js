@@ -23,7 +23,7 @@ const nextConfig = {
   target: 'serverless',
 
   // Custom webpack config for Ant Design Less
-  lessLoaderOptions: { javascriptEnabled: true, modifyVars: themeVars },
+  lessLoaderOptions: { modifyVars: themeVars, javascriptEnabled: true },
 
   // https://developers.google.com/web/tools/workbox
   // https://medium.com/google-developer-experts/add-offline-support-to-any-web-app-c20edc4bea0e

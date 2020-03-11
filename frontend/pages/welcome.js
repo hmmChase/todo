@@ -1,5 +1,5 @@
 // import Page from '../components/Page/Page';
-import Head from '../components/Head/Head';
+import Head from '../components/organisms/Head/Head';
 import SignOn from '../components/SignOn/SignOn';
 import withApollo from '../graphql/withApollo';
 import jwt from 'jsonwebtoken';

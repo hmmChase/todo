@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 // import { useRouter } from 'next/router';
-
 import IconBtn from '../../atoms/IconBtn/IconBtn';
-import * as sc from './DetailIcon.style';
+// import * as sc from './DetailIcon.style';
 
 const DetailIcon = props => {
   // const router = useRouter();
@@ -13,14 +12,14 @@ const DetailIcon = props => {
 
   return (
     <Link href={`/idea/${props.id}`}>
-      <sc.aLink aria-label='detail icon'>
+      <a aria-label='detail icon'>
         <IconBtn
           type='up-square'
           // onClick={() =>
           //   router.push('/idea', `idea?id=${props.id}`, { id: props.id })
           // }
         />
-      </sc.aLink>
+      </a>
     </Link>
   );
 };

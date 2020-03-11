@@ -1,4 +1,3 @@
-import React from 'react';
 import { action } from '@storybook/addon-actions';
 import allCombos from '../../../.storybook/allCombos';
 import PopupModal from './PopupModal';

@@ -1,5 +1,5 @@
 // import Page from '../components/Page/Page';
-import Head from '../components/Head/Head';
+import Head from '../components/organisms/Head/Head';
 import Layout from '../components/organisms/Layout/Layout';
 import Header from '../components/molecules/Header/Header';
 import IdeaCardForm from '../components/molecules/IdeaCardForm/IdeaCardForm';

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import NextHead from 'next/head';
-import { title } from '../../constants';
+import { title } from '../../../constants';
 
 const Head = props => (
   <NextHead>

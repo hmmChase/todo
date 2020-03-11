@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import Head from '../../components/Head/Head';
+import Head from '../../components/organisms/Head/Head';
 import Layout from '../../components/organisms/Layout/Layout';
-import Top from '../../components/organisms/Header/Header';
+import Header from '../../components/molecules/Header/Header';
 import IdeaDetail from '../../components/IdeaDetail/IdeaDetail';
 import withApollo from '../../graphql/withApollo';
 import authenticate from '../../utils/authenticate';
@@ -12,7 +12,7 @@ const IdeaPage = props => {
       <Head title='Idea Detail' />
 
       <Layout
-        header={<Top ideaId={props.id} />}
+        header={<Header ideaId={props.id} />}
         content={<IdeaDetail ideaId={props.id} />}
       />
     </>

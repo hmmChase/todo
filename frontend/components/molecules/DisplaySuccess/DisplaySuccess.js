@@ -4,7 +4,7 @@ import * as sc from './DisplaySuccess.style';
 
 const DisplaySuccess = props => (
   <sc.DisplaySuccess>
-    <AlertMsg message={props.message} type='error' />
+    <AlertMsg message={props.message} type='success' />
   </sc.DisplaySuccess>
 );
 

@@ -19,4 +19,3 @@ const actions = {
 };
 
 export const button = () => allCombos(Button, data, actions);
-

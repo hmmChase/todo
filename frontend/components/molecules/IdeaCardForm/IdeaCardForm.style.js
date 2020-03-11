@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Form } from 'antd';
-import { AntButton } from '../../atoms/Button/Button.style';
-import { InputTextArea } from '../../atoms/TextArea/TextArea.style';
+import TextArea from '../../atoms/TextArea/TextArea';
+import Button from '../../atoms/Button/Button';
 
 export const IdeaCardForm = styled(Form)`
   display: flex;
@@ -15,8 +15,9 @@ export const BoxImg = styled.img`
   width: 50px;
 `;
 
-export const IdeaInput = styled(InputTextArea)`
-  /* margin-bottom: 0 !important; */
+export const IdeaInput = styled(TextArea)`
+  border-radius: 0;
+
   /* border: none; */
   /* border-top-right-radius: 0; */
   /* border-bottom-right-radius: 0; */
@@ -25,9 +26,20 @@ export const IdeaInput = styled(InputTextArea)`
   /* &:focus {
     box-shadow: none;
   } */
+
+    &:focus {
+    border-color: #d9d9d9;
+    box-shadow: none;
+   }
+
+   &:hover {
+    border-color: #d9d9d9;
+    box-shadow: none;
+   }
 `;
 
-export const SubmitBtn = styled(AntButton)`
-  height: auto;
+export const SubmitBtn = styled(Button)`
   border: none;
+  border-radius: 0;
+  height: auto;
 `;

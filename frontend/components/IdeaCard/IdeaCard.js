@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import DetailIcon from '../molecules/DetailIcon/DetailIcon';
 import DeleteIcon from '../molecules/DeleteIcon/DeleteIcon';
-import IdeaInput from '../IdeaInput/IdeaInput';
+import IdeaInput from '../molecules/IdeaInput/IdeaInput';
 import * as sc from './IdeaCard.style';
 
 const IdeaCard = props => (

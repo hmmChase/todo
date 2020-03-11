@@ -7,9 +7,9 @@ export default { title: 'Atoms/TextArea', component: TextArea };
 
 const data1 = {
   name: 'mock name',
-  placeholder: ['', 'mock placeholder'],
+  placeholder: [null, 'mock placeholder'],
   type: 'text',
-  value: ['', 'mock value']
+  value: [null, 'mock value']
 };
 
 const actions = {
@@ -17,6 +17,8 @@ const actions = {
 };
 
 export const textArea = () => allCombos(TextArea, data1, actions);
+
+// TextArea adds bottom margin when used in a form
 
 const data2 = {
   name: 'mock name',

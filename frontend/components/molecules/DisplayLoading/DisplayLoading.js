@@ -1,5 +1,5 @@
-import * as sc from './DisplayLoading.style';
+// import * as sc from './DisplayLoading.style';
 
-const DisplayLoading = () => <sc.DisplayLoading>Loading...</sc.DisplayLoading>;
+const DisplayLoading = () => <div>Loading...</div>;
 
 export default DisplayLoading;

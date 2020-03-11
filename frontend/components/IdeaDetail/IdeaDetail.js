@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useQuery } from '@apollo/react-hooks';
 import DisplayLoading from '../molecules/DisplayLoading/DisplayLoading';
 import DisplayError from '../molecules/DisplayError/DisplayError';
-import IdeaInput from '../IdeaInput/IdeaInput';
+import IdeaInput from '../molecules/IdeaInput/IdeaInput';
 // import DeleteIcon from '../DeleteIcon/DeleteIcon';
 import { CURRENT_USER_IDEA } from '../../graphql/queries';
 import * as sc from './IdeaDetail.style';

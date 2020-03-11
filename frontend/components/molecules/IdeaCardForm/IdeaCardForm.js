@@ -9,26 +9,31 @@ import * as sc from './IdeaCardForm.style';
 
 const IdeaCardForm = () => {
   const [idea, setIdea] = useState('');
-
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   const handleUpdate = (cache, data) => {
     // Read the data from cache for query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: pageSize }
-    });
+      variables: {
+        orderBy: 'createdAt_DESC',
+        first: pageSize
+      }
+    }); // Copy the ideas
 
-    // Copy the ideas
-    const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges];
+    const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges]; // Add idea from the mutation to the beginning
 
-    // Add idea from the mutation to the beginning
-    newIdeas.unshift({ node: { ...data.createIdea }, __typename: 'IdeaEdge' });
+    newIdeas.unshift({
+      node: { ...data.createIdea },
+      __typename: 'IdeaEdge'
+    }); // Write data back to the cache
 
-    // Write data back to the cache
     cache.writeQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: pageSize },
+      variables: {
+        orderBy: 'createdAt_DESC',
+        first: pageSize
+      },
       data: {
         ...ideasData,
         currentUserPaginatedIdeas: {
@@ -43,6 +48,7 @@ const IdeaCardForm = () => {
     update(cache, { data }) {
       handleUpdate(cache, data);
     },
+
     onError(_error) {}
   });
 
@@ -59,7 +65,11 @@ const IdeaCardForm = () => {
   const handleSubmitIdeaForm = e => {
     e.preventDefault();
     setIsSubmitDisabled(true);
-    createIdea({ variables: { content: idea } });
+    createIdea({
+      variables: {
+        content: idea
+      }
+    });
     setIdea('');
   };
 

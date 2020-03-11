@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Head from '../components/Head/Head';
+import Head from '../components/organisms/Head/Head';
 import Layout from '../components/organisms/Layout/Layout';
 import ResetPassword from '../components/ResetPassword/ResetPassword';
 import authenticate from '../utils/authenticate';

@@ -23,15 +23,15 @@ module.exports = {
   ],
 
   webpackFinal: config => {
-    config.module.rules.push({
-      loader: 'babel-loader',
-      exclude: /node_modules/,
-      test: /\.(js|jsx)$/,
-      options: {
-        presets: ['@babel/react'],
-        plugins: [['import', { libraryName: 'antd', style: true }]]
-      }
-    });
+    // config.module.rules.push({
+    //   loader: 'babel-loader',
+    //   exclude: /node_modules/,
+    //   test: /\.(js|jsx)$/,
+    //   options: {
+    //     // presets: ['@babel/preset-env', '@babel/preset-react'],
+    //     // plugins: [['import', { libraryName: 'antd', style: true }]]
+    //   }
+    // });
 
     config.module.rules.push({
       test: /\.less$/,

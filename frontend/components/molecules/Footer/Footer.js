@@ -1,9 +1,9 @@
-import * as sc from './Footer.style';
+// import * as sc from './Footer.style';
 
 const Footer = () => (
-  <sc.Footer>
+  <footer>
     <p>Footer</p>
-  </sc.Footer>
+  </footer>
 );
 
 export default Footer;
