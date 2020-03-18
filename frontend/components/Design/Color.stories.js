@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import allCombos from '../.storybook/allCombos';
-import theme from '../public/styles/theme.style';
+import allCombos from '../../.storybook/allCombos';
+import theme from '../../public/styles/theme.style';
 
 const ColorComp = props => (
   <div

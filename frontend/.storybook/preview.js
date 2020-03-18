@@ -26,7 +26,7 @@ addDecorator(withA11y);
 
 addDecorator(story => (
   <div style={{ padding: '1rem' }}>
-    <MockedProvider>
+    <MockedProvider mocks={[]} addTypename={false}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         {story()}

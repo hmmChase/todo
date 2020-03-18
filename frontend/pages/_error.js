@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Button } from 'antd';
 import withApollo from '../graphql/withApollo';
-import Head from '../components/Head/Head';
+import Head from '../components/organisms/Head/Head';
 import Layout from '../components/organisms/Layout/Layout';
 
 const LinkHome = () => (
