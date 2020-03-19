@@ -1,7 +1,7 @@
 import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import ForgotPassDialog from './ForgotPassDialog';
-import theme from '../../public/styles/theme.style';
+import theme from '../../../public/styles/theme.style';
 
 jest.mock('../RequestReset/RequestReset', () => () => <div>RequestReset</div>);
 

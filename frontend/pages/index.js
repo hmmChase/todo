@@ -3,7 +3,7 @@ import Head from '../components/organisms/Head/Head';
 import Layout from '../components/organisms/Layout/Layout';
 import Header from '../components/organisms/Header/Header';
 import IdeaCardForm from '../components/molecules/IdeaCardForm/IdeaCardForm';
-import Ideas from '../components/Ideas/Ideas';
+import Ideas from '../components/organisms/Ideas/Ideas';
 import withApollo from '../graphql/withApollo';
 import redirect from '../utils/redirect';
 import jwt from 'jsonwebtoken';

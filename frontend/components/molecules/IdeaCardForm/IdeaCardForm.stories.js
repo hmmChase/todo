@@ -2,7 +2,7 @@
 import allCombos from '../../../.storybook/allCombos';
 import IdeaCardForm from './IdeaCardForm';
 
-export default { title: 'Molecules', component: IdeaCardForm };
+export default { title: 'Components|Molecules', component: IdeaCardForm };
 
 const data = {
   // id: ['1']

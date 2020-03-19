@@ -20,7 +20,7 @@ const Button = props => (
 Button.propTypes = {
   ariaBusy: PropTypes.bool,
   ariaLabel: PropTypes.string,
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   className: PropTypes.string,
   disabled: PropTypes.bool,
   htmlType: PropTypes.string,

@@ -17,7 +17,8 @@ const IdeaInput = props => {
     <TextArea
       ariaLabel='idea input'
       autoSize={{ minRows: 1, maxRows: 10 }}
-      defaultValue={props.content}
+      // defaultValue={props.content}
+      value={props.content}
       onChange={e => {
         e.persist();
         handleChangeideaInput(e);

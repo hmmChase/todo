@@ -8,6 +8,12 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../public/styles/global.style';
 import theme from '../public/styles/theme.style';
 
+import {
+  MOCK_CURRENT_USER_IDEA,
+  MOCK_ERROR_CURRENT_USER_IDEA,
+  MOCK_CURRENT_USER_PAGINATED_IDEAS
+} from '../__tests__/__mocks__/graphql/idea';
+
 // loadFontsForStorybook();
 
 addParameters({
@@ -26,7 +32,10 @@ addDecorator(withA11y);
 
 addDecorator(story => (
   <div style={{ padding: '1rem' }}>
-    <MockedProvider mocks={[]} addTypename={false}>
+    <MockedProvider
+      mocks={[MOCK_CURRENT_USER_IDEA, MOCK_CURRENT_USER_PAGINATED_IDEAS]}
+      addTypename={false}
+    >
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         {story()}

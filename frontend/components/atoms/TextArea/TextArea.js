@@ -8,7 +8,7 @@ const TextArea = props => (
     aria-label={props.ariaLabel}
     autoSize={props.autoSize}
     name={props.name}
-    defaultValue={props.defaultValue}
+    // defaultValue={props.defaultValue}
     type={props.type}
     placeholder={props.placeholder}
     value={props.value}

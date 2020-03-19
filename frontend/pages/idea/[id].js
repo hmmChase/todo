@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import Head from '../../components/organisms/Head/Head';
 import Layout from '../../components/organisms/Layout/Layout';
-import Header from '../../components/molecules/Header/Header';
-import IdeaDetail from '../../components/IdeaDetail/IdeaDetail';
+import Header from '../../components/organisms/Header/Header';
+import IdeaDetail from '../../components/organisms/IdeaDetail/IdeaDetail';
 import withApollo from '../../graphql/withApollo';
 import authenticate from '../../utils/authenticate';
 

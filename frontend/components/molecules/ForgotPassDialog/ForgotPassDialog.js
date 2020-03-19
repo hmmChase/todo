@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PopupModal from '../../atoms/PopupModal/PopupModal';
-import RequestReset from '../../RequestReset/RequestReset';
+import RequestReset from '../../organisms/RequestReset/RequestReset';
 // import * as sc from './ForgotPassDialog.style';
 
 const ForgotPassDialog = () => {

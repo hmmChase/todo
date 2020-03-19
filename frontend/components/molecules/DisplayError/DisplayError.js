@@ -5,26 +5,28 @@ import * as sc from './DisplayError.style';
 const DisplayError = props => {
   if (props.error.graphQLErrors && props.error.graphQLErrors.length) {
     return (
-      <sc.DisplayError data-testid='DisplayError'>
+      <sc.ErrorList data-testid='DisplayError'>
         {props.error.graphQLErrors.map((error, i) => (
-          <AlertMsg key={`error${i}`} message={error.message} type='error' />
+          <sc.ErrorItem key={`error${i}`}>
+            <AlertMsg message={error.message} type='error' />
+          </sc.ErrorItem>
         ))}
-      </sc.DisplayError>
+      </sc.ErrorList>
     );
   }
 
   if (props.error.message) {
     return (
-      <sc.DisplayError data-testid='DisplayError'>
-        <AlertMsg message={props.error.message} type='error' />
-      </sc.DisplayError>
+      // <sc.DisplayError data-testid='DisplayError'>
+      <AlertMsg message={props.error.message} type='error' />
+      // </sc.DisplayError>
     );
   }
 
   return (
-    <sc.DisplayError data-testid='DisplayError'>
-      <AlertMsg message='Opps, something went wrong.' type='error' />
-    </sc.DisplayError>
+    // <sc.DisplayError data-testid='DisplayError'>
+    <AlertMsg message='Opps, something went wrong.' type='error' />
+    // </sc.DisplayError>
   );
 };
 

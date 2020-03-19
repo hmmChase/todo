@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import allCombos from '../.storybook/allCombos';
+import allCombos from '../../.storybook/allCombos';
 
 const TypeComp = props => (
   <>

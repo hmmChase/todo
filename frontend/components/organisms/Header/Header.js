@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import SignOutBtn from '../../SignOutBtn/SignOutBtn';
+import SignOutBtn from '../../molecules/SignOutBtn/SignOutBtn';
 import { title } from '../../../constants';
 import * as sc from './Header.style';
 

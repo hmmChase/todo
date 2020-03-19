@@ -3,7 +3,7 @@ import { Form } from 'antd';
 import allCombos from '../../../.storybook/allCombos';
 import TextArea from './TextArea';
 
-export default { title: 'Atoms/TextArea', component: TextArea };
+export default { title: 'Components|Atoms/TextArea', component: TextArea };
 
 const data1 = {
   name: 'mock name',

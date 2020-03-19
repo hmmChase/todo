@@ -2,7 +2,7 @@
 // import allCombos from '../../../.storybook/allCombos';
 import DetailIcon from './DetailIcon';
 
-export default { title: 'Molecules', component: DetailIcon };
+export default { title: 'Components|Molecules', component: DetailIcon };
 
 const data = {
   id: '1'

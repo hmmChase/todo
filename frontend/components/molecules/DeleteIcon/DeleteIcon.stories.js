@@ -2,7 +2,7 @@
 // import allCombos from '../../../.storybook/allCombos';
 import DeleteIcon from './DeleteIcon';
 
-export default { title: 'Molecules', component: DeleteIcon };
+export default { title: 'Components|Molecules', component: DeleteIcon };
 
 const data = {
   id: '1'

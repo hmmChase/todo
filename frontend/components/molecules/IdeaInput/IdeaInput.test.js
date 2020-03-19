@@ -8,8 +8,8 @@ import {
 import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
 import IdeaInput from './IdeaInput';
-import { MOCK_UPDATE_IDEA } from '../../__tests__/__mocks__/graphql/idea';
-import theme from '../../public/styles/theme.style';
+import { MOCK_UPDATE_IDEA } from '../../../__tests__/__mocks__/graphql/idea';
+import theme from '../../../public/styles/theme.style';
 
 const arrage = (newProps = {}, newQueries = []) => {
   const defaultProps = { id: '1', content: 'mock content' };

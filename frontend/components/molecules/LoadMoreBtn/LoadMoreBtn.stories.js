@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions';
 import allCombos from '../../../.storybook/allCombos';
 import LoadMoreBtn from './LoadMoreBtn';
 
-export default { title: 'Molecules', component: LoadMoreBtn };
+export default { title: 'Components|Molecules', component: LoadMoreBtn };
 
 const data = {
   ariaLabel: 'load more button',

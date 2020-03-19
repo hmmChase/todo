@@ -1,7 +1,7 @@
 import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import DisplaySuccess from './DisplaySuccess';
-import theme from '../../public/styles/theme.style';
+import theme from '../../../public/styles/theme.style';
 
 const arrage = (newProps = {}) => {
   const successText = 'mock success message';

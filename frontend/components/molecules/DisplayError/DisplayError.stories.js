@@ -1,6 +1,9 @@
 import DisplayError from './DisplayError';
 
-export default { title: 'Molecules/Display Error', component: DisplayError };
+export default {
+  title: 'Components|Molecules/Display Error',
+  component: DisplayError
+};
 
 const data1 = { error: { message: 'this is a message' } };
 

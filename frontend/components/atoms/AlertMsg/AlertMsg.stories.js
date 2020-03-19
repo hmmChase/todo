@@ -1,7 +1,7 @@
 import allCombos from '../../../.storybook/allCombos';
 import AlertMsg from './AlertMsg';
 
-export default { title: 'Atoms', component: AlertMsg };
+export default { title: 'Components|Atoms', component: AlertMsg };
 
 const data = {
   message: 'mock message',

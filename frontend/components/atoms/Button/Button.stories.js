@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions';
 import allCombos from '../../../.storybook/allCombos';
 import Button from './Button';
 
-export default { title: 'Atoms', component: Button };
+export default { title: 'Components|Atoms', component: Button };
 
 const data = {
   ariaBusy: [false, true],

@@ -1,6 +1,6 @@
 // import Page from '../components/Page/Page';
 import Head from '../components/organisms/Head/Head';
-import SignOn from '../components/SignOn/SignOn';
+import SignOn from '../components/organisms/SignOn/SignOn';
 import withApollo from '../graphql/withApollo';
 import jwt from 'jsonwebtoken';
 import redirect from '../utils/redirect';

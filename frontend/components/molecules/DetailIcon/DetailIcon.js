@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { ExpandIconBtn } from '../../atoms/IconBtn/IconBtn';
 // import { useRouter } from 'next/router';
-import IconBtn from '../../atoms/IconBtn/IconBtn';
 // import * as sc from './DetailIcon.style';
 
 const DetailIcon = props => {
@@ -12,14 +12,14 @@ const DetailIcon = props => {
 
   return (
     <Link href={`/idea/${props.id}`}>
-      <a aria-label='detail icon'>
-        <IconBtn
-          type='up-square'
-          // onClick={() =>
-          //   router.push('/idea', `idea?id=${props.id}`, { id: props.id })
-          // }
-        />
-      </a>
+      {/* <a > */}
+      <ExpandIconBtn
+        aria-label='detail icon'
+        // onClick={() =>
+        //   router.push('/idea', `idea?id=${props.id}`, { id: props.id })
+        // }
+      />
+      {/* </a> */}
     </Link>
   );
 };

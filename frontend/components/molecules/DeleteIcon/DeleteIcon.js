@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
+import { XIconBtn } from '../../atoms/IconBtn/IconBtn';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
   DELETE_IDEA
 } from '../../../graphql/queries';
 import { pageSize } from '../../../constants';
-import IconBtn from '../../atoms/IconBtn/IconBtn';
 // import * as sc from './DeleteIcon.style';
 
 const DeleteIcon = props => {
@@ -53,13 +53,7 @@ const DeleteIcon = props => {
     deleteIdea({ variables: { id: props.id } });
   };
 
-  return (
-    <IconBtn
-      aria-label='delete icon'
-      type='close-square'
-      onClick={handleClickDeleteBtn}
-    />
-  );
+  return <XIconBtn aria-label='delete icon' onClick={handleClickDeleteBtn} />;
 };
 
 DeleteIcon.propTypes = {
