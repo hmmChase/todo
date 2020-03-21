@@ -3,7 +3,8 @@ import Router from 'next/router';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { SIGN_OUT } from '../../../graphql/queries';
 import { clearAccessToken } from '../../../utils/accessToken';
-import * as sc from './SignOutBtn.style';
+import Button from '../../atoms/Button/Button';
+// import * as sc from './SignOutBtn.style';
 
 const SignOutBtn = () => {
   const apolloClient = useApolloClient();
@@ -44,14 +45,15 @@ const SignOutBtn = () => {
 
       {/* <Link href='/welcome'> */}
 
-      <sc.SignOutBtn
+      <Button
         ariaLabel='sign out button'
         disabled={loading}
         ariaBusy={loading}
         onClick={handleClickBtn}
       >
         Sign Out
-      </sc.SignOutBtn>
+      </Button>
+
       {/* </Link> */}
     </>
   );

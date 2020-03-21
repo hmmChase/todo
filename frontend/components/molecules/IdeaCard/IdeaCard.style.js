@@ -1,8 +1,11 @@
 import styled from 'styled-components';
-import { List } from 'antd';
+import DetailIcon from '../DetailIcon/DetailIcon';
 
-export const IdeaCard = styled(List.Item)`
+export const IdeaCardBtns = styled.div`
   display: flex;
-  flex-wrap: wrap;
   justify-content: flex-end;
+`;
+
+export const DetailIconn = styled(DetailIcon)`
+  margin-right: 5px;
 `;

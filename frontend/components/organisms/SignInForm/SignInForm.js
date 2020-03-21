@@ -1,10 +1,12 @@
 import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
-import { Formik, Field } from 'formik';
+import { Form as FormikForm, Formik, Field } from 'formik';
+import { Form, Input } from 'antd';
 import * as yup from 'yup';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import { SIGN_IN } from '../../../graphql/queries';
 import { setAccessToken } from '../../../utils/accessToken';
+import Button from '../../atoms/Button/Button';
 import * as sc from './SignInForm.style';
 
 const validationSchema = yup.object({
@@ -55,12 +57,12 @@ const SignInForm = () => {
       onSubmit={handleSubmitForm}
     >
       {formikProps => (
-        <sc.SignInForm>
+        <FormikForm>
           <h2 data-testid='SignInFormTitle'>Sign In</h2>
 
           <Field name='email'>
             {fieldProps => (
-              <sc.FormItem
+              <Form.Item
                 label='Email'
                 htmlFor='signInEmail'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
@@ -70,20 +72,19 @@ const SignInForm = () => {
                     : ''
                 }
               >
-                <sc.InputEmail
+                <Input
                   id='signInEmail'
                   type='email'
                   onPressEnter={fieldProps.form.handleSubmit}
-                  prefix={<sc.InputIcon type='user' />}
                   {...fieldProps.field}
                 />
-              </sc.FormItem>
+              </Form.Item>
             )}
           </Field>
 
           <Field name='password'>
             {fieldProps => (
-              <sc.FormItem
+              <Form.Item
                 label='Password'
                 htmlFor='signInPassword'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
@@ -93,20 +94,19 @@ const SignInForm = () => {
                     : ''
                 }
               >
-                <sc.InputPassword
+                <Input.Password
                   id='signInPassword'
                   onPressEnter={fieldProps.handleSubmit}
-                  prefix={<sc.InputIcon type='lock' />}
                   {...fieldProps.field}
                 />
-              </sc.FormItem>
+              </Form.Item>
             )}
           </Field>
 
           {error && <DisplayError error={error} />}
 
           <sc.FormItemBtn>
-            <sc.SubmitBtn
+            <Button
               aria-label='submit button'
               loading={loading}
               type='primary'
@@ -120,9 +120,9 @@ const SignInForm = () => {
               }
             >
               Sign In
-            </sc.SubmitBtn>
+            </Button>
           </sc.FormItemBtn>
-        </sc.SignInForm>
+        </FormikForm>
       )}
     </Formik>
   );

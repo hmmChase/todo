@@ -6,7 +6,7 @@ import * as sc from './Header.style';
 const Header = props => {
   return (
     <sc.Header>
-      <sc.HeaderTitle>{props.ideaId ? props.ideaId : title}</sc.HeaderTitle>
+      <sc.TitleHeader>{props.ideaId ? props.ideaId : title}</sc.TitleHeader>
 
       <SignOutBtn />
 

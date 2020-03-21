@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
 import { List } from 'antd';
-import IdeaCard from '../IdeaCard/IdeaCard';
-// import * as sc from './IdeaCardList.style';
+import * as sc from './IdeaCardList.style';
 
 const IdeaCardList = props => (
   <List
+    className={props.className}
     loading={props.loading}
     dataSource={props.ideas}
     rowKey={idea => `ideaCard${idea.node.id}`}
-    renderItem={idea => <IdeaCard {...idea.node} />}
+    renderItem={idea => <sc.IdeaCardd {...idea.node} />}
   />
 );
 
 IdeaCardList.propTypes = {
+  className: PropTypes.string,
   loading: PropTypes.bool.isRequired,
   ideas: PropTypes.arrayOf(
     PropTypes.shape({

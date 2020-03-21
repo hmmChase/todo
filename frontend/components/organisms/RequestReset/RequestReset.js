@@ -1,9 +1,11 @@
-import { Formik, Field } from 'formik';
+import { Form as FormikForm, Formik, Field } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
+import { Form, Input } from 'antd';
 import * as yup from 'yup';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';
 import { REQUEST_RESET } from '../../../graphql/queries';
+import Button from '../../atoms/Button/Button';
 import * as sc from './RequestReset.style';
 
 const validationSchema = yup.object({
@@ -35,10 +37,10 @@ const RequestReset = () => {
       onSubmit={handleSubmitForm}
     >
       {formikProps => (
-        <sc.RequestReset>
+        <FormikForm>
           <Field name='email'>
             {fieldProps => (
-              <sc.FormItem
+              <Form.Item
                 label='Email'
                 htmlFor='requestResetEmail'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
@@ -48,14 +50,13 @@ const RequestReset = () => {
                     : ''
                 }
               >
-                <sc.InputEmail
+                <Input
                   id='requestResetEmail'
                   type='email'
                   onPressEnter={fieldProps.handleSubmit}
-                  prefix={<sc.InputIcon type='user' />}
                   {...fieldProps.field}
                 />
-              </sc.FormItem>
+              </Form.Item>
             )}
           </Field>
 
@@ -66,7 +67,7 @@ const RequestReset = () => {
           )}
 
           <sc.FormItemBtn>
-            <sc.SubmitBtn
+            <Button
               aria-label='submit button'
               loading={loading}
               type='primary'
@@ -78,9 +79,9 @@ const RequestReset = () => {
               }
             >
               Submit
-            </sc.SubmitBtn>
+            </Button>
           </sc.FormItemBtn>
-        </sc.RequestReset>
+        </FormikForm>
       )}
     </Formik>
   );

@@ -1,7 +1,6 @@
-// import styled from 'styled-components';
-// import { Button } from 'antd';
+import styled from 'styled-components';
+import Button from '../../atoms/Button/Button';
 
-// export const LoadMoreBtn = styled(Button)`
-//   align-self: center;
-//   border-radius: 4px;
-// `;
+export const LoadMoreBtn = styled(Button)`
+  border-radius: 50px;
+`;

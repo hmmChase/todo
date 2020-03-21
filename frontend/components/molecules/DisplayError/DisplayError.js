@@ -16,18 +16,10 @@ const DisplayError = props => {
   }
 
   if (props.error.message) {
-    return (
-      // <sc.DisplayError data-testid='DisplayError'>
-      <AlertMsg message={props.error.message} type='error' />
-      // </sc.DisplayError>
-    );
+    return <AlertMsg message={props.error.message} type='error' />;
   }
 
-  return (
-    // <sc.DisplayError data-testid='DisplayError'>
-    <AlertMsg message='Opps, something went wrong.' type='error' />
-    // </sc.DisplayError>
-  );
+  return <AlertMsg message='Opps, something went wrong.' type='error' />;
 };
 
 DisplayError.defaultProps = { error: {} };

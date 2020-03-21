@@ -3,21 +3,21 @@ import Footer from '../../molecules/Footer/Footer';
 import * as sc from './Layout.style';
 
 const Layout = props => (
-  <sc.AntLayout>
-    <sc.AntHeader>
+  <sc.Wrapper>
+    <sc.Header>
       <sc.Container>{props.header}</sc.Container>
-    </sc.AntHeader>
+    </sc.Header>
 
-    <sc.AntContent>
+    <sc.Main>
       <sc.Container>{props.content}</sc.Container>
-    </sc.AntContent>
+    </sc.Main>
 
-    <sc.AntFooter>
+    <sc.Footer>
       <sc.Container>
         <Footer />
       </sc.Container>
-    </sc.AntFooter>
-  </sc.AntLayout>
+    </sc.Footer>
+  </sc.Wrapper>
 );
 
 Layout.propTypes = {

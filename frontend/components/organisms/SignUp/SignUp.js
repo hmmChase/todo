@@ -1,11 +1,14 @@
+import PropTypes from 'prop-types';
 import Router from 'next/router';
-import { Formik, Field } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
+import { Form as FormikForm, Formik, Field } from 'formik';
+import { Form, Input, List, Typography } from 'antd';
 import * as yup from 'yup';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import { SIGN_UP } from '../../../graphql/queries';
 import { setAccessToken } from '../../../utils/accessToken';
 import { passwordRequirements } from '../../../constants';
+import Button from '../../atoms/Button/Button';
 import * as sc from './SignUp.style';
 
 const validationSchema = yup.object({
@@ -28,7 +31,7 @@ const validationSchema = yup.object({
     .required('Required')
 });
 
-const SignUp = () => {
+const SignUp = props => {
   const handleCompleted = data => {
     if (data && data.signUp && data.signUp.accessToken) {
       setAccessToken(data.signUp.accessToken);
@@ -62,12 +65,12 @@ const SignUp = () => {
       onSubmit={handleSubmitForm}
     >
       {formikProps => (
-        <sc.SignUpForm>
+        <FormikForm className={props.className}>
           <h2>Create a new Account</h2>
 
           <Field name='email'>
             {fieldProps => (
-              <sc.FormItem
+              <Form.Item
                 label='Email'
                 htmlFor='signUpEmail'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
@@ -77,20 +80,19 @@ const SignUp = () => {
                     : ''
                 }
               >
-                <sc.InputEmail
+                <Input
                   id='signUpEmail'
                   type='email'
                   onPressEnter={fieldProps.handleSubmit}
-                  prefix={<sc.InputIcon type='user' />}
                   {...fieldProps.field}
                 />
-              </sc.FormItem>
+              </Form.Item>
             )}
           </Field>
 
           <Field name='password'>
             {fieldProps => (
-              <sc.FormItem
+              <Form.Item
                 label='Password'
                 htmlFor='signUpPassword'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
@@ -100,19 +102,18 @@ const SignUp = () => {
                     : ''
                 }
               >
-                <sc.InputPassword
+                <Input.Password
                   id='signUpPassword'
                   onPressEnter={fieldProps.handleSubmit}
-                  prefix={<sc.InputIcon type='lock' />}
                   {...fieldProps.field}
                 />
-              </sc.FormItem>
+              </Form.Item>
             )}
           </Field>
 
           <Field name='confirmPassword'>
             {fieldProps => (
-              <sc.FormItem
+              <Form.Item
                 label='Confirm Password'
                 htmlFor='signUpConfirmPassword'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
@@ -122,38 +123,35 @@ const SignUp = () => {
                     : ''
                 }
               >
-                <sc.InputPassword
+                <Input.Password
                   id='signUpConfirmPassword'
                   onPressEnter={fieldProps.handleSubmit}
-                  prefix={<sc.InputIcon type='lock' />}
                   {...fieldProps.field}
                 />
-              </sc.FormItem>
+              </Form.Item>
             )}
           </Field>
 
           {error && <DisplayError error={error} />}
 
           <sc.PassListContainer data-testid='passList'>
-            <sc.TypographyText strong>
+            <Typography.Text strong>
               {passwordRequirements.title}
-            </sc.TypographyText>
+            </Typography.Text>
 
-            <sc.PassList
+            <List
               split={false}
               dataSource={passwordRequirements.reqs}
               renderItem={item => (
                 <sc.PassListItem>
-                  <sc.ListIcon type='minus' />
-
-                  <sc.TypographyText>{item}</sc.TypographyText>
+                  <Typography.Text>{item}</Typography.Text>
                 </sc.PassListItem>
               )}
             />
           </sc.PassListContainer>
 
           <sc.FormItemBtn>
-            <sc.SubmitBtn
+            <Button
               aria-label='submit button'
               loading={loading}
               type='primary'
@@ -169,12 +167,16 @@ const SignUp = () => {
               }
             >
               Sign Up
-            </sc.SubmitBtn>
+            </Button>
           </sc.FormItemBtn>
-        </sc.SignUpForm>
+        </FormikForm>
       )}
     </Formik>
   );
+};
+
+SignUp.propTypes = {
+  className: PropTypes.string
 };
 
 export default SignUp;

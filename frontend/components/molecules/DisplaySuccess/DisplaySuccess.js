@@ -8,6 +8,8 @@ const DisplaySuccess = props => (
   </sc.DisplaySuccess>
 );
 
-DisplaySuccess.propTypes = { message: PropTypes.string.isRequired };
+DisplaySuccess.propTypes = {
+  message: PropTypes.string.isRequired
+};
 
 export default React.memo(DisplaySuccess);

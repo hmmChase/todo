@@ -1,5 +1,3 @@
-import SignIn from '../SignIn/SignIn';
-import SignUp from '../SignUp/SignUp';
 import { title } from '../../../constants';
 import * as sc from './SignOn.style';
 
@@ -12,11 +10,11 @@ const SignOn = () => (
     </sc.Header>
 
     <sc.Content>
-      <SignIn />
+      <sc.SignInn />
 
       <sc.HR />
 
-      <SignUp />
+      <sc.SignUpp />
     </sc.Content>
   </sc.SignOn>
 );

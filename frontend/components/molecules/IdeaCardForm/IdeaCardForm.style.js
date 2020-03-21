@@ -23,17 +23,13 @@ export const IdeaInput = styled(TextArea)`
   /* border-bottom-right-radius: 0; */
   /* border-right: 1px solid ${props => props.theme.color.black}; */
 
-  /* &:focus {
-    box-shadow: none;
-  } */
-
-    &:focus {
-    border-color: #d9d9d9;
+  &:focus {
+  border-color: #d9d9d9;
     box-shadow: none;
    }
 
-   &:hover {
-    border-color: #d9d9d9;
+  &:hover {
+  border-color: #d9d9d9;
     box-shadow: none;
    }
 `;

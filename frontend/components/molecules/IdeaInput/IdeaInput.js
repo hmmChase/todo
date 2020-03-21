@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
 import debounce from 'lodash.debounce';
-import { UPDATE_IDEA } from '../../../graphql/queries';
 import TextArea from '../../atoms/TextArea/TextArea';
+import { UPDATE_IDEA } from '../../../graphql/queries';
 // import * as sc from './IdeaInput.style';
 
 const IdeaInput = props => {

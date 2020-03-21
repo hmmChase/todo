@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { Layout } from 'antd';
-import { SignIn } from '../SignIn/SignIn.style';
-import { SignUpForm } from '../SignUp/SignUp.style';
+import SignIn from '../SignIn/SignIn';
+import SignUp from '../SignUp/SignUp';
 
-export const SignOn = styled(Layout)`
+export const SignOn = styled.div`
   display: flex;
+  flex-direction: column;
   background-color: ${props => props.theme.color.lightBlue};
   min-height: 100vh;
   justify-content: center;
@@ -12,13 +12,13 @@ export const SignOn = styled(Layout)`
   padding-bottom: 20px;
 `;
 
-export const Header = styled(Layout.Header)`
+export const Header = styled.header`
   display: flex;
   align-items: center;
   padding: 20px;
 `;
 
-export const Content = styled(Layout.Content)`
+export const Content = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 15rem;
@@ -31,14 +31,18 @@ export const Content = styled(Layout.Content)`
     flex-direction: row;
     justify-content: space-around;
     max-width: 900px;
+  }
+`;
 
-    > ${SignIn} {
-      width: 40%;
-    }
+export const SignInn = styled(SignIn)`
+  @media screen and (min-width: 800px) {
+    width: 40%;
+  }
+`;
 
-    > ${SignUpForm} {
-      width: 40%;
-    }
+export const SignUpp = styled(SignUp)`
+  @media screen and (min-width: 800px) {
+    width: 40%;
   }
 `;
 

@@ -1,16 +1,15 @@
 import styled from 'styled-components';
-import { Layout } from 'antd';
 
 //! Mobile first
 
-export const AntLayout = styled(Layout)`
+export const Wrapper = styled.div`
   /* display: flex; */
   /* flex-direction: column; */
   /* min-height: 100vh; */
 `;
 
-export const AntHeader = styled(Layout.Header)`
-  padding: 0;
+export const Header = styled.header`
+  /* padding: 0; */
 
   /* h1 { */
   /* font-family: 'Play', sans-serif; */
@@ -18,11 +17,13 @@ export const AntHeader = styled(Layout.Header)`
   /* } */
 `;
 
-export const AntContent = styled(Layout.Content)`
-  padding: 20px;
+export const Main = styled.main`
+  padding: 10px;
+  @media screen and (min-width: 900px) {
+  }
 `;
 
-export const AntFooter = styled(Layout.Footer)``;
+export const Footer = styled.footer``;
 
 export const Container = styled.div`
   /* display: flex; */

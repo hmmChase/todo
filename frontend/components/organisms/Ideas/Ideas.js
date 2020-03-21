@@ -1,8 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
 import DisplayLoading from '../../molecules/DisplayLoading/DisplayLoading';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
-import IdeaCardList from '../../molecules/IdeaCardList/IdeaCardList';
-import LoadMoreBtn from '../../molecules/LoadMoreBtn/LoadMoreBtn';
 import { CURRENT_USER_PAGINATED_IDEAS } from '../../../graphql/queries';
 import { pageSize } from '../../../constants';
 import * as sc from './Ideas.style';
@@ -27,7 +25,7 @@ const Ideas = () => {
       data.currentUserPaginatedIdeas &&
       data.currentUserPaginatedIdeas.edges &&
       data.currentUserPaginatedIdeas.edges.length ? (
-        <IdeaCardList
+        <sc.IdeaCardListt
           loading={networkStatus === 1}
           ideas={data.currentUserPaginatedIdeas.edges}
         />
@@ -39,7 +37,7 @@ const Ideas = () => {
         data.currentUserPaginatedIdeas &&
         data.currentUserPaginatedIdeas.pageInfo &&
         data.currentUserPaginatedIdeas.pageInfo.hasNextPage && (
-          <LoadMoreBtn
+          <sc.LoadMoreBtnn
             loading={networkStatus === 3}
             ideas={data.currentUserPaginatedIdeas}
             fetchMore={fetchMore}

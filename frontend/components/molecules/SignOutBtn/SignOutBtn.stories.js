@@ -1,4 +1,4 @@
-// import { action } from '@storybook/addon-actions';
+import { action } from '@storybook/addon-actions';
 import allCombos from '../../../.storybook/allCombos';
 import SignOutBtn from './SignOutBtn';
 
@@ -8,8 +8,8 @@ const data = {
   // id: ['1']
 };
 
-// const actions = {
-//   onClick: action('onClick')
-// };
+const actions = {
+  onClick: action('onClick')
+};
 
-export const signOutBtn = () => allCombos(SignOutBtn, data);
+export const signOutBtn = () => allCombos(SignOutBtn, data, actions);

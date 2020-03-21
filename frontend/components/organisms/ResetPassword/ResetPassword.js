@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 // import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
-import { Formik, Field } from 'formik';
+import { Form as FormikForm, Formik, Field } from 'formik';
+import { Form, List, Typography } from 'antd';
 import * as yup from 'yup';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';
@@ -64,10 +65,10 @@ const ResetPassword = props => {
       onSubmit={handleSubmitForm}
     >
       {formikProps => (
-        <sc.ResetPassword>
+        <FormikForm>
           <Field name='password'>
             {fieldProps => (
-              <sc.FormItem
+              <Form.Item
                 label='New password'
                 htmlFor='resetPasswordPassword'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
@@ -80,16 +81,15 @@ const ResetPassword = props => {
                 <sc.InputPassword
                   id='resetPasswordPassword'
                   onPressEnter={fieldProps.handleSubmit}
-                  prefix={<sc.InputIcon type='lock' />}
                   {...fieldProps.field}
                 />
-              </sc.FormItem>
+              </Form.Item>
             )}
           </Field>
 
           <Field name='confirmPassword'>
             {fieldProps => (
-              <sc.FormItem
+              <Form.Item
                 label='Confirm new password'
                 htmlFor='resetPasswordConfirmPassword'
                 help={fieldProps.meta.touched && fieldProps.meta.error}
@@ -102,10 +102,9 @@ const ResetPassword = props => {
                 <sc.InputPassword
                   id='resetPasswordConfirmPassword'
                   onPressEnter={fieldProps.handleSubmit}
-                  prefix={<sc.InputIcon type='lock' />}
                   {...fieldProps.field}
                 />
-              </sc.FormItem>
+              </Form.Item>
             )}
           </Field>
 
@@ -122,18 +121,16 @@ const ResetPassword = props => {
           )}
 
           <sc.PassListContainer data-testid='passList'>
-            <sc.TypographyText strong>
+            <Typography.Text strong>
               {passwordRequirements.title}
-            </sc.TypographyText>
+            </Typography.Text>
 
-            <sc.PassList
+            <List
               split={false}
               dataSource={passwordRequirements.reqs}
               renderItem={item => (
                 <sc.PassListItem>
-                  <sc.ListIcon type='minus' />
-
-                  <sc.TypographyText>{item}</sc.TypographyText>
+                  <Typography.Text>{item}</Typography.Text>
                 </sc.PassListItem>
               )}
             />
@@ -156,7 +153,7 @@ const ResetPassword = props => {
               Submit
             </sc.SubmitBtn>
           </sc.FormItemBtn>
-        </sc.ResetPassword>
+        </FormikForm>
       )}
     </Formik>
   );
