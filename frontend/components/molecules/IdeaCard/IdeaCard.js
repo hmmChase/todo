@@ -7,6 +7,7 @@ const IdeaCard = props => (
   <div className={props.className} data-testid='IdeaCard'>
     <sc.IdeaCardBtns>
       <sc.DetailIconn id={props.id} />
+
       <DeleteIcon id={props.id} />
     </sc.IdeaCardBtns>
     <IdeaInput id={props.id} content={props.content} />

@@ -15,25 +15,19 @@ const IdeaCardForm = () => {
     // Read the data from cache for query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: {
-        orderBy: 'createdAt_DESC',
-        first: pageSize
-      }
-    }); // Copy the ideas
+      variables: { orderBy: 'createdAt_DESC', first: pageSize }
+    });
 
-    const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges]; // Add idea from the mutation to the beginning
+    // Copy the ideas
+    const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges];
 
-    newIdeas.unshift({
-      node: { ...data.createIdea },
-      __typename: 'IdeaEdge'
-    }); // Write data back to the cache
+    // Add idea from the mutation to the beginning
+    newIdeas.unshift({ node: { ...data.createIdea }, __typename: 'IdeaEdge' });
 
+    // Write data back to the cache
     cache.writeQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: {
-        orderBy: 'createdAt_DESC',
-        first: pageSize
-      },
+      variables: { orderBy: 'createdAt_DESC', first: pageSize },
       data: {
         ...ideasData,
         currentUserPaginatedIdeas: {
@@ -62,19 +56,14 @@ const IdeaCardForm = () => {
     canSubmit(e.target.value);
   };
 
-  const handleSubmitIdeaForm = e => {
-    e.preventDefault();
+  const handleSubmitIdeaForm = () => {
     setIsSubmitDisabled(true);
-    createIdea({
-      variables: {
-        content: idea
-      }
-    });
+    createIdea({ variables: { content: idea } });
     setIdea('');
   };
 
   return (
-    <sc.IdeaCardForm onSubmit={handleSubmitIdeaForm}>
+    <sc.IdeaCardForm onFinish={handleSubmitIdeaForm}>
       <sc.IdeaInput
         aria-label='idea input'
         name='idea'

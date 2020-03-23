@@ -6,19 +6,31 @@ import X from '../../design/Icons/X/X';
 import * as sc from './IconBtn.style';
 
 export const ExpandIconBtn = props => (
-  <sc.Button aria-label={props.ariaLabel} className={props.className}>
+  <sc.Button
+    aria-label={props.ariaLabel}
+    className={props.className}
+    onClick={props.onClick}
+  >
     <Expand />
   </sc.Button>
 );
 
 export const LeftIconBtn = props => (
-  <sc.Button aria-label={props.ariaLabel} className={props.className}>
+  <sc.Button
+    aria-label={props.ariaLabel}
+    className={props.className}
+    onClick={props.onClick}
+  >
     <Left />
   </sc.Button>
 );
 
 export const XIconBtn = props => (
-  <sc.Button aria-label={props.ariaLabel} className={props.className}>
+  <sc.Button
+    aria-label={props.ariaLabel}
+    className={props.className}
+    onClick={props.onClick}
+  >
     <X />
   </sc.Button>
 );
@@ -26,17 +38,20 @@ export const XIconBtn = props => (
 ExpandIconBtn.propTypes = {
   ariaLabel: PropTypes.string,
   children: PropTypes.element,
-  className: PropTypes.string
+  className: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 LeftIconBtn.propTypes = {
   ariaLabel: PropTypes.string,
   children: PropTypes.element,
-  className: PropTypes.string
+  className: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 XIconBtn.propTypes = {
   ariaLabel: PropTypes.string,
   children: PropTypes.element,
-  className: PropTypes.string
+  className: PropTypes.string,
+  onClick: PropTypes.func
 };
