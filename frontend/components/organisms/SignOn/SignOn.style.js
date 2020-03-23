@@ -35,12 +35,16 @@ export const Content = styled.div`
 `;
 
 export const SignInn = styled(SignIn)`
+  /* width: 100%; */
+
   @media screen and (min-width: 800px) {
     width: 40%;
   }
 `;
 
 export const SignUpp = styled(SignUp)`
+  /* width: 100%; */
+
   @media screen and (min-width: 800px) {
     width: 40%;
   }

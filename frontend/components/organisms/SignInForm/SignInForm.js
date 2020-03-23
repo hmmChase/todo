@@ -1,11 +1,12 @@
 import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
-import { Form as FormikForm, Formik, Field } from 'formik';
-import { Form, Input } from 'antd';
+import { Form as FormikForm, Formik } from 'formik';
 import * as yup from 'yup';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import { SIGN_IN } from '../../../graphql/queries';
 import { setAccessToken } from '../../../utils/accessToken';
+import FormInput from '../../atoms/FormInput/FormInput';
+import FormInputPass from '../../atoms/FormInputPass/FormInputPass';
 import Button from '../../atoms/Button/Button';
 import * as sc from './SignInForm.style';
 
@@ -60,7 +61,11 @@ const SignInForm = () => {
         <FormikForm>
           <h2 data-testid='SignInFormTitle'>Sign In</h2>
 
-          <Field name='email'>
+          <FormInput label='Email' id='signInEmail' name='email' />
+
+          <FormInputPass label='Password' id='signInPassword' name='password' />
+
+          {/* <Field name='email'>
             {fieldProps => (
               <Form.Item
                 label='Email'
@@ -80,9 +85,9 @@ const SignInForm = () => {
                 />
               </Form.Item>
             )}
-          </Field>
+          </Field> */}
 
-          <Field name='password'>
+          {/* <Field name='password'>
             {fieldProps => (
               <Form.Item
                 label='Password'
@@ -101,7 +106,7 @@ const SignInForm = () => {
                 />
               </Form.Item>
             )}
-          </Field>
+          </Field> */}
 
           {error && <DisplayError error={error} />}
 
