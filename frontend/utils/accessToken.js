@@ -1,41 +1,39 @@
 import fetch from 'isomorphic-unfetch';
-import jwt from 'jsonwebtoken';
-import { devConErr } from './devCon';
-import { refreshUrl, accessTokenSecret } from '../constants';
+import { refreshUrl, _accessTokenSecret } from '../constants';
 
 let accessToken = '';
 
-export const setAccessToken = token => (accessToken = token);
+export const setAccessToken = (token) => (accessToken = token);
 
 export const getAccessToken = () => accessToken;
 
 export const clearAccessToken = () => (accessToken = '');
 
-export const fetchAccessToken = async refreshToken => {
+export const fetchAccessToken = async (refreshToken) => {
   try {
     const response = await fetch(refreshUrl, {
       method: 'GET',
       credentials: 'include',
-      headers: { cookie: `rt=${refreshToken}` }
+      headers: { cookie: `rt=${refreshToken}` },
     });
 
     const data = await response.json();
 
     return data.accessToken;
   } catch (error) {
-    devConErr(['fetchAccessToken error: ', error]);
+    console.error('fetchAccessToken error: ', error);
 
     return '';
   }
 };
 
-export const verifyAccessToken = accessToken => {
-  try {
-    jwt.verify(accessToken, accessTokenSecret);
-  } catch (error) {
-    devConErr(['verifyAccessToken error: ', error]);
-  }
-};
+// export const verifyAccessToken = (accessToken) => {
+//   try {
+//     jwt.verify(accessToken, accessTokenSecret);
+//   } catch (error) {
+//     console.error('verifyAccessToken error: ', error);
+//   }
+// };
 
 // const checkAccessToken = async cookies => {
 //   const accessToken = getAccessToken();

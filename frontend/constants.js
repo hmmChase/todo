@@ -8,20 +8,19 @@ export const passwordRequirements = {
     'at least 8 charactors',
     'an uppercase letter',
     'a lowercase letter',
-    'a number'
-  ]
+    'a number',
+  ],
 };
-
 export const graphqlUrl =
   process.env.NODE_ENV === 'development'
-    ? process.env.DEV_GRAPHQL_URL
-    : process.env.PROD_GRAPHQL_URL;
+    ? 'http://localhost:6969/api/graphql'
+    : 'https://lhkfjdsaoir.now.sh/api/graphql';
 
 export const refreshUrl =
   process.env.NODE_ENV === 'development'
-    ? process.env.DEV_REFRESH_URL
-    : process.env.PROD_REFRESH_URL;
+    ? 'http://localhost:6969/api/refresh'
+    : 'https://lhkfjdsaoir.now.sh/api/refresh';
 
-export const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
+export const accessTokenSecret = 'terhjzrthjshjfg';
 
-export const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
+export const refreshTokenSecret = 'hethearhaehr';

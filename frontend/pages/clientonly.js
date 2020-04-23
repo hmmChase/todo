@@ -1,18 +1,24 @@
 import withApollo from '../graphql/withApollo';
+import Header from '../components/Header';
 
 const ClientOnlyPage = () => (
-  <div>
-    This example shows how to disable apollos query fetching on the server. If
-    you
-    <a href='/client-only'> reload </a>
-    this page, you will see a loader since Apollo didnt fetch any data on the
-    server. This allows
-    <a href='https://nextjs.org/blog/next-9#automatic-static-optimization'>
-      automatic static optimization
-    </a>
-    .
+  <>
+    <Header />
+
+    <div>
+      This example shows how to disable apollos query fetching on the server. If
+      you
+      <a href='/client-only'> reload </a>
+      this page, you will see a loader since Apollo didnt fetch any data on the
+      server. This allows
+      <a href='https://nextjs.org/blog/next-9#automatic-static-optimization'>
+        automatic static optimization
+      </a>
+    </div>
+
     <article>
       <h1>The Idea Behind This Example</h1>
+
       <p>
         <a href='https://www.apollographql.com/client/'>Apollo </a>
         is a GraphQL client that allows you to easily query the exact data you
@@ -21,6 +27,7 @@ const ClientOnlyPage = () => (
         client-side cache of your data, which is kept up to date as further
         queries and mutations are run, fetching more results from the server.
       </p>
+
       <p>
         In this simple example, we integrate Apollo seamlessly with
         <a href='https://github.com/zeit/next.js'> Next </a>
@@ -33,8 +40,8 @@ const ClientOnlyPage = () => (
         inside a page of our Next application.
       </p>
     </article>
-  </div>
+  </>
 );
 
 // Disable Apollo ssr fetching in favor of automatic static optimization
-export default withApollo(ClientOnlyPage, { ssr: false });
+export default withApollo({ ssr: true })(ClientOnlyPage);

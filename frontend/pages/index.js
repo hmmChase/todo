@@ -1,26 +1,14 @@
-// import Page from '../components/Page/Page';
-import Head from '../components/organisms/Head/Head';
-import Layout from '../components/organisms/Layout/Layout';
-import Header from '../components/organisms/Header/Header';
-import IdeaCardForm from '../components/molecules/IdeaCardForm/IdeaCardForm';
-import Ideas from '../components/organisms/Ideas/Ideas';
-import withApollo from '../graphql/withApollo';
-import redirect from '../utils/redirect';
 import jwt from 'jsonwebtoken';
-import { togLoggedCache } from '../utils/authenticate';
-import { devConErr } from '../utils/devCon';
+import { withApollo } from '../graphql/withApollo';
+import redirect from '../utils/redirect';
 import { refreshTokenSecret } from '../constants';
+import Header from '../components/Header';
+import Page from '../components/Page';
+import { IS_LOGGED_IN } from '../graphql/queries';
 
 // import { useEffect } from 'react';
 // import { useQuery } from '@apollo/react-hooks';
 // import { useRouter } from 'next/router';
-// import { IS_LOGGED_IN } from '../graphql/queries';
-
-// If no stylesheet is imported in the first route page rendered by client,
-// nextjs links won't work
-// https://github.com/zeit/next-plugins/issues/282
-// https://github.com/zeit/next.js/issues/8626
-// https://github.com/zeit/next.js/issues/5291
 
 const IndexPage = () => {
   // const router = useRouter();
@@ -34,29 +22,23 @@ const IndexPage = () => {
   // }, [data, error, loading, router]);
 
   return (
-    <>
-      <Head title='Home' />
+    <Page>
+      <Header />
 
-      <Layout
-        header={
-          <Header>
-            <IdeaCardForm />
-          </Header>
-        }
-        content={<Ideas />}
-      />
-    </>
+      <h1>Hello</h1>
+    </Page>
   );
 };
 
-// GIP is called on initial page load, server-side
-// GIP is called on router change, client-side
-IndexPage.getInitialProps = async ctx => {
+// getInitialProps is called on:
+// - initial page load, server-side
+// - page changes, client-side
+IndexPage.getInitialProps = (ctx) => {
   // err, req, res only exists on initial page load (server-side)
   // pathname, query, asPath, AppTree always available (server & client)
   const { req, res, apolloClient } = ctx;
 
-  // On initial page load (server-side)
+  // server-side auth routing (initial page load)
   if (typeof window === 'undefined') {
     // If cookie header present
     if (req && req.headers && req.headers.cookie) {
@@ -64,35 +46,35 @@ IndexPage.getInitialProps = async ctx => {
       const refreshToken = req.headers.cookie.replace('rt=', '');
 
       // If no Refresh token
-      if (!refreshToken) {
-        togLoggedCache(apolloClient, false);
+      if (!refreshToken) redirect(res, '/welcome');
 
-        redirect(res, '/welcome');
-      }
-
-      // Verify Refresh token
       try {
+        // Verify Refresh token
         jwt.verify(refreshToken, refreshTokenSecret);
 
-        togLoggedCache(apolloClient, true);
-
-        // If Refresh token not valid
+        return {};
       } catch (error) {
-        devConErr(['Refresh token verify error: ', error]);
-
-        togLoggedCache(apolloClient, false);
+        // If Refresh token not valid
+        console.error('Refresh token verify error: ', error);
 
         redirect(res, '/welcome');
       }
       // If no cookie header
-    } else {
-      togLoggedCache(apolloClient, false);
+    } else redirect(res, '/welcome');
+  } else {
+    const { loading, error, data } = apolloClient.query({
+      query: IS_LOGGED_IN,
+    });
 
-      redirect(res, '/welcome');
-    }
+    console.log('IndexPage.getInitialProps -> loading', loading);
+    console.log('IndexPage.getInitialProps -> error', error);
+    console.log('IndexPage.getInitialProps -> data', data);
   }
 
   return {};
 };
 
-export default withApollo(IndexPage);
+// I could do an Auth HOC
+// Could handle everything on the client
+
+export default withApollo({ ssr: true })(IndexPage);

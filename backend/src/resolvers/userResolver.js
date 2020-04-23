@@ -2,16 +2,19 @@ import bcrypt from 'bcryptjs';
 import {
   AuthenticationError,
   _ForbiddenError,
-  _UserInputError
+  _UserInputError,
 } from 'apollo-server-express';
 import mailPasswordResetToken from '../utils/mail';
 import {
   createRefreshToken,
   sendRefreshToken,
-  createAccessToken
+  createAccessToken,
 } from '../utils/auth';
 import * as auth from '../utils/auth';
 import * as config from '../config';
+
+//? import getConfig from 'next/config';
+//? const JWT_SECRET = getConfig().serverRuntimeConfig.JWT_SECRET;
 
 export default {
   Query: {
@@ -66,7 +69,7 @@ export default {
 
       // Return user
       return user;
-    }
+    },
   },
 
   Mutation: {
@@ -95,7 +98,7 @@ export default {
 
       // Create user
       const newUser = await ctx.prisma.mutation.createUser({
-        data: { email, password }
+        data: { email, password },
       });
 
       // Create refresh token
@@ -113,7 +116,7 @@ export default {
       // Return access token and user data
       return {
         accessToken,
-        user: { id: newUser.id, email: newUser.email, ideas: newUser.ideas }
+        user: { id: newUser.id, email: newUser.email, ideas: newUser.ideas },
       };
     },
 
@@ -145,13 +148,24 @@ export default {
       // Return access token and user data
       return {
         accessToken,
-        user: { id: user.id, email: user.email, ideas: user.ideas }
+        user: { id: user.id, email: user.email, ideas: user.ideas },
       };
     },
 
     signOut: (parent, args, ctx, info) => {
       // Clear cookie
       ctx.res.clearCookie('rt');
+
+      // ctx.res.setHeader(
+      //   'Set-Cookie',
+      //   cookie.serialize('rt', '', {
+      //     httpOnly: true,
+      //     path: '/',
+      //     secure: process.env.NODE_ENV === 'production',
+      //     maxAge: -1,
+      //     sameSite: 'strict'
+      //   })
+      // );
 
       // Return boolean
       return true;
@@ -170,13 +184,13 @@ export default {
       // Generate password reset token
       const {
         resetToken,
-        resetTokenExpiry
+        resetTokenExpiry,
       } = await auth.createPasswordResetToken();
 
       // Update user with reset token
       ctx.prisma.mutation.updateUser({
         where: { id: user.id },
-        data: { resetToken, resetTokenExpiry }
+        data: { resetToken, resetTokenExpiry },
       });
 
       // Send mail with reset link
@@ -195,7 +209,7 @@ export default {
 
       // Get user from resetToken
       const [user] = await ctx.prisma.query.users({
-        where: { resetToken: args.resetToken }
+        where: { resetToken: args.resetToken },
       });
 
       // Return error if user not found
@@ -213,7 +227,7 @@ export default {
       // Update user with new password and clear resetToken
       ctx.prisma.mutation.updateUser({
         where: { id: user.id },
-        data: { password, resetToken: null, resetTokenExpiry: null }
+        data: { password, resetToken: null, resetTokenExpiry: null },
       });
 
       // Return boolean
@@ -230,11 +244,11 @@ export default {
       // Update refresh token version
       ctx.prisma.mutation.updateUser({
         where: { id: user.id },
-        data: { refreshTokenVersion: incrementedVersion }
+        data: { refreshTokenVersion: incrementedVersion },
       });
 
       // Return boolean
       return true;
-    }
-  }
+    },
+  },
 };

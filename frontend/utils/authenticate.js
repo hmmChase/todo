@@ -1,46 +1,44 @@
-import jwt from 'jsonwebtoken';
-import redirect from './redirect';
-import { getAccessToken } from './accessToken';
+// import jwt from 'jsonwebtoken';
+// import { _accessTokenSecret, refreshTokenSecret } from '../constants';
+// import redirect from './redirect';
+// import { getAccessToken } from './accessToken';
 // import { CURRENT_USER } from '../graphql/queries';
-import { devConErr } from './devCon';
-import { accessTokenSecret, refreshTokenSecret } from '../constants';
-import cookie from 'cookie';
 
-export default async (req, res, pathname, apolloClient) => {
-  if (req && req.headers && req.headers.cookie) {
-    console.log('WithApollo.getInitialProps cookie');
-    // Get cookies
-    const parsedCookies = cookie.parse(req.headers.cookie);
+// export default async (req, _res, _pathname, _apolloClient) => {
+//   if (req && req.headers && req.headers.cookie) {
+//     console.log('WithApollo.getInitialProps cookie');
+//     // Get cookies
+//     const parsedCookies = req.headers.cookie.replace('rt=', '');
 
-    // If Refresh token available
-    if (parsedCookies.rt) {
-      try {
-        // Verify Refresh token
-        await jwt.verify(
-          parsedCookies.rt,
-          refreshTokenSecret,
-          // Fetch Access token
-          async (err, _decoded) => {
-            if (!err) {
-              try {
-                // Fetch Access Token
-                const accessToken = await fetchAccessToken(parsedCookies.rt);
-                // Set Access Token
-                setAccessToken(accessToken);
-                // Update serverAccessToken
-                serverAccessToken = accessToken;
-              } catch (error) {
-                devConErr(['withApollo token fetch error: ', error]);
-              }
-            }
-          }
-        );
-      } catch (error) {
-        devConErr(['withApollo token verify error: ', error]);
-      }
-    }
-  }
-};
+//     // If Refresh token available
+//     if (parsedCookies.rt) {
+//       try {
+//         // Verify Refresh token
+//         await jwt.verify(
+//           parsedCookies.rt,
+//           refreshTokenSecret,
+//           // Fetch Access token
+//           async (err, _decoded) => {
+//             if (!err) {
+//               try {
+//                 // Fetch Access Token
+//                 const accessToken = await fetchAccessToken(parsedCookies.rt);
+//                 // Set Access Token
+//                 setAccessToken(accessToken);
+//                 // Update serverAccessToken
+//                 serverAccessToken = accessToken;
+//               } catch (error) {
+//                 console.error('withApollo token fetch error: ', error);
+//               }
+//             }
+//           }
+//         );
+//       } catch (error) {
+//         console.error('withApollo token verify error: ', error);
+//       }
+//     }
+//   }
+// };
 
 // export default (req, res, pathname, apolloClient) => {
 //   const accessToken = getAccessToken();
@@ -66,12 +64,12 @@ export default async (req, res, pathname, apolloClient) => {
 //   }
 // };
 
-export const togLoggedCache = (apolloClient, boolean) => {
-  apolloClient.cache.writeData({
-    id: 'isLoggedIn',
-    data: { isLoggedIn: boolean }
-  });
-};
+// export const togLoggedCache = (apolloClient, boolean) => {
+//   apolloClient.cache.writeData({
+//     id: 'isLoggedIn',
+//     data: { isLoggedIn: boolean },
+//   });
+// };
 
 // export const togLoggedCache = boolean => (
 //   <ApolloConsumer>
@@ -85,50 +83,47 @@ export const togLoggedCache = (apolloClient, boolean) => {
 //   </ApolloConsumer>
 // );
 
-// Not used
-export const graphQLAuth = async apolloClient => {
-  const { loading, error, data } = await apolloClient.query({
-    query: CURRENT_USER
-  });
+// export const graphQLAuth = async (apolloClient) => {
+//   const { loading, error, data } = await apolloClient.query({
+//     query: CURRENT_USER,
+//   });
 
-  if (!loading && !error && data) {
-    apolloClient.cache.writeData({ data: { isLoggedIn: true } });
-  } else if (error) {
-    apolloClient.cache.writeData({ data: { isLoggedIn: false } });
-  }
-};
+//   if (!loading && !error && data) {
+//     apolloClient.cache.writeData({ data: { isLoggedIn: true } });
+//   } else if (error) {
+//     apolloClient.cache.writeData({ data: { isLoggedIn: false } });
+//   }
+// };
 
-// Not used
-export const checkLoggedIn = apolloClient => {
-  apolloClient
-    .query({
-      query: gql`
-        query getUser {
-          user {
-            id
-            name
-          }
-        }
-      `
-    })
-    .then(({ data }) => {
-      return { loggedInUser: data };
-    })
-    .catch(() => {
-      // Fail gracefully
-      return { loggedInUser: {} };
-    });
-};
+// export const checkLoggedIn = (apolloClient) => {
+//   apolloClient
+//     .query({
+//       query: gql`
+//         query getUser {
+//           user {
+//             id
+//             name
+//           }
+//         }
+//       `,
+//     })
+//     .then(({ data }) => {
+//       return { loggedInUser: data };
+//     })
+//     .catch(() => {
+//       // Fail gracefully
+//       return { loggedInUser: {} };
+//     });
+// };
 
-// Not used
-export const isLoggedIn = async apolloClient => {
-  try {
-    const {
-      data: { isLoggedIn }
-    } = await apolloClient.query({ query: IS_LOGGED_IN });
+// export const isLoggedIn = async (apolloClient) => {
+//   try {
+//     const {
+//       data: { isLoggedIn },
+//     } = await apolloClient.query({ query: IS_LOGGED_IN });
 
-    return isLoggedIn;
-  } catch {
-    return null;
-  }
-};
+//     return isLoggedIn;
+//   } catch {
+//     return null;
+//   }
+// };

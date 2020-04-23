@@ -1,7 +1,7 @@
 import {
   AuthenticationError,
   ForbiddenError,
-  _UserInputError
+  _UserInputError,
 } from 'apollo-server-express';
 
 import * as auth from '../utils/auth';
@@ -90,7 +90,7 @@ export default {
         { where: { author: { id: payload.userId } } },
         info
       );
-    }
+    },
   },
 
   Mutation: {
@@ -106,8 +106,8 @@ export default {
         {
           data: {
             content: args.content,
-            author: { connect: { id: payload.userId } }
-          }
+            author: { connect: { id: payload.userId } },
+          },
         },
         info
       );
@@ -135,7 +135,7 @@ export default {
       // If so, update and return idea
       return ctx.prisma.mutation.updateIdea({
         where: { id: args.id },
-        data: { content: args.content }
+        data: { content: args.content },
       });
     },
 
@@ -160,6 +160,6 @@ export default {
 
       // If so, delete idea and return idea ID
       return ctx.prisma.mutation.deleteIdea({ where: { id: args.id } });
-    }
-  }
+    },
+  },
 };

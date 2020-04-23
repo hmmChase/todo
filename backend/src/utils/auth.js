@@ -1,7 +1,7 @@
 import {
   AuthenticationError,
   _ForbiddenError,
-  _UserInputError
+  _UserInputError,
 } from 'apollo-server-express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -13,7 +13,7 @@ import * as config from '../config';
 
 /* Email */
 
-export const validateEmail = email => {
+export const validateEmail = (email) => {
   if (typeof email !== 'string')
     throw new AuthenticationError('Invalid email address');
 
@@ -25,7 +25,7 @@ export const validateEmail = email => {
 
 /* Password */
 
-export const validatePassword = password => {
+export const validatePassword = (password) => {
   if (typeof password !== 'string')
     throw new AuthenticationError('Invalid password');
 
@@ -59,15 +59,15 @@ export const comparePasswords = (password, confirmPassword) => {
 
 /* Access Token */
 
-export const createAccessToken = userId =>
-  jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: config.accessTokenExpiryTime
+export const createAccessToken = (userId) =>
+  jwt.sign({ userId }, 'terhjzrthjshjfg', {
+    expiresIn: config.accessTokenExpiryTime,
   });
 
-export const verifyAccessToken = accessToken => {
+export const verifyAccessToken = (accessToken) => {
   try {
     // Return the decoded payload if the signature is valid and JWT not expired
-    return jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    return jwt.verify(accessToken, 'terhjzrthjshjfg');
   } catch (error) {
     // If not, throw error
     throw new AuthenticationError('Access Token invalid');
@@ -77,19 +77,25 @@ export const verifyAccessToken = accessToken => {
 /* Refresh Token */
 
 export const createRefreshToken = (userId, refreshTokenVersion) =>
-  jwt.sign({ userId, refreshTokenVersion }, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: config.refreshTokenExpiryTime
+  jwt.sign({ userId, refreshTokenVersion }, 'hethearhaehr', {
+    expiresIn: config.refreshTokenExpiryTime,
   });
 
 export const sendRefreshToken = (res, refreshToken) => {
   const cookieOptions = {
     httpOnly: true,
+    path: '/',
     secure: process.env.NODE_ENV === 'production',
     maxAge: config.refreshTokenCookieMaxAge,
-    sameSite: 'strict'
+    sameSite: 'strict',
   };
 
   res.cookie('rt', refreshToken, cookieOptions);
+
+  // res.setHeader(
+  //   'Set-Cookie',
+  //   cookie.serialize('rt', refreshToken, cookieOptions)
+  // );
 };
 
 /* Password Reset Token */
@@ -104,7 +110,7 @@ export const createPasswordResetToken = async () => {
   return { resetToken, resetTokenExpiry };
 };
 
-export const validateResetTokenExpiry = resetTokenExpiry => {
+export const validateResetTokenExpiry = (resetTokenExpiry) => {
   const isTokenExpired = Date.now() > resetTokenExpiry;
 
   if (isTokenExpired)

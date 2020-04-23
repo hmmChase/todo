@@ -12,7 +12,7 @@ import logger from './utils/logger';
 import {
   sendRefreshToken,
   createAccessToken,
-  createRefreshToken
+  createRefreshToken,
 } from './utils/auth';
 
 const app = express();
@@ -22,8 +22,8 @@ const corsOptions = {
   credentials: true,
   origin:
     process.env.NODE_ENV === 'production'
-      ? process.env.PROD_FRONTEND_URL
-      : process.env.DEV_FRONTEND_URL
+      ? 'https://lhkfjdsaoir.now.sh'
+      : 'http://localhost:8008',
 };
 
 app.use(cors(corsOptions));
@@ -51,7 +51,7 @@ app.get('/api/refresh', async (req, res) => {
 
   // Verify refresh token and decode payload
   try {
-    payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    payload = jwt.verify(refreshToken, 'hethearhaehr');
   } catch (error) {
     // If error, return empty access token
     return res.status(422).json({ accessToken: '' });
@@ -82,8 +82,8 @@ app.get('/api/refresh', async (req, res) => {
 
 server.applyMiddleware({ app, path: '/api/graphql', cors: corsOptions });
 
-app.listen({ port: process.env.PORT || 4000 }, err => {
+app.listen({ port: 6969 || 4000 }, (err) => {
   if (err) throw err;
 
-  console.log(`Server ready at http://localhost:${process.env.PORT}/api/`);
+  console.log(`Server ready at http://localhost:6969/api/`);
 });

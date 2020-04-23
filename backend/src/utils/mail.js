@@ -1,12 +1,12 @@
 import nodemailer from 'nodemailer';
 
 const transport = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  auth: { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS }
+  host: 'smtp.mailtrap.io',
+  port: '2525',
+  auth: { user: '', pass: '' },
 });
 
-const emailTemplate = body => `
+const emailTemplate = (body) => `
   <div className="email" style="
     border: 1px solid black;
     padding: 20px;
@@ -29,12 +29,12 @@ export default async (email, resetToken, resetTokenExpiry) => {
         \n\n
         <a href="${
           process.env.NODE_ENV === 'production'
-            ? process.env.PROD_FRONTEND_URL
-            : process.env.DEV_FRONTEND_URL
+            ? 'https://lhkfjdsaoir.now.sh'
+            : 'http://localhost:8008'
         }/resetpassword?resetToken=${resetToken}&resetTokenExpiry=${resetTokenExpiry}">
           Click Here to Reset
         </a>`
-      )
+      ),
     });
   } catch (error) {
     if (process.env.NODE_ENV === 'development')

@@ -1,47 +1,64 @@
-import ApolloClient from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
+// import {
+//   ApolloClient,
+//   HttpLink,
+//   InMemoryCache,
+//   ApolloLink,
+// } from '@apollo/client';
+// import { setContext } from '@apollo/link-context';
+// import { onError } from '@apollo/link-error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwt from 'jsonwebtoken';
-import { getAccessToken, setAccessToken } from '../utils/accessToken';
-import { typeDefs } from './typeDefs';
-import { resolvers } from './resolvers';
-import { devConLog, devConErr } from '../utils/devCon';
+import { getAccessToken, _setAccessToken } from '../utils/accessToken';
 import { graphqlUrl, refreshUrl, accessTokenSecret } from '../constants';
-// import initCache from './initCache';
+
+// import { persistCache } from 'apollo-cache-persist';
 // import { schema } from './schema';
+// import { typeDefs } from './typeDefs';
+import { resolvers } from './resolvers';
+import initCache from './initCache';
+
+import { IS_LOGGED_IN } from './queries';
 
 /**
  * Creates and configures the ApolloClient
  * @param {Object} [initialState={}]
  */
 
-const isServer = () => typeof window === 'undefined';
-
-const createApollo = (initialState = {}, serverAccessToken) => {
-  devConLog(['----- start createApollo -----']);
+const createApollo = (
+  initialState,
+  // The `ctx` (NextPageContext) will only be present on the server.
+  // use it to extract auth headers (ctx.req) or similar.
+  ctx,
+  accessToken
+) => {
+  console.log('----- start createApollo -----');
 
   // Log GraphQL request & response
   const consoleLogLink = new ApolloLink((operation, forward) => {
-    devConLog([
+    console.log(
       `***** starting request for ${operation.operationName}`,
-      `(${isServer() ? 'server' : 'client'})`
-    ]);
+      `(${typeof window === 'undefined' ? 'server' : 'client'})`
+    );
 
-    return forward(operation).map(op => {
-      devConLog([`******* ${operation.operationName} res: `, op]);
-      devConLog([`***** ending request for ${operation.operationName}`]);
+    return forward(operation).map((op) => {
+      console.log(`******* ${operation.operationName} res: `, op);
+      console.log(`***** ending request for ${operation.operationName}`);
 
       return op;
     });
   });
 
   const errorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) devConErr(['errorLink graphQLErrors: ', graphQLErrors]);
-    if (networkError) devConErr(['errorLink networkError: ', networkError]);
+    if (graphQLErrors)
+      console.error('errorLink graphQLErrors: ', graphQLErrors);
+
+    if (networkError) console.error('errorLink networkError: ', networkError);
   });
 
   // Fetch a new Access token if one is present and expired
@@ -54,9 +71,6 @@ const createApollo = (initialState = {}, serverAccessToken) => {
       // 2. Access token isn't expired
       // False triggers fetchAccessToken
 
-      // Read Access token
-      const accessToken = serverAccessToken || getAccessToken();
-
       // If Access token doesn't exist
       if (!accessToken) return true;
 
@@ -67,7 +81,7 @@ const createApollo = (initialState = {}, serverAccessToken) => {
         // If valid
         return true;
       } catch (error) {
-        devConErr(['Access token verify error: ', error]);
+        console.log('isTokenValidOrUndefined error: ', error);
 
         // If invalid
         return false;
@@ -78,54 +92,57 @@ const createApollo = (initialState = {}, serverAccessToken) => {
       return fetch(refreshUrl, { method: 'GET', credentials: 'include' });
     },
 
-    handleFetch: accessToken => setAccessToken(accessToken),
+    handleFetch: (newAccessToken) => {
+      accessToken = newAccessToken;
 
-    handleError: error => {
-      devConLog(['refreshLink handleError: ', error]);
+      // setAccessToken(newAccessToken);
+    },
 
-      // your custom action here
-      // user.logout();
-    }
+    handleError: (error) => console.log('refreshLink handleError: ', error),
   });
 
-  // Add cookie to request header
+  // Add Access token auth header
   const authLink = setContext((_request, _previousContext) => {
-    const accessToken = serverAccessToken || getAccessToken();
+    const theAccessToken = accessToken || getAccessToken();
 
     return {
-      headers: { Authorization: accessToken ? `Bearer ${accessToken}` : '' }
+      headers: {
+        Authorization: theAccessToken ? `Bearer ${theAccessToken}` : '',
+      },
     };
   });
 
-  const httpLink = new HttpLink({
-    uri: graphqlUrl,
-    credentials: 'include'
-  });
+  const httpLink = new HttpLink({ uri: graphqlUrl, credentials: 'include' });
 
   const link = ApolloLink.from([
     consoleLogLink,
     errorLink,
     refreshLink,
     authLink,
-    httpLink
+    httpLink,
   ]);
 
   // Hydrate cache with the initialState created server-side
   const cache = new InMemoryCache().restore(initialState);
 
-  // if (isServer) initCache(cache);
+  // if (!typeof window === 'undefined')
+  //   persistCache({ cache, storage: window.localStorage });
 
-  devConLog(['----- end createApollo -----']);
+  //! should I use the AT or RT?
+
+  if (typeof window === 'undefined') initCache(cache, accessToken);
+
+  console.log('----- end createApollo -----');
 
   return new ApolloClient({
     link,
     cache,
-    connectToDevTools: !isServer(),
+    connectToDevTools: process.env.NODE_ENV !== 'production',
     // Disables forceFetch on the server (so queries are only run once)
-    ssrMode: isServer(),
-    typeDefs,
-    resolvers
-    // schema
+    ssrMode: Boolean(ctx),
+    // typeDefs,
+    resolvers,
+    // schema,
   });
 };
 
