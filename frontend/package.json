@@ -2,6 +2,11 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "keywords": [],
+  "main": "next.config.js",
   "scripts": {
     "dev": "next -p 8008",
     "build": "next build",
