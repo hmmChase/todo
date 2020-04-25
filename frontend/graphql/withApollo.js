@@ -242,7 +242,7 @@ export const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
             // your entire AppTree once for every query. Check out apollo fragments
             // if you want to reduce the number of rerenders.
             // https://www.apollographql.com/docs/react/data/fragments/
-            await getDataFromTree(<AppTree {...props} />);
+            await getDataFromTree(<ctx.AppTree {...props} />);
           } catch (error) {
             // Prevent Apollo Client GraphQL errors from crashing SSR.
             // Handle them in components via the data.error prop:

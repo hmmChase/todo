@@ -11,14 +11,14 @@ const RequestReset = () => {
     { onError(_error) {} }
   );
 
-  return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        requestReset({ variables: { email } });
-      }}
-    >
+    requestReset({ variables: { email } });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
       <fieldset>
         <h2>Request Password Reset</h2>
 

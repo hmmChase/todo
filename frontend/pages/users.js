@@ -20,19 +20,19 @@ UsersPage.getInitialProps = (ctx) => {
     if (req && req.headers && req.headers.cookie) {
       const refreshToken = req.headers.cookie.replace('rt=', '');
 
-      if (!refreshToken) redirect(res, '/welcome');
+      if (refreshToken) {
+        try {
+          jwt.verify(refreshToken, refreshTokenSecret);
 
-      try {
-        jwt.verify(refreshToken, refreshTokenSecret);
-      } catch (error) {
-        console.error('Refresh token verify error: ', error);
-
-        redirect(res, '/welcome');
+          return {};
+        } catch (error) {
+          console.error('Refresh token verify error: ', error);
+        }
       }
-    } else redirect(res, '/welcome');
+    }
   }
 
-  return {};
+  redirect(res, '/welcome');
 };
 
 export default withApollo({ ssr: true })(UsersPage);

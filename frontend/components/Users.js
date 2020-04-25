@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { USERS } from '../graphql/queries';
 
 const Users = () => {
-  const { loading, error, data } = useQuery(USERS);
+  const { data } = useQuery(USERS);
 
   return (
     <>

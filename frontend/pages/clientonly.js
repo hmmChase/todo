@@ -44,4 +44,4 @@ const ClientOnlyPage = () => (
 );
 
 // Disable Apollo ssr fetching in favor of automatic static optimization
-export default withApollo({ ssr: true })(ClientOnlyPage);
+export default withApollo({ ssr: false })(ClientOnlyPage);

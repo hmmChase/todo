@@ -3,31 +3,51 @@ import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
 import { setAccessToken } from '../utils/accessToken';
-import { SIGN_UP } from '../graphql/queries';
+import { SIGN_UP, _IS_LOGGED_IN } from '../graphql/queries';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [signUp] = useMutation(SIGN_UP, {
-    onCompleted(data) {
-      if (data && data.signUp && data.signUp.accessToken) {
-        setAccessToken(data.signUp.accessToken);
+  const update = (cache, data) => {
+    const isLoggedIn = !!data.data.signUp.accessToken;
 
-        Router.push('/');
-      }
+    cache.writeData({ id: 'isLoggedIn', data: { isLoggedIn } });
+
+    // cache.writeQuery({
+    //   id: 'isLoggedIn',
+    //   query: IS_LOGGED_IN,
+    //   data: { isLoggedIn: !!data.data.signIn.accessToken },
+    // });
+  };
+
+  const onCompleted = (data) => {
+    if (data && data.signUp && data.signUp.accessToken) {
+      setAccessToken(data.signUp.accessToken);
+
+      Router.push('/');
+    }
+  };
+
+  const [signUp] = useMutation(SIGN_UP, {
+    update(cache, data) {
+      update(cache, data);
+    },
+
+    onCompleted(data) {
+      onCompleted(data);
     },
   });
 
-  return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        signUp({ variables: { email, password, confirmPassword } });
-      }}
-    >
+    signUp({ variables: { email, password, confirmPassword } });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
       <fieldset>
         <h2>Sign Up</h2>
 

@@ -45,30 +45,30 @@ IndexPage.getInitialProps = (ctx) => {
       // Parse Refresh token
       const refreshToken = req.headers.cookie.replace('rt=', '');
 
-      // If no Refresh token
-      if (!refreshToken) redirect(res, '/welcome');
+      // If Refresh token
+      if (refreshToken) {
+        try {
+          // Verify Refresh token
+          jwt.verify(refreshToken, refreshTokenSecret);
 
-      try {
-        // Verify Refresh token
-        jwt.verify(refreshToken, refreshTokenSecret);
+          return {};
+        } catch (error) {
+          // If Refresh token invalid
+          console.error('Refresh token verify error: ', error);
 
-        return {};
-      } catch (error) {
-        // If Refresh token not valid
-        console.error('Refresh token verify error: ', error);
-
-        redirect(res, '/welcome');
-      }
-      // If no cookie header
+          redirect(res, '/welcome');
+        }
+        // no Refresh token
+      } else redirect(res, '/welcome');
+      // no cookie header
     } else redirect(res, '/welcome');
+    // client-side
   } else {
     const { loading, error, data } = apolloClient.query({
       query: IS_LOGGED_IN,
     });
 
-    console.log('IndexPage.getInitialProps -> loading', loading);
-    console.log('IndexPage.getInitialProps -> error', error);
-    console.log('IndexPage.getInitialProps -> data', data);
+    console.log('1111111111111111111111111: ', data);
   }
 
   return {};

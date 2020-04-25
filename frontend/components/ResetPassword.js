@@ -11,17 +11,20 @@ const ResetPassword = (props) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // handleCompleted = () => Router.push({ pathname: '/' });
+  // onCompleted = () => Router.push({ pathname: '/' });
 
-  const [resetPassword, { loading, error, data }] = useMutation(
-    RESET_PASSWORD,
-    {
-      // onCompleted() {
-      //   handleCompleted();
-      // },
-      onError(_error) {},
-    }
-  );
+  const [resetPassword, { error, data }] = useMutation(RESET_PASSWORD, {
+    // onCompleted() {
+    //   onCompleted();
+    // },
+    onError(_error) {},
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    resetPassword({ variables: { resetToken, password, confirmPassword } });
+  };
 
   const isTokenPresent = !!(resetToken && resetTokenExpiry);
   const isTokenExpired = Date.now() > resetTokenExpiry;
@@ -73,15 +76,7 @@ const ResetPassword = (props) => {
     );
   else
     return (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          resetPassword({
-            variables: { resetToken, password, confirmPassword },
-          });
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <fieldset>
           <h2>Reset Password</h2>
           <>

@@ -5,7 +5,7 @@ import { CURRENT_USER } from '../graphql/queries';
 import SignOut from './SignOut';
 
 const Header = () => {
-  const { loading, error, data } = useQuery(CURRENT_USER);
+  const { data } = useQuery(CURRENT_USER);
 
   return (
     <nav>

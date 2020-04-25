@@ -23,8 +23,6 @@ import { graphqlUrl, refreshUrl, accessTokenSecret } from '../constants';
 import { resolvers } from './resolvers';
 import initCache from './initCache';
 
-import { IS_LOGGED_IN } from './queries';
-
 /**
  * Creates and configures the ApolloClient
  * @param {Object} [initialState={}]
@@ -129,7 +127,6 @@ const createApollo = (
   //   persistCache({ cache, storage: window.localStorage });
 
   //! should I use the AT or RT?
-
   if (typeof window === 'undefined') initCache(cache, accessToken);
 
   console.log('----- end createApollo -----');

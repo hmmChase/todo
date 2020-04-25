@@ -18,11 +18,15 @@ export default (cache, accessToken) => {
 
   let isLoggedIn = false;
 
-  if (theAccessToken) {
-    isLoggedIn = verifyAccessToken(theAccessToken);
-  }
+  if (theAccessToken) isLoggedIn = verifyAccessToken(theAccessToken);
 
   cache.writeData({ id: 'isLoggedIn', data: { isLoggedIn } });
+
+  // cache.writeQuery({
+  //   id: 'isLoggedIn',
+  //   query: IS_LOGGED_IN,
+  //   data: { isLoggedIn },
+  // });
 };
 
 // export default (cache, accessToken) => {
