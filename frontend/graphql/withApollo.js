@@ -20,7 +20,7 @@ import createApollo from './createApollo';
 
 // called on initial page load, server-side
 // called on page change, client-side
-export const initOnContext = (ctx, accessToken) => {
+export const initOnContext = (ctx, accessToken, refreshToken) => {
   // const accessToken = accessToken || getAccessToken();
 
   const inAppContext = Boolean(ctx.ctx);
@@ -41,7 +41,8 @@ export const initOnContext = (ctx, accessToken) => {
     initApollo(
       ctx.apolloState || {},
       inAppContext ? ctx.ctx : ctx,
-      accessToken
+      accessToken,
+      refreshToken
     );
 
   // We send the Apollo Client as a prop to the component to avoid calling initApollo() twice in the server.
@@ -73,15 +74,20 @@ let globalApolloClient = null;
 
 // called on inital page load, both client and server side
 // called on page change, client-side
-const initApollo = (initialState, ctx, accessToken) => {
+const initApollo = (initialState, ctx, accessToken, refreshToken) => {
   // Make sure to create a new  for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (typeof window === 'undefined')
-    return createApollo(initialState, ctx, accessToken);
+    return createApollo(initialState, ctx, accessToken, refreshToken);
 
   // Reuse client on the client-side
   if (!globalApolloClient)
-    globalApolloClient = createApollo(initialState, ctx, accessToken);
+    globalApolloClient = createApollo(
+      initialState,
+      ctx,
+      accessToken,
+      refreshToken
+    );
 
   return globalApolloClient;
 };
@@ -108,6 +114,7 @@ export const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
     apolloClient,
     apolloState,
     serverAccessToken,
+    refreshToken,
     ...pageProps
   }) => {
     console.log('----- start withApollo HOC -----');
@@ -130,7 +137,13 @@ export const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
     // Happens on: getDataFromTree & next.js ssr
     if (apolloClient) client = apolloClient;
     // Happens on: next.js csr. - client-side, on initial page load only
-    else client = initApollo(apolloState, undefined, serverAccessToken);
+    else
+      client = initApollo(
+        apolloState,
+        undefined,
+        serverAccessToken,
+        refreshToken
+      );
 
     console.log('----- end withApollo HOC -----');
 
@@ -156,6 +169,7 @@ export const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
     // Used for client/server rendering
     apolloState: PropTypes.object,
     serverAccessToken: PropTypes.string,
+    refreshToken: PropTypes.string,
   };
 
   // Code execution starts here
@@ -170,12 +184,13 @@ export const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
       // global variable
 
       let serverAccessToken = '';
+      let refreshToken = '';
 
       // Check for cookie header
       // req only available server-side
       if (ctx.req && ctx.req.headers && ctx.req.headers.cookie) {
         // Parse Refresh token
-        const refreshToken = ctx.req.headers.cookie.replace('rt=', '');
+        refreshToken = ctx.req.headers.cookie.replace('rt=', '');
 
         // If Refresh token available
         if (refreshToken) {
@@ -197,7 +212,11 @@ export const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
       /* ------------------------------------------------------------------- */
 
       const inAppContext = Boolean(ctx.ctx);
-      const { apolloClient } = initOnContext(ctx, serverAccessToken);
+      const { apolloClient } = initOnContext(
+        ctx,
+        serverAccessToken,
+        refreshToken
+      );
 
       // For wrapped getInitialProps methods,
       // run all GraphQL queries in the component tree,
@@ -266,6 +285,7 @@ export const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
         // gets JSON.stringified it will remove itself.
         apolloClient: ctx.apolloClient,
         serverAccessToken,
+        refreshToken,
       };
     };
   }

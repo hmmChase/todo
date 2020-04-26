@@ -16,12 +16,11 @@ import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwt from 'jsonwebtoken';
 import { getAccessToken, _setAccessToken } from '../utils/accessToken';
 import { graphqlUrl, refreshUrl, accessTokenSecret } from '../constants';
-
 // import { persistCache } from 'apollo-cache-persist';
 // import { schema } from './schema';
 // import { typeDefs } from './typeDefs';
-import { resolvers } from './resolvers';
-import initCache from './initCache';
+// import resolvers from './resolvers';
+// import initCache from './initCache';
 
 /**
  * Creates and configures the ApolloClient
@@ -33,7 +32,8 @@ const createApollo = (
   // The `ctx` (NextPageContext) will only be present on the server.
   // use it to extract auth headers (ctx.req) or similar.
   ctx,
-  accessToken
+  accessToken,
+  refreshToken
 ) => {
   console.log('----- start createApollo -----');
 
@@ -113,7 +113,7 @@ const createApollo = (
   const httpLink = new HttpLink({ uri: graphqlUrl, credentials: 'include' });
 
   const link = ApolloLink.from([
-    consoleLogLink,
+    // consoleLogLink,
     errorLink,
     refreshLink,
     authLink,
@@ -127,7 +127,8 @@ const createApollo = (
   //   persistCache({ cache, storage: window.localStorage });
 
   //! should I use the AT or RT?
-  if (typeof window === 'undefined') initCache(cache, accessToken);
+  // setting the cache here will disable the resolver
+  // if (typeof window === 'undefined') initCache(cache, accessToken);
 
   console.log('----- end createApollo -----');
 
@@ -138,7 +139,7 @@ const createApollo = (
     // Disables forceFetch on the server (so queries are only run once)
     ssrMode: Boolean(ctx),
     // typeDefs,
-    resolvers,
+    // resolvers: resolvers(accessToken, refreshToken),
     // schema,
   });
 };

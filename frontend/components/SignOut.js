@@ -2,17 +2,14 @@ import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
 import { setAccessToken } from '../utils/accessToken';
-import { SIGN_OUT, _IS_LOGGED_IN } from '../graphql/queries';
-// import redirect from '../utils/redirect';
+import { SIGN_OUT, IS_LOGGED_IN } from '../graphql/queries';
 
 const update = (cache, _data) => {
-  cache.writeData({ id: 'isLoggedIn', data: { isLoggedIn: false } });
-
-  // cache.writeQuery({
-  //   id: 'isLoggedIn',
-  //   query: IS_LOGGED_IN,
-  //   data: { isLoggedIn: false },
-  // });
+  cache.writeQuery({
+    id: 'isLoggedIn',
+    query: IS_LOGGED_IN,
+    data: { isLoggedIn: false },
+  });
 };
 
 const onCompleted = (_data) => {
@@ -34,6 +31,8 @@ const SignOut = () => {
     onCompleted(data) {
       onCompleted(data);
     },
+
+    onError(_error) {},
   });
 
   return (

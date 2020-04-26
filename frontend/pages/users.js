@@ -16,6 +16,7 @@ const UsersPage = () => (
 UsersPage.getInitialProps = (ctx) => {
   const { req, res } = ctx;
 
+  /* must be signed in */
   if (typeof window === 'undefined') {
     if (req && req.headers && req.headers.cookie) {
       const refreshToken = req.headers.cookie.replace('rt=', '');
@@ -30,9 +31,10 @@ UsersPage.getInitialProps = (ctx) => {
         }
       }
     }
+    redirect(res, '/welcome');
   }
 
-  redirect(res, '/welcome');
+  return {};
 };
 
 export default withApollo({ ssr: true })(UsersPage);

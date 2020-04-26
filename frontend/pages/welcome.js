@@ -19,6 +19,7 @@ const WelcomePage = () => (
 WelcomePage.getInitialProps = async (ctx) => {
   const { req, res } = ctx;
 
+  /* must not be signed in */
   if (typeof window === 'undefined') {
     if (req && req.headers && req.headers.cookie) {
       const refreshToken = req.headers.cookie.replace('rt=', '');

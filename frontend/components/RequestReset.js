@@ -8,6 +8,7 @@ const RequestReset = () => {
 
   const [requestReset, { loading, error, called }] = useMutation(
     REQUEST_RESET,
+
     { onError(_error) {} }
   );
 
@@ -35,7 +36,10 @@ const RequestReset = () => {
           </label>
         </div>
 
-        {error && <p>{error}</p>}
+        {error &&
+          error.graphQLErrors.map((graphQLError, i) => (
+            <p key={i}>{graphQLError.message}</p>
+          ))}
 
         {!error && !loading && called && (
           <p>Check your email for a reset link.</p>

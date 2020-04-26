@@ -1,8 +1,11 @@
+// import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import Router from 'next/router';
+// import { useRouter } from 'next/router';
 
 import { useQuery } from '@apollo/react-hooks';
 // import { useQuery } from '@apollo/client';
+
 import { IS_LOGGED_IN } from '../graphql/queries';
 
 // const { loading, error, data } = useQuery(IS_LOGGED_IN, {
@@ -18,11 +21,17 @@ import { IS_LOGGED_IN } from '../graphql/queries';
 // console.log('IndexPage -> data', data);
 
 const Page = ({ children }) => {
+  // const router = useRouter();
+
   const { data } = useQuery(IS_LOGGED_IN);
 
-  return data && data.isLoggedIn ? children : children;
+  console.log('Page -> data', data);
 
-  // Router.push('/welcome')
+  // useEffect(() => {
+  //   data && data.isLoggedIn ? router.push('/') : router.push('/welcome');
+  // });
+
+  return data && data.isLoggedIn ? children : 'not signed in';
 };
 
 Page.propTypes = { children: PropTypes.arrayOf(PropTypes.element) };

@@ -30,7 +30,7 @@ const SignUp = () => {
     }
   };
 
-  const [signUp] = useMutation(SIGN_UP, {
+  const [signUp, { error }] = useMutation(SIGN_UP, {
     update(cache, data) {
       update(cache, data);
     },
@@ -38,6 +38,8 @@ const SignUp = () => {
     onCompleted(data) {
       onCompleted(data);
     },
+
+    onError(_error) {},
   });
 
   const handleSubmit = (e) => {
@@ -100,6 +102,11 @@ const SignUp = () => {
         </ul>
 
         <button type='submit'>Sign Up</button>
+
+        {error &&
+          error.graphQLErrors.map((graphQLError, i) => (
+            <p key={i}>{graphQLError.message}</p>
+          ))}
       </fieldset>
     </form>
   );

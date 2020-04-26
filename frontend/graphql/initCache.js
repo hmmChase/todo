@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { getAccessToken } from '../utils/accessToken';
 import { accessTokenSecret } from '../constants';
-// import { IS_LOGGED_IN } from './queries';
+import { IS_LOGGED_IN } from './queries';
 
 const verifyAccessToken = (accessToken) => {
   try {
@@ -20,13 +20,11 @@ export default (cache, accessToken) => {
 
   if (theAccessToken) isLoggedIn = verifyAccessToken(theAccessToken);
 
-  cache.writeData({ id: 'isLoggedIn', data: { isLoggedIn } });
-
-  // cache.writeQuery({
-  //   id: 'isLoggedIn',
-  //   query: IS_LOGGED_IN,
-  //   data: { isLoggedIn },
-  // });
+  cache.writeQuery({
+    id: 'isLoggedIn',
+    query: IS_LOGGED_IN,
+    data: { isLoggedIn },
+  });
 };
 
 // export default (cache, accessToken) => {

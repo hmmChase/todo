@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
+import jwt from 'jsonwebtoken';
 import { withApollo } from '../graphql/withApollo';
+import redirect from '../utils/redirect';
+import { refreshTokenSecret } from '../constants';
 import ResetPassword from '../components/ResetPassword';
 
 const ResetPasswordPage = (props) => (
@@ -13,6 +16,7 @@ ResetPasswordPage.getInitialProps = async (ctx) => {
   const { req, res, query } = ctx;
   const { resetToken, resetTokenExpiry } = query;
 
+  /* must not be signed in */
   if (typeof window === 'undefined') {
     if (req && req.headers && req.headers.cookie) {
       const refreshToken = req.headers.cookie.replace('rt=', '');

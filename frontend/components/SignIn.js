@@ -3,7 +3,7 @@ import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
 import { setAccessToken } from '../utils/accessToken';
-import { SIGN_IN, _IS_LOGGED_IN } from '../graphql/queries';
+import { SIGN_IN, IS_LOGGED_IN } from '../graphql/queries';
 
 const SignIn = () => {
   const [email, setEmail] = useState('user@email.com');
@@ -12,13 +12,11 @@ const SignIn = () => {
   const update = (cache, data) => {
     const isLoggedIn = !!data.data.signIn.accessToken;
 
-    cache.writeData({ id: 'isLoggedIn', data: { isLoggedIn } });
-
-    // cache.writeQuery({
-    //   id: 'isLoggedIn',
-    //   query: IS_LOGGED_IN,
-    //   data: { isLoggedIn: !!data.data.signIn.accessToken },
-    // });
+    cache.writeQuery({
+      id: 'isLoggedIn',
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn },
+    });
   };
 
   const onCompleted = (data) => {
@@ -29,7 +27,7 @@ const SignIn = () => {
     }
   };
 
-  const [signIn] = useMutation(SIGN_IN, {
+  const [signIn, { error }] = useMutation(SIGN_IN, {
     update(cache, data) {
       update(cache, data);
     },
@@ -37,6 +35,8 @@ const SignIn = () => {
     onCompleted(data) {
       onCompleted(data);
     },
+
+    onError(_error) {},
   });
 
   const handleSubmit = (e) => {
@@ -77,6 +77,11 @@ const SignIn = () => {
         </div>
 
         <button type='submit'>Log In</button>
+
+        {error &&
+          error.graphQLErrors.map((graphQLError, i) => (
+            <p key={i}>{graphQLError.message}</p>
+          ))}
       </fieldset>
     </form>
   );

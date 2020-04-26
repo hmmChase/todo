@@ -11,12 +11,7 @@ const ResetPassword = (props) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // onCompleted = () => Router.push({ pathname: '/' });
-
   const [resetPassword, { error, data }] = useMutation(RESET_PASSWORD, {
-    // onCompleted() {
-    //   onCompleted();
-    // },
     onError(_error) {},
   });
 
@@ -34,6 +29,7 @@ const ResetPassword = (props) => {
     'Error: Please submit a new password reset request.';
   const tokenExpiredError =
     'Your reset request is expired. Please submit a new one.';
+  const resetSuccessful = 'Your password has been successfully changed.';
 
   if (!isTokenPresent)
     return (
@@ -42,8 +38,7 @@ const ResetPassword = (props) => {
 
         <p>{tokenMissingError}</p>
 
-        {/* <Link href={{ pathname: '/welcome' }}> */}
-        <Link href={{ pathname: '/' }}>
+        <Link href={{ pathname: '/welcome' }}>
           <button aria-label='back button'>Back</button>
         </Link>
       </fieldset>
@@ -55,8 +50,7 @@ const ResetPassword = (props) => {
 
         <p>{tokenExpiredError}</p>
 
-        {/* <Link href={{ pathname: '/welcome' }}> */}
-        <Link href={{ pathname: '/' }}>
+        <Link href={{ pathname: '/welcome' }}>
           <button aria-label='back button'>Back</button>
         </Link>
       </fieldset>
@@ -66,11 +60,10 @@ const ResetPassword = (props) => {
       <fieldset>
         <h2>Reset Password</h2>
 
-        <p>Your password has been successfully changed.</p>
+        <p>{resetSuccessful}</p>
 
-        {/* <Link href={{ pathname: '/welcome' }}> */}
         <Link href={{ pathname: '/' }}>
-          <button aria-label='back button'>Back</button>
+          <button aria-label='home button'>Home</button>
         </Link>
       </fieldset>
     );
@@ -117,7 +110,10 @@ const ResetPassword = (props) => {
 
             <button type='submit'>Reset Password</button>
 
-            {error && <p>{error}</p>}
+            {error &&
+              error.graphQLErrors.map((graphQLError, i) => (
+                <p key={i}>{graphQLError.message}</p>
+              ))}
           </>
         </fieldset>
       </form>
