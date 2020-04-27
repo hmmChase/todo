@@ -1,6 +1,6 @@
 {
-  "name": "ngs-base",
-  "alias": "ngs-base",
+  "name": "next-graphql-starter-base",
+  "alias": "next-graphql-starter-base",
   "version": 2,
   "github": {
     "silent": true

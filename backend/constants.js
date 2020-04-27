@@ -14,4 +14,4 @@ export const mailPort = '2525';
 
 export const frontendUrlDev = 'http://localhost:8008';
 export const frontendUrlProd =
-  'https://next-graphql-starter-git-base.hmmchase.now.sh';
+  'https://next-graphql-starter-base.now.sh.hmmchase.now.sh';
