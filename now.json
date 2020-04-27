@@ -3,7 +3,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/src/index.js",
+      "src": "backend/index.js",
       "use": "@now/node-server"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "src": "/api/(.*)",
-      "dest": "backend/src/index.js"
+      "dest": "backend/index.js"
     },
     {
       "src": "/(.*)",
