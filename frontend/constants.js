@@ -13,7 +13,7 @@ export const passwordRequirements = {
 };
 
 export const graphqlUrlDev = 'http://localhost:6969/api/graphql';
-export const graphqlUrlProd = 'https://lhkfjdsaoir.now.sh/api/graphql';
+export const graphqlUrlProd = 'https://ngs-base.now.sh/api/graphql';
 
 export const refreshUrlDev = 'http://localhost:6969/api/refresh';
-export const refreshUrlProd = 'https://lhkfjdsaoir.now.sh/api/refresh';
+export const refreshUrlProd = 'https://ngs-base.now.sh/api/refresh';

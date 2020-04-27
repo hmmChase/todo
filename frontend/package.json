@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "author": "",
-  "license": "ISC",
   "description": "",
+  "license": "ISC",
   "keywords": [],
   "main": "next.config.js",
   "scripts": {

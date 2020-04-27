@@ -1,6 +1,10 @@
 {
+  "name": "ngs-base",
   "alias": "ngs-base",
   "version": 2,
+  "github": {
+    "silent": true
+  },
   "builds": [
     {
       "src": "backend/index.js",

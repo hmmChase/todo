@@ -14,18 +14,15 @@ import {
   createAccessToken,
   createRefreshToken,
 } from './utils/auth';
-import { port } from './constants';
+import { port, frontendUrlDev, frontendUrlProd } from './constants';
 
 const app = express();
 const server = apolloServer();
 
-const corsOptions = {
-  credentials: true,
-  origin:
-    process.env.NODE_ENV === 'production'
-      ? 'https://lhkfjdsaoir.now.sh'
-      : 'http://localhost:8008',
-};
+const origin =
+  process.env.NODE_ENV === 'production' ? frontendUrlProd : frontendUrlDev;
+
+const corsOptions = { origin, credentials: true };
 
 app.use(cors(corsOptions));
 app.use(helmet());

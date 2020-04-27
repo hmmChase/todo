@@ -1,8 +1,11 @@
 {
   "name": "ngs-base",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
+  "author": "",
   "description": "An example CRUD app with user authentication.",
+  "license": "ISC",
+  "keywords": [],
   "main": "index.js",
   "scripts": {
     "backend": "cd backend && npm run dev",
@@ -16,9 +19,6 @@
     "type": "git",
     "url": "git+https://github.com/hmmChase/next-graphql-starter.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/hmmChase/next-graphql-starter/issues"
   },
