@@ -13,4 +13,5 @@ export const mailHost = 'smtp.mailtrap.io';
 export const mailPort = '2525';
 
 export const frontendUrlDev = 'http://localhost:8008';
-export const frontendUrlProd = 'https://ngs-base.now.sh';
+export const frontendUrlProd =
+  'https://next-graphql-starter-git-base.hmmchase.now.sh';

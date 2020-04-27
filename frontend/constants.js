@@ -13,7 +13,9 @@ export const passwordRequirements = {
 };
 
 export const graphqlUrlDev = 'http://localhost:6969/api/graphql';
-export const graphqlUrlProd = 'https://ngs-base.now.sh/api/graphql';
+export const graphqlUrlProd =
+  'https://next-graphql-starter-git-base.hmmchase.now.sh/api/graphql/api/graphql';
 
 export const refreshUrlDev = 'http://localhost:6969/api/refresh';
-export const refreshUrlProd = 'https://ngs-base.now.sh/api/refresh';
+export const refreshUrlProd =
+  'https://next-graphql-starter-git-base.hmmchase.now.sh/api/graphql/api/refresh';
