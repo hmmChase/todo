@@ -11,7 +11,7 @@ import {
   createAccessToken,
 } from '../utils/auth';
 import * as auth from '../utils/auth';
-import * as config from '../config';
+import * as constants from '../constants';
 
 //? import getConfig from 'next/config';
 //? const JWT_SECRET = getConfig().serverRuntimeConfig.JWT_SECRET;
@@ -94,7 +94,7 @@ export default {
       auth.comparePasswords(args.password, args.confirmPassword);
 
       // Encrypt password
-      const password = await bcrypt.hash(args.password, config.saltRounds);
+      const password = await bcrypt.hash(args.password, constants.saltRounds);
 
       // Create user
       const newUser = await ctx.prisma.mutation.createUser({
@@ -222,7 +222,7 @@ export default {
       auth.validateResetTokenExpiry(user.resetTokenExpiry);
 
       // Encrypt new password
-      const password = await bcrypt.hash(args.password, config.saltRounds);
+      const password = await bcrypt.hash(args.password, constants.saltRounds);
 
       // Update user with new password and clear resetToken
       ctx.prisma.mutation.updateUser({

@@ -8,8 +8,7 @@ import jwt from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
 import isEmail from 'isemail';
-
-import * as config from '../config';
+import * as constants from '../constants';
 
 /* Email */
 
@@ -61,7 +60,7 @@ export const comparePasswords = (password, confirmPassword) => {
 
 export const createAccessToken = (userId) =>
   jwt.sign({ userId }, 'terhjzrthjshjfg', {
-    expiresIn: config.accessTokenExpiryTime,
+    expiresIn: constants.accessTokenExpiryTime,
   });
 
 export const verifyAccessToken = (accessToken) => {
@@ -78,7 +77,7 @@ export const verifyAccessToken = (accessToken) => {
 
 export const createRefreshToken = (userId, refreshTokenVersion) =>
   jwt.sign({ userId, refreshTokenVersion }, 'hethearhaehr', {
-    expiresIn: config.refreshTokenExpiryTime,
+    expiresIn: constants.refreshTokenExpiryTime,
   });
 
 export const sendRefreshToken = (res, refreshToken) => {
@@ -86,7 +85,7 @@ export const sendRefreshToken = (res, refreshToken) => {
     httpOnly: true,
     path: '/',
     secure: process.env.NODE_ENV === 'production',
-    maxAge: config.refreshTokenCookieMaxAge,
+    maxAge: constants.refreshTokenCookieMaxAge,
     sameSite: 'strict',
   };
 
@@ -105,7 +104,7 @@ export const createPasswordResetToken = async () => {
   const resetTokenBytes = await randomBytesPromisified(20);
 
   const resetToken = resetTokenBytes.toString('hex');
-  const resetTokenExpiry = Date.now() + config.resetTokenExpiryTime;
+  const resetTokenExpiry = Date.now() + constants.resetTokenExpiryTime;
 
   return { resetToken, resetTokenExpiry };
 };

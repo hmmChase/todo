@@ -2,15 +2,18 @@ import jwt from 'jsonwebtoken';
 import { withApollo } from '../graphql/withApollo';
 import redirect from '../utils/redirect';
 import { refreshTokenSecret } from '../constants';
+import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Users from '../components/Users';
+import Footer from '../components/Footer';
 
 const UsersPage = () => (
-  <>
-    <Header />
-
-    <Users />
-  </>
+  <Layout
+    title='Users'
+    header={<Header />}
+    content={<Users />}
+    footer={<Footer />}
+  />
 );
 
 UsersPage.getInitialProps = (ctx) => {
@@ -31,6 +34,7 @@ UsersPage.getInitialProps = (ctx) => {
         }
       }
     }
+
     redirect(res, '/welcome');
   }
 

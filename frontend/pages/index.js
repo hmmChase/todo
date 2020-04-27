@@ -2,14 +2,17 @@ import jwt from 'jsonwebtoken';
 import { withApollo } from '../graphql/withApollo';
 import redirect from '../utils/redirect';
 import { refreshTokenSecret } from '../constants';
+import Layout from '../components/Layout';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const IndexPage = () => (
-  <>
-    <Header />
-
-    <h1>Hello</h1>
-  </>
+  <Layout
+    title='Home'
+    header={<Header />}
+    content={<p>hi</p>}
+    footer={<Footer />}
+  />
 );
 
 // getInitialProps is called on:
@@ -41,6 +44,7 @@ IndexPage.getInitialProps = (ctx) => {
         }
       }
     }
+
     // no cookie, token, or valid jwt
     redirect(res, '/welcome');
   }

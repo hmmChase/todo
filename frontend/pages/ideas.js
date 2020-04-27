@@ -2,15 +2,18 @@ import jwt from 'jsonwebtoken';
 import { withApollo } from '../graphql/withApollo';
 import redirect from '../utils/redirect';
 import { refreshTokenSecret } from '../constants';
+import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Ideas from '../components/Ideas';
+import Footer from '../components/Footer';
 
 const IdeasPage = () => (
-  <>
-    <Header />
-
-    <Ideas />
-  </>
+  <Layout
+    title='Ideas'
+    header={<Header />}
+    content={<Ideas />}
+    footer={<Footer />}
+  />
 );
 
 IdeasPage.getInitialProps = (ctx) => {
@@ -31,6 +34,7 @@ IdeasPage.getInitialProps = (ctx) => {
         }
       }
     }
+
     redirect(res, '/welcome');
   }
 

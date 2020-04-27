@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-unfetch';
-import { refreshUrl } from '../constants';
+import { refreshUrlDev, refreshUrlProd } from '../constants';
 
 let accessToken = '';
 
@@ -10,6 +10,9 @@ export const getAccessToken = () => accessToken;
 export const clearAccessToken = () => (accessToken = '');
 
 export const fetchAccessToken = async (refreshToken) => {
+  const refreshUrl =
+    process.env.NODE_ENV === 'production' ? refreshUrlProd : refreshUrlDev;
+
   try {
     const response = await fetch(refreshUrl, {
       method: 'GET',

@@ -1,9 +1,15 @@
 import nodemailer from 'nodemailer';
+import {
+  mailHost,
+  mailPort,
+  frontendUrlDev,
+  frontendUrlProd,
+} from '../constants';
 
 const transport = nodemailer.createTransport({
-  host: 'smtp.mailtrap.io',
-  port: '2525',
-  auth: { user: '', pass: '' },
+  host: mailHost,
+  port: mailPort,
+  auth: { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS },
 });
 
 const emailTemplate = (body) => `
@@ -19,22 +25,23 @@ const emailTemplate = (body) => `
 `;
 
 export default async (email, resetToken, resetTokenExpiry) => {
+  const frontendUrl =
+    process.env.NODE_ENV === 'production' ? frontendUrlProd : frontendUrlDev;
+
+  const resetPassUrl = `${frontendUrl}/resetpassword?resetToken=${resetToken}&resetTokenExpiry=${resetTokenExpiry}`;
+
+  const emailBody = `
+    Your Password Reset Token is here!
+    \n\n
+    <a href="${resetPassUrl}">Click Here to Reset</a>
+  `;
+
   try {
     await transport.sendMail({
       from: 'test@email.com',
       to: email,
       subject: 'Your Password Reset Token',
-      html: emailTemplate(
-        `Your Password Reset Token is here!
-        \n\n
-        <a href="${
-          process.env.NODE_ENV === 'production'
-            ? 'https://lhkfjdsaoir.now.sh'
-            : 'http://localhost:8008'
-        }/resetpassword?resetToken=${resetToken}&resetTokenExpiry=${resetTokenExpiry}">
-          Click Here to Reset
-        </a>`
-      ),
+      html: emailTemplate(emailBody),
     });
   } catch (error) {
     if (process.env.NODE_ENV === 'development')

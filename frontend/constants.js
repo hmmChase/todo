@@ -11,16 +11,12 @@ export const passwordRequirements = {
     'a number',
   ],
 };
-export const graphqlUrl =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:6969/api/graphql'
-    : 'https://lhkfjdsaoir.now.sh/api/graphql';
 
-export const refreshUrl =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:6969/api/refresh'
-    : 'https://lhkfjdsaoir.now.sh/api/refresh';
+export const graphqlUrlDev = 'http://localhost:6969/api/graphql';
+export const graphqlUrlProd = 'https://lhkfjdsaoir.now.sh/api/graphql';
+
+export const refreshUrlDev = 'http://localhost:6969/api/refresh';
+export const refreshUrlProd = 'https://lhkfjdsaoir.now.sh/api/refresh';
 
 export const accessTokenSecret = 'terhjzrthjshjfg';
-
 export const refreshTokenSecret = 'hethearhaehr';

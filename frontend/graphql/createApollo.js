@@ -15,7 +15,13 @@ import { onError } from 'apollo-link-error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwt from 'jsonwebtoken';
 import { getAccessToken, _setAccessToken } from '../utils/accessToken';
-import { graphqlUrl, refreshUrl, accessTokenSecret } from '../constants';
+import {
+  graphqlUrlDev,
+  graphqlUrlProd,
+  refreshUrlDev,
+  refreshUrlProd,
+  accessTokenSecret,
+} from '../constants';
 // import { persistCache } from 'apollo-cache-persist';
 // import { schema } from './schema';
 // import { typeDefs } from './typeDefs';
@@ -87,6 +93,9 @@ const createApollo = (
     },
 
     fetchAccessToken: () => {
+      const refreshUrl =
+        process.env.NODE_ENV === 'production' ? refreshUrlProd : refreshUrlDev;
+
       return fetch(refreshUrl, { method: 'GET', credentials: 'include' });
     },
 
@@ -109,6 +118,9 @@ const createApollo = (
       },
     };
   });
+
+  const graphqlUrl =
+    process.env.NODE_ENV === 'production' ? graphqlUrlProd : graphqlUrlDev;
 
   const httpLink = new HttpLink({ uri: graphqlUrl, credentials: 'include' });
 
