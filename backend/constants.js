@@ -1,3 +1,5 @@
+export const port = 6969;
+
 export const accessTokenExpiryTime = '10m';
 
 export const refreshTokenExpiryTime = '7d';
@@ -11,4 +13,4 @@ export const mailHost = 'smtp.mailtrap.io';
 export const mailPort = '2525';
 
 export const frontendUrlDev = 'http://localhost:8008';
-export const frontendUrlProd = 'https://lhkfjdsaoir.now.sh';
+export const frontendUrlProd = 'https://ngs-base.now.sh';

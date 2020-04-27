@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "babel-plugin-graphql-tag": "^2.5.0",
+    "dotenv-webpack": "^1.7.0",
     "prop-types": "^15.7.2"
   }
 }

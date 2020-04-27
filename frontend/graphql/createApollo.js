@@ -20,7 +20,6 @@ import {
   graphqlUrlProd,
   refreshUrlDev,
   refreshUrlProd,
-  accessTokenSecret,
 } from '../constants';
 // import { persistCache } from 'apollo-cache-persist';
 // import { schema } from './schema';
@@ -39,7 +38,7 @@ const createApollo = (
   // use it to extract auth headers (ctx.req) or similar.
   ctx,
   accessToken,
-  refreshToken
+  _refreshToken
 ) => {
   console.log('----- start createApollo -----');
 
@@ -80,7 +79,7 @@ const createApollo = (
 
       // Check if Access token is valid
       try {
-        jwt.verify(accessToken, accessTokenSecret);
+        jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
 
         // If valid
         return true;
@@ -124,13 +123,17 @@ const createApollo = (
 
   const httpLink = new HttpLink({ uri: graphqlUrl, credentials: 'include' });
 
-  const link = ApolloLink.from([
+  const linkDev = ApolloLink.from([
     // consoleLogLink,
     errorLink,
     refreshLink,
     authLink,
     httpLink,
   ]);
+
+  const linkProd = ApolloLink.from([refreshLink, authLink, httpLink]);
+
+  const link = process.env.NODE_ENV === 'production' ? linkProd : linkDev;
 
   // Hydrate cache with the initialState created server-side
   const cache = new InMemoryCache().restore(initialState);

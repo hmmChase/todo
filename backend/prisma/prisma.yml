@@ -14,4 +14,4 @@ generate:
 
 # Seeds the database
 seed:
-  run: node ./src/prisma/seed.js
+  run: node ./prisma/seed.js

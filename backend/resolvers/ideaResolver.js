@@ -3,7 +3,6 @@ import {
   ForbiddenError,
   _UserInputError,
 } from 'apollo-server-express';
-
 import * as auth from '../utils/auth';
 
 export default {

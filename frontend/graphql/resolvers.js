@@ -1,16 +1,15 @@
 import jwt from 'jsonwebtoken';
-import { getAccessToken } from '../utils/accessToken';
-import { accessTokenSecret, refreshTokenSecret } from '../constants';
+// import { getAccessToken } from '../utils/accessToken';
 
-export default (accessToken, refreshToken) => {
+export default (_accessToken, refreshToken) => {
   // const theAccessToken = accessToken || getAccessToken();
 
   return {
     Query: {
       isLoggedIn: (parent, args, ctx, info) => {
         try {
-          // jwt.verify(theAccessToken, accessTokenSecret);
-          jwt.verify(refreshToken, refreshTokenSecret);
+          // jwt.verify(theAccessToken, process.env.ACCESS_TOKEN_SECRET);
+          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
           return true;
         } catch (error) {

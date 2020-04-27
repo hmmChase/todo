@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
 import { withApollo } from '../graphql/withApollo';
 import redirect from '../utils/redirect';
-import { refreshTokenSecret } from '../constants';
 import ResetPassword from '../components/ResetPassword';
 
 const ResetPasswordPage = (props) => (
@@ -23,7 +22,7 @@ ResetPasswordPage.getInitialProps = async (ctx) => {
 
       if (refreshToken) {
         try {
-          jwt.verify(refreshToken, refreshTokenSecret);
+          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
           redirect(res, '/');
         } catch (error) {

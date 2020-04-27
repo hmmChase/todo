@@ -8,7 +8,6 @@ import {
   // getAccessToken,
   // setAccessToken,
 } from '../utils/accessToken';
-import { refreshTokenSecret } from '../constants';
 import createApollo from './createApollo';
 
 /**
@@ -196,7 +195,7 @@ export const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
         if (refreshToken) {
           try {
             // Verify Refresh token
-            jwt.verify(refreshToken, refreshTokenSecret);
+            jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
             // Fetch Access token
             serverAccessToken = await fetchAccessToken(refreshToken);

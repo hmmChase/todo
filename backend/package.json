@@ -6,14 +6,14 @@
   "license": "ISC",
   "description": "",
   "keywords": [],
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js",
-    "start": "cross-env NODE_ENV=production node --exec babel-node src/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node index.js",
+    "start": "cross-env NODE_ENV=production node --exec babel-node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "prisma deploy -e .env",
     "seed": "prisma seed -e .env",
-    "writeSchema": "node src/utils/writeSchema.js",
+    "writeSchema": "node utils/writeSchema.js",
     "schema": "npm run deploy && npm run writeSchema"
   },
   "dependencies": {

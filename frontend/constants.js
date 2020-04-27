@@ -17,6 +17,3 @@ export const graphqlUrlProd = 'https://lhkfjdsaoir.now.sh/api/graphql';
 
 export const refreshUrlDev = 'http://localhost:6969/api/refresh';
 export const refreshUrlProd = 'https://lhkfjdsaoir.now.sh/api/refresh';
-
-export const accessTokenSecret = 'terhjzrthjshjfg';
-export const refreshTokenSecret = 'hethearhaehr';

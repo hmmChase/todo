@@ -59,14 +59,14 @@ export const comparePasswords = (password, confirmPassword) => {
 /* Access Token */
 
 export const createAccessToken = (userId) =>
-  jwt.sign({ userId }, 'terhjzrthjshjfg', {
+  jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: constants.accessTokenExpiryTime,
   });
 
 export const verifyAccessToken = (accessToken) => {
   try {
     // Return the decoded payload if the signature is valid and JWT not expired
-    return jwt.verify(accessToken, 'terhjzrthjshjfg');
+    return jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
   } catch (error) {
     // If not, throw error
     throw new AuthenticationError('Access Token invalid');
@@ -76,7 +76,7 @@ export const verifyAccessToken = (accessToken) => {
 /* Refresh Token */
 
 export const createRefreshToken = (userId, refreshTokenVersion) =>
-  jwt.sign({ userId, refreshTokenVersion }, 'hethearhaehr', {
+  jwt.sign({ userId, refreshTokenVersion }, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: constants.refreshTokenExpiryTime,
   });
 

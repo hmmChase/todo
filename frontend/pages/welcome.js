@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { withApollo } from '../graphql/withApollo';
 import redirect from '../utils/redirect';
-import { refreshTokenSecret } from '../constants';
 import SignIn from '../components/SignIn';
 import RequestReset from '../components/RequestReset';
 import SignUp from '../components/SignUp';
@@ -26,7 +25,7 @@ WelcomePage.getInitialProps = async (ctx) => {
 
       if (refreshToken) {
         try {
-          jwt.verify(refreshToken, refreshTokenSecret);
+          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
           redirect(res, '/');
         } catch (error) {

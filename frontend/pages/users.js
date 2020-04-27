@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { withApollo } from '../graphql/withApollo';
 import redirect from '../utils/redirect';
-import { refreshTokenSecret } from '../constants';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Users from '../components/Users';
@@ -26,7 +25,7 @@ UsersPage.getInitialProps = (ctx) => {
 
       if (refreshToken) {
         try {
-          jwt.verify(refreshToken, refreshTokenSecret);
+          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
           return {};
         } catch (error) {
