@@ -1,5 +1,5 @@
 {
-  "name": "next-graphql-starter",
+  "name": "ngs-base",
   "version": "1.0.0",
   "private": true,
   "description": "An example CRUD app with user authentication.",
