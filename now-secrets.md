@@ -16,28 +16,20 @@ To add a new secret:
 
 ## Frontend
 
-- `now secrets add dev_graphql_url <secret-value>`
-- `now secrets add prod_graphql_url <secret-value>`
-- `now secrets add dev_refresh_url <secret-value>`
-- `now secrets add prod_refresh_url <secret-value>`
+- `now secrets add access_token_secret <secret-value>`
+- `now secrets add refresh_token_secret <secret-value>`
 
 ## Backend
 
-- `now secrets add port <secret-value>`
 - `now secrets add access_token_secret <secret-value>`
 - `now secrets add refresh_token_secret <secret-value>`
-- `now secrets add dev_frontend_url <secret-value>`
-- `now secrets add prod_frontend_url <secret-value>`
 
 ### Prisma
 
 - `now secrets add prisma_url <secret-value>`
 - `now secrets add prisma_secret <secret-value>`
-- `now secrets add prisma_management_api_secret <secret-value>`
 
 ### Mailtrap
 
-- `now secrets add mail_host <secret-value>`
-- `now secrets add mail_port <secret-value>`
 - `now secrets add mail_user <secret-value>`
 - `now secrets add mail_pass <secret-value>`
