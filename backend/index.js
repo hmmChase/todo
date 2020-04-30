@@ -12,19 +12,17 @@ import logger from './utils/logger';
 import {
   sendRefreshToken,
   createAccessToken,
-  createRefreshToken
+  createRefreshToken,
 } from './utils/auth';
+import { port, frontendUrlDev, frontendUrlProd } from './config';
 
 const app = express();
 const server = apolloServer();
 
-const corsOptions = {
-  credentials: true,
-  origin:
-    process.env.NODE_ENV === 'production'
-      ? process.env.PROD_FRONTEND_URL
-      : process.env.DEV_FRONTEND_URL
-};
+const origin =
+  process.env.NODE_ENV === 'production' ? frontendUrlProd : frontendUrlDev;
+
+const corsOptions = { origin, credentials: true };
 
 app.use(cors(corsOptions));
 app.use(helmet());
@@ -82,8 +80,8 @@ app.get('/api/refresh', async (req, res) => {
 
 server.applyMiddleware({ app, path: '/api/graphql', cors: corsOptions });
 
-app.listen({ port: process.env.PORT || 4000 }, err => {
+app.listen({ port: port || 4000 }, (err) => {
   if (err) throw err;
 
-  console.log(`Server ready at http://localhost:${process.env.PORT}/api/`);
+  console.log(`Server ready at http://localhost:${port}/api/`);
 });

@@ -13,10 +13,10 @@ export default () =>
 
       return { req, res, prisma, accessToken };
     },
-    tracing: false,
-    debug: false,
+    tracing: process.env.NODE_ENV === 'development',
+    debug: process.env.NODE_ENV === 'development',
     introspection: process.env.NODE_ENV === 'development',
     playground: process.env.NODE_ENV === 'development' && {
-      settings: { 'editor.theme': 'light', 'request.credentials': 'include' }
-    }
+      settings: { 'editor.theme': 'light', 'request.credentials': 'include' },
+    },
   });
