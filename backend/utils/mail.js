@@ -4,7 +4,7 @@ import {
   mailPort,
   frontendUrlDev,
   frontendUrlProd,
-} from '../constants';
+} from '../config';
 
 const transport = nodemailer.createTransport({
   host: mailHost,

@@ -14,7 +14,7 @@ import {
   createAccessToken,
   createRefreshToken,
 } from './utils/auth';
-import { port, frontendUrlDev, frontendUrlProd } from './constants';
+import { port, frontendUrlDev, frontendUrlProd } from './config';
 
 const app = express();
 const server = apolloServer();

@@ -3,7 +3,7 @@ import {
   ForbiddenError,
   _UserInputError,
 } from 'apollo-server-express';
-import * as auth from '../utils/auth';
+import { verifyAccessToken } from '../utils/auth';
 
 export default {
   Query: {
@@ -12,7 +12,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token
-      auth.verifyAccessToken(ctx.accessToken);
+      verifyAccessToken(ctx.accessToken);
 
       // Find and return idea matching ID
       return ctx.prisma.query.idea({ where: { id: args.id } }, info);
@@ -23,7 +23,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token
-      auth.verifyAccessToken(ctx.accessToken);
+      verifyAccessToken(ctx.accessToken);
 
       // Return all ideas
       return ctx.prisma.query.ideas({ orderBy: args.orderBy }, info);
@@ -34,7 +34,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token
-      auth.verifyAccessToken(ctx.accessToken);
+      verifyAccessToken(ctx.accessToken);
 
       // Return all ideas
       return ctx.prisma.query.ideasConnection({}, info);
@@ -45,7 +45,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token and decode payload
-      const payload = auth.verifyAccessToken(ctx.accessToken);
+      const payload = verifyAccessToken(ctx.accessToken);
 
       // Find idea matching ID
       const idea = await ctx.prisma.query.idea(
@@ -68,7 +68,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token and decode payload
-      const payload = auth.verifyAccessToken(ctx.accessToken);
+      const payload = verifyAccessToken(ctx.accessToken);
 
       // Find and return all ideas matching userId
       return await ctx.prisma.query.ideas(
@@ -82,7 +82,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token and decode payload
-      const payload = auth.verifyAccessToken(ctx.accessToken);
+      const payload = verifyAccessToken(ctx.accessToken);
 
       // Find and return all ideas matching userId
       return await ctx.prisma.query.ideasConnection(
@@ -98,7 +98,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token and decode payload
-      const payload = auth.verifyAccessToken(ctx.accessToken);
+      const payload = verifyAccessToken(ctx.accessToken);
 
       // Create and return idea
       return ctx.prisma.mutation.createIdea(
@@ -117,7 +117,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token and decode payload
-      const payload = auth.verifyAccessToken(ctx.accessToken);
+      const payload = verifyAccessToken(ctx.accessToken);
 
       // Request idea's author ID using defined selection set
       const idea = await ctx.prisma.query.idea(
@@ -143,7 +143,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token and decode payload
-      const payload = auth.verifyAccessToken(ctx.accessToken);
+      const payload = verifyAccessToken(ctx.accessToken);
 
       // Request idea's author ID using defined selection set
       const idea = await ctx.prisma.query.idea(

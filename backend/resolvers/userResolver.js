@@ -6,12 +6,18 @@ import {
 } from 'apollo-server-express';
 import mailPasswordResetToken from '../utils/mail';
 import {
+  validateEmail,
+  checkPassword,
+  comparePasswords,
+  validatePassword,
+  createAccessToken,
+  verifyAccessToken,
   createRefreshToken,
   sendRefreshToken,
-  createAccessToken,
+  createPasswordResetToken,
+  validateResetTokenExpiry,
 } from '../utils/auth';
-import * as auth from '../utils/auth';
-import * as constants from '../constants';
+import { saltRounds } from '../config';
 
 //? import getConfig from 'next/config';
 //? const JWT_SECRET = getConfig().serverRuntimeConfig.JWT_SECRET;
@@ -23,7 +29,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token
-      auth.verifyAccessToken(ctx.accessToken);
+      verifyAccessToken(ctx.accessToken);
 
       // Find and return user matching ID
       return ctx.prisma.query.user({ where: { id: args.id } }, info);
@@ -34,7 +40,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token
-      auth.verifyAccessToken(ctx.accessToken);
+      verifyAccessToken(ctx.accessToken);
 
       // Return all users
       return ctx.prisma.query.users({ orderBy: args.orderBy }, info);
@@ -45,7 +51,7 @@ export default {
       if (!ctx.accessToken) throw new AuthenticationError('Must be signed in.');
 
       // Verify access token
-      auth.verifyAccessToken(ctx.accessToken);
+      verifyAccessToken(ctx.accessToken);
 
       // Return all users
       return ctx.prisma.query.usersConnection({}, info);
@@ -56,7 +62,7 @@ export default {
       if (!ctx.accessToken) return null;
 
       // Verify access token and decode payload
-      const payload = auth.verifyAccessToken(ctx.accessToken);
+      const payload = verifyAccessToken(ctx.accessToken);
 
       // Find user matching userId
       const user = await ctx.prisma.query.user(
@@ -78,7 +84,7 @@ export default {
       const email = args.email.toLowerCase();
 
       // Check if email address is well-formed
-      auth.validateEmail(email);
+      validateEmail(email);
 
       // Find user matching email
       const user = await ctx.prisma.query.user({ where: { email } });
@@ -88,13 +94,13 @@ export default {
         throw new AuthenticationError(`An account already exists for ${email}`);
 
       // Check if password is well-formed
-      auth.validatePassword(args.password);
+      validatePassword(args.password);
 
       // Check if user confirmed password correctly
-      auth.comparePasswords(args.password, args.confirmPassword);
+      comparePasswords(args.password, args.confirmPassword);
 
       // Encrypt password
-      const password = await bcrypt.hash(args.password, constants.saltRounds);
+      const password = await bcrypt.hash(args.password, saltRounds);
 
       // Create user
       const newUser = await ctx.prisma.mutation.createUser({
@@ -131,7 +137,7 @@ export default {
       if (!user) throw new AuthenticationError(`No account found for ${email}`);
 
       // Check if typed password matches users password
-      await auth.checkPassword(args.password, user.password);
+      await checkPassword(args.password, user.password);
 
       // Create refresh token
       const refreshToken = createRefreshToken(
@@ -182,10 +188,7 @@ export default {
       if (!user) throw new AuthenticationError(`No account found for ${email}`);
 
       // Generate password reset token
-      const {
-        resetToken,
-        resetTokenExpiry,
-      } = await auth.createPasswordResetToken();
+      const { resetToken, resetTokenExpiry } = await createPasswordResetToken();
 
       // Update user with reset token
       ctx.prisma.mutation.updateUser({
@@ -202,10 +205,10 @@ export default {
 
     resetPassword: async (parent, args, ctx, info) => {
       // Check if password meet requirements
-      auth.validatePassword(args.password);
+      validatePassword(args.password);
 
       // Check if password matches confirm password
-      auth.comparePasswords(args.password, args.confirmPassword);
+      comparePasswords(args.password, args.confirmPassword);
 
       // Get user from resetToken
       const [user] = await ctx.prisma.query.users({
@@ -219,10 +222,10 @@ export default {
         );
 
       // Check if token is expired
-      auth.validateResetTokenExpiry(user.resetTokenExpiry);
+      validateResetTokenExpiry(user.resetTokenExpiry);
 
       // Encrypt new password
-      const password = await bcrypt.hash(args.password, constants.saltRounds);
+      const password = await bcrypt.hash(args.password, saltRounds);
 
       // Update user with new password and clear resetToken
       ctx.prisma.mutation.updateUser({
