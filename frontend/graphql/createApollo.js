@@ -20,7 +20,7 @@ import {
   graphqlUrlProd,
   refreshUrlDev,
   refreshUrlProd,
-} from '../constants';
+} from '../config';
 // import { persistCache } from 'apollo-cache-persist';
 // import { schema } from './schema';
 // import { typeDefs } from './typeDefs';

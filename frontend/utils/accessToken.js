@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-unfetch';
-import { refreshUrlDev, refreshUrlProd } from '../constants';
+import { refreshUrlDev, refreshUrlProd } from '../config';
 
 let accessToken = '';
 
