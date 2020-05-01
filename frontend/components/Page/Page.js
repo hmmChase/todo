@@ -4,7 +4,7 @@ import Head from '../Head/Head';
 import SignOn from '../SignOn/SignOn';
 import { IS_LOGGED_IN } from '../../graphql/queries';
 
-const Page = props => {
+const Page = (props) => {
   const { data } = useQuery(IS_LOGGED_IN);
 
   return data && data.isLoggedIn ? (

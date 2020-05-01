@@ -1,13 +1,14 @@
 import gql from 'graphql-tag';
+// import { gql } from '@apollo/client';
 
 export const IS_LOGGED_IN = gql`
-  query IS_LOGGED_IN {
+  query isLoggedIn {
     isLoggedIn @client
   }
 `;
 
 export const CURRENT_USER = gql`
-  query CURRENT_USER {
+  query currentUser {
     currentUser {
       id
       email
@@ -15,13 +16,12 @@ export const CURRENT_USER = gql`
         id
         content
       }
-      color @client
+      # color @client
     }
   }
 `;
-
 export const USERS = gql`
-  query USERS {
+  query users {
     users {
       id
       email
@@ -30,7 +30,7 @@ export const USERS = gql`
 `;
 
 export const SIGN_UP = gql`
-  mutation SIGN_UP(
+  mutation signUp(
     $email: String!
     $password: String!
     $confirmPassword: String!
@@ -49,7 +49,7 @@ export const SIGN_UP = gql`
 `;
 
 export const SIGN_IN = gql`
-  mutation SIGN_IN($email: String!, $password: String!) {
+  mutation signIn($email: String!, $password: String!) {
     signIn(email: $email, password: $password) {
       accessToken
       user {
@@ -60,19 +60,19 @@ export const SIGN_IN = gql`
 `;
 
 export const SIGN_OUT = gql`
-  mutation SIGN_OUT {
+  mutation signOut {
     signOut
   }
 `;
 
 export const REQUEST_RESET = gql`
-  mutation REQUEST_RESET($email: String!) {
+  mutation requestReset($email: String!) {
     requestReset(email: $email)
   }
 `;
 
 export const RESET_PASSWORD = gql`
-  mutation RESET_PASSWORD(
+  mutation resetPassword(
     $resetToken: String!
     $password: String!
     $confirmPassword: String!

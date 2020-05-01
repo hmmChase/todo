@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import { SIGN_UP } from '../../../graphql/queries';
 import { setAccessToken } from '../../../utils/accessToken';
-import { passwordRequirements } from '../../../constants';
+import { passwordRequirements } from '../../../config';
 import Button from '../../atoms/Button/Button';
 import * as sc from './SignUp.style';
 
@@ -28,11 +28,11 @@ const validationSchema = yup.object({
     .string()
     .min(8, 'Must be at least 8 characters')
     .max(255, 'Must be 255 characters or less')
-    .required('Required')
+    .required('Required'),
 });
 
-const SignUp = props => {
-  const handleCompleted = data => {
+const SignUp = (props) => {
+  const handleCompleted = (data) => {
     if (data && data.signUp && data.signUp.accessToken) {
       setAccessToken(data.signUp.accessToken);
 
@@ -47,7 +47,7 @@ const SignUp = props => {
     onCompleted(data) {
       handleCompleted(data);
     },
-    onError(_error) {}
+    onError(_error) {},
   });
 
   const handleSubmitForm = async (values, formikHelpers) => {
@@ -64,12 +64,12 @@ const SignUp = props => {
       validateOnBlur={true}
       onSubmit={handleSubmitForm}
     >
-      {formikProps => (
+      {(formikProps) => (
         <FormikForm className={props.className}>
           <h2>Create a new Account</h2>
 
           <Field name='email'>
-            {fieldProps => (
+            {(fieldProps) => (
               <Form.Item
                 label='Email'
                 htmlFor='signUpEmail'
@@ -91,7 +91,7 @@ const SignUp = props => {
           </Field>
 
           <Field name='password'>
-            {fieldProps => (
+            {(fieldProps) => (
               <Form.Item
                 label='Password'
                 htmlFor='signUpPassword'
@@ -112,7 +112,7 @@ const SignUp = props => {
           </Field>
 
           <Field name='confirmPassword'>
-            {fieldProps => (
+            {(fieldProps) => (
               <Form.Item
                 label='Confirm Password'
                 htmlFor='signUpConfirmPassword'
@@ -142,7 +142,7 @@ const SignUp = props => {
             <List
               split={false}
               dataSource={passwordRequirements.reqs}
-              renderItem={item => (
+              renderItem={(item) => (
                 <sc.PassListItem>
                   <Typography.Text>{item}</Typography.Text>
                 </sc.PassListItem>
@@ -176,7 +176,7 @@ const SignUp = props => {
 };
 
 SignUp.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default SignUp;

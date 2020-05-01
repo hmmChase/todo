@@ -1,4 +1,4 @@
-import { title } from '../../../constants';
+import { title } from '../../../config';
 import * as sc from './SignOn.style';
 
 const SignOn = () => (

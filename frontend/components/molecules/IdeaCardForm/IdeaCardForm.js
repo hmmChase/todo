@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
-  CREATE_IDEA
+  CREATE_IDEA,
 } from '../../../graphql/queries';
-import { pageSize } from '../../../constants';
+import { pageSize } from '../../../config';
 import * as sc from './IdeaCardForm.style';
 
 const IdeaCardForm = () => {
@@ -15,7 +15,7 @@ const IdeaCardForm = () => {
     // Read the data from cache for query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: pageSize }
+      variables: { orderBy: 'createdAt_DESC', first: pageSize },
     });
 
     // Copy the ideas
@@ -32,9 +32,9 @@ const IdeaCardForm = () => {
         ...ideasData,
         currentUserPaginatedIdeas: {
           ...ideasData.currentUserPaginatedIdeas,
-          edges: newIdeas
-        }
-      }
+          edges: newIdeas,
+        },
+      },
     });
   };
 
@@ -43,15 +43,15 @@ const IdeaCardForm = () => {
       handleUpdate(cache, data);
     },
 
-    onError(_error) {}
+    onError(_error) {},
   });
 
-  const canSubmit = value => {
+  const canSubmit = (value) => {
     if (value === '') setIsSubmitDisabled(true);
     else setIsSubmitDisabled(false);
   };
 
-  const handleChangeIdeaInput = e => {
+  const handleChangeIdeaInput = (e) => {
     setIdea(e.target.value);
     canSubmit(e.target.value);
   };

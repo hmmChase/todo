@@ -1,7 +1,8 @@
 // https://nextjs.org/docs#customizing-webpack-config
 
 // import 'dotenv/config';
-require('dotenv').config();
+// require('dotenv').config();
+
 const fs = require('fs');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
@@ -37,8 +38,8 @@ const nextConfig = {
         handler: 'CacheFirst',
         options: {
           cacheName: 'assets-cache',
-          cacheableResponse: { statuses: [0, 200] }
-        }
+          cacheableResponse: { statuses: [0, 200] },
+        },
       },
       {
         urlPattern: /^https.*/,
@@ -48,22 +49,23 @@ const nextConfig = {
           networkTimeoutSeconds: 15,
           expiration: {
             maxEntries: 150,
-            maxAgeSeconds: 30 * 24 * 60 * 60 // 1 month
+            maxAgeSeconds: 30 * 24 * 60 * 60, // 1 month
           },
           cacheableResponse: { statuses: [0, 200] },
-          fetchOptions: { credentials: 'include' }
-        }
-      }
-    ]
+          fetchOptions: { credentials: 'include' },
+        },
+      },
+    ],
   },
 
   webpack: (config, options) => {
     config.plugins = config.plugins || [];
 
+    //! This no longer works
     // Without this debug breakpoints in handlers don't work,
     // only in render() or return() in functional components.
     // https://webpack.js.org/configuration/devtool/
-    config.devtool = 'eval-source-map';
+    // config.devtool = 'eval-source-map';
 
     // Zeit Now: Fixes npm packages that depend on `fs` module
     config.node = { fs: 'empty' };
@@ -77,7 +79,7 @@ const nextConfig = {
     // https://spectrum.chat/next-js/general/conflicting-order-between~25834bb9-fe91-44dd-ba47-b016b6518d67
     config.plugins.push(
       new FilterWarningsPlugin({
-        exclude: /mini-css-extract-plugin[^]*Conflicting order between:/
+        exclude: /mini-css-extract-plugin[^]*Conflicting order between:/,
       })
     );
 
@@ -91,7 +93,7 @@ const nextConfig = {
           openAnalyzer: true,
           reportFilename: options.isServer
             ? '../analyze/server.html'
-            : './analyze/client.html'
+            : './analyze/client.html',
         })
       );
     }
@@ -109,14 +111,14 @@ const nextConfig = {
             callback();
           }
         },
-        ...(typeof origExternals[0] === 'function' ? [] : origExternals)
+        ...(typeof origExternals[0] === 'function' ? [] : origExternals),
       ];
 
       config.module.rules.unshift({ test: antStyles, use: 'null-loader' });
     }
 
     return config;
-  }
+  },
 };
 
 module.exports = withLess(withImages(withOffline(nextConfig)));

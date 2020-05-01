@@ -19,10 +19,10 @@ module.exports = {
     '@storybook/addon-actions',
     '@storybook/addon-knobs',
     '@storybook/addon-viewport',
-    '@storybook/addon-backgrounds'
+    '@storybook/addon-backgrounds',
   ],
 
-  webpackFinal: config => {
+  webpackFinal: (config) => {
     // config.module.rules.push({
     //   loader: 'babel-loader',
     //   exclude: /node_modules/,
@@ -40,11 +40,11 @@ module.exports = {
         { loader: 'css-loader' },
         {
           loader: 'less-loader',
-          options: { modifyVars: themeVars, javascriptEnabled: true }
-        }
-      ]
+          options: { modifyVars: themeVars, javascriptEnabled: true },
+        },
+      ],
     });
 
     return config;
-  }
+  },
 };

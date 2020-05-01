@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import SignOutBtn from '../../molecules/SignOutBtn/SignOutBtn';
-import { title } from '../../../constants';
+import { title } from '../../../config';
 import * as sc from './Header.style';
 
-const Header = props => {
+const Header = (props) => {
   return (
     <sc.Header>
       <sc.TitleHeader>{props.ideaId ? props.ideaId : title}</sc.TitleHeader>
@@ -17,7 +17,7 @@ const Header = props => {
 
 Header.propTypes = {
   children: PropTypes.element,
-  ideaId: PropTypes.string
+  ideaId: PropTypes.string,
 };
 
 export default React.memo(Header);

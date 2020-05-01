@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';
 import { RESET_PASSWORD } from '../../../graphql/queries';
-import { passwordRequirements } from '../../../constants';
+import { passwordRequirements } from '../../../config';
 import * as sc from './ResetPassword.style';
 
 const validationSchema = yup.object({
@@ -21,10 +21,10 @@ const validationSchema = yup.object({
     .string()
     .min(8, 'Must be at least 8 characters')
     .max(255, 'Must be 255 characters or less')
-    .required('Required')
+    .required('Required'),
 });
 
-const ResetPassword = props => {
+const ResetPassword = (props) => {
   const { resetToken, resetTokenExpiry } = props;
 
   // handleCompleted = () => Router.push({ pathname: '/' });
@@ -35,7 +35,7 @@ const ResetPassword = props => {
       // onCompleted() {
       //   handleCompleted();
       // },
-      onError(_error) {}
+      onError(_error) {},
     }
   );
 
@@ -50,10 +50,10 @@ const ResetPassword = props => {
   const isTokenValid = isTokenPresent && !isTokenExpired;
 
   const tokenMissingError = {
-    message: 'Error: Please submit a new password reset request.'
+    message: 'Error: Please submit a new password reset request.',
   };
   const tokenExpiredError = {
-    message: 'Your reset request is expired. Please submit a new one.'
+    message: 'Your reset request is expired. Please submit a new one.',
   };
 
   return (
@@ -64,10 +64,10 @@ const ResetPassword = props => {
       validateOnBlur={true}
       onSubmit={handleSubmitForm}
     >
-      {formikProps => (
+      {(formikProps) => (
         <FormikForm>
           <Field name='password'>
-            {fieldProps => (
+            {(fieldProps) => (
               <Form.Item
                 label='New password'
                 htmlFor='resetPasswordPassword'
@@ -88,7 +88,7 @@ const ResetPassword = props => {
           </Field>
 
           <Field name='confirmPassword'>
-            {fieldProps => (
+            {(fieldProps) => (
               <Form.Item
                 label='Confirm new password'
                 htmlFor='resetPasswordConfirmPassword'
@@ -128,7 +128,7 @@ const ResetPassword = props => {
             <List
               split={false}
               dataSource={passwordRequirements.reqs}
-              renderItem={item => (
+              renderItem={(item) => (
                 <sc.PassListItem>
                   <Typography.Text>{item}</Typography.Text>
                 </sc.PassListItem>
@@ -163,7 +163,7 @@ ResetPassword.defaultProps = { resetToken: '', resetTokenExpiry: '' };
 
 ResetPassword.propTypes = {
   resetToken: PropTypes.string,
-  resetTokenExpiry: PropTypes.string
+  resetTokenExpiry: PropTypes.string,
 };
 
 export default React.memo(ResetPassword);

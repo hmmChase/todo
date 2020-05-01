@@ -1,11 +1,31 @@
-export const resolvers = {
-  Query: {
-    renderedOn: () => (typeof window === 'undefined' ? 'Server' : 'Client')
-  },
+import jwt from 'jsonwebtoken';
+// import { getAccessToken } from '../utils/accessToken';
 
-  // Mutation: {},
+export default (_accessToken, refreshToken) => {
+  // const theAccessToken = accessToken || getAccessToken();
 
-  User: {
-    color: () => 'green'
-  }
+  return {
+    Query: {
+      isLoggedIn: (parent, args, ctx, info) => {
+        try {
+          // jwt.verify(theAccessToken, process.env.ACCESS_TOKEN_SECRET);
+          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+          return true;
+        } catch (error) {
+          console.log('isLoggedIn error: ', error);
+
+          return false;
+        }
+      },
+
+      //   renderedOn: (parent, args, ctx, info) =>
+      //     typeof window === 'undefined' ? 'Server' : 'Client',
+    },
+
+    // // Mutation: {},
+    // User: {
+    //   color: (parent, args, ctx, info) => 'green',
+    // },}
+  };
 };

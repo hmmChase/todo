@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Button } from 'antd';
 import withApollo from '../graphql/withApollo';
-import Head from '../components/organisms/Head/Head';
 import Layout from '../components/organisms/Layout/Layout';
 
 const LinkHome = () => (
@@ -13,7 +12,7 @@ const LinkHome = () => (
   </Link>
 );
 
-const Error = props => {
+const Error = (props) => {
   let error;
 
   switch (props.statusCode) {
@@ -35,15 +34,11 @@ const Error = props => {
   }
 
   return (
-    <>
-      <Head title='Error' />
-
-      <Layout header={<h1>{error}</h1>} content={<LinkHome />} />
-    </>
+    <Layout title='Error' header={<h1>{error}</h1>} content={<LinkHome />} />
   );
 };
 
-Error.getInitialProps = ctx => {
+Error.getInitialProps = (ctx) => {
   const { res, err } = ctx;
 
   let statusCode;

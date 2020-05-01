@@ -1,53 +1,33 @@
-// import Page from '../components/Page/Page';
-import Head from '../components/organisms/Head/Head';
-import SignOn from '../components/organisms/SignOn/SignOn';
-import withApollo from '../graphql/withApollo';
 import jwt from 'jsonwebtoken';
+import withApollo from '../graphql/withApollo';
 import redirect from '../utils/redirect';
-import { togLoggedCache } from '../utils/authenticate';
 import { devConErr } from '../utils/devCon';
-import { refreshTokenSecret } from '../constants';
+import Layout from '../components/organisms/Layout/Layout';
+import SignOn from '../components/organisms/SignOn/SignOn';
 
-const WelcomePage = () => (
-  <>
-    <Head title='Welcome' />
+const WelcomePage = () => <Layout title='Welcome' content={<SignOn />} />;
 
-    <SignOn />
-  </>
-);
+WelcomePage.getInitialProps = async (ctx) => {
+  const { req, res } = ctx;
 
-WelcomePage.getInitialProps = async ctx => {
-  const { req, res, apolloClient } = ctx;
+  /* must not be signed in */
+  if (typeof window === 'undefined') {
+    if (req && req.headers && req.headers.cookie) {
+      const refreshToken = req.headers.cookie.replace('rt=', '');
 
-  // On initial page load (server-side)
-  // If cookie header present
-  if (req && req.headers && req.headers.cookie) {
-    // Parse Refresh token
-    const refreshToken = req.headers.cookie.replace('rt=', '');
+      if (refreshToken) {
+        try {
+          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
-    // If no Refresh token
-    if (!refreshToken) togLoggedCache(apolloClient, false);
-
-    // Verify Refresh token
-    try {
-      jwt.verify(refreshToken, refreshTokenSecret);
-
-      togLoggedCache(apolloClient, true);
-
-      redirect(res, '/');
-
-      // If Refresh token not valid
-    } catch (error) {
-      devConErr('Refresh token verify error: ', error);
-
-      togLoggedCache(apolloClient, false);
+          redirect(res, '/');
+        } catch (error) {
+          devConErr('Refresh token verify error: ', error);
+        }
+      }
     }
-    // If no cookie header
-  } else {
-    togLoggedCache(apolloClient, false);
   }
 
   return {};
 };
 
-export default withApollo(WelcomePage, { ssr: false });
+export default withApollo({ ssr: false })(WelcomePage);
