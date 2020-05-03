@@ -1,11 +1,12 @@
+// import order: react=>next=>libs=>utils=>config=>queries=>components=>css
 import jwt from 'jsonwebtoken';
-import { withApollo } from '../graphql/withApollo';
+import withApollo from '../graphql/withApollo';
 import redirect from '../utils/redirect';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import IdeaCardForm from '../components/IdeaCardForm';
 import Ideas from '../components/Ideas';
+import Footer from '../components/Footer';
 
 const IndexPage = () => (
   <Layout
@@ -27,7 +28,7 @@ const IndexPage = () => (
 IndexPage.getInitialProps = (ctx) => {
   // err, req, res only exists on initial page load (server-side)
   // pathname, query, asPath, AppTree always available (server & client)
-  const { req, res, _apolloClient } = ctx;
+  const { req, res } = ctx;
 
   // server-side auth routing (initial page load)
   /* must be signed in */

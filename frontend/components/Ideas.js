@@ -1,15 +1,17 @@
 import { useQuery } from '@apollo/react-hooks';
 // import { useQuery } from '@apollo/client';
+import { ideasPerPage } from '../config';
+import { CURRENT_USER_PAGINATED_IDEAS } from '../graphql/queries';
 import IdeaCardList from './IdeaCardList';
 import LoadMoreBtn from './LoadMoreBtn';
-import { CURRENT_USER_PAGINATED_IDEAS } from '../graphql/queries';
-import { pageSize } from '../config';
+
+// https://www.apollographql.com/docs/react/data/pagination/
 
 const Ideas = () => {
   const { error, data, fetchMore, networkStatus } = useQuery(
     CURRENT_USER_PAGINATED_IDEAS,
     {
-      variables: { first: pageSize },
+      variables: { first: ideasPerPage },
       notifyOnNetworkStatusChange: true,
 
       onError(_error) {},

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
+import withApollo from '../../graphql/withApollo';
+import redirect from '../../utils/redirect';
 import Layout from '../../components/Layout';
 import Header from '../../components/Header';
 import IdeaDetail from '../../components/IdeaDetail';
 import Footer from '../../components/Footer';
-import withApollo from '../../graphql/withApollo';
-import redirect from '../../utils/redirect';
 
 const IdeaPage = (props) => (
   <Layout

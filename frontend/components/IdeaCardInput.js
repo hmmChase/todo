@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
 import debounce from 'lodash.debounce';
+import { debounceDelay } from '../config';
 import { UPDATE_IDEA } from '../graphql/queries';
 
 const IdeaCardInput = (props) => {
@@ -10,23 +11,21 @@ const IdeaCardInput = (props) => {
 
   const [updateIdea] = useMutation(UPDATE_IDEA, { onError(_error) {} });
 
-  const onChange = debounce((e) => {
+  const debouncedFn = useCallback(
+    debounce(
+      (value) => updateIdea({ variables: { id: props.id, content: value } }),
+      debounceDelay
+    ),
+    []
+  );
+
+  const onChange = (e) => {
     setContent(e.target.value);
 
-    updateIdea({ variables: { id: props.id, content: e.target.value } });
-  }, 200);
+    debouncedFn(e.target.value);
+  };
 
-  return (
-    <input
-      aria-label='idea input'
-      value={content}
-      onChange={(e) => {
-        e.persist();
-
-        onChange(e);
-      }}
-    />
-  );
+  return <input aria-label='idea input' value={content} onChange={onChange} />;
 };
 
 IdeaCardInput.propTypes = {

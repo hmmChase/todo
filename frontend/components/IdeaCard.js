@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
+import IdeaCardInput from './IdeaCardInput';
 import DetailBtn from './DetailBtn';
 import DeleteBtn from './DeleteBtn';
-import IdeaCardInput from './IdeaCardInput';
 
 const IdeaCard = (props) => (
   <li>

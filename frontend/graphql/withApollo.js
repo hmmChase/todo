@@ -3,12 +3,8 @@ import Head from 'next/head';
 import { ApolloProvider } from '@apollo/react-hooks';
 // import { ApolloProvider } from '@apollo/client';
 import jwt from 'jsonwebtoken';
-import {
-  fetchAccessToken,
-  // getAccessToken,
-  // setAccessToken,
-} from '../utils/accessToken';
 import createApollo from './createApollo';
+import { fetchAccessToken } from '../utils/accessToken';
 
 /**
  * Installs the Apollo Client on NextPageContext
@@ -19,7 +15,7 @@ import createApollo from './createApollo';
 
 // called on initial page load, server-side
 // called on page change, client-side
-export const initOnContext = (ctx, accessToken, refreshToken) => {
+const initOnContext = (ctx, accessToken, refreshToken) => {
   // const accessToken = accessToken || getAccessToken();
 
   const inAppContext = Boolean(ctx.ctx);
@@ -104,7 +100,7 @@ const initApollo = (initialState, ctx, accessToken, refreshToken) => {
  * @returns {(PageComponent: ReactNode) => ReactNode}
  */
 
-export const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
+const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
   console.log('----- start withApollo -----');
 
   // WithApollo HOC

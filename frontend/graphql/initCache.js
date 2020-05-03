@@ -25,37 +25,3 @@ export default (cache, accessToken) => {
     data: { isLoggedIn },
   });
 };
-
-// export default (cache, accessToken) => {
-//   const theAccessToken = accessToken || getAccessToken();
-
-//   if (theAccessToken) {
-//     try {
-//       jwt.verify(theAccessToken, process.env.ACCESS_TOKEN_SECRET);
-
-//       cache.writeData({ id: 'isLoggedIn', data: { isLoggedIn: true } });
-
-//       // cache.writeQuery({
-//       //   id: 'isLoggedIn',
-//       //   query: IS_LOGGED_IN,
-//       //   data: { isLoggedIn: !!theAccessToken },
-//       // });
-//     } catch {
-//       cache.writeData({ id: 'isLoggedIn', data: { isLoggedIn: false } });
-
-//       // cache.writeQuery({
-//       //   id: 'isLoggedIn',
-//       //   query: IS_LOGGED_IN,
-//       //   data: { isLoggedIn: !!theAccessToken },
-//       // });
-//     }
-//   } else {
-//     cache.writeData({ id: 'isLoggedIn', data: { isLoggedIn: false } });
-
-//     // cache.writeQuery({
-//     //   id: 'isLoggedIn',
-//     //   query: IS_LOGGED_IN,
-//     //   data: { isLoggedIn: !!theAccessToken },
-//     // });
-//   }
-// };

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { withApollo } from '../graphql/withApollo';
+import withApollo from '../graphql/withApollo';
 import redirect from '../utils/redirect';
 import SignIn from '../components/SignIn';
 import RequestReset from '../components/RequestReset';

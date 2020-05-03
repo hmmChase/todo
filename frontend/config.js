@@ -1,4 +1,6 @@
-export const pageSize = 5;
+export const ideasPerPage = 5;
+
+export const debounceDelay = 200;
 
 export const title = 'NGS';
 

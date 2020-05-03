@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
+import { ideasPerPage } from '../config';
 import { CURRENT_USER_PAGINATED_IDEAS, CREATE_IDEA } from '../graphql/queries';
-import { pageSize } from '../config';
 
 const IdeaCardForm = () => {
   const [idea, setIdea] = useState('');
@@ -12,7 +12,7 @@ const IdeaCardForm = () => {
     // Read the data from cache for query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: pageSize },
+      variables: { orderBy: 'createdAt_DESC', first: ideasPerPage },
     });
 
     // Copy the ideas
@@ -24,7 +24,7 @@ const IdeaCardForm = () => {
     // Write data back to the cache
     cache.writeQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: pageSize },
+      variables: { orderBy: 'createdAt_DESC', first: ideasPerPage },
       data: {
         ...ideasData,
         currentUserPaginatedIdeas: {

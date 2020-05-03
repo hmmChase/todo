@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
-import { withApollo } from '../graphql/withApollo';
+import withApollo from '../graphql/withApollo';
 import redirect from '../utils/redirect';
 import ResetPassword from '../components/ResetPassword';
 
