@@ -4,12 +4,12 @@ import DeleteBtn from './DeleteBtn';
 import IdeaCardInput from './IdeaCardInput';
 
 const IdeaCard = (props) => (
-  <li data-testid='IdeaCard'>
+  <li>
+    <IdeaCardInput id={props.node.id} content={props.node.content} />
+
     <DetailBtn id={props.node.id} />
 
     <DeleteBtn id={props.node.id} />
-
-    <IdeaCardInput id={props.node.id} content={props.node.content} />
   </li>
 );
 

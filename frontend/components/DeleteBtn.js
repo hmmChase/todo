@@ -13,7 +13,7 @@ const DeleteBtn = (props) => {
     });
 
     // Get id of idea to delete
-    const ideaId = data.deleteIdea.id;
+    const ideaId = data.data.deleteIdea.id;
 
     // Copy the ideas
     const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges];
@@ -50,7 +50,11 @@ const DeleteBtn = (props) => {
     deleteIdea({ variables: { id: props.id } });
   };
 
-  return <button aria-label='delete button' onClick={onClick} />;
+  return (
+    <button aria-label='delete button' onClick={onClick}>
+      X
+    </button>
+  );
 };
 
 DeleteBtn.propTypes = {
