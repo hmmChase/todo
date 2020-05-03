@@ -1,6 +1,6 @@
 // import order: react=>next=>libs=>utils=>config=>queries=>components=>css
-import jwt from 'jsonwebtoken';
 import withApollo from '../graphql/withApollo';
+import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
@@ -32,31 +32,8 @@ IndexPage.getInitialProps = (ctx) => {
 
   // server-side auth routing (initial page load)
   /* must be signed in */
-  if (typeof window === 'undefined') {
-    // If cookie header present
-    if (req && req.headers && req.headers.cookie) {
-      // Parse Refresh token
-      const refreshToken = req.headers.cookie.replace('rt=', '');
-
-      // If Refresh token
-      if (refreshToken) {
-        try {
-          // Verify Refresh token
-          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-
-          return {};
-        } catch (error) {
-          // If Refresh token invalid
-          console.error('Refresh token verify error: ', error);
-        }
-      }
-    }
-
-    // no cookie, token, or valid jwt
-    redirect(res, '/welcome');
-  }
-
-  return {};
+  if (signedIn(req) /* or client-side */) return {};
+  else redirect(res, '/welcome');
 };
 
 export default withApollo({ ssr: true })(IndexPage);

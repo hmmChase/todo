@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import jwt from 'jsonwebtoken';
 import withApollo from '../../graphql/withApollo';
+import signedIn from '../../utils/signedIn';
 import redirect from '../../utils/redirect';
 import Layout from '../../components/Layout';
 import Header from '../../components/Header';
@@ -20,25 +20,8 @@ IdeaPage.getInitialProps = (ctx) => {
   const { req, res, query } = ctx;
 
   /* must be signed in */
-  if (typeof window === 'undefined') {
-    if (req && req.headers && req.headers.cookie) {
-      const refreshToken = req.headers.cookie.replace('rt=', '');
-
-      if (refreshToken) {
-        try {
-          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-
-          return { id: query.id };
-        } catch (error) {
-          console.error('Refresh token verify error: ', error);
-        }
-      }
-    }
-
-    redirect(res, '/welcome');
-  }
-
-  return { id: query.id };
+  if (signedIn(req)) return { id: query.id };
+  else redirect(res, '/welcome');
 };
 
 IdeaPage.propTypes = { id: PropTypes.string.isRequired };

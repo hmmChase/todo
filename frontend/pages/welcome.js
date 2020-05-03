@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import withApollo from '../graphql/withApollo';
+import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
 import SignIn from '../components/SignIn';
 import RequestReset from '../components/RequestReset';
@@ -19,23 +19,8 @@ WelcomePage.getInitialProps = async (ctx) => {
   const { req, res } = ctx;
 
   /* must not be signed in */
-  if (typeof window === 'undefined') {
-    if (req && req.headers && req.headers.cookie) {
-      const refreshToken = req.headers.cookie.replace('rt=', '');
-
-      if (refreshToken) {
-        try {
-          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-
-          redirect(res, '/');
-        } catch (error) {
-          console.error('Refresh token verify error: ', error);
-        }
-      }
-    }
-  }
-
-  return {};
+  if (signedIn(req)) redirect(res, '/');
+  else return {};
 };
 
 export default withApollo({ ssr: false })(WelcomePage);

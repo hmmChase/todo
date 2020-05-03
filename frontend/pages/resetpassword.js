@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import jwt from 'jsonwebtoken';
 import withApollo from '../graphql/withApollo';
+import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
 import ResetPassword from '../components/ResetPassword';
 
@@ -16,26 +16,9 @@ ResetPasswordPage.getInitialProps = async (ctx) => {
   const { resetToken, resetTokenExpiry } = query;
 
   /* must not be signed in */
-  if (typeof window === 'undefined') {
-    if (req && req.headers && req.headers.cookie) {
-      const refreshToken = req.headers.cookie.replace('rt=', '');
-
-      if (refreshToken) {
-        try {
-          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-
-          redirect(res, '/');
-        } catch (error) {
-          console.error('Refresh token verify error: ', error);
-        }
-      }
-    }
-  }
-
-  return { resetToken, resetTokenExpiry };
+  if (signedIn(req)) redirect(res, '/');
+  else return { resetToken, resetTokenExpiry };
 };
-
-ResetPasswordPage.defaultProps = { resetToken: '', resetTokenExpiry: '' };
 
 ResetPasswordPage.propTypes = {
   resetToken: PropTypes.string,
