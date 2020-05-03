@@ -16,8 +16,8 @@ export const passwordRequirements = {
 
 export const graphqlUrlDev = 'http://localhost:6969/api/graphql';
 export const graphqlUrlProd =
-  'https://next-graphql-starter-base.now.sh/api/graphql/api/graphql';
+  'https://next-graphql-starter-base.now.sh/api/graphql';
 
 export const refreshUrlDev = 'http://localhost:6969/api/refresh';
 export const refreshUrlProd =
-  'https://next-graphql-starter-base.now.sh/api/graphql/api/refresh';
+  'https://next-graphql-starter-base.now.sh/api/refresh';
