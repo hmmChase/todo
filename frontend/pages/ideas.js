@@ -3,14 +3,14 @@ import { withApollo } from '../graphql/withApollo';
 import redirect from '../utils/redirect';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
-import Ideas from '../components/Ideas';
+import AllIdeas from '../components/AllIdeas';
 import Footer from '../components/Footer';
 
 const IdeasPage = () => (
   <Layout
     title='Ideas'
     header={<Header />}
-    content={<Ideas />}
+    content={<AllIdeas />}
     footer={<Footer />}
   />
 );

@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/react-hooks';
 // import { useQuery } from '@apollo/client';
 import { USERS } from '../graphql/queries';
 
-const Users = () => {
+const AllUsers = () => {
   const { data } = useQuery(USERS);
 
   return (
@@ -16,4 +16,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default AllUsers;

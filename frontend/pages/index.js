@@ -4,12 +4,19 @@ import redirect from '../utils/redirect';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import IdeaCardForm from '../components/IdeaCardForm';
+import Ideas from '../components/Ideas';
 
 const IndexPage = () => (
   <Layout
     title='Home'
-    header={<Header />}
-    content={<p>hi</p>}
+    header={
+      <>
+        <Header />
+        <IdeaCardForm />
+      </>
+    }
+    content={<Ideas />}
     footer={<Footer />}
   />
 );

@@ -3,14 +3,14 @@ import { withApollo } from '../graphql/withApollo';
 import redirect from '../utils/redirect';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
-import Users from '../components/Users';
+import AllUsers from '../components/AllUsers';
 import Footer from '../components/Footer';
 
 const UsersPage = () => (
   <Layout
     title='Users'
     header={<Header />}
-    content={<Users />}
+    content={<AllUsers />}
     footer={<Footer />}
   />
 );
