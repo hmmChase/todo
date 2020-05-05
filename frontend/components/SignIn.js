@@ -39,14 +39,14 @@ const SignIn = () => {
     onError(_error) {},
   });
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     signIn({ variables: { email, password } });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <fieldset>
         <h2>Sign In</h2>
 
@@ -76,7 +76,9 @@ const SignIn = () => {
           </label>
         </div>
 
-        <button type='submit'>Log In</button>
+        <button aria-label='sign in' type='submit'>
+          Sign In
+        </button>
 
         {error &&
           error.graphQLErrors.map((graphQLError, i) => (

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const LoadMoreBtn = (props) => {
-  const fetchMore = () => {
+  const onClick = () =>
     props.fetchMore({
       variables: { after: props.ideas.pageInfo.endCursor },
 
@@ -24,31 +24,38 @@ const LoadMoreBtn = (props) => {
           : previousResult;
       },
     });
-  };
 
   return (
-    <button aria-label='load more button' onClick={fetchMore}>
+    <button aria-label='load more' onClick={onClick}>
       Load More
     </button>
   );
 };
 
 LoadMoreBtn.propTypes = {
-  loading: PropTypes.bool,
+  loading: PropTypes.bool.isRequired,
   fetchMore: PropTypes.func.isRequired,
-  ideas: PropTypes.shape({
+  ideas: PropTypes.exact({
+    __typename: PropTypes.string.isRequired,
     edges: PropTypes.arrayOf(
-      PropTypes.shape({
-        node: PropTypes.shape({
+      PropTypes.exact({
+        __typename: PropTypes.string.isRequired,
+        node: PropTypes.exact({
+          __typename: PropTypes.string.isRequired,
           id: PropTypes.string.isRequired,
           content: PropTypes.string.isRequired,
-          author: PropTypes.shape({ id: PropTypes.string.isRequired })
-            .isRequired,
+          author: PropTypes.exact({
+            __typename: PropTypes.string.isRequired,
+            id: PropTypes.string.isRequired,
+          }).isRequired,
         }).isRequired,
       }).isRequired
     ).isRequired,
-    pageInfo: PropTypes.shape({ endCursor: PropTypes.string.isRequired })
-      .isRequired,
+    pageInfo: PropTypes.exact({
+      __typename: PropTypes.string.isRequired,
+      endCursor: PropTypes.string.isRequired,
+      hasNextPage: PropTypes.bool.isRequired,
+    }).isRequired,
   }).isRequired,
 };
 

@@ -23,9 +23,7 @@ import { IS_LOGGED_IN } from '../graphql/queries';
 const Page = ({ children }) => {
   // const router = useRouter();
 
-  const { data } = useQuery(IS_LOGGED_IN);
-
-  console.log('Page -> data', data);
+  const { data } = useQuery(IS_LOGGED_IN, { onError(_error) {} });
 
   // useEffect(() => {
   //   data && data.isLoggedIn ? router.push('/') : router.push('/welcome');
@@ -34,6 +32,8 @@ const Page = ({ children }) => {
   return data && data.isLoggedIn ? children : 'not signed in';
 };
 
-Page.propTypes = { children: PropTypes.arrayOf(PropTypes.element) };
+Page.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
+};
 
 export default React.memo(Page);

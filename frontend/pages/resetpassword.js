@@ -21,8 +21,8 @@ ResetPasswordPage.getInitialProps = async (ctx) => {
 };
 
 ResetPasswordPage.propTypes = {
-  resetToken: PropTypes.string,
-  resetTokenExpiry: PropTypes.string,
+  resetToken: PropTypes.string.isRequired,
+  resetTokenExpiry: PropTypes.string.isRequired,
 };
 
 export default withApollo({ ssr: true })(ResetPasswordPage);

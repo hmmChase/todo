@@ -21,8 +21,8 @@ IdeaCard.propTypes = {
     author: PropTypes.exact({
       __typename: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
-    }),
-  }),
+    }).isRequired,
+  }).isRequired,
 };
 
 export default React.memo(IdeaCard);

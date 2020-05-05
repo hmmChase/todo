@@ -3,6 +3,7 @@ import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
 import { setAccessToken } from '../utils/accessToken';
+import { passwordRequirements } from '../config';
 import { SIGN_UP, _IS_LOGGED_IN } from '../graphql/queries';
 
 const SignUp = () => {
@@ -13,13 +14,11 @@ const SignUp = () => {
   const update = (cache, data) => {
     const isLoggedIn = !!data.data.signUp.accessToken;
 
-    cache.writeData({ id: 'isLoggedIn', data: { isLoggedIn } });
-
-    // cache.writeQuery({
-    //   id: 'isLoggedIn',
-    //   query: IS_LOGGED_IN,
-    //   data: { isLoggedIn: !!data.data.signIn.accessToken },
-    // });
+    cache.writeQuery({
+      id: 'isLoggedIn',
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn },
+    });
   };
 
   const onCompleted = (data) => {
@@ -42,14 +41,14 @@ const SignUp = () => {
     onError(_error) {},
   });
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     signUp({ variables: { email, password, confirmPassword } });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <fieldset>
         <h2>Sign Up</h2>
 
@@ -92,16 +91,17 @@ const SignUp = () => {
           </label>
         </div>
 
-        <h3>Password must contain:</h3>
+        <h3>{passwordRequirements.title}</h3>
 
         <ul>
-          <li>at least 8 charactors</li>
-          <li>an uppercase letter</li>
-          <li>a lowercase letter</li>
-          <li>a number</li>
+          {passwordRequirements.reqs.map((req, i) => (
+            <li key={i}>{req}</li>
+          ))}
         </ul>
 
-        <button type='submit'>Sign Up</button>
+        <button aria-label='sign up' type='submit'>
+          Sign Up
+        </button>
 
         {error &&
           error.graphQLErrors.map((graphQLError, i) => (

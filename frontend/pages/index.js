@@ -31,9 +31,10 @@ IndexPage.getInitialProps = (ctx) => {
   const { req, res } = ctx;
 
   // server-side auth routing (initial page load)
-  /* must be signed in */
-  if (signedIn(req) /* or client-side */) return {};
-  else redirect(res, '/welcome');
+  /* SSR: must be signed in */
+  if (req && !signedIn(req)) redirect(res, '/welcome');
+
+  return {};
 };
 
 export default withApollo({ ssr: true })(IndexPage);

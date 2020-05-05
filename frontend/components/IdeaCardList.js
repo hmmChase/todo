@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import IdeaCard from './IdeaCard';
 
 const IdeaCardList = (props) => {
-  const displayIdeaCards = (ideas) =>
+  const ideaCards = (ideas) =>
     ideas.map((idea) => <IdeaCard key={`ideaCard${idea.node.id}`} {...idea} />);
 
   // if (props.error) return <p>{props.error}</p>;
@@ -11,7 +11,7 @@ const IdeaCardList = (props) => {
   return (
     <div>
       {props.ideas && props.ideas.length ? (
-        <ul>{displayIdeaCards(props.ideas)}</ul>
+        <ul>{ideaCards(props.ideas)}</ul>
       ) : (
         <p>Think of something!</p>
       )}
@@ -20,6 +20,7 @@ const IdeaCardList = (props) => {
 };
 
 IdeaCardList.propTypes = {
+  loading: PropTypes.bool.isRequired,
   ideas: PropTypes.arrayOf(
     PropTypes.exact({
       __typename: PropTypes.string.isRequired,
@@ -30,11 +31,10 @@ IdeaCardList.propTypes = {
         author: PropTypes.exact({
           __typename: PropTypes.string.isRequired,
           id: PropTypes.string.isRequired,
-        }),
-      }),
-    })
-  ),
-  loading: PropTypes.bool.isRequired,
+        }).isRequired,
+      }).isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
 export default React.memo(IdeaCardList);

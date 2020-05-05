@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { IDEAS } from '../graphql/queries';
 
 const AllIdeas = () => {
-  const { data } = useQuery(IDEAS);
+  const { data } = useQuery(IDEAS, { onError(_error) {} });
 
   return (
     <>

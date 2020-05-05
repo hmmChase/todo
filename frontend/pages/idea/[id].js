@@ -19,9 +19,10 @@ const IdeaPage = (props) => (
 IdeaPage.getInitialProps = (ctx) => {
   const { req, res, query } = ctx;
 
-  /* must be signed in */
-  if (signedIn(req)) return { id: query.id };
-  else redirect(res, '/welcome');
+  /* SSR: must be signed in */
+  if (req && !signedIn(req)) redirect(res, '/welcome');
+
+  return { id: query.id };
 };
 
 IdeaPage.propTypes = { id: PropTypes.string.isRequired };

@@ -51,7 +51,7 @@ const DeleteBtn = (props) => {
   };
 
   return (
-    <button aria-label='delete button' onClick={onClick}>
+    <button aria-label='delete idea' onClick={onClick}>
       X
     </button>
   );

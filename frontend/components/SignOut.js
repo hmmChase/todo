@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { setAccessToken } from '../utils/accessToken';
 import { SIGN_OUT, IS_LOGGED_IN } from '../graphql/queries';
 
-const update = (cache, _data) => {
+const update = (cache) => {
   cache.writeQuery({
     id: 'isLoggedIn',
     query: IS_LOGGED_IN,
@@ -12,7 +12,7 @@ const update = (cache, _data) => {
   });
 };
 
-const onCompleted = (_data) => {
+const onCompleted = () => {
   setAccessToken('');
 
   localStorage.clear();
@@ -24,20 +24,20 @@ const onCompleted = (_data) => {
 
 const SignOut = () => {
   const [signOut] = useMutation(SIGN_OUT, {
-    update(cache, data) {
-      update(cache, data);
+    update(cache, _data) {
+      update(cache);
     },
 
-    onCompleted(data) {
-      onCompleted(data);
+    onCompleted(_data) {
+      onCompleted();
     },
 
     onError(_error) {},
   });
 
   return (
-    <button type='button' onClick={signOut}>
-      logout
+    <button aria-label='log out' onClick={signOut}>
+      Log Out
     </button>
   );
 };

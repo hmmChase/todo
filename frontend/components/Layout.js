@@ -17,9 +17,9 @@ const Layout = (props) => (
 );
 
 Layout.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   header: PropTypes.element,
-  content: PropTypes.element,
+  content: PropTypes.element.isRequired,
   footer: PropTypes.element,
 };
 

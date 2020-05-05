@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const DetailBtn = (props) => (
   <Link href='/idea/[id]' as={`/idea/${props.id}`}>
-    <button aria-label='detail button'>></button>
+    <button aria-label='idea detail'>></button>
   </Link>
 );
 

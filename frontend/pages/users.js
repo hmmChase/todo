@@ -18,9 +18,10 @@ const UsersPage = () => (
 UsersPage.getInitialProps = (ctx) => {
   const { req, res } = ctx;
 
-  /* must be signed in */
-  if (signedIn(req)) return {};
-  else redirect(res, '/welcome');
+  /* SSR: must be signed in */
+  if (req && !signedIn(req)) redirect(res, '/welcome');
+
+  return {};
 };
 
 export default withApollo({ ssr: true })(UsersPage);

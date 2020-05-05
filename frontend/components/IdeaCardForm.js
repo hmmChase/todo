@@ -8,7 +8,7 @@ const IdeaCardForm = () => {
   const [idea, setIdea] = useState('');
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
-  const handleUpdate = (cache, data) => {
+  const update = (cache, data) => {
     // Read the data from cache for query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
@@ -19,7 +19,10 @@ const IdeaCardForm = () => {
     const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges];
 
     // Add idea from the mutation to the beginning
-    newIdeas.unshift({ node: { ...data.createIdea }, __typename: 'IdeaEdge' });
+    newIdeas.unshift({
+      node: { ...data.data.createIdea },
+      __typename: 'IdeaEdge',
+    });
 
     // Write data back to the cache
     cache.writeQuery({
@@ -36,9 +39,10 @@ const IdeaCardForm = () => {
   };
 
   const [createIdea] = useMutation(CREATE_IDEA, {
-    update(cache, { data }) {
-      handleUpdate(cache, data);
+    update(cache, data) {
+      update(cache, data);
     },
+
     onError(_error) {},
   });
 
@@ -47,41 +51,34 @@ const IdeaCardForm = () => {
     else setIsSubmitDisabled(false);
   };
 
-  const handleChangeIdeaInput = (e) => {
+  const onChange = (e) => {
     // const { name, value } = event.target;
     // this.setState({ [name]: value }, this.canSubmit);
 
     setIdea(e.target.value);
+
     canSubmit(e.target.value);
   };
 
-  const handleSubmitIdeaForm = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
+
     setIsSubmitDisabled(true);
+
     createIdea({ variables: { content: idea } });
+
     setIdea('');
 
     // canSubmit(e.target.value);
   };
 
   return (
-    <form onSubmit={handleSubmitIdeaForm}>
-      <input
-        aria-label='idea input'
-        name='idea'
-        type='text'
-        placeholder="What's on your mind?"
-        value={idea}
-        onChange={handleChangeIdeaInput}
-      />
+    <form onSubmit={onSubmit}>
+      <input aria-label='input idea' value={idea} onChange={onChange} />
 
       {/* <img src='images/ideabox.png' alt='ideabox' /> */}
 
-      <button
-        aria-label='submit idea'
-        type='submit'
-        disabled={isSubmitDisabled}
-      >
+      <button aria-label='add idea' type='submit' disabled={isSubmitDisabled}>
         Add Idea
       </button>
     </form>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
+import { passResetRequestSent } from '../config';
 import { REQUEST_RESET } from '../graphql/queries';
 
 const RequestReset = () => {
@@ -12,14 +13,14 @@ const RequestReset = () => {
     { onError(_error) {} }
   );
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     requestReset({ variables: { email } });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <fieldset>
         <h2>Request Password Reset</h2>
 
@@ -41,11 +42,11 @@ const RequestReset = () => {
             <p key={i}>{graphQLError.message}</p>
           ))}
 
-        {!error && !loading && called && (
-          <p>Check your email for a reset link.</p>
-        )}
+        {!error && !loading && called && <p>{passResetRequestSent}</p>}
 
-        <button type='submit'>Submit</button>
+        <button aria-label='request reset' type='submit'>
+          Submit
+        </button>
       </fieldset>
     </form>
   );

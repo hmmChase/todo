@@ -25,7 +25,9 @@ const IdeaCardInput = (props) => {
     debouncedFn(e.target.value);
   };
 
-  return <input aria-label='idea input' value={content} onChange={onChange} />;
+  return (
+    <input aria-label='idea content' value={content} onChange={onChange} />
+  );
 };
 
 IdeaCardInput.propTypes = {

@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import withApollo from '../graphql/withApollo';
 import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
@@ -19,9 +18,10 @@ const IdeasPage = () => (
 IdeasPage.getInitialProps = (ctx) => {
   const { req, res } = ctx;
 
-  /* must be signed in */
-  if (signedIn(req)) return {};
-  else redirect(res, '/welcome');
+  /* SSR: must be signed in */
+  if (req && !signedIn(req)) redirect(res, '/welcome');
+
+  return {};
 };
 
 export default withApollo({ ssr: true })(IdeasPage);

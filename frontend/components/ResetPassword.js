@@ -4,6 +4,12 @@ import Link from 'next/link';
 // import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
+import {
+  passwordRequirements,
+  passResetTokenMissingError,
+  passResetTokenExpiredError,
+  passResetSuccessful,
+} from '../config';
 import { RESET_PASSWORD } from '../graphql/queries';
 
 const ResetPassword = (props) => {
@@ -15,7 +21,7 @@ const ResetPassword = (props) => {
     onError(_error) {},
   });
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     resetPassword({ variables: { resetToken, password, confirmPassword } });
@@ -25,18 +31,12 @@ const ResetPassword = (props) => {
   const isTokenExpired = Date.now() > resetTokenExpiry;
   // const isTokenValid = isTokenPresent && !isTokenExpired;
 
-  const tokenMissingError =
-    'Error: Please submit a new password reset request.';
-  const tokenExpiredError =
-    'Your reset request is expired. Please submit a new one.';
-  const resetSuccessful = 'Your password has been successfully changed.';
-
   if (!isTokenPresent)
     return (
       <fieldset>
         <h2>Reset Password</h2>
 
-        <p>{tokenMissingError}</p>
+        <p>{passResetTokenMissingError}</p>
 
         <Link href={{ pathname: '/welcome' }}>
           <button aria-label='back button'>Back</button>
@@ -48,7 +48,7 @@ const ResetPassword = (props) => {
       <fieldset>
         <h2>Reset Password</h2>
 
-        <p>{tokenExpiredError}</p>
+        <p>{passResetTokenExpiredError}</p>
 
         <Link href={{ pathname: '/welcome' }}>
           <button aria-label='back button'>Back</button>
@@ -60,7 +60,7 @@ const ResetPassword = (props) => {
       <fieldset>
         <h2>Reset Password</h2>
 
-        <p>{resetSuccessful}</p>
+        <p>{passResetSuccessful}</p>
 
         <Link href={{ pathname: '/' }}>
           <button aria-label='home button'>Home</button>
@@ -69,52 +69,51 @@ const ResetPassword = (props) => {
     );
   else
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <fieldset>
           <h2>Reset Password</h2>
-          <>
-            <div>
-              <label htmlFor='password'>
-                New Password
-                <input
-                  name='password'
-                  placeholder='password'
-                  type='password'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </label>
-            </div>
+          <div>
+            <label htmlFor='password'>
+              New Password
+              <input
+                name='password'
+                placeholder='password'
+                type='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </label>
+          </div>
 
-            <div>
-              <label htmlFor='confirmPassword'>
-                Confirm New Password
-                <input
-                  name='confirmPassword'
-                  placeholder='password'
-                  type='password'
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </label>
-            </div>
+          <div>
+            <label htmlFor='confirmPassword'>
+              Confirm New Password
+              <input
+                name='confirmPassword'
+                placeholder='password'
+                type='password'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </label>
+          </div>
 
-            <h3>Password must contain:</h3>
+          <h3>{passwordRequirements.title}</h3>
 
-            <ul>
-              <li>at least 8 charactors</li>
-              <li>an uppercase letter</li>
-              <li>a lowercase letter</li>
-              <li>a number</li>
-            </ul>
+          <ul>
+            {passwordRequirements.reqs.map((req, i) => (
+              <li key={i}>{req}</li>
+            ))}
+          </ul>
 
-            <button type='submit'>Reset Password</button>
+          <button aria-label='reset password' type='submit'>
+            Reset Password
+          </button>
 
-            {error &&
-              error.graphQLErrors.map((graphQLError, i) => (
-                <p key={i}>{graphQLError.message}</p>
-              ))}
-          </>
+          {error &&
+            error.graphQLErrors.map((graphQLError, i) => (
+              <p key={i}>{graphQLError.message}</p>
+            ))}
         </fieldset>
       </form>
     );
@@ -123,8 +122,8 @@ const ResetPassword = (props) => {
 ResetPassword.defaultProps = { resetToken: '', resetTokenExpiry: '' };
 
 ResetPassword.propTypes = {
-  resetToken: PropTypes.string,
-  resetTokenExpiry: PropTypes.string,
+  resetToken: PropTypes.string.isRequired,
+  resetTokenExpiry: PropTypes.string.isRequired,
 };
 
 export default React.memo(ResetPassword);
