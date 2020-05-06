@@ -11,6 +11,7 @@ export const CURRENT_USER = gql`
   query currentUser {
     currentUser {
       id
+      username
       email
       ideas {
         id
@@ -24,18 +25,20 @@ export const USERS = gql`
   query users {
     users {
       id
-      email
+      username
     }
   }
 `;
 
 export const SIGN_UP = gql`
   mutation signUp(
+    $username: String!
     $email: String!
     $password: String!
     $confirmPassword: String!
   ) {
     signUp(
+      username: $username
       email: $email
       password: $password
       confirmPassword: $confirmPassword
@@ -43,17 +46,29 @@ export const SIGN_UP = gql`
       accessToken
       user {
         id
+        username
+        email
+        ideas {
+          id
+          content
+        }
       }
     }
   }
 `;
 
 export const SIGN_IN = gql`
-  mutation signIn($email: String!, $password: String!) {
-    signIn(email: $email, password: $password) {
+  mutation signIn($username: String!, $password: String!) {
+    signIn(username: $username, password: $password) {
       accessToken
       user {
         id
+        username
+        email
+        ideas {
+          id
+          content
+        }
       }
     }
   }

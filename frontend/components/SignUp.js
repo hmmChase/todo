@@ -4,9 +4,10 @@ import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
 import { setAccessToken } from '../utils/accessToken';
 import { passwordRequirements } from '../config';
-import { SIGN_UP, _IS_LOGGED_IN } from '../graphql/queries';
+import { SIGN_UP, IS_LOGGED_IN } from '../graphql/queries';
 
 const SignUp = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -44,13 +45,26 @@ const SignUp = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    signUp({ variables: { email, password, confirmPassword } });
+    signUp({ variables: { username, email, password, confirmPassword } });
   };
 
   return (
     <form onSubmit={onSubmit}>
       <fieldset>
         <h2>Sign Up</h2>
+
+        <div>
+          <label htmlFor='username'>
+            Username
+            <input
+              name='username'
+              placeholder='username'
+              type='text'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
+        </div>
 
         <div>
           <label htmlFor='email'>

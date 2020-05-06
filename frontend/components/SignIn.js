@@ -6,7 +6,7 @@ import { setAccessToken } from '../utils/accessToken';
 import { SIGN_IN, IS_LOGGED_IN } from '../graphql/queries';
 
 const SignIn = () => {
-  const [email, setEmail] = useState('user@email.com');
+  const [username, setUsername] = useState('user1');
   const [password, setPassword] = useState('User123#');
 
   const update = (cache, data) => {
@@ -42,7 +42,7 @@ const SignIn = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    signIn({ variables: { email, password } });
+    signIn({ variables: { username, password } });
   };
 
   return (
@@ -51,14 +51,14 @@ const SignIn = () => {
         <h2>Sign In</h2>
 
         <div>
-          <label htmlFor='email'>
-            Email
+          <label htmlFor='username'>
+            Username
             <input
-              name='email'
-              placeholder='email'
-              type='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name='username'
+              placeholder='username'
+              type='text'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </label>
         </div>

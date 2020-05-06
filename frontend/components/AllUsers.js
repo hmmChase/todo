@@ -10,7 +10,8 @@ const AllUsers = () => {
       <h3>Users:</h3>
 
       <ul>
-        {data && data.users.map((user) => <li key={user.id}>{user.email}</li>)}
+        {data &&
+          data.users.map((user) => <li key={user.id}>{user.username}</li>)}
       </ul>
     </>
   );

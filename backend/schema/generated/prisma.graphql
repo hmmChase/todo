@@ -286,6 +286,7 @@ type User {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  username: String!
   email: String!
   password: String!
   resetToken: String
@@ -302,6 +303,7 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
+  username: String!
   email: String!
   password: String!
   resetToken: String
@@ -317,6 +319,7 @@ input UserCreateOneWithoutIdeasInput {
 
 input UserCreateWithoutIdeasInput {
   id: ID
+  username: String!
   email: String!
   password: String!
   resetToken: String
@@ -336,6 +339,8 @@ enum UserOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  username_ASC
+  username_DESC
   email_ASC
   email_DESC
   password_ASC
@@ -352,6 +357,7 @@ type UserPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  username: String!
   email: String!
   password: String!
   resetToken: String
@@ -378,6 +384,7 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateInput {
+  username: String
   email: String
   password: String
   resetToken: String
@@ -387,6 +394,7 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyMutationInput {
+  username: String
   email: String
   password: String
   resetToken: String
@@ -402,6 +410,7 @@ input UserUpdateOneRequiredWithoutIdeasInput {
 }
 
 input UserUpdateWithoutIdeasDataInput {
+  username: String
   email: String
   password: String
   resetToken: String
@@ -445,6 +454,20 @@ input UserWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  username: String
+  username_not: String
+  username_in: [String!]
+  username_not_in: [String!]
+  username_lt: String
+  username_lte: String
+  username_gt: String
+  username_gte: String
+  username_contains: String
+  username_not_contains: String
+  username_starts_with: String
+  username_not_starts_with: String
+  username_ends_with: String
+  username_not_ends_with: String
   email: String
   email_not: String
   email_in: [String!]
@@ -513,5 +536,6 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  username: String
   email: String
 }

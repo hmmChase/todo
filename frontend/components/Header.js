@@ -25,7 +25,9 @@ const Header = () => {
         <a>Client Only</a>
       </Link>{' '}
       |{' '}
-      <span>Welcome {data && data.currentUser && data.currentUser.email}</span>{' '}
+      <span>
+        Welcome {data && data.currentUser && data.currentUser.username}
+      </span>{' '}
       <SignOut />
     </nav>
   );
