@@ -8,17 +8,63 @@ import jwt from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
 import isEmail from 'isemail';
+// import Filter from 'bad-words';
 import {
   accessTokenExpiryTime,
   refreshTokenExpiryTime,
   refreshTokenCookieMaxAge,
+  usernameMinLength,
+  usernameMaxLength,
 } from '../config';
+
+/* Username */
+
+export const validateUsername = (username) => {
+  /*
+  https://regexr.com/3cg7r
+  /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/igm
+  - Can contain characters a-z, 0-9, underscores and periods
+  - Cannot start with a period nor end with a period
+  - Must not have more than one period sequentially
+  - Max length is 30 chars
+  */
+
+  const notString = typeof username !== 'string';
+  if (notString) throw new AuthenticationError('Invalid username');
+
+  const hasSpaces = username.indexOf(' ') !== -1;
+  if (hasSpaces)
+    throw new AuthenticationError(`Username must not contain spaces`);
+
+  const tooShort = username.length < usernameMinLength;
+  if (tooShort)
+    throw new AuthenticationError(
+      `Username must have at least ${usernameMinLength} letters`
+    );
+
+  const tooLong = username.length > usernameMaxLength;
+  if (tooLong)
+    throw new AuthenticationError(
+      `Username must have no more than ${usernameMaxLength} letters`
+    );
+
+  // const regExRules = `/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,${usernameMaxLength -
+  // 1}}$/gim`;
+  // const isValidUsername = username.match(regExRules);
+  // if (!isValidUsername) throw new AuthenticationError('Username is not valid');
+
+  // let filter = new Filter();
+  // const isProfane = filter.isProfane(username);
+  // if (isProfane)
+  // throw new AuthenticationError('Username contains restricted words');
+};
 
 /* Email */
 
 export const validateEmail = (email) => {
-  if (typeof email !== 'string')
-    throw new AuthenticationError('Invalid email address');
+  const notString = typeof email !== 'string';
+
+  if (notString) throw new AuthenticationError('Invalid email address');
 
   const isvalid = isEmail.validate(email);
 
@@ -29,12 +75,20 @@ export const validateEmail = (email) => {
 /* Password */
 
 export const validatePassword = (password) => {
-  if (typeof password !== 'string')
-    throw new AuthenticationError('Invalid password');
+  /*
+  https://regexr.com/3bfsi
+  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
+  - At least 8 characters
+  - Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
+  - Can contain special characters
+  */
 
-  const hasLength = password.length >= 8;
-  if (!hasLength)
-    throw new AuthenticationError('Password must be at least 8 charactors');
+  const notString = typeof password !== 'string';
+  if (notString) throw new AuthenticationError('Invalid password');
+
+  const tooShort = password.length < 8;
+  if (tooShort)
+    throw new AuthenticationError('Password must be at least 8 characters');
 
   const hasUpperCase = password.match(/[A-Z]/g);
   if (!hasUpperCase)
