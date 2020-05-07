@@ -28,6 +28,8 @@ const SignIn = () => {
   };
 
   const [signIn, { error }] = useMutation(SIGN_IN, {
+    // fetchPolicy: 'network-only',
+
     update(cache, data) {
       update(cache, data);
     },

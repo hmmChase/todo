@@ -15,6 +15,8 @@ import {
   refreshTokenCookieMaxAge,
   usernameMinLength,
   usernameMaxLength,
+  passwordMinLength,
+  passwordMaxLength,
 } from '../config';
 
 /* Username */
@@ -32,26 +34,47 @@ export const validateUsername = (username) => {
   const notString = typeof username !== 'string';
   if (notString) throw new AuthenticationError('Invalid username');
 
-  const hasSpaces = username.indexOf(' ') !== -1;
+  const hasSpaces = username.match(/[\s]/g);
   if (hasSpaces)
     throw new AuthenticationError(`Username must not contain spaces`);
 
   const tooShort = username.length < usernameMinLength;
   if (tooShort)
     throw new AuthenticationError(
-      `Username must have at least ${usernameMinLength} letters`
+      `Username must have at least ${usernameMinLength} characters`
     );
 
   const tooLong = username.length > usernameMaxLength;
   if (tooLong)
     throw new AuthenticationError(
-      `Username must have no more than ${usernameMaxLength} letters`
+      `Username must have no more than ${usernameMaxLength} characters`
     );
 
-  // const regExRules = `/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,${usernameMaxLength -
-  // 1}}$/gim`;
-  // const isValidUsername = username.match(regExRules);
-  // if (!isValidUsername) throw new AuthenticationError('Username is not valid');
+  const firstCharBad = password.match(/^[\.\_]/g);
+  if (firstCharBad)
+    throw new AuthenticationError(`Username must start with an alphanumeric`);
+
+  const lastCharBad = password.match(/[\.\_]$/g);
+  if (lastCharBad)
+    throw new AuthenticationError(`Username must end with an alphanumeric`);
+
+  const consecutiveUnderscores = password.match(/(?=.\_)[\_]/g);
+  if (consecutiveUnderscores)
+    throw new AuthenticationError(
+      `Username must not contain consecutive underscores`
+    );
+
+  const consecutivePeriods = password.match(/(?=.\.)[\.]/g);
+  if (consecutivePeriods)
+    throw new AuthenticationError(
+      `Username must not contain consecutive periods`
+    );
+
+  const notAlphanumeric = password.match(/[^\w\.]/g);
+  if (notAlphanumeric)
+    throw new AuthenticationError(
+      `Username must contain only letters, numbers, and nonconsecutive underscores and/or periods (excluded to start or end with)`
+    );
 
   // let filter = new Filter();
   // const isProfane = filter.isProfane(username);
@@ -86,9 +109,17 @@ export const validatePassword = (password) => {
   const notString = typeof password !== 'string';
   if (notString) throw new AuthenticationError('Invalid password');
 
-  const tooShort = password.length < 8;
+  const tooShort = password.length < passwordMinLength;
   if (tooShort)
-    throw new AuthenticationError('Password must be at least 8 characters');
+    throw new AuthenticationError(
+      `Password must have at least ${passwordMinLength} characters`
+    );
+
+  const tooLong = password.length > passwordMaxLength;
+  if (tooLong)
+    throw new AuthenticationError(
+      `Password must have no more than ${passwordMaxLength} characters`
+    );
 
   const hasUpperCase = password.match(/[A-Z]/g);
   if (!hasUpperCase)

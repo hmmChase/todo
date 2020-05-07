@@ -5,6 +5,8 @@ import { setAccessToken } from '../utils/accessToken';
 import { SIGN_OUT, IS_LOGGED_IN } from '../graphql/queries';
 
 const update = (cache) => {
+  cache.reset();
+
   cache.writeQuery({
     id: 'isLoggedIn',
     query: IS_LOGGED_IN,
@@ -16,8 +18,6 @@ const onCompleted = () => {
   setAccessToken('');
 
   localStorage.clear();
-
-  // await apolloClient.cache.reset().then(() => {};
 
   Router.push('/welcome');
 };
