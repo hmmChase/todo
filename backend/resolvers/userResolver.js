@@ -144,7 +144,8 @@ export default {
       });
 
       // If user not found, return error
-      if (!user) throw new AuthenticationError(`No account found for ${email}`);
+      if (!user)
+        throw new AuthenticationError(`No account found for ${args.username}`);
 
       // Check if typed password matches users password
       await checkPassword(args.password, user.password);

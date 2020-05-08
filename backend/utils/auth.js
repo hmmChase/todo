@@ -36,7 +36,7 @@ export const validateUsername = (username) => {
 
   const hasSpaces = username.match(/[\s]/g);
   if (hasSpaces)
-    throw new AuthenticationError(`Username must not contain spaces`);
+    throw new AuthenticationError('Username must not contain spaces');
 
   const tooShort = username.length < usernameMinLength;
   if (tooShort)
@@ -50,30 +50,30 @@ export const validateUsername = (username) => {
       `Username must have no more than ${usernameMaxLength} characters`
     );
 
-  const firstCharBad = password.match(/^[\.\_]/g);
+  const firstCharBad = username.match(/^[\.\_]/g);
   if (firstCharBad)
-    throw new AuthenticationError(`Username must start with an alphanumeric`);
+    throw new AuthenticationError('Username must start with an alphanumeric');
 
-  const lastCharBad = password.match(/[\.\_]$/g);
+  const lastCharBad = username.match(/[\.\_]$/g);
   if (lastCharBad)
-    throw new AuthenticationError(`Username must end with an alphanumeric`);
+    throw new AuthenticationError('Username must end with an alphanumeric');
 
-  const consecutiveUnderscores = password.match(/(?=.\_)[\_]/g);
+  const consecutiveUnderscores = username.match(/(?=.\_)[\_]/g);
   if (consecutiveUnderscores)
     throw new AuthenticationError(
-      `Username must not contain consecutive underscores`
+      'Username must not contain consecutive underscores'
     );
 
-  const consecutivePeriods = password.match(/(?=.\.)[\.]/g);
+  const consecutivePeriods = username.match(/(?=.\.)[\.]/g);
   if (consecutivePeriods)
     throw new AuthenticationError(
-      `Username must not contain consecutive periods`
+      'Username must not contain consecutive periods'
     );
 
-  const notAlphanumeric = password.match(/[^\w\.]/g);
+  const notAlphanumeric = username.match(/[^\w\.]/g);
   if (notAlphanumeric)
     throw new AuthenticationError(
-      `Username must contain only letters, numbers, and nonconsecutive underscores and/or periods (excluded to start or end with)`
+      'Username must contain only letters, numbers, and nonconsecutive underscores and/or periods (excluded to start or end with)'
     );
 
   // let filter = new Filter();

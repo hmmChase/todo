@@ -1,3 +1,5 @@
+export const title = 'NGS';
+
 export const graphqlUrlDev = 'http://localhost:6969/api/graphql';
 export const graphqlUrlProd =
   'https://next-graphql-starter-base.now.sh/api/graphql';
@@ -8,9 +10,13 @@ export const refreshUrlProd =
 
 export const ideasPerPage = 5;
 
-export const debounceDelay = 200;
+export const usernameMinLength = 5;
+export const usernameMaxLength = 30;
 
-export const title = 'NGS';
+export const passwordMinLength = 8;
+export const passwordMaxLength = 30;
+
+export const debounceDelay = 200;
 
 export const passwordRequirements = {
   title: 'Password must contain:',

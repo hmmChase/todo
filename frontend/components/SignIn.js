@@ -3,11 +3,13 @@ import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
 import { setAccessToken } from '../utils/accessToken';
+import { validateUsername } from '../utils/auth';
 import { SIGN_IN, IS_LOGGED_IN } from '../graphql/queries';
 
 const SignIn = () => {
   const [username, setUsername] = useState('user1');
   const [password, setPassword] = useState('User123#');
+  const [usernameError, setUsernameError] = useState('');
 
   const update = (cache, data) => {
     const isLoggedIn = !!data.data.signIn.accessToken;
@@ -27,7 +29,7 @@ const SignIn = () => {
     }
   };
 
-  const [signIn, { error }] = useMutation(SIGN_IN, {
+  const [signIn, { loading, error }] = useMutation(SIGN_IN, {
     // fetchPolicy: 'network-only',
 
     update(cache, data) {
@@ -44,7 +46,12 @@ const SignIn = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    signIn({ variables: { username, password } });
+    const hasError = validateUsername(username, setUsernameError);
+
+    if (hasError) setUsernameError(hasError);
+    else if (usernameError !== '') setUsernameError('');
+
+    if (!hasError) signIn({ variables: { username, password } });
   };
 
   return (
@@ -78,11 +85,14 @@ const SignIn = () => {
           </label>
         </div>
 
-        <button aria-label='sign in' type='submit'>
+        <button aria-label='sign in' type='submit' disabled={loading}>
           Sign In
         </button>
 
-        {error &&
+        {usernameError && <p>{usernameError}</p>}
+
+        {!usernameError &&
+          error &&
           error.graphQLErrors.map((graphQLError, i) => (
             <p key={i}>{graphQLError.message}</p>
           ))}
