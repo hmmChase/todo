@@ -3,7 +3,7 @@ import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
 import { setAccessToken } from '../utils/accessToken';
-import { validateUsername } from '../utils/auth';
+import { validateUsername } from '../utils/validation';
 import { SIGN_IN, IS_LOGGED_IN } from '../graphql/queries';
 
 const SignIn = () => {
@@ -46,10 +46,10 @@ const SignIn = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const hasError = validateUsername(username, setUsernameError);
+    const hasError = validateUsername(username);
 
     if (hasError) setUsernameError(hasError);
-    else if (usernameError !== '') setUsernameError('');
+    else if (usernameError) setUsernameError('');
 
     if (!hasError) signIn({ variables: { username, password } });
   };
