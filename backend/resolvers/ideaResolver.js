@@ -1,9 +1,5 @@
-import {
-  AuthenticationError,
-  ForbiddenError,
-  _UserInputError,
-} from 'apollo-server-express';
-import { verifyAccessToken } from '../utils/auth';
+import { AuthenticationError, ForbiddenError } from 'apollo-server-express';
+import { verifyAccessToken } from '../utils/accessToken';
 
 export default {
   Query: {

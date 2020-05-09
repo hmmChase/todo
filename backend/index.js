@@ -9,11 +9,8 @@ import jwt from 'jsonwebtoken';
 import apolloServer from './apolloServer';
 import prisma from './prismaClient';
 import logger from './utils/logger';
-import {
-  sendRefreshToken,
-  createAccessToken,
-  createRefreshToken,
-} from './utils/auth';
+import { createAccessToken } from './utils/accessToken';
+import { createRefreshToken, sendRefreshToken } from './utils/refreshToken';
 import { port, frontendUrlDev, frontendUrlProd } from './config';
 
 const app = express();

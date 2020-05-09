@@ -3,6 +3,7 @@ import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
 import { setAccessToken } from '../utils/accessToken';
+import { validateUsername, validateEmail } from '../utils/validation';
 import { passwordRequirements } from '../config';
 import { SIGN_UP, IS_LOGGED_IN } from '../graphql/queries';
 
@@ -11,6 +12,8 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const update = (cache, data) => {
     const isLoggedIn = !!data.data.signUp.accessToken;
@@ -45,7 +48,17 @@ const SignUp = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    signUp({ variables: { username, email, password, confirmPassword } });
+    const hasUsernameError = validateUsername(username);
+    const hasEmailError = validateEmail(email);
+
+    if (hasUsernameError) setUsernameError(hasUsernameError);
+    else if (usernameError) setUsernameError('');
+
+    if (hasEmailError) setEmailError(hasEmailError);
+    else if (emailError) setEmailError('');
+
+    if (!hasUsernameError && !hasEmailError)
+      signUp({ variables: { username, email, password, confirmPassword } });
   };
 
   return (
@@ -117,7 +130,13 @@ const SignUp = () => {
           Sign Up
         </button>
 
-        {error &&
+        {usernameError && <p>{usernameError}</p>}
+
+        {emailError && <p>{emailError}</p>}
+
+        {!usernameError &&
+          !emailError &&
+          error &&
           error.graphQLErrors.map((graphQLError, i) => (
             <p key={i}>{graphQLError.message}</p>
           ))}

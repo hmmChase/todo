@@ -1,23 +1,19 @@
+import { AuthenticationError } from 'apollo-server-express';
 import bcrypt from 'bcryptjs';
-import {
-  AuthenticationError,
-  _ForbiddenError,
-  _UserInputError,
-} from 'apollo-server-express';
 import mailPasswordResetToken from '../utils/mail';
+import { createAccessToken, verifyAccessToken } from '../utils/accessToken';
+import { createRefreshToken, sendRefreshToken } from '../utils/refreshToken';
+import {
+  createPasswordResetToken,
+  validateResetTokenExpiry,
+} from '../utils/resetToken';
 import {
   validateUsername,
   validateEmail,
+  validatePassword,
   checkPassword,
   comparePasswords,
-  validatePassword,
-  createAccessToken,
-  verifyAccessToken,
-  createRefreshToken,
-  sendRefreshToken,
-  createPasswordResetToken,
-  validateResetTokenExpiry,
-} from '../utils/auth';
+} from '../utils/validation';
 import { saltRounds } from '../config';
 
 //? import getConfig from 'next/config';
@@ -138,6 +134,9 @@ export default {
     },
 
     signIn: async (parent, args, ctx, info) => {
+      // Check if username is well-formed
+      validateUsername(args.username);
+
       // Find user matching username
       const user = await ctx.prisma.query.user({
         where: { username: args.username },
