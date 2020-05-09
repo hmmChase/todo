@@ -18,9 +18,11 @@ const themeVariables = lessToJS(
   )
 );
 
+const isProd = process.env.NODE_ENV === 'production'
+
 const nextConfig = {
   // Now by ZEIT deployment target
-  target: 'serverless',
+  // target: 'serverless',
 
   // Custom webpack config for Ant Design Less
   lessLoaderOptions: { javascriptEnabled: true, modifyVars: themeVariables },
@@ -62,7 +64,7 @@ const nextConfig = {
     // Without this debug breakpoints in handlers don't work,
     // only in render() or return() in functional components.
     // https://webpack.js.org/configuration/devtool/
-    config.devtool = 'eval-source-map';
+    config.devtool = isProd ? config.devtool : 'eval-source-map';
 
     // Zeit Now: Fixes npm packages that depend on `fs` module
     config.node = { fs: 'empty' };
@@ -119,3 +121,4 @@ const nextConfig = {
 };
 
 module.exports = withLess(withOffline(nextConfig));
+
