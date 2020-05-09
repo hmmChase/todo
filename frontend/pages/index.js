@@ -27,7 +27,7 @@ const IndexPage = () => (
 IndexPage.getInitialProps = (ctx) => {
   // err, req, res only exists on initial page load (server-side)
   // pathname, query, asPath, AppTree always available (server & client)
-  const { req, res } = ctx;
+  const { req, res, _apolloClient } = ctx;
 
   // server-side auth routing (initial page load)
   /* must be signed in */
