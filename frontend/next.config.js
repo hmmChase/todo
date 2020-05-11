@@ -10,11 +10,13 @@ const nextConfig = {
   webpack: (config, _options) => {
     config.plugins = config.plugins || [];
 
-    //! This no longer works
     // Without this debug breakpoints in handlers don't work,
     // only in render() or return() in functional components.
     // https://webpack.js.org/configuration/devtool/
-    // config.devtool = 'eval-source-map';
+    config.devtool =
+      process.env.NODE_ENV === 'production'
+        ? config.devtool
+        : 'eval-source-map';
 
     // Zeit Now: Fixes npm packages that depend on `fs` module
     config.node = { fs: 'empty' };

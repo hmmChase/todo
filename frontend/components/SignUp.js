@@ -14,6 +14,9 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(
+    !username && !email && !password && !confirmPassword
+  );
 
   const update = (cache, data) => {
     const isLoggedIn = !!data.data.signUp.accessToken;
@@ -33,7 +36,7 @@ const SignUp = () => {
     }
   };
 
-  const [signUp, { error }] = useMutation(SIGN_UP, {
+  const [signUp, { loading, error }] = useMutation(SIGN_UP, {
     update(cache, data) {
       update(cache, data);
     },
@@ -44,6 +47,38 @@ const SignUp = () => {
 
     onError(_error) {},
   });
+
+  const onChange = (e) => {
+    if (e.target.name === 'username') {
+      setUsername(e.target.value);
+
+      setIsSubmitDisabled(
+        !e.target.value || !email || !password || !confirmPassword
+      );
+    }
+
+    if (e.target.name === 'email') {
+      setEmail(e.target.value);
+
+      setIsSubmitDisabled(
+        !e.target.value || !username || !password || !confirmPassword
+      );
+    }
+
+    if (e.target.name === 'password') {
+      setPassword(e.target.value);
+
+      setIsSubmitDisabled(
+        !e.target.value || !username || !email || !confirmPassword
+      );
+    }
+
+    if (e.target.name === 'confirmPassword') {
+      setConfirmPassword(e.target.value);
+
+      setIsSubmitDisabled(!e.target.value || !username || !email || !password);
+    }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -74,7 +109,7 @@ const SignUp = () => {
               placeholder='username'
               type='text'
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={onChange}
             />
           </label>
         </div>
@@ -85,9 +120,9 @@ const SignUp = () => {
             <input
               name='email'
               placeholder='email'
-              type='email'
+              type='text'
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={onChange}
             />
           </label>
         </div>
@@ -100,7 +135,7 @@ const SignUp = () => {
               placeholder='password'
               type='password'
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={onChange}
             />
           </label>
         </div>
@@ -113,7 +148,7 @@ const SignUp = () => {
               placeholder='password'
               type='password'
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={onChange}
             />
           </label>
         </div>
@@ -126,7 +161,11 @@ const SignUp = () => {
           ))}
         </ul>
 
-        <button aria-label='sign up' type='submit'>
+        <button
+          aria-label='sign up'
+          type='submit'
+          disabled={loading || isSubmitDisabled}
+        >
           Sign Up
         </button>
 

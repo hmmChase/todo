@@ -10,6 +10,9 @@ const SignIn = () => {
   const [username, setUsername] = useState('user1');
   const [password, setPassword] = useState('User123#');
   const [usernameError, setUsernameError] = useState('');
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(
+    !username && !password
+  );
 
   const update = (cache, data) => {
     const isLoggedIn = !!data.data.signIn.accessToken;
@@ -43,15 +46,29 @@ const SignIn = () => {
     onError(_error) {},
   });
 
+  const onChange = (e) => {
+    if (e.target.name === 'username') {
+      setUsername(e.target.value);
+
+      setIsSubmitDisabled(!e.target.value || !password);
+    }
+
+    if (e.target.name === 'password') {
+      setPassword(e.target.value);
+
+      setIsSubmitDisabled(!e.target.value || !username);
+    }
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const hasError = validateUsername(username);
+    const hasUsernameError = validateUsername(username);
 
-    if (hasError) setUsernameError(hasError);
+    if (hasUsernameError) setUsernameError(hasUsernameError);
     else if (usernameError) setUsernameError('');
 
-    if (!hasError) signIn({ variables: { username, password } });
+    if (!hasUsernameError) signIn({ variables: { username, password } });
   };
 
   return (
@@ -67,7 +84,7 @@ const SignIn = () => {
               placeholder='username'
               type='text'
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={onChange}
             />
           </label>
         </div>
@@ -80,12 +97,16 @@ const SignIn = () => {
               placeholder='password'
               type='password'
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={onChange}
             />
           </label>
         </div>
 
-        <button aria-label='sign in' type='submit' disabled={loading}>
+        <button
+          aria-label='sign in'
+          type='submit'
+          disabled={loading || isSubmitDisabled}
+        >
           Sign In
         </button>
 

@@ -14,12 +14,32 @@ import { RESET_PASSWORD } from '../graphql/queries';
 
 const ResetPassword = (props) => {
   const { resetToken, resetTokenExpiry } = props;
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(
+    !password && !confirmPassword
+  );
 
-  const [resetPassword, { error, data }] = useMutation(RESET_PASSWORD, {
-    onError(_error) {},
-  });
+  const [resetPassword, { loading, error, data }] = useMutation(
+    RESET_PASSWORD,
+
+    { onError(_error) {} }
+  );
+
+  const onChange = (e) => {
+    if (e.target.name === 'password') {
+      setPassword(e.target.value);
+
+      setIsSubmitDisabled(!e.target.value || !confirmPassword);
+    }
+
+    if (e.target.name === 'confirmPassword') {
+      setConfirmPassword(e.target.value);
+
+      setIsSubmitDisabled(!e.target.value || !password);
+    }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -72,6 +92,7 @@ const ResetPassword = (props) => {
       <form onSubmit={onSubmit}>
         <fieldset>
           <h2>Reset Password</h2>
+
           <div>
             <label htmlFor='password'>
               New Password
@@ -80,7 +101,7 @@ const ResetPassword = (props) => {
                 placeholder='password'
                 type='password'
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={onChange}
               />
             </label>
           </div>
@@ -93,7 +114,7 @@ const ResetPassword = (props) => {
                 placeholder='password'
                 type='password'
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={onChange}
               />
             </label>
           </div>
@@ -106,8 +127,12 @@ const ResetPassword = (props) => {
             ))}
           </ul>
 
-          <button aria-label='reset password' type='submit'>
-            Reset Password
+          <button
+            aria-label='reset password'
+            type='submit'
+            disabled={loading || isSubmitDisabled}
+          >
+            Reset
           </button>
 
           {error &&
