@@ -1,22 +1,19 @@
+import { AuthenticationError } from 'apollo-server-express';
 import bcrypt from 'bcryptjs';
-import {
-  AuthenticationError,
-  _ForbiddenError,
-  _UserInputError,
-} from 'apollo-server-express';
 import mailPasswordResetToken from '../utils/mail';
+import { createAccessToken, verifyAccessToken } from '../utils/accessToken';
+import { createRefreshToken, sendRefreshToken } from '../utils/refreshToken';
 import {
-  validateEmail,
-  checkPassword,
-  comparePasswords,
-  validatePassword,
-  createAccessToken,
-  verifyAccessToken,
-  createRefreshToken,
-  sendRefreshToken,
   createPasswordResetToken,
   validateResetTokenExpiry,
-} from '../utils/auth';
+} from '../utils/resetToken';
+import {
+  validateUsername,
+  validateEmail,
+  validatePassword,
+  checkPassword,
+  comparePasswords,
+} from '../utils/validation';
 import { saltRounds } from '../config';
 
 //? import getConfig from 'next/config';
@@ -80,18 +77,23 @@ export default {
 
   Mutation: {
     signUp: async (parent, args, ctx, info) => {
+      // Check if username is well-formed
+      validateUsername(args.username);
+
       // Normalize email
       const email = args.email.toLowerCase();
 
       // Check if email address is well-formed
       validateEmail(email);
 
-      // Find user matching email
-      const user = await ctx.prisma.query.user({ where: { email } });
+      // Find user matching username
+      const user = await ctx.prisma.query.user({
+        where: { username: args.username },
+      });
 
       // If user found, return error
       if (user)
-        throw new AuthenticationError(`An account already exists for ${email}`);
+        throw new AuthenticationError(`Username ${args.username} unavailable`);
 
       // Check if password is well-formed
       validatePassword(args.password);
@@ -104,7 +106,7 @@ export default {
 
       // Create user
       const newUser = await ctx.prisma.mutation.createUser({
-        data: { email, password },
+        data: { username: args.username, email, password },
       });
 
       // Create refresh token
@@ -122,19 +124,27 @@ export default {
       // Return access token and user data
       return {
         accessToken,
-        user: { id: newUser.id, email: newUser.email, ideas: newUser.ideas },
+        user: {
+          id: newUser.id,
+          username: newUser.username,
+          email: newUser.email,
+          ideas: newUser.ideas,
+        },
       };
     },
 
     signIn: async (parent, args, ctx, info) => {
-      // Normalize email
-      const email = args.email.toLowerCase();
+      // Check if username is well-formed
+      validateUsername(args.username);
 
-      // Find user matching email
-      const user = await ctx.prisma.query.user({ where: { email } });
+      // Find user matching username
+      const user = await ctx.prisma.query.user({
+        where: { username: args.username },
+      });
 
       // If user not found, return error
-      if (!user) throw new AuthenticationError(`No account found for ${email}`);
+      if (!user)
+        throw new AuthenticationError(`No account found for ${args.username}`);
 
       // Check if typed password matches users password
       await checkPassword(args.password, user.password);
@@ -154,7 +164,12 @@ export default {
       // Return access token and user data
       return {
         accessToken,
-        user: { id: user.id, email: user.email, ideas: user.ideas },
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          ideas: user.ideas,
+        },
       };
     },
 

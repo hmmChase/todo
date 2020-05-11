@@ -2,12 +2,13 @@ type User @db(name: "user") {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  username: String! @unique
   email: String! @unique
   password: String!
   resetToken: String
   resetTokenExpiry: Float
   refreshTokenVersion: Int! @default(value: 1)
-  ideas: [Idea!]! @relation(name: "IdeaAuthor")
+  ideas: [Idea!] @relation(name: "IdeaAuthor")
 }
 
 type Idea @db(name: "idea") {

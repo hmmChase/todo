@@ -1,10 +1,10 @@
 import fetch from 'isomorphic-unfetch';
+import { writeFileSync } from 'fs';
 import { HttpLink } from 'apollo-link-http';
-import * as fs from 'fs';
 import { printSchema } from 'graphql';
 import { introspectSchema } from 'graphql-tools';
 
-// Currently not used for anything
+//! Currently not used for anything
 
 export const fetchTypeDefs = async () => {
   const typescript = false;
@@ -17,9 +17,10 @@ export const fetchTypeDefs = async () => {
 
   console.log('writing typeDefs to: ', path);
 
-  fs.writeFileSync(
+  writeFileSync(
     path,
-    `export const typeDefs = \`
-${printSchema(await introspectSchema(link)).replace(/`/g, '\\`')}\``
+    `export const typeDefs = \`${printSchema(
+      await introspectSchema(link)
+    ).replace(/`/g, '\\`')}\``
   );
 };

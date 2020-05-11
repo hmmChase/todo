@@ -3,12 +3,8 @@ import Head from 'next/head';
 import { ApolloProvider } from '@apollo/react-hooks';
 // import { ApolloProvider } from '@apollo/client';
 import jwt from 'jsonwebtoken';
-import {
-  fetchAccessToken,
-  // getAccessToken,
-  // setAccessToken,
-} from '../utils/accessToken';
 import createApollo from './createApollo';
+import { fetchAccessToken } from '../utils/accessToken';
 import { devConLog, devConWarn, devConErr } from '../utils/devCon';
 
 /**
@@ -20,7 +16,7 @@ import { devConLog, devConWarn, devConErr } from '../utils/devCon';
 
 // called on initial page load, server-side
 // called on page change, client-side
-export const initOnContext = (ctx, accessToken, refreshToken) => {
+const initOnContext = (ctx, accessToken, refreshToken) => {
   // const accessToken = accessToken || getAccessToken();
 
   const inAppContext = Boolean(ctx.ctx);
@@ -155,7 +151,7 @@ const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
   };
 
   // Set the correct displayName in development
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV !== 'production') {
     const displayName =
       PageComponent.displayName || PageComponent.name || 'Component';
 
@@ -204,7 +200,7 @@ const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
             // Set Access token
             // setAccessToken(serverAccessToken);
           } catch (error) {
-            devConErr(['WithApollo Refresh Token verify error: ', error]);
+            devConErr(['WithApollo.getInitialProps jwt.verify error: ', error]);
           }
         }
       }

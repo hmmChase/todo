@@ -1,31 +1,30 @@
-import jwt from 'jsonwebtoken';
 import withApollo from '../graphql/withApollo';
+import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
-import { devConErr } from '../utils/devCon';
-import Layout from '../components/organisms/Layout/Layout';
-import SignOn from '../components/organisms/SignOn/SignOn';
+import SignIn from '../components/organisms/SignIn/SignIn';
+import RequestReset from '../components/organisms/RequestReset/RequestReset';
+import SignUp from '../components/organisms/SignUp/SignUp';
 
-const WelcomePage = () => <Layout title='Welcome' content={<SignOn />} />;
+// import Layout from '../components/organisms/Layout/Layout';
+// import SignOn from '../components/organisms/SignOn/SignOn';
+
+const WelcomePage = () => (
+  <>
+    <SignIn />
+
+    <RequestReset />
+
+    <SignUp />
+  </>
+);
+
+// const WelcomePage = () => <Layout title='Welcome' content={<SignOn />} />;
 
 WelcomePage.getInitialProps = async (ctx) => {
   const { req, res } = ctx;
 
-  /* must not be signed in */
-  if (typeof window === 'undefined') {
-    if (req && req.headers && req.headers.cookie) {
-      const refreshToken = req.headers.cookie.replace('rt=', '');
-
-      if (refreshToken) {
-        try {
-          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-
-          redirect(res, '/');
-        } catch (error) {
-          devConErr('Refresh token verify error: ', error);
-        }
-      }
-    }
-  }
+  /* SSR: must not be signed in */
+  if (req && signedIn(req)) redirect(res, '/');
 
   return {};
 };

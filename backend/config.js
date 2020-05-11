@@ -9,6 +9,12 @@ export const resetTokenExpiryTime = 3600000; // 1 hour
 
 export const saltRounds = 10;
 
+export const usernameMinLength = 5;
+export const usernameMaxLength = 30;
+
+export const passwordMinLength = 8;
+export const passwordMaxLength = 30;
+
 export const mailHost = 'smtp.mailtrap.io';
 export const mailPort = '2525';
 

@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import { devConLog } from '../utils/devCon';
 import theme from '../public/styles/theme.style';
+
+//! is this needed?
 // import '../public/styles/empty.less';
 
 const MyApp = (props) => {

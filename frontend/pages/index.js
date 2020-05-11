@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
+// import order: react=>next=>libs=>utils=>config=>queries=>components=>css
 import withApollo from '../graphql/withApollo';
+import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
-import { devConErr } from '../utils/devCon';
 import Layout from '../components/organisms/Layout/Layout';
 import Header from '../components/organisms/Header/Header';
 import IdeaCardForm from '../components/molecules/IdeaCardForm/IdeaCardForm';
@@ -12,9 +12,10 @@ const IndexPage = () => (
   <Layout
     title='Home'
     header={
-      <Header>
+      <>
+        <Header />
         <IdeaCardForm />
-      </Header>
+      </>
     }
     content={<Ideas />}
     footer={<Footer />}
@@ -27,33 +28,11 @@ const IndexPage = () => (
 IndexPage.getInitialProps = (ctx) => {
   // err, req, res only exists on initial page load (server-side)
   // pathname, query, asPath, AppTree always available (server & client)
-  const { req, res, _apolloClient } = ctx;
+  const { req, res } = ctx;
 
   // server-side auth routing (initial page load)
-  /* must be signed in */
-  if (typeof window === 'undefined') {
-    // If cookie header present
-    if (req && req.headers && req.headers.cookie) {
-      // Parse Refresh token
-      const refreshToken = req.headers.cookie.replace('rt=', '');
-
-      // If Refresh token
-      if (refreshToken) {
-        try {
-          // Verify Refresh token
-          jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-
-          return {};
-        } catch (error) {
-          // If Refresh token invalid
-          devConErr(['Refresh token verify error: ', error]);
-        }
-      }
-    }
-
-    // no cookie, token, or valid jwt
-    redirect(res, '/welcome');
-  }
+  /* SSR: must be signed in */
+  if (req && !signedIn(req)) redirect(res, '/welcome');
 
   return {};
 };
