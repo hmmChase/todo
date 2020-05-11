@@ -71,6 +71,7 @@ export const validateEmail = (email) => {
 
 /* Password */
 
+//! not currently used
 export const validatePassword = (password) => {
   /*
   https://regexr.com/3bfsi
