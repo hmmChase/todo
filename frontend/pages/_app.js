@@ -38,7 +38,7 @@ const MyApp = (props) => {
 };
 
 MyApp.propTypes = {
-  Component: PropTypes.any.isRequired,
+  Component: PropTypes.element.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
 

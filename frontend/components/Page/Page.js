@@ -1,23 +1,39 @@
+// import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+// import Router from 'next/router';
+// import { useRouter } from 'next/router';
+
 import { useQuery } from '@apollo/react-hooks';
-import Head from '../atoms/';
-import SignOn from '../organisms/SignOn/SignOn';
+// import { useQuery } from '@apollo/client';
+
 import { IS_LOGGED_IN } from '../../graphql/queries';
 
-const Page = (props) => {
-  const { data } = useQuery(IS_LOGGED_IN);
+// const { loading, error, data } = useQuery(IS_LOGGED_IN, {
+//   variables: { hi: 'asdf' },
+// });
 
-  return data && data.isLoggedIn ? (
-    props.children
-  ) : (
-    <>
-      <Head title='Welcome' />
+// const { loading, error, data } = useQuery(IS_LOGGED_IN, {
+//   variables: { hi: 'asdf' },
+// });
 
-      <SignOn />
-    </>
-  );
+// console.log('IndexPage -> loading', loading);
+// console.log('IndexPage -> error', error);
+// console.log('IndexPage -> data', data);
+
+const Page = ({ children }) => {
+  // const router = useRouter();
+
+  const { data } = useQuery(IS_LOGGED_IN, { onError(_error) {} });
+
+  // useEffect(() => {
+  //   data && data.isLoggedIn ? router.push('/') : router.push('/welcome');
+  // });
+
+  return data && data.isLoggedIn ? children : 'not signed in';
 };
 
-Page.propTypes = { children: PropTypes.array.isRequired };
+Page.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
+};
 
-export default Page;
+export default React.memo(Page);

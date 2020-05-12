@@ -2,11 +2,9 @@ import PropTypes from 'prop-types';
 import withApollo from '../graphql/withApollo';
 import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
+import Layout from '../components/organisms/Layout/Layout';
 import ResetPassError from '../components/ResetPassError';
 import ResetPassword from '../components/organisms/ResetPassword/ResetPassword';
-
-// import Layout from '../components/organisms/Layout/Layout';
-// import Footer from '../components/molecules/Footer/Footer';
 
 const ResetPasswordPage = (props) => {
   const isTokenPresent = !!(props.resetToken && props.resetTokenExpiry);
@@ -14,28 +12,26 @@ const ResetPasswordPage = (props) => {
 
   if (!isTokenPresent || isTokenExpired)
     return (
-      <ResetPassError
-        isTokenPresent={isTokenPresent}
-        isTokenExpired={isTokenExpired}
+      <Layout
+        title='Reset Password'
+        header={<h1>Reset Your Password</h1>}
+        content={
+          <ResetPassError
+            isTokenPresent={isTokenPresent}
+            isTokenExpired={isTokenExpired}
+          />
+        }
       />
     );
 
-  return <ResetPassword resetToken={props.resetToken} />;
+  return (
+    <Layout
+      title='Reset Password'
+      header={<h1>Reset Your Password</h1>}
+      content={<ResetPassword resetToken={props.resetToken} />}
+    />
+  );
 };
-
-// const ResetPasswordPage = (props) => (
-//   <Layout
-//     title='Reset Password'
-//     header={<h1>Reset Your Password</h1>}
-//     content={
-//       <ResetPassword
-//         resetToken={props.resetToken}
-//         resetTokenExpiry={props.resetTokenExpiry}
-//       />
-//     }
-//     footer={<Footer />}
-//   />
-// );
 
 ResetPasswordPage.getInitialProps = async (ctx) => {
   const { req, res, query } = ctx;

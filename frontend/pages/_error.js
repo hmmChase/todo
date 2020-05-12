@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Button } from 'antd';
 import withApollo from '../graphql/withApollo';
+import { Button } from 'antd';
 import Layout from '../components/organisms/Layout/Layout';
 
 const LinkHome = () => (
@@ -52,4 +52,4 @@ Error.getInitialProps = (ctx) => {
 
 Error.propTypes = { statusCode: PropTypes.number };
 
-export default withApollo(React.memo(Error, { ssr: false }));
+export default withApollo({ ssr: false })(React.memo(Error));
