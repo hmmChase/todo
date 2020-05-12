@@ -5,7 +5,7 @@ import {
   CURRENT_USER_PAGINATED_IDEAS,
   DELETE_IDEA,
 } from '../../../graphql/queries';
-import { pageSize } from '../../../config';
+import { ideasPerPage } from '../../../config';
 // import * as sc from './DeleteIcon.style';
 
 const DeleteIcon = (props) => {
@@ -13,7 +13,7 @@ const DeleteIcon = (props) => {
     // Read the data from cache for this query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: pageSize },
+      variables: { orderBy: 'createdAt_DESC', first: ideasPerPage },
     });
 
     // Get id of idea to delete
@@ -28,7 +28,7 @@ const DeleteIcon = (props) => {
     // Write data back to the cache
     cache.writeQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: pageSize },
+      variables: { orderBy: 'createdAt_DESC', first: ideasPerPage },
       data: {
         ...ideasData,
         currentUserPaginatedIdeas: {

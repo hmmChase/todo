@@ -3,7 +3,7 @@ import {
   cleanup,
   prettyDOM,
   fireEvent,
-  act
+  act,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
@@ -27,7 +27,7 @@ const arrage = (newProps = {}, newQueries = []) => {
 
   const ideaInput = () => result.queryByLabelText('idea input');
 
-  const changeIdeaInput = value =>
+  const changeIdeaInput = (value) =>
     fireEvent.change(ideaInput(), { target: { value } });
 
   return { ...result, ideaInput, changeIdeaInput };

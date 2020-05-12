@@ -13,7 +13,7 @@ const validationSchema = yup.object({
     .string()
     .email('Invalid email')
     .max(255, 'Must be 255 characters or less')
-    .required('Required')
+    .required('Required'),
 });
 
 const RequestReset = () => {
@@ -36,10 +36,10 @@ const RequestReset = () => {
       validateOnBlur={true}
       onSubmit={handleSubmitForm}
     >
-      {formikProps => (
+      {(formikProps) => (
         <FormikForm>
           <Field name='email'>
-            {fieldProps => (
+            {(fieldProps) => (
               <Form.Item
                 label='Email'
                 htmlFor='requestResetEmail'

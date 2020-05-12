@@ -2,7 +2,7 @@ import DisplayError from './DisplayError';
 
 export default {
   title: 'Components|Molecules/Display Error',
-  component: DisplayError
+  component: DisplayError,
 };
 
 const data1 = { error: { message: 'this is a message' } };
@@ -13,9 +13,9 @@ const data2 = {
   error: {
     graphQLErrors: [
       { message: 'this is 1 message' },
-      { message: 'this is 2 message' }
-    ]
-  }
+      { message: 'this is 2 message' },
+    ],
+  },
 };
 
 export const graphQLErrors = () => <DisplayError {...data2} />;

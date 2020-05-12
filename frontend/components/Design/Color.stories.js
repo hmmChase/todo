@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import allCombos from '../../.storybook/allCombos';
 import theme from '../../public/styles/theme.style';
 
-const ColorComp = props => (
+const ColorComp = (props) => (
   <div
     style={{
       height: '100px',
       backgroundColor: props.color[1],
-      textAlign: 'right'
+      textAlign: 'right',
     }}
   >
     <span style={{ backgroundColor: '#fff' }}>{props.color[0]}</span>
@@ -15,7 +15,7 @@ const ColorComp = props => (
 );
 
 ColorComp.propTypes = {
-  color: PropTypes.array.isRequired
+  color: PropTypes.array.isRequired,
 };
 
 export default { title: 'Design', component: ColorComp };

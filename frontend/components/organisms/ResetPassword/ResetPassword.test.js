@@ -3,21 +3,21 @@ import {
   cleanup,
   prettyDOM,
   fireEvent,
-  act
+  act,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
 import ResetPassword from './ResetPassword';
 import {
   MOCK_RESET_PASSWORD,
-  MOCK_RESET_RESET_PASSWORD
+  MOCK_RESET_RESET_PASSWORD,
 } from '../../../__tests__/__mocks__/graphql/user';
 import theme from '../../../public/styles/theme.style';
 
 const arrage = (newProps = {}, newQueries = []) => {
   const defaultProps = {
     resetToken: '4e4a8fb6e44ec32642cfa410243652f85885bc72',
-    resetTokenExpiry: (Date.now() + 3600000).toString()
+    resetTokenExpiry: (Date.now() + 3600000).toString(),
   };
   const defaultQueries = [MOCK_RESET_PASSWORD];
   const mockQueries = newQueries.length ? newQueries : defaultQueries;
@@ -45,9 +45,9 @@ const arrage = (newProps = {}, newQueries = []) => {
   const submitBtn = () => result.queryByLabelText('submit button');
   const successMessage = () => result.queryByText(successMessageText);
 
-  const changeInputPassword = value =>
+  const changeInputPassword = (value) =>
     fireEvent.change(inputPassword(), { target: { value } });
-  const changeInputConfirmPassword = value =>
+  const changeInputConfirmPassword = (value) =>
     fireEvent.change(inputConfirmPassword(), { target: { value } });
   const clickSubmitBtn = () => fireEvent.click(submitBtn());
 
@@ -63,7 +63,7 @@ const arrage = (newProps = {}, newQueries = []) => {
     changeInputConfirmPassword,
     submitBtn,
     successMessage,
-    clickSubmitBtn
+    clickSubmitBtn,
   };
 };
 

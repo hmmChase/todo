@@ -4,7 +4,7 @@ import { ExpandIconBtn } from '../../atoms/IconBtn/IconBtn';
 // import { useRouter } from 'next/router';
 // import * as sc from './DetailIcon.style';
 
-const Icon = (props, ref) => {
+const Icon = (props, _ref) => {
   // const router = useRouter();
 
   return (
@@ -25,15 +25,15 @@ const Icon = (props, ref) => {
 
 const IconRef = React.forwardRef(Icon);
 
-const DetailIcon = props => <IconRef {...props} />;
+const DetailIcon = (props) => <IconRef {...props} />;
 
 Icon.propTypes = {
   className: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.string,
 };
 
 DetailIcon.propTypes = {
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
 };
 
 export default React.memo(DetailIcon);

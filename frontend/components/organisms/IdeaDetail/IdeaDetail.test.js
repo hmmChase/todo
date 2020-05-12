@@ -3,14 +3,14 @@ import {
   cleanup,
   prettyDOM,
   fireEvent,
-  act
+  act,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
 import IdeaDetail from './IdeaDetail';
 import {
   MOCK_CURRENT_USER_IDEA,
-  MOCK_ERROR_CURRENT_USER_IDEA
+  MOCK_ERROR_CURRENT_USER_IDEA,
 } from '../../../__tests__/__mocks__/graphql/idea';
 import theme from '../../../public/styles/theme.style';
 

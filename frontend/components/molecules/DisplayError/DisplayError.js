@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import AlertMsg from '../../atoms/AlertMsg/AlertMsg';
 import * as sc from './DisplayError.style';
 
-const DisplayError = props => {
+const DisplayError = (props) => {
   if (props.error.graphQLErrors && props.error.graphQLErrors.length) {
     return (
       <sc.ErrorList data-testid='DisplayError'>
@@ -27,8 +27,8 @@ DisplayError.defaultProps = { error: {} };
 DisplayError.propTypes = {
   error: PropTypes.shape({
     graphQLErrors: PropTypes.array,
-    message: PropTypes.string
-  })
+    message: PropTypes.string,
+  }),
 };
 
 export default React.memo(DisplayError);

@@ -7,10 +7,10 @@ import IdeaInput from '../../molecules/IdeaInput/IdeaInput';
 import { CURRENT_USER_IDEA } from '../../../graphql/queries';
 import * as sc from './IdeaDetail.style';
 
-const IdeaDetail = props => {
+const IdeaDetail = (props) => {
   const { loading, error, data } = useQuery(CURRENT_USER_IDEA, {
     variables: { id: props.ideaId },
-    onError(_error) {}
+    onError(_error) {},
   });
 
   return (
@@ -36,7 +36,7 @@ const IdeaDetail = props => {
 };
 
 IdeaDetail.propTypes = {
-  ideaId: PropTypes.string.isRequired
+  ideaId: PropTypes.string.isRequired,
 };
 
 export default IdeaDetail;

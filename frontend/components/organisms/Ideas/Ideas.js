@@ -2,14 +2,14 @@ import { useQuery } from '@apollo/react-hooks';
 import DisplayLoading from '../../molecules/DisplayLoading/DisplayLoading';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import { CURRENT_USER_PAGINATED_IDEAS } from '../../../graphql/queries';
-import { pageSize } from '../../../config';
+import { ideasPerPage } from '../../../config';
 import * as sc from './Ideas.style';
 
 const Ideas = () => {
   const { error, data, fetchMore, networkStatus } = useQuery(
     CURRENT_USER_PAGINATED_IDEAS,
     {
-      variables: { first: pageSize },
+      variables: { first: ideasPerPage },
       notifyOnNetworkStatusChange: true,
       onError(_error) {},
     }

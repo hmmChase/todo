@@ -5,7 +5,7 @@ export default { title: 'Components|Atoms', component: AlertMsg };
 
 const data = {
   message: 'mock message',
-  type: ['success', 'info', 'warning', 'error']
+  type: ['success', 'info', 'warning', 'error'],
 };
 
 export const alertMsg = () => allCombos(AlertMsg, data);

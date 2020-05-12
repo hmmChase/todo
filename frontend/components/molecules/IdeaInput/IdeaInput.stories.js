@@ -6,11 +6,11 @@ export default { title: 'Components|Molecules', component: IdeaInput };
 
 const data = {
   id: '1',
-  content: 'something'
+  content: 'something',
 };
 
 const actions = {
-  onChange: action('onChange')
+  onChange: action('onChange'),
 };
 
 export const ideaInput = () => allCombos(IdeaInput, data, actions);

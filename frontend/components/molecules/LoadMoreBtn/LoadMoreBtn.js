@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as sc from './LoadMoreBtn.style';
 
-const LoadMoreBtn = props => {
+const LoadMoreBtn = (props) => {
   const handleFetchMore = () => {
     props.fetchMore({
       variables: { after: props.ideas.pageInfo.endCursor },
@@ -16,13 +16,13 @@ const LoadMoreBtn = props => {
                 ...previousResult.currentUserPaginatedIdeas,
                 edges: [
                   ...previousResult.currentUserPaginatedIdeas.edges,
-                  ...moreEdges
+                  ...moreEdges,
                 ],
-                pageInfo: nextPageInfo
-              }
+                pageInfo: nextPageInfo,
+              },
             }
           : previousResult;
-      }
+      },
     });
   };
 
@@ -50,15 +50,15 @@ LoadMoreBtn.propTypes = {
           id: PropTypes.string.isRequired,
           content: PropTypes.string.isRequired,
           author: PropTypes.shape({ id: PropTypes.string.isRequired })
-            .isRequired
-        }).isRequired
+            .isRequired,
+        }).isRequired,
       }).isRequired
     ).isRequired,
     pageInfo: PropTypes.shape({
       endCursor: PropTypes.string.isRequired,
-      hasNextPage: PropTypes.bool.isRequired
-    }).isRequired
-  }).isRequired
+      hasNextPage: PropTypes.bool.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default React.memo(LoadMoreBtn);

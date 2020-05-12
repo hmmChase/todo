@@ -5,7 +5,7 @@ import DetailIcon from './DetailIcon';
 export default { title: 'Components|Molecules', component: DetailIcon };
 
 const data = {
-  id: '1'
+  id: '1',
 };
 
 // const actions = {

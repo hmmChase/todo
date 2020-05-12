@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as sc from './TextArea.style';
 
-const TextArea = props => (
+const TextArea = (props) => (
   <sc.InputTextArea
     className={props.className}
     aria-label={props.ariaLabel}
@@ -25,7 +25,7 @@ TextArea.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   type: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default React.memo(TextArea);

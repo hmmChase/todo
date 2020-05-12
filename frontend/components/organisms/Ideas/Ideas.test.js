@@ -3,7 +3,7 @@ import {
   cleanup,
   prettyDOM,
   fireEvent,
-  act
+  act,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
@@ -11,7 +11,7 @@ import Ideas from './Ideas';
 import {
   MOCK_CURRENT_USER_PAGINATED_IDEAS,
   MOCK_CURRENT_USER_PAGINATED_IDEAS_EMPTY,
-  MOCK_ERROR_CURRENT_USER_PAGINATED_IDEAS
+  MOCK_ERROR_CURRENT_USER_PAGINATED_IDEAS,
 } from '../../../__tests__/__mocks__/graphql/idea';
 import theme from '../../../public/styles/theme.style';
 
@@ -41,7 +41,7 @@ const arrage = (newProps = {}, newQueries = []) => {
     ideas,
     displayError,
     loadMoreBtn,
-    addIdeaMessage
+    addIdeaMessage,
   };
 };
 

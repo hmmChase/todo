@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as sc from './AlertMsg.style';
 
-const AlertMsg = props => (
+const AlertMsg = (props) => (
   <sc.AntAlert
     className={props.className}
     message={props.message}
@@ -14,7 +14,7 @@ const AlertMsg = props => (
 AlertMsg.propTypes = {
   className: PropTypes.string,
   message: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
 };
 
 export default React.memo(AlertMsg);

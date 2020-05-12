@@ -9,11 +9,11 @@ const data1 = {
   name: 'mock name',
   placeholder: [null, 'mock placeholder'],
   type: 'text',
-  value: [null, 'mock value']
+  value: [null, 'mock value'],
 };
 
 const actions = {
-  onChange: action('onChange')
+  onChange: action('onChange'),
 };
 
 export const textArea = () => allCombos(TextArea, data1, actions);
@@ -24,7 +24,7 @@ const data2 = {
   name: 'mock name',
   placeholder: 'mock placeholder',
   type: 'text',
-  value: 'mock value'
+  value: 'mock value',
 };
 
 export const antForm = () => (

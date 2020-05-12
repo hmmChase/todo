@@ -3,14 +3,14 @@ import {
   cleanup,
   prettyDOM,
   fireEvent,
-  act
+  act,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
 import SignInForm from './SignInForm';
 import {
   MOCK_SIGN_IN,
-  MOCK_ERROR_SIGN_IN
+  MOCK_ERROR_SIGN_IN,
 } from '../../../__tests__/__mocks__/graphql/user';
 import theme from '../../../public/styles/theme.style';
 
@@ -34,9 +34,9 @@ const arrage = (newProps = {}, newQueries = []) => {
   const submitBtn = () => result.queryByLabelText('submit button');
   const displayError = () => result.queryByText('Network error: mock error');
 
-  const changeInputEmail = value =>
+  const changeInputEmail = (value) =>
     fireEvent.change(inputEmail(), { target: { value } });
-  const changeInputPassword = value =>
+  const changeInputPassword = (value) =>
     fireEvent.change(inputPassword(), { target: { value } });
   const clickSubmitBtn = () => fireEvent.click(submitBtn());
 
@@ -49,7 +49,7 @@ const arrage = (newProps = {}, newQueries = []) => {
     displayError,
     changeInputEmail,
     changeInputPassword,
-    clickSubmitBtn
+    clickSubmitBtn,
   };
 };
 

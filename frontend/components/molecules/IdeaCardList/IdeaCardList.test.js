@@ -8,7 +8,7 @@ jest.mock('../IdeaCard/IdeaCard', () => () => <div>IdeaCard</div>);
 const arrage = (newProps = {}) => {
   const ideas = [
     { node: { id: '1', content: 'a', author: { id: '1' } } },
-    { node: { id: '2', content: 'b', author: { id: '2' } } }
+    { node: { id: '2', content: 'b', author: { id: '2' } } },
   ];
   const defaultProps = { loading: false, ideas };
   const mockProps = { ...defaultProps, ...newProps };

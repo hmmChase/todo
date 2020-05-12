@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
-import Head from '../Head/Head';
-import SignOn from '../SignOn/SignOn';
+import Head from '../atoms/';
+import SignOn from '../organisms/SignOn/SignOn';
 import { IS_LOGGED_IN } from '../../graphql/queries';
 
 const Page = (props) => {

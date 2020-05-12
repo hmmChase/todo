@@ -8,7 +8,7 @@ const children = <div>Children</div>;
 const footer = <div>Footer</div>;
 
 const actions = {
-  onCancel: action('click')
+  onCancel: action('click'),
 };
 
 const data1 = {
@@ -16,7 +16,7 @@ const data1 = {
   footer: null,
   title: '',
   visible: true,
-  width: '20rem'
+  width: '20rem',
 };
 
 export const base = () => allCombos(PopupModal, data1, actions);
@@ -26,7 +26,7 @@ const data2 = {
   footer: footer,
   title: 'title',
   visible: true,
-  width: '20rem'
+  width: '20rem',
 };
 
 export const full = () => allCombos(PopupModal, data2, actions);
@@ -36,7 +36,7 @@ const data3 = {
   // footer: footer,
   title: 'title',
   visible: true,
-  width: '20rem'
+  width: '20rem',
 };
 
 export const defaultFooter = () => allCombos(PopupModal, data3, actions);
@@ -45,7 +45,7 @@ const data4 = {
   children: children,
   // footer: footer,
   title: 'title',
-  visible: true
+  visible: true,
   // width: '30rem'
 };
 
@@ -55,7 +55,7 @@ const data5 = {
   children: children,
   // footer: footer,
   title: 'title',
-  visible: false
+  visible: false,
   // width: '30rem'
 };
 

@@ -5,7 +5,7 @@ import DeleteIcon from './DeleteIcon';
 export default { title: 'Components|Molecules', component: DeleteIcon };
 
 const data = {
-  id: '1'
+  id: '1',
 };
 
 // const actions = {

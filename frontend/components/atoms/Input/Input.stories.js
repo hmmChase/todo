@@ -7,7 +7,7 @@ export default { title: 'Components|Atoms', component: Input };
 const data = { value: 'some text' };
 
 const actions = {
-  onPressEnter: action('onPressEnter')
+  onPressEnter: action('onPressEnter'),
 };
 
 export const input = () => allCombos(Input, data, actions);

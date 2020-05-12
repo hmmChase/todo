@@ -11,11 +11,11 @@ const data = {
   disabled: [false, true],
   htmlType: 'submit',
   loading: [false, true],
-  type: [null, 'primary']
+  type: [null, 'primary'],
 };
 
 const actions = {
-  onClick: action('onClick')
+  onClick: action('onClick'),
 };
 
 export const button = () => allCombos(Button, data, actions);

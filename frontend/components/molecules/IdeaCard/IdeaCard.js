@@ -3,7 +3,7 @@ import DeleteIcon from '../DeleteIcon/DeleteIcon';
 import IdeaInput from '../IdeaInput/IdeaInput';
 import * as sc from './IdeaCard.style';
 
-const IdeaCard = props => (
+const IdeaCard = (props) => (
   <div className={props.className} data-testid='IdeaCard'>
     <sc.IdeaCardBtns>
       <sc.DetailIconn id={props.id} />
@@ -17,7 +17,7 @@ const IdeaCard = props => (
 IdeaCard.propTypes = {
   className: PropTypes.string,
   content: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
 };
 
 export default React.memo(IdeaCard);

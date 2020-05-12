@@ -5,11 +5,11 @@ import TextArea from '../../atoms/TextArea/TextArea';
 import { UPDATE_IDEA } from '../../../graphql/queries';
 // import * as sc from './IdeaInput.style';
 
-const IdeaInput = props => {
+const IdeaInput = (props) => {
   const [updateIdea] = useMutation(UPDATE_IDEA, { onError(_error) {} });
 
   const handleChangeideaInput = debounce(
-    e => updateIdea({ variables: { id: props.id, content: e.target.value } }),
+    (e) => updateIdea({ variables: { id: props.id, content: e.target.value } }),
     200
   );
 
@@ -19,7 +19,7 @@ const IdeaInput = props => {
       autoSize={{ minRows: 1, maxRows: 10 }}
       // defaultValue={props.content}
       value={props.content}
-      onChange={e => {
+      onChange={(e) => {
         e.persist();
         handleChangeideaInput(e);
       }}
@@ -29,7 +29,7 @@ const IdeaInput = props => {
 
 IdeaInput.propTypes = {
   id: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
+  content: PropTypes.string.isRequired,
 };
 
 export default IdeaInput;

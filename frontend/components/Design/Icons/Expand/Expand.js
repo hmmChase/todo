@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 import * as sc from '../Icons.style';
 
-const Expand = props => (
+const Expand = (props) => (
   <sc.Svg
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 357.18 357.18'

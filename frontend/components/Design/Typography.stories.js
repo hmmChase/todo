@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import allCombos from '../../.storybook/allCombos';
 
-const TypeComp = props => (
+const TypeComp = (props) => (
   <>
     <p style={{ fontFamily: 'Arial', fontSize: '1rem', margin: 0 }}>
       {props.fonts}:
@@ -16,13 +16,13 @@ const TypeComp = props => (
 );
 
 TypeComp.propTypes = {
-  fonts: PropTypes.string.isRequired
+  fonts: PropTypes.string.isRequired,
 };
 
 export default { title: 'Design', component: TypeComp };
 
 const data = {
-  fonts: ['initial', 'inherit', 'Open Sans', 'Play', 'Arial', 'sans-serif']
+  fonts: ['initial', 'inherit', 'Open Sans', 'Play', 'Arial', 'sans-serif'],
 };
 
 export const typography = () => allCombos(TypeComp, data);

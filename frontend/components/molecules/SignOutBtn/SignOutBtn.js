@@ -28,7 +28,7 @@ const SignOutBtn = () => {
     onCompleted() {
       handleCompleted();
     },
-    onError(_error) {}
+    onError(_error) {},
   });
 
   const handleClickBtn = () => signOut();

@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import IdeaCardForm from './IdeaCardForm';
 import {
   MOCK_CURRENT_USER_PAGINATED_IDEAS,
-  MOCK_CREATE_IDEA
+  MOCK_CREATE_IDEA,
 } from '../../../__tests__/__mocks__/graphql/idea';
 import theme from '../../../public/styles/theme.style';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as sc from './InputPass.style';
 
-const InputPass = props => (
+const InputPass = (props) => (
   <sc.Inputt
     id={props.id}
     name={props.name}
@@ -21,7 +21,7 @@ InputPass.propTypes = {
   onChange: PropTypes.func,
   onPressEnter: PropTypes.func,
   type: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default React.memo(InputPass);

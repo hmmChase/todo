@@ -7,7 +7,7 @@ export default { title: 'Components|Atoms', component: FormInputPass };
 const data = { value: 'somepass' };
 
 const actions = {
-  onPressEnter: action('onPressEnter')
+  onPressEnter: action('onPressEnter'),
 };
 
 export const formInputPass = () => allCombos(FormInputPass, data, actions);

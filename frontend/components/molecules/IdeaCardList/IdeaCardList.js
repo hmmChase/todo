@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import { List } from 'antd';
 import * as sc from './IdeaCardList.style';
 
-const IdeaCardList = props => (
+const IdeaCardList = (props) => (
   <List
     className={props.className}
     loading={props.loading}
     dataSource={props.ideas}
-    rowKey={idea => `ideaCard${idea.node.id}`}
-    renderItem={idea => <sc.IdeaCardd {...idea.node} />}
+    rowKey={(idea) => `ideaCard${idea.node.id}`}
+    renderItem={(idea) => <sc.IdeaCardd {...idea.node} />}
   />
 );
 
@@ -20,10 +20,10 @@ IdeaCardList.propTypes = {
       node: PropTypes.shape({
         id: PropTypes.string.isRequired,
         content: PropTypes.string.isRequired,
-        author: PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired
-      }).isRequired
+        author: PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired,
+      }).isRequired,
     }).isRequired
-  ).isRequired
+  ).isRequired,
 };
 
 export default React.memo(IdeaCardList);

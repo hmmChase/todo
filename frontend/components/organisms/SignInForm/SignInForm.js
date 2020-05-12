@@ -21,11 +21,11 @@ const validationSchema = yup.object({
     .string()
     .min(8, 'Must be at least 8 characters')
     .max(255, 'Must be 255 characters or less')
-    .required('Required')
+    .required('Required'),
 });
 
 const SignInForm = () => {
-  const handleCompleted = data => {
+  const handleCompleted = (data) => {
     if (data && data.signIn && data.signIn.accessToken) {
       setAccessToken(data.signIn.accessToken);
 
@@ -40,7 +40,7 @@ const SignInForm = () => {
     onCompleted(data) {
       handleCompleted(data);
     },
-    onError(_error) {}
+    onError(_error) {},
   });
 
   const handleSubmitForm = (values, formikHelpers) => {
@@ -57,7 +57,7 @@ const SignInForm = () => {
       validateOnBlur={true}
       onSubmit={handleSubmitForm}
     >
-      {formikProps => (
+      {(formikProps) => (
         <FormikForm>
           <h2 data-testid='SignInFormTitle'>Sign In</h2>
 

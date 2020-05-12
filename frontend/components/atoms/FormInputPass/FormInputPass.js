@@ -5,9 +5,9 @@ import { Form } from 'antd';
 import InputPass from '../InputPass/InputPass';
 // import * as sc from './FormInputPass.style';
 
-const FormInputPass = props => (
+const FormInputPass = (props) => (
   <Field name={props.name}>
-    {fieldProps => (
+    {(fieldProps) => (
       <Form.Item
         label={props.label}
         htmlFor={props.id}
@@ -34,7 +34,7 @@ FormInputPass.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 export default React.memo(FormInputPass);

@@ -5,7 +5,7 @@ import Left from '../../design/Icons/Left/Left';
 import X from '../../design/Icons/X/X';
 import * as sc from './IconBtn.style';
 
-export const ExpandIconBtn = props => (
+export const ExpandIconBtn = (props) => (
   <sc.Button
     aria-label={props.ariaLabel}
     className={props.className}
@@ -15,7 +15,7 @@ export const ExpandIconBtn = props => (
   </sc.Button>
 );
 
-export const LeftIconBtn = props => (
+export const LeftIconBtn = (props) => (
   <sc.Button
     aria-label={props.ariaLabel}
     className={props.className}
@@ -25,7 +25,7 @@ export const LeftIconBtn = props => (
   </sc.Button>
 );
 
-export const XIconBtn = props => (
+export const XIconBtn = (props) => (
   <sc.Button
     aria-label={props.ariaLabel}
     className={props.className}
@@ -39,19 +39,19 @@ ExpandIconBtn.propTypes = {
   ariaLabel: PropTypes.string,
   children: PropTypes.element,
   className: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 LeftIconBtn.propTypes = {
   ariaLabel: PropTypes.string,
   children: PropTypes.element,
   className: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 XIconBtn.propTypes = {
   ariaLabel: PropTypes.string,
   children: PropTypes.element,
   className: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };

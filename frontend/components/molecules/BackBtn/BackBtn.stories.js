@@ -7,7 +7,7 @@ export default { title: 'Components|Molecules', component: BackBtn };
 const data = {};
 
 const actions = {
-  onClick: action('onClick')
+  onClick: action('onClick'),
 };
 
 export const backBtn = () => allCombos(BackBtn, data, actions);

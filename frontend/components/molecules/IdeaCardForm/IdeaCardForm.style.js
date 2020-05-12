@@ -21,7 +21,7 @@ export const IdeaInput = styled(TextArea)`
   /* border: none; */
   /* border-top-right-radius: 0; */
   /* border-bottom-right-radius: 0; */
-  /* border-right: 1px solid ${props => props.theme.color.black}; */
+  /* border-right: 1px solid ${(props) => props.theme.color.black}; */
 
   &:focus {
   border-color: #d9d9d9;

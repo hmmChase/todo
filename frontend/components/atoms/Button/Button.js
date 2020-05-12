@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as sc from './Button.style';
 
-const Button = props => (
+const Button = (props) => (
   <sc.AntButton
     className={props.className}
     aria-busy={props.ariaBusy}
@@ -26,7 +26,7 @@ Button.propTypes = {
   htmlType: PropTypes.string,
   loading: PropTypes.bool,
   onClick: PropTypes.func,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 export default React.memo(Button);

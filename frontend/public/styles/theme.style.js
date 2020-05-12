@@ -6,8 +6,8 @@ export default {
     black: 'black',
     lightBlue: '#C8DCF0',
     green: 'limegreen',
-    darkRed: '#8A0000'
-  }
+    darkRed: '#8A0000',
+  },
 };
 
 // // Global style variables

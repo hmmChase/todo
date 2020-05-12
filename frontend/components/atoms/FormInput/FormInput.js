@@ -5,9 +5,9 @@ import { Form } from 'antd';
 import Input from '../Input/Input';
 // import * as sc from './FormInput.style';
 
-const FormInput = props => (
+const FormInput = (props) => (
   <Field name={props.name}>
-    {fieldProps => (
+    {(fieldProps) => (
       <Form.Item
         label={props.label}
         htmlFor={props.id}
@@ -35,7 +35,7 @@ FormInput.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 export default React.memo(FormInput);

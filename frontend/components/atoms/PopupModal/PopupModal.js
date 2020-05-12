@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as sc from './PopupModal.style';
 
-const PopupModal = props => (
+const PopupModal = (props) => (
   <sc.AntModal
     className={props.className}
     title={props.title}
@@ -22,7 +22,7 @@ PopupModal.propTypes = {
   onCancel: PropTypes.func.isRequired,
   title: PropTypes.string,
   visible: PropTypes.bool,
-  width: PropTypes.string
+  width: PropTypes.string,
 };
 
 export default React.memo(PopupModal);
