@@ -225,7 +225,7 @@ const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
         pageProps = await PageComponent.getInitialProps(ctx);
       else if (inAppContext) pageProps = await App.getInitialProps(ctx);
 
-      // Only on the server:
+      // Only on the server
       if (typeof window === 'undefined') {
         // When redirecting, the response is finished.
         // No point in continuing to render

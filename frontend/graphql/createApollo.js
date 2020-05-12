@@ -14,7 +14,7 @@ import { onError } from 'apollo-link-error';
 // import { onError } from '@apollo/link-error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwt from 'jsonwebtoken';
-import { getAccessToken, _setAccessToken } from '../utils/accessToken';
+import { getAccessToken } from '../utils/accessToken';
 import {
   graphqlUrlDev,
   graphqlUrlProd,
@@ -104,7 +104,12 @@ const createApollo = (
       // setAccessToken(newAccessToken);
     },
 
-    handleError: (error) => console.log('refreshLink handleError: ', error),
+    handleError: (error) => {
+      console.log('refreshLink handleError: ', error);
+
+      // your custom action here
+      // user.logout();
+    },
   });
 
   // Add Access token auth header

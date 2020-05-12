@@ -1,3 +1,5 @@
+// https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
+
 // require('dotenv').config();
 // import 'dotenv/config';
 
@@ -5,6 +7,7 @@ const Dotenv = require('dotenv-webpack');
 const path = require('path');
 
 const nextConfig = {
+  // Now by ZEIT deployment target
   target: 'serverless',
 
   webpack: (config, _options) => {

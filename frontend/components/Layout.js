@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import NextHead from 'next/head';
+import Head from 'next/head';
 import { title } from '../config';
 
 const Layout = (props) => (
   <>
-    <NextHead>
+    <Head>
       <title>{props.title ? `${title} | ${props.title}` : `${title}`}</title>
-    </NextHead>
+    </Head>
 
     <div>{props.header}</div>
 

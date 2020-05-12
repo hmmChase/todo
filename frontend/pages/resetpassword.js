@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import withApollo from '../graphql/withApollo';
 import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
+import Layout from '../components/Layout';
 import ResetPassError from '../components/ResetPassError';
 import ResetPassword from '../components/ResetPassword';
 
@@ -11,13 +12,23 @@ const ResetPasswordPage = (props) => {
 
   if (!isTokenPresent || isTokenExpired)
     return (
-      <ResetPassError
-        isTokenPresent={isTokenPresent}
-        isTokenExpired={isTokenExpired}
+      <Layout
+        title='Reset Password'
+        content={
+          <ResetPassError
+            isTokenPresent={isTokenPresent}
+            isTokenExpired={isTokenExpired}
+          />
+        }
       />
     );
 
-  return <ResetPassword resetToken={props.resetToken} />;
+  return (
+    <Layout
+      title='Reset Password'
+      content={<ResetPassword resetToken={props.resetToken} />}
+    />
+  );
 };
 
 ResetPasswordPage.getInitialProps = async (ctx) => {
