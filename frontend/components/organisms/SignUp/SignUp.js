@@ -65,7 +65,7 @@ const SignUp = (props) => {
       onSubmit={handleSubmitForm}
     >
       {(formikProps) => (
-        <FormikForm className={props.className}>
+        <FormikForm>
           <h2>Create a new Account</h2>
 
           <Field name='email'>

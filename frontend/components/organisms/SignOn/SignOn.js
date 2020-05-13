@@ -1,4 +1,7 @@
 import { title } from '../../../config';
+import SignIn from '../SignIn/SignIn';
+import ForgotPassDialog from '../../molecules/ForgotPassDialog/ForgotPassDialog';
+import SignUp from '../SignUp/SignUp';
 import * as sc from './SignOn.style';
 
 const SignOn = () => (
@@ -10,11 +13,17 @@ const SignOn = () => (
     </sc.Header>
 
     <sc.Content>
-      <sc.SignInn />
+      <sc.ContentHalf>
+        <SignIn />
+
+        <ForgotPassDialog />
+      </sc.ContentHalf>
 
       <sc.HR />
 
-      <sc.SignUpp />
+      <sc.ContentHalf>
+        <SignUp />
+      </sc.ContentHalf>
     </sc.Content>
   </sc.SignOn>
 );

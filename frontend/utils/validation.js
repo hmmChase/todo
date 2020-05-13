@@ -1,5 +1,8 @@
+/* eslint-disable no-useless-escape */
+
 import isEmail from 'isemail';
 import Filter from 'bad-words';
+import * as yup from 'yup';
 import {
   usernameMinLength,
   usernameMaxLength,
@@ -8,6 +11,21 @@ import {
 } from '../config';
 
 /* Username */
+
+export const username = {
+  username: yup
+    .string('Invalid username')
+    .min(
+      usernameMinLength,
+      `Username must have at least ${usernameMinLength} characters`
+    )
+    .max(
+      usernameMaxLength,
+      `Username must have no more than ${usernameMaxLength} characters`
+    )
+    .required('Required')
+    .label('username'),
+};
 
 export const validateUsername = (username) => {
   /*
@@ -59,6 +77,15 @@ export const validateUsername = (username) => {
 
 /* Email */
 
+export const email = {
+  email: yup
+    .string('Invalid email')
+    .email('Invalid email')
+    .max(255, 'Must be 255 characters or less')
+    .required('Required')
+    .label('email'),
+};
+
 export const validateEmail = (email) => {
   const notString = typeof email !== 'string';
 
@@ -70,6 +97,21 @@ export const validateEmail = (email) => {
 };
 
 /* Password */
+
+export const password = {
+  password: yup
+    .string('Invalid password')
+    .min(
+      passwordMinLength,
+      `Password must have at least ${passwordMinLength} characters`
+    )
+    .max(
+      passwordMaxLength,
+      `Password must have no more than ${passwordMaxLength} characters`
+    )
+    .required('Required')
+    .label('password'),
+};
 
 //! not currently used
 export const validatePassword = (password) => {
@@ -100,4 +142,22 @@ export const validatePassword = (password) => {
 
   const hasNumber = password.match(/[0-9]/g);
   if (!hasNumber) return 'Password must contain a number';
+};
+
+/* Confirm Password */
+
+export const confirmPassword = {
+  password: yup
+    .string('Invalid password')
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    // .min(
+    //   passwordMinLength,
+    //   `Password must have at least ${passwordMinLength} characters`
+    // )
+    // .max(
+    //   passwordMaxLength,
+    //   `Password must have no more than ${passwordMaxLength} characters`
+    // )
+    .required('Required')
+    .label('confirmPassword'),
 };

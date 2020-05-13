@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import SignIn from '../SignIn/SignIn';
-import SignUp from '../SignUp/SignUp';
 
 export const SignOn = styled.div`
   display: flex;
@@ -34,17 +32,7 @@ export const Content = styled.div`
   }
 `;
 
-export const SignInn = styled(SignIn)`
-  /* width: 100%; */
-
-  @media screen and (min-width: 800px) {
-    width: 40%;
-  }
-`;
-
-export const SignUpp = styled(SignUp)`
-  /* width: 100%; */
-
+export const ContentHalf = styled.div`
   @media screen and (min-width: 800px) {
     width: 40%;
   }

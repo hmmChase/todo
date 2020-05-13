@@ -18,7 +18,8 @@ export const Header = styled.header`
 `;
 
 export const Main = styled.main`
-  padding: 10px;
+  /* padding: 10px; */
+
   /* @media screen and (min-width: 900px) {} */
 `;
 
