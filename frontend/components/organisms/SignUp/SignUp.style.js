@@ -1,13 +1,5 @@
 import styled from 'styled-components';
-import { Form, List } from 'antd';
-
-export const PassListContainer = styled.div`
-  display: inline-block;
-`;
-
-export const PassListItem = styled(List.Item)`
-  padding: 0;
-`;
+import { Form } from 'antd';
 
 export const FormItemBtn = styled(Form.Item)`
   float: right;
