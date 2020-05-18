@@ -23,8 +23,8 @@ export const username = {
       usernameMaxLength,
       `Username must have no more than ${usernameMaxLength} characters`
     )
-    .required('Required')
-    .label('username'),
+    .required('Required'),
+  // .label('username'),
 };
 
 export const validateUsername = (username) => {
@@ -82,8 +82,8 @@ export const email = {
     .string('Invalid email')
     .email('Invalid email')
     .max(255, 'Must be 255 characters or less')
-    .required('Required')
-    .label('email'),
+    .required('Required'),
+  // .label('email'),
 };
 
 export const validateEmail = (email) => {
@@ -109,8 +109,8 @@ export const password = {
       passwordMaxLength,
       `Password must have no more than ${passwordMaxLength} characters`
     )
-    .required('Required')
-    .label('password'),
+    .required('Required'),
+  // .label('password'),
 };
 
 //! not currently used
@@ -158,6 +158,6 @@ export const confirmPassword = {
     //   passwordMaxLength,
     //   `Password must have no more than ${passwordMaxLength} characters`
     // )
-    .required('Required')
-    .label('confirmPassword'),
+    .required('Required'),
+  // .label('confirmPassword'),
 };

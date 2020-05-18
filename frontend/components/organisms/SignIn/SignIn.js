@@ -68,6 +68,8 @@ const SignIn = () => {
 
           <FormInputPass label='Password' id='signInPassword' name='password' />
 
+          {error && <DisplayError error={error} />}
+
           <sc.FormItemBtn>
             <Button
               aria-label='sign in'
@@ -87,8 +89,6 @@ const SignIn = () => {
               Sign In
             </Button>
           </sc.FormItemBtn>
-
-          {error && <DisplayError error={error} />}
         </FormikForm>
       )}
     </Formik>

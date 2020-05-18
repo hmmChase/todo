@@ -1,38 +1,42 @@
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
-import { Form as FormikForm, Formik, Field } from 'formik';
-import { Form, Input, List, Typography } from 'antd';
-import * as yup from 'yup';
-import DisplayError from '../../molecules/DisplayError/DisplayError';
+import { Form as FormikForm, Formik } from 'formik';
+import { object } from 'yup';
 import { SIGN_UP } from '../../../graphql/queries';
 import { setAccessToken } from '../../../utils/accessToken';
-import { passwordRequirements } from '../../../config';
+import {
+  username,
+  email,
+  password,
+  confirmPassword,
+} from '../../../utils/validation';
+import FormInput from '../../atoms/FormInput/FormInput';
+import FormInputPass from '../../atoms/FormInputPass/FormInputPass';
+import PassReqList from '../../molecules/PassReqList/PassReqList';
 import Button from '../../atoms/Button/Button';
+import DisplayError from '../../molecules/DisplayError/DisplayError';
 import * as sc from './SignUp.style';
 
-const validationSchema = yup.object({
-  email: yup
-    .string()
-    .email('Invalid email')
-    .max(255, 'Must be 255 characters or less')
-    .required('Required'),
+const validationSchema = object().shape(
+  username,
+  email,
+  password,
+  confirmPassword
+);
 
-  password: yup
-    .string()
-    .min(8, 'Must be at least 8 characters')
-    .max(255, 'Must be 255 characters or less')
-    .required('Required'),
+const SignUp = () => {
+  const update = (cache, data) => {
+    const isLoggedIn = !!data.data.signIn.accessToken;
 
-  confirmPassword: yup
-    .string()
-    .min(8, 'Must be at least 8 characters')
-    .max(255, 'Must be 255 characters or less')
-    .required('Required'),
-});
+    cache.writeQuery({
+      id: 'isLoggedIn',
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn },
+    });
+  };
 
-const SignUp = (props) => {
-  const handleCompleted = (data) => {
+  const onCompleted = (data) => {
     if (data && data.signUp && data.signUp.accessToken) {
       setAccessToken(data.signUp.accessToken);
 
@@ -41,16 +45,20 @@ const SignUp = (props) => {
   };
 
   const [signUp, { loading, error }] = useMutation(SIGN_UP, {
-    update(cache) {
-      cache.writeData({ data: { isLoggedIn: true } });
+    // fetchPolicy: 'network-only',
+
+    update(cache, data) {
+      update(cache, data);
     },
+
     onCompleted(data) {
-      handleCompleted(data);
+      onCompleted(data);
     },
+
     onError(_error) {},
   });
 
-  const handleSubmitForm = async (values, formikHelpers) => {
+  const onSubmit = async (values, formikHelpers) => {
     signUp({ variables: values });
 
     formikHelpers.resetForm();
@@ -58,112 +66,54 @@ const SignUp = (props) => {
 
   return (
     <Formik
-      initialValues={{ email: '', password: '', confirmPassword: '' }}
+      initialValues={{
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      }}
       validationSchema={validationSchema}
       validateOnChange={false}
       validateOnBlur={true}
-      onSubmit={handleSubmitForm}
+      onSubmit={onSubmit}
     >
       {(formikProps) => (
         <FormikForm>
           <h2>Create a new Account</h2>
 
-          <Field name='email'>
-            {(fieldProps) => (
-              <Form.Item
-                label='Email'
-                htmlFor='signUpEmail'
-                help={fieldProps.meta.touched && fieldProps.meta.error}
-                validateStatus={
-                  fieldProps.meta.touched && fieldProps.meta.error
-                    ? 'error'
-                    : ''
-                }
-              >
-                <Input
-                  id='signUpEmail'
-                  type='email'
-                  onPressEnter={fieldProps.handleSubmit}
-                  {...fieldProps.field}
-                />
-              </Form.Item>
-            )}
-          </Field>
+          <FormInput label='Username' id='signUpUsername' name='username' />
 
-          <Field name='password'>
-            {(fieldProps) => (
-              <Form.Item
-                label='Password'
-                htmlFor='signUpPassword'
-                help={fieldProps.meta.touched && fieldProps.meta.error}
-                validateStatus={
-                  fieldProps.meta.touched && fieldProps.meta.error
-                    ? 'error'
-                    : ''
-                }
-              >
-                <Input.Password
-                  id='signUpPassword'
-                  onPressEnter={fieldProps.handleSubmit}
-                  {...fieldProps.field}
-                />
-              </Form.Item>
-            )}
-          </Field>
+          <FormInput label='Email' id='signUpEmail' name='email' />
 
-          <Field name='confirmPassword'>
-            {(fieldProps) => (
-              <Form.Item
-                label='Confirm Password'
-                htmlFor='signUpConfirmPassword'
-                help={fieldProps.meta.touched && fieldProps.meta.error}
-                validateStatus={
-                  fieldProps.meta.touched && fieldProps.meta.error
-                    ? 'error'
-                    : ''
-                }
-              >
-                <Input.Password
-                  id='signUpConfirmPassword'
-                  onPressEnter={fieldProps.handleSubmit}
-                  {...fieldProps.field}
-                />
-              </Form.Item>
-            )}
-          </Field>
+          <FormInputPass label='Password' id='sigUpPassword' name='password' />
+
+          <FormInputPass
+            label='Confirm Password'
+            id='sigUpConfirmPassword'
+            name='confirmPassword'
+          />
 
           {error && <DisplayError error={error} />}
 
-          <sc.PassListContainer data-testid='passList'>
-            <Typography.Text strong>
-              {passwordRequirements.title}
-            </Typography.Text>
-
-            <List
-              split={false}
-              dataSource={passwordRequirements.reqs}
-              renderItem={(item) => (
-                <sc.PassListItem>
-                  <Typography.Text>{item}</Typography.Text>
-                </sc.PassListItem>
-              )}
-            />
-          </sc.PassListContainer>
+          <PassReqList />
 
           <sc.FormItemBtn>
             <Button
-              aria-label='submit button'
-              loading={loading}
+              aria-label='sign up'
               type='primary'
               htmlType='submit'
+              loading={loading}
               disabled={
-                !formikProps.values.email ||
-                !formikProps.values.password ||
-                !formikProps.values.confirmPassword ||
-                formikProps.errors.email ||
-                formikProps.errors.password ||
-                formikProps.errors.confirmPassword ||
-                formikProps.isSubmitting
+                !!(
+                  !formikProps.values.email ||
+                  !formikProps.values.username ||
+                  !formikProps.values.password ||
+                  !formikProps.values.confirmPassword ||
+                  formikProps.errors.email ||
+                  formikProps.errors.password ||
+                  formikProps.errors.confirmPassword ||
+                  formikProps.isSubmitting
+                )
               }
             >
               Sign Up
