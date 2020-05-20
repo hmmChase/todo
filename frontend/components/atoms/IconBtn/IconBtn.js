@@ -37,21 +37,18 @@ export const XIconBtn = (props) => (
 
 ExpandIconBtn.propTypes = {
   ariaLabel: PropTypes.string,
-  children: PropTypes.element,
   className: PropTypes.string,
   onClick: PropTypes.func,
 };
 
 LeftIconBtn.propTypes = {
   ariaLabel: PropTypes.string,
-  children: PropTypes.element,
   className: PropTypes.string,
   onClick: PropTypes.func,
 };
 
 XIconBtn.propTypes = {
   ariaLabel: PropTypes.string,
-  children: PropTypes.element,
   className: PropTypes.string,
   onClick: PropTypes.func,
 };

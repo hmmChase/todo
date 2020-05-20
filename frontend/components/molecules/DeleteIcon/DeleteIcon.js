@@ -9,7 +9,7 @@ import { ideasPerPage } from '../../../config';
 // import * as sc from './DeleteIcon.style';
 
 const DeleteIcon = (props) => {
-  const handleUpdate = (cache, data) => {
+  const update = (cache, data) => {
     // Read the data from cache for this query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
@@ -17,7 +17,7 @@ const DeleteIcon = (props) => {
     });
 
     // Get id of idea to delete
-    const ideaId = data.deleteIdea.id;
+    const ideaId = data.data.deleteIdea.id;
 
     // Copy the ideas
     const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges];
@@ -40,20 +40,21 @@ const DeleteIcon = (props) => {
   };
 
   const [deleteIdea] = useMutation(DELETE_IDEA, {
-    update(cache, { data }) {
-      handleUpdate(cache, data);
+    update(cache, data) {
+      update(cache, data);
     },
+
     onError(_error) {},
   });
 
-  const handleClickDeleteBtn = (e) => {
+  const onClick = (e) => {
     // ? not working
     e.target.disabled = true;
 
     deleteIdea({ variables: { id: props.id } });
   };
 
-  return <XIconBtn aria-label='delete icon' onClick={handleClickDeleteBtn} />;
+  return <XIconBtn aria-label='delete idea' onClick={onClick} />;
 };
 
 DeleteIcon.propTypes = {

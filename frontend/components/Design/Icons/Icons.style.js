@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Svg = styled.svg`
-  display: block;
+export const EssVeeGee = styled.svg`
+  /* display: block; */
   /* vertical-align: top; */
 `;
