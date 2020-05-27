@@ -61,7 +61,7 @@ const nextConfig = {
   webpack: (config, options) => {
     config.plugins = config.plugins || [];
 
-    // Without this debug breakpoints in handlers don't work,
+    // Without this, debugging breakpoints in handlers don't work,
     // only in render() or return() in functional components.
     // https://webpack.js.org/configuration/devtool/
     config.devtool =
