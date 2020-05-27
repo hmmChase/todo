@@ -72,7 +72,7 @@ const SignIn = () => {
 
           <sc.FormItemBtn>
             <Button
-              aria-label='sign in'
+              ariaLabel='sign in'
               type='primary'
               htmlType='submit'
               loading={loading}

@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
+import { ideasPerPage } from '../../../config';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
   CREATE_IDEA,
 } from '../../../graphql/queries';
-import { ideasPerPage } from '../../../config';
 import * as sc from './IdeaCardForm.style';
 
 const IdeaCardForm = () => {
   const [idea, setIdea] = useState('');
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
-  const handleUpdate = (cache, data) => {
+  const update = (cache, data) => {
     // Read the data from cache for query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
@@ -22,7 +22,10 @@ const IdeaCardForm = () => {
     const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges];
 
     // Add idea from the mutation to the beginning
-    newIdeas.unshift({ node: { ...data.createIdea }, __typename: 'IdeaEdge' });
+    newIdeas.unshift({
+      node: { ...data.data.createIdea },
+      __typename: 'IdeaEdge',
+    });
 
     // Write data back to the cache
     cache.writeQuery({
@@ -39,8 +42,8 @@ const IdeaCardForm = () => {
   };
 
   const [createIdea] = useMutation(CREATE_IDEA, {
-    update(cache, { data }) {
-      handleUpdate(cache, data);
+    update(cache, data) {
+      update(cache, data);
     },
 
     onError(_error) {},
@@ -51,26 +54,33 @@ const IdeaCardForm = () => {
     else setIsSubmitDisabled(false);
   };
 
-  const handleChangeIdeaInput = (e) => {
+  const onChange = (e) => {
     setIdea(e.target.value);
+
     canSubmit(e.target.value);
   };
 
-  const handleSubmitIdeaForm = () => {
+  const onFinish = () => {
+    // e.preventDefault();
+
     setIsSubmitDisabled(true);
+
     createIdea({ variables: { content: idea } });
+
     setIdea('');
+
+    // canSubmit(e.target.value);
   };
 
   return (
-    <sc.IdeaCardForm onFinish={handleSubmitIdeaForm}>
+    <sc.IdeaCardForm onFinish={onFinish}>
       <sc.IdeaInput
-        aria-label='idea input'
+        aria-label='input idea'
         name='idea'
         type='text'
         placeholder="What's on your mind?"
         value={idea}
-        onChange={handleChangeIdeaInput}
+        onChange={onChange}
       />
 
       <sc.BoxImg src='images/ideabox.png' alt='ideabox' />

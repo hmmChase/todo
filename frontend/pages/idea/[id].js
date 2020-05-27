@@ -9,8 +9,8 @@ import Footer from '../../components/molecules/Footer/Footer';
 
 const IdeaPage = (props) => (
   <Layout
-    title='Idea Detail'
-    header={<Header ideaId={props.id} />}
+    title={`Idea ${props.id}`}
+    header={<Header title={props.id} />}
     content={<IdeaDetail ideaId={props.id} />}
     footer={<Footer />}
   />

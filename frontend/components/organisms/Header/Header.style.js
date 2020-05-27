@@ -19,6 +19,10 @@ export const TitleHeader = styled(HeaderTitle)`
   padding-left: ${(props) => props.children === title && '70px'};
 `;
 
+export const Welcome = styled.span`
+  margin-right: 1rem;
+`;
+
 export const Bottom = styled.div`
   grid-area: bottom;
   padding-bottom: ${(props) => !props.children && '10px'};

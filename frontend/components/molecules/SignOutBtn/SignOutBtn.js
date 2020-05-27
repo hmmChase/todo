@@ -1,61 +1,60 @@
 import Router from 'next/router';
-// import Link from 'next/link';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
-import { SIGN_OUT } from '../../../graphql/queries';
+import { _useApolloClient, useMutation } from '@apollo/react-hooks';
 import { clearAccessToken } from '../../../utils/accessToken';
+import { SIGN_OUT, IS_LOGGED_IN } from '../../../graphql/queries';
 import Button from '../../atoms/Button/Button';
 // import * as sc from './SignOutBtn.style';
 
 const SignOutBtn = () => {
-  const apolloClient = useApolloClient();
+  // const apolloClient = useApolloClient();
 
-  const handleCompleted = () => {
+  const update = (cache) => {
+    cache.reset();
+
+    cache.writeQuery({
+      id: 'isLoggedIn',
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn: false },
+    });
+  };
+
+  const onCompleted = () => {
     clearAccessToken();
 
-    apolloClient.clearStore();
+    localStorage.clear();
+
+    // apolloClient.clearStore();
 
     // apolloClient.resetStore();
 
-    Router.push('/welcome');
-
     // location.reload();
+
+    Router.push('/welcome');
   };
 
   const [signOut, { loading }] = useMutation(SIGN_OUT, {
-    update(cache) {
-      cache.writeData({ data: { isLoggedIn: false } });
+    update(cache, _data) {
+      update(cache);
     },
-    onCompleted() {
-      handleCompleted();
+
+    onCompleted(_data) {
+      onCompleted();
     },
+
     onError(_error) {},
   });
 
-  const handleClickBtn = () => signOut();
+  const onClick = () => signOut();
 
   return (
-    <>
-      {/* <sc.SignOutBtn
-        disabled={loading}
-        aria-busy={loading}
-        onClick={handleClickBtn}
-      >
-        Sign Out
-      </sc.SignOutBtn> */}
-
-      {/* <Link href='/welcome'> */}
-
-      <Button
-        ariaLabel='sign out button'
-        disabled={loading}
-        ariaBusy={loading}
-        onClick={handleClickBtn}
-      >
-        Sign Out
-      </Button>
-
-      {/* </Link> */}
-    </>
+    <Button
+      ariaLabel='log out'
+      ariaBusy={loading}
+      disabled={loading}
+      onClick={onClick}
+    >
+      Log Out
+    </Button>
   );
 };
 

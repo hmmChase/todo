@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import IdeaCardList from '../../molecules/IdeaCardList/IdeaCardList';
-import LoadMoreBtn from '../../molecules/LoadMoreBtn/LoadMoreBtn';
+import ShowMoreBtn from '../../molecules/ShowMoreBtn/ShowMoreBtn';
 
 export const Ideas = styled.section`
   display: flex;
@@ -13,6 +13,6 @@ export const IdeaCardListt = styled(IdeaCardList)`
   margin-bottom: 1rem;
 `;
 
-export const LoadMoreBtnn = styled(LoadMoreBtn)`
+export const ShowMoreBtnn = styled(ShowMoreBtn)`
   align-self: center;
 `;

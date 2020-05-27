@@ -14,7 +14,7 @@ import {
 } from '../../../__tests__/__mocks__/graphql/idea';
 import theme from '../../../public/styles/theme.style';
 
-jest.mock('../IdeaInput/IdeaInput', () => () => <div>IdeaInput</div>);
+jest.mock('../IdeaCardInput/IdeaCardInput', () => () => <div>IdeaCardInput</div>);
 
 const arrage = (newProps = {}, newQueries = []) => {
   const defaultProps = { ideaId: '1' };
@@ -32,10 +32,10 @@ const arrage = (newProps = {}, newQueries = []) => {
 
   const backBtn = () => result.queryByLabelText('back button');
   const displayLoading = () => result.getByText('Loading...');
-  const ideaInput = () => result.getByText('IdeaInput');
+  const IdeaCardInput = () => result.getByText('IdeaCardInput');
   const displayError = () => result.getByText('Network error: mock error');
 
-  return { ...result, backBtn, displayLoading, ideaInput, displayError };
+  return { ...result, backBtn, displayLoading, IdeaCardInput, displayError };
 };
 
 describe('IdeaDetail', () => {
@@ -48,12 +48,12 @@ describe('IdeaDetail', () => {
     expect(com.displayLoading()).toBeInTheDocument();
   });
 
-  it('renders IdeaInput on success', async () => {
+  it('renders IdeaCardInput on success', async () => {
     const com = arrage();
 
     await act(() => new Promise(setTimeout));
 
-    expect(com.ideaInput()).toBeInTheDocument();
+    expect(com.IdeaCardInput()).toBeInTheDocument();
   });
 
   it('renders DisplayError on error', async () => {

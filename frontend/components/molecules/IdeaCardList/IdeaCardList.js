@@ -13,14 +13,19 @@ const IdeaCardList = (props) => (
 );
 
 IdeaCardList.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   ideas: PropTypes.arrayOf(
-    PropTypes.shape({
-      node: PropTypes.shape({
+    PropTypes.exact({
+      __typename: PropTypes.string.isRequired,
+      node: PropTypes.exact({
+        __typename: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
         content: PropTypes.string.isRequired,
-        author: PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired,
+        author: PropTypes.exact({
+          __typename: PropTypes.string.isRequired,
+          id: PropTypes.string.isRequired,
+        }).isRequired,
       }).isRequired,
     }).isRequired
   ).isRequired,

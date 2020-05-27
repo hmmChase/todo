@@ -1,8 +1,8 @@
 import { action } from '@storybook/addon-actions';
 import allCombos from '../../../.storybook/allCombos';
-import IdeaInput from './IdeaInput';
+import IdeaCardInput from './IdeaCardInput';
 
-export default { title: 'Components|Molecules', component: IdeaInput };
+export default { title: 'Components|Molecules', component: IdeaCardInput };
 
 const data = {
   id: '1',
@@ -13,4 +13,4 @@ const actions = {
   onChange: action('onChange'),
 };
 
-export const ideaInput = () => allCombos(IdeaInput, data, actions);
+export const ideaCardInput = () => allCombos(IdeaCardInput, data, actions);

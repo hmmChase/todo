@@ -1,32 +1,22 @@
 import PropTypes from 'prop-types';
 // import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
-import { Form as FormikForm, Formik, Field } from 'formik';
-import { Form, List, Typography } from 'antd';
-import * as yup from 'yup';
+// import { useMutation } from '@apollo/client';
+import { Form as FormikForm, Formik } from 'formik';
+import { object } from 'yup';
+import { password, confirmPassword } from '../../../utils/validation';
+import { passResetSuccessful } from '../../../config';
+import { RESET_PASSWORD } from '../../../graphql/queries';
+import BackBtn from '../../molecules/BackBtn/BackBtn';
+import FormInputPass from '../../atoms/FormInputPass/FormInputPass';
+import PassReqList from '../../molecules/PassReqList/PassReqList';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';
-import { RESET_PASSWORD } from '../../../graphql/queries';
-import { passwordRequirements } from '../../../config';
 import * as sc from './ResetPassword.style';
 
-const validationSchema = yup.object({
-  password: yup
-    .string()
-    .min(8, 'Must be at least 8 characters')
-    .max(255, 'Must be 255 characters or less')
-    .required('Required'),
-
-  confirmPassword: yup
-    .string()
-    .min(8, 'Must be at least 8 characters')
-    .max(255, 'Must be 255 characters or less')
-    .required('Required'),
-});
+const validationSchema = object().shape(password, confirmPassword);
 
 const ResetPassword = (props) => {
-  const { resetToken, resetTokenExpiry } = props;
-
   // handleCompleted = () => Router.push({ pathname: '/' });
 
   const [resetPassword, { loading, error, data }] = useMutation(
@@ -35,26 +25,25 @@ const ResetPassword = (props) => {
       // onCompleted() {
       //   handleCompleted();
       // },
+
       onError(_error) {},
     }
   );
 
-  const handleSubmitForm = (values, formikHelpers) => {
+  const onSubmit = (values, formikHelpers) => {
     resetPassword({ variables: { ...values, resetToken: props.resetToken } });
 
     formikHelpers.resetForm();
   };
 
-  const isTokenPresent = resetToken && resetTokenExpiry;
-  const isTokenExpired = Date.now() > resetTokenExpiry;
-  const isTokenValid = isTokenPresent && !isTokenExpired;
+  if (!error && data && data.resetPassword)
+    return (
+      <>
+        <BackBtn path='/welcome' />
 
-  const tokenMissingError = {
-    message: 'Error: Please submit a new password reset request.',
-  };
-  const tokenExpiredError = {
-    message: 'Your reset request is expired. Please submit a new one.',
-  };
+        <DisplaySuccess message={passResetSuccessful} />
+      </>
+    );
 
   return (
     <Formik
@@ -62,95 +51,43 @@ const ResetPassword = (props) => {
       validationSchema={validationSchema}
       validateOnChange={false}
       validateOnBlur={true}
-      onSubmit={handleSubmitForm}
+      onSubmit={onSubmit}
     >
       {(formikProps) => (
         <FormikForm>
-          <Field name='password'>
-            {(fieldProps) => (
-              <Form.Item
-                label='New password'
-                htmlFor='resetPasswordPassword'
-                help={fieldProps.meta.touched && fieldProps.meta.error}
-                validateStatus={
-                  fieldProps.meta.touched && fieldProps.meta.error
-                    ? 'error'
-                    : ''
-                }
-              >
-                <sc.InputPassword
-                  id='resetPasswordPassword'
-                  onPressEnter={fieldProps.handleSubmit}
-                  {...fieldProps.field}
-                />
-              </Form.Item>
-            )}
-          </Field>
+          <FormInputPass
+            label='New password'
+            id='resetPasswordPassword'
+            name='password'
+          />
 
-          <Field name='confirmPassword'>
-            {(fieldProps) => (
-              <Form.Item
-                label='Confirm new password'
-                htmlFor='resetPasswordConfirmPassword'
-                help={fieldProps.meta.touched && fieldProps.meta.error}
-                validateStatus={
-                  fieldProps.meta.touched && fieldProps.meta.error
-                    ? 'error'
-                    : ''
-                }
-              >
-                <sc.InputPassword
-                  id='resetPasswordConfirmPassword'
-                  onPressEnter={fieldProps.handleSubmit}
-                  {...fieldProps.field}
-                />
-              </Form.Item>
-            )}
-          </Field>
+          <FormInputPass
+            label='Confirm new password'
+            id='resetPasswordConfirmPassword'
+            name='confirmPassword'
+          />
 
-          {!isTokenPresent && <DisplayError error={tokenMissingError} />}
+          {error && <DisplayError error={error} />}
 
-          {isTokenPresent && isTokenExpired && (
-            <DisplayError error={tokenExpiredError} />
-          )}
-
-          {isTokenValid && error && <DisplayError error={error} />}
-
-          {data && data.resetPassword && (
-            <DisplaySuccess message='Your password has been successfully changed.' />
-          )}
-
-          <sc.PassListContainer data-testid='passList'>
-            <Typography.Text strong>
-              {passwordRequirements.title}
-            </Typography.Text>
-
-            <List
-              split={false}
-              dataSource={passwordRequirements.reqs}
-              renderItem={(item) => (
-                <sc.PassListItem>
-                  <Typography.Text>{item}</Typography.Text>
-                </sc.PassListItem>
-              )}
-            />
-          </sc.PassListContainer>
+          <PassReqList />
 
           <sc.FormItemBtn>
             <sc.SubmitBtn
-              aria-label='submit button'
-              loading={loading}
+              ariaLabel='reset password'
               type='primary'
               htmlType='submit'
+              loading={loading}
               disabled={
-                !formikProps.values.password ||
-                !formikProps.values.confirmPassword ||
-                formikProps.errors.password ||
-                formikProps.errors.confirmPassword ||
-                formikProps.isSubmitting
+                !!(
+                  !formikProps.values.password ||
+                  !formikProps.values.confirmPassword ||
+                  formikProps.errors.password ||
+                  formikProps.errors.confirmPassword ||
+                  formikProps.isSubmitting
+                )
               }
             >
-              Submit
+              Reset
             </sc.SubmitBtn>
           </sc.FormItemBtn>
         </FormikForm>
@@ -159,11 +96,8 @@ const ResetPassword = (props) => {
   );
 };
 
-ResetPassword.defaultProps = { resetToken: '', resetTokenExpiry: '' };
-
 ResetPassword.propTypes = {
-  resetToken: PropTypes.string,
-  resetTokenExpiry: PropTypes.string,
+  resetToken: PropTypes.string.isRequired,
 };
 
 export default React.memo(ResetPassword);

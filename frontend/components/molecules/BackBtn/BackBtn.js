@@ -3,7 +3,7 @@ import Link from 'next/link';
 import * as sc from './BackBtn.style';
 
 const BackBtn = (props) => (
-  <Link href={{ pathname: '/' }}>
+  <Link href={{ pathname: props.path }}>
     <div>
       <sc.AntButton className={props.className} ariaLabel='back' type='primary'>
         <sc.LeftIcon />
@@ -15,6 +15,7 @@ const BackBtn = (props) => (
 
 BackBtn.propTypes = {
   className: PropTypes.string,
+  path: PropTypes.string.isRequired,
 };
 
 export default BackBtn;

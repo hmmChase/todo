@@ -1,24 +1,23 @@
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import {
   passResetTokenMissingError,
   passResetTokenExpiredError,
 } from '../../../config';
+import BackBtn from '../../molecules/BackBtn/BackBtn';
+import DisplayError from '../../molecules/DisplayError/DisplayError';
 
 const ResetPassError = (props) => (
-  <fieldset>
-    <h2>Reset Password</h2>
+  <>
+    <BackBtn path='/welcome' />
 
-    {!props.isTokenPresent && <p>{passResetTokenMissingError}</p>}
-
-    {props.isTokenPresent && props.isTokenExpired && (
-      <p>{passResetTokenExpiredError}</p>
+    {!props.isTokenPresent && (
+      <DisplayError error={{ message: passResetTokenMissingError }} />
     )}
 
-    <Link href={{ pathname: '/welcome' }}>
-      <button aria-label='back button'>Back</button>
-    </Link>
-  </fieldset>
+    {props.isTokenPresent && props.isTokenExpired && (
+      <DisplayError error={{ message: passResetTokenExpiredError }} />
+    )}
+  </>
 );
 
 ResetPassError.propTypes = {

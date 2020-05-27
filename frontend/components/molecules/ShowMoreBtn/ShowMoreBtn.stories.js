@@ -1,8 +1,8 @@
 import { action } from '@storybook/addon-actions';
 import allCombos from '../../../.storybook/allCombos';
-import LoadMoreBtn from './LoadMoreBtn';
+import ShowMoreBtn from './ShowMoreBtn';
 
-export default { title: 'Components|Molecules', component: LoadMoreBtn };
+export default { title: 'Components|Molecules', component: ShowMoreBtn };
 
 const data = {
   ariaLabel: 'load more button',
@@ -25,4 +25,4 @@ const actions = {
   onClick: action('onClick'),
 };
 
-export const loadMoreBtn = () => allCombos(LoadMoreBtn, data, actions);
+export const showMoreBtn = () => allCombos(ShowMoreBtn, data, actions);

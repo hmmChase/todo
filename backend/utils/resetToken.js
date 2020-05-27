@@ -1,6 +1,7 @@
 import { AuthenticationError } from 'apollo-server-express';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
+import { resetTokenExpiryTime } from '../config';
 
 export const createPasswordResetToken = async () => {
   const randomBytesPromisified = promisify(randomBytes);

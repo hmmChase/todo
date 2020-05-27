@@ -3,32 +3,28 @@ import withApollo from '../graphql/withApollo';
 import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
 import Layout from '../components/organisms/Layout/Layout';
-// import ResetPassError from '../components/organisms/ResetPassError/ResetPassError';
+import ResetPassError from '../components/organisms/ResetPassError/ResetPassError';
+import Header from '../components/organisms/Header/Header';
 import ResetPassword from '../components/organisms/ResetPassword/ResetPassword';
 
 const ResetPasswordPage = (props) => {
-  // const isTokenPresent = !!(props.resetToken && props.resetTokenExpiry);
-  // const isTokenExpired = Date.now() > props.resetTokenExpiry;
-
-  // if (!isTokenPresent || isTokenExpired)
-  //   return (
-  //     <Layout
-  //       title='Reset Password'
-  //       header={<h1>Reset Your Password</h1>}
-  //       content={
-  //         <ResetPassError
-  //           isTokenPresent={isTokenPresent}
-  //           isTokenExpired={isTokenExpired}
-  //         />
-  //       }
-  //     />
-  //   );
+  const isTokenPresent = !!(props.resetToken && props.resetTokenExpiry);
+  const isTokenExpired = Date.now() > props.resetTokenExpiry;
 
   return (
     <Layout
       title='Reset Password'
-      header={<h1>Reset Your Password</h1>}
-      content={<ResetPassword resetToken={props.resetToken} />}
+      header={<Header title='Reset Your Password' />}
+      content={
+        !isTokenPresent || isTokenExpired ? (
+          <ResetPassError
+            isTokenPresent={isTokenPresent}
+            isTokenExpired={isTokenExpired}
+          />
+        ) : (
+          <ResetPassword resetToken={props.resetToken} />
+        )
+      }
     />
   );
 };

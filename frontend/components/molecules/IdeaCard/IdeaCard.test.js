@@ -5,7 +5,7 @@ import theme from '../../../public/styles/theme.style';
 
 jest.mock('../DetailIcon/DetailIcon', () => () => <div>DetailIcon</div>);
 jest.mock('../DeleteIcon/DeleteIcon', () => () => <div>DeleteIcon</div>);
-jest.mock('../IdeaInput/IdeaInput', () => () => <div>IdeaInput</div>);
+jest.mock('../IdeaCardInput/IdeaCardInput', () => () => <div>IdeaCardInput</div>);
 
 const arrage = (newProps = {}) => {
   const defaultProps = { id: '1', content: 'mock content' };
@@ -20,9 +20,9 @@ const arrage = (newProps = {}) => {
   const ideaCard = () => result.queryByTestId('IdeaCard');
   const detailIcon = () => result.queryByText('DetailIcon');
   const deleteIcon = () => result.queryByText('DeleteIcon');
-  const ideaInput = () => result.queryByText('IdeaInput');
+  const IdeaCardInput = () => result.queryByText('IdeaCardInput');
 
-  return { ...result, ideaCard, detailIcon, deleteIcon, ideaInput };
+  return { ...result, ideaCard, detailIcon, deleteIcon, IdeaCardInput };
 };
 
 describe('IdeaCard', () => {
@@ -34,6 +34,6 @@ describe('IdeaCard', () => {
     expect(com.ideaCard()).toBeInTheDocument();
     expect(com.detailIcon()).toBeInTheDocument();
     expect(com.deleteIcon()).toBeInTheDocument();
-    expect(com.ideaInput()).toBeInTheDocument();
+    expect(com.IdeaCardInput()).toBeInTheDocument();
   });
 });

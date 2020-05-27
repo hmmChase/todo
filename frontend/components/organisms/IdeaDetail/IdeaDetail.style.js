@@ -5,6 +5,6 @@ export const IdeaDetail = styled.section`
   /* flex-grow: 1; */
 `;
 
-export const BackButton = styled(BackBtn)`
+export const BackBtnn = styled(BackBtn)`
   margin-bottom: 40px;
 `;

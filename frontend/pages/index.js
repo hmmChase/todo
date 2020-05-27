@@ -12,10 +12,9 @@ const IndexPage = () => (
   <Layout
     title='Home'
     header={
-      <>
-        <Header />
+      <Header>
         <IdeaCardForm />
-      </>
+      </Header>
     }
     content={<Ideas />}
     footer={<Footer />}

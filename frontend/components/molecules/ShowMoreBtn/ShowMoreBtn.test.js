@@ -1,6 +1,6 @@
 import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import LoadMoreBtn from './LoadMoreBtn';
+import ShowMoreBtn from './ShowMoreBtn';
 import theme from '../../../public/styles/theme.style';
 
 const arrage = (newProps = {}) => {
@@ -22,24 +22,24 @@ const arrage = (newProps = {}) => {
 
   const result = render(
     <ThemeProvider theme={theme}>
-      <LoadMoreBtn {...mockProps} />
+      <ShowMoreBtn {...mockProps} />
     </ThemeProvider>
   );
 
-  const loadMoreBtn = () => result.queryByLabelText('load more button');
+  const ShowMoreBtn = () => result.queryByLabelText('load more button');
   const loadingIcon = () => result.queryByLabelText('icon: loading');
-  const clickLoadMoreBtn = () => fireEvent.click(loadMoreBtn());
+  const clickShowMoreBtn = () => fireEvent.click(ShowMoreBtn());
 
-  return { ...result, mockProps, loadMoreBtn, loadingIcon, clickLoadMoreBtn };
+  return { ...result, mockProps, ShowMoreBtn, loadingIcon, clickShowMoreBtn };
 };
 
-describe('LoadMoreBtn', () => {
+describe('ShowMoreBtn', () => {
   afterEach(cleanup);
 
   it('renders elements', () => {
     const com = arrage();
 
-    expect(com.loadMoreBtn()).toBeInTheDocument();
+    expect(com.ShowMoreBtn()).toBeInTheDocument();
   });
 
   it('renders loading icon if loading', () => {
@@ -51,7 +51,7 @@ describe('LoadMoreBtn', () => {
   it('calls fetchMore on click', () => {
     const com = arrage();
 
-    com.clickLoadMoreBtn();
+    com.clickShowMoreBtn();
 
     expect(com.mockProps.fetchMore).toHaveBeenCalledTimes(1);
   });

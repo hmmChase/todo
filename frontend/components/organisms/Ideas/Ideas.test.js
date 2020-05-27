@@ -32,7 +32,7 @@ const arrage = (newProps = {}, newQueries = []) => {
   const displayLoading = () => result.queryByText('Loading...');
   const displayError = () => result.queryByText('Network error: mock error');
   const ideas = () => result.queryAllByLabelText('idea input');
-  const loadMoreBtn = () => result.queryByLabelText('load more button');
+  const showMoreBtn = () => result.queryByLabelText('load more button');
   const addIdeaMessage = () => result.queryByText('Add an Idea!');
 
   return {
@@ -40,7 +40,7 @@ const arrage = (newProps = {}, newQueries = []) => {
     displayLoading,
     ideas,
     displayError,
-    loadMoreBtn,
+    showMoreBtn,
     addIdeaMessage,
   };
 };
@@ -68,15 +68,15 @@ describe('Ideas', () => {
     await act(() => new Promise(setTimeout));
 
     expect(com.ideas()).toHaveLength(5);
-    expect(com.loadMoreBtn()).toBeInTheDocument();
+    expect(com.showMoreBtn()).toBeInTheDocument();
   });
 
-  it('doesnt render LoadMoreBtn if hasNextPage is false', async () => {
+  it('doesnt render showMoreBtn if hasNextPage is false', async () => {
     const com = arrage({}, [MOCK_CURRENT_USER_PAGINATED_IDEAS_EMPTY]);
 
     await act(() => new Promise(setTimeout));
 
-    expect(com.loadMoreBtn()).not.toBeInTheDocument();
+    expect(com.showMoreBtn()).not.toBeInTheDocument();
   });
 
   it('renders addIdeaMessage if no ideas', async () => {
