@@ -1,5 +1,5 @@
 // import PropTypes from 'prop-types';
-import * as sc from '../Icons.style';
+import * as sc from '../icons.style';
 
 const Left = (props) => (
   <sc.EssVeeGee
