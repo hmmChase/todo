@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '../../atoms/Button/Button';
-import Left from '../../design/Icons/Left/Left';
+import Left from '../../design/icons/Left/Left';
 
 export const AntButton = styled(Button)`
   align-items: center;

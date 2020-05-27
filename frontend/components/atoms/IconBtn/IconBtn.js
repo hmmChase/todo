@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Expand from '../../design/Icons/Expand/Expand';
-import Left from '../../design/Icons/Left/Left';
-import X from '../../design/Icons/X/X';
+import Expand from '../../design/icons/Expand/Expand';
+import Left from '../../design/icons/Left/Left';
+import X from '../../design/icons/X/X';
 import * as sc from './IconBtn.style';
 
 export const ExpandIconBtn = (props) => (
