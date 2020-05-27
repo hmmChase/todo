@@ -1,32 +1,30 @@
 import PropTypes from 'prop-types';
-import Head from '../../components/Head/Head';
-import LayoutMain from '../../components/LayoutMain/LayoutMain';
-import HeaderDetail from '../../components/HeaderDetail/HeaderDetail';
-import IdeaDetail from '../../components/IdeaDetail/IdeaDetail';
 import withApollo from '../../graphql/withApollo';
-import authenticate from '../../utils/authenticate';
+import signedIn from '../../utils/signedIn';
+import redirect from '../../utils/redirect';
+import Layout from '../../components/organisms/Layout/Layout';
+import Header from '../../components/organisms/Header/Header';
+import IdeaDetail from '../../components/organisms/IdeaDetail/IdeaDetail';
+import Footer from '../../components/molecules/Footer/Footer';
 
-const IdeaPage = props => {
-  return (
-    <>
-      <Head title='Idea Detail' />
+const IdeaPage = (props) => (
+  <Layout
+    title={`Idea ${props.id}`}
+    header={<Header title={props.id} />}
+    content={<IdeaDetail ideaId={props.id} />}
+    footer={<Footer />}
+  />
+);
 
-      <LayoutMain
-        header={<HeaderDetail ideaId={props.id} />}
-        content={<IdeaDetail ideaId={props.id} />}
-      />
-    </>
-  );
-};
+IdeaPage.getInitialProps = (ctx) => {
+  const { req, res, query } = ctx;
 
-IdeaPage.getInitialProps = ctx => {
-  const { req, res, pathname, query } = ctx;
-
-  if (req && res && pathname) authenticate(req, res, pathname);
+  /* SSR: must be signed in */
+  if (req && !signedIn(req)) redirect(res, '/welcome');
 
   return { id: query.id };
 };
 
 IdeaPage.propTypes = { id: PropTypes.string.isRequired };
 
-export default withApollo(IdeaPage);
+export default withApollo({ ssr: true })(IdeaPage);

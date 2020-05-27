@@ -1,41 +1,44 @@
 import gql from 'graphql-tag';
+// import { gql } from '@apollo/client';
 
 export const IS_LOGGED_IN = gql`
-  query IS_LOGGED_IN {
+  query isLoggedIn {
     isLoggedIn @client
   }
 `;
 
 export const CURRENT_USER = gql`
-  query CURRENT_USER {
+  query currentUser {
     currentUser {
       id
+      username
       email
       ideas {
         id
         content
       }
-      color @client
+      # color @client
     }
   }
 `;
-
 export const USERS = gql`
-  query USERS {
+  query users {
     users {
       id
-      email
+      username
     }
   }
 `;
 
 export const SIGN_UP = gql`
-  mutation SIGN_UP(
+  mutation signUp(
+    $username: String!
     $email: String!
     $password: String!
     $confirmPassword: String!
   ) {
     signUp(
+      username: $username
       email: $email
       password: $password
       confirmPassword: $confirmPassword
@@ -43,36 +46,48 @@ export const SIGN_UP = gql`
       accessToken
       user {
         id
+        username
+        email
+        ideas {
+          id
+          content
+        }
       }
     }
   }
 `;
 
 export const SIGN_IN = gql`
-  mutation SIGN_IN($email: String!, $password: String!) {
-    signIn(email: $email, password: $password) {
+  mutation signIn($username: String!, $password: String!) {
+    signIn(username: $username, password: $password) {
       accessToken
       user {
         id
+        username
+        email
+        ideas {
+          id
+          content
+        }
       }
     }
   }
 `;
 
 export const SIGN_OUT = gql`
-  mutation SIGN_OUT {
+  mutation signOut {
     signOut
   }
 `;
 
 export const REQUEST_RESET = gql`
-  mutation REQUEST_RESET($email: String!) {
+  mutation requestReset($email: String!) {
     requestReset(email: $email)
   }
 `;
 
 export const RESET_PASSWORD = gql`
-  mutation RESET_PASSWORD(
+  mutation resetPassword(
     $resetToken: String!
     $password: String!
     $confirmPassword: String!

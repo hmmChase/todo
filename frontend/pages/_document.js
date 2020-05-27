@@ -17,13 +17,13 @@ class MyDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: App => props =>
+          enhanceApp: (App) => (props) =>
             sheet.collectStyles(
               <>
                 <GlobalStyle />
                 <App {...props} />
               </>
-            )
+            ),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
@@ -38,7 +38,7 @@ class MyDocument extends Document {
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>
-        )
+        ),
       };
     } finally {
       sheet.seal();
@@ -147,7 +147,7 @@ class MyDocument extends Document {
                 *, *::before, *::after {
                 transition: none !important;
                 }
-              `
+              `,
             }}
           />
         </Head>
