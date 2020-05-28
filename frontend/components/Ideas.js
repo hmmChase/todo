@@ -19,6 +19,7 @@ const Ideas = () => {
   );
 
   if (networkStatus === 1) return <div>Loading</div>;
+
   if (error) return <p>{error}</p>;
 
   return (
@@ -27,10 +28,7 @@ const Ideas = () => {
       data.currentUserPaginatedIdeas &&
       data.currentUserPaginatedIdeas.edges &&
       data.currentUserPaginatedIdeas.edges.length ? (
-        <IdeaCardList
-          loading={networkStatus === 1}
-          ideas={data.currentUserPaginatedIdeas.edges}
-        />
+        <IdeaCardList ideas={data.currentUserPaginatedIdeas.edges} />
       ) : (
         <p>Add an Idea!</p>
       )}

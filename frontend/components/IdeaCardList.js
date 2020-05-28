@@ -5,22 +5,10 @@ const IdeaCardList = (props) => {
   const ideaCards = (ideas) =>
     ideas.map((idea) => <IdeaCard key={`ideaCard${idea.node.id}`} {...idea} />);
 
-  // if (props.error) return <p>{props.error}</p>;
-  if (props.loading) return <p>loading</p>;
-
-  return (
-    <div>
-      {props.ideas && props.ideas.length ? (
-        <ul>{ideaCards(props.ideas)}</ul>
-      ) : (
-        <p>Think of something!</p>
-      )}
-    </div>
-  );
+  return <ul>{ideaCards(props.ideas)}</ul>;
 };
 
 IdeaCardList.propTypes = {
-  loading: PropTypes.bool.isRequired,
   ideas: PropTypes.arrayOf(
     PropTypes.exact({
       __typename: PropTypes.string.isRequired,

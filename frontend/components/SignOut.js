@@ -1,7 +1,7 @@
 import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
-import { setAccessToken } from '../utils/accessToken';
+import { clearAccessToken } from '../utils/accessToken';
 import { SIGN_OUT, IS_LOGGED_IN } from '../graphql/queries';
 
 const update = (cache) => {
@@ -15,15 +15,21 @@ const update = (cache) => {
 };
 
 const onCompleted = () => {
-  setAccessToken('');
+  clearAccessToken();
 
   localStorage.clear();
 
+  // apolloClient.clearStore();
+
+  // apolloClient.resetStore();
+
   Router.push('/welcome');
+
+  // location.reload();
 };
 
 const SignOut = () => {
-  const [signOut] = useMutation(SIGN_OUT, {
+  const [signOut, { loading }] = useMutation(SIGN_OUT, {
     update(cache, _data) {
       update(cache);
     },
@@ -35,8 +41,17 @@ const SignOut = () => {
     onError(_error) {},
   });
 
+  console.log('SignOut -> loading', loading);
+
+  const onClick = () => signOut();
+
   return (
-    <button aria-label='log out' onClick={signOut}>
+    <button
+      aria-label='log out'
+      aria-busy={loading}
+      disabled={loading}
+      onClick={onClick}
+    >
       Log Out
     </button>
   );
