@@ -41,8 +41,6 @@ const SignOut = () => {
     onError(_error) {},
   });
 
-  console.log('SignOut -> loading', loading);
-
   const onClick = () => signOut();
 
   return (
