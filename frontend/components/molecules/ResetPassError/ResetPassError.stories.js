@@ -2,7 +2,7 @@
 import allCombos from '../../../.storybook/allCombos';
 import ResetPassError from './ResetPassError';
 
-export default { title: 'Components|Organisms', component: ResetPassError };
+export default { title: 'Components|Molecules', component: ResetPassError };
 
 const data = {
   isTokenPresent: [false, true],

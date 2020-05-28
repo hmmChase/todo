@@ -3,8 +3,8 @@ import {
   passResetTokenMissingError,
   passResetTokenExpiredError,
 } from '../../../config';
-import BackBtn from '../../molecules/BackBtn/BackBtn';
-import DisplayError from '../../molecules/DisplayError/DisplayError';
+import BackBtn from '../BackBtn/BackBtn';
+import DisplayError from '../DisplayError/DisplayError';
 
 const ResetPassError = (props) => (
   <>
