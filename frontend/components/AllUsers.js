@@ -6,14 +6,9 @@ const AllUsers = () => {
   const { data } = useQuery(USERS, { onError(_error) {} });
 
   return (
-    <>
-      <h3>Users:</h3>
-
-      <ul>
-        {data &&
-          data.users.map((user) => <li key={user.id}>{user.username}</li>)}
-      </ul>
-    </>
+    <ul>
+      {data && data.users.map((user) => <li key={user.id}>{user.username}</li>)}
+    </ul>
   );
 };
 

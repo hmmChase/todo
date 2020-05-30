@@ -6,14 +6,9 @@ const AllIdeas = () => {
   const { data } = useQuery(IDEAS, { onError(_error) {} });
 
   return (
-    <>
-      <h3>Ideas:</h3>
-
-      <ul>
-        {data &&
-          data.ideas.map((idea) => <li key={idea.id}>{idea.content}</li>)}
-      </ul>
-    </>
+    <ul>
+      {data && data.ideas.map((idea) => <li key={idea.id}>{idea.content}</li>)}
+    </ul>
   );
 };
 

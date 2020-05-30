@@ -9,7 +9,7 @@ import Footer from '../components/Footer';
 const IdeasPage = () => (
   <Layout
     title='Ideas'
-    header={<Header />}
+    header={<Header title='Ideas:' />}
     content={<AllIdeas />}
     footer={<Footer />}
   />

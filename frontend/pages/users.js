@@ -9,7 +9,7 @@ import Footer from '../components/Footer';
 const UsersPage = () => (
   <Layout
     title='Users'
-    header={<Header />}
+    header={<Header title='Users:' />}
     content={<AllUsers />}
     footer={<Footer />}
   />

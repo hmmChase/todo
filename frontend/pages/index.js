@@ -13,7 +13,7 @@ const IndexPage = () => (
     title='Home'
     header={
       <>
-        <Header />
+        <Header title='Add an idea' />
         <IdeaCardForm />
       </>
     }
