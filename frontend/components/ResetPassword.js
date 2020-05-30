@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
 import { passwordRequirements } from '../config';
 import { RESET_PASSWORD } from '../graphql/queries';
-import ResetPassSuccess from './ResetPassSuccess';
+import BackBtn from './BackBtn';
 
 const ResetPassword = (props) => {
   const [password, setPassword] = useState('');
@@ -41,13 +41,18 @@ const ResetPassword = (props) => {
     });
   };
 
-  if (!error && data && data.resetPassword) return <ResetPassSuccess />;
+  if (!error && data && data.resetPassword)
+    return (
+      <>
+        <p>{passResetSuccessful}</p>
+
+        <BackBtn path='/' />
+      </>
+    );
 
   return (
     <form onSubmit={onSubmit}>
       <fieldset>
-        <h2>Reset Password</h2>
-
         <div>
           <label htmlFor='password'>
             New Password

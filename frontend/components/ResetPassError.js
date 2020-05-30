@@ -7,8 +7,6 @@ import {
 
 const ResetPassError = (props) => (
   <fieldset>
-    <h2>Reset Password</h2>
-
     {!props.isTokenPresent && <p>{passResetTokenMissingError}</p>}
 
     {props.isTokenPresent && props.isTokenExpired && (

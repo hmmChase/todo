@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { ideasPerPage } from '../config';
 import { CURRENT_USER_PAGINATED_IDEAS } from '../graphql/queries';
 import IdeaCardList from './IdeaCardList';
-import LoadMoreBtn from './LoadMoreBtn';
+import ShowMoreBtn from './ShowMoreBtn';
 
 // https://www.apollographql.com/docs/react/data/pagination/
 
@@ -37,7 +37,7 @@ const Ideas = () => {
         data.currentUserPaginatedIdeas &&
         data.currentUserPaginatedIdeas.pageInfo &&
         data.currentUserPaginatedIdeas.pageInfo.hasNextPage && (
-          <LoadMoreBtn
+          <ShowMoreBtn
             loading={networkStatus === 3}
             ideas={data.currentUserPaginatedIdeas}
             fetchMore={fetchMore}

@@ -1,9 +1,14 @@
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-const BackBtn = () => (
-  <Link href={{ pathname: '/' }}>
-    <button aria-label='back'>Back</button>
+const BackBtn = (props) => (
+  <Link href={{ pathname: props.path }}>
+    <button aria-label='back'>&lt; Back</button>
   </Link>
 );
+
+BackBtn.propTypes = {
+  path: PropTypes.string.isRequired,
+};
 
 export default BackBtn;

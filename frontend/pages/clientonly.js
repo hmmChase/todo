@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 const ClientOnlyPage = () => (
   <Layout
     title='Client Only'
-    header={<Header />}
+    header={<Header title='Client Only' />}
     content={
       <>
         <div>

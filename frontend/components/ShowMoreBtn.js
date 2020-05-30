@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const LoadMoreBtn = (props) => {
+const ShowMoreBtn = (props) => {
   const onClick = () =>
     props.fetchMore({
       variables: { after: props.ideas.pageInfo.endCursor },
@@ -26,13 +26,13 @@ const LoadMoreBtn = (props) => {
     });
 
   return (
-    <button aria-label='load more' onClick={onClick}>
-      Load More
+    <button aria-label='show More' onClick={onClick}>
+      Show More
     </button>
   );
 };
 
-LoadMoreBtn.propTypes = {
+ShowMoreBtn.propTypes = {
   loading: PropTypes.bool.isRequired,
   fetchMore: PropTypes.func.isRequired,
   ideas: PropTypes.exact({
@@ -59,4 +59,4 @@ LoadMoreBtn.propTypes = {
   }).isRequired,
 };
 
-export default React.memo(LoadMoreBtn);
+export default React.memo(ShowMoreBtn);

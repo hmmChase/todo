@@ -15,13 +15,13 @@ const IdeaDetail = (props) => {
 
   return (
     <>
-      <BackBtn />
+      <BackBtn path='/' />
 
-      {loading ? (
-        <div>Loading</div>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
+      {loading && <p>loading...</p>}
+
+      {error && <p>{error}</p>}
+
+      {!loading && !error && data && data.currentUserIdea && (
         <>
           <IdeaCardInput
             id={data.currentUserIdea.id}

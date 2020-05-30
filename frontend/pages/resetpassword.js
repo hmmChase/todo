@@ -3,6 +3,7 @@ import withApollo from '../graphql/withApollo';
 import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
 import Layout from '../components/Layout';
+import Header from '../components/Header';
 import ResetPassError from '../components/ResetPassError';
 import ResetPassword from '../components/ResetPassword';
 
@@ -10,23 +11,20 @@ const ResetPasswordPage = (props) => {
   const isTokenPresent = !!(props.resetToken && props.resetTokenExpiry);
   const isTokenExpired = Date.now() > props.resetTokenExpiry;
 
-  if (!isTokenPresent || isTokenExpired)
-    return (
-      <Layout
-        title='Reset Password'
-        content={
+  return (
+    <Layout
+      title='Reset Password'
+      header={<Header title='Reset Password' />}
+      content={
+        !isTokenPresent || isTokenExpired ? (
           <ResetPassError
             isTokenPresent={isTokenPresent}
             isTokenExpired={isTokenExpired}
           />
-        }
-      />
-    );
-
-  return (
-    <Layout
-      title='Reset Password'
-      content={<ResetPassword resetToken={props.resetToken} />}
+        ) : (
+          <ResetPassword resetToken={props.resetToken} />
+        )
+      }
     />
   );
 };
