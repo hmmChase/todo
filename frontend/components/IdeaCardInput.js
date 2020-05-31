@@ -26,7 +26,13 @@ const IdeaCardInput = (props) => {
   };
 
   return (
-    <input aria-label='idea content' value={content} onChange={onChange} />
+    <textarea
+      aria-label='idea content'
+      rows={1}
+      cols={40}
+      value={content}
+      onChange={onChange}
+    />
   );
 };
 
