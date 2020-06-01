@@ -1,21 +1,19 @@
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import {
   passResetTokenMissingError,
   passResetTokenExpiredError,
 } from '../config';
+import BackBtn from './BackBtn';
 
 const ResetPassError = (props) => (
   <fieldset>
+    <BackBtn path='/welcome' />
+
     {!props.isTokenPresent && <p>{passResetTokenMissingError}</p>}
 
     {props.isTokenPresent && props.isTokenExpired && (
       <p>{passResetTokenExpiredError}</p>
     )}
-
-    <Link href={{ pathname: '/welcome' }}>
-      <button aria-label='back button'>Back</button>
-    </Link>
   </fieldset>
 );
 
