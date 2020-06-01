@@ -13,15 +13,13 @@ const Header = (props) => {
     <sc.Header>
       <sc.TitleHeader>{props.title ? props.title : title}</sc.TitleHeader>
 
-      <div>
-        {data && data.currentUser && data.currentUser.username && (
-          <>
-            <sc.Welcome>Welcome {data.currentUser.username}</sc.Welcome>
+      {data && data.currentUser && (
+        <div>
+          <sc.Welcome>Welcome {data.currentUser.username}</sc.Welcome>
 
-            <SignOutBtn />
-          </>
-        )}
-      </div>
+          <SignOutBtn />
+        </div>
+      )}
 
       <sc.Bottom>{props.children}</sc.Bottom>
     </sc.Header>
