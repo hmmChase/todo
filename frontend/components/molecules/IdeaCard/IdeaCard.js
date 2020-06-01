@@ -4,7 +4,7 @@ import IdeaCardInput from '../IdeaCardInput/IdeaCardInput';
 import * as sc from './IdeaCard.style';
 
 const IdeaCard = (props) => (
-  <>
+  <li>
     <sc.IdeaCardBtns className={props.className} data-testid='IdeaCard'>
       <sc.DetailIconn id={props.id} />
 
@@ -12,7 +12,7 @@ const IdeaCard = (props) => (
     </sc.IdeaCardBtns>
 
     <IdeaCardInput id={props.id} content={props.content} />
-  </>
+  </li>
 );
 
 IdeaCard.propTypes = {
