@@ -16,13 +16,8 @@ const IdeaCard = (props) => (
 );
 
 IdeaCard.propTypes = {
-  __typename: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  author: PropTypes.exact({
-    __typename: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default React.memo(IdeaCard);
