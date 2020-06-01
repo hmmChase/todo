@@ -5,23 +5,23 @@ import DeleteBtn from './DeleteBtn';
 
 const IdeaCard = (props) => (
   <li>
-    <IdeaCardInput id={props.node.id} content={props.node.content} />
+    <div>
+      <DetailBtn id={props.id} />
 
-    <DetailBtn id={props.node.id} />
+      <DeleteBtn id={props.id} />
+    </div>
 
-    <DeleteBtn id={props.node.id} />
+    <IdeaCardInput id={props.id} content={props.content} />
   </li>
 );
 
 IdeaCard.propTypes = {
-  node: PropTypes.exact({
+  __typename: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  author: PropTypes.exact({
     __typename: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    author: PropTypes.exact({
-      __typename: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    }).isRequired,
   }).isRequired,
 };
 

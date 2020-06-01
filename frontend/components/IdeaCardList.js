@@ -3,7 +3,9 @@ import IdeaCard from './IdeaCard';
 
 const IdeaCardList = (props) => {
   const ideaCards = (ideas) =>
-    ideas.map((idea) => <IdeaCard key={`ideaCard${idea.node.id}`} {...idea} />);
+    ideas.map((idea) => (
+      <IdeaCard key={`ideaCard${idea.node.id}`} {...idea.node} />
+    ));
 
   return <ul>{ideaCards(props.ideas)}</ul>;
 };
