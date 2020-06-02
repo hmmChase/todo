@@ -6,7 +6,6 @@ import {
   DELETE_IDEA,
 } from '../../../graphql/queries';
 import { ideasPerPage } from '../../../config';
-// import * as sc from './DeleteIcon.style';
 
 const DeleteIcon = (props) => {
   const update = (cache, data) => {
@@ -54,7 +53,7 @@ const DeleteIcon = (props) => {
     deleteIdea({ variables: { id: props.id } });
   };
 
-  return <XIconBtn aria-label='delete idea' onClick={onClick} />;
+  return <XIconBtn onClick={onClick} />;
 };
 
 DeleteIcon.propTypes = {

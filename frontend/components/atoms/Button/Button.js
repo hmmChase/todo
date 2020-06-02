@@ -1,32 +1,27 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import * as sc from './Button.style';
 
 const Button = (props) => (
-  <sc.AntButton
+  <sc.Buttonn
     className={props.className}
-    aria-busy={props.ariaBusy}
-    aria-label={props.ariaLabel}
-    disabled={props.disabled}
-    htmlType={props.htmlType}
+    // disabled={props.disabled}
+    // htmlType={props.htmlType}
     loading={props.loading}
     onClick={props.onClick}
     type={props.type}
   >
     {props.children}
-  </sc.AntButton>
+  </sc.Buttonn>
 );
 
 Button.propTypes = {
-  ariaBusy: PropTypes.bool,
-  ariaLabel: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   className: PropTypes.string,
-  disabled: PropTypes.bool,
-  htmlType: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
+  // disabled: PropTypes.bool.isRequired,
+  // htmlType: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   onClick: PropTypes.func,
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
 };
 
 export default React.memo(Button);

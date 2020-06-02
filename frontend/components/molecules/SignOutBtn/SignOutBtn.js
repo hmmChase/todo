@@ -3,7 +3,6 @@ import { _useApolloClient, useMutation } from '@apollo/react-hooks';
 import { clearAccessToken } from '../../../utils/accessToken';
 import { SIGN_OUT, IS_LOGGED_IN } from '../../../graphql/queries';
 import Button from '../../atoms/Button/Button';
-// import * as sc from './SignOutBtn.style';
 
 const SignOutBtn = () => {
   // const apolloClient = useApolloClient();
@@ -48,8 +47,9 @@ const SignOutBtn = () => {
 
   return (
     <Button
-      ariaLabel='log out'
-      ariaBusy={loading}
+      aria-label='log out'
+      aria-busy={loading}
+      type='default'
       disabled={loading}
       onClick={onClick}
     >

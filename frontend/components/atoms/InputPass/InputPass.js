@@ -1,27 +1,27 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import * as sc from './InputPass.style';
+import { Input } from 'antd';
 
 const InputPass = (props) => (
-  <sc.Inputt
+  <Input.Password
+    className={props.className}
     id={props.id}
     name={props.name}
-    type={props.type}
     value={props.value}
     onChange={props.onChange}
     onBlur={props.onBlur}
-    onPressEnter={props.onPressEnter}
+    // onPressEnter={props.onPressEnter}
+    visibilityToggle={true}
   />
 );
 
 InputPass.propTypes = {
-  id: PropTypes.string,
+  className: PropTypes.string,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onPressEnter: PropTypes.func,
-  type: PropTypes.string,
-  value: PropTypes.string,
+  onBlur: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  // onPressEnter: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default React.memo(InputPass);

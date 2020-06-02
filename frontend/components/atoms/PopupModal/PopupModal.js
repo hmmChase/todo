@@ -1,9 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import * as sc from './PopupModal.style';
+import { Modal } from 'antd';
 
 const PopupModal = (props) => (
-  <sc.AntModal
+  <Modal
     className={props.className}
     title={props.title}
     visible={props.visible}
@@ -12,17 +11,17 @@ const PopupModal = (props) => (
     footer={props.footer}
   >
     {props.children}
-  </sc.AntModal>
+  </Modal>
 );
 
 PopupModal.propTypes = {
-  children: PropTypes.element,
   className: PropTypes.string,
+  children: PropTypes.element.isRequired,
   footer: PropTypes.element,
   onCancel: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  visible: PropTypes.bool,
-  width: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  visible: PropTypes.bool.isRequired,
+  width: PropTypes.string.isRequired,
 };
 
 export default React.memo(PopupModal);

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { ExpandIconBtn } from '../../atoms/IconBtn/IconBtn';
-// import * as sc from './DetailIcon.style';
 
 const DetailIcon = (props) => (
   <Link
@@ -10,7 +9,7 @@ const DetailIcon = (props) => (
     as={`/idea/${props.id}`}
   >
     <div>
-      <ExpandIconBtn className={props.className} aria-label='idea detail' />
+      <ExpandIconBtn className={props.className} />
     </div>
   </Link>
 );

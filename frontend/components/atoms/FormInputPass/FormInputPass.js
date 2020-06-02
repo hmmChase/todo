@@ -1,9 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'formik';
 import { Form } from 'antd';
 import InputPass from '../InputPass/InputPass';
-// import * as sc from './FormInputPass.style';
 
 const FormInputPass = (props) => (
   <Field name={props.name}>
@@ -19,11 +17,10 @@ const FormInputPass = (props) => (
         <InputPass
           id={props.id}
           name={props.name}
-          type={props.type}
           value={fieldProps.field.value}
           onChange={fieldProps.field.onChange}
           onBlur={fieldProps.field.onBlur}
-          onPressEnter={fieldProps.form.handleSubmit}
+          // onPressEnter={fieldProps.form.handleSubmit}
         />
       </Form.Item>
     )}
@@ -31,10 +28,9 @@ const FormInputPass = (props) => (
 );
 
 FormInputPass.propTypes = {
-  id: PropTypes.string,
-  label: PropTypes.string,
-  name: PropTypes.string,
-  type: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default React.memo(FormInputPass);

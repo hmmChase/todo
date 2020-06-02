@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import * as sc from './HeaderTitle.style';
 
@@ -7,8 +6,8 @@ const HeaderTitle = (props) => (
 );
 
 HeaderTitle.propTypes = {
-  children: PropTypes.string.isRequired,
   className: PropTypes.string,
+  children: PropTypes.string.isRequired,
 };
 
 export default React.memo(HeaderTitle);

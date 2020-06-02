@@ -1,31 +1,31 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import * as sc from './TextArea.style';
 
 const TextArea = (props) => (
   <sc.InputTextArea
     className={props.className}
-    aria-label={props.ariaLabel}
     autoSize={props.autoSize}
-    name={props.name}
-    // defaultValue={props.defaultValue}
-    type={props.type}
-    placeholder={props.placeholder}
+    // name={props.name}
+    defaultValue={props.defaultValue}
+    // type={props.type}
+    // placeholder={props.placeholder}
     value={props.value}
     onChange={props.onChange}
   />
 );
 
 TextArea.propTypes = {
-  ariaLabel: PropTypes.string,
-  autoSize: PropTypes.object,
   className: PropTypes.string,
+  autoSize: PropTypes.shape({
+    minRows: PropTypes.number.isRequired,
+    maxRows: PropTypes.number.isRequired,
+  }),
   defaultValue: PropTypes.string,
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  type: PropTypes.string,
-  value: PropTypes.string,
+  // name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  // placeholder: PropTypes.string.isRequired,
+  // type: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default React.memo(TextArea);

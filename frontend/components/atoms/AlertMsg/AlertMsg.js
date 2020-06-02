@@ -1,9 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import * as sc from './AlertMsg.style';
+import { Alert } from 'antd';
 
 const AlertMsg = (props) => (
-  <sc.AntAlert
+  <Alert
     className={props.className}
     message={props.message}
     type={props.type}
