@@ -23,7 +23,7 @@ import {
 } from '../config';
 // import { persistCache } from 'apollo-cache-persist';
 // import { schema } from './schema';
-// import { typeDefs } from './typeDefs';
+// import typeDefs from './typeDefs';
 // import resolvers from './resolvers';
 // import initCache from './initCache';
 
