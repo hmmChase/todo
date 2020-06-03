@@ -5,7 +5,6 @@ import ShowMoreBtn from './ShowMoreBtn';
 export default { title: 'Components|Molecules', component: ShowMoreBtn };
 
 const data = {
-  ariaLabel: 'load more button',
   loading: [false, true],
   fetchMore: () => '',
   ideas: {

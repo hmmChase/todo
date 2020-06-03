@@ -73,7 +73,7 @@ const ResetPassword = (props) => {
 
           <sc.FormItemBtn>
             <sc.SubmitBtn
-              ariaLabel='reset password'
+              aria-label='reset password'
               type='primary'
               htmlType='submit'
               loading={loading}

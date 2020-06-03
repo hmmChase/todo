@@ -45,7 +45,7 @@ const RequestReset = () => {
 
           <sc.FormItemBtn>
             <Button
-              ariaLabel='submit button'
+              aria-label='submit request'
               loading={loading}
               type='primary'
               htmlType='submit'
