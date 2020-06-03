@@ -1,10 +1,19 @@
+import Head from 'next/head';
 import withApollo from '../graphql/withApollo';
 import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
-import Layout from '../components/organisms/Layout/Layout';
+import { title } from '../config';
 import SignOn from '../components/organisms/SignOn/SignOn';
 
-const WelcomePage = () => <Layout title='Welcome' content={<SignOn />} />;
+const WelcomePage = () => (
+  <main>
+    <Head>
+      <title>{`${title} | Welcome`}</title>
+    </Head>
+
+    <SignOn />
+  </main>
+);
 
 WelcomePage.getInitialProps = async (ctx) => {
   const { req, res } = ctx;
