@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
-import { XIconBtn } from '../../atoms/IconBtn/IconBtn';
+import { ideasPerPage } from '../../../config';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
   DELETE_IDEA,
 } from '../../../graphql/queries';
-import { ideasPerPage } from '../../../config';
+import { XIconBtn } from '../../atoms/IconBtn/IconBtn';
 
 const DeleteIcon = (props) => {
   const update = (cache, data) => {

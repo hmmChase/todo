@@ -18,4 +18,4 @@ BackBtn.propTypes = {
   path: PropTypes.string.isRequired,
 };
 
-export default BackBtn;
+export default React.memo(BackBtn);
