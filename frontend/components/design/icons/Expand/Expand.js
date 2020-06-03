@@ -1,8 +1,9 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import * as sc from '../icons.style';
 
 const Expand = (props) => (
   <sc.EssVeeGee
+    className={props.className}
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 357.18 357.18'
     {...props}
@@ -11,6 +12,8 @@ const Expand = (props) => (
   </sc.EssVeeGee>
 );
 
-// X.propTypes = {};
+Expand.propTypes = {
+  className: PropTypes.string,
+};
 
-export default React.memo(Expand);
+export default Expand;
