@@ -1,12 +1,12 @@
-import { Form as FormikForm, Formik, _Field } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
-// import { Form, Input } from 'antd';
+// import { useMutation } from '@apollo/client';
+import { Form as FormikForm, Formik } from 'formik';
 import { object } from 'yup';
 import { email } from '../../../utils/validation';
-import DisplayError from '../../molecules/DisplayError/DisplayError';
-import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';
 import { REQUEST_RESET } from '../../../graphql/queries';
 import FormInput from '../../atoms/FormInput/FormInput';
+import DisplayError from '../../molecules/DisplayError/DisplayError';
+import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';
 import Button from '../../atoms/Button/Button';
 import * as sc from './RequestReset.style';
 
@@ -50,9 +50,11 @@ const RequestReset = () => {
               type='primary'
               htmlType='submit'
               disabled={
-                !formikProps.values.email ||
-                formikProps.errors.email ||
-                formikProps.isSubmitting
+                !!(
+                  !formikProps.values.email ||
+                  formikProps.errors.email ||
+                  formikProps.isSubmitting
+                )
               }
             >
               Submit

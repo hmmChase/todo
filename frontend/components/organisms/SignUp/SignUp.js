@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
+// import { useMutation } from '@apollo/client';
 import { Form as FormikForm, Formik } from 'formik';
 import { object } from 'yup';
-import { SIGN_UP } from '../../../graphql/queries';
 import { setAccessToken } from '../../../utils/accessToken';
 import {
   username,
@@ -11,11 +11,12 @@ import {
   password,
   confirmPassword,
 } from '../../../utils/validation';
+import { SIGN_UP } from '../../../graphql/queries';
 import FormInput from '../../atoms/FormInput/FormInput';
 import FormInputPass from '../../atoms/FormInputPass/FormInputPass';
+import DisplayError from '../../molecules/DisplayError/DisplayError';
 import PassReqList from '../../molecules/PassReqList/PassReqList';
 import Button from '../../atoms/Button/Button';
-import DisplayError from '../../molecules/DisplayError/DisplayError';
 import * as sc from './SignUp.style';
 
 const validationSchema = object().shape(

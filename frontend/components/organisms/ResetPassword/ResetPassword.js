@@ -9,9 +9,9 @@ import { passResetSuccessful } from '../../../config';
 import { RESET_PASSWORD } from '../../../graphql/queries';
 import BackBtn from '../../molecules/BackBtn/BackBtn';
 import FormInputPass from '../../atoms/FormInputPass/FormInputPass';
-import PassReqList from '../../molecules/PassReqList/PassReqList';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';
+import PassReqList from '../../molecules/PassReqList/PassReqList';
 import * as sc from './ResetPassword.style';
 
 const validationSchema = object().shape(password, confirmPassword);

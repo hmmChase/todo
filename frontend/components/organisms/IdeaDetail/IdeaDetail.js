@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
+// import { useQuery } from '@apollo/client';
 import { CURRENT_USER_IDEA } from '../../../graphql/queries';
 import DisplayLoading from '../../molecules/DisplayLoading/DisplayLoading';
 import DisplayError from '../../molecules/DisplayError/DisplayError';

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
+// import { useMutation } from '@apollo/client';
 import { ideasPerPage } from '../../../config';
 import {
   CURRENT_USER_PAGINATED_IDEAS,

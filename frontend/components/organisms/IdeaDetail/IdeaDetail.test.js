@@ -14,7 +14,9 @@ import {
 } from '../../../__tests__/__mocks__/graphql/idea';
 import theme from '../../../public/styles/theme.style';
 
-jest.mock('../IdeaCardInput/IdeaCardInput', () => () => <div>IdeaCardInput</div>);
+jest.mock('../IdeaCardInput/IdeaCardInput', () => () => (
+  <div>IdeaCardInput</div>
+));
 
 const arrage = (newProps = {}, newQueries = []) => {
   const defaultProps = { ideaId: '1' };
