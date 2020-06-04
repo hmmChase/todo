@@ -23,7 +23,7 @@ export const SignOutBtnn = styled(SignOutBtn)`
   width: 88px;
 
   @media screen and (min-width: 910px) {
-    margin: 0;
+    margin-right: 0;
   }
 `;
 
