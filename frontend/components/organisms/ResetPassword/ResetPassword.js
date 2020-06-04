@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 // import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
-import { Form as FormikForm, Formik } from 'formik';
+import { Formik } from 'formik';
 import { object } from 'yup';
 import { password, confirmPassword } from '../../../utils/validation';
 import { passResetSuccessful } from '../../../config';
@@ -54,7 +54,7 @@ const ResetPassword = (props) => {
       onSubmit={onSubmit}
     >
       {(formikProps) => (
-        <FormikForm>
+        <sc.FormikFormm>
           <FormInputPass
             label='New password'
             id='resetPasswordPassword'
@@ -90,7 +90,7 @@ const ResetPassword = (props) => {
               Reset
             </sc.SubmitBtn>
           </sc.FormItemBtn>
-        </FormikForm>
+        </sc.FormikFormm>
       )}
     </Formik>
   );

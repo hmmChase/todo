@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { _useApolloClient, useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
@@ -5,7 +6,7 @@ import { clearAccessToken } from '../../../utils/accessToken';
 import { SIGN_OUT, IS_LOGGED_IN } from '../../../graphql/queries';
 import Button from '../../atoms/Button/Button';
 
-const SignOutBtn = () => {
+const SignOutBtn = (props) => {
   // const apolloClient = useApolloClient();
 
   const update = (cache) => {
@@ -48,6 +49,7 @@ const SignOutBtn = () => {
 
   return (
     <Button
+      className={props.className}
       aria-label='log out'
       aria-busy={loading}
       type='default'
@@ -57,6 +59,10 @@ const SignOutBtn = () => {
       Log Out
     </Button>
   );
+};
+
+SignOutBtn.propTypes = {
+  className: PropTypes.string,
 };
 
 export default SignOutBtn;

@@ -4,8 +4,8 @@ import IdeaCardInput from '../IdeaCardInput/IdeaCardInput';
 import * as sc from './IdeaCard.style';
 
 const IdeaCard = (props) => (
-  <li>
-    <sc.IdeaCardBtns className={props.className} data-testid='IdeaCard'>
+  <li className={props.className} data-testid='IdeaCard'>
+    <sc.IdeaCardBtns>
       <sc.DetailIconn id={props.id} aria-label='idea detail' />
 
       <DeleteIcon id={props.id} aria-label='delete idea' />

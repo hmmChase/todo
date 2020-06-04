@@ -1,26 +1,33 @@
 import styled from 'styled-components';
-import HeaderTitle from '../../atoms/HeaderTitle/HeaderTitle';
 import { title } from '../../../config';
+import HeaderTitle from '../../atoms/HeaderTitle/HeaderTitle';
+import SignOutBtn from '../../molecules/SignOutBtn/SignOutBtn';
 
 export const Header = styled.div`
   display: grid;
+  grid-gap: 10px;
   grid-template-areas:
     'top-left top-right'
     'bottom bottom';
   grid-template-columns: 1fr auto;
   align-items: center;
   flex-grow: 1;
-  background-color: ${(props) => props.theme.color.lightBlue};
-  border-bottom: 1px solid ${(props) => props.theme.color.black};
-  padding: 10px 10px 0 10px;
 `;
 
-export const TitleHeader = styled(HeaderTitle)`
+export const HeaderTitlee = styled(HeaderTitle)`
   padding-left: ${(props) => props.children === title && '70px'};
 `;
 
+export const SignOutBtnn = styled(SignOutBtn)`
+  margin-right: 10px;
+
+  @media screen and (min-width: 910px) {
+    margin: 0;
+  }
+`;
+
 export const Welcome = styled.span`
-  margin-right: 1rem;
+  margin-right: 10px;
 `;
 
 export const Bottom = styled.div`
