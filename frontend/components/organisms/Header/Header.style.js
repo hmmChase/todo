@@ -20,6 +20,7 @@ export const HeaderTitlee = styled(HeaderTitle)`
 
 export const SignOutBtnn = styled(SignOutBtn)`
   margin-right: 10px;
+  width: 88px;
 
   @media screen and (min-width: 910px) {
     margin: 0;
