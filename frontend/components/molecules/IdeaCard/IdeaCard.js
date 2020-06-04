@@ -4,19 +4,23 @@ import IdeaCardInput from '../IdeaCardInput/IdeaCardInput';
 import * as sc from './IdeaCard.style';
 
 const IdeaCard = (props) => (
-  <>
-    <sc.IdeaCardBtns className={props.className} data-testid='IdeaCard'>
-      <sc.DetailIconn id={props.id} />
+  <li className={props.className} data-testid='IdeaCard'>
+    <sc.IdeaCardBtns>
+      <sc.DetailIconn id={props.id} aria-label='idea detail' />
 
-      <DeleteIcon id={props.id} />
+      <DeleteIcon id={props.id} aria-label='delete idea' />
     </sc.IdeaCardBtns>
 
-    <IdeaCardInput id={props.id} content={props.content} />
-  </>
+    <IdeaCardInput
+      id={props.id}
+      content={props.content}
+      aria-label='idea input'
+    />
+  </li>
 );
 
 IdeaCard.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   content: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };

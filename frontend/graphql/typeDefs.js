@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 // import { gql } from '@apollo/client';
 
-export const typeDefs = gql`
+export default gql`
   extend type Query {
     # renderedOn: String!
     isLoggedIn: Boolean!

@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
+// import { useQuery } from '@apollo/client';
 import { ideasPerPage } from '../../../config';
 import { CURRENT_USER_PAGINATED_IDEAS } from '../../../graphql/queries';
 import DisplayLoading from '../../molecules/DisplayLoading/DisplayLoading';

@@ -3,8 +3,8 @@ import withApollo from '../graphql/withApollo';
 import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
 import Layout from '../components/organisms/Layout/Layout';
-import ResetPassError from '../components/organisms/ResetPassError/ResetPassError';
 import Header from '../components/organisms/Header/Header';
+import ResetPassError from '../components/molecules/ResetPassError/ResetPassError';
 import ResetPassword from '../components/organisms/ResetPassword/ResetPassword';
 
 const ResetPasswordPage = (props) => {

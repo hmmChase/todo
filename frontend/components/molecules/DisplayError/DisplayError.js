@@ -25,10 +25,10 @@ const DisplayError = (props) => {
 DisplayError.defaultProps = { error: {} };
 
 DisplayError.propTypes = {
-  error: PropTypes.shape({
+  error: PropTypes.exact({
     graphQLErrors: PropTypes.array,
     message: PropTypes.string,
-  }),
+  }).isRequired,
 };
 
 export default React.memo(DisplayError);

@@ -3,12 +3,12 @@ import {
   passResetTokenMissingError,
   passResetTokenExpiredError,
 } from '../../../config';
-import BackBtn from '../../molecules/BackBtn/BackBtn';
-import DisplayError from '../../molecules/DisplayError/DisplayError';
+import DisplayError from '../DisplayError/DisplayError';
+import * as sc from './ResetPassError.style';
 
 const ResetPassError = (props) => (
   <>
-    <BackBtn path='/welcome' />
+    <sc.BackBtnn path='/welcome' />
 
     {!props.isTokenPresent && (
       <DisplayError error={{ message: passResetTokenMissingError }} />

@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/react-hooks';
 // import { useQuery } from '@apollo/client';
 import { title } from '../../../config';
 import { CURRENT_USER } from '../../../graphql/queries';
-import SignOutBtn from '../../molecules/SignOutBtn/SignOutBtn';
 import * as sc from './Header.style';
 
 const Header = (props) => {
@@ -11,17 +10,15 @@ const Header = (props) => {
 
   return (
     <sc.Header>
-      <sc.TitleHeader>{props.title ? props.title : title}</sc.TitleHeader>
+      <sc.HeaderTitlee>{props.title ? props.title : title}</sc.HeaderTitlee>
 
-      <div>
-        {data && data.currentUser && data.currentUser.username && (
-          <>
-            <sc.Welcome>Welcome {data.currentUser.username}</sc.Welcome>
+      {data && data.currentUser && (
+        <div>
+          <sc.Welcome>Welcome {data.currentUser.username}</sc.Welcome>
 
-            <SignOutBtn />
-          </>
-        )}
-      </div>
+          <sc.SignOutBtnn />
+        </div>
+      )}
 
       <sc.Bottom>{props.children}</sc.Bottom>
     </sc.Header>

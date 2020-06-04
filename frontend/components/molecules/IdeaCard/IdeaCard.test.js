@@ -5,7 +5,9 @@ import theme from '../../../public/styles/theme.style';
 
 jest.mock('../DetailIcon/DetailIcon', () => () => <div>DetailIcon</div>);
 jest.mock('../DeleteIcon/DeleteIcon', () => () => <div>DeleteIcon</div>);
-jest.mock('../IdeaCardInput/IdeaCardInput', () => () => <div>IdeaCardInput</div>);
+jest.mock('../IdeaCardInput/IdeaCardInput', () => () => (
+  <div>IdeaCardInput</div>
+));
 
 const arrage = (newProps = {}) => {
   const defaultProps = { id: '1', content: 'mock content' };

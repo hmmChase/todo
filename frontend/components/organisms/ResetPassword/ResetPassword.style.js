@@ -1,13 +1,11 @@
 import styled from 'styled-components';
-import { Form, Input, List } from 'antd';
+import { Form, List } from 'antd';
+import { Form as FormikForm } from 'formik';
 import Button from '../../atoms/Button/Button';
 
-export const InputPassword = styled(Input.Password)`
-  /* width: 15rem; */
-`;
-
-export const InputConfirmPassword = styled(Input.Password)`
-  /* width: 15rem; */
+export const FormikFormm = styled(FormikForm)`
+  max-width: 300px;
+  margin: 0 auto;
 `;
 
 export const PassListContainer = styled.div`

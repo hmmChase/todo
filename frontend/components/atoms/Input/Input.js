@@ -1,27 +1,26 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import * as sc from './Input.style';
+import { Input as Inputt } from 'antd';
 
 const Input = (props) => (
-  <sc.Inputt
+  <Inputt
+    className={props.className}
     id={props.id}
     name={props.name}
-    type={props.type}
     value={props.value}
     onChange={props.onChange}
     onBlur={props.onBlur}
-    onPressEnter={props.onPressEnter}
+    // onPressEnter={props.onPressEnter}
   />
 );
 
 Input.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onPressEnter: PropTypes.func,
-  type: PropTypes.string,
-  value: PropTypes.string,
+  className: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  // onPressEnter: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default React.memo(Input);

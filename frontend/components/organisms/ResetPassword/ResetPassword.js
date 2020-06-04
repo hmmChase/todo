@@ -2,16 +2,16 @@ import PropTypes from 'prop-types';
 // import Router from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 // import { useMutation } from '@apollo/client';
-import { Form as FormikForm, Formik } from 'formik';
+import { Formik } from 'formik';
 import { object } from 'yup';
 import { password, confirmPassword } from '../../../utils/validation';
 import { passResetSuccessful } from '../../../config';
 import { RESET_PASSWORD } from '../../../graphql/queries';
 import BackBtn from '../../molecules/BackBtn/BackBtn';
 import FormInputPass from '../../atoms/FormInputPass/FormInputPass';
-import PassReqList from '../../molecules/PassReqList/PassReqList';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';
+import PassReqList from '../../molecules/PassReqList/PassReqList';
 import * as sc from './ResetPassword.style';
 
 const validationSchema = object().shape(password, confirmPassword);
@@ -54,7 +54,7 @@ const ResetPassword = (props) => {
       onSubmit={onSubmit}
     >
       {(formikProps) => (
-        <FormikForm>
+        <sc.FormikFormm>
           <FormInputPass
             label='New password'
             id='resetPasswordPassword'
@@ -73,7 +73,7 @@ const ResetPassword = (props) => {
 
           <sc.FormItemBtn>
             <sc.SubmitBtn
-              ariaLabel='reset password'
+              aria-label='reset password'
               type='primary'
               htmlType='submit'
               loading={loading}
@@ -90,7 +90,7 @@ const ResetPassword = (props) => {
               Reset
             </sc.SubmitBtn>
           </sc.FormItemBtn>
-        </FormikForm>
+        </sc.FormikFormm>
       )}
     </Formik>
   );

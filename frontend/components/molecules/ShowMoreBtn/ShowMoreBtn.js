@@ -31,7 +31,7 @@ const ShowMoreBtn = (props) => {
     <sc.ShowMoreBtn
       className={props.className}
       type='primary'
-      ariaLabel='show more'
+      aria-label='show more'
       loading={props.loading}
       onClick={onClick}
     >

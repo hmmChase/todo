@@ -6,13 +6,13 @@ import debounce from 'lodash.debounce';
 import { debounceDelay } from '../../../config';
 import { UPDATE_IDEA } from '../../../graphql/queries';
 import TextArea from '../../atoms/TextArea/TextArea';
-// import * as sc from './IdeaCardInput.style';
 
 const IdeaCardInput = (props) => {
   const [content, setContent] = useState(props.content);
 
   const [updateIdea] = useMutation(UPDATE_IDEA, { onError(_error) {} });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedFn = useCallback(
     debounce(
       (value) => updateIdea({ variables: { id: props.id, content: value } }),
@@ -29,7 +29,7 @@ const IdeaCardInput = (props) => {
 
   return (
     <TextArea
-      ariaLabel='idea content'
+      aria-label='idea content'
       autoSize={{ minRows: 1, maxRows: 10 }}
       value={content}
       onChange={onChange}

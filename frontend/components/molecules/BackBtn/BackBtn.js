@@ -5,10 +5,10 @@ import * as sc from './BackBtn.style';
 const BackBtn = (props) => (
   <Link href={{ pathname: props.path }}>
     <div>
-      <sc.AntButton className={props.className} ariaLabel='back' type='primary'>
-        <sc.LeftIcon />
+      <sc.Buttonn className={props.className} aria-label='back' type='primary'>
+        <sc.Leftt />
         Back
-      </sc.AntButton>
+      </sc.Buttonn>
     </div>
   </Link>
 );
@@ -18,4 +18,4 @@ BackBtn.propTypes = {
   path: PropTypes.string.isRequired,
 };
 
-export default BackBtn;
+export default React.memo(BackBtn);

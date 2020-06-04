@@ -1,6 +1,6 @@
 import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import PassReqList from './PassReqList';
+import ResetPassError from './ResetPassError';
 import theme from '../../../public/styles/theme.style';
 
 const arrage = (newProps = {}) => {
@@ -9,21 +9,21 @@ const arrage = (newProps = {}) => {
 
   const result = render(
     <ThemeProvider theme={theme}>
-      <PassReqList {...mockProps} />
+      <ResetPassError {...mockProps} />
     </ThemeProvider>
   );
 
-  const passReqList = result.queryByText('PassReqList');
+  const resetPassError = result.queryByText('ResetPassError');
 
-  return { ...result, passReqList };
+  return { ...result, resetPassError };
 };
 
-describe('PassReqList', () => {
+describe('ResetPassError', () => {
   afterEach(cleanup);
 
   it('renders elements', () => {
     const com = arrage();
 
-    expect(com.passReqList).toBeInTheDocument();
+    expect(com.resetPassError).toBeInTheDocument();
   });
 });

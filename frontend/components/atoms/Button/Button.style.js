@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'antd';
 
-export const AntButton = styled(Button)`
+export const Buttonn = styled(Button)`
   border-radius: 4px;
 `;

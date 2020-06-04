@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
-import { XIconBtn } from '../../atoms/IconBtn/IconBtn';
+// import { useMutation } from '@apollo/client';
+import { ideasPerPage } from '../../../config';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
   DELETE_IDEA,
 } from '../../../graphql/queries';
-import { ideasPerPage } from '../../../config';
-// import * as sc from './DeleteIcon.style';
+import { XIconBtn } from '../../atoms/IconBtn/IconBtn';
 
 const DeleteIcon = (props) => {
   const update = (cache, data) => {
@@ -54,7 +54,7 @@ const DeleteIcon = (props) => {
     deleteIdea({ variables: { id: props.id } });
   };
 
-  return <XIconBtn aria-label='delete idea' onClick={onClick} />;
+  return <XIconBtn onClick={onClick} />;
 };
 
 DeleteIcon.propTypes = {

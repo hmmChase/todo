@@ -5,13 +5,11 @@ import Button from './Button';
 export default { title: 'Components|Atoms', component: Button };
 
 const data = {
-  ariaBusy: [false, true],
-  ariaLabel: 'mock label',
   children: [null, 'button text'],
-  disabled: [false, true],
-  htmlType: 'submit',
+  // disabled: [false, true],
+  // htmlType: 'submit',
   loading: [false, true],
-  type: [null, 'primary'],
+  type: ['default', 'primary', 'dashed', 'link'],
 };
 
 const actions = {

@@ -1,12 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import * as sc from './Button.style';
 
 const Button = (props) => (
-  <sc.AntButton
+  <sc.Buttonn
     className={props.className}
-    aria-busy={props.ariaBusy}
-    aria-label={props.ariaLabel}
     disabled={props.disabled}
     htmlType={props.htmlType}
     loading={props.loading}
@@ -14,19 +11,17 @@ const Button = (props) => (
     type={props.type}
   >
     {props.children}
-  </sc.AntButton>
+  </sc.Buttonn>
 );
 
 Button.propTypes = {
-  ariaBusy: PropTypes.bool,
-  ariaLabel: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   className: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
   disabled: PropTypes.bool,
-  htmlType: PropTypes.string,
+  htmlType: PropTypes.oneOf(['submit']),
   loading: PropTypes.bool,
   onClick: PropTypes.func,
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['default', 'primary', 'dashed', 'link']).isRequired,
 };
 
 export default React.memo(Button);
