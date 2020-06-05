@@ -7,7 +7,6 @@ import { REQUEST_RESET } from '../../../graphql/queries';
 import FormInput from '../../atoms/FormInput/FormInput';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';
-import Button from '../../atoms/Button/Button';
 import * as sc from './RequestReset.style';
 
 const validationSchema = object().shape(email);
@@ -44,8 +43,8 @@ const RequestReset = () => {
           )}
 
           <sc.FormItemBtn>
-            <Button
-              aria-label='submit request'
+            <sc.SubmitBtn
+              aria-label='request reset'
               loading={loading}
               type='primary'
               htmlType='submit'
@@ -58,7 +57,7 @@ const RequestReset = () => {
               }
             >
               Submit
-            </Button>
+            </sc.SubmitBtn>
           </sc.FormItemBtn>
         </FormikForm>
       )}
