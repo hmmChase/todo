@@ -7,5 +7,5 @@ export const IdeaCardBtns = styled.div`
 `;
 
 export const DetailIconn = styled(DetailIcon)`
-  margin-right: 5px;
+  margin: 0 5px 5px 0;
 `;

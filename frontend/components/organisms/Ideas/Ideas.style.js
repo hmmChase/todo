@@ -10,7 +10,7 @@ export const Ideas = styled.section`
 `;
 
 export const IdeaCardListt = styled(IdeaCardList)`
-  margin-bottom: 2rem;
+  margin: 1rem 0 2rem 0;
 `;
 
 export const ShowMoreBtnn = styled(ShowMoreBtn)`

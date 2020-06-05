@@ -15,14 +15,15 @@ export const Header = styled.div`
 `;
 
 export const HeaderTitlee = styled(HeaderTitle)`
-  padding-left: ${(props) => props.children === title && '70px'};
+  padding-left: ${(props) => (props.children === title ? '70px' : '10px')};
 `;
 
 export const SignOutBtnn = styled(SignOutBtn)`
   margin-right: 10px;
+  width: 88px;
 
   @media screen and (min-width: 910px) {
-    margin: 0;
+    margin-right: 0;
   }
 `;
 
