@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import BackBtn from '../../molecules/BackBtn/BackBtn';
 
 export const IdeaDetail = styled.section`
-  /* flex-grow: 1; */
+  margin-bottom: 2rem;
 `;
 
 export const BackBtnn = styled(BackBtn)`
-  margin-bottom: 40px;
+  margin: 1rem 0 2rem 0;
 `;
