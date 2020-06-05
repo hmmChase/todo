@@ -6,8 +6,8 @@ export default { title: 'Components|Atoms', component: Button };
 
 const data = {
   children: [null, 'button text'],
-  // disabled: [false, true],
-  // htmlType: 'submit',
+  disabled: [false, true],
+  htmlType: [null, 'submit'],
   loading: [false, true],
   type: ['default', 'primary', 'dashed', 'link'],
 };
