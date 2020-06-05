@@ -7,14 +7,17 @@ export const Button = styled.button`
   cursor: pointer;
   padding: 0;
   background-color: rgb(235, 245, 255);
-  /* -webkit-appearance: none; */
-  /* vertical-align: top; */
-  /* line-height: 0; */
+
+  :hover {
+    background-color: #c8dcf0;
+  }
+
+  :active {
+    padding: 1px;
+  }
 
   svg {
     fill: #1890ff;
     margin: 3px;
-    /* vertical-align: top; */
-    /* line-height: 0; */
   }
 `;
