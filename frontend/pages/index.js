@@ -1,3 +1,5 @@
+// https://github.com/hmmChase/next-graphql-starter/tree/b6bf56865b0b33c67dcd78e14d01cd1783779b78
+
 // import order: react=>next=>libs=>utils=>config=>queries=>components=>css
 import withApollo from '../graphql/withApollo';
 import signedIn from '../utils/signedIn';
