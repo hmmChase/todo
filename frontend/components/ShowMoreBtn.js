@@ -9,19 +9,22 @@ const ShowMoreBtn = (props) => {
         const moreEdges = fetchMoreResult.currentUserPaginatedIdeas.edges;
         const nextPageInfo = fetchMoreResult.currentUserPaginatedIdeas.pageInfo;
 
-        return moreEdges.length
-          ? {
-              ...previousResult,
-              currentUserPaginatedIdeas: {
-                ...previousResult.currentUserPaginatedIdeas,
-                edges: [
-                  ...previousResult.currentUserPaginatedIdeas.edges,
-                  ...moreEdges,
-                ],
-                pageInfo: nextPageInfo,
-              },
-            }
-          : previousResult;
+        // if (!fetchMoreResult) {
+        if (!moreEdges.length) {
+          return previousResult;
+        }
+
+        return {
+          ...previousResult,
+          currentUserPaginatedIdeas: {
+            ...previousResult.currentUserPaginatedIdeas,
+            edges: [
+              ...previousResult.currentUserPaginatedIdeas.edges,
+              ...moreEdges,
+            ],
+            pageInfo: nextPageInfo,
+          },
+        };
       },
     });
 
