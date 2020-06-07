@@ -142,6 +142,7 @@ const createApollo = (
 
   // Hydrate cache with the initialState created server-side
   const cache = new InMemoryCache({
+    // https://www.apollographql.com/docs/react/caching/cache-interaction/#cache-redirects-with-cacheredirects
     cacheRedirects: {
       Query: {
         currentUserIdea: (_, args, { getCacheKey }) =>
