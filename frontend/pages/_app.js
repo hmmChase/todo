@@ -1,7 +1,10 @@
+import { StrictMode } from 'react';
 import PropTypes from 'prop-types';
 import '../public/Index.css';
 
-const MyApp = ({ Component, pageProps }) => {
+const MyApp = (props) => {
+  const { Component, pageProps } = props;
+
   console.log('_app render', new Date().getMilliseconds());
 
   //     // console.log('_app props: ', Object.keys(this.props));
@@ -12,9 +15,11 @@ const MyApp = ({ Component, pageProps }) => {
 
   //     // pageProps includes data returned from getInitialProps
 
-  //     const { Component, pageProps } = this.props;
-
-  return <Component {...pageProps} />;
+  return (
+    <StrictMode>
+      <Component {...pageProps} />
+    </StrictMode>
+  );
 };
 
 MyApp.propTypes = {
