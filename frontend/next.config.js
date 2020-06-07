@@ -1,4 +1,5 @@
-// https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
+// https://nextjs.org/docs/api-reference/next.config.js/introduction
+// https://github.com/zeit/next.js/blob/canary/packages/next/next-server/server/config.ts#L12-L63
 
 // require('dotenv').config();
 // import 'dotenv/config';
@@ -10,6 +11,7 @@ const nextConfig = {
   // Now by ZEIT deployment target
   target: 'serverless',
 
+  // https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
   webpack: (config, _options) => {
     config.plugins = config.plugins || [];
 
