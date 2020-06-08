@@ -1,5 +1,3 @@
-// https://github.com/vercel/next.js/blob/master/errors/custom-error-no-custom-404.md
-
 import withApollo from '../graphql/withApollo';
 import Layout from '../components/organisms/Layout/Layout';
 import Header from '../components/organisms/Header/Header';
