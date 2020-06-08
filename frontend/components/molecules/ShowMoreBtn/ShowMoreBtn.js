@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as sc from './ShowMoreBtn.style';
 
 const ShowMoreBtn = (props) => {
-  const onClick = () => {
+  const onClick = () =>
     props.fetchMore({
       variables: { after: props.ideas.pageInfo.endCursor },
 
@@ -10,22 +10,23 @@ const ShowMoreBtn = (props) => {
         const moreEdges = fetchMoreResult.currentUserPaginatedIdeas.edges;
         const nextPageInfo = fetchMoreResult.currentUserPaginatedIdeas.pageInfo;
 
-        return moreEdges.length
-          ? {
-              ...previousResult,
-              currentUserPaginatedIdeas: {
-                ...previousResult.currentUserPaginatedIdeas,
-                edges: [
-                  ...previousResult.currentUserPaginatedIdeas.edges,
-                  ...moreEdges,
-                ],
-                pageInfo: nextPageInfo,
-              },
-            }
-          : previousResult;
+        if (!moreEdges.length) {
+          return previousResult;
+        }
+
+        return {
+          ...previousResult,
+          currentUserPaginatedIdeas: {
+            ...previousResult.currentUserPaginatedIdeas,
+            edges: [
+              ...previousResult.currentUserPaginatedIdeas.edges,
+              ...moreEdges,
+            ],
+            pageInfo: nextPageInfo,
+          },
+        };
       },
     });
-  };
 
   return (
     <sc.ShowMoreBtn

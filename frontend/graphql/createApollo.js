@@ -141,7 +141,15 @@ const createApollo = (
   const link = process.env.NODE_ENV === 'production' ? linkProd : linkDev;
 
   // Hydrate cache with the initialState created server-side
-  const cache = new InMemoryCache().restore(initialState);
+  const cache = new InMemoryCache({
+    // https://www.apollographql.com/docs/react/caching/cache-interaction/#cache-redirects-with-cacheredirects
+    cacheRedirects: {
+      Query: {
+        currentUserIdea: (_, args, { getCacheKey }) =>
+          getCacheKey({ __typename: 'Idea', id: args.id }),
+      },
+    },
+  }).restore(initialState);
 
   // if (!typeof window === 'undefined')
   //   persistCache({ cache, storage: window.localStorage });
