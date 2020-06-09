@@ -16,29 +16,29 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
     "@apollo/react-ssr": "^3.1.5",
-    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-cache-inmemory": "^1.6.6",
     "apollo-cache-persist": "^0.1.1",
-    "apollo-client": "^2.6.8",
+    "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
     "apollo-link-context": "^1.0.20",
     "apollo-link-error": "^1.1.13",
     "apollo-link-http": "^1.5.17",
-    "apollo-link-token-refresh": "^0.2.7",
+    "apollo-link-token-refresh": "^0.3.1",
     "bad-words": "^3.0.3",
-    "graphql": "^15.0.0",
+    "graphql": "^15.1.0",
     "graphql-tag": "^2.10.3",
-    "graphql-tools": "^5.0.0",
+    "graphql-tools": "^6.0.9",
     "isemail": "^3.2.0",
     "isomorphic-unfetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash.debounce": "^4.0.8",
-    "next": "^9.4.0",
+    "next": "^9.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "babel-plugin-graphql-tag": "^2.5.0",
-    "dotenv-webpack": "^1.7.0",
+    "dotenv-webpack": "^1.8.0",
     "prop-types": "^15.7.2"
   }
 }
