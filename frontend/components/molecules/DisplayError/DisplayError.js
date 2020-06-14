@@ -26,7 +26,9 @@ DisplayError.defaultProps = { error: {} };
 
 DisplayError.propTypes = {
   error: PropTypes.exact({
+    extraInfo: PropTypes.any,
     graphQLErrors: PropTypes.array,
+    networkError: PropTypes.object,
     message: PropTypes.string,
   }).isRequired,
 };

@@ -4,22 +4,28 @@ import X from '../../design/icons/X/X';
 import * as sc from './IconBtn.style';
 
 export const ExpandIconBtn = (props) => (
-  <sc.Button className={props.className}>
+  <sc.Button aria-label={props['aria-label']} className={props.className}>
     <Expand />
   </sc.Button>
 );
 
 export const XIconBtn = (props) => (
-  <sc.Button className={props.className} onClick={props.onClick}>
+  <sc.Button
+    aria-label={props['aria-label']}
+    className={props.className}
+    onClick={props.onClick}
+  >
     <X />
   </sc.Button>
 );
 
 ExpandIconBtn.propTypes = {
+  'aria-label': PropTypes.string.isRequired,
   className: PropTypes.string,
 };
 
 XIconBtn.propTypes = {
+  'aria-label': PropTypes.string.isRequired,
   className: PropTypes.string,
   onClick: PropTypes.func.isRequired,
 };

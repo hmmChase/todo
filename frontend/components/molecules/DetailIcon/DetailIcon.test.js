@@ -1,29 +1,35 @@
-import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import DetailIcon from './DetailIcon';
 import theme from '../../../public/styles/theme.style';
 
-const arrage = (newProps = {}) => {
-  const defaultProps = { id: '1' };
-  const mockProps = { ...defaultProps, ...newProps };
+const setup = (updatedProps = {}) => {
+  const initialProps = { id: '1' };
+  const mergedProps = { ...initialProps, ...updatedProps };
 
   const result = render(
     <ThemeProvider theme={theme}>
-      <DetailIcon {...mockProps} />
+      <DetailIcon {...mergedProps} />
     </ThemeProvider>
   );
 
-  const detailIcon = () => result.queryByLabelText('detail icon');
+  const detailIcon = () => result.queryByLabelText('idea details');
 
-  return { ...result, detailIcon };
+  return { ...result, mergedProps, detailIcon };
 };
 
 describe('DetailIcon', () => {
   afterEach(cleanup);
 
-  it('renders elements', () => {
-    const com = arrage();
+  it('matches snapshot', () => {
+    const utils = setup();
 
-    expect(com.detailIcon()).toBeInTheDocument();
+    expect(utils.baseElement).toMatchSnapshot();
+  });
+
+  it('renders elements', () => {
+    const utils = setup();
+
+    expect(utils.detailIcon()).toBeInTheDocument();
   });
 });

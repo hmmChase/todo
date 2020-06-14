@@ -3,13 +3,9 @@ import Link from 'next/link';
 import { ExpandIconBtn } from '../../atoms/IconBtn/IconBtn';
 
 const DetailIcon = (props) => (
-  <Link
-    // href={{ pathname: '/idea', query: { id: props.id } }}
-    href='/idea/[id]'
-    as={`/idea/${props.id}`}
-  >
+  <Link href='/idea/[id]' as={`/idea/${props.id}`}>
     <div>
-      <ExpandIconBtn className={props.className} />
+      <ExpandIconBtn aria-label='idea details' className={props.className} />
     </div>
   </Link>
 );

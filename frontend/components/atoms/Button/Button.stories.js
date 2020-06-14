@@ -5,6 +5,7 @@ import Button from './Button';
 export default { title: 'Components|Atoms', component: Button };
 
 const data = {
+  'aria-label': 'label',
   children: [null, 'button text'],
   disabled: [false, true],
   htmlType: [null, 'submit'],
@@ -12,8 +13,6 @@ const data = {
   type: ['default', 'primary', 'dashed', 'link'],
 };
 
-const actions = {
-  onClick: action('onClick'),
-};
+const actions = { onClick: action('onClick') };
 
 export const button = () => allCombos(Button, data, actions);

@@ -4,10 +4,12 @@ import InputPass from './InputPass';
 
 export default { title: 'Components|Atoms', component: InputPass };
 
-const data = { value: 'somepass' };
-
-const actions = {
-  // onPressEnter: action('onPressEnter'),
+const data = {
+  value: 'somepass',
 };
 
-export const inputPass = () => allCombos(InputPass, data, actions);
+// const actions = {
+// onPressEnter: action('onPressEnter'),
+// };
+
+export const inputPass = () => allCombos(InputPass, data);

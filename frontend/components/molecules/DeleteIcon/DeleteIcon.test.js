@@ -1,4 +1,4 @@
-import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import { MockedProvider } from '@apollo/react-testing';
 import { ThemeProvider } from 'styled-components';
 import DeleteIcon from './DeleteIcon';
@@ -8,31 +8,37 @@ import {
 } from '../../../__tests__/__mocks__/graphql/idea';
 import theme from '../../../public/styles/theme.style';
 
-const arrage = (newProps = {}, newQueries = []) => {
-  const defaultProps = { id: '1' };
-  const defaultQueries = [MOCK_CURRENT_USER_PAGINATED_IDEAS, MOCK_DELETE_IDEA];
-  const mockQueries = newQueries.length ? newQueries : defaultQueries;
-  const mockProps = { ...defaultProps, ...newProps };
+const setup = (updatedProps = {}, updatedQueries = []) => {
+  const initialProps = { id: '1' };
+  const initialQueries = [MOCK_CURRENT_USER_PAGINATED_IDEAS, MOCK_DELETE_IDEA];
+  const mergedQueries = updatedQueries ? updatedQueries : initialQueries;
+  const mergedProps = { ...initialProps, ...updatedProps };
 
   const result = render(
-    <MockedProvider mocks={mockQueries} addTypename={false}>
+    <MockedProvider mocks={mergedQueries} addTypename={false}>
       <ThemeProvider theme={theme}>
-        <DeleteIcon {...mockProps} />
+        <DeleteIcon {...mergedProps} />
       </ThemeProvider>
     </MockedProvider>
   );
 
-  const deleteIcon = () => result.queryByLabelText('delete icon');
+  const deleteIcon = () => result.queryByLabelText('delete idea');
 
-  return { ...result, deleteIcon };
+  return { ...result, mergedProps, deleteIcon };
 };
 
 describe('DeleteIcon', () => {
   afterEach(cleanup);
 
-  it('renders elements', () => {
-    const com = arrage();
+  it('matches snapshot', () => {
+    const utils = setup();
 
-    expect(com.deleteIcon()).toBeInTheDocument();
+    expect(utils.baseElement).toMatchSnapshot();
+  });
+
+  it('renders elements', () => {
+    const utils = setup();
+
+    expect(utils.deleteIcon()).toBeInTheDocument();
   });
 });

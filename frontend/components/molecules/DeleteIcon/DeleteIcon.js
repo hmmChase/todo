@@ -48,13 +48,13 @@ const DeleteIcon = (props) => {
   });
 
   const onClick = (e) => {
-    // ? not working
+    //? not working
     e.target.disabled = true;
 
     deleteIdea({ variables: { id: props.id } });
   };
 
-  return <XIconBtn onClick={onClick} />;
+  return <XIconBtn aria-label='delete idea' onClick={onClick} />;
 };
 
 DeleteIcon.propTypes = {

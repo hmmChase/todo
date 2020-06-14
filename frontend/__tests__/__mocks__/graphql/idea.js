@@ -42,16 +42,26 @@ export const MOCK_IDEAS_CONNECTION = {
 };
 
 export const MOCK_CURRENT_USER_IDEA = {
-  request: { query: query.CURRENT_USER_IDEA, variables: { id: '1' } },
+  request: {
+    query: query.CURRENT_USER_IDEA,
+    variables: { id: '342jkhl523k5j35' },
+  },
   result: {
     data: {
-      currentUserIdea: { id: '1', content: 'mock idea', author: { id: '1' } },
+      currentUserIdea: {
+        id: '342jkhl523k5j35',
+        content: 'mock idea',
+        author: { id: '098sd76v8s0d6' },
+      },
     },
   },
 };
 
 export const MOCK_ERROR_CURRENT_USER_IDEA = {
-  request: { query: query.CURRENT_USER_IDEA, variables: { id: '1' } },
+  request: {
+    query: query.CURRENT_USER_IDEA,
+    variables: { id: '342jkhl523k5j35' },
+  },
   error: new Error('mock error'),
 };
 

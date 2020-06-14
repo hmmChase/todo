@@ -9,7 +9,7 @@ export const MOCK_CURRENT_USER = {
   request: { query: query.CURRENT_USER },
   result: {
     data: {
-      currentUser: { id: '1', email: 'mock@email.com', color: 'mock olor' },
+      currentUser: { id: '1', email: 'mock@email.com' },
     },
   },
 };
