@@ -1,89 +1,89 @@
-import {
-  render,
-  cleanup,
-  prettyDOM,
-  fireEvent,
-  act,
-} from '@testing-library/react';
-import { MockedProvider } from '@apollo/react-testing';
-import { ThemeProvider } from 'styled-components';
-import Ideas from './Ideas';
-import {
-  MOCK_CURRENT_USER_PAGINATED_IDEAS,
-  MOCK_CURRENT_USER_PAGINATED_IDEAS_EMPTY,
-  MOCK_ERROR_CURRENT_USER_PAGINATED_IDEAS,
-} from '../../../__tests__/__mocks__/graphql/idea';
-import theme from '../../../public/styles/theme.style';
+// import {
+//   render,
+//   cleanup,
+//   prettyDOM,
+//   fireEvent,
+//   act,
+// } from '@testing-library/react';
+// import { MockedProvider } from '@apollo/react-testing';
+// import { ThemeProvider } from 'styled-components';
+// import Ideas from './Ideas';
+// import {
+//   MOCK_CURRENT_USER_PAGINATED_IDEAS,
+//   MOCK_CURRENT_USER_PAGINATED_IDEAS_EMPTY,
+//   MOCK_ERROR_CURRENT_USER_PAGINATED_IDEAS,
+// } from '../../../__tests__/__mocks__/graphql/idea';
+// import theme from '../../../public/styles/theme.style';
 
-const arrage = (newProps = {}, newQueries = []) => {
-  const defaultProps = {};
-  const defaultQueries = [MOCK_CURRENT_USER_PAGINATED_IDEAS];
-  const mockQueries = newQueries.length ? newQueries : defaultQueries;
-  const mockProps = { ...defaultProps, ...newProps };
+// const setup = (updatedProps = {}, updatedQueries = []) => {
+//   const initialProps = {};
+//   const initialQueries = [MOCK_CURRENT_USER_PAGINATED_IDEAS];
+//   const mergedQueries = updatedQueries.length ? updatedQueries : initialQueries;
+//   const mergedProps = { ...initialProps, ...updatedProps };
 
-  const result = render(
-    <MockedProvider mocks={mockQueries} addTypename={false}>
-      <ThemeProvider theme={theme}>
-        <Ideas {...mockProps} />
-      </ThemeProvider>
-    </MockedProvider>
-  );
+//   const result = render(
+//     <MockedProvider mocks={mergedQueries} addTypename={false}>
+//       <ThemeProvider theme={theme}>
+//         <Ideas {...mergedProps} />
+//       </ThemeProvider>
+//     </MockedProvider>
+//   );
 
-  const displayLoading = () => result.queryByText('Loading...');
-  const displayError = () => result.queryByText('Network error: mock error');
-  const ideas = () => result.queryAllByLabelText('idea input');
-  const showMoreBtn = () => result.queryByLabelText('load more button');
-  const addIdeaMessage = () => result.queryByText('Add an Idea!');
+//   const displayLoading = () => result.queryByText('Loading...');
+//   const displayError = () => result.queryByText('Network error: mock error');
+//   const ideas = () => result.queryAllByLabelText('idea input');
+//   const showMoreBtn = () => result.queryByLabelText('load more button');
+//   const addIdeaMessage = () => result.queryByText('Add an Idea!');
 
-  return {
-    ...result,
-    displayLoading,
-    ideas,
-    displayError,
-    showMoreBtn,
-    addIdeaMessage,
-  };
-};
+//   return {
+//     ...result,
+//     displayLoading,
+//     ideas,
+//     displayError,
+//     showMoreBtn,
+//     addIdeaMessage,
+//   };
+// };
 
-describe('Ideas', () => {
-  afterEach(cleanup);
+// describe('Ideas', () => {
+//   afterEach(cleanup);
 
-  it('renders elements', () => {
-    const com = arrage();
+//   it('renders elements', () => {
+//     const utils = setup();
 
-    expect(com.displayLoading()).toBeInTheDocument();
-  });
+//     expect(utils.displayLoading()).toBeInTheDocument();
+//   });
 
-  it('renders DisplayError on error', async () => {
-    const com = arrage({}, [MOCK_ERROR_CURRENT_USER_PAGINATED_IDEAS]);
+//   it('renders DisplayError on error', async () => {
+//     const utils = setup({}, [MOCK_ERROR_CURRENT_USER_PAGINATED_IDEAS]);
 
-    await act(() => new Promise(setTimeout));
+//     await act(() => new Promise(setTimeout));
 
-    expect(com.displayError()).toBeInTheDocument();
-  });
+//     expect(utils.displayError()).toBeInTheDocument();
+//   });
 
-  it('renders elements after loaded', async () => {
-    const com = arrage();
+//   it('renders elements after loaded', async () => {
+//     const utils = setup();
 
-    await act(() => new Promise(setTimeout));
+//     await act(() => new Promise(setTimeout));
 
-    expect(com.ideas()).toHaveLength(5);
-    expect(com.showMoreBtn()).toBeInTheDocument();
-  });
+//     expect(utils.ideas()).toHaveLength(5);
+//     expect(utils.showMoreBtn()).toBeInTheDocument();
+//   });
 
-  it('doesnt render showMoreBtn if hasNextPage is false', async () => {
-    const com = arrage({}, [MOCK_CURRENT_USER_PAGINATED_IDEAS_EMPTY]);
+//   it('doesnt render showMoreBtn if hasNextPage is false', async () => {
+//     const utils = setup({}, [MOCK_CURRENT_USER_PAGINATED_IDEAS_EMPTY]);
 
-    await act(() => new Promise(setTimeout));
+//     await act(() => new Promise(setTimeout));
 
-    expect(com.showMoreBtn()).not.toBeInTheDocument();
-  });
+//     expect(utils.showMoreBtn()).not.toBeInTheDocument();
+//   });
 
-  it('renders addIdeaMessage if no ideas', async () => {
-    const com = arrage({}, [MOCK_CURRENT_USER_PAGINATED_IDEAS_EMPTY]);
+//   it('renders addIdeaMessage if no ideas', async () => {
+//     const utils = setup({}, [MOCK_CURRENT_USER_PAGINATED_IDEAS_EMPTY]);
 
-    await act(() => new Promise(setTimeout));
+//     await act(() => new Promise(setTimeout));
 
-    expect(com.addIdeaMessage()).toBeInTheDocument();
-  });
-});
+//     expect(utils.addIdeaMessage()).toBeInTheDocument();
+//   });
+// });

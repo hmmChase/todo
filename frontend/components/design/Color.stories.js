@@ -20,6 +20,8 @@ ColorComp.propTypes = {
 
 export default { title: 'Design', component: ColorComp };
 
-const data = { color: Object.entries(theme.color) };
+const data = {
+  color: Object.entries(theme.color),
+};
 
 export const colors = () => allCombos(ColorComp, data);

@@ -1,21 +1,23 @@
-import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import DisplayError from './DisplayError';
 import theme from '../../../public/styles/theme.style';
 
-const arrage = (newProps = {}) => {
-  const defaultProps = {};
-  const mockProps = { ...defaultProps, ...newProps };
+const setup = (updatedProps = {}) => {
+  const initialProps = {};
+  const mergedProps = { ...initialProps, ...updatedProps };
 
   const result = render(
     <ThemeProvider theme={theme}>
-      <DisplayError {...mockProps} />
+      <DisplayError {...mergedProps} />
     </ThemeProvider>
   );
 
-  const displayError = () => result.queryByTestId('DisplayError');
+  const alertMsg = () => result.queryAllByTestId('AlertMsg');
 
-  return { ...result, displayError };
+  console.log('setup -> alertMsg', alertMsg());
+
+  return { ...result, alertMsg };
 };
 
 describe('DisplayError', () => {
@@ -23,25 +25,34 @@ describe('DisplayError', () => {
 
   it('renders default error message', () => {
     const errorMessage = 'Opps, something went wrong.';
-    const com = arrage();
+    const utils = setup();
 
-    expect(com.displayError()).toHaveTextContent(errorMessage);
+    expect(utils.alertMsg()).toHaveTextContent(errorMessage);
   });
 
   it('renders error message', () => {
     const errorMessage = 'mock general error';
-    const mockProps = { error: { message: errorMessage } };
-    const com = arrage(mockProps);
+    const mergedProps = { error: { message: errorMessage } };
+    const utils = setup(mergedProps);
 
-    expect(com.displayError()).toHaveTextContent(errorMessage);
+    expect(utils.alertMsg()).toHaveTextContent(errorMessage);
   });
 
-  it('renders graphQLErrors message', () => {
-    const errorMessage = 'mock graphQLErrors error';
-    const props = { error: { graphQLErrors: [{ message: errorMessage }] } };
+  it.only('renders graphQLErrors message', () => {
+    const errorMessage0 = 'mock graphQLErrors error 0';
+    const errorMessage1 = 'mock graphQLErrors error 1';
+    const updatedProps = {
+      error: {
+        graphQLErrors: [{ message: errorMessage0 }, { message: errorMessage1 }],
+      },
+    };
 
-    const com = arrage(props);
+    const utils = setup(updatedProps);
 
-    expect(com.displayError()).toHaveTextContent(errorMessage);
+    utils.debug();
+
+    expect(utils.alertMsg()).toHaveLength(2);
+    expect(utils.alertMsg()[0]).toHaveTextContent(errorMessage0);
+    expect(utils.alertMsg()[1]).toHaveTextContent(errorMessage1);
   });
 });

@@ -3,6 +3,8 @@ import { Modal } from 'antd';
 
 const PopupModal = (props) => (
   <Modal
+    aria-label={props['aria-label']}
+    data-testid={props['data-testid']}
     className={props.className}
     title={props.title}
     visible={props.visible}
@@ -15,6 +17,8 @@ const PopupModal = (props) => (
 );
 
 PopupModal.propTypes = {
+  'aria-label': PropTypes.string,
+  'data-testid': PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.element.isRequired,
   footer: PropTypes.element,

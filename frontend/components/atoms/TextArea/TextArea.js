@@ -3,6 +3,8 @@ import * as sc from './TextArea.style';
 
 const TextArea = (props) => (
   <sc.InputTextArea
+    aria-label={props['aria-label']}
+    data-testid={props['data-testid']}
     className={props.className}
     autoSize={props.autoSize}
     // name={props.name}
@@ -15,8 +17,10 @@ const TextArea = (props) => (
 );
 
 TextArea.propTypes = {
+  'aria-label': PropTypes.string,
+  'data-testid': PropTypes.string,
   className: PropTypes.string,
-  autoSize: PropTypes.shape({
+  autoSize: PropTypes.exact({
     minRows: PropTypes.number.isRequired,
     maxRows: PropTypes.number.isRequired,
   }),

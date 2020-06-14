@@ -20,7 +20,6 @@ const FormInputPass = (props) => (
           value={fieldProps.field.value}
           onChange={fieldProps.field.onChange}
           onBlur={fieldProps.field.onBlur}
-          // onPressEnter={fieldProps.form.handleSubmit}
         />
       </Form.Item>
     )}

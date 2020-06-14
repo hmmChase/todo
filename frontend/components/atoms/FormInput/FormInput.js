@@ -15,12 +15,14 @@ const FormInput = (props) => (
         }
       >
         <Input
+          aria-label={props['aria-label']}
+          data-testid={props['data-testid']}
+          className={props.className}
           id={props.id}
           name={props.name}
           value={fieldProps.field.value}
           onChange={fieldProps.field.onChange}
           onBlur={fieldProps.field.onBlur}
-          // onPressEnter={fieldProps.form.handleSubmit}
         />
       </Form.Item>
     )}
@@ -28,6 +30,9 @@ const FormInput = (props) => (
 );
 
 FormInput.propTypes = {
+  'aria-label': PropTypes.string,
+  'data-testid': PropTypes.string,
+  className: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,

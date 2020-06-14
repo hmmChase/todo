@@ -1,41 +1,41 @@
-import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import IdeaCard from './IdeaCard';
-import theme from '../../../public/styles/theme.style';
+// import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
+// import { ThemeProvider } from 'styled-components';
+// import IdeaCard from './IdeaCard';
+// import theme from '../../../public/styles/theme.style';
 
-jest.mock('../DetailIcon/DetailIcon', () => () => <div>DetailIcon</div>);
-jest.mock('../DeleteIcon/DeleteIcon', () => () => <div>DeleteIcon</div>);
-jest.mock('../IdeaCardInput/IdeaCardInput', () => () => (
-  <div>IdeaCardInput</div>
-));
+// jest.mock('../DetailIcon/DetailIcon', () => () => <div>DetailIcon</div>);
+// jest.mock('../DeleteIcon/DeleteIcon', () => () => <div>DeleteIcon</div>);
+// jest.mock('../IdeaCardInput/IdeaCardInput', () => () => (
+//   <div>IdeaCardInput</div>
+// ));
 
-const arrage = (newProps = {}) => {
-  const defaultProps = { id: '1', content: 'mock content' };
-  const mockProps = { ...defaultProps, ...newProps };
+// const setup = (updatedProps = {}) => {
+//   const initialProps = { id: '1', content: 'mock content' };
+//   const mergedProps = { ...initialProps, ...updatedProps };
 
-  const result = render(
-    <ThemeProvider theme={theme}>
-      <IdeaCard {...mockProps} />
-    </ThemeProvider>
-  );
+//   const result = render(
+//     <ThemeProvider theme={theme}>
+//       <IdeaCard {...mergedProps} />
+//     </ThemeProvider>
+//   );
 
-  const ideaCard = () => result.queryByTestId('IdeaCard');
-  const detailIcon = () => result.queryByText('DetailIcon');
-  const deleteIcon = () => result.queryByText('DeleteIcon');
-  const IdeaCardInput = () => result.queryByText('IdeaCardInput');
+//   const ideaCard = () => result.queryByTestId('IdeaCard');
+//   const detailIcon = () => result.queryByText('DetailIcon');
+//   const deleteIcon = () => result.queryByText('DeleteIcon');
+//   const IdeaCardInput = () => result.queryByText('IdeaCardInput');
 
-  return { ...result, ideaCard, detailIcon, deleteIcon, IdeaCardInput };
-};
+//   return { ...result, ideaCard, detailIcon, deleteIcon, IdeaCardInput };
+// };
 
-describe('IdeaCard', () => {
-  afterEach(cleanup);
+// describe('IdeaCard', () => {
+//   afterEach(cleanup);
 
-  it('renders elements', () => {
-    const com = arrage();
+//   it('renders elements', () => {
+//     const utils = setup();
 
-    expect(com.ideaCard()).toBeInTheDocument();
-    expect(com.detailIcon()).toBeInTheDocument();
-    expect(com.deleteIcon()).toBeInTheDocument();
-    expect(com.IdeaCardInput()).toBeInTheDocument();
-  });
-});
+//     expect(utils.ideaCard()).toBeInTheDocument();
+//     expect(utils.detailIcon()).toBeInTheDocument();
+//     expect(utils.deleteIcon()).toBeInTheDocument();
+//     expect(utils.IdeaCardInput()).toBeInTheDocument();
+//   });
+// });

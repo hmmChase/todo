@@ -1,33 +1,33 @@
-import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import Layout from './Layout';
-import theme from '../../../public/styles/theme.style';
+// import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
+// import { ThemeProvider } from 'styled-components';
+// import Layout from './Layout';
+// import theme from '../../../public/styles/theme.style';
 
-const arrage = (newProps = {}) => {
-  const defaultProps = { header: 'mock header', content: 'mock content' };
-  const mockProps = { ...defaultProps, ...newProps };
+// const setup = (updatedProps = {}) => {
+//   const initialProps = { header: 'mock header', content: 'mock content' };
+//   const mergedProps = { ...initialProps, ...updatedProps };
 
-  const result = render(
-    <ThemeProvider theme={theme}>
-      <Layout {...mockProps} />
-    </ThemeProvider>
-  );
+//   const result = render(
+//     <ThemeProvider theme={theme}>
+//       <Layout {...mergedProps} />
+//     </ThemeProvider>
+//   );
 
-  const antHeader = () => result.queryByText(mockProps.header);
-  const antContent = () => result.queryByText(mockProps.content);
-  const antFooter = () => result.queryByText('Footer');
+//   const antHeader = () => result.queryByText(mergedProps.header);
+//   const antContent = () => result.queryByText(mergedProps.content);
+//   const antFooter = () => result.queryByText('Footer');
 
-  return { ...result, antHeader, antContent, antFooter };
-};
+//   return { ...result, antHeader, antContent, antFooter };
+// };
 
-describe('Layout', () => {
-  afterEach(cleanup);
+// describe('Layout', () => {
+//   afterEach(cleanup);
 
-  it('renders elements', () => {
-    const com = arrage();
+//   it('renders elements', () => {
+//     const utils = setup();
 
-    expect(com.antHeader()).toBeInTheDocument();
-    expect(com.antContent()).toBeInTheDocument();
-    expect(com.antFooter()).toBeInTheDocument();
-  });
-});
+//     expect(utils.antHeader()).toBeInTheDocument();
+//     expect(utils.antContent()).toBeInTheDocument();
+//     expect(utils.antFooter()).toBeInTheDocument();
+//   });
+// });

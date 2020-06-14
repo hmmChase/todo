@@ -1,29 +1,29 @@
-import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import ResetPassError from './ResetPassError';
-import theme from '../../../public/styles/theme.style';
+// import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
+// import { ThemeProvider } from 'styled-components';
+// import ResetPassError from './ResetPassError';
+// import theme from '../../../public/styles/theme.style';
 
-const arrage = (newProps = {}) => {
-  const defaultProps = {};
-  const mockProps = { ...defaultProps, ...newProps };
+// const setup = (updatedProps = {}) => {
+//   const initialProps = {};
+//   const mergedProps = { ...initialProps, ...updatedProps };
 
-  const result = render(
-    <ThemeProvider theme={theme}>
-      <ResetPassError {...mockProps} />
-    </ThemeProvider>
-  );
+//   const result = render(
+//     <ThemeProvider theme={theme}>
+//       <ResetPassError {...mergedProps} />
+//     </ThemeProvider>
+//   );
 
-  const resetPassError = result.queryByText('ResetPassError');
+//   const resetPassError = result.queryByText('ResetPassError');
 
-  return { ...result, resetPassError };
-};
+//   return { ...result, resetPassError };
+// };
 
-describe('ResetPassError', () => {
-  afterEach(cleanup);
+// describe('ResetPassError', () => {
+//   afterEach(cleanup);
 
-  it('renders elements', () => {
-    const com = arrage();
+//   it('renders elements', () => {
+//     const utils = setup();
 
-    expect(com.resetPassError).toBeInTheDocument();
-  });
-});
+//     expect(utils.resetPassError).toBeInTheDocument();
+//   });
+// });

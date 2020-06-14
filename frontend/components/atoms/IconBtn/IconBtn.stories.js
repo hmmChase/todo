@@ -4,9 +4,7 @@ import { ExpandIconBtn, XIconBtn } from './IconBtn';
 
 export default { title: 'Components|Atoms/IconBtn' };
 
-const data = {
-  'aria-label': 'label',
-};
+const data = {};
 
 const actions = {
   onClick: action('onClick'),

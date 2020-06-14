@@ -1,29 +1,29 @@
-import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import Footer from './Footer';
-import theme from '../../../public/styles/theme.style';
+// import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
+// import { ThemeProvider } from 'styled-components';
+// import Footer from './Footer';
+// import theme from '../../../public/styles/theme.style';
 
-const arrage = (newProps = {}) => {
-  const defaultProps = {};
-  const mockProps = { ...defaultProps, ...newProps };
+// const setup = (updatedProps = {}) => {
+//   const initialProps = {};
+//   const mergedProps = { ...initialProps, ...updatedProps };
 
-  const result = render(
-    <ThemeProvider theme={theme}>
-      <Footer {...mockProps} />
-    </ThemeProvider>
-  );
+//   const result = render(
+//     <ThemeProvider theme={theme}>
+//       <Footer {...mergedProps} />
+//     </ThemeProvider>
+//   );
 
-  const footer = result.queryByText('Footer');
+//   const footer = result.queryByText('Footer');
 
-  return { ...result, footer };
-};
+//   return { ...result, footer };
+// };
 
-describe('Footer', () => {
-  afterEach(cleanup);
+// describe('Footer', () => {
+//   afterEach(cleanup);
 
-  it('renders elements', () => {
-    const com = arrage();
+//   it('renders elements', () => {
+//     const utils = setup();
 
-    expect(com.footer).toBeInTheDocument();
-  });
-});
+//     expect(utils.footer).toBeInTheDocument();
+//   });
+// });

@@ -1,41 +1,41 @@
-import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import IdeaCardList from './IdeaCardList';
-import theme from '../../../public/styles/theme.style';
+// import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
+// import { ThemeProvider } from 'styled-components';
+// import IdeaCardList from './IdeaCardList';
+// import theme from '../../../public/styles/theme.style';
 
-jest.mock('../IdeaCard/IdeaCard', () => () => <div>IdeaCard</div>);
+// jest.mock('../IdeaCard/IdeaCard', () => () => <div>IdeaCard</div>);
 
-const arrage = (newProps = {}) => {
-  const ideas = [
-    { node: { id: '1', content: 'a', author: { id: '1' } } },
-    { node: { id: '2', content: 'b', author: { id: '2' } } },
-  ];
-  const defaultProps = { loading: false, ideas };
-  const mockProps = { ...defaultProps, ...newProps };
+// const setup = (updatedProps = {}) => {
+//   const ideas = [
+//     { node: { id: '1', content: 'a', author: { id: '1' } } },
+//     { node: { id: '2', content: 'b', author: { id: '2' } } },
+//   ];
+//   const initialProps = { loading: false, ideas };
+//   const mergedProps = { ...initialProps, ...updatedProps };
 
-  const result = render(
-    <ThemeProvider theme={theme}>
-      <IdeaCardList {...mockProps} />
-    </ThemeProvider>
-  );
+//   const result = render(
+//     <ThemeProvider theme={theme}>
+//       <IdeaCardList {...mergedProps} />
+//     </ThemeProvider>
+//   );
 
-  const ideaCards = () => result.queryAllByText('IdeaCard');
+//   const ideaCards = () => result.queryAllByText('IdeaCard');
 
-  return { ...result, ideaCards };
-};
+//   return { ...result, ideaCards };
+// };
 
-describe('IdeaCardList', () => {
-  afterEach(cleanup);
+// describe('IdeaCardList', () => {
+//   afterEach(cleanup);
 
-  it('renders elements', () => {
-    const com = arrage();
+//   it('renders elements', () => {
+//     const utils = setup();
 
-    expect(com.ideaCards()).toHaveLength(2);
-  });
+//     expect(utils.ideaCards()).toHaveLength(2);
+//   });
 
-  xit('renders loading element when loading', () => {
-    const com = arrage({ loading: true });
+//   xit('renders loading element when loading', () => {
+//     const utils = setup({ loading: true });
 
-    console.log('TCL: com', prettyDOM(com.baseElement));
-  });
-});
+//     console.log('TCL: com', prettyDOM(utils.baseElement));
+//   });
+// });

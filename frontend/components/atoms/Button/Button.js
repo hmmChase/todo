@@ -4,6 +4,7 @@ import * as sc from './Button.style';
 const Button = (props) => (
   <sc.Buttonn
     aria-label={props['aria-label']}
+    data-testid={props['data-testid']}
     className={props.className}
     disabled={props.disabled}
     htmlType={props.htmlType}
@@ -16,7 +17,8 @@ const Button = (props) => (
 );
 
 Button.propTypes = {
-  'aria-label': PropTypes.string.isRequired,
+  'aria-label': PropTypes.string,
+  'data-testid': PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
   disabled: PropTypes.bool,

@@ -1,29 +1,29 @@
-import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import DisplayLoading from './DisplayLoading';
-import theme from '../../../public/styles/theme.style';
+// import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
+// import { ThemeProvider } from 'styled-components';
+// import DisplayLoading from './DisplayLoading';
+// import theme from '../../../public/styles/theme.style';
 
-const arrage = (newProps = {}) => {
-  const defaultProps = {};
-  const mockProps = { ...defaultProps, ...newProps };
+// const setup = (updatedProps = {}) => {
+//   const initialProps = {};
+//   const mergedProps = { ...initialProps, ...updatedProps };
 
-  const result = render(
-    <ThemeProvider theme={theme}>
-      <DisplayLoading {...mockProps} />
-    </ThemeProvider>
-  );
+//   const result = render(
+//     <ThemeProvider theme={theme}>
+//       <DisplayLoading {...mergedProps} />
+//     </ThemeProvider>
+//   );
 
-  const displayLoading = () => result.queryByText('Loading...');
+//   const displayLoading = () => result.queryByText('Loading...');
 
-  return { ...result, displayLoading };
-};
+//   return { ...result, displayLoading };
+// };
 
-describe('DisplayLoading', () => {
-  afterEach(cleanup);
+// describe('DisplayLoading', () => {
+//   afterEach(cleanup);
 
-  it('renders elements', () => {
-    const com = arrage();
+//   it('renders elements', () => {
+//     const utils = setup();
 
-    expect(com.displayLoading()).toBeInTheDocument();
-  });
-});
+//     expect(utils.displayLoading()).toBeInTheDocument();
+//   });
+// });
