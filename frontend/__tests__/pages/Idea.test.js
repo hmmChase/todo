@@ -23,23 +23,23 @@ import theme from '../../public/styles/theme.style';
 //   <div>IdeaDetail</div>
 // ));
 
-const arrage = (newProps = {}, newQueries = []) => {
-  // const defaultProps = {};
-  // const mockProps = { ...defaultProps, ...newProps };
+const setup = (updatedProps = {}, updatedQueries = []) => {
+  // const initialProps = {};
+  // const mergedProps = { ...initialProps, ...updatedProps };
 
-  const defaultProps = { id: '342jkhl523k5j35' };
-  const defaultQueries = [
+  const initialProps = { id: '342jkhl523k5j35' };
+  const initialQueries = [
     MOCK_CURRENT_USER,
     MOCK_CURRENT_USER_IDEA,
     MOCK_UPDATE_IDEA,
   ];
-  const mockQueries = newQueries.length ? newQueries : defaultQueries;
-  const mockProps = { ...defaultProps, ...newProps };
+  const mergedQueries = updatedQueries.length ? updatedQueries : initialQueries;
+  const mergedProps = { ...initialProps, ...updatedProps };
 
   const result = render(
-    <MockedProvider mocks={mockQueries} addTypename={false}>
+    <MockedProvider mocks={mergedQueries} addTypename={false}>
       <ThemeProvider theme={theme}>
-        <IdeaPage {...mockProps} />
+        <IdeaPage {...mergedProps} />
       </ThemeProvider>
     </MockedProvider>
   );
@@ -72,7 +72,7 @@ describe('IdeaPage', () => {
   it.skip('renders components', async () => {
     // await waitFor(async () => await new Promise(setTimeout));
 
-    // const com = arrage();
+    // const utils = setup();
 
     await act(() => new Promise(setTimeout));
 
@@ -91,7 +91,7 @@ describe('IdeaPage', () => {
 
     // await waitFor(async () => await new Promise(setTimeout));
 
-    // act(() => arrage());
+    // act(() => setup());
 
     // act(() => result);
 
@@ -112,9 +112,9 @@ describe('IdeaPage', () => {
 
     result.debug();
 
-    // console.log(prettyDOM(com.baseElement, 10000));
+    // console.log(prettyDOM(utils.baseElement, 10000));
 
-    // expect(com.inputField()).toBeInTheDocument();
-    // expect(com.submitBtn()).toBeInTheDocument();
+    // expect(utils.inputField()).toBeInTheDocument();
+    // expect(utils.submitBtn()).toBeInTheDocument();
   });
 });
