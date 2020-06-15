@@ -3,9 +3,11 @@ import AlertMsg from '../../atoms/AlertMsg/AlertMsg';
 import * as sc from './DisplayError.style';
 
 const DisplayError = (props) => {
-  console.log('DisplayError -> props', props);
-
-  if (props.error.graphQLErrors && props.error.graphQLErrors.length) {
+  if (
+    props.error &&
+    props.error.graphQLErrors &&
+    props.error.graphQLErrors.length
+  ) {
     return (
       <sc.ErrorList>
         {props.error.graphQLErrors.map((error, i) => (
@@ -21,7 +23,7 @@ const DisplayError = (props) => {
     );
   }
 
-  if (props.error.message) {
+  if (props.error && props.error.message) {
     return (
       <AlertMsg
         data-testid='AlertMsg'

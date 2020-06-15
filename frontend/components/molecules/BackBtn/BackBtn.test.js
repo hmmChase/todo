@@ -33,8 +33,6 @@ describe('BackBtn', () => {
   it('renders elements', () => {
     const utils = setup();
 
-    utils.debug();
-
     expect(utils.backBtn()).toBeInTheDocument();
   });
 });

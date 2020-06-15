@@ -1,30 +1,36 @@
-// import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
-// import { ThemeProvider } from 'styled-components';
-// import DisplaySuccess from './DisplaySuccess';
-// import theme from '../../../public/styles/theme.style';
+import { render, cleanup } from '@testing-library/react';
+import { ThemeProvider } from 'styled-components';
+import DisplaySuccess from './DisplaySuccess';
+import theme from '../../../public/styles/theme.style';
 
-// const setup = (updatedProps = {}) => {
-//   const successText = 'mock success message';
-//   const initialProps = { message: successText };
-//   const mergedProps = { ...initialProps, ...updatedProps };
+const setup = (updatedProps = {}) => {
+  const successText = 'mock success message';
+  const initialProps = { message: successText };
+  const mergedProps = { ...initialProps, ...updatedProps };
 
-//   const result = render(
-//     <ThemeProvider theme={theme}>
-//       <DisplaySuccess {...mergedProps} />
-//     </ThemeProvider>
-//   );
+  const result = render(
+    <ThemeProvider theme={theme}>
+      <DisplaySuccess {...mergedProps} />
+    </ThemeProvider>
+  );
 
-//   const li = () => result.queryByText(successText);
+  const li = () => result.queryByText(successText);
 
-//   return { ...result, li };
-// };
+  return { ...result, li };
+};
 
-// describe('DisplaySuccess', () => {
-//   afterEach(cleanup);
+describe('DisplaySuccess', () => {
+  afterEach(cleanup);
 
-//   it('renders elements', () => {
-//     const utils = setup();
+  it('matches snapshot', () => {
+    const utils = setup();
 
-//     expect(utils.li()).toBeInTheDocument();
-//   });
-// });
+    expect(utils.baseElement).toMatchSnapshot();
+  });
+
+  it('renders elements', () => {
+    const utils = setup();
+
+    expect(utils.li()).toBeInTheDocument();
+  });
+});

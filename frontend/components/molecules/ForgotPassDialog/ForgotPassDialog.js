@@ -12,7 +12,9 @@ const ForgotPassDialog = () => {
 
   return (
     <>
-      <sc.ModalLink onClick={showModal}>Forgot password?</sc.ModalLink>
+      <sc.ModalLink data-testid='ModalLink' onClick={showModal}>
+        Forgot password?
+      </sc.ModalLink>
 
       <PopupModal
         title='Request a password reset'

@@ -15,41 +15,45 @@ const setup = (updatedProps = {}) => {
 
   const alertMsg = () => result.queryAllByTestId('AlertMsg');
 
-  console.log('setup -> alertMsg', alertMsg());
-
   return { ...result, alertMsg };
 };
 
 describe('DisplayError', () => {
   afterEach(cleanup);
 
-  it('renders default error message', () => {
-    const errorMessage = 'Opps, something went wrong.';
+  it('matches snapshot', () => {
     const utils = setup();
 
-    expect(utils.alertMsg()).toHaveTextContent(errorMessage);
+    expect(utils.baseElement).toMatchSnapshot();
+  });
+
+  it('renders default error message', () => {
+    const errorMessage = 'Opps, something went wrong.';
+
+    const utils = setup();
+
+    expect(utils.alertMsg()[0]).toHaveTextContent(errorMessage);
   });
 
   it('renders error message', () => {
     const errorMessage = 'mock general error';
-    const mergedProps = { error: { message: errorMessage } };
-    const utils = setup(mergedProps);
+    const props = { error: { message: errorMessage } };
 
-    expect(utils.alertMsg()).toHaveTextContent(errorMessage);
+    const utils = setup(props);
+
+    expect(utils.alertMsg()[0]).toHaveTextContent(errorMessage);
   });
 
-  it.only('renders graphQLErrors message', () => {
+  it('renders graphQLErrors messages', () => {
     const errorMessage0 = 'mock graphQLErrors error 0';
     const errorMessage1 = 'mock graphQLErrors error 1';
-    const updatedProps = {
+    const props = {
       error: {
         graphQLErrors: [{ message: errorMessage0 }, { message: errorMessage1 }],
       },
     };
 
-    const utils = setup(updatedProps);
-
-    utils.debug();
+    const utils = setup(props);
 
     expect(utils.alertMsg()).toHaveLength(2);
     expect(utils.alertMsg()[0]).toHaveTextContent(errorMessage0);

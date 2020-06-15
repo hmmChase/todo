@@ -41,7 +41,8 @@ const setup = (updatedProps = {}, updatedQueries = []) => {
       <ThemeProvider theme={theme}>
         <IdeaPage {...mergedProps} />
       </ThemeProvider>
-    </MockedProvider>
+    </MockedProvider>,
+    { hydrate: true }
   );
 
   // const inputField = () => result.queryByLabelText('Input Field');

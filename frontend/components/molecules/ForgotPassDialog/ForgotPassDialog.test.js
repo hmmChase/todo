@@ -1,48 +1,59 @@
-// import { render, cleanup, prettyDOM, fireEvent } from '@testing-library/react';
-// import { ThemeProvider } from 'styled-components';
-// import ForgotPassDialog from './ForgotPassDialog';
-// import theme from '../../../public/styles/theme.style';
+import { render, cleanup, fireEvent } from '@testing-library/react';
+import { ThemeProvider } from 'styled-components';
+import ForgotPassDialog from './ForgotPassDialog';
+import theme from '../../../public/styles/theme.style';
 
-// jest.mock('../RequestReset/RequestReset', () => () => <div>RequestReset</div>);
+jest.mock('../../organisms/RequestReset/RequestReset', () => () => (
+  <div>RequestReset</div>
+));
 
-// const setup = (updatedProps = {}) => {
-//   const initialProps = {};
-//   const mergedProps = { ...initialProps, ...updatedProps };
+const setup = (updatedProps = {}) => {
+  const initialProps = {};
+  const mergedProps = { ...initialProps, ...updatedProps };
 
-//   const result = render(
-//     <ThemeProvider theme={theme}>
-//       <ForgotPassDialog {...mergedProps} />
-//     </ThemeProvider>
-//   );
+  const result = render(
+    <ThemeProvider theme={theme}>
+      <ForgotPassDialog {...mergedProps} />
+    </ThemeProvider>
+  );
 
-//   const modalLinkText = 'Forgot password?';
-//   const modalTitleText = 'Request a password reset';
-//   const modalLink = () => result.queryByText(modalLinkText);
-//   const modalTitle = () => result.queryByText(modalTitleText);
-//   const forgotPassModal = () => result.queryByRole('dialog');
+  const modalLinkText = 'Forgot password?';
+  const modalTitleText = 'Request a password reset';
 
-//   const clickModalLink = () => fireEvent.click(modalLink());
+  const modalLink = () => result.queryByTestId('ModalLink');
+  // const modalLink = () => result.queryByText(modalLinkText);
+  console.log('setup -> modalLink', modalLink());
 
-//   return { ...result, modalLink, modalTitle, forgotPassModal, clickModalLink };
-// };
+  const modalTitle = () => result.queryByText(modalTitleText);
+  // console.log('setup -> modalTitle', modalTitle());
 
-// describe('ForgotPassDialog', () => {
-//   afterEach(cleanup);
+  const forgotPassModal = () => result.queryByRole('dialog');
+  // console.log('setup -> forgotPassModal', forgotPassModal());
 
-//   it('renders elements', () => {
-//     const utils = setup();
+  return { ...result, modalLink, modalTitle, forgotPassModal };
+};
 
-//     expect(utils.modalLink()).toBeInTheDocument();
-//   });
+describe('ForgotPassDialog', () => {
+  afterEach(cleanup);
 
-//   it('renders ForgotPassModal on click', () => {
-//     const utils = setup();
+  it('renders elements', () => {
+    const utils = setup();
 
-//     expect(utils.forgotPassModal()).not.toBeInTheDocument();
+    expect(utils.modalLink()).toBeInTheDocument();
+  });
 
-//     utils.clickModalLink();
+  it.only('renders ForgotPassModal on click', () => {
+    const utils = setup();
 
-//     expect(utils.modalTitle()).toBeInTheDocument();
-//     expect(utils.forgotPassModal()).toBeInTheDocument();
-//   });
-// });
+    expect(utils.forgotPassModal()).not.toBeInTheDocument();
+
+    // utils.clickModalLink();
+
+    fireEvent.click(utils.modalLink());
+
+    utils.debug();
+
+    // expect(utils.modalTitle()).toBeInTheDocument();
+    // expect(utils.forgotPassModal()).toBeInTheDocument();
+  });
+});
