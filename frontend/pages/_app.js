@@ -9,10 +9,8 @@ const MyApp = (props) => {
 
   //     // console.log('_app props: ', Object.keys(this.props));
   //     // console.log('_app props.apolloState: ', this.props.apolloState);
-
   //     // const cache = this.props.apollo.cache.extract();
   //     // console.log('apollo cache: ', cache);
-
   //     // pageProps includes data returned from getInitialProps
 
   return (
