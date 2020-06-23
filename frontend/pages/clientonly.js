@@ -6,13 +6,9 @@ import Footer from '../components/molecules/Footer/Footer';
 const ClientOnlyPage = () => (
   <Layout
     title='Client Only'
-    header={<Header />}
+    header={<Header title='Client Only' />}
     content={
       <>
-        <p>
-          It does not create an Apollo Client, and breaks every other SSR page.
-        </p>
-
         <div>
           This example shows how to disable apollos query fetching on the
           server. If you
@@ -22,6 +18,10 @@ const ClientOnlyPage = () => (
           <a href='https://nextjs.org/blog/next-9#automatic-static-optimization'>
             automatic static optimization
           </a>
+          <p>
+            It does not create an Apollo Client, and breaks every other SSR
+            page.
+          </p>
         </div>
 
         <article>

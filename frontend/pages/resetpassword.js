@@ -14,7 +14,7 @@ const ResetPasswordPage = (props) => {
   return (
     <Layout
       title='Reset Password'
-      header={<Header title='Reset Your Password' />}
+      header={<Header title='Reset Password' />}
       content={
         !isTokenPresent || isTokenExpired ? (
           <ResetPassError

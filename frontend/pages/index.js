@@ -1,4 +1,5 @@
 // import order: react=>next=>libs=>utils=>config=>queries=>components=>css
+
 import withApollo from '../graphql/withApollo';
 import signedIn from '../utils/signedIn';
 import redirect from '../utils/redirect';
@@ -12,7 +13,7 @@ const IndexPage = () => (
   <Layout
     title='Home'
     header={
-      <Header>
+      <Header title='NGS'>
         <IdeaCardForm />
       </Header>
     }

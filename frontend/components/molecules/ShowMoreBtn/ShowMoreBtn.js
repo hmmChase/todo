@@ -42,7 +42,7 @@ const ShowMoreBtn = (props) => {
 };
 
 ShowMoreBtn.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   loading: PropTypes.bool.isRequired,
   fetchMore: PropTypes.func.isRequired,
   ideas: PropTypes.exact({

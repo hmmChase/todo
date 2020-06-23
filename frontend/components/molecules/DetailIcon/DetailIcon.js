@@ -5,7 +5,7 @@ import { ExpandIconBtn } from '../../atoms/IconBtn/IconBtn';
 const DetailIcon = (props) => (
   <Link href='/idea/[id]' as={`/idea/${props.id}`}>
     <div>
-      <ExpandIconBtn aria-label='idea details' className={props.className} />
+      <ExpandIconBtn aria-label='idea detail' className={props.className} />
     </div>
   </Link>
 );

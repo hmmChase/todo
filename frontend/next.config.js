@@ -1,4 +1,5 @@
-// https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
+// https://nextjs.org/docs/api-reference/next.config.js/introduction
+// https://github.com/zeit/next.js/blob/canary/packages/next/next-server/server/config.ts#L12-L63
 
 // import 'dotenv/config';
 // require('dotenv').config();
@@ -58,6 +59,7 @@ const nextConfig = {
     ],
   },
 
+  // https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
   webpack: (config, options) => {
     config.plugins = config.plugins || [];
 

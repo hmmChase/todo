@@ -6,7 +6,6 @@ export const Ideas = styled.section`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  /* flex-grow: 1; */
 `;
 
 export const IdeaCardListt = styled(IdeaCardList)`

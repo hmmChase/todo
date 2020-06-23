@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 // import { useQuery } from '@apollo/client';
-import { title } from '../../../config';
 import { CURRENT_USER } from '../../../graphql/queries';
 import * as sc from './Header.style';
 
@@ -10,7 +9,7 @@ const Header = (props) => {
 
   return (
     <sc.Header>
-      <sc.HeaderTitlee>{props.title ? props.title : title}</sc.HeaderTitlee>
+      <sc.HeaderTitlee>{props.title}</sc.HeaderTitlee>
 
       {data && data.currentUser && (
         <div>
@@ -27,7 +26,7 @@ const Header = (props) => {
 
 Header.propTypes = {
   children: PropTypes.element,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
 };
 
 export default React.memo(Header);
