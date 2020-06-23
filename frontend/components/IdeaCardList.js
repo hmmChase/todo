@@ -7,10 +7,13 @@ const IdeaCardList = (props) => {
       <IdeaCard key={`ideaCard${idea.node.id}`} {...idea.node} />
     ));
 
+  if (props.loading) return null;
+
   return <ul>{ideaCards(props.ideas)}</ul>;
 };
 
 IdeaCardList.propTypes = {
+  loading: PropTypes.bool.isRequired,
   ideas: PropTypes.arrayOf(
     PropTypes.exact({
       __typename: PropTypes.string.isRequired,

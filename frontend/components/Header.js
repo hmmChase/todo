@@ -32,6 +32,8 @@ const Header = (props) => {
       )}
 
       <h3>{props.title}</h3>
+
+      {props.children}
     </>
   );
 };

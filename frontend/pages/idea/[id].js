@@ -10,7 +10,7 @@ import Footer from '../../components/Footer';
 const IdeaPage = (props) => (
   <Layout
     title={`Idea ${props.id}`}
-    header={<Header title={props.id} ideaId={props.id} />}
+    header={<Header title={props.id} />}
     content={<IdeaDetail ideaId={props.id} />}
     footer={<Footer />}
   />

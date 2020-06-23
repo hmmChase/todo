@@ -28,7 +28,10 @@ const Ideas = () => {
       data.currentUserPaginatedIdeas &&
       data.currentUserPaginatedIdeas.edges &&
       data.currentUserPaginatedIdeas.edges.length ? (
-        <IdeaCardList ideas={data.currentUserPaginatedIdeas.edges} />
+        <IdeaCardList
+          loading={networkStatus === 1}
+          ideas={data.currentUserPaginatedIdeas.edges}
+        />
       ) : (
         <p>Add an Idea!</p>
       )}

@@ -14,10 +14,9 @@ const IndexPage = () => (
   <Layout
     title='Home'
     header={
-      <>
-        <Header title='Add an idea' />
+      <Header title='NGS'>
         <IdeaCardForm />
-      </>
+      </Header>
     }
     content={<Ideas />}
     footer={<Footer />}
