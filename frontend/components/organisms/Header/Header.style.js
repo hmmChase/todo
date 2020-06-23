@@ -33,5 +33,4 @@ export const Welcome = styled.span`
 
 export const Bottom = styled.div`
   grid-area: bottom;
-  padding-bottom: ${(props) => !props.children && '10px'};
 `;

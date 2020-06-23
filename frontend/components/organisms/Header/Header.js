@@ -19,7 +19,7 @@ const Header = (props) => {
         </div>
       )}
 
-      {props.children && <sc.Bottom>{props.children}</sc.Bottom>}
+      <sc.Bottom>{props.children}</sc.Bottom>
     </sc.Header>
   );
 };

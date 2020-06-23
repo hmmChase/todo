@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { List } from 'antd';
+// import { List } from 'antd';
 import * as sc from './IdeaCardList.style';
 
 const IdeaCardList = (props) => {
@@ -8,7 +8,7 @@ const IdeaCardList = (props) => {
       <sc.IdeaCardd key={`ideaCard${idea.node.id}`} {...idea.node} />
     ));
 
-  return <ul>{ideaCards(props.ideas)}</ul>;
+  return <sc.Ul>{ideaCards(props.ideas)}</sc.Ul>;
 };
 
 // const IdeaCardList = (props) => (
