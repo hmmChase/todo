@@ -39,7 +39,7 @@
 
 ## Testing
 
-- WIP
+- React Testing Library
 
 ## Refreshing Authentication
 
