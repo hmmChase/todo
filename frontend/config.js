@@ -1,10 +1,10 @@
 export const title = 'hmmStart';
 
 export const graphqlUrlDev = 'http://localhost:6969/api/graphql';
-export const graphqlUrlProd = 'https://hmmStart.now.sh/api/graphql';
+export const graphqlUrlProd = 'https://hmmstart.vercel.app/api/graphql';
 
 export const refreshUrlDev = 'http://localhost:6969/api/refresh';
-export const refreshUrlProd = 'https://hmmStart.now.sh/api/refresh';
+export const refreshUrlProd = 'https://hmmstart.vercel.app/api/refresh';
 
 export const ideasPerPage = 5;
 

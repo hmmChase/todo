@@ -44,7 +44,7 @@ MyApp.propTypes = {
 
 // For FOUC issue, see _document.js
 // https://github.com/ant-design/ant-design/issues/16037
-// https://github.com/zeit/next.js/issues/8826
+// https://github.com/vercel/next.js/issues/8826
 if (typeof window !== 'undefined')
   window.addEventListener('DOMContentLoaded', () =>
     document.getElementById('holderStyle').remove()

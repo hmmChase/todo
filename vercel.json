@@ -7,7 +7,7 @@
   "builds": [
     {
       "src": "backend/index.js",
-      "use": "@now/node-server"
+      "use": "@now/node"
     },
     {
       "src": "frontend/next.config.js",

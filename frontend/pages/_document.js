@@ -7,7 +7,7 @@ class MyDocument extends Document {
   static async getInitialProps(ctx) {
     devConLog(['----- _document GIP -----']);
 
-    // https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
+    // https://github.com/vercel/next.js/tree/canary/examples/with-styled-components
     // Step 1: Create an instance of ServerStyleSheet
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
