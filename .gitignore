@@ -66,7 +66,8 @@ typings/
 
 # Other
 .vscode
+.history
+.now
 build
 dist
 bundles
-.history

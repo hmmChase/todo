@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import styledNormalize from 'styled-normalize';
-import theme from './theme.style';
+// import theme from './theme.style';
 
 export default createGlobalStyle`
   ${styledNormalize}
@@ -29,8 +29,9 @@ export default createGlobalStyle`
 
   *, *:before, *:after {
     box-sizing: inherit;
-    color: ${theme.color.text};
     font-family: 'Open Sans', sans-serif;
+
+    ${'' /* color: ${theme.color.text}; */}
   }
 
   body {

@@ -1,8 +1,11 @@
 {
-  "name": "next-graphql-starter",
-  "version": "1.0.0",
+  "name": "hmmStart",
+  "version": "0.1.0",
   "private": true,
+  "author": "",
   "description": "An example CRUD app with user authentication.",
+  "license": "ISC",
+  "keywords": [],
   "main": "index.js",
   "scripts": {
     "backend": "cd backend && npm run dev",
@@ -14,16 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hmmChase/next-graphql-starter.git"
+    "url": "git+https://github.com/hmmChase/hmmStart.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hmmChase/next-graphql-starter/issues"
+    "url": "https://github.com/hmmChase/hmmStart/issues"
   },
-  "homepage": "https://github.com/hmmChase/next-graphql-starter#readme",
+  "homepage": "https://github.com/hmmChase/hmmStart#readme",
   "devDependencies": {
-    "concurrently": "^5.0.0"
+    "concurrently": "^5.1.0"
   }
 }

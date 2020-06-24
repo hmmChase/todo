@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Button } from 'antd';
 import withApollo from '../graphql/withApollo';
-import Head from '../components/Head/Head';
-import LayoutMain from '../components/LayoutMain/LayoutMain';
+import { Button } from 'antd';
+import Layout from '../components/organisms/Layout/Layout';
 
 const LinkHome = () => (
   <Link href='/'>
@@ -13,7 +12,7 @@ const LinkHome = () => (
   </Link>
 );
 
-const Error = props => {
+const Error = (props) => {
   let error;
 
   switch (props.statusCode) {
@@ -35,15 +34,11 @@ const Error = props => {
   }
 
   return (
-    <>
-      <Head title='Error' />
-
-      <LayoutMain header={<h1>{error}</h1>} content={<LinkHome />} />
-    </>
+    <Layout title='Error' header={<h1>{error}</h1>} content={<LinkHome />} />
   );
 };
 
-Error.getInitialProps = ctx => {
+Error.getInitialProps = (ctx) => {
   const { res, err } = ctx;
 
   let statusCode;
@@ -57,4 +52,4 @@ Error.getInitialProps = ctx => {
 
 Error.propTypes = { statusCode: PropTypes.number };
 
-export default withApollo(React.memo(Error, { ssr: false }));
+export default withApollo({ ssr: false })(React.memo(Error));

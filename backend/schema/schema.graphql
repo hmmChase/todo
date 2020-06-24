@@ -1,0 +1,89 @@
+# import * from './schema_prep.graphql'
+
+type Query {
+  user(id: ID!): User
+
+  users(orderBy: UserOrderByInput): [User!]!
+
+  usersConnection: UserConnection!
+
+  idea(id: ID!): Idea
+
+  ideas(orderBy: IdeaOrderByInput): [Idea!]!
+
+  ideasConnection: IdeaConnection!
+
+  currentUser: User
+
+  currentUserIdea(id: ID!): Idea
+
+  currentUserIdeas: [Idea!]!
+
+  currentUserPaginatedIdeas(
+    where: IdeaWhereInput
+    orderBy: IdeaOrderByInput
+    """
+    Number of nodes per page
+    """
+    first: Int
+    """
+    Return results after this cursor
+    """
+    after: String
+    """
+    Seek backwards
+    """
+    last: Int
+    """
+    Return results before this cursor
+    """
+    before: String
+  ): IdeaConnection
+}
+
+type Mutation {
+  signUp(
+    username: String!
+    email: String!
+    password: String!
+    confirmPassword: String!
+  ): LoginResponse!
+
+  signIn(username: String!, password: String!): LoginResponse!
+
+  signOut: Boolean!
+
+  requestReset(email: String!): Boolean!
+
+  resetPassword(
+    resetToken: String!
+    password: String!
+    confirmPassword: String!
+  ): Boolean!
+
+  revokeRefreshToken(id: ID!): Boolean!
+
+  createIdea(content: String!): Idea!
+
+  updateIdea(id: ID!, content: String!): Idea!
+
+  deleteIdea(id: ID!): Idea!
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  ideas: [Idea!]
+}
+
+type Idea {
+  id: ID!
+  content: String!
+  author: User!
+}
+
+type LoginResponse {
+  accessToken: String!
+  user: User!
+}

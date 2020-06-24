@@ -1,6 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import { devConLog } from '../utils/devLog';
+import { devConLog } from '../utils/devCon';
 import GlobalStyle from '../public/styles/global.style';
 
 class MyDocument extends Document {
@@ -17,13 +17,13 @@ class MyDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: App => props =>
+          enhanceApp: (App) => (props) =>
             sheet.collectStyles(
               <>
                 <GlobalStyle />
                 <App {...props} />
               </>
-            )
+            ),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
@@ -38,7 +38,7 @@ class MyDocument extends Document {
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>
-        )
+        ),
       };
     } finally {
       sheet.seal();
@@ -64,75 +64,75 @@ class MyDocument extends Document {
 
           {/* Progressive Web App Manifest + Theme Color */}
           <meta name='theme-color' content='#000000' />
-          <link rel='manifest' href='manifest.json' />
+          <link rel='/manifest' href='manifest.json' />
 
           {/* Favicon */}
           <link
             rel='shortcut icon'
             type='image/x-icon'
-            href='images/favicon.ico'
+            href='/images/favicon.ico'
           />
 
           {/* PWA images */}
           <link
             rel='icon'
             type='image/png'
-            href='images/pwa/android-36x36.png'
+            href='/images/pwa/android-36x36.png'
             sizes='36x36'
           />
           <link
             rel='icon'
             type='image/png'
-            href='images/pwa/android-48x48.png'
+            href='/images/pwa/android-48x48.png'
             sizes='48x48'
           />
           <link
             rel='icon'
             type='image/png'
-            href='images/pwa/android-72x72.png'
+            href='/images/pwa/android-72x72.png'
             sizes='72x72'
           />
           <link
             rel='icon'
             type='image/png'
-            href='images/pwa/android-96x96.png'
+            href='/images/pwa/android-96x96.png'
             sizes='96x96'
           />
           <link
             rel='icon'
             type='image/png'
-            href='images/pwa/android-144x144.png'
+            href='/images/pwa/android-144x144.png'
             sizes='144x144'
           />
           <link
             rel='apple-touch-icon'
-            href='images/pwa/apple-touch-icon-180x180.png'
+            href='/images/pwa/apple-touch-icon-180x180.png'
             sizes='180x180'
           />
           <link
             rel='icon'
             type='image/png'
-            href='images/pwa/pwa-192x192.png'
+            href='/images/pwa/pwa-192x192.png'
             sizes='192x192'
           />
           <link
             rel='icon'
             type='image/png'
-            href='images/pwa/pwa-512x512.png'
+            href='/images/pwa/pwa-512x512.png'
             sizes='512x512'
           />
 
           {/* Fonts */}
           <link
             rel='preload'
-            href='fonts/open-sans-v15-latin-regular.woff2'
+            href='/fonts/open-sans-v15-latin-regular.woff2'
             as='font'
             type='font/woff2'
             crossOrigin='anonymous'
           />
           <link
             rel='preload'
-            href='fonts/play-v10-latin-regular.woff2'
+            href='/fonts/play-v10-latin-regular.woff2'
             as='font'
             type='font/woff2'
             crossOrigin='anonymous'
@@ -147,7 +147,7 @@ class MyDocument extends Document {
                 *, *::before, *::after {
                 transition: none !important;
                 }
-              `
+              `,
             }}
           />
         </Head>
