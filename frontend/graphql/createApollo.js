@@ -1,37 +1,57 @@
-import ApolloClient from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
+// import {
+//   ApolloClient,
+//   HttpLink,
+//   InMemoryCache,
+//   ApolloLink,
+// } from '@apollo/client';
+// import { setContext } from '@apollo/link-context';
+// import { onError } from '@apollo/link-error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwt from 'jsonwebtoken';
-import { getAccessToken, setAccessToken } from '../utils/accessToken';
-import { typeDefs } from './typeDefs';
-import { resolvers } from './resolvers';
-import { devConLog, devConErr } from '../utils/devLog';
-import { graphqlUrl, refreshUrl, accessTokenSecret } from '../constants';
-// import initCache from './initCache';
+import { getAccessToken } from '../utils/accessToken';
+import { devConLog, devConErr } from '../utils/devCon';
+import {
+  graphqlUrlDev,
+  graphqlUrlProd,
+  refreshUrlDev,
+  refreshUrlProd,
+} from '../config';
+
+// import { persistCache } from 'apollo-cache-persist';
 // import { schema } from './schema';
+// import typeDefs from './typeDefs';
+// import resolvers from './resolvers';
+// import initCache from './initCache';
 
 /**
  * Creates and configures the ApolloClient
  * @param {Object} [initialState={}]
  */
 
-const isServer = () => typeof window === 'undefined';
-
-const createApollo = (initialState = {}, serverAccessToken) => {
+const createApollo = (
+  initialState,
+  // The `ctx` (NextPageContext) will only be present on the server.
+  // use it to extract auth headers (ctx.req) or similar.
+  ctx,
+  accessToken,
+  _refreshToken
+) => {
   devConLog(['----- start createApollo -----']);
 
   // Log GraphQL request & response
   const consoleLogLink = new ApolloLink((operation, forward) => {
     devConLog([
       `***** starting request for ${operation.operationName}`,
-      `(${isServer() ? 'server' : 'client'})`
+      `(${typeof window === 'undefined' ? 'server' : 'client'})`,
     ]);
 
-    return forward(operation).map(op => {
+    return forward(operation).map((op) => {
       devConLog([`******* ${operation.operationName} res: `, op]);
       devConLog([`***** ending request for ${operation.operationName}`]);
 
@@ -54,20 +74,17 @@ const createApollo = (initialState = {}, serverAccessToken) => {
       // 2. Access token isn't expired
       // False triggers fetchAccessToken
 
-      // Read Access token
-      const accessToken = serverAccessToken || getAccessToken();
-
       // If Access token doesn't exist
       if (!accessToken) return true;
 
       // Check if Access token is valid
       try {
-        jwt.verify(accessToken, accessTokenSecret);
+        jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
 
         // If valid
         return true;
       } catch (error) {
-        devConErr(['Access token verify error: ', error]);
+        devConErr(['isTokenValidOrUndefined error: ', error]);
 
         // If invalid
         return false;
@@ -75,57 +92,83 @@ const createApollo = (initialState = {}, serverAccessToken) => {
     },
 
     fetchAccessToken: () => {
+      const refreshUrl =
+        process.env.NODE_ENV === 'production' ? refreshUrlProd : refreshUrlDev;
+
       return fetch(refreshUrl, { method: 'GET', credentials: 'include' });
     },
 
-    handleFetch: accessToken => setAccessToken(accessToken),
+    handleFetch: (newAccessToken) => {
+      accessToken = newAccessToken;
 
-    handleError: error => {
+      // setAccessToken(newAccessToken);
+    },
+
+    handleError: (error) => {
       devConLog(['refreshLink handleError: ', error]);
 
       // your custom action here
       // user.logout();
-    }
+    },
   });
 
-  // Add cookie to request header
+  // Add Access token auth header
   const authLink = setContext((_request, _previousContext) => {
-    const accessToken = serverAccessToken || getAccessToken();
+    const theAccessToken = accessToken || getAccessToken();
 
     return {
-      headers: { Authorization: accessToken ? `Bearer ${accessToken}` : '' }
+      headers: {
+        Authorization: theAccessToken ? `Bearer ${theAccessToken}` : '',
+      },
     };
   });
 
-  const httpLink = new HttpLink({
-    uri: graphqlUrl,
-    credentials: 'include'
-  });
+  const graphqlUrl =
+    process.env.NODE_ENV === 'production' ? graphqlUrlProd : graphqlUrlDev;
 
-  const link = ApolloLink.from([
-    consoleLogLink,
+  const httpLink = new HttpLink({ uri: graphqlUrl, credentials: 'include' });
+
+  const linkDev = ApolloLink.from([
+    // consoleLogLink,
     errorLink,
     refreshLink,
     authLink,
-    httpLink
+    httpLink,
   ]);
 
-  // Hydrate cache with the initialState created server-side
-  const cache = new InMemoryCache().restore(initialState);
+  const linkProd = ApolloLink.from([refreshLink, authLink, httpLink]);
 
-  // if (isServer) initCache(cache);
+  const link = process.env.NODE_ENV === 'production' ? linkProd : linkDev;
+
+  // Hydrate cache with the initialState created server-side
+  const cache = new InMemoryCache({
+    // https://www.apollographql.com/docs/react/caching/cache-interaction/#cache-redirects-with-cacheredirects
+    cacheRedirects: {
+      Query: {
+        currentUserIdea: (_, args, { getCacheKey }) =>
+          getCacheKey({ __typename: 'Idea', id: args.id }),
+      },
+    },
+  }).restore(initialState);
+
+  // if (!typeof window === 'undefined')
+  //   persistCache({ cache, storage: window.localStorage });
+
+  //! should I use the AT or RT?
+  // setting the cache here will disable the resolver
+  // if (typeof window === 'undefined') initCache(cache, accessToken);
 
   devConLog(['----- end createApollo -----']);
 
   return new ApolloClient({
     link,
     cache,
-    connectToDevTools: !isServer(),
+    connectToDevTools: process.env.NODE_ENV !== 'production',
     // Disables forceFetch on the server (so queries are only run once)
-    ssrMode: isServer(),
-    typeDefs,
-    resolvers
-    // schema
+    ssrMode: Boolean(ctx),
+    // typeDefs,
+    // resolvers: resolvers(accessToken, refreshToken),
+    // schema,
   });
 };
 

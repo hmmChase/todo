@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeleteIcon matches snapshot 1`] = `
+.c0 {
+  border: 1px solid rgb(117,117,117);
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  padding: 0;
+  background-color: rgb(235,245,255);
+}
+
+.c0:hover {
+  background-color: #c8dcf0;
+}
+
+.c0:active {
+  padding: 1px;
+}
+
+.c0 svg {
+  fill: #1890ff;
+  margin: 3px;
+}
+
+<body>
+  <div>
+    <button
+      aria-label="delete idea"
+      class="c0"
+    >
+      <svg
+        viewBox="0 0 492 492"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M300.2 246L484.1 62c5.1-5.1 7.9-11.8 7.9-19 0-7.2-2.8-14-7.9-19L468 7.9C462.9 2.8 456.2 0 449 0c-7.2 0-14 2.8-19 7.9L246 191.8 62 7.9C56.9 2.8 50.2 0 43 0c-7.2 0-14 2.8-19 7.9L7.9 24c-10.5 10.5-10.5 27.6 0 38.1L191.8 246 7.9 430C2.8 435.1 0 441.8 0 449c0 7.2 2.8 14 7.9 19L24 484.1c5.1 5.1 11.8 7.9 19 7.9 7.2 0 14-2.8 19-7.9l184-184 184 184c5.1 5.1 11.8 7.9 19 7.9 7.2 0 14-2.8 19-7.9l16.1-16.1c5.1-5.1 7.9-11.8 7.9-19 0-7.2-2.8-14-7.9-19L300.2 246z"
+        />
+      </svg>
+    </button>
+  </div>
+</body>
+`;

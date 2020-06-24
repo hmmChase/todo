@@ -1,8 +1,8 @@
-# next-graphql-starter
+# hmmStart
 
 > An example CRUD PWA app with user authentication.
 >
-> View the app at <https://next-graphql-starter.now.sh/>
+> View the app at <https://hmmStart.now.sh/>
 
 ## Built with
 
@@ -39,7 +39,7 @@
 
 ## Testing
 
-- React Testing Library
+- WIP
 
 ## Refreshing Authentication
 
@@ -59,11 +59,11 @@
 
 ### Clone project
 
-`git clone https://github.com/hmmChase/next-graphql-starter.git`
+`git clone https://github.com/hmmChase/hmmStart.git`
 
 ### Install dependencies
 
-1. Navigate to project root `cd next-graphql-starter`
+1. Navigate to project root `cd hmmStart`
 2. Run `npm install`
 3. Run `npm run frontend:install`
 4. Run `npm run backend:install`

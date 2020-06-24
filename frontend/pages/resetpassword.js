@@ -1,41 +1,47 @@
 import PropTypes from 'prop-types';
-import Head from '../components/Head/Head';
-import LayoutMain from '../components/LayoutMain/LayoutMain';
-import ResetPassword from '../components/ResetPassword/ResetPassword';
-import authenticate from '../utils/authenticate';
 import withApollo from '../graphql/withApollo';
+import signedIn from '../utils/signedIn';
+import redirect from '../utils/redirect';
+import Layout from '../components/organisms/Layout/Layout';
+import Header from '../components/organisms/Header/Header';
+import ResetPassError from '../components/molecules/ResetPassError/ResetPassError';
+import ResetPassword from '../components/organisms/ResetPassword/ResetPassword';
 
-const ResetPasswordPage = props => (
-  <>
-    <Head title='Reset Password' />
+const ResetPasswordPage = (props) => {
+  const isTokenPresent = !!(props.resetToken && props.resetTokenExpiry);
+  const isTokenExpired = Date.now() > props.resetTokenExpiry;
 
-    <LayoutMain
-      header={<h1>Reset Your Password</h1>}
+  return (
+    <Layout
+      title='Reset Password'
+      header={<Header title='Reset Password' />}
       content={
-        <ResetPassword
-          resetToken={props.resetToken}
-          resetTokenExpiry={props.resetTokenExpiry}
-        />
+        !isTokenPresent || isTokenExpired ? (
+          <ResetPassError
+            isTokenPresent={isTokenPresent}
+            isTokenExpired={isTokenExpired}
+          />
+        ) : (
+          <ResetPassword resetToken={props.resetToken} />
+        )
       }
     />
-  </>
-);
+  );
+};
 
-ResetPasswordPage.getInitialProps = async ctx => {
-  const { req, res, pathname, query } = ctx;
-
-  // if (req && res && pathname) authenticate(req, res, pathname);
-
+ResetPasswordPage.getInitialProps = async (ctx) => {
+  const { req, res, query } = ctx;
   const { resetToken, resetTokenExpiry } = query;
+
+  /* must not be signed in */
+  if (req && signedIn(req)) redirect(res, '/');
 
   return { resetToken, resetTokenExpiry };
 };
 
-ResetPasswordPage.defaultProps = { resetToken: '', resetTokenExpiry: '' };
-
 ResetPasswordPage.propTypes = {
   resetToken: PropTypes.string,
-  resetTokenExpiry: PropTypes.string
+  resetTokenExpiry: PropTypes.string,
 };
 
-export default withApollo(ResetPasswordPage);
+export default withApollo({ ssr: true })(ResetPasswordPage);

@@ -1,23 +1,16 @@
 import gql from 'graphql-tag';
+// import { gql } from '@apollo/client';
 
-// Please note that the term "ClientState"
-// refers to the ApolloClient. In oder to fully render
-// a react application we need the state on the server
-// and on the client. Otherwise our react components
-// might throw because they can't reach specified values
-// in the Schema.
-// Therefor the @client targets the react app as a whole (Server&Client).
-
-export const typeDefs = gql`
+export default gql`
   extend type Query {
-    renderedOn: String!
+    # renderedOn: String!
     isLoggedIn: Boolean!
   }
 
-  #  extend type Mutation {
+  # extend type Mutation {
   # }
 
-  extend type User {
-    color: String!
-  }
+  # extend type User {
+  #   color: String!
+  # }
 `;

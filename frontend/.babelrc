@@ -1,4 +1,4 @@
-// https://nextjs.org/docs#customizing-babel-config
+// https://nextjs.org/docs/advanced-features/customizing-babel-config
 {
   "env": {
     "development": {

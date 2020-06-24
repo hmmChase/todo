@@ -1,7 +1,20 @@
 import gql from 'graphql-tag';
+// import { gql } from '@apollo/client';
+
+export const IDEAS = gql`
+  query ideas {
+    ideas {
+      id
+      content
+      author {
+        id
+      }
+    }
+  }
+`;
 
 export const CREATE_IDEA = gql`
-  mutation CREATE_IDEA($content: String!) {
+  mutation createIdea($content: String!) {
     createIdea(content: $content) {
       id
       content
@@ -13,7 +26,7 @@ export const CREATE_IDEA = gql`
 `;
 
 export const UPDATE_IDEA = gql`
-  mutation UPDATE_IDEA($id: ID!, $content: String!) {
+  mutation updateIdea($id: ID!, $content: String!) {
     updateIdea(id: $id, content: $content) {
       id
       content
@@ -22,7 +35,7 @@ export const UPDATE_IDEA = gql`
 `;
 
 export const DELETE_IDEA = gql`
-  mutation DELETE_IDEA($id: ID!) {
+  mutation deleteIdea($id: ID!) {
     deleteIdea(id: $id) {
       id
     }
@@ -30,7 +43,7 @@ export const DELETE_IDEA = gql`
 `;
 
 export const IDEAS_CONNECTION = gql`
-  query IDEAS_CONNECTION {
+  query ideasConnection {
     ideasConnection {
       aggregate {
         count
@@ -47,7 +60,7 @@ export const IDEAS_CONNECTION = gql`
 `;
 
 export const CURRENT_USER_IDEA = gql`
-  query CURRENT_USER_IDEA($id: ID!) {
+  query currentUserIdea($id: ID!) {
     currentUserIdea(id: $id) {
       id
       content
@@ -59,7 +72,7 @@ export const CURRENT_USER_IDEA = gql`
 `;
 
 export const CURRENT_USER_IDEAS = gql`
-  query CURRENT_USER_IDEAS {
+  query currentUserIdeas {
     currentUserIdeas {
       id
       content
@@ -68,7 +81,7 @@ export const CURRENT_USER_IDEAS = gql`
 `;
 
 export const CURRENT_USER_PAGINATED_IDEAS = gql`
-  query CURRENT_USER_PAGINATED_IDEAS($first: Int, $after: String) {
+  query currentUserPaginatedIdeas($first: Int, $after: String) {
     currentUserPaginatedIdeas(
       orderBy: createdAt_DESC
       first: $first

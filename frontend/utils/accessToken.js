@@ -1,22 +1,24 @@
 import fetch from 'isomorphic-unfetch';
-import jwt from 'jsonwebtoken';
-import { devConErr } from './devLog';
-import { refreshUrl, accessTokenSecret } from '../constants';
+import { devConErr } from './devCon';
+import { refreshUrlDev, refreshUrlProd } from '../config';
 
 let accessToken = '';
 
-export const setAccessToken = token => (accessToken = token);
+export const setAccessToken = (token) => (accessToken = token);
 
 export const getAccessToken = () => accessToken;
 
 export const clearAccessToken = () => (accessToken = '');
 
-export const fetchAccessToken = async refreshToken => {
+export const fetchAccessToken = async (refreshToken) => {
+  const refreshUrl =
+    process.env.NODE_ENV === 'production' ? refreshUrlProd : refreshUrlDev;
+
   try {
     const response = await fetch(refreshUrl, {
       method: 'GET',
       credentials: 'include',
-      headers: { cookie: `rt=${refreshToken}` }
+      headers: { cookie: `rt=${refreshToken}` },
     });
 
     const data = await response.json();
@@ -28,30 +30,3 @@ export const fetchAccessToken = async refreshToken => {
     return '';
   }
 };
-
-export const verifyAccessToken = accessToken => {
-  try {
-    jwt.verify(accessToken, accessTokenSecret);
-  } catch (error) {
-    devConErr(['verifyAccessToken error: ', error]);
-  }
-};
-
-// const checkAccessToken = async cookies => {
-//   const accessToken = getAccessToken();
-
-//   if (!accessToken) return true;
-
-//   const parsedCookies = cookie.parse(cookies);
-
-//   if (!parsedCookies.rt) return '';
-
-//   // const response = await fetchAccessToken(parsedCookies.rt);
-
-//   // const data = await response.json();
-
-//   // setAccessToken(data.accessToken);
-//   // setAccessTokenExpiry(data.exp);
-
-//   // return data.accessToken;
-// };
