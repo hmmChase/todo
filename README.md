@@ -2,7 +2,7 @@
 
 > An example CRUD PWA app with user authentication.
 >
-> View the app at <https://hmmStart.now.sh/>
+> View the app at <https://hmmstart.vercel.app/>
 
 ## Built with
 
@@ -39,7 +39,7 @@
 
 ## Testing
 
-- WIP
+- React Testing Library
 
 ## Refreshing Authentication
 
@@ -108,20 +108,17 @@ Can skip if you don't try to reset a password.
 2. Run `npm run app`
 3. Visit `http://localhost:8008/`
 
-### Deploy to Now
+### Deploy to Vercel
 
-No guarantee this will work. Now has been changing a lot recently.
+No guarantee this will work.
 
 - First time
-  - Visit [Now](https://zeit.co/now) and sign up
-  - Install [Now Desktop](https://zeit.co/download) and login
+  - Visit [Vercel](https://vercel.com/) and sign up
+  - Install [Vercel Desktop](https://vercel.com/download) and login
 
 1. Navigate to root `/`
-2. Run `now`
+2. Run `vercel`
 3. Copy aliased URL
-4. Paste URL in `/backend/.env` as `PROD_FRONTEND_URL` value
-5. Paste URL in `/frontend/.env` as `PROD_GRAPHQL_ENDPOINT` value
-   - append `/graphql` onto it
-6. Follow `now-secrets.md` to setup Now secrets
-7. Run `now`
+6. Follow `vercel-secrets.md` to setup secrets
+7. Run `vercel`
 8. Visit the URL

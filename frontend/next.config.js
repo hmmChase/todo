@@ -1,5 +1,5 @@
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
-// https://github.com/zeit/next.js/blob/canary/packages/next/next-server/server/config.ts#L12-L63
+// https://github.com/vercel/next.js/blob/canary/packages/next/next-server/server/config.ts#L12-L63
 
 // import 'dotenv/config';
 // require('dotenv').config();
@@ -22,7 +22,7 @@ const themeVars = lessToJs(
 );
 
 const nextConfig = {
-  // Now by ZEIT deployment target
+  // Deployment target
   target: 'serverless',
 
   // Custom webpack config for Ant Design Less
@@ -71,10 +71,10 @@ const nextConfig = {
         ? config.devtool
         : 'eval-source-map';
 
-    // Zeit Now: Fixes npm packages that depend on `fs` module
+    // Fixes npm packages that depend on `fs` module
     config.node = { fs: 'empty' };
 
-    // https://github.com/zeit/next.js/tree/canary/examples/with-dotenv
+    // https://github.com/vercel/next.js/tree/canary/examples/with-dotenv
     config.plugins.push(
       // Read the .env file
       new Dotenv({ path: path.join(__dirname, '.env'), systemvars: true })
@@ -102,7 +102,7 @@ const nextConfig = {
       );
     }
 
-    // https://github.com/zeit/next.js/tree/canary/examples/with-ant-design-less
+    // https://github.com/vercel/next.js/tree/canary/examples/with-ant-design-less
     if (options.isServer) {
       const antStyles = /antd\/.*?\/style.*?/;
       const origExternals = [...config.externals];
