@@ -19,4 +19,9 @@ export const mailHost = 'smtp.mailtrap.io';
 export const mailPort = '2525';
 
 export const frontendUrlDev = 'http://localhost:8008';
-export const frontendUrlProd = 'https://next-graphql-starter-base.now.sh';
+export const frontendUrlProd = [
+  'https://hmmstart.vercel.app',
+  'https://hmmstart-dev.vercel.app',
+  'https://hmmstart-base.vercel.app',
+];
+export const frontendURLProdCurrent = process.env.VERCEL_URL;
