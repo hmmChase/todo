@@ -2,8 +2,8 @@ import nodemailer from 'nodemailer';
 import {
   mailHost,
   mailPort,
-  frontendUrlDev,
   frontendURLProdCurrent,
+  frontendUrlDev,
 } from '../config';
 
 const transport = nodemailer.createTransport({
