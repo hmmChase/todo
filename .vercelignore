@@ -56,19 +56,15 @@ typings/
 
 # dotenv environment variables file
 .env
-.env.example
 
 # next.js build output
 .next
 
 # Other
 .vscode
-.history
 build
 dist
 bundles
-
-# Now
 package-lock.json
 yarn.lock
 README.md

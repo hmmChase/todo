@@ -1,12 +1,12 @@
-export const title = 'NGS';
+export const title = 'hmmStart';
 
 export const graphqlUrlDev = 'http://localhost:6969/api/graphql';
 export const graphqlUrlProd =
-  'https://next-graphql-starter-base.now.sh/api/graphql';
+  'https://hmmstart-git-base.hmmchase.vercel.app/api/graphql';
 
 export const refreshUrlDev = 'http://localhost:6969/api/refresh';
 export const refreshUrlProd =
-  'https://next-graphql-starter-base.now.sh/api/refresh';
+  'https://hmmstart-git-base.hmmchase.vercel.app/api/refresh';
 
 export const ideasPerPage = 5;
 
@@ -32,7 +32,7 @@ export const passResetTokenMissingError =
   'Error: Please submit a new password reset request.';
 export const passResetTokenExpiredError =
   'Your reset request is expired. Please submit a new one.';
-export const passResetSuccessful =
-  'Your password has been successfully changed.';
 
 export const passResetRequestSent = 'Check your email for a reset link.';
+export const passResetSuccessful =
+  'Your password has been successfully changed.';

@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { _StrictMode } from 'react';
 import PropTypes from 'prop-types';
 import '../public/Index.css';
 
@@ -14,9 +14,9 @@ const MyApp = (props) => {
   //     // pageProps includes data returned from getInitialProps
 
   return (
-    <StrictMode>
-      <Component {...pageProps} />
-    </StrictMode>
+    // <StrictMode>
+    <Component {...pageProps} />
+    // </StrictMode>
   );
 };
 
@@ -36,5 +36,13 @@ MyApp.propTypes = {
 //
 //   return { ...appProps }
 // }
+
+// For FOUC issue, see _document.js
+// https://github.com/ant-design/ant-design/issues/16037
+// https://github.com/vercel/next.js/issues/8826
+if (typeof window !== 'undefined')
+  window.addEventListener('DOMContentLoaded', () =>
+    document.getElementById('holderStyle').remove()
+  );
 
 export default MyApp;

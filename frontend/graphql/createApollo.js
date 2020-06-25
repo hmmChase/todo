@@ -21,6 +21,7 @@ import {
   refreshUrlDev,
   refreshUrlProd,
 } from '../config';
+
 // import { persistCache } from 'apollo-cache-persist';
 // import { schema } from './schema';
 // import typeDefs from './typeDefs';
