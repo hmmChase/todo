@@ -6,6 +6,10 @@ View secrets using `vercel secrets ls`
 
 [Vercel env docs](https://vercel.com/docs/v2/build-step#environment-variables)
 
+One Time:
+
+1. Add `VERCEL_URL` to Environment Variables in the Vercel Project Settings dashboard
+
 To add a new secret:
 
 1. Add to `.env`
