@@ -1,10 +1,12 @@
 export const title = 'hmmStart';
 
+export const frontendURLProdCurrent = process.env.VERCEL_URL;
+
 export const graphqlUrlDev = 'http://localhost:6969/api/graphql';
-export const graphqlUrlProd = 'https://hmmstart.vercel.app/api/graphql';
+export const graphqlUrlProd = `https://${frontendURLProdCurrent}/api/graphql`;
 
 export const refreshUrlDev = 'http://localhost:6969/api/refresh';
-export const refreshUrlProd = 'https://hmmstart.vercel.app/api/refresh';
+export const refreshUrlProd = `https://${frontendURLProdCurrent}/api/refresh`;
 
 export const ideasPerPage = 5;
 
@@ -30,7 +32,7 @@ export const passResetTokenMissingError =
   'Error: Please submit a new password reset request.';
 export const passResetTokenExpiredError =
   'Your reset request is expired. Please submit a new one.';
-export const passResetSuccessful =
-  'Your password has been successfully changed.';
 
 export const passResetRequestSent = 'Check your email for a reset link.';
+export const passResetSuccessful =
+  'Your password has been successfully changed.';
