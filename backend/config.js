@@ -19,4 +19,9 @@ export const mailHost = 'smtp.mailtrap.io';
 export const mailPort = '2525';
 
 export const frontendUrlDev = 'http://localhost:8008';
-export const frontendUrlProd = 'https://hmmstart.vercel.app';
+export const frontendUrlProd = [
+  'https://hmmstart.vercel.app',
+  'https://hmmstart-git-dev.hmmchase.vercel.app',
+  'https://hmmstart-git-base.hmmchase.vercel.app',
+];
+export const frontendURLProdCurrent = process.env.VERCEL_URL;
