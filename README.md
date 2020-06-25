@@ -1,3 +1,3 @@
-# Basic version
+# Base version
 
-<https://next-graphql-starter-base.now.sh/>
+<https://hmmstart-git-base.hmmchase.vercel.app/>

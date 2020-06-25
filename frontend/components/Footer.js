@@ -1,3 +1,3 @@
-const Footer = () => <p>NGS</p>;
+const Footer = () => <p>hmmStart</p>;
 
 export default Footer;
