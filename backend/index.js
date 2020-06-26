@@ -11,22 +11,22 @@ import prisma from './prismaClient';
 import logger from './utils/logger';
 import { createAccessToken } from './utils/accessToken';
 import { createRefreshToken, sendRefreshToken } from './utils/refreshToken';
-import { port, frontendUrlDev, frontendUrlProd } from './config';
+import { frontendUrlDev, frontendUrlCORS, port } from './config';
 
 const app = express();
 const server = apolloServer();
 
-const origin =
-  process.env.NODE_ENV === 'production' ? frontendUrlProd : frontendUrlDev;
-
-const corsOptions = { origin, credentials: true };
+const corsOptions = {
+  origin:
+    process.env.NODE_ENV === 'production' ? frontendUrlCORS : frontendUrlDev,
+  credentials: true,
+};
 
 app.use(cors(corsOptions));
 app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === 'development') app.use(logger);
 

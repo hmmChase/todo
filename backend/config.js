@@ -23,4 +23,15 @@ export const prodUrl = process.env.VERCEL_URL;
 export const frontendUrlDev = 'http://localhost:8008';
 export const frontendUrlProd = `https://${prodUrl}`;
 
+export const frontendUrlCORS = [
+  'https://hmmstart.vercel.app',
+  'https://hmmstart-git-dev.hmmchase.vercel.app',
+  'https://hmmstart-git-base.hmmchase.vercel.app',
+  frontendUrlProd,
+];
+
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+console.log('process.env.VERCEL_URL', process.env.VERCEL_URL);
+console.log('process.env.HOST', process.env.HOST);
+
+// const URL = req.headers['x-now-deployment-url'];
