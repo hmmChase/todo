@@ -9,6 +9,7 @@ export const refreshUrlDev = 'http://localhost:6969/api/refresh';
 export const refreshUrlProd = `https://${prodUrl}/api/refresh`;
 
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+console.log('process.env.VERCEL_URL', process.env.VERCEL_URL);
 
 export const ideasPerPage = 5;
 
