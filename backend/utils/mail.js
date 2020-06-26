@@ -1,10 +1,5 @@
 import nodemailer from 'nodemailer';
-import {
-  mailHost,
-  mailPort,
-  frontendURLProdCurrent,
-  frontendUrlDev,
-} from '../config';
+import { mailHost, mailPort, frontendUrlDev, frontendUrlProd } from '../config';
 
 const transport = nodemailer.createTransport({
   host: mailHost,
@@ -26,9 +21,7 @@ const emailTemplate = (body) => `
 
 export default async (email, resetToken, resetTokenExpiry) => {
   const frontendUrl =
-    process.env.NODE_ENV === 'production'
-      ? frontendURLProdCurrent
-      : frontendUrlDev;
+    process.env.NODE_ENV === 'production' ? frontendUrlProd : frontendUrlDev;
 
   const resetPassUrl = `${frontendUrl}/resetpassword?resetToken=${resetToken}&resetTokenExpiry=${resetTokenExpiry}`;
 
