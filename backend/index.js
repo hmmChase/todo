@@ -11,16 +11,14 @@ import prisma from './prismaClient';
 import logger from './utils/logger';
 import { createAccessToken } from './utils/accessToken';
 import { createRefreshToken, sendRefreshToken } from './utils/refreshToken';
-import { frontendUrlDev, frontendUrlProdCORS, port } from './config';
+import { clientUrlDev, clientUrlCORS, port } from './config';
 
 const app = express();
 const server = apolloServer();
 
 const corsOptions = {
   origin:
-    process.env.NODE_ENV === 'production'
-      ? frontendUrlProdCORS
-      : frontendUrlDev,
+    process.env.NODE_ENV === 'production' ? clientUrlCORS : clientUrlDev,
   credentials: true,
 };
 

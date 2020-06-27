@@ -1,12 +1,11 @@
-export const port = 6969
+export const port = 6969;
 
 export const deployedUrl = process.env.VERCEL_URL;
 
-export const frontendUrlDev = 'http://localhost:8008';
-export const frontendUrlProd = `https://${prodUrl}`;
-
-export const frontendUrlProdCORS = [
-  frontendUrlProd,
+export const clientUrlDev = 'http://localhost:8008';
+export const clientUrlProd = `https://${deployedUrl}`;
+export const clientUrlCORS = [
+  clientUrlProd,
   'https://hmmstart.vercel.app',
   'https://hmmstart-git-dev.hmmchase.vercel.app',
   'https://hmmstart-git-base.hmmchase.vercel.app',
