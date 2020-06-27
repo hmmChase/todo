@@ -8,12 +8,6 @@ export const graphqlUrlProd = `https://${prodUrl}/api/graphql`;
 export const refreshUrlDev = 'http://localhost:6969/api/refresh';
 export const refreshUrlProd = `https://${prodUrl}/api/refresh`;
 
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-console.log('process.env.VERCEL_URL', process.env.VERCEL_URL);
-console.log('process.env.HOST', process.env.HOST);
-
-// const URL = req.headers['x-now-deployment-url'];
-
 export const ideasPerPage = 5;
 
 export const usernameMinLength = 5;
