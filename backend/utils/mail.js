@@ -20,10 +20,10 @@ const emailTemplate = (body) => `
 `;
 
 export default async (email, resetToken, resetTokenExpiry) => {
-  const frontendUrl =
+  const clientUrl =
     process.env.NODE_ENV === 'production' ? clientUrlProd : clientUrlDev;
 
-  const resetPassUrl = `${frontendUrl}/resetpassword?resetToken=${resetToken}&resetTokenExpiry=${resetTokenExpiry}`;
+  const resetPassUrl = `${clientUrl}/resetpassword?resetToken=${resetToken}&resetTokenExpiry=${resetTokenExpiry}`;
 
   const emailBody = `
     Your Password Reset Token is here!
