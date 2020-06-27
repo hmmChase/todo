@@ -1,5 +1,16 @@
 export const port = 6969;
 
+export const deployedUrl = process.env.VERCEL_URL;
+
+export const clientUrlDev = 'http://localhost:8008';
+export const clientUrlProd = `https://${deployedUrl}`;
+export const clientUrlCORS = [
+  clientUrlProd,
+  'https://hmmstart.vercel.app',
+  'https://hmmstart-git-dev.hmmchase.vercel.app',
+  'https://hmmstart-git-base.hmmchase.vercel.app',
+];
+
 export const accessTokenExpiryTime = '10m';
 
 export const refreshTokenExpiryTime = '7d';
@@ -17,11 +28,3 @@ export const passwordMaxLength = 30;
 
 export const mailHost = 'smtp.mailtrap.io';
 export const mailPort = '2525';
-
-export const frontendUrlDev = 'http://localhost:8008';
-export const frontendUrlProd = [
-  'https://hmmstart.vercel.app',
-  'https://hmmstart-git-dev.hmmchase.vercel.app',
-  'https://hmmstart-git-base.hmmchase.vercel.app',
-];
-export const frontendURLProdCurrent = process.env.VERCEL_URL;
