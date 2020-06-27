@@ -1,3 +1,5 @@
+export const port = 6969
+
 export const deployedUrl = process.env.VERCEL_URL;
 
 export const frontendUrlDev = 'http://localhost:8008';

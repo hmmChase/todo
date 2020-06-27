@@ -11,7 +11,7 @@ import prisma from './prismaClient';
 import logger from './utils/logger';
 import { createAccessToken } from './utils/accessToken';
 import { createRefreshToken, sendRefreshToken } from './utils/refreshToken';
-import { frontendUrlDev, frontendUrlProdCORS } from './config';
+import { frontendUrlDev, frontendUrlProdCORS, port } from './config';
 
 const app = express();
 const server = apolloServer();
@@ -79,8 +79,8 @@ app.get('/api/refresh', async (req, res) => {
 
 server.applyMiddleware({ app, path: '/api/graphql', cors: corsOptions });
 
-app.listen({ port: 6969 }, (err) => {
+app.listen({ port: port }, (err) => {
   if (err) throw err;
 
-  console.log(`Server ready at http://localhost:6969/api/`);
+  console.log(`Server ready at http://localhost:${port}/api/`);
 });
