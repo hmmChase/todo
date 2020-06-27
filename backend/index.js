@@ -79,7 +79,7 @@ app.get('/api/refresh', async (req, res) => {
 
 server.applyMiddleware({ app, path: '/api/graphql', cors: corsOptions });
 
-app.listen({ port: port }, (err) => {
+app.listen({ port: port || 4000 }, (err) => {
   if (err) throw err;
 
   console.log(`Server ready at http://localhost:${port}/api/`);
