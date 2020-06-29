@@ -1,5 +1,5 @@
 {
-  "alias": "hmmStart",
+  "alias": "hmmstart",
   "version": 2,
   "github": {
     "silent": true
@@ -7,7 +7,7 @@
   "builds": [
     {
       "src": "backend/index.js",
-      "use": "@now/node"
+      "use": "@now/node-server"
     },
     {
       "src": "frontend/next.config.js",
