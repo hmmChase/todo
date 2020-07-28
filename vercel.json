@@ -7,11 +7,11 @@
   "builds": [
     {
       "src": "backend/index.js",
-      "use": "@now/node-server"
+      "use": "@vercel/node-server"
     },
     {
       "src": "frontend/next.config.js",
-      "use": "@now/next"
+      "use": "@vercel/next"
     }
   ],
   "routes": [
