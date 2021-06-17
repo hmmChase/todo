@@ -17,8 +17,8 @@ export default async () => {
       data: {
         email: 'user@email.com',
         password: await bcrypt.hash('User123#', 10),
-        ideas: { create: ideas() },
-      },
+        ideas: { create: ideas() }
+      }
     });
   } catch (error) {
     console.error(error);

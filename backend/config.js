@@ -8,7 +8,7 @@ export const clientUrlCORS = [
   clientUrlProd,
   'https://hmmstart.vercel.app',
   'https://hmmstart-git-dev.hmmchase.vercel.app',
-  'https://hmmstart-git-base.hmmchase.vercel.app',
+  'https://hmmstart-git-base.hmmchase.vercel.app'
 ];
 
 export const accessTokenExpiryTime = '10m';

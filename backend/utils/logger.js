@@ -34,7 +34,7 @@ export default (req, res, next) => {
           // cookies: req.cookies,
           // uri: req.url,
           requestData: req.body,
-          responseData: body,
+          responseData: body
           // referer: req.headers.referer || ''
           // ua: req.headers['user-agent']
         });

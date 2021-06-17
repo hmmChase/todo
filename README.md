@@ -119,6 +119,6 @@ No guarantee this will work.
 1. Navigate to root `/`
 2. Run `vercel`
 3. Copy aliased URL
-6. Follow `vercel-secrets.md` to setup secrets
-7. Run `vercel`
-8. Visit the URL
+4. Follow `vercel-secrets.md` to setup secrets
+5. Run `vercel`
+6. Visit the URL

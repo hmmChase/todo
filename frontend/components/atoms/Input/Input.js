@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Input as Inputt } from 'antd';
 
-const Input = (props) => (
+const Input = props => (
   <Inputt
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -22,7 +22,7 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 export default React.memo(Input);

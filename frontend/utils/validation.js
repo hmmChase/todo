@@ -5,7 +5,7 @@ import {
   usernameMinLength,
   usernameMaxLength,
   passwordMinLength,
-  passwordMaxLength,
+  passwordMaxLength
 } from '../config';
 
 /* Username */
@@ -21,7 +21,7 @@ export const username = {
       usernameMaxLength,
       `Username must have no more than ${usernameMaxLength} characters`
     )
-    .required('Required'),
+    .required('Required')
   // .label('username'),
 };
 
@@ -32,7 +32,7 @@ export const email = {
     .string('Invalid email')
     .email('Invalid email')
     .max(255, 'Must be 255 characters or less')
-    .required('Required'),
+    .required('Required')
   // .label('email'),
 };
 
@@ -49,7 +49,7 @@ export const password = {
       passwordMaxLength,
       `Password must have no more than ${passwordMaxLength} characters`
     )
-    .required('Required'),
+    .required('Required')
   // .label('password'),
 };
 
@@ -67,6 +67,6 @@ export const confirmPassword = {
     //   passwordMaxLength,
     //   `Password must have no more than ${passwordMaxLength} characters`
     // )
-    .required('Required'),
+    .required('Required')
   // .label('confirmPassword'),
 };

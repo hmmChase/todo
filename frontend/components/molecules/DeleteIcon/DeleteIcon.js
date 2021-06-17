@@ -4,16 +4,16 @@ import { useMutation } from '@apollo/react-hooks';
 import { ideasPerPage } from '../../../config';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
-  DELETE_IDEA,
+  DELETE_IDEA
 } from '../../../graphql/queries';
 import { XIconBtn } from '../../atoms/IconBtn/IconBtn';
 
-const DeleteIcon = (props) => {
+const DeleteIcon = props => {
   const update = (cache, data) => {
     // Read the data from cache for this query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: ideasPerPage },
+      variables: { orderBy: 'createdAt_DESC', first: ideasPerPage }
     });
 
     // Get id of idea to delete
@@ -23,7 +23,7 @@ const DeleteIcon = (props) => {
     const newIdeas = [...ideasData.currentUserPaginatedIdeas.edges];
 
     // Remove idea
-    const filteredIdeas = newIdeas.filter((idea) => idea.node.id !== ideaId);
+    const filteredIdeas = newIdeas.filter(idea => idea.node.id !== ideaId);
 
     // Write data back to the cache
     cache.writeQuery({
@@ -33,9 +33,9 @@ const DeleteIcon = (props) => {
         ...ideasData,
         currentUserPaginatedIdeas: {
           ...ideasData.currentUserPaginatedIdeas,
-          edges: filteredIdeas,
-        },
-      },
+          edges: filteredIdeas
+        }
+      }
     });
   };
 
@@ -44,10 +44,10 @@ const DeleteIcon = (props) => {
       update(cache, data);
     },
 
-    onError(_error) {},
+    onError(_error) {}
   });
 
-  const onClick = (e) => {
+  const onClick = e => {
     //? not working
     e.target.disabled = true;
 
@@ -58,7 +58,7 @@ const DeleteIcon = (props) => {
 };
 
 DeleteIcon.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired
 };
 
 export default React.memo(DeleteIcon);

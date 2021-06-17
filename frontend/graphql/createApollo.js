@@ -20,7 +20,7 @@ import {
   graphqlUrlDev,
   graphqlUrlProd,
   refreshUrlDev,
-  refreshUrlProd,
+  refreshUrlProd
 } from '../config';
 
 // import { persistCache } from 'apollo-cache-persist';
@@ -48,10 +48,10 @@ const createApollo = (
   const consoleLogLink = new ApolloLink((operation, forward) => {
     devConLog([
       `***** starting request for ${operation.operationName}`,
-      `(${typeof window === 'undefined' ? 'server' : 'client'})`,
+      `(${typeof window === 'undefined' ? 'server' : 'client'})`
     ]);
 
-    return forward(operation).map((op) => {
+    return forward(operation).map(op => {
       devConLog([`******* ${operation.operationName} res: `, op]);
       devConLog([`***** ending request for ${operation.operationName}`]);
 
@@ -98,18 +98,18 @@ const createApollo = (
       return fetch(refreshUrl, { method: 'GET', credentials: 'include' });
     },
 
-    handleFetch: (newAccessToken) => {
+    handleFetch: newAccessToken => {
       accessToken = newAccessToken;
 
       // setAccessToken(newAccessToken);
     },
 
-    handleError: (error) => {
+    handleError: error => {
       devConLog(['refreshLink handleError: ', error]);
 
       // your custom action here
       // user.logout();
-    },
+    }
   });
 
   // Add Access token auth header
@@ -118,8 +118,8 @@ const createApollo = (
 
     return {
       headers: {
-        Authorization: theAccessToken ? `Bearer ${theAccessToken}` : '',
-      },
+        Authorization: theAccessToken ? `Bearer ${theAccessToken}` : ''
+      }
     };
   });
 
@@ -133,7 +133,7 @@ const createApollo = (
     errorLink,
     refreshLink,
     authLink,
-    httpLink,
+    httpLink
   ]);
 
   const linkProd = ApolloLink.from([refreshLink, authLink, httpLink]);
@@ -146,9 +146,9 @@ const createApollo = (
     cacheRedirects: {
       Query: {
         currentUserIdea: (_, args, { getCacheKey }) =>
-          getCacheKey({ __typename: 'Idea', id: args.id }),
-      },
-    },
+          getCacheKey({ __typename: 'Idea', id: args.id })
+      }
+    }
   }).restore(initialState);
 
   // if (!typeof window === 'undefined')
@@ -165,7 +165,7 @@ const createApollo = (
     cache,
     connectToDevTools: process.env.NODE_ENV !== 'production',
     // Disables forceFetch on the server (so queries are only run once)
-    ssrMode: Boolean(ctx),
+    ssrMode: Boolean(ctx)
     // typeDefs,
     // resolvers: resolvers(accessToken, refreshToken),
     // schema,

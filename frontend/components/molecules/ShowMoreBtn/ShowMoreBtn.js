@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as sc from './ShowMoreBtn.style';
 
-const ShowMoreBtn = (props) => {
+const ShowMoreBtn = props => {
   const onClick = () =>
     props.fetchMore({
       variables: { after: props.ideas.pageInfo.endCursor },
@@ -20,12 +20,12 @@ const ShowMoreBtn = (props) => {
             ...previousResult.currentUserPaginatedIdeas,
             edges: [
               ...previousResult.currentUserPaginatedIdeas.edges,
-              ...moreEdges,
+              ...moreEdges
             ],
-            pageInfo: nextPageInfo,
-          },
+            pageInfo: nextPageInfo
+          }
         };
-      },
+      }
     });
 
   return (
@@ -56,17 +56,17 @@ ShowMoreBtn.propTypes = {
           content: PropTypes.string.isRequired,
           author: PropTypes.exact({
             __typename: PropTypes.string.isRequired,
-            id: PropTypes.string.isRequired,
-          }).isRequired,
-        }).isRequired,
+            id: PropTypes.string.isRequired
+          }).isRequired
+        }).isRequired
       }).isRequired
     ).isRequired,
     pageInfo: PropTypes.exact({
       __typename: PropTypes.string.isRequired,
       endCursor: PropTypes.string.isRequired,
-      hasNextPage: PropTypes.bool.isRequired,
-    }).isRequired,
-  }).isRequired,
+      hasNextPage: PropTypes.bool.isRequired
+    }).isRequired
+  }).isRequired
 };
 
 export default React.memo(ShowMoreBtn);

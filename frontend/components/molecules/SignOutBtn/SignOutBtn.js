@@ -6,16 +6,16 @@ import { clearAccessToken } from '../../../utils/accessToken';
 import { SIGN_OUT, IS_LOGGED_IN } from '../../../graphql/queries';
 import Button from '../../atoms/Button/Button';
 
-const SignOutBtn = (props) => {
+const SignOutBtn = props => {
   // const apolloClient = useApolloClient();
 
-  const update = (cache) => {
+  const update = cache => {
     cache.reset();
 
     cache.writeQuery({
       id: 'isLoggedIn',
       query: IS_LOGGED_IN,
-      data: { isLoggedIn: false },
+      data: { isLoggedIn: false }
     });
   };
 
@@ -42,7 +42,7 @@ const SignOutBtn = (props) => {
       onCompleted();
     },
 
-    onError(_error) {},
+    onError(_error) {}
   });
 
   const onClick = () => signOut();
@@ -62,7 +62,7 @@ const SignOutBtn = (props) => {
 };
 
 SignOutBtn.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default SignOutBtn;

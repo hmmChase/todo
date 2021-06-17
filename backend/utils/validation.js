@@ -6,12 +6,12 @@ import {
   usernameMinLength,
   usernameMaxLength,
   passwordMinLength,
-  passwordMaxLength,
+  passwordMaxLength
 } from '../config';
 
 /* Username */
 
-export const validateUsername = (username) => {
+export const validateUsername = username => {
   /*
   https://regexr.com/3cg7r
   /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/igm
@@ -71,7 +71,7 @@ export const validateUsername = (username) => {
 
 /* Email */
 
-export const validateEmail = (email) => {
+export const validateEmail = email => {
   const notString = typeof email !== 'string';
 
   if (notString) throw new UserInputError('Invalid email address');
@@ -84,7 +84,7 @@ export const validateEmail = (email) => {
 
 /* Password */
 
-export const validatePassword = (password) => {
+export const validatePassword = password => {
   /*
   https://regexr.com/3bfsi
   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm

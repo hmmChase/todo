@@ -32,7 +32,7 @@ const RequestReset = () => {
       validateOnBlur={true}
       onSubmit={onSubmit}
     >
-      {(formikProps) => (
+      {formikProps => (
         <FormikForm>
           <FormInput label='Email' id='requestResetEmail' name='email' />
 

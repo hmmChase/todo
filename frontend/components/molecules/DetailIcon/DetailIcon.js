@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { ExpandIconBtn } from '../../atoms/IconBtn/IconBtn';
 
-const DetailIcon = (props) => (
+const DetailIcon = props => (
   <Link href='/idea/[id]' as={`/idea/${props.id}`}>
     <div>
       <ExpandIconBtn aria-label='idea detail' className={props.className} />
@@ -12,7 +12,7 @@ const DetailIcon = (props) => (
 
 DetailIcon.propTypes = {
   className: PropTypes.string,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired
 };
 
 export default React.memo(DetailIcon);

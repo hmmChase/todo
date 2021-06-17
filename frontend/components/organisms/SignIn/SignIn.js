@@ -21,11 +21,11 @@ const SignIn = () => {
     cache.writeQuery({
       id: 'isLoggedIn',
       query: IS_LOGGED_IN,
-      data: { isLoggedIn },
+      data: { isLoggedIn }
     });
   };
 
-  const onCompleted = (data) => {
+  const onCompleted = data => {
     if (data && data.signIn && data.signIn.accessToken) {
       setAccessToken(data.signIn.accessToken);
 
@@ -44,7 +44,7 @@ const SignIn = () => {
       onCompleted(data);
     },
 
-    onError(_error) {},
+    onError(_error) {}
   });
 
   const onSubmit = (values, formikHelpers) => {
@@ -61,7 +61,7 @@ const SignIn = () => {
       validateOnBlur={true}
       onSubmit={onSubmit}
     >
-      {(formikProps) => (
+      {formikProps => (
         <FormikForm>
           <h2 data-testid='SignInTitle'>Sign In</h2>
 

@@ -11,7 +11,7 @@ import theme from '../public/styles/theme.style';
 import {
   MOCK_CURRENT_USER_IDEA,
   _MOCK_ERROR_CURRENT_USER_IDEA,
-  MOCK_CURRENT_USER_PAGINATED_IDEAS,
+  MOCK_CURRENT_USER_PAGINATED_IDEAS
 } from '../__tests__/__mocks__/graphql/idea';
 
 // loadFontsForStorybook();
@@ -23,14 +23,14 @@ addParameters({
     storySort: (a, b) =>
       a[1].kind === b[1].kind
         ? 0
-        : a[1].id.localeCompare(b[1].id, undefined, { numeric: true }),
-  },
+        : a[1].id.localeCompare(b[1].id, undefined, { numeric: true })
+  }
 });
 
 addDecorator(withKnobs);
 addDecorator(withA11y);
 
-addDecorator((story) => (
+addDecorator(story => (
   <div style={{ padding: '1rem' }}>
     <MockedProvider
       mocks={[MOCK_CURRENT_USER_IDEA, MOCK_CURRENT_USER_PAGINATED_IDEAS]}
@@ -72,6 +72,6 @@ addParameters({
     { name: 'gray', value: '#d3d3d3', default: true },
     { name: 'black', value: '#000' },
     { name: 'twitter', value: '#00aced' },
-    { name: 'facebook', value: '#3b5998' },
-  ],
+    { name: 'facebook', value: '#3b5998' }
+  ]
 });

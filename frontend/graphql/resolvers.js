@@ -17,11 +17,11 @@ export default (_accessToken, refreshToken) => {
 
           return false;
         }
-      },
+      }
 
       //   renderedOn: (parent, args, ctx, info) =>
       //     typeof window === 'undefined' ? 'Server' : 'Client',
-    },
+    }
 
     // // Mutation: {},
     // User: {

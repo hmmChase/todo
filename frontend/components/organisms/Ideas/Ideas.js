@@ -15,7 +15,7 @@ const Ideas = () => {
       variables: { first: ideasPerPage },
       notifyOnNetworkStatusChange: true,
 
-      onError(_error) {},
+      onError(_error) {}
     }
   );
 

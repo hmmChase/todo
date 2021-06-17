@@ -3,9 +3,9 @@ import { Field } from 'formik';
 import { Form } from 'antd';
 import InputPass from '../InputPass/InputPass';
 
-const FormInputPass = (props) => (
+const FormInputPass = props => (
   <Field name={props.name}>
-    {(fieldProps) => (
+    {fieldProps => (
       <Form.Item
         label={props.label}
         htmlFor={props.id}
@@ -29,7 +29,7 @@ const FormInputPass = (props) => (
 FormInputPass.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 export default React.memo(FormInputPass);

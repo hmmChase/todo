@@ -9,7 +9,7 @@ const PassReqList = () => (
     <List
       split={false}
       dataSource={passwordRequirements.reqs}
-      renderItem={(item) => (
+      renderItem={item => (
         <sc.PassListItem>
           <Typography.Text>{item}</Typography.Text>
         </sc.PassListItem>

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 
-const PopupModal = (props) => (
+const PopupModal = props => (
   <Modal
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -25,7 +25,7 @@ PopupModal.propTypes = {
   onCancel: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
-  width: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired
 };
 
 export default React.memo(PopupModal);

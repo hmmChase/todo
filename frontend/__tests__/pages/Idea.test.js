@@ -6,14 +6,14 @@ import {
   act,
   wait,
   waitFor,
-  screen,
+  screen
 } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import { MockedProvider } from '@apollo/react-testing';
 import { MOCK_CURRENT_USER } from '../../__tests__/__mocks__/graphql/user';
 import {
   MOCK_CURRENT_USER_IDEA,
-  MOCK_UPDATE_IDEA,
+  MOCK_UPDATE_IDEA
   // MOCK_ERROR_CURRENT_USER_IDEA,
 } from '../../__tests__/__mocks__/graphql/idea';
 import IdeaPage from '../../pages/idea/[id]';
@@ -31,7 +31,7 @@ const setup = (updatedProps = {}, updatedQueries = []) => {
   const initialQueries = [
     MOCK_CURRENT_USER,
     MOCK_CURRENT_USER_IDEA,
-    MOCK_UPDATE_IDEA,
+    MOCK_UPDATE_IDEA
   ];
   const mergedQueries = updatedQueries.length ? updatedQueries : initialQueries;
   const mergedProps = { ...initialProps, ...updatedProps };
@@ -58,7 +58,7 @@ const setup = (updatedProps = {}, updatedQueries = []) => {
   // const clickSubmitBtn = () => fireEvent.click(submitBtn());
 
   return {
-    ...result,
+    ...result
     // inputField,
     // submitBtn,
     // changeInputField,

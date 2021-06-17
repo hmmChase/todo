@@ -5,7 +5,7 @@ import IdeaDetail from './IdeaDetail';
 export default { title: 'Components|Organisms', component: IdeaDetail };
 
 const data1 = {
-  ideaId: '1',
+  ideaId: '1'
 };
 
 // const actions = {

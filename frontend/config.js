@@ -24,8 +24,8 @@ export const passwordRequirements = {
     'at least 8 charactors',
     'an uppercase letter',
     'a lowercase letter',
-    'a number',
-  ],
+    'a number'
+  ]
 };
 
 export const passResetTokenMissingError =

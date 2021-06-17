@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import AlertMsg from '../../atoms/AlertMsg/AlertMsg';
 import * as sc from './DisplayError.style';
 
-const DisplayError = (props) => {
+const DisplayError = props => {
   if (
     props.error &&
     props.error.graphQLErrors &&
@@ -47,8 +47,8 @@ DisplayError.propTypes = {
     extraInfo: PropTypes.any,
     graphQLErrors: PropTypes.array,
     networkError: PropTypes.object,
-    message: PropTypes.string,
-  }),
+    message: PropTypes.string
+  })
 };
 
 export default React.memo(DisplayError);

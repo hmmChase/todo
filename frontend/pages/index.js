@@ -25,7 +25,7 @@ const IndexPage = () => (
 // getInitialProps is called on:
 // - initial page load, server-side
 // - page changes, client-side
-IndexPage.getInitialProps = (ctx) => {
+IndexPage.getInitialProps = ctx => {
   // err, req, res only exists on initial page load (server-side)
   // pathname, query, asPath, AppTree always available (server & client)
   const { req, res } = ctx;

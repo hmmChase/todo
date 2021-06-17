@@ -27,7 +27,7 @@ const initOnContext = (ctx, accessToken, refreshToken) => {
     if (inAppContext)
       devConWarn([
         'Warning: You have opted-out of Automatic Static Optimization due to `withApollo` in `pages/_app`.\n' +
-          'Read more: https://err.sh/next.js/opt-out-auto-static-optimization\n',
+          'Read more: https://err.sh/next.js/opt-out-auto-static-optimization\n'
       ]);
 
   // Initialize Apollo Client if not already done
@@ -101,7 +101,7 @@ const initApollo = (initialState, ctx, accessToken, refreshToken) => {
  * @returns {(PageComponent: ReactNode) => ReactNode}
  */
 
-const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
+const withApollo = ({ ssr = false } = {}) => PageComponent => {
   devConLog(['----- start withApollo -----']);
 
   // WithApollo HOC
@@ -165,12 +165,12 @@ const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
     // Used for client/server rendering
     apolloState: PropTypes.object,
     serverAccessToken: PropTypes.string,
-    refreshToken: PropTypes.string,
+    refreshToken: PropTypes.string
   };
 
   // Code execution starts here
   if (ssr || PageComponent.getInitialProps) {
-    WithApollo.getInitialProps = async (ctx) => {
+    WithApollo.getInitialProps = async ctx => {
       devConLog(['----- start withApollo GIP -----']);
 
       /* -------------------- Access/Refresh token code -------------------- */
@@ -281,7 +281,7 @@ const withApollo = ({ ssr = false } = {}) => (PageComponent) => {
         // gets JSON.stringified it will remove itself.
         apolloClient: ctx.apolloClient,
         serverAccessToken,
-        refreshToken,
+        refreshToken
       };
     };
   }

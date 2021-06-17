@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { getAccessToken } from '../utils/accessToken';
 import { IS_LOGGED_IN } from './queries';
 
-const verifyAccessToken = (accessToken) => {
+const verifyAccessToken = accessToken => {
   try {
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
 
@@ -22,6 +22,6 @@ export default (cache, accessToken) => {
   cache.writeQuery({
     id: 'isLoggedIn',
     query: IS_LOGGED_IN,
-    data: { isLoggedIn },
+    data: { isLoggedIn }
   });
 };

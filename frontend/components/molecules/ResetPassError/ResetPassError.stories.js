@@ -6,7 +6,7 @@ export default { title: 'Components|Molecules', component: ResetPassError };
 
 const data = {
   isTokenPresent: [false, true],
-  isTokenExpired: [false, true],
+  isTokenExpired: [false, true]
 };
 
 // const actions = {

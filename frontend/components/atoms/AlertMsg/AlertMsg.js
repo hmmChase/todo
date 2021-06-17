@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Alert } from 'antd';
 
-const AlertMsg = (props) => (
+const AlertMsg = props => (
   <Alert
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -17,7 +17,7 @@ AlertMsg.propTypes = {
   'data-testid': PropTypes.string,
   className: PropTypes.string,
   message: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
 };
 
 export default React.memo(AlertMsg);

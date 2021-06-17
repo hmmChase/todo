@@ -7,7 +7,7 @@ export default { title: 'Components|Atoms/IconBtn' };
 const data = {};
 
 const actions = {
-  onClick: action('onClick'),
+  onClick: action('onClick')
 };
 
 export const expandIconBtn = () => allCombos(ExpandIconBtn, data);

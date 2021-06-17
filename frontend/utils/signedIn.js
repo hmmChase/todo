@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-export default (req) => {
+export default req => {
   // if (typeof window === 'undefined') {
 
   // If cookie header present

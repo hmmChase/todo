@@ -8,7 +8,7 @@ const getCombinations = (data, currIndex = 0, combos = [], combo = {}) => {
 
   if (Array.isArray(currPropValues)) {
     // loop over values of current prop
-    currPropValues.forEach((value) => {
+    currPropValues.forEach(value => {
       // update the combo object
       // create/update prop key with current value
       combo[currProp] = value;
@@ -68,7 +68,7 @@ export default (baseComp, data = [], actions = {}) => {
   const combos = getCombinations(data);
   let key = 1;
 
-  return combos.map((combo) => {
+  return combos.map(combo => {
     const propComp = React.createElement(baseComp, { ...combo, ...actions });
 
     // object(`key ${key} data`, propComp.props);

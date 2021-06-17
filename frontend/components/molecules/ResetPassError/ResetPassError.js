@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import {
   passResetTokenMissingError,
-  passResetTokenExpiredError,
+  passResetTokenExpiredError
 } from '../../../config';
 import DisplayError from '../DisplayError/DisplayError';
 import * as sc from './ResetPassError.style';
 
-const ResetPassError = (props) => (
+const ResetPassError = props => (
   <>
     <sc.BackBtnn path='/welcome' />
 
@@ -22,7 +22,7 @@ const ResetPassError = (props) => (
 
 ResetPassError.propTypes = {
   isTokenPresent: PropTypes.bool.isRequired,
-  isTokenExpired: PropTypes.bool.isRequired,
+  isTokenExpired: PropTypes.bool.isRequired
 };
 
 export default React.memo(ResetPassError);

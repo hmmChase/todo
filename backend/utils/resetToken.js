@@ -13,7 +13,7 @@ export const createPasswordResetToken = async () => {
   return { resetToken, resetTokenExpiry };
 };
 
-export const validateResetTokenExpiry = (resetTokenExpiry) => {
+export const validateResetTokenExpiry = resetTokenExpiry => {
   const isTokenExpired = Date.now() > resetTokenExpiry;
 
   if (isTokenExpired)

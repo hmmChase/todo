@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { ideasPerPage } from '../../../config';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
-  CREATE_IDEA,
+  CREATE_IDEA
 } from '../../../graphql/queries';
 import * as sc from './IdeaCardForm.style';
 
@@ -16,7 +16,7 @@ const IdeaCardForm = () => {
     // Read the data from cache for query
     const ideasData = cache.readQuery({
       query: CURRENT_USER_PAGINATED_IDEAS,
-      variables: { orderBy: 'createdAt_DESC', first: ideasPerPage },
+      variables: { orderBy: 'createdAt_DESC', first: ideasPerPage }
     });
 
     // Copy the ideas
@@ -25,7 +25,7 @@ const IdeaCardForm = () => {
     // Add idea from the mutation to the beginning
     newIdeas.unshift({
       node: { ...data.data.createIdea },
-      __typename: 'IdeaEdge',
+      __typename: 'IdeaEdge'
     });
 
     // Write data back to the cache
@@ -36,9 +36,9 @@ const IdeaCardForm = () => {
         ...ideasData,
         currentUserPaginatedIdeas: {
           ...ideasData.currentUserPaginatedIdeas,
-          edges: newIdeas,
-        },
-      },
+          edges: newIdeas
+        }
+      }
     });
   };
 
@@ -47,15 +47,15 @@ const IdeaCardForm = () => {
       update(cache, data);
     },
 
-    onError(_error) {},
+    onError(_error) {}
   });
 
-  const canSubmit = (value) => {
+  const canSubmit = value => {
     if (value === '') setIsSubmitDisabled(true);
     else setIsSubmitDisabled(false);
   };
 
-  const onChange = (e) => {
+  const onChange = e => {
     setIdea(e.target.value);
 
     canSubmit(e.target.value);

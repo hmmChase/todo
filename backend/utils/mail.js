@@ -4,10 +4,10 @@ import { mailHost, mailPort, clientUrlDev, clientUrlProd } from '../config';
 const transport = nodemailer.createTransport({
   host: mailHost,
   port: mailPort,
-  auth: { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS },
+  auth: { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS }
 });
 
-const emailTemplate = (body) => `
+const emailTemplate = body => `
   <div className="email" style="
     border: 1px solid black;
     padding: 20px;
@@ -36,7 +36,7 @@ export default async (email, resetToken, resetTokenExpiry) => {
       from: 'test@email.com',
       to: email,
       subject: 'Your Password Reset Token',
-      html: emailTemplate(emailBody),
+      html: emailTemplate(emailBody)
     });
   } catch (error) {
     if (process.env.NODE_ENV === 'development')

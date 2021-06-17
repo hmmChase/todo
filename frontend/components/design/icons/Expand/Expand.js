@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Expand = (props) => (
+const Expand = props => (
   <svg
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -16,7 +16,7 @@ const Expand = (props) => (
 Expand.propTypes = {
   'aria-label': PropTypes.string,
   'data-testid': PropTypes.string,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default Expand;

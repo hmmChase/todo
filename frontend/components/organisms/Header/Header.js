@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { CURRENT_USER } from '../../../graphql/queries';
 import * as sc from './Header.style';
 
-const Header = (props) => {
+const Header = props => {
   const { data } = useQuery(CURRENT_USER, { onError(_error) {} });
 
   return (
@@ -26,7 +26,7 @@ const Header = (props) => {
 
 Header.propTypes = {
   children: PropTypes.element,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default React.memo(Header);

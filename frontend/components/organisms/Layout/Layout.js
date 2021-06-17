@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { title } from '../../../config';
 import * as sc from './Layout.style';
 
-const Layout = (props) => (
+const Layout = props => (
   <>
     <Head>
       <title>{props.title ? `${title} | ${props.title}` : `${title}`}</title>
@@ -29,7 +29,7 @@ Layout.propTypes = {
   title: PropTypes.string,
   header: PropTypes.element,
   content: PropTypes.element,
-  footer: PropTypes.element,
+  footer: PropTypes.element
 };
 
 export default React.memo(Layout);

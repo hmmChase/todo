@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as sc from './HeaderTitle.style';
 
-const HeaderTitle = (props) => (
+const HeaderTitle = props => (
   <sc.Title
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -15,7 +15,7 @@ HeaderTitle.propTypes = {
   'aria-label': PropTypes.string,
   'data-testid': PropTypes.string,
   className: PropTypes.string,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired
 };
 
 export default React.memo(HeaderTitle);

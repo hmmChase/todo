@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SignOn = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.color.lightBlue};
+  background-color: ${props => props.theme.color.lightBlue};
   min-height: 100vh;
   justify-content: center;
   align-items: center;
@@ -43,7 +43,7 @@ export const Img = styled.img`
 `;
 
 export const Title = styled.h1`
-  color: ${(props) => props.theme.color.darkRed};
+  color: ${props => props.theme.color.darkRed};
   font-family: 'Play', sans-serif;
   font-size: 3rem;
   letter-spacing: 0.2rem;

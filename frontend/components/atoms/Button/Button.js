@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as sc from './Button.style';
 
-const Button = (props) => (
+const Button = props => (
   <sc.Buttonn
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -25,7 +25,7 @@ Button.propTypes = {
   htmlType: PropTypes.oneOf(['submit']),
   loading: PropTypes.bool,
   onClick: PropTypes.func,
-  type: PropTypes.oneOf(['default', 'primary', 'dashed', 'link']).isRequired,
+  type: PropTypes.oneOf(['default', 'primary', 'dashed', 'link']).isRequired
 };
 
 export default React.memo(Button);

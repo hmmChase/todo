@@ -16,7 +16,7 @@ import * as sc from './ResetPassword.style';
 
 const validationSchema = object().shape(password, confirmPassword);
 
-const ResetPassword = (props) => {
+const ResetPassword = props => {
   // handleCompleted = () => Router.push({ pathname: '/' });
 
   const [resetPassword, { loading, error, data }] = useMutation(
@@ -26,7 +26,7 @@ const ResetPassword = (props) => {
       //   handleCompleted();
       // },
 
-      onError(_error) {},
+      onError(_error) {}
     }
   );
 
@@ -53,7 +53,7 @@ const ResetPassword = (props) => {
       validateOnBlur={true}
       onSubmit={onSubmit}
     >
-      {(formikProps) => (
+      {formikProps => (
         <sc.FormikFormm>
           <FormInputPass
             label='New password'
@@ -97,7 +97,7 @@ const ResetPassword = (props) => {
 };
 
 ResetPassword.propTypes = {
-  resetToken: PropTypes.string.isRequired,
+  resetToken: PropTypes.string.isRequired
 };
 
 export default React.memo(ResetPassword);

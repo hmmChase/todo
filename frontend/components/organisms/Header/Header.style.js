@@ -15,7 +15,7 @@ export const Header = styled.div`
 `;
 
 export const HeaderTitlee = styled(HeaderTitle)`
-  padding-left: ${(props) => (props.children === title ? '70px' : '10px')};
+  padding-left: ${props => (props.children === title ? '70px' : '10px')};
 `;
 
 export const SignOutBtnn = styled(SignOutBtn)`

@@ -6,7 +6,7 @@ export default { title: 'Components|Molecules', component: IdeaCard };
 
 const data = {
   id: '1',
-  content: 'asdfdsa',
+  content: 'asdfdsa'
 };
 
 // const actions = {

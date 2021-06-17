@@ -2,12 +2,12 @@ import { AuthenticationError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
 import { accessTokenExpiryTime } from '../config';
 
-export const createAccessToken = (userId) =>
+export const createAccessToken = userId =>
   jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: accessTokenExpiryTime,
+    expiresIn: accessTokenExpiryTime
   });
 
-export const verifyAccessToken = (accessToken) => {
+export const verifyAccessToken = accessToken => {
   try {
     // Return the decoded payload if the signature is valid and JWT not expired
     return jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);

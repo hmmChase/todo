@@ -15,7 +15,7 @@ const WelcomePage = () => (
   </main>
 );
 
-WelcomePage.getInitialProps = async (ctx) => {
+WelcomePage.getInitialProps = async ctx => {
   const { req, res } = ctx;
 
   /* SSR: must not be signed in */

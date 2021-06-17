@@ -7,7 +7,7 @@ import Header from '../../components/organisms/Header/Header';
 import IdeaDetail from '../../components/organisms/IdeaDetail/IdeaDetail';
 import Footer from '../../components/molecules/Footer/Footer';
 
-const IdeaPage = (props) => (
+const IdeaPage = props => (
   <Layout
     title={`Idea ${props.id}`}
     header={<Header title={props.id} />}
@@ -16,7 +16,7 @@ const IdeaPage = (props) => (
   />
 );
 
-IdeaPage.getInitialProps = (ctx) => {
+IdeaPage.getInitialProps = ctx => {
   const { req, res, query } = ctx;
 
   /* SSR: must be signed in */

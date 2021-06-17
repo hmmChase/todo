@@ -3,9 +3,9 @@ import { Field } from 'formik';
 import { Form } from 'antd';
 import Input from '../Input/Input';
 
-const FormInput = (props) => (
+const FormInput = props => (
   <Field name={props.name}>
-    {(fieldProps) => (
+    {fieldProps => (
       <Form.Item
         label={props.label}
         htmlFor={props.id}
@@ -35,7 +35,7 @@ FormInput.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 export default React.memo(FormInput);

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as sc from './TextArea.style';
 
-const TextArea = (props) => (
+const TextArea = props => (
   <sc.InputTextArea
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -22,14 +22,14 @@ TextArea.propTypes = {
   className: PropTypes.string,
   autoSize: PropTypes.exact({
     minRows: PropTypes.number.isRequired,
-    maxRows: PropTypes.number.isRequired,
+    maxRows: PropTypes.number.isRequired
   }),
   defaultValue: PropTypes.string,
   // name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   // placeholder: PropTypes.string.isRequired,
   // type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 export default React.memo(TextArea);

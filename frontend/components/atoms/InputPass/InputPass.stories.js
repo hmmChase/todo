@@ -4,7 +4,7 @@ import InputPass from './InputPass';
 export default { title: 'Components|Atoms', component: InputPass };
 
 const data = {
-  value: 'somepass',
+  value: 'somepass'
 };
 
 export const inputPass = () => allCombos(InputPass, data);

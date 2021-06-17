@@ -1,12 +1,7 @@
 // https://github.com/facebook/create-react-app/tree/master/packages/eslint-config-react-app
 {
   "parser": "babel-eslint",
-  "plugins": [
-    "import",
-    "jsx-a11y",
-    "react",
-    "react-hooks"
-  ],
+  "plugins": ["import", "jsx-a11y", "react", "react-hooks"],
   "extends": [
     "eslint:recommended",
     "plugin:import/errors",
@@ -63,27 +58,16 @@
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "components": [
-          "Link"
-        ],
-        "specialLink": [
-          "hrefLeft",
-          "hrefRight"
-        ],
-        "aspects": [
-          "invalidHref",
-          "preferButton"
-        ]
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
       }
     ],
     "jsx-a11y/label-has-associated-control": [
       "error",
       {
         "required": {
-          "some": [
-            "nesting",
-            "id"
-          ]
+          "some": ["nesting", "id"]
         }
       }
     ],
@@ -91,10 +75,7 @@
       "error",
       {
         "required": {
-          "some": [
-            "nesting",
-            "id"
-          ]
+          "some": ["nesting", "id"]
         }
       }
     ]

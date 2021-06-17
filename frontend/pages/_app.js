@@ -9,7 +9,7 @@ import theme from '../public/styles/theme.style';
 //! is this needed?
 // import '../public/styles/empty.less';
 
-const MyApp = (props) => {
+const MyApp = props => {
   const { Component, pageProps } = props;
 
   devConLog(['----- _app -----']);
@@ -20,11 +20,11 @@ const MyApp = (props) => {
       const ReactAxe = require('react-axe');
 
       // https://github.com/dequelabs/react-axe/issues/123
-      const matches = (node) =>
+      const matches = node =>
         !(node.getAttribute('data-axe-reject') === 'true');
 
       ReactAxe(React, ReactDOM, 1000, {
-        rules: [{ id: 'color-contrast', matches }],
+        rules: [{ id: 'color-contrast', matches }]
       });
     }, []);
 
@@ -39,7 +39,7 @@ const MyApp = (props) => {
 
 MyApp.propTypes = {
   Component: PropTypes.func.isRequired,
-  pageProps: PropTypes.object.isRequired,
+  pageProps: PropTypes.object.isRequired
 };
 
 // For FOUC issue, see _document.js

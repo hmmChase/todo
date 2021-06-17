@@ -8,7 +8,7 @@ module.exports = {
   // snapshotSerializers: ['enzyme-to-json/serializer'],
   testMatch: ['**/__tests__/**/*.test.js?(x)', '**/?(*.)+(spec|test).js?(x)'],
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
-  bail: 10,
+  bail: 10
 
   // ---------- Reference ----------
 

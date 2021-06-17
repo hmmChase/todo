@@ -5,11 +5,11 @@ import DeleteIcon from './DeleteIcon';
 export default { title: 'Components|Molecules', component: DeleteIcon };
 
 const data = {
-  id: '1',
+  id: '1'
 };
 
 const actions = {
-  onClick: action('onClick'),
+  onClick: action('onClick')
 };
 
 export const deleteIcon = () => allCombos(DeleteIcon, data, actions);

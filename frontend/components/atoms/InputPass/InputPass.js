@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Input } from 'antd';
 
-const InputPass = (props) => (
+const InputPass = props => (
   <Input.Password
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -23,7 +23,7 @@ InputPass.propTypes = {
   name: PropTypes.string,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 export default React.memo(InputPass);

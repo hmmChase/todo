@@ -12,7 +12,7 @@ const LinkHome = () => (
   </Link>
 );
 
-const Error = (props) => {
+const Error = props => {
   let error;
 
   switch (props.statusCode) {
@@ -38,7 +38,7 @@ const Error = (props) => {
   );
 };
 
-Error.getInitialProps = (ctx) => {
+Error.getInitialProps = ctx => {
   const { res, err } = ctx;
 
   let statusCode;

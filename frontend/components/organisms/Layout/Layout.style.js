@@ -10,8 +10,8 @@ export const Wrapper = styled.div`
 
 export const Header = styled.header`
   /* padding: 0; */
-  background-color: ${(props) => props.theme.color.lightBlue};
-  border-bottom: 1px solid ${(props) => props.theme.color.black};
+  background-color: ${props => props.theme.color.lightBlue};
+  border-bottom: 1px solid ${props => props.theme.color.black};
   padding: 10px 0 0 0;
 
   > h1 {

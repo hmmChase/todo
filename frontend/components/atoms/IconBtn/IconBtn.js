@@ -3,7 +3,7 @@ import Expand from '../../design/icons/Expand/Expand';
 import X from '../../design/icons/X/X';
 import * as sc from './IconBtn.style';
 
-export const ExpandIconBtn = (props) => (
+export const ExpandIconBtn = props => (
   <sc.Button
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -13,7 +13,7 @@ export const ExpandIconBtn = (props) => (
   </sc.Button>
 );
 
-export const XIconBtn = (props) => (
+export const XIconBtn = props => (
   <sc.Button
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -27,12 +27,12 @@ export const XIconBtn = (props) => (
 ExpandIconBtn.propTypes = {
   'aria-label': PropTypes.string,
   'data-testid': PropTypes.string,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 XIconBtn.propTypes = {
   'aria-label': PropTypes.string,
   'data-testid': PropTypes.string,
   className: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 };

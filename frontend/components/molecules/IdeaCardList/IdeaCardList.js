@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 // import { List } from 'antd';
 import * as sc from './IdeaCardList.style';
 
-const IdeaCardList = (props) => {
-  const ideaCards = (ideas) =>
-    ideas.map((idea) => (
+const IdeaCardList = props => {
+  const ideaCards = ideas =>
+    ideas.map(idea => (
       <sc.IdeaCardd key={`ideaCard${idea.node.id}`} {...idea.node} />
     ));
 
@@ -33,11 +33,11 @@ IdeaCardList.propTypes = {
         content: PropTypes.string.isRequired,
         author: PropTypes.exact({
           __typename: PropTypes.string.isRequired,
-          id: PropTypes.string.isRequired,
-        }).isRequired,
-      }).isRequired,
+          id: PropTypes.string.isRequired
+        }).isRequired
+      }).isRequired
     }).isRequired
-  ).isRequired,
+  ).isRequired
 };
 
 export default React.memo(IdeaCardList);

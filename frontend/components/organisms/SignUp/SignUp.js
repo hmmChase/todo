@@ -9,7 +9,7 @@ import {
   username,
   email,
   password,
-  confirmPassword,
+  confirmPassword
 } from '../../../utils/validation';
 import { SIGN_UP } from '../../../graphql/queries';
 import FormInput from '../../atoms/FormInput/FormInput';
@@ -33,11 +33,11 @@ const SignUp = () => {
     cache.writeQuery({
       id: 'isLoggedIn',
       query: IS_LOGGED_IN,
-      data: { isLoggedIn },
+      data: { isLoggedIn }
     });
   };
 
-  const onCompleted = (data) => {
+  const onCompleted = data => {
     if (data && data.signUp && data.signUp.accessToken) {
       setAccessToken(data.signUp.accessToken);
 
@@ -56,7 +56,7 @@ const SignUp = () => {
       onCompleted(data);
     },
 
-    onError(_error) {},
+    onError(_error) {}
   });
 
   const onSubmit = async (values, formikHelpers) => {
@@ -71,14 +71,14 @@ const SignUp = () => {
         username: '',
         email: '',
         password: '',
-        confirmPassword: '',
+        confirmPassword: ''
       }}
       validationSchema={validationSchema}
       validateOnChange={false}
       validateOnBlur={true}
       onSubmit={onSubmit}
     >
-      {(formikProps) => (
+      {formikProps => (
         <FormikForm>
           <h2>Create a new Account</h2>
 
@@ -127,7 +127,7 @@ const SignUp = () => {
 };
 
 SignUp.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default SignUp;

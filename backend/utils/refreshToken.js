@@ -3,7 +3,7 @@ import { refreshTokenExpiryTime, refreshTokenCookieMaxAge } from '../config';
 
 export const createRefreshToken = (userId, refreshTokenVersion) =>
   jwt.sign({ userId, refreshTokenVersion }, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: refreshTokenExpiryTime,
+    expiresIn: refreshTokenExpiryTime
   });
 
 export const sendRefreshToken = (res, refreshToken) => {
@@ -12,7 +12,7 @@ export const sendRefreshToken = (res, refreshToken) => {
     path: '/',
     secure: process.env.NODE_ENV === 'production',
     maxAge: refreshTokenCookieMaxAge,
-    sameSite: 'strict',
+    sameSite: 'strict'
   };
 
   res.cookie('rt', refreshToken, cookieOptions);

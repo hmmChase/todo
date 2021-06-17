@@ -17,9 +17,8 @@ const app = express();
 const server = apolloServer();
 
 const corsOptions = {
-  origin:
-    process.env.NODE_ENV === 'production' ? clientUrlCORS : clientUrlDev,
-  credentials: true,
+  origin: process.env.NODE_ENV === 'production' ? clientUrlCORS : clientUrlDev,
+  credentials: true
 };
 
 app.use(cors(corsOptions));
@@ -77,7 +76,7 @@ app.get('/api/refresh', async (req, res) => {
 
 server.applyMiddleware({ app, path: '/api/graphql', cors: corsOptions });
 
-app.listen({ port: port || 4000 }, (err) => {
+app.listen({ port: port || 4000 }, err => {
   if (err) throw err;
 
   console.log(`Server ready at http://localhost:${port}/api/`);

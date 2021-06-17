@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Left = (props) => (
+const Left = props => (
   <svg
     aria-label={props['aria-label']}
     data-testid={props['data-testid']}
@@ -15,7 +15,7 @@ const Left = (props) => (
 Left.propTypes = {
   'aria-label': PropTypes.string,
   'data-testid': PropTypes.string,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default Left;

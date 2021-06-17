@@ -49,8 +49,8 @@ describe('DisplayError', () => {
     const errorMessage1 = 'mock graphQLErrors error 1';
     const props = {
       error: {
-        graphQLErrors: [{ message: errorMessage0 }, { message: errorMessage1 }],
-      },
+        graphQLErrors: [{ message: errorMessage0 }, { message: errorMessage1 }]
+      }
     };
 
     const utils = setup(props);

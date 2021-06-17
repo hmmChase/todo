@@ -7,7 +7,7 @@ import Header from '../components/organisms/Header/Header';
 import ResetPassError from '../components/molecules/ResetPassError/ResetPassError';
 import ResetPassword from '../components/organisms/ResetPassword/ResetPassword';
 
-const ResetPasswordPage = (props) => {
+const ResetPasswordPage = props => {
   const isTokenPresent = !!(props.resetToken && props.resetTokenExpiry);
   const isTokenExpired = Date.now() > props.resetTokenExpiry;
 
@@ -29,7 +29,7 @@ const ResetPasswordPage = (props) => {
   );
 };
 
-ResetPasswordPage.getInitialProps = async (ctx) => {
+ResetPasswordPage.getInitialProps = async ctx => {
   const { req, res, query } = ctx;
   const { resetToken, resetTokenExpiry } = query;
 
@@ -41,7 +41,7 @@ ResetPasswordPage.getInitialProps = async (ctx) => {
 
 ResetPasswordPage.propTypes = {
   resetToken: PropTypes.string,
-  resetTokenExpiry: PropTypes.string,
+  resetTokenExpiry: PropTypes.string
 };
 
 export default withApollo({ ssr: true })(ResetPasswordPage);

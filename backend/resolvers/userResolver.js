@@ -5,14 +5,14 @@ import { createAccessToken, verifyAccessToken } from '../utils/accessToken';
 import { createRefreshToken, sendRefreshToken } from '../utils/refreshToken';
 import {
   createPasswordResetToken,
-  validateResetTokenExpiry,
+  validateResetTokenExpiry
 } from '../utils/resetToken';
 import {
   validateUsername,
   validateEmail,
   validatePassword,
   checkPassword,
-  comparePasswords,
+  comparePasswords
 } from '../utils/validation';
 import { saltRounds } from '../config';
 
@@ -72,7 +72,7 @@ export default {
 
       // Return user
       return user;
-    },
+    }
   },
 
   Mutation: {
@@ -88,7 +88,7 @@ export default {
 
       // Find user matching username
       const user = await ctx.prisma.query.user({
-        where: { username: args.username },
+        where: { username: args.username }
       });
 
       // If user found, return error
@@ -106,7 +106,7 @@ export default {
 
       // Create user
       const newUser = await ctx.prisma.mutation.createUser({
-        data: { username: args.username, email, password },
+        data: { username: args.username, email, password }
       });
 
       // Create refresh token
@@ -128,8 +128,8 @@ export default {
           id: newUser.id,
           username: newUser.username,
           email: newUser.email,
-          ideas: newUser.ideas,
-        },
+          ideas: newUser.ideas
+        }
       };
     },
 
@@ -139,7 +139,7 @@ export default {
 
       // Find user matching username
       const user = await ctx.prisma.query.user({
-        where: { username: args.username },
+        where: { username: args.username }
       });
 
       // If user not found, return error
@@ -168,8 +168,8 @@ export default {
           id: user.id,
           username: user.username,
           email: user.email,
-          ideas: user.ideas,
-        },
+          ideas: user.ideas
+        }
       };
     },
 
@@ -208,7 +208,7 @@ export default {
       // Update user with reset token
       ctx.prisma.mutation.updateUser({
         where: { id: user.id },
-        data: { resetToken, resetTokenExpiry },
+        data: { resetToken, resetTokenExpiry }
       });
 
       // Send mail with reset link
@@ -227,7 +227,7 @@ export default {
 
       // Get user from resetToken
       const [user] = await ctx.prisma.query.users({
-        where: { resetToken: args.resetToken },
+        where: { resetToken: args.resetToken }
       });
 
       // Return error if user not found
@@ -245,7 +245,7 @@ export default {
       // Update user with new password and clear resetToken
       ctx.prisma.mutation.updateUser({
         where: { id: user.id },
-        data: { password, resetToken: null, resetTokenExpiry: null },
+        data: { password, resetToken: null, resetTokenExpiry: null }
       });
 
       // Return boolean
@@ -262,11 +262,11 @@ export default {
       // Update refresh token version
       ctx.prisma.mutation.updateUser({
         where: { id: user.id },
-        data: { refreshTokenVersion: incrementedVersion },
+        data: { refreshTokenVersion: incrementedVersion }
       });
 
       // Return boolean
       return true;
-    },
-  },
+    }
+  }
 };

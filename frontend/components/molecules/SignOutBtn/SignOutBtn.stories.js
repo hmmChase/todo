@@ -9,7 +9,7 @@ const data = {
 };
 
 const actions = {
-  onClick: action('onClick'),
+  onClick: action('onClick')
 };
 
 export const signOutBtn = () => allCombos(SignOutBtn, data, actions);

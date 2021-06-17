@@ -2,13 +2,9 @@
 {
   "env": {
     "development": {
-      "presets": [
-        "next/babel"
-      ],
+      "presets": ["next/babel"],
       "plugins": [
-        [
-          "graphql-tag"
-        ],
+        ["graphql-tag"],
         [
           "styled-components",
           {
@@ -30,13 +26,9 @@
       ]
     },
     "production": {
-      "presets": [
-        "next/babel"
-      ],
+      "presets": ["next/babel"],
       "plugins": [
-        [
-          "graphql-tag"
-        ],
+        ["graphql-tag"],
         [
           "styled-components",
           {
@@ -69,9 +61,7 @@
         ]
       ],
       "plugins": [
-        [
-          "graphql-tag"
-        ],
+        ["graphql-tag"],
         [
           "styled-components",
           {
