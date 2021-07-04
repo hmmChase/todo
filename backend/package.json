@@ -1,0 +1,46 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/bin/www",
+    "start": "node ./build/app.js",
+    "start:www": "node ./build/bin/www",
+    "seed": "node ./src/prisma/seed.js",
+    "clean": "rimraf build && mkdir build",
+    "build:babel": "babel -d ./build ./src -s --copy-files",
+    "build": "npm run clean && npm run build:babel",
+    "migrate:dev": "prisma migrate dev --schema=./src/prisma/schema.prisma",
+    "migrate:prod": "prisma migrate deploy --schema=./src/prisma/schema.prisma",
+    "generate": "prisma generate --schema=./src/prisma/schema.prisma",
+    "postinstall": "npm run generate && npm run migrate:prod"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.25.0",
+    "apollo-server-express": "^2.25.2",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "graphql": "^15.5.1",
+    "http-errors": "^1.8.0",
+    "morgan": "^1.10.0",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.7",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.7",
+    "prisma": "^2.25.0"
+  }
+}
