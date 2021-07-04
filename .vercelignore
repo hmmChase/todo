@@ -1,9 +1,0 @@
-# https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore#allowlist
-# https://github.com/vercel/vercel/blob/main/.vercelignore
-
-# Ignore everything (folders and files) on root only
-/*
-
-# allowlist
-!frontend
-!backend
