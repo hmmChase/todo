@@ -1,0 +1,12 @@
+{
+  "name": "hmmStart",
+  "short_name": "",
+  "description": "",
+  "dir": "ltr",
+  "lang": "en",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "",
+  "background_color": "",
+  "icons": []
+}

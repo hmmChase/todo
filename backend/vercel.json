@@ -1,0 +1,19 @@
+{
+  "alias": "hmmstart-backend",
+  "version": 2,
+  "github": {
+    "silent": true
+  },
+  "builds": [
+    {
+      "src": "build/app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "build/app.js"
+    }
+  ]
+}

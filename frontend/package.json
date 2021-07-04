@@ -1,44 +1,30 @@
 {
   "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
-  "author": "",
+  "version": "1.0.0",
   "description": "",
-  "license": "ISC",
+  "private": true,
+  "main": "index.js",
   "keywords": [],
-  "main": "next.config.js",
+  "author": "",
+  "license": "",
   "scripts": {
-    "dev": "next -p 8008",
+    "dev": "next dev -p 1337",
     "build": "next build",
     "start": "next start",
     "export": "next export"
   },
   "dependencies": {
-    "@apollo/react-hooks": "^3.1.5",
-    "@apollo/react-ssr": "^3.1.5",
-    "apollo-cache-inmemory": "^1.6.6",
-    "apollo-cache-persist": "^0.1.1",
-    "apollo-client": "^2.6.10",
-    "apollo-link": "^1.2.14",
-    "apollo-link-context": "^1.0.20",
-    "apollo-link-error": "^1.1.13",
-    "apollo-link-http": "^1.5.17",
-    "apollo-link-token-refresh": "^0.3.1",
-    "bad-words": "^3.0.3",
-    "graphql": "^15.1.0",
-    "graphql-tag": "^2.10.3",
-    "graphql-tools": "^6.0.10",
-    "isemail": "^3.2.0",
-    "isomorphic-unfetch": "^3.0.0",
-    "jsonwebtoken": "^8.5.1",
-    "lodash.debounce": "^4.0.8",
-    "next": "^9.4.4",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "@apollo/client": "^3.3.20",
+    "deepmerge": "^4.2.2",
+    "graphql": "^15.5.1",
+    "lodash": "^4.17.21",
+    "next": "^11.0.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
-    "babel-plugin-graphql-tag": "^2.5.0",
-    "dotenv-webpack": "^1.8.0",
-    "prop-types": "^15.7.2"
+    "babel-plugin-styled-components": "^1.12.0"
   }
 }

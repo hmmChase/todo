@@ -1,0 +1,2 @@
+https://nextjs.org/docs/basic-features/static-file-serving
+https://create-react-app.dev/docs/using-the-public-folder/
