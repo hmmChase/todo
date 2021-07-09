@@ -2,7 +2,7 @@ export const port = process.env.PORT || 4000;
 
 const deployedUrl = process.env.VERCEL_URL;
 
-const frontendUrlProd = 'https://hmm-start2.vercel.app';
+const frontendUrlProd = 'https://hmm-start.vercel.app';
 
 const frontendUrlDev = 'http://localhost:1337';
 
