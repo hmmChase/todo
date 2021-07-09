@@ -1,6 +1,6 @@
-export const siteTitle = 'hmmStart2';
+export const siteTitle = 'hmmStart';
 
-const backendUrlProd = 'https://hmm-start2-backend.vercel.app';
+const backendUrlProd = 'https://hmm-start-backend.vercel.app';
 
 const backendUrlDev = 'http://localhost:8008';
 
