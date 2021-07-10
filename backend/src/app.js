@@ -6,11 +6,13 @@
 
 */
 
-import createError from 'http-errors';
 import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import cors from 'cors';
+import createError from 'http-errors';
 
 import { CORSwhitelist } from './config.js';
 import apolloServer from './graphql/apolloServer';
@@ -28,10 +30,12 @@ const server = apolloServer();
 const corsOptions = { origin: CORSwhitelist, credentials: true };
 
 app.use(cors(corsOptions));
-app.use(logger('dev'));
+app.use(helmet({ contentSecurityPolicy: production ? undefined : false }));
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(logger(production ? 'combined' : 'dev'));
 
 server.applyMiddleware({ app, path: '/gql', cors: corsOptions });
 
