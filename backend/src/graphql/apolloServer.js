@@ -2,7 +2,7 @@ import { ApolloServer } from 'apollo-server-express';
 
 import prisma from '../prisma/prisma';
 import typeDefs from './schema';
-import { resolvers } from './resolvers/name';
+import resolvers from './resolvers';
 
 const server = () => {
   const development = process.env.NODE_ENV === 'development';

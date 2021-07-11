@@ -30,6 +30,7 @@ const server = apolloServer();
 const corsOptions = { origin: CORSwhitelist, credentials: true };
 
 app.use(cors(corsOptions));
+// https://github.com/graphql/graphql-playground/issues/1283
 app.use(helmet({ contentSecurityPolicy: production ? undefined : false }));
 app.use(compression());
 app.use(express.json());
