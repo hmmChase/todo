@@ -79,6 +79,7 @@ function onError(error) {
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  console.log('Listening on http://localhost:' + addr.port);
   debug('Listening on ' + bind);
 }
 //# sourceMappingURL=www.js.map

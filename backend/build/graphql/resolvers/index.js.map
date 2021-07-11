@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/graphql/resolvers/index.js"],"names":["userResolver","ideaResolver"],"mappings":";;;;;;;;;AAAA;;AACA;;eAEe,CAACA,wBAAD,EAAeC,wBAAf,C","sourcesContent":["import userResolver from './userResolver';\r\nimport ideaResolver from './ideaResolver';\r\n\r\nexport default [userResolver, ideaResolver];\r\n"],"file":"index.js"}

@@ -7,15 +7,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _httpErrors = _interopRequireDefault(require("http-errors"));
-
 var _express = _interopRequireDefault(require("express"));
+
+var _cors = _interopRequireDefault(require("cors"));
+
+var _helmet = _interopRequireDefault(require("helmet"));
+
+var _compression = _interopRequireDefault(require("compression"));
 
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 
 var _morgan = _interopRequireDefault(require("morgan"));
 
-var _cors = _interopRequireDefault(require("cors"));
+var _httpErrors = _interopRequireDefault(require("http-errors"));
 
 var _config = require("./config.js");
 
@@ -39,13 +43,18 @@ var corsOptions = {
   origin: _config.CORSwhitelist,
   credentials: true
 };
-app.use((0, _cors["default"])(corsOptions));
-app.use((0, _morgan["default"])('dev'));
+app.use((0, _cors["default"])(corsOptions)); // https://github.com/graphql/graphql-playground/issues/1283
+
+app.use((0, _helmet["default"])({
+  contentSecurityPolicy: production ? undefined : false
+}));
+app.use((0, _compression["default"])());
 app.use(_express["default"].json());
 app.use(_express["default"].urlencoded({
   extended: false
 }));
 app.use((0, _cookieParser["default"])());
+app.use((0, _morgan["default"])(production ? 'combined' : 'dev'));
 server.applyMiddleware({
   app: app,
   path: '/gql',

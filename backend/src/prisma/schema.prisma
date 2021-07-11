@@ -5,9 +5,10 @@
 
 // Whenever this files changes:
 // Create a migration from changes in Prisma schema
-// npx prisma migrate dev --schema=./src/prisma/schema.prisma
+// npx prisma migrate dev --schema=./src/prisma/schema.prisma --name some-update
 
-// Generate client if needed (prisma migrate does this automatically)
+// Generate client if needed
+// prisma migrate does this automatically
 // npx prisma generate --schema=./src/prisma/schema.prisma
 
 datasource db {
@@ -20,7 +21,28 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Name {
-  id   Int    @id @default(autoincrement())
-  name String
+model User {
+  id                   Int       @id @default(autoincrement())
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  deletedAt            DateTime?
+  email                String    @unique
+  password             String
+  role                 Role      @default(USER)
+  ideas                Idea[]
+}
+
+model Idea {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  content   String
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
+
+enum Role {
+  USER
+  ADMIN
 }
