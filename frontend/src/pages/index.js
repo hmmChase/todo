@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Layout from '../components/Layout';
-import Name from '../components/Name';
+import Ideas from '../components/Ideas';
 
 const IndexPage = () => (
   <Layout title='Home'>
-    <Name />
+    <Ideas />
   </Layout>
 );
 

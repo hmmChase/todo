@@ -1,1 +1,2 @@
-export { GET_NAME } from './name';
+export { IDEAS } from './idea';
+export { USERS } from './user';

@@ -17,13 +17,13 @@ var _prisma = _interopRequireDefault(require("../prisma/prisma"));
 
 var _schema = _interopRequireDefault(require("./schema"));
 
-var _name = require("./resolvers/name");
+var _resolvers = _interopRequireDefault(require("./resolvers"));
 
 var server = function server() {
   var development = process.env.NODE_ENV === 'development';
   return new _apolloServerExpress.ApolloServer({
     typeDefs: _schema["default"],
-    resolvers: _name.resolvers,
+    resolvers: _resolvers["default"],
     context: function () {
       var _context = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(_ref) {
         var req, res;
