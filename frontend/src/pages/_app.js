@@ -1,7 +1,6 @@
 // https://nextjs.org/docs/advanced-features/custom-app
 // https://github.com/vercel/next.js/tree/master/examples/with-styled-components
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
@@ -16,6 +15,7 @@ const MyApp = props => {
   const { Component, pageProps } = props;
 
   const apolloClient = useApollo(pageProps);
+  // const apolloClient = useApollo(pageProps.initialApolloState)
 
   /**
    * Render our app

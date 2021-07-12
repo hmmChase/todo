@@ -2,6 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
 // 'npm run seed' to seed
+//? npx prisma db seed --schema=./src/prisma/schema.prisma --preview-feature
 
 const prisma = new PrismaClient();
 
