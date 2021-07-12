@@ -8,7 +8,7 @@ var _default = {
   Query: {
     // Return idea matching ID
     idea: function idea(parent, args, ctx, info) {
-      return ctx.prisma.idea.findOne({
+      return ctx.prisma.idea.findUnique({
         where: {
           id: args.id
         }

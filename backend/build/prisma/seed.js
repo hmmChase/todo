@@ -10,6 +10,7 @@ var _require = require('@prisma/client'),
     PrismaClient = _require.PrismaClient;
 
 var bcrypt = require('bcryptjs'); // 'npm run seed' to seed
+//? npx prisma db seed --schema=./src/prisma/schema.prisma --preview-feature
 
 
 var prisma = new PrismaClient();

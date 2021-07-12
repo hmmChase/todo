@@ -32,6 +32,8 @@
     "graphql": "^15.5.1",
     "helmet": "^4.6.0",
     "http-errors": "^1.8.0",
+    "isemail": "^3.2.0",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "rimraf": "^3.0.2"
   },

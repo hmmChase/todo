@@ -4,8 +4,19 @@ const typeDefs = gql`
   type Query {
     user(id: ID!): User
     users: [User!]!
+    currentUser: User
+
     idea(id: ID!): Idea
     ideas: [Idea!]!
+  }
+
+  type Mutation {
+    logIn(email: String!, password: String!): LoginResponse!
+  }
+
+  enum Role {
+    USER
+    ADMIN
   }
 
   type User {
@@ -25,9 +36,8 @@ const typeDefs = gql`
     author: User!
   }
 
-  enum Role {
-    USER
-    ADMIN
+  type LoginResponse {
+    user: User
   }
 `;
 

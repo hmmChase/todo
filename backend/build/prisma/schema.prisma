@@ -21,15 +21,20 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
-  id                   Int       @id @default(autoincrement())
-  createdAt            DateTime  @default(now())
-  updatedAt            DateTime  @updatedAt
-  deletedAt            DateTime?
-  email                String    @unique
-  password             String
-  role                 Role      @default(USER)
-  ideas                Idea[]
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  email     String    @unique
+  password  String
+  role      Role      @default(USER)
+  ideas     Idea[]
 }
 
 model Idea {
@@ -40,9 +45,4 @@ model Idea {
   content   String
   author    User      @relation(fields: [authorId], references: [id])
   authorId  Int
-}
-
-enum Role {
-  USER
-  ADMIN
 }

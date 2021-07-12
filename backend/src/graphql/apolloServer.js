@@ -12,7 +12,13 @@ const server = () => {
     resolvers,
 
     context: async ({ req, res }) => {
-      return { req, res, prisma };
+      let accessToken;
+
+      if (req && req.cookies && req.cookies.at) accessToken = req.cookies.at;
+
+      console.log('req.cookies.at:', req.cookies.at);
+
+      return { req, res, prisma, accessToken };
     },
 
     tracing: development,
