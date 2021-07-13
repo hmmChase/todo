@@ -11,6 +11,8 @@ export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient;
 
+const server = typeof window === 'undefined';
+
 const createApolloClient = () => {
   return new ApolloClient({
     cache: new InMemoryCache({}),
@@ -19,10 +21,10 @@ const createApolloClient = () => {
       uri: `${BASE_URL}/gql`, // Server URL (must be absolute)
 
       // Additional fetch() options like `credentials` or `headers`
-      credentials: 'same-origin'
+      credentials: 'include'
     }),
 
-    ssrMode: typeof window === 'undefined'
+    ssrMode: server
   });
 };
 
@@ -36,7 +38,6 @@ export const initializeApollo = (initialState = null) => {
     const existingCache = _apolloClient.extract();
 
     // Merge the existing cache into data passed from getStaticProps/getServerSideProps
-
     const data = merge(initialState, existingCache, {
       // combine arrays using object equality (like in sets)
       arrayMerge: (destinationArray, sourceArray) => [
@@ -51,7 +52,7 @@ export const initializeApollo = (initialState = null) => {
   }
 
   // For SSG and SSR always create a new Apollo Client
-  if (typeof window === 'undefined') return _apolloClient;
+  if (server) return _apolloClient;
 
   // Create the Apollo Client once in the client
   if (!apolloClient) apolloClient = _apolloClient;
@@ -63,6 +64,8 @@ export const useApollo = pageProps => {
   const state = pageProps[APOLLO_STATE_PROP_NAME];
 
   const store = useMemo(() => initializeApollo(state), [state]);
+
+  // const store = useMemo(() => initializeApollo(initialState), [initialState]);
 
   return store;
 };

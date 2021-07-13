@@ -26,19 +26,22 @@ var server = function server() {
     resolvers: _resolvers["default"],
     context: function () {
       var _context = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(_ref) {
-        var req, res;
+        var req, res, accessToken;
         return _regenerator["default"].wrap(function _callee$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 req = _ref.req, res = _ref.res;
+                if (req && req.cookies && req.cookies.at) accessToken = req.cookies.at;
+                console.log('req.cookies.at:', req.cookies.at);
                 return _context2.abrupt("return", {
                   req: req,
                   res: res,
-                  prisma: _prisma["default"]
+                  prisma: _prisma["default"],
+                  accessToken: accessToken
                 });
 
-              case 2:
+              case 4:
               case "end":
                 return _context2.stop();
             }
