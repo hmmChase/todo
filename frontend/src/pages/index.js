@@ -12,8 +12,6 @@ const IndexPage = () => {
 
   const currentUser = data?.currentUser;
 
-  console.log('currentUser:', currentUser);
-
   // const shouldRedirect = !(loading || error || currentUser);
 
   // useEffect(() => shouldRedirect && router.push('/login'), [shouldRedirect]);
