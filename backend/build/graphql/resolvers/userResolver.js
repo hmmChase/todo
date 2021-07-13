@@ -241,7 +241,7 @@ var _default = {
 
               case 12:
                 // Check if password input matches users password
-                (0, _validation.validatePassword)(args.password, userRecord.password); // Create access token
+                (0, _validation.validatePassword)(password, userRecord.password); // Create access token
 
                 accessToken = (0, _accessToken.createAccessToken)(userRecord.id);
                 console.log('accessToken:', accessToken); // Send back new access token

@@ -125,7 +125,7 @@ export default {
           throw new AuthenticationError('login.invalidCredentials');
 
         // Check if password input matches users password
-        validatePassword(args.password, userRecord.password);
+        validatePassword(password, userRecord.password);
 
         // Create access token
         const accessToken = createAccessToken(userRecord.id);
