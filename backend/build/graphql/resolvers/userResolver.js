@@ -230,19 +230,21 @@ var _default = {
 
               case 8:
                 userRecord = _context4.sent;
+                console.log('userRecord:', userRecord); // If user not found, return error
 
                 if (userRecord) {
-                  _context4.next = 11;
+                  _context4.next = 12;
                   break;
                 }
 
                 throw new _apolloServerExpress.AuthenticationError('login.invalidCredentials');
 
-              case 11:
+              case 12:
                 // Check if password input matches users password
                 (0, _validation.validatePassword)(args.password, userRecord.password); // Create access token
 
-                accessToken = (0, _accessToken.createAccessToken)(userRecord.id); // Send back new access token
+                accessToken = (0, _accessToken.createAccessToken)(userRecord.id);
+                console.log('accessToken:', accessToken); // Send back new access token
 
                 ctx.res.cookie('at', accessToken, _config.COOKIE_CONFIG); // Clean user data for client
 
@@ -252,18 +254,18 @@ var _default = {
                   user: clientUserData
                 });
 
-              case 18:
-                _context4.prev = 18;
+              case 20:
+                _context4.prev = 20;
                 _context4.t0 = _context4["catch"](5);
                 console.log('user.login error: ', _context4.t0);
                 return _context4.abrupt("return", {});
 
-              case 22:
+              case 24:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[5, 18]]);
+        }, _callee4, null, [[5, 20]]);
       }));
 
       function logIn(_x13, _x14, _x15, _x16) {
