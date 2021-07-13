@@ -55,9 +55,14 @@ export const isPasswordWellFormed = password => {
 };
 
 export const validatePassword = async (inputPassword, hashedPassword) => {
+  console.log('inputPassword:', inputPassword);
+  console.log('hashedPassword:', hashedPassword);
+
   // const valid = await argon2.verify(hashedPassword, inputPassword);
 
   const valid = await bcrypt.compare(inputPassword, hashedPassword);
+
+  console.log('valid:', valid);
 
   if (!valid) throw new UserInputError('login.invalidCredentials');
 };

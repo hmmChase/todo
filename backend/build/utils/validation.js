@@ -64,20 +64,24 @@ var validatePassword = /*#__PURE__*/function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            console.log('inputPassword:', inputPassword);
+            console.log('hashedPassword:', hashedPassword); // const valid = await argon2.verify(hashedPassword, inputPassword);
+
+            _context.next = 4;
             return _bcryptjs["default"].compare(inputPassword, hashedPassword);
 
-          case 2:
+          case 4:
             valid = _context.sent;
+            console.log('valid:', valid);
 
             if (valid) {
-              _context.next = 5;
+              _context.next = 8;
               break;
             }
 
             throw new _apolloServerExpress.UserInputError('login.invalidCredentials');
 
-          case 5:
+          case 8:
           case "end":
             return _context.stop();
         }
