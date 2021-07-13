@@ -118,6 +118,8 @@ export default {
           where: { email }
         });
 
+        console.log('userRecord:', userRecord);
+
         // If user not found, return error
         if (!userRecord)
           throw new AuthenticationError('login.invalidCredentials');
@@ -127,6 +129,8 @@ export default {
 
         // Create access token
         const accessToken = createAccessToken(userRecord.id);
+
+        console.log('accessToken:', accessToken);
 
         // Send back new access token
         ctx.res.cookie('at', accessToken, COOKIE_CONFIG);
