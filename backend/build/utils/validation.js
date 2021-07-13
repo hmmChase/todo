@@ -59,29 +59,25 @@ exports.isPasswordWellFormed = isPasswordWellFormed;
 
 var validatePassword = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(inputPassword, hashedPassword) {
-    var valid;
+    var isCorrectPass;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            console.log('inputPassword:', inputPassword);
-            console.log('hashedPassword:', hashedPassword); // const valid = await argon2.verify(hashedPassword, inputPassword);
-
-            _context.next = 4;
+            _context.next = 2;
             return _bcryptjs["default"].compare(inputPassword, hashedPassword);
 
-          case 4:
-            valid = _context.sent;
-            console.log('valid:', valid);
+          case 2:
+            isCorrectPass = _context.sent;
 
-            if (valid) {
-              _context.next = 8;
+            if (isCorrectPass) {
+              _context.next = 5;
               break;
             }
 
             throw new _apolloServerExpress.UserInputError('login.invalidCredentials');
 
-          case 8:
+          case 5:
           case "end":
             return _context.stop();
         }
