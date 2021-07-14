@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import styled, { withTheme } from 'styled-components';
 
-import { siteTitle } from '../config';
+import { siteTitle } from '../../config';
 
 const Layout = props => {
   const { children, title } = props;
