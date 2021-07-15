@@ -1,20 +1,18 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
-import { LOG_IN } from '../graphql/queries/user';
+import { SIGN_UP } from '../graphql/queries/user';
 import Field from '../components/temp/Field';
 import graphQLErrors from '../utils/graphQLErrors';
 
-const LogIn = () => {
+function SignUp() {
+  const [signUp] = useMutation(SIGN_UP);
+
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
-
-  const client = useApolloClient();
-
-  const [logIn] = useMutation(LOG_IN);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -24,16 +22,14 @@ const LogIn = () => {
     const passwordElement = event.currentTarget.elements.password;
 
     try {
-      await client.resetStore();
-
-      const { data } = await logIn({
+      await signUp({
         variables: {
           email: emailElement.value,
           password: passwordElement.value
         }
       });
 
-      if (data.logIn.user) await router.push('/');
+      router.push('/');
     } catch (error) {
       setErrorMsg(graphQLErrors(error));
     }
@@ -41,7 +37,7 @@ const LogIn = () => {
 
   return (
     <>
-      <h1>Log In</h1>
+      <h1>Sign Up</h1>
 
       <form onSubmit={handleSubmit}>
         {errorMsg && <p>{errorMsg}</p>}
@@ -52,26 +48,26 @@ const LogIn = () => {
           autoComplete='email'
           required
           label='Email'
-          defaultValue='user@email.com'
         />
+
         <Field
           name='password'
           type='password'
           autoComplete='password'
           required
           label='Password'
-          defaultValue='user123$'
         />
-        <button type='submit'>Log in</button>
+
+        <button type='submit'>Sign up</button>
 
         <span> or </span>
 
-        <Link href='/signup'>
-          <a>Sign up</a>
+        <Link href='/login'>
+          <a>Log in</a>
         </Link>
       </form>
     </>
   );
-};
+}
 
-export default LogIn;
+export default SignUp;

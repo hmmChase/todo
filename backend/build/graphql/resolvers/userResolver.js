@@ -13,13 +13,15 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _apolloServerExpress = require("apollo-server-express");
 
+var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
+
 var _accessToken = require("../../utils/accessToken");
 
 var _userClientCleaner = _interopRequireDefault(require("../../utils/userClientCleaner"));
 
-var _config = require("../../config");
-
 var _validation = require("../../utils/validation");
+
+var _config = require("../../config");
 
 var _default = {
   Query: {
@@ -31,18 +33,19 @@ var _default = {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                id = args.id; // Convert string to number
-
-                numId = Number(id); // Check if missing args
+                id = args.id; // Check if missing args
 
                 if (id) {
-                  _context.next = 4;
+                  _context.next = 3;
                   break;
                 }
 
                 throw new _apolloServerExpress.AuthenticationError('error.missingArgument');
 
-              case 4:
+              case 3:
+                // Convert string to number
+                numId = Number(id); // Type check
+
                 if (!(typeof numId !== 'number')) {
                   _context.next = 6;
                   break;
@@ -195,50 +198,189 @@ var _default = {
     }()
   },
   Mutation: {
-    logIn: function () {
-      var _logIn = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(parent, args, ctx, info) {
-        var email, password, userRecord, accessToken, clientUserData;
+    signUp: function () {
+      var _signUp = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(parent, args, ctx, info) {
+        var email, password, _i, _arr, input, emailNormalized, passwordNormalized, foundUser, passwordHashed, newUserRecord, accessToken, clientUserData;
+
         return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 email = args.email, password = args.password; // Check if missing args
 
-                if (!(!email || !password)) {
+                if (email || password) {
                   _context4.next = 3;
+                  break;
+                }
+
+                throw new _apolloServerExpress.AuthenticationError('error.missingArgument');
+
+              case 3:
+                _i = 0, _arr = [email, password];
+
+              case 4:
+                if (!(_i < _arr.length)) {
+                  _context4.next = 11;
+                  break;
+                }
+
+                input = _arr[_i];
+
+                if (!(typeof input !== 'string')) {
+                  _context4.next = 8;
+                  break;
+                }
+
+                throw new UserInputError('error.invalidArgument');
+
+              case 8:
+                _i++;
+                _context4.next = 4;
+                break;
+
+              case 11:
+                // Normalize email
+                emailNormalized = email.trim().toLowerCase(); // Normalize password
+
+                passwordNormalized = email.trim(); // Check if email is well-formed
+
+                (0, _validation.isEmailWellFormed)(emailNormalized); // Check if password is well-formed
+
+                (0, _validation.isPasswordWellFormed)(passwordNormalized); // Find user matching email
+
+                _context4.next = 17;
+                return ctx.prisma.user.findUnique({
+                  where: {
+                    email: emailNormalized
+                  }
+                });
+
+              case 17:
+                foundUser = _context4.sent;
+
+                if (!foundUser) {
+                  _context4.next = 20;
+                  break;
+                }
+
+                throw new _apolloServerExpress.AuthenticationError({
+                  error: 'email.invalid'
+                });
+
+              case 20:
+                _context4.next = 22;
+                return _bcryptjs["default"].hash(passwordNormalized, _config.saltRounds);
+
+              case 22:
+                passwordHashed = _context4.sent;
+                _context4.prev = 23;
+                _context4.next = 26;
+                return ctx.prisma.user.create({
+                  data: {
+                    email: emailNormalized,
+                    password: passwordHashed
+                  }
+                });
+
+              case 26:
+                newUserRecord = _context4.sent;
+                // Create access token
+                accessToken = (0, _accessToken.createAccessToken)(newUserRecord.id); // Send back new access token
+
+                ctx.res.cookie('at', accessToken, _config.COOKIE_CONFIG); // Clean user data for client
+
+                clientUserData = (0, _userClientCleaner["default"])(newUserRecord); // Return user data
+
+                return _context4.abrupt("return", clientUserData);
+
+              case 33:
+                _context4.prev = 33;
+                _context4.t0 = _context4["catch"](23);
+                console.log('user.signUp error: ', _context4.t0);
+                return _context4.abrupt("return", {});
+
+              case 37:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[23, 33]]);
+      }));
+
+      function signUp(_x13, _x14, _x15, _x16) {
+        return _signUp.apply(this, arguments);
+      }
+
+      return signUp;
+    }(),
+    logIn: function () {
+      var _logIn = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(parent, args, ctx, info) {
+        var email, password, _i2, _arr2, input, emailNormalized, passwordNormalized, userRecord, accessToken, clientUserData;
+
+        return _regenerator["default"].wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                email = args.email, password = args.password; // Check if missing args
+
+                if (!(!email || !password)) {
+                  _context5.next = 3;
                   break;
                 }
 
                 throw new _apolloServerExpress.AuthenticationError('login.missingCredentials');
 
               case 3:
-                if (!(!_validation.isEmailWellFormed || !_validation.isPasswordWellFormed)) {
-                  _context4.next = 5;
+                _i2 = 0, _arr2 = [email, password];
+
+              case 4:
+                if (!(_i2 < _arr2.length)) {
+                  _context5.next = 11;
                   break;
                 }
 
-                throw new _apolloServerExpress.AuthenticationError('login.invalidCredentials');
+                input = _arr2[_i2];
 
-              case 5:
-                _context4.prev = 5;
-                _context4.next = 8;
+                if (!(typeof input !== 'string')) {
+                  _context5.next = 8;
+                  break;
+                }
+
+                throw new UserInputError('error.invalidArgument');
+
+              case 8:
+                _i2++;
+                _context5.next = 4;
+                break;
+
+              case 11:
+                // Normalize email
+                emailNormalized = email.trim().toLowerCase(); // Normalize password
+
+                passwordNormalized = email.trim(); // Check if email is well-formed
+
+                (0, _validation.isEmailWellFormed)(emailNormalized); // Check if password is well-formed
+
+                (0, _validation.isPasswordWellFormed)(passwordNormalized);
+                _context5.prev = 15;
+                _context5.next = 18;
                 return ctx.prisma.user.findUnique({
                   where: {
                     email: email
                   }
                 });
 
-              case 8:
-                userRecord = _context4.sent;
+              case 18:
+                userRecord = _context5.sent;
 
                 if (userRecord) {
-                  _context4.next = 11;
+                  _context5.next = 21;
                   break;
                 }
 
                 throw new _apolloServerExpress.AuthenticationError('login.invalidCredentials');
 
-              case 11:
+              case 21:
                 // Check if password input matches users password
                 (0, _validation.validatePassword)(password, userRecord.password); // Create access token
 
@@ -248,30 +390,39 @@ var _default = {
 
                 clientUserData = (0, _userClientCleaner["default"])(userRecord); // Return user data
 
-                return _context4.abrupt("return", {
+                return _context5.abrupt("return", {
                   user: clientUserData
                 });
 
-              case 18:
-                _context4.prev = 18;
-                _context4.t0 = _context4["catch"](5);
-                console.log('user.logIn error: ', _context4.t0);
-                return _context4.abrupt("return", {});
+              case 28:
+                _context5.prev = 28;
+                _context5.t0 = _context5["catch"](15);
+                console.log('user.logIn error: ', _context5.t0);
+                return _context5.abrupt("return", {});
 
-              case 22:
+              case 32:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, null, [[5, 18]]);
+        }, _callee5, null, [[15, 28]]);
       }));
 
-      function logIn(_x13, _x14, _x15, _x16) {
+      function logIn(_x17, _x18, _x19, _x20) {
         return _logIn.apply(this, arguments);
       }
 
       return logIn;
-    }()
+    }(),
+    logOut: function logOut(parent, args, ctx, info) {
+      // const cookie = serialize('at', '', {
+      //   maxAge: -1,
+      //   path: '/'
+      // });
+      // ctx.res.setHeader('Set-Cookie', cookie);
+      ctx.res.clearCookie('at');
+      return true;
+    }
   }
 };
 exports["default"] = _default;

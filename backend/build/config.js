@@ -15,12 +15,14 @@ exports.BASE_URL = BASE_URL;
 var CORSwhitelist = production ? [BASE_URL, deployedUrl] : BASE_URL;
 exports.CORSwhitelist = CORSwhitelist;
 var COOKIE_CONFIG = {
-  maxAge: 365 * 52 * 7 * 24 * 60,
-  httpOnly: production,
+  maxAge: 365 * 52 * 7,
+  expires: new Date(Date.now() + 365 * 52 * 7 * 1000),
+  httpOnly: true,
   secure: production,
-  sameSite: production ? 'none' : 'strict' // domain: 'vercel.app',
-  // sameParty: false
-  // path: '/',
+  path: '/',
+  sameSite: production ? 'none' : 'strict' // sameSite: 'lax',
+  // sameParty: false,
+  // domain: 'vercel.app',
 
 };
 exports.COOKIE_CONFIG = COOKIE_CONFIG;

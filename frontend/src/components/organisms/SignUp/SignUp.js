@@ -5,12 +5,7 @@ import { useMutation } from '@apollo/client';
 import { Form as FormikForm, Formik } from 'formik';
 import { object } from 'yup';
 import { setAccessToken } from '../../../utils/accessToken';
-import {
-  username,
-  email,
-  password,
-  confirmPassword
-} from '../../../utils/validation';
+import { username, email, password } from '../../../utils/validation';
 import { SIGN_UP } from '../../../graphql/queries';
 import FormInput from '../../atoms/FormInput/FormInput';
 import FormInputPass from '../../atoms/FormInputPass/FormInputPass';
@@ -19,12 +14,7 @@ import PassReqList from '../../molecules/PassReqList/PassReqList';
 import Button from '../../atoms/Button/Button';
 import * as sc from './SignUp.style';
 
-const validationSchema = object().shape(
-  username,
-  email,
-  password,
-  confirmPassword
-);
+const validationSchema = object().shape(username, email, password);
 
 const SignUp = () => {
   const update = (cache, data) => {
@@ -70,8 +60,7 @@ const SignUp = () => {
       initialValues={{
         username: '',
         email: '',
-        password: '',
-        confirmPassword: ''
+        password: ''
       }}
       validationSchema={validationSchema}
       validateOnChange={false}
@@ -88,12 +77,6 @@ const SignUp = () => {
 
           <FormInputPass label='Password' id='sigUpPassword' name='password' />
 
-          <FormInputPass
-            label='Confirm Password'
-            id='sigUpConfirmPassword'
-            name='confirmPassword'
-          />
-
           {error && <DisplayError error={error} />}
 
           <PassReqList />
@@ -109,10 +92,8 @@ const SignUp = () => {
                   !formikProps.values.email ||
                   !formikProps.values.username ||
                   !formikProps.values.password ||
-                  !formikProps.values.confirmPassword ||
                   formikProps.errors.email ||
                   formikProps.errors.password ||
-                  formikProps.errors.confirmPassword ||
                   formikProps.isSubmitting
                 )
               }

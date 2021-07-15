@@ -13,13 +13,15 @@ export const BASE_URL = production ? frontendUrlProd : frontendUrlDev;
 export const CORSwhitelist = production ? [BASE_URL, deployedUrl] : BASE_URL;
 
 export const COOKIE_CONFIG = {
-  maxAge: 365 * 52 * 7 * 24 * 60,
-  httpOnly: production,
+  maxAge: 365 * 52 * 7,
+  expires: new Date(Date.now() + 365 * 52 * 7 * 1000),
+  httpOnly: true,
   secure: production,
+  path: '/',
   sameSite: production ? 'none' : 'strict'
+  // sameSite: 'lax',
+  // sameParty: false,
   // domain: 'vercel.app',
-  // sameParty: false
-  // path: '/',
 };
 
 export const accessTokenExpiryTime = '10m';

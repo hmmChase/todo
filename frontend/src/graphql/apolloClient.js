@@ -15,7 +15,7 @@ const server = typeof window === 'undefined';
 
 const createApolloClient = () => {
   return new ApolloClient({
-    cache: new InMemoryCache({}),
+    cache: new InMemoryCache(),
 
     link: new HttpLink({
       uri: `${BASE_URL}/gql`, // Server URL (must be absolute)
@@ -31,8 +31,8 @@ const createApolloClient = () => {
 export const initializeApollo = (initialState = null) => {
   const _apolloClient = apolloClient ?? createApolloClient();
 
-  // If your page has Next.js data fetching methods that use Apollo Client, the initial state
-  // gets hydrated here
+  // If your page has Next.js data fetching methods that use Apollo Client,
+  // the initial state gets hydrated here
   if (initialState) {
     // Get existing cache, loaded during client side data fetching
     const existingCache = _apolloClient.extract();

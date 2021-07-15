@@ -45,3 +45,20 @@ export const LOG_IN = gql`
     }
   }
 `;
+
+export const LOG_OUT = gql`
+  mutation logOut {
+    logOut
+  }
+`;
+
+export const SIGN_UP = gql`
+  mutation SIGN_UP($email: String!, $password: String!) {
+    signUp(email: $email, password: $password) {
+      user {
+        id
+        email
+      }
+    }
+  }
+`;

@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 // import { useMutation } from '@apollo/client';
 import { Formik } from 'formik';
 import { object } from 'yup';
-import { password, confirmPassword } from '../../../utils/validation';
+import { password } from '../../../utils/validation';
 import { passResetSuccessful } from '../../../config';
 import { RESET_PASSWORD } from '../../../graphql/queries';
 import BackBtn from '../../molecules/BackBtn/BackBtn';
@@ -14,7 +14,7 @@ import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';
 import PassReqList from '../../molecules/PassReqList/PassReqList';
 import * as sc from './ResetPassword.style';
 
-const validationSchema = object().shape(password, confirmPassword);
+const validationSchema = object().shape(password);
 
 const ResetPassword = props => {
   // handleCompleted = () => Router.push({ pathname: '/' });
@@ -47,7 +47,7 @@ const ResetPassword = props => {
 
   return (
     <Formik
-      initialValues={{ password: '', confirmPassword: '' }}
+      initialValues={{ password: '' }}
       validationSchema={validationSchema}
       validateOnChange={false}
       validateOnBlur={true}
@@ -59,12 +59,6 @@ const ResetPassword = props => {
             label='New password'
             id='resetPasswordPassword'
             name='password'
-          />
-
-          <FormInputPass
-            label='Confirm new password'
-            id='resetPasswordConfirmPassword'
-            name='confirmPassword'
           />
 
           {error && <DisplayError error={error} />}
@@ -80,9 +74,7 @@ const ResetPassword = props => {
               disabled={
                 !!(
                   !formikProps.values.password ||
-                  !formikProps.values.confirmPassword ||
                   formikProps.errors.password ||
-                  formikProps.errors.confirmPassword ||
                   formikProps.isSubmitting
                 )
               }

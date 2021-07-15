@@ -1,44 +1,8 @@
-import { gql } from 'apollo-server-express';
+import { makeExecutableSchema } from 'graphql-tools';
 
-const typeDefs = gql`
-  type Query {
-    user(id: ID!): User
-    users: [User!]!
-    currentUser: User
+import typeDefs from './typeDefs';
+import resolvers from './resolvers';
 
-    idea(id: ID!): Idea
-    ideas: [Idea!]!
-  }
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-  type Mutation {
-    logIn(email: String!, password: String!): LoginResponse!
-  }
-
-  enum Role {
-    USER
-    ADMIN
-  }
-
-  type User {
-    id: ID!
-    createdAt: Float!
-    updatedAt: Float!
-    deletedAt: Float!
-    email: String!
-    password: String!
-    role: String!
-    ideas: [Idea!]
-  }
-
-  type Idea {
-    id: ID!
-    content: String!
-    author: User!
-  }
-
-  type LoginResponse {
-    user: User
-  }
-`;
-
-export default typeDefs;
+export default schema;
