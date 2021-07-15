@@ -8,11 +8,12 @@ const frontendUrlProd = 'https://hmm-start.vercel.app';
 
 const frontendUrlDev = 'http://localhost:1337';
 
-export const BASE_URL = production ? frontendUrlProd : frontendUrlDev;
+export const baseUrl = production ? frontendUrlProd : frontendUrlDev;
 
-export const CORSwhitelist = production ? [BASE_URL, deployedUrl] : BASE_URL;
+export const CORSwhitelist = production ? [baseUrl, deployedUrl] : baseUrl;
 
-export const COOKIE_CONFIG = {
+// http://expressjs.com/en/5x/api.html#res.cookie
+export const cookieOptions = {
   maxAge: 365 * 52 * 7,
   expires: new Date(Date.now() + 365 * 52 * 7 * 1000),
   httpOnly: true,

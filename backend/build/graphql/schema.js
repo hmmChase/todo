@@ -13,9 +13,17 @@ var _typeDefs = _interopRequireDefault(require("./typeDefs"));
 
 var _resolvers = _interopRequireDefault(require("./resolvers"));
 
+// https://www.graphql-tools.com/docs/generate-schema/#makeexecutableschemaoptions
+var development = process.env.NODE_ENV === 'development';
 var schema = (0, _graphqlTools.makeExecutableSchema)({
   typeDefs: _typeDefs["default"],
-  resolvers: _resolvers["default"]
+  resolvers: _resolvers["default"],
+  logger: development && {
+    log: function log(e) {
+      return console.log(e);
+    }
+  },
+  allowUndefinedInResolve: !development
 });
 var _default = schema;
 exports["default"] = _default;

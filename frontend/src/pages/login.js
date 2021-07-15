@@ -26,14 +26,14 @@ const LogIn = () => {
     try {
       await client.resetStore();
 
-      const { data } = await logIn({
+      const response = await logIn({
         variables: {
           email: emailElement.value,
           password: passwordElement.value
         }
       });
 
-      if (data.logIn.user) await router.push('/');
+      if (response.data.logIn.user) await router.push('/');
     } catch (error) {
       setErrorMsg(graphQLErrors(error));
     }
@@ -49,19 +49,20 @@ const LogIn = () => {
         <Field
           name='email'
           type='email'
-          autoComplete='email'
-          required
           label='Email'
+          autoComplete='email'
           defaultValue='user@email.com'
+          required
         />
         <Field
           name='password'
           type='password'
-          autoComplete='password'
-          required
           label='Password'
+          autoComplete='password'
           defaultValue='user123$'
+          required
         />
+
         <button type='submit'>Log in</button>
 
         <span> or </span>

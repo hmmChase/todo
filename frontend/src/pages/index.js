@@ -10,6 +10,8 @@ const IndexPage = () => {
 
   const { loading, error, data } = useQuery(CURRENT_USER);
 
+  console.log('IndexPage data: ', data);
+
   const currentUser = data?.currentUser;
 
   // const shouldRedirect = !(loading || error || currentUser);

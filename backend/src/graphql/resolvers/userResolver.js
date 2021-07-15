@@ -8,7 +8,7 @@ import {
   isPasswordWellFormed,
   validatePassword
 } from '../../utils/validation';
-import { COOKIE_CONFIG, saltRounds } from '../../config';
+import { cookieOptions, saltRounds } from '../../config';
 
 export default {
   Query: {
@@ -86,7 +86,7 @@ export default {
         const accessToken = createAccessToken(userRecord.id);
 
         // Send back new access token
-        ctx.res.cookie('at', accessToken, COOKIE_CONFIG);
+        ctx.res.cookie('at', accessToken, cookieOptions);
 
         // Clean user data for client
         const clientUserData = userClientCleaner(userRecord);
@@ -147,7 +147,7 @@ export default {
         const accessToken = createAccessToken(newUserRecord.id);
 
         // Send back new access token
-        ctx.res.cookie('at', accessToken, COOKIE_CONFIG);
+        ctx.res.cookie('at', accessToken, cookieOptions);
 
         // Clean user data for client
         const clientUserData = userClientCleaner(newUserRecord);
@@ -202,7 +202,7 @@ export default {
         const accessToken = createAccessToken(userRecord.id);
 
         // Send back new access token
-        ctx.res.cookie('at', accessToken, COOKIE_CONFIG);
+        ctx.res.cookie('at', accessToken, cookieOptions);
 
         // Clean user data for client
         const clientUserData = userClientCleaner(userRecord);
@@ -223,7 +223,7 @@ export default {
       // });
       // ctx.res.setHeader('Set-Cookie', cookie);
 
-      ctx.res.clearCookie('at');
+      ctx.res.clearCookie('at', cookieOptions);
 
       return true;
     }
