@@ -170,7 +170,7 @@ var _default = {
                 // Create new access token
                 accessToken = (0, _accessToken.createAccessToken)(userRecord.id); // Send back new access token
 
-                ctx.res.cookie('at', accessToken, _config.COOKIE_CONFIG); // Clean user data for client
+                ctx.res.cookie('at', accessToken, _config.cookieOptions); // Clean user data for client
 
                 clientUserData = (0, _userClientCleaner["default"])(userRecord); // Return user data
 
@@ -287,7 +287,7 @@ var _default = {
                 // Create access token
                 accessToken = (0, _accessToken.createAccessToken)(newUserRecord.id); // Send back new access token
 
-                ctx.res.cookie('at', accessToken, _config.COOKIE_CONFIG); // Clean user data for client
+                ctx.res.cookie('at', accessToken, _config.cookieOptions); // Clean user data for client
 
                 clientUserData = (0, _userClientCleaner["default"])(newUserRecord); // Return user data
 
@@ -386,7 +386,7 @@ var _default = {
 
                 accessToken = (0, _accessToken.createAccessToken)(userRecord.id); // Send back new access token
 
-                ctx.res.cookie('at', accessToken, _config.COOKIE_CONFIG); // Clean user data for client
+                ctx.res.cookie('at', accessToken, _config.cookieOptions); // Clean user data for client
 
                 clientUserData = (0, _userClientCleaner["default"])(userRecord); // Return user data
 
@@ -420,7 +420,7 @@ var _default = {
       //   path: '/'
       // });
       // ctx.res.setHeader('Set-Cookie', cookie);
-      ctx.res.clearCookie('at');
+      ctx.res.clearCookie('at', _config.cookieOptions);
       return true;
     }
   }

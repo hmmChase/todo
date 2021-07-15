@@ -1,18 +1,20 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useMutation } from '@apollo/client';
+import { useMutation, useApolloClient } from '@apollo/client';
 
 import { SIGN_UP } from '../graphql/queries/user';
 import Field from '../components/temp/Field';
 import graphQLErrors from '../utils/graphQLErrors';
 
 function SignUp() {
-  const [signUp] = useMutation(SIGN_UP);
-
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
+
+  const client = useApolloClient();
+
+  const [signUp] = useMutation(SIGN_UP);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -22,14 +24,16 @@ function SignUp() {
     const passwordElement = event.currentTarget.elements.password;
 
     try {
-      await signUp({
+      await client.resetStore();
+
+      const response = await signUp({
         variables: {
           email: emailElement.value,
           password: passwordElement.value
         }
       });
 
-      router.push('/');
+      if (response.data.signUp.user) await router.push('/');
     } catch (error) {
       setErrorMsg(graphQLErrors(error));
     }
@@ -46,16 +50,16 @@ function SignUp() {
           name='email'
           type='email'
           autoComplete='email'
-          required
           label='Email'
+          required
         />
 
         <Field
           name='password'
           type='password'
+          label='Password'
           autoComplete='password'
           required
-          label='Password'
         />
 
         <button type='submit'>Sign up</button>
