@@ -1,13 +1,14 @@
 import { AuthenticationError } from 'apollo-server-express';
+import bcrypt from 'bcryptjs';
 
 import { createAccessToken, verifyAccessToken } from '../../utils/accessToken';
 import userClientCleaner from '../../utils/userClientCleaner';
-import { COOKIE_CONFIG } from '../../config';
 import {
   isEmailWellFormed,
   isPasswordWellFormed,
   validatePassword
 } from '../../utils/validation';
+import { COOKIE_CONFIG, saltRounds } from '../../config';
 
 export default {
   Query: {
@@ -15,13 +16,13 @@ export default {
     user: async (parent, args, ctx, info) => {
       const { id } = args;
 
-      // Convert string to number
-      const numId = Number(id);
-
       // Check if missing args
       if (!id) throw new AuthenticationError('error.missingArgument');
 
-      // Check if id is syntactically valid
+      // Convert string to number
+      const numId = Number(id);
+
+      // Type check
       if (typeof numId !== 'number')
         throw new AuthenticationError('error.invalidArgument');
 
@@ -101,6 +102,65 @@ export default {
   },
 
   Mutation: {
+    signUp: async (parent, args, ctx, info) => {
+      const { email, password } = args;
+
+      // Check if missing args
+      if (!(email || password))
+        throw new AuthenticationError('error.missingArgument');
+
+      // Type check
+      for (const input of [email, password])
+        if (typeof input !== 'string')
+          throw new UserInputError('error.invalidArgument');
+
+      // Normalize email
+      const emailNormalized = email.trim().toLowerCase();
+
+      // Normalize password
+      const passwordNormalized = email.trim();
+
+      // Check if email is well-formed
+      isEmailWellFormed(emailNormalized);
+
+      // Check if password is well-formed
+      isPasswordWellFormed(passwordNormalized);
+
+      // Find user matching email
+      const foundUser = await ctx.prisma.user.findUnique({
+        where: { email: emailNormalized }
+      });
+
+      // If user found, return error
+      if (foundUser) throw new AuthenticationError({ error: 'email.invalid' });
+
+      // Encrypt password
+      const passwordHashed = await bcrypt.hash(passwordNormalized, saltRounds);
+
+      try {
+        // Create user
+        const newUserRecord = await ctx.prisma.user.create({
+          data: { email: emailNormalized, password: passwordHashed }
+        });
+
+        // Create access token
+        const accessToken = createAccessToken(newUserRecord.id);
+
+        // Send back new access token
+        ctx.res.cookie('at', accessToken, COOKIE_CONFIG);
+
+        // Clean user data for client
+        const clientUserData = userClientCleaner(newUserRecord);
+
+        // Return user data
+        return clientUserData;
+      } catch (error) {
+        console.log('user.signUp error: ', error);
+
+        return {};
+      }
+    },
+
     logIn: async (parent, args, ctx, info) => {
       const { email, password } = args;
 
@@ -108,9 +168,22 @@ export default {
       if (!email || !password)
         throw new AuthenticationError('login.missingCredentials');
 
-      // Check if email and password are syntactically valid
-      if (!isEmailWellFormed || !isPasswordWellFormed)
-        throw new AuthenticationError('login.invalidCredentials');
+      // Type check
+      for (const input of [email, password])
+        if (typeof input !== 'string')
+          throw new UserInputError('error.invalidArgument');
+
+      // Normalize email
+      const emailNormalized = email.trim().toLowerCase();
+
+      // Normalize password
+      const passwordNormalized = email.trim();
+
+      // Check if email is well-formed
+      isEmailWellFormed(emailNormalized);
+
+      // Check if password is well-formed
+      isPasswordWellFormed(passwordNormalized);
 
       try {
         // Find user matching email
@@ -141,6 +214,18 @@ export default {
 
         return {};
       }
+    },
+
+    logOut: (parent, args, ctx, info) => {
+      // const cookie = serialize('at', '', {
+      //   maxAge: -1,
+      //   path: '/'
+      // });
+      // ctx.res.setHeader('Set-Cookie', cookie);
+
+      ctx.res.clearCookie('at');
+
+      return true;
     }
   }
 };

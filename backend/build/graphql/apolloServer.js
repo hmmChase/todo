@@ -17,13 +17,10 @@ var _prisma = _interopRequireDefault(require("../prisma/prisma"));
 
 var _schema = _interopRequireDefault(require("./schema"));
 
-var _resolvers = _interopRequireDefault(require("./resolvers"));
-
 var server = function server() {
   var development = process.env.NODE_ENV === 'development';
   return new _apolloServerExpress.ApolloServer({
-    typeDefs: _schema["default"],
-    resolvers: _resolvers["default"],
+    schema: _schema["default"],
     context: function () {
       var _context = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(_ref) {
         var req, res, accessToken;
@@ -32,8 +29,7 @@ var server = function server() {
             switch (_context2.prev = _context2.next) {
               case 0:
                 req = _ref.req, res = _ref.res;
-                if (req && req.cookies && req.cookies.at) accessToken = req.cookies.at;
-                console.log('req.cookies.at:', req.cookies.at);
+                accessToken = req.cookies.at;
                 return _context2.abrupt("return", {
                   req: req,
                   res: res,
@@ -41,7 +37,7 @@ var server = function server() {
                   accessToken: accessToken
                 });
 
-              case 4:
+              case 3:
               case "end":
                 return _context2.stop();
             }

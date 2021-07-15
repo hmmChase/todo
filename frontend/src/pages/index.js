@@ -3,7 +3,7 @@ import Link from 'next/link';
 // import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 
-import { CURRENT_USER } from '../graphql/queries';
+import { CURRENT_USER } from '../graphql/queries/user';
 
 const IndexPage = () => {
   // const router = useRouter();
@@ -35,16 +35,14 @@ const IndexPage = () => {
       <>
         <p>You're signed in as {currentUser.email}</p>
 
-        <Link href='/signout'>
-          <a>signout</a>
+        <Link href='/logout'>
+          <a>logout</a>
         </Link>
       </>
     );
   }
 
   return <p>Loading...</p>;
-
-  // return <Layout title='Home'></Layout>;
 };
 
 export default IndexPage;

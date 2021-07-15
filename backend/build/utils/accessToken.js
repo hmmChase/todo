@@ -29,13 +29,13 @@ var verifyAccessToken = function verifyAccessToken(accessToken) {
   var secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 
   try {
-    // Return the decoded payload if the signature is valid and JWT not expired
-    var payload = _jsonwebtoken["default"].verify(accessToken, secret);
+    // Decode payload if signature is valid and JWT not expired
+    var payload = _jsonwebtoken["default"].verify(accessToken, secret); // Return payload
 
-    console.log('payload:', payload);
+
     return payload;
   } catch (error) {
-    console.log('error: ', error); // If not, throw error
+    console.log('verifyAccessToken error : ', error); // If not, throw error
 
     throw new _apolloServerExpress.AuthenticationError('user.invalidCredentials');
   }

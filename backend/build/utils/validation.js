@@ -21,12 +21,11 @@ var _config = require("../config");
 
 /* Email */
 var isEmailWellFormed = function isEmailWellFormed(email) {
-  var notString = typeof email !== 'string';
-  if (notString) throw new _apolloServerExpress.UserInputError('Invalid email address');
-
   var isvalid = _isemail["default"].validate(email);
 
-  if (!isvalid) throw new _apolloServerExpress.UserInputError('Please provide a valid email address');
+  if (!isvalid) throw new _apolloServerExpress.UserInputError({
+    error: 'email.invalid'
+  });
 };
 /* Password */
 
@@ -37,22 +36,12 @@ var isPasswordWellFormed = function isPasswordWellFormed(password) {
   /*
   https://regexr.com/3bfsi
   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
-  - At least 8 characters
-  - Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-  - Can contain special characters
+  - within min & max characters
   */
-  var notString = typeof password !== 'string';
-  if (notString) throw new _apolloServerExpress.UserInputError('Invalid password');
   var tooShort = password.length < _config.passwordMinLength;
   if (tooShort) throw new _apolloServerExpress.UserInputError("Password must have at least ".concat(_config.passwordMinLength, " characters"));
   var tooLong = password.length > _config.passwordMaxLength;
   if (tooLong) throw new _apolloServerExpress.UserInputError("Password must have no more than ".concat(_config.passwordMaxLength, " characters"));
-  var hasUpperCase = password.match(/[A-Z]/g);
-  if (!hasUpperCase) throw new _apolloServerExpress.UserInputError('Password must contain an uppercase letter');
-  var hasLowerCase = password.match(/[a-z]/g);
-  if (!hasLowerCase) throw new _apolloServerExpress.UserInputError('Password must contain a lowercase letter');
-  var hasNumber = password.match(/[0-9]/g);
-  if (!hasNumber) throw new _apolloServerExpress.UserInputError('Password must contain a number');
 };
 
 exports.isPasswordWellFormed = isPasswordWellFormed;
