@@ -12,19 +12,21 @@ var frontendUrlProd = 'https://hmm-start.vercel.app';
 var frontendUrlDev = 'http://localhost:1337';
 var baseUrl = production ? frontendUrlProd : frontendUrlDev;
 exports.baseUrl = baseUrl;
-var CORSwhitelist = production ? [baseUrl, deployedUrl] : baseUrl; // http://expressjs.com/en/5x/api.html#res.cookie
-
+var CORSwhitelist = production ? [baseUrl, deployedUrl] : baseUrl;
 exports.CORSwhitelist = CORSwhitelist;
+var cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 2.21 days
+// http://expressjs.com/en/5x/api.html#res.cookie
+
 var cookieOptions = {
-  maxAge: 365 * 52 * 7,
-  expires: new Date(Date.now() + 365 * 52 * 7 * 1000),
+  maxAge: cookieExpiry,
+  expires: new Date(Date.now() + cookieExpiry),
   httpOnly: true,
   secure: production,
   path: '/',
-  sameSite: production ? 'none' : 'strict',
-  // sameSite: 'lax',
+  sameSite: production ? 'none' : 'strict' // sameSite: 'lax',
   // sameParty: false,
-  domain: production ? '.vercel.app' : 'localhost'
+  // domain: production ? '.vercel.app' : 'localhost'
+
 };
 exports.cookieOptions = cookieOptions;
 var accessTokenExpiryTime = '10m';
