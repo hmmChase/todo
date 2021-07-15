@@ -21,10 +21,10 @@ var cookieOptions = {
   httpOnly: true,
   secure: production,
   path: '/',
-  sameSite: production ? 'none' : 'strict' // sameSite: 'lax',
+  sameSite: production ? 'none' : 'strict',
+  // sameSite: 'lax',
   // sameParty: false,
-  // domain: 'vercel.app',
-
+  domain: production ? '.vercel.app' : 'localhost'
 };
 exports.cookieOptions = cookieOptions;
 var accessTokenExpiryTime = '10m';

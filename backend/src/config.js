@@ -19,10 +19,10 @@ export const cookieOptions = {
   httpOnly: true,
   secure: production,
   path: '/',
-  sameSite: production ? 'none' : 'strict'
+  sameSite: production ? 'none' : 'strict',
   // sameSite: 'lax',
   // sameParty: false,
-  // domain: 'vercel.app',
+  domain: production ? '.vercel.app' : 'localhost'
 };
 
 export const accessTokenExpiryTime = '10m';
