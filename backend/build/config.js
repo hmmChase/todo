@@ -8,7 +8,6 @@ var production = process.env.NODE_ENV === 'production';
 var port = process.env.PORT || 4000;
 exports.port = port;
 var deployedUrl = process.env.VERCEL_URL;
-console.log('deployedUrl:', deployedUrl);
 var frontendUrlProd = 'https://hmm-start.vercel.app';
 var frontendUrlDev = 'http://localhost:1337';
 var baseUrl = production ? frontendUrlProd : frontendUrlDev;
@@ -26,7 +25,7 @@ var cookieOptions = {
   sameSite: production ? 'none' : 'strict',
   // 'lax' not working
   // sameParty: false,
-  domain: production ? 'vercel.app' : 'localhost'
+  domain: production ? 'hmm-start.vercel.app' : 'localhost'
 };
 exports.cookieOptions = cookieOptions;
 var accessTokenExpiryTime = '10m';

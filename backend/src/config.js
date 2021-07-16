@@ -4,8 +4,6 @@ export const port = process.env.PORT || 4000;
 
 const deployedUrl = process.env.VERCEL_URL;
 
-console.log('deployedUrl:', deployedUrl);
-
 const frontendUrlProd = 'https://hmm-start.vercel.app';
 
 const frontendUrlDev = 'http://localhost:1337';
@@ -27,7 +25,7 @@ export const cookieOptions = {
 
   // sameParty: false,
 
-  domain: production ? 'vercel.app' : 'localhost'
+  domain: production ? 'hmm-start.vercel.app' : 'localhost'
 };
 
 export const accessTokenExpiryTime = '10m';
