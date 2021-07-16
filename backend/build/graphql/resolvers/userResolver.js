@@ -146,48 +146,54 @@ var _default = {
                 return _context3.abrupt("return", new _apolloServerExpress.AuthenticationError('user.invalidCredentials'));
 
               case 2:
-                // Verify access token and decode payload
+                console.log('ctx.accessToken:', ctx.accessToken); // Verify access token and decode payload
+
                 payload = (0, _accessToken.verifyAccessToken)(ctx.accessToken);
-                _context3.prev = 3;
-                _context3.next = 6;
+                console.log('payload:', payload);
+                _context3.prev = 5;
+                _context3.next = 8;
                 return ctx.prisma.user.findUnique({
                   where: {
                     id: payload.userId
                   }
                 });
 
-              case 6:
+              case 8:
                 userRecord = _context3.sent;
+                console.log('userRecord:', userRecord); // If no user found, return error
 
                 if (userRecord) {
-                  _context3.next = 9;
+                  _context3.next = 12;
                   break;
                 }
 
                 return _context3.abrupt("return", (0, _apolloServerExpress.AuthenticationError)('user.notFound'));
 
-              case 9:
+              case 12:
                 // Create new access token
-                accessToken = (0, _accessToken.createAccessToken)(userRecord.id); // Send back new access token
+                accessToken = (0, _accessToken.createAccessToken)(userRecord.id);
+                console.log('accessToken:', accessToken);
+                console.log('cookieOptions:', _config.cookieOptions); // Send back new access token
 
                 ctx.res.cookie('at', accessToken, _config.cookieOptions); // Clean user data for client
 
-                clientUserData = (0, _userClientCleaner["default"])(userRecord); // Return user data
+                clientUserData = (0, _userClientCleaner["default"])(userRecord);
+                console.log('clientUserData:', clientUserData); // Return user data
 
                 return _context3.abrupt("return", clientUserData);
 
-              case 15:
-                _context3.prev = 15;
-                _context3.t0 = _context3["catch"](3);
+              case 21:
+                _context3.prev = 21;
+                _context3.t0 = _context3["catch"](5);
                 console.log('user.currentUser error: ', _context3.t0);
                 return _context3.abrupt("return", {});
 
-              case 19:
+              case 25:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[3, 15]]);
+        }, _callee3, null, [[5, 21]]);
       }));
 
       function currentUser(_x9, _x10, _x11, _x12) {
@@ -206,74 +212,79 @@ var _default = {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                email = args.email, password = args.password; // Check if missing args
+                email = args.email, password = args.password;
+                console.log('email:', email);
+                console.log('password:', password); // Check if missing args
 
                 if (email || password) {
-                  _context4.next = 3;
+                  _context4.next = 5;
                   break;
                 }
 
                 throw new _apolloServerExpress.UserInputError('error.missingArgument');
 
-              case 3:
+              case 5:
                 _i = 0, _arr = [email, password];
 
-              case 4:
+              case 6:
                 if (!(_i < _arr.length)) {
-                  _context4.next = 11;
+                  _context4.next = 13;
                   break;
                 }
 
                 input = _arr[_i];
 
                 if (!(typeof input !== 'string')) {
-                  _context4.next = 8;
+                  _context4.next = 10;
                   break;
                 }
 
                 throw new _apolloServerExpress.UserInputError('error.invalidArgument');
 
-              case 8:
+              case 10:
                 _i++;
-                _context4.next = 4;
+                _context4.next = 6;
                 break;
 
-              case 11:
+              case 13:
                 // Normalize email
-                emailNormalized = email.trim().toLowerCase(); // Normalize password
+                emailNormalized = email.trim().toLowerCase();
+                console.log('emailNormalized:', emailNormalized); // Normalize password
 
-                passwordNormalized = email.trim(); // Check if email is well-formed
+                passwordNormalized = email.trim();
+                console.log('passwordNormalized:', passwordNormalized); // Check if email is well-formed
 
                 (0, _validation.isEmailWellFormed)(emailNormalized); // Check if password is well-formed
 
                 (0, _validation.isPasswordWellFormed)(passwordNormalized); // Find user matching email
 
-                _context4.next = 17;
+                _context4.next = 21;
                 return ctx.prisma.user.findUnique({
                   where: {
                     email: emailNormalized
                   }
                 });
 
-              case 17:
+              case 21:
                 foundUser = _context4.sent;
                 console.log('foundUser:', foundUser); // If user found, return error
 
                 if (!foundUser) {
-                  _context4.next = 21;
+                  _context4.next = 25;
                   break;
                 }
 
                 throw new _apolloServerExpress.UserInputError('email.invalid');
 
-              case 21:
-                _context4.next = 23;
+              case 25:
+                _context4.next = 27;
                 return _bcryptjs["default"].hash(passwordNormalized, _config.saltRounds);
 
-              case 23:
+              case 27:
                 passwordHashed = _context4.sent;
-                _context4.prev = 24;
-                _context4.next = 27;
+                console.log('passwordHashed:', passwordHashed);
+                _context4.prev = 29;
+                _context4.next = 32;
                 return ctx.prisma.user.create({
                   data: {
                     email: emailNormalized,
@@ -281,29 +292,33 @@ var _default = {
                   }
                 });
 
-              case 27:
+              case 32:
                 newUserRecord = _context4.sent;
-                // Create access token
-                accessToken = (0, _accessToken.createAccessToken)(newUserRecord.id); // Send back new access token
+                console.log('newUserRecord:', newUserRecord); // Create access token
 
-                ctx.res.cookie('at', accessToken, _config.cookieOptions); // Clean user data for client
+                accessToken = (0, _accessToken.createAccessToken)(newUserRecord.id);
+                console.log('accessToken:', accessToken); // Send back new access token
 
-                clientUserData = (0, _userClientCleaner["default"])(newUserRecord); // Return user data
+                ctx.res.cookie('at', accessToken, _config.cookieOptions);
+                console.log('cookieOptions:', _config.cookieOptions); // Clean user data for client
+
+                clientUserData = (0, _userClientCleaner["default"])(newUserRecord);
+                console.log('clientUserData:', clientUserData); // Return user data
 
                 return _context4.abrupt("return", clientUserData);
 
-              case 34:
-                _context4.prev = 34;
-                _context4.t0 = _context4["catch"](24);
+              case 43:
+                _context4.prev = 43;
+                _context4.t0 = _context4["catch"](29);
                 console.log('user.signUp error: ', _context4.t0);
                 return _context4.abrupt("return", {});
 
-              case 38:
+              case 47:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[24, 34]]);
+        }, _callee4, null, [[29, 43]]);
       }));
 
       function signUp(_x13, _x14, _x15, _x16) {
@@ -320,91 +335,99 @@ var _default = {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                email = args.email, password = args.password; // Check if missing args
+                email = args.email, password = args.password;
+                console.log('email:', email);
+                console.log('password:', password); // Check if missing args
 
                 if (!(!email || !password)) {
-                  _context5.next = 3;
+                  _context5.next = 5;
                   break;
                 }
 
                 throw new _apolloServerExpress.AuthenticationError('login.missingCredentials');
 
-              case 3:
+              case 5:
                 _i2 = 0, _arr2 = [email, password];
 
-              case 4:
+              case 6:
                 if (!(_i2 < _arr2.length)) {
-                  _context5.next = 11;
+                  _context5.next = 13;
                   break;
                 }
 
                 input = _arr2[_i2];
 
                 if (!(typeof input !== 'string')) {
-                  _context5.next = 8;
+                  _context5.next = 10;
                   break;
                 }
 
                 throw new _apolloServerExpress.UserInputError('error.invalidArgument');
 
-              case 8:
+              case 10:
                 _i2++;
-                _context5.next = 4;
+                _context5.next = 6;
                 break;
 
-              case 11:
+              case 13:
                 // Normalize email
-                emailNormalized = email.trim().toLowerCase(); // Normalize password
+                emailNormalized = email.trim().toLowerCase();
+                console.log('emailNormalized:', emailNormalized); // Normalize password
 
-                passwordNormalized = email.trim(); // Check if email is well-formed
+                passwordNormalized = email.trim();
+                console.log('passwordNormalized:', passwordNormalized); // Check if email is well-formed
 
                 (0, _validation.isEmailWellFormed)(emailNormalized); // Check if password is well-formed
 
                 (0, _validation.isPasswordWellFormed)(passwordNormalized);
-                _context5.prev = 15;
-                _context5.next = 18;
+                _context5.prev = 19;
+                _context5.next = 22;
                 return ctx.prisma.user.findUnique({
                   where: {
                     email: email
                   }
                 });
 
-              case 18:
+              case 22:
                 userRecord = _context5.sent;
+                console.log('userRecord:', userRecord); // If user not found, return error
 
                 if (userRecord) {
-                  _context5.next = 21;
+                  _context5.next = 26;
                   break;
                 }
 
                 throw new _apolloServerExpress.AuthenticationError('login.invalidCredentials');
 
-              case 21:
+              case 26:
                 // Check if password input matches users password
                 (0, _validation.validatePassword)(password, userRecord.password); // Create access token
 
-                accessToken = (0, _accessToken.createAccessToken)(userRecord.id); // Send back new access token
+                accessToken = (0, _accessToken.createAccessToken)(userRecord.id);
+                console.log('accessToken:', accessToken);
+                console.log('cookieOptions:', _config.cookieOptions); // Send back new access token
 
                 ctx.res.cookie('at', accessToken, _config.cookieOptions); // Clean user data for client
 
-                clientUserData = (0, _userClientCleaner["default"])(userRecord); // Return user data
+                clientUserData = (0, _userClientCleaner["default"])(userRecord);
+                console.log('clientUserData:', clientUserData); // Return user data
 
                 return _context5.abrupt("return", {
                   user: clientUserData
                 });
 
-              case 28:
-                _context5.prev = 28;
-                _context5.t0 = _context5["catch"](15);
+              case 36:
+                _context5.prev = 36;
+                _context5.t0 = _context5["catch"](19);
                 console.log('user.logIn error: ', _context5.t0);
                 return _context5.abrupt("return", {});
 
-              case 32:
+              case 40:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[15, 28]]);
+        }, _callee5, null, [[19, 36]]);
       }));
 
       function logIn(_x17, _x18, _x19, _x20) {

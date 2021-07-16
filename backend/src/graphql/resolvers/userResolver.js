@@ -70,8 +70,12 @@ export default {
       if (!ctx.accessToken)
         return new AuthenticationError('user.invalidCredentials');
 
+      console.log('ctx.accessToken:', ctx.accessToken);
+
       // Verify access token and decode payload
       const payload = verifyAccessToken(ctx.accessToken);
+
+      console.log('payload:', payload);
 
       try {
         // Find user matching userId
@@ -79,17 +83,25 @@ export default {
           where: { id: payload.userId }
         });
 
+        console.log('userRecord:', userRecord);
+
         // If no user found, return error
         if (!userRecord) return AuthenticationError('user.notFound');
 
         // Create new access token
         const accessToken = createAccessToken(userRecord.id);
 
+        console.log('accessToken:', accessToken);
+
+        console.log('cookieOptions:', cookieOptions);
+
         // Send back new access token
         ctx.res.cookie('at', accessToken, cookieOptions);
 
         // Clean user data for client
         const clientUserData = userClientCleaner(userRecord);
+
+        console.log('clientUserData:', clientUserData);
 
         // Return user data
         return clientUserData;
@@ -104,6 +116,8 @@ export default {
   Mutation: {
     signUp: async (parent, args, ctx, info) => {
       const { email, password } = args;
+      console.log('email:', email);
+      console.log('password:', password);
 
       // Check if missing args
       if (!(email || password))
@@ -117,8 +131,12 @@ export default {
       // Normalize email
       const emailNormalized = email.trim().toLowerCase();
 
+      console.log('emailNormalized:', emailNormalized);
+
       // Normalize password
       const passwordNormalized = email.trim();
+
+      console.log('passwordNormalized:', passwordNormalized);
 
       // Check if email is well-formed
       isEmailWellFormed(emailNormalized);
@@ -139,20 +157,30 @@ export default {
       // Encrypt password
       const passwordHashed = await bcrypt.hash(passwordNormalized, saltRounds);
 
+      console.log('passwordHashed:', passwordHashed);
+
       try {
         // Create user
         const newUserRecord = await ctx.prisma.user.create({
           data: { email: emailNormalized, password: passwordHashed }
         });
 
+        console.log('newUserRecord:', newUserRecord);
+
         // Create access token
         const accessToken = createAccessToken(newUserRecord.id);
+
+        console.log('accessToken:', accessToken);
 
         // Send back new access token
         ctx.res.cookie('at', accessToken, cookieOptions);
 
+        console.log('cookieOptions:', cookieOptions);
+
         // Clean user data for client
         const clientUserData = userClientCleaner(newUserRecord);
+
+        console.log('clientUserData:', clientUserData);
 
         // Return user data
         return clientUserData;
@@ -166,6 +194,9 @@ export default {
     logIn: async (parent, args, ctx, info) => {
       const { email, password } = args;
 
+      console.log('email:', email);
+      console.log('password:', password);
+
       // Check if missing args
       if (!email || !password)
         throw new AuthenticationError('login.missingCredentials');
@@ -178,8 +209,12 @@ export default {
       // Normalize email
       const emailNormalized = email.trim().toLowerCase();
 
+      console.log('emailNormalized:', emailNormalized);
+
       // Normalize password
       const passwordNormalized = email.trim();
+
+      console.log('passwordNormalized:', passwordNormalized);
 
       // Check if email is well-formed
       isEmailWellFormed(emailNormalized);
@@ -193,6 +228,8 @@ export default {
           where: { email }
         });
 
+        console.log('userRecord:', userRecord);
+
         // If user not found, return error
         if (!userRecord)
           throw new AuthenticationError('login.invalidCredentials');
@@ -203,11 +240,17 @@ export default {
         // Create access token
         const accessToken = createAccessToken(userRecord.id);
 
+        console.log('accessToken:', accessToken);
+
+        console.log('cookieOptions:', cookieOptions);
+
         // Send back new access token
         ctx.res.cookie('at', accessToken, cookieOptions);
 
         // Clean user data for client
         const clientUserData = userClientCleaner(userRecord);
+
+        console.log('clientUserData:', clientUserData);
 
         // Return user data
         return { user: clientUserData };
