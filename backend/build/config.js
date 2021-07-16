@@ -8,6 +8,7 @@ var production = process.env.NODE_ENV === 'production';
 var port = process.env.PORT || 4000;
 exports.port = port;
 var deployedUrl = process.env.VERCEL_URL;
+console.log('deployedUrl:', deployedUrl);
 var frontendUrlProd = 'https://hmm-start.vercel.app';
 var frontendUrlDev = 'http://localhost:1337';
 var baseUrl = production ? frontendUrlProd : frontendUrlDev;
