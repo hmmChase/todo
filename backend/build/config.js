@@ -21,11 +21,12 @@ var cookieOptions = {
   expires: new Date(Date.now() + 365 * 52 * 7 * 24 * 60 * 60),
   httpOnly: true,
   secure: production,
-  // path: '/login',
   sameSite: production ? 'none' : 'strict',
-  // 'lax' not working
+  // production is cross-site
+  domain: '' // path: '/login',
+  // domain: production ? `hmm-start.vercel.app:${port}` : 'localhost'
   // sameParty: false,
-  domain: production ? "hmm-start.vercel.app:".concat(port) : 'localhost'
+
 };
 exports.cookieOptions = cookieOptions;
 var accessTokenExpiryTime = '10m';
