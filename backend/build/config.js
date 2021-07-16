@@ -24,13 +24,7 @@ var cookieOptions = {
   httpOnly: true,
   secure: production,
   path: '/',
-  sameSite: production ? 'none' : 'strict' // maxAge: cookieExpiry,
-  // expires: new Date(Date.now() + cookieExpiry),
-  // httpOnly: true,
-  // secure: production
-  // path: '/',
-  // sameSite: production ? 'none' : 'strict'
-  // sameSite: 'lax',
+  sameSite: production ? 'lax' : 'strict' // sameSite: 'lax',
   // sameParty: false,
   // domain: production ? '.vercel.app' : 'localhost'
 
