@@ -26,7 +26,7 @@ var cookieOptions = {
   sameSite: production ? 'none' : 'strict',
   // 'lax' not working
   // sameParty: false,
-  domain: production ? '.vercel.app' : 'localhost'
+  domain: production ? '' : 'localhost'
 };
 exports.cookieOptions = cookieOptions;
 var accessTokenExpiryTime = '10m';
