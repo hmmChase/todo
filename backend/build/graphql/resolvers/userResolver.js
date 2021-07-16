@@ -138,41 +138,38 @@ var _default = {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                console.log('port- ', _config.port);
-                console.log('deployedUrl- ', _config.deployedUrl); // If no access token, return error
-
                 if (ctx.accessToken) {
-                  _context3.next = 4;
+                  _context3.next = 2;
                   break;
                 }
 
                 return _context3.abrupt("return", new _apolloServerExpress.AuthenticationError('user.invalidCredentials'));
 
-              case 4:
+              case 2:
                 console.log('ctx.accessToken:', ctx.accessToken); // Verify access token and decode payload
 
                 payload = (0, _accessToken.verifyAccessToken)(ctx.accessToken);
                 console.log('payload:', payload);
-                _context3.prev = 7;
-                _context3.next = 10;
+                _context3.prev = 5;
+                _context3.next = 8;
                 return ctx.prisma.user.findUnique({
                   where: {
                     id: payload.userId
                   }
                 });
 
-              case 10:
+              case 8:
                 userRecord = _context3.sent;
                 console.log('userRecord:', userRecord); // If no user found, return error
 
                 if (userRecord) {
-                  _context3.next = 14;
+                  _context3.next = 12;
                   break;
                 }
 
                 return _context3.abrupt("return", (0, _apolloServerExpress.AuthenticationError)('user.notFound'));
 
-              case 14:
+              case 12:
                 // Create new access token
                 accessToken = (0, _accessToken.createAccessToken)(userRecord.id);
                 console.log('accessToken:', accessToken);
@@ -185,18 +182,18 @@ var _default = {
 
                 return _context3.abrupt("return", clientUserData);
 
-              case 23:
-                _context3.prev = 23;
-                _context3.t0 = _context3["catch"](7);
+              case 21:
+                _context3.prev = 21;
+                _context3.t0 = _context3["catch"](5);
                 console.log('user.currentUser error: ', _context3.t0);
                 return _context3.abrupt("return", {});
 
-              case 27:
+              case 25:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[7, 23]]);
+        }, _callee3, null, [[5, 21]]);
       }));
 
       function currentUser(_x9, _x10, _x11, _x12) {

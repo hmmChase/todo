@@ -1,8 +1,11 @@
-const production = process.env.NODE_ENV === 'production';
+const production =
+  process.env.VERCEL_ENV === 'production'
+    ? process.env.VERCEL_ENV
+    : process.env.NODE_ENV === 'production';
 
 export const port = process.env.PORT || 4000;
 
-export const deployedUrl = process.env.VERCEL_URL;
+const deployedUrl = process.env.VERCEL_URL;
 
 const frontendUrlProd = 'https://hmm-start.vercel.app';
 
@@ -10,7 +13,9 @@ const frontendUrlDev = 'http://localhost:1337';
 
 export const baseUrl = production ? frontendUrlProd : frontendUrlDev;
 
-export const CORSwhitelist = production ? [baseUrl, deployedUrl] : baseUrl;
+export const CORSwhitelist = production
+  ? [baseUrl, `https://${deployedUrl}`]
+  : baseUrl;
 
 // const cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 133 days
 
@@ -25,7 +30,7 @@ export const cookieOptions = {
 
   // sameParty: false,
 
-  domain: production ? 'hmm-start.vercel.app' : 'localhost'
+  domain: production ? `hmm-start.vercel.app:${port}` : 'localhost'
 };
 
 export const accessTokenExpiryTime = '10m';
