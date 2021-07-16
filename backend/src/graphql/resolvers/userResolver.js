@@ -8,7 +8,7 @@ import {
   isPasswordWellFormed,
   validatePassword
 } from '../../utils/validation';
-import { cookieOptions, saltRounds, port, deployedUrl } from '../../config';
+import { cookieOptions, saltRounds } from '../../config';
 
 export default {
   Query: {
@@ -66,9 +66,6 @@ export default {
 
     // Return authenticated user
     currentUser: async (parent, args, ctx, info) => {
-      console.log('port- ', port);
-      console.log('deployedUrl- ', deployedUrl);
-
       // If no access token, return error
       if (!ctx.accessToken)
         return new AuthenticationError('user.invalidCredentials');

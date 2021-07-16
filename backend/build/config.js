@@ -3,17 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.passwordMaxLength = exports.passwordMinLength = exports.saltRounds = exports.accessTokenExpiryTime = exports.cookieOptions = exports.CORSwhitelist = exports.baseUrl = exports.deployedUrl = exports.port = void 0;
-var production = process.env.NODE_ENV === 'production';
+exports.passwordMaxLength = exports.passwordMinLength = exports.saltRounds = exports.accessTokenExpiryTime = exports.cookieOptions = exports.CORSwhitelist = exports.baseUrl = exports.port = void 0;
+var production = process.env.VERCEL_ENV === 'production' ? process.env.VERCEL_ENV : process.env.NODE_ENV === 'production';
 var port = process.env.PORT || 4000;
 exports.port = port;
 var deployedUrl = process.env.VERCEL_URL;
-exports.deployedUrl = deployedUrl;
 var frontendUrlProd = 'https://hmm-start.vercel.app';
 var frontendUrlDev = 'http://localhost:1337';
 var baseUrl = production ? frontendUrlProd : frontendUrlDev;
 exports.baseUrl = baseUrl;
-var CORSwhitelist = production ? [baseUrl, deployedUrl] : baseUrl; // const cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 133 days
+var CORSwhitelist = production ? [baseUrl, "https://".concat(deployedUrl)] : baseUrl; // const cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 133 days
 // http://expressjs.com/en/5x/api.html#res.cookie
 
 exports.CORSwhitelist = CORSwhitelist;
@@ -26,7 +25,7 @@ var cookieOptions = {
   sameSite: production ? 'none' : 'strict',
   // 'lax' not working
   // sameParty: false,
-  domain: production ? 'hmm-start.vercel.app' : 'localhost'
+  domain: production ? "hmm-start.vercel.app:".concat(port) : 'localhost'
 };
 exports.cookieOptions = cookieOptions;
 var accessTokenExpiryTime = '10m';

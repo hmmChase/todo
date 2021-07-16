@@ -14,7 +14,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import createError from 'http-errors';
 
-import { CORSwhitelist } from './config.js';
+import { port, CORSwhitelist } from './config.js';
 import apolloServer from './graphql/apolloServer';
 import indexRouter from './rest/routes';
 
@@ -58,8 +58,6 @@ app.use((err, req, res, next) => {
 
 // ./bin/www.js file doesn't work on vercel
 if (production) {
-  const port = process.env.PORT || '8008';
-
   app.listen({ port }, err => {
     if (err) throw err;
 

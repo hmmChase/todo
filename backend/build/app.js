@@ -79,12 +79,11 @@ app.use(function (err, req, res, next) {
 }); // ./bin/www.js file doesn't work on vercel
 
 if (production) {
-  var port = process.env.PORT || '8008';
   app.listen({
-    port: port
+    port: _config.port
   }, function (err) {
     if (err) throw err;
-    console.log('Server ready on port:', port);
+    console.log('Server ready on port:', _config.port);
   });
 }
 
