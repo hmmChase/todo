@@ -23,7 +23,7 @@ export const cookieOptions = {
   httpOnly: true,
   secure: production,
   path: '/',
-  sameSite: production ? 'lax' : 'strict'
+  sameSite: production ? 'none' : 'strict' // 'lax' not working
 
   // sameSite: 'lax',
   // sameParty: false,

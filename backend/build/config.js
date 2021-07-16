@@ -24,7 +24,8 @@ var cookieOptions = {
   httpOnly: true,
   secure: production,
   path: '/',
-  sameSite: production ? 'lax' : 'strict' // sameSite: 'lax',
+  sameSite: production ? 'none' : 'strict' // 'lax' not working
+  // sameSite: 'lax',
   // sameParty: false,
   // domain: production ? '.vercel.app' : 'localhost'
 
