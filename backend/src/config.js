@@ -14,12 +14,12 @@ export const baseUrl = production ? frontendUrlProd : frontendUrlDev;
 
 export const CORSwhitelist = production ? [baseUrl, deployedUrl] : baseUrl;
 
-const cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 2.21 days
+// const cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 2.21 days
 
 // http://expressjs.com/en/5x/api.html#res.cookie
 export const cookieOptions = {
-  maxAge: cookieExpiry,
-  expires: new Date(Date.now() + cookieExpiry),
+  maxAge: 365 * 52 * 7 * 24 * 60 * 60,
+  expires: new Date(Date.now() + 365 * 52 * 7 * 24 * 60 * 60),
   httpOnly: true,
   secure: production,
   path: '/',

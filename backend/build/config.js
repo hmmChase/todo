@@ -13,14 +13,13 @@ var frontendUrlProd = 'https://hmm-start.vercel.app';
 var frontendUrlDev = 'http://localhost:1337';
 var baseUrl = production ? frontendUrlProd : frontendUrlDev;
 exports.baseUrl = baseUrl;
-var CORSwhitelist = production ? [baseUrl, deployedUrl] : baseUrl;
-exports.CORSwhitelist = CORSwhitelist;
-var cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 2.21 days
+var CORSwhitelist = production ? [baseUrl, deployedUrl] : baseUrl; // const cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 2.21 days
 // http://expressjs.com/en/5x/api.html#res.cookie
 
+exports.CORSwhitelist = CORSwhitelist;
 var cookieOptions = {
-  maxAge: cookieExpiry,
-  expires: new Date(Date.now() + cookieExpiry),
+  maxAge: 365 * 52 * 7 * 24 * 60 * 60,
+  expires: new Date(Date.now() + 365 * 52 * 7 * 24 * 60 * 60),
   httpOnly: true,
   secure: production,
   path: '/',
