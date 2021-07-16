@@ -23,8 +23,10 @@ var cookieOptions = {
   secure: production,
   sameSite: production ? 'none' : 'strict',
   // production is cross-site
-  domain: '' // path: '/login',
-  // domain: production ? `hmm-start.vercel.app:${port}` : 'localhost'
+  domain: '',
+  //  hmm-start-backend.vercel.app
+  // path: '/'
+  path: '/gql' // domain: production ? `hmm-start.vercel.app:${port}` : 'localhost'
   // sameParty: false,
 
 };
