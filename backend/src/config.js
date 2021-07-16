@@ -27,7 +27,7 @@ export const cookieOptions = {
 
   // sameParty: false,
 
-  domain: production ? '.vercel.app' : 'localhost'
+  domain: production ? '' : 'localhost'
 };
 
 export const accessTokenExpiryTime = '10m';
