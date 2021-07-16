@@ -8,7 +8,7 @@ import {
   isPasswordWellFormed,
   validatePassword
 } from '../../utils/validation';
-import { cookieOptions, saltRounds } from '../../config';
+import { cookieOptions, saltRounds, deployedUrl } from '../../config';
 
 export default {
   Query: {
@@ -193,6 +193,8 @@ export default {
 
     logIn: async (parent, args, ctx, info) => {
       const { email, password } = args;
+
+      console.log('deployedUrl:', deployedUrl);
 
       console.log('email:', email);
       console.log('password:', password);
