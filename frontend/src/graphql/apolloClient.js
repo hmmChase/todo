@@ -5,7 +5,7 @@ import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 
-import { BASE_URL } from '../config';
+import { baseUrl } from '../config';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -18,7 +18,7 @@ const createApolloClient = () => {
     cache: new InMemoryCache(),
 
     link: new HttpLink({
-      uri: `${BASE_URL}/gql`, // Server URL (must be absolute)
+      uri: `${baseUrl}/gql`, // Server URL (must be absolute)
 
       // Additional fetch() options like `credentials` or `headers`
       credentials: 'include'

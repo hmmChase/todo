@@ -14,9 +14,21 @@ const LogIn = () => {
 
   const client = useApolloClient();
 
-  const [logIn] = useMutation(LOG_IN);
+  const [logIn] = useMutation(LOG_IN, {
+    onCompleted: async () => {
+      console.log('onCompleted:');
 
-  async function handleSubmit(event) {
+      await router.push('/');
+    },
+
+    onError: async error => {
+      console.log('logIn error: ', error);
+
+      setErrorMsg(graphQLErrors(error));
+    }
+  });
+
+  const handleSubmit = async event => {
     event.preventDefault();
 
     const emailElement = event.currentTarget.elements.email;
@@ -26,18 +38,18 @@ const LogIn = () => {
     try {
       await client.resetStore();
 
-      const response = await logIn({
+      await logIn({
         variables: {
           email: emailElement.value,
           password: passwordElement.value
         }
       });
-
-      if (response.data.logIn.user) await router.push('/');
     } catch (error) {
+      console.log('error logIn: ', error);
+
       setErrorMsg(graphQLErrors(error));
     }
-  }
+  };
 
   return (
     <>

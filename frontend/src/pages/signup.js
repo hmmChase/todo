@@ -14,9 +14,17 @@ function SignUp() {
 
   const client = useApolloClient();
 
-  const [signUp] = useMutation(SIGN_UP);
+  const [signUp] = useMutation(SIGN_UP, {
+    onCompleted: async () => await router.push('/'),
 
-  async function handleSubmit(event) {
+    onError: async error => {
+      console.log('signUp error: ', error);
+
+      setErrorMsg(graphQLErrors(error));
+    }
+  });
+
+  const handleSubmit = async event => {
     event.preventDefault();
 
     const emailElement = event.currentTarget.elements.email;
@@ -26,18 +34,18 @@ function SignUp() {
     try {
       await client.resetStore();
 
-      const response = await signUp({
+      await signUp({
         variables: {
           email: emailElement.value,
           password: passwordElement.value
         }
       });
-
-      if (response.data.signUp.user) await router.push('/');
     } catch (error) {
+      console.log('error SignUp: ', error);
+
       setErrorMsg(graphQLErrors(error));
     }
-  }
+  };
 
   return (
     <>

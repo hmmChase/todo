@@ -213,7 +213,7 @@ var _default = {
                   break;
                 }
 
-                throw new _apolloServerExpress.AuthenticationError('error.missingArgument');
+                throw new _apolloServerExpress.UserInputError('error.missingArgument');
 
               case 3:
                 _i = 0, _arr = [email, password];
@@ -231,7 +231,7 @@ var _default = {
                   break;
                 }
 
-                throw new UserInputError('error.invalidArgument');
+                throw new _apolloServerExpress.UserInputError('error.invalidArgument');
 
               case 8:
                 _i++;
@@ -257,24 +257,23 @@ var _default = {
 
               case 17:
                 foundUser = _context4.sent;
+                console.log('foundUser:', foundUser); // If user found, return error
 
                 if (!foundUser) {
-                  _context4.next = 20;
+                  _context4.next = 21;
                   break;
                 }
 
-                throw new _apolloServerExpress.AuthenticationError({
-                  error: 'email.invalid'
-                });
+                throw new _apolloServerExpress.UserInputError('email.invalid');
 
-              case 20:
-                _context4.next = 22;
+              case 21:
+                _context4.next = 23;
                 return _bcryptjs["default"].hash(passwordNormalized, _config.saltRounds);
 
-              case 22:
+              case 23:
                 passwordHashed = _context4.sent;
-                _context4.prev = 23;
-                _context4.next = 26;
+                _context4.prev = 24;
+                _context4.next = 27;
                 return ctx.prisma.user.create({
                   data: {
                     email: emailNormalized,
@@ -282,7 +281,7 @@ var _default = {
                   }
                 });
 
-              case 26:
+              case 27:
                 newUserRecord = _context4.sent;
                 // Create access token
                 accessToken = (0, _accessToken.createAccessToken)(newUserRecord.id); // Send back new access token
@@ -293,18 +292,18 @@ var _default = {
 
                 return _context4.abrupt("return", clientUserData);
 
-              case 33:
-                _context4.prev = 33;
-                _context4.t0 = _context4["catch"](23);
+              case 34:
+                _context4.prev = 34;
+                _context4.t0 = _context4["catch"](24);
                 console.log('user.signUp error: ', _context4.t0);
                 return _context4.abrupt("return", {});
 
-              case 37:
+              case 38:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[23, 33]]);
+        }, _callee4, null, [[24, 34]]);
       }));
 
       function signUp(_x13, _x14, _x15, _x16) {
@@ -346,7 +345,7 @@ var _default = {
                   break;
                 }
 
-                throw new UserInputError('error.invalidArgument');
+                throw new _apolloServerExpress.UserInputError('error.invalidArgument');
 
               case 8:
                 _i2++;
@@ -420,6 +419,8 @@ var _default = {
       //   path: '/'
       // });
       // ctx.res.setHeader('Set-Cookie', cookie);
+      delete _config.cookieOptions.expires;
+      delete _config.cookieOptions.maxAge;
       ctx.res.clearCookie('at', _config.cookieOptions);
       return true;
     }
