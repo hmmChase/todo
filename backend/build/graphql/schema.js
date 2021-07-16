@@ -17,13 +17,9 @@ var _resolvers = _interopRequireDefault(require("./resolvers"));
 var development = process.env.NODE_ENV === 'development';
 var schema = (0, _graphqlTools.makeExecutableSchema)({
   typeDefs: _typeDefs["default"],
-  resolvers: _resolvers["default"],
-  logger: development && {
-    log: function log(e) {
-      return console.log(e);
-    }
-  },
-  allowUndefinedInResolve: !development
+  resolvers: _resolvers["default"] // logger: development && { log: e => console.log(e) },
+  // allowUndefinedInResolve: !development
+
 });
 var _default = schema;
 exports["default"] = _default;

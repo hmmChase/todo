@@ -19,9 +19,9 @@ export const cookieOptions = {
   maxAge: cookieExpiry,
   expires: new Date(Date.now() + cookieExpiry),
   httpOnly: true,
-  secure: production,
-  path: '/',
-  sameSite: production ? 'none' : 'strict'
+  secure: production
+  // path: '/',
+  // sameSite: production ? 'none' : 'strict'
   // sameSite: 'lax',
   // sameParty: false,
   // domain: production ? '.vercel.app' : 'localhost'

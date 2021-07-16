@@ -1,4 +1,4 @@
-import { AuthenticationError } from 'apollo-server-express';
+import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import bcrypt from 'bcryptjs';
 
 import { createAccessToken, verifyAccessToken } from '../../utils/accessToken';
@@ -107,7 +107,7 @@ export default {
 
       // Check if missing args
       if (!(email || password))
-        throw new AuthenticationError('error.missingArgument');
+        throw new UserInputError('error.missingArgument');
 
       // Type check
       for (const input of [email, password])
@@ -131,8 +131,10 @@ export default {
         where: { email: emailNormalized }
       });
 
+      console.log('foundUser:', foundUser);
+
       // If user found, return error
-      if (foundUser) throw new AuthenticationError({ error: 'email.invalid' });
+      if (foundUser) throw new UserInputError('email.invalid');
 
       // Encrypt password
       const passwordHashed = await bcrypt.hash(passwordNormalized, saltRounds);
@@ -222,6 +224,9 @@ export default {
       //   path: '/'
       // });
       // ctx.res.setHeader('Set-Cookie', cookie);
+
+      delete cookieOptions.expires;
+      delete cookieOptions.maxAge;
 
       ctx.res.clearCookie('at', cookieOptions);
 
