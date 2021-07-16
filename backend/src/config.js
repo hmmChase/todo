@@ -11,24 +11,22 @@ const frontendUrlProd = 'https://hmm-start.vercel.app';
 
 const frontendUrlDev = 'http://localhost:1337';
 
-export const baseUrl = production ? frontendUrlProd : frontendUrlDev;
-
 export const CORSwhitelist = production
-  ? [baseUrl, `https://${deployedUrl}`]
-  : baseUrl;
+  ? [frontendUrlProd, `https://${deployedUrl}`]
+  : frontendUrlDev;
 
-// const cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 133 days
+const cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
 
 // http://expressjs.com/en/5x/api.html#res.cookie
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
 export const cookieOptions = {
-  maxAge: 365 * 52 * 7 * 24 * 60 * 60,
-  expires: new Date(Date.now() + 365 * 52 * 7 * 24 * 60 * 60),
+  maxAge: cookieExpiry,
+  expires: new Date(Date.now() + cookieExpiry),
   httpOnly: true,
   secure: production,
   sameSite: production ? 'none' : 'strict', // production is cross-site
-  domain: '', //  hmm-start-backend.vercel.app
-  // path: '/'
-  path: '/gql'
+  path: '/gql',
+  domain: '' //  hmm-start-backend.vercel.app
   // domain: production ? `hmm-start.vercel.app:${port}` : 'localhost'
   // sameParty: false,
 };
