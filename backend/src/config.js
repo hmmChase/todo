@@ -18,8 +18,8 @@ const cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 2.21 days
 
 // http://expressjs.com/en/5x/api.html#res.cookie
 export const cookieOptions = {
-  maxAge: 365 * 52 * 7,
-  expires: new Date(Date.now() + 365 * 52 * 7 * 1000),
+  maxAge: cookieExpiry,
+  expires: new Date(Date.now() + cookieExpiry),
   httpOnly: true,
   secure: production,
   path: '/',
