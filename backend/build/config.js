@@ -3,30 +3,29 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.passwordMaxLength = exports.passwordMinLength = exports.saltRounds = exports.accessTokenExpiryTime = exports.cookieOptions = exports.CORSwhitelist = exports.baseUrl = exports.port = void 0;
+exports.passwordMaxLength = exports.passwordMinLength = exports.saltRounds = exports.accessTokenExpiryTime = exports.cookieOptions = exports.CORSwhitelist = exports.port = void 0;
 var production = process.env.VERCEL_ENV === 'production' ? process.env.VERCEL_ENV : process.env.NODE_ENV === 'production';
 var port = process.env.PORT || 4000;
 exports.port = port;
 var deployedUrl = process.env.VERCEL_URL;
 var frontendUrlProd = 'https://hmm-start.vercel.app';
 var frontendUrlDev = 'http://localhost:1337';
-var baseUrl = production ? frontendUrlProd : frontendUrlDev;
-exports.baseUrl = baseUrl;
-var CORSwhitelist = production ? [baseUrl, "https://".concat(deployedUrl)] : baseUrl; // const cookieExpiry = 365 * 52 * 7 * 24 * 60 * 60; // 133 days
-// http://expressjs.com/en/5x/api.html#res.cookie
-
+var CORSwhitelist = production ? [frontendUrlProd, "https://".concat(deployedUrl)] : frontendUrlDev;
 exports.CORSwhitelist = CORSwhitelist;
+var cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
+// http://expressjs.com/en/5x/api.html#res.cookie
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
+
 var cookieOptions = {
-  maxAge: 365 * 52 * 7 * 24 * 60 * 60,
-  expires: new Date(Date.now() + 365 * 52 * 7 * 24 * 60 * 60),
+  maxAge: cookieExpiry,
+  expires: new Date(Date.now() + cookieExpiry),
   httpOnly: true,
   secure: production,
   sameSite: production ? 'none' : 'strict',
   // production is cross-site
-  domain: '',
-  //  hmm-start-backend.vercel.app
-  // path: '/'
-  path: '/gql' // domain: production ? `hmm-start.vercel.app:${port}` : 'localhost'
+  path: '/gql',
+  domain: '' //  hmm-start-backend.vercel.app
+  // domain: production ? `hmm-start.vercel.app:${port}` : 'localhost'
   // sameParty: false,
 
 };

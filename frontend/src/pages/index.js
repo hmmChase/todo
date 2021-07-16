@@ -8,21 +8,15 @@ import { CURRENT_USER } from '../graphql/queries/user';
 const IndexPage = () => {
   // const router = useRouter();
 
-  const { loading, error, data } = useQuery(CURRENT_USER);
-
-  console.log('IndexPage data: ', data);
+  const { loading, data } = useQuery(CURRENT_USER, {
+    onError: error => console.log('IndexPage CURRENT_USER error: ', error)
+  });
 
   const currentUser = data?.currentUser;
 
   // const shouldRedirect = !(loading || error || currentUser);
 
   // useEffect(() => shouldRedirect && router.push('/login'), [shouldRedirect]);
-
-  if (error) {
-    console.log('IndexPage CURRENT_USER error: ', error);
-
-    // return <p>{error.message}</p>;
-  }
 
   if (!loading && !currentUser) {
     return (
