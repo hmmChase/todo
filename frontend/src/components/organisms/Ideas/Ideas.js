@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 // import { useQuery } from '@apollo/client';
 import { ideasPerPage } from '../../../config';
-import { CURRENT_USER_PAGINATED_IDEAS } from '../../../graphql/queries';
+import { CURRENT_USER_PAGINATED_IDEAS } from '../../../graphql/queries/idea';
 import DisplayLoading from '../../molecules/DisplayLoading/DisplayLoading';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import * as sc from './Ideas.style';

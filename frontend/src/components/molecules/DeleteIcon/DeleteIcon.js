@@ -5,7 +5,7 @@ import { ideasPerPage } from '../../../config';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
   DELETE_IDEA
-} from '../../../graphql/queries';
+} from '../../../graphql/queries/idea';
 import { XIconBtn } from '../../atoms/IconBtn/IconBtn';
 
 const DeleteIcon = props => {

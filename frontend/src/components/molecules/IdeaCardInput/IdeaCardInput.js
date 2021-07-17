@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 // import { useMutation } from '@apollo/client';
 import debounce from 'lodash.debounce';
 import { debounceDelay } from '../../../config';
-import { UPDATE_IDEA } from '../../../graphql/queries';
+import { UPDATE_IDEA } from '../../../graphql/queries/idea';
 import TextArea from '../../atoms/TextArea/TextArea';
 
 const IdeaCardInput = props => {
