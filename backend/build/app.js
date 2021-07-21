@@ -23,6 +23,8 @@ var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 
 var _morgan = _interopRequireDefault(require("morgan"));
 
+require("ts-tiny-invariant");
+
 var _apolloServer = _interopRequireDefault(require("./graphql/apolloServer"));
 
 var _routes = _interopRequireDefault(require("./rest/routes"));

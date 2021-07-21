@@ -17,6 +17,8 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 // import createError from 'http-errors';
 
+import 'ts-tiny-invariant';
+
 // In production, env vars are defined on the host
 if (!production) require('dotenv').config();
 
