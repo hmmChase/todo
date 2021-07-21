@@ -19,6 +19,12 @@ export const corsOptions = { origin: CORSwhitelist, credentials: true };
 
 export const graphqlPath = '/gql';
 
+export const saltRounds = 10;
+
+const accessTokenExpiryTime = '1w';
+
+export const JWToptions = { expiresIn: accessTokenExpiryTime };
+
 const cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
 
 // http://expressjs.com/en/5x/api.html#res.cookie
@@ -34,10 +40,6 @@ export const cookieOptions = {
   // domain: production ? `hmm-start.vercel.app:${port}` : 'localhost'
   sameParty: true // allow cookies to be set by same origin
 };
-
-export const accessTokenExpiryTime = '10m';
-
-export const saltRounds = 10;
 
 export const passwordMinLength = 8;
 export const passwordMaxLength = 30;

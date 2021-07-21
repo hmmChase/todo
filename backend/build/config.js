@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.passwordMaxLength = exports.passwordMinLength = exports.saltRounds = exports.accessTokenExpiryTime = exports.cookieOptions = exports.graphqlPath = exports.corsOptions = exports.port = void 0;
+exports.passwordMaxLength = exports.passwordMinLength = exports.cookieOptions = exports.JWToptions = exports.saltRounds = exports.graphqlPath = exports.corsOptions = exports.port = void 0;
 var port = process.env.PORT || 4000;
 exports.port = port;
 var production = process.env.VERCEL_ENV === 'production' ? process.env.VERCEL_ENV : process.env.NODE_ENV === 'production';
@@ -18,6 +18,13 @@ var corsOptions = {
 exports.corsOptions = corsOptions;
 var graphqlPath = '/gql';
 exports.graphqlPath = graphqlPath;
+var saltRounds = 10;
+exports.saltRounds = saltRounds;
+var accessTokenExpiryTime = '1w';
+var JWToptions = {
+  expiresIn: accessTokenExpiryTime
+};
+exports.JWToptions = JWToptions;
 var cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
 // http://expressjs.com/en/5x/api.html#res.cookie
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
@@ -38,10 +45,6 @@ var cookieOptions = {
 
 };
 exports.cookieOptions = cookieOptions;
-var accessTokenExpiryTime = '10m';
-exports.accessTokenExpiryTime = accessTokenExpiryTime;
-var saltRounds = 10;
-exports.saltRounds = saltRounds;
 var passwordMinLength = 8;
 exports.passwordMinLength = passwordMinLength;
 var passwordMaxLength = 30;
