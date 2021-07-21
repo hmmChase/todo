@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { IDEAS } from '../graphql/queries/idea';
+import graphQLErrors from '../utils/graphQLErrors';
 
 const Ideas = () => {
   const [errorMsg, setErrorMsg] = useState();
