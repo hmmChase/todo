@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
 
 import { LOG_IN } from '../graphql/queries/user';
-import Field from '../components/temp/Field';
+import Field from '../components/Field';
 import graphQLErrors from '../utils/graphQLErrors';
 
 const LogIn = () => {
@@ -22,7 +22,7 @@ const LogIn = () => {
     },
 
     onError: async error => {
-      console.log('logIn error: ', error);
+      console.log('LOG_IN error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }

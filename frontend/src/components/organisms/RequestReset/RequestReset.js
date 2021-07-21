@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { Form as FormikForm, Formik } from 'formik';
 import { object } from 'yup';
 import { email } from '../../../utils/validation';
-import { REQUEST_RESET } from '../../../graphql/queries';
+import { REQUEST_RESET } from '../../../graphql/queries/user';
 import FormInput from '../../atoms/FormInput/FormInput';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import DisplaySuccess from '../../molecules/DisplaySuccess/DisplaySuccess';

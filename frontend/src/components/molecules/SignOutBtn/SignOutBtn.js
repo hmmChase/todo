@@ -3,7 +3,7 @@ import Router from 'next/router';
 import { _useApolloClient, useMutation } from '@apollo/client';
 // import { useMutation } from '@apollo/client';
 import { clearAccessToken } from '../../../utils/accessToken';
-import { SIGN_OUT, IS_LOGGED_IN } from '../../../graphql/queries';
+import { SIGN_OUT, IS_LOGGED_IN } from '../../../graphql/queries/user';
 import Button from '../../atoms/Button/Button';
 
 const SignOutBtn = props => {

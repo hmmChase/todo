@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 // import { useQuery } from '@apollo/client';
-import { CURRENT_USER } from '../../../graphql/queries';
+import { CURRENT_USER } from '../../../graphql/queries/user';
 import * as sc from './Header.style';
 
 const Header = props => {

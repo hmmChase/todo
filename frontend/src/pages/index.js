@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 
 import { CURRENT_USER } from '../graphql/queries/user';
+import Ideas from '../components/Ideas';
 
 const IndexPage = () => {
   // const router = useRouter();
 
   const { loading, data } = useQuery(CURRENT_USER, {
-    onError: error => console.log('IndexPage CURRENT_USER error: ', error)
+    onError: error => console.log('CURRENT_USER error: ', error)
   });
 
   const currentUser = data?.currentUser;
@@ -34,6 +35,8 @@ const IndexPage = () => {
         <Link href='/logout'>
           <a>logout</a>
         </Link>
+
+        <Ideas />
       </>
     );
   }

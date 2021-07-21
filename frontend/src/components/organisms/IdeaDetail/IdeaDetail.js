@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 // import { useQuery } from '@apollo/client';
-import { CURRENT_USER_IDEA } from '../../../graphql/queries';
+import { CURRENT_USER_IDEA } from '../../../graphql/queries/idea';
 import DisplayLoading from '../../molecules/DisplayLoading/DisplayLoading';
 import DisplayError from '../../molecules/DisplayError/DisplayError';
 import IdeaCardInput from '../../molecules/IdeaCardInput/IdeaCardInput';

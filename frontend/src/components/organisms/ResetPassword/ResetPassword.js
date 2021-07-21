@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 import { object } from 'yup';
 import { password } from '../../../utils/validation';
 import { passResetSuccessful } from '../../../config';
-import { RESET_PASSWORD } from '../../../graphql/queries';
+import { RESET_PASSWORD } from '../../../graphql/queries/user';
 import BackBtn from '../../molecules/BackBtn/BackBtn';
 import FormInputPass from '../../atoms/FormInputPass/FormInputPass';
 import DisplayError from '../../molecules/DisplayError/DisplayError';

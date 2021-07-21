@@ -5,7 +5,7 @@ import { ideasPerPage } from '../../../config';
 import {
   CURRENT_USER_PAGINATED_IDEAS,
   CREATE_IDEA
-} from '../../../graphql/queries';
+} from '../../../graphql/queries/idea';
 import * as sc from './IdeaCardForm.style';
 
 const IdeaCardForm = () => {

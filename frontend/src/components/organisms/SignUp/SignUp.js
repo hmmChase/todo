@@ -6,7 +6,7 @@ import { Form as FormikForm, Formik } from 'formik';
 import { object } from 'yup';
 import { setAccessToken } from '../../../utils/accessToken';
 import { username, email, password } from '../../../utils/validation';
-import { SIGN_UP } from '../../../graphql/queries';
+import { SIGN_UP } from '../../../graphql/queries/user';
 import FormInput from '../../atoms/FormInput/FormInput';
 import FormInputPass from '../../atoms/FormInputPass/FormInputPass';
 import DisplayError from '../../molecules/DisplayError/DisplayError';

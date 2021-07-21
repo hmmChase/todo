@@ -6,7 +6,7 @@ import userClientCleaner from '../../utils/userClientCleaner';
 import {
   isEmailWellFormed,
   isPasswordWellFormed,
-  validatePassword
+  isPasswordValid
 } from '../../utils/validation';
 import { cookieOptions, saltRounds } from '../../config';
 
@@ -126,18 +126,21 @@ export default {
       // Check if password is well-formed
       isPasswordWellFormed(passwordNormalized);
 
-      // Find user matching email
-      const foundUser = await ctx.prisma.user.findUnique({
-        where: { email: emailNormalized }
-      });
-
-      // If user found, return error
-      if (foundUser) throw new UserInputError('email.invalid');
-
-      // Encrypt password
-      const passwordHashed = await bcrypt.hash(passwordNormalized, saltRounds);
-
       try {
+        // Find user matching email
+        const foundUser = await ctx.prisma.user.findUnique({
+          where: { email: emailNormalized }
+        });
+
+        // If user found, return error
+        if (foundUser) throw new UserInputError('email.invalid');
+
+        // Encrypt password
+        const passwordHashed = await bcrypt.hash(
+          passwordNormalized,
+          saltRounds
+        );
+
         // Create user
         const newUserRecord = await ctx.prisma.user.create({
           data: { email: emailNormalized, password: passwordHashed }
@@ -196,7 +199,7 @@ export default {
           throw new AuthenticationError('login.invalidCredentials');
 
         // Check if password input matches users password
-        validatePassword(password, userRecord.password);
+        isPasswordValid(password, userRecord.password);
 
         // Create access token
         const accessToken = createAccessToken(userRecord.id);

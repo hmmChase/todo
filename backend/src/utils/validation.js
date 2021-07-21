@@ -15,8 +15,7 @@ export const isEmailWellFormed = email => {
 
 export const isPasswordWellFormed = password => {
   /*
-  https://regexr.com/3bfsi
-  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
+  https://regexr.com
   - within min & max characters
   */
 
@@ -33,7 +32,7 @@ export const isPasswordWellFormed = password => {
     );
 };
 
-export const validatePassword = async (inputPassword, hashedPassword) => {
+export const isPasswordValid = async (inputPassword, hashedPassword) => {
   // const valid = await argon2.verify(hashedPassword, inputPassword);
 
   const isCorrectPass = await bcrypt.compare(inputPassword, hashedPassword);
