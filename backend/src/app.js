@@ -67,29 +67,29 @@ app.use((err, req, res, next) => {
 })();
 
 // ./bin/www.js not working on vercel
-// if (production)
-(async () => {
-  try {
-    let httpServer;
+if (production)
+  (async () => {
+    try {
+      let httpServer;
 
-    const hostname = deployedUrl || 'localhost';
+      const hostname = deployedUrl || 'localhost';
 
-    await new Promise(
-      resolve => (httpServer = app.listen(port, hostname, resolve))
-    );
+      await new Promise(
+        resolve => (httpServer = app.listen(port, hostname, resolve))
+      );
 
-    const address = await httpServer.address();
+      const address = await httpServer.address();
 
-    const protocol = production ? 'https' : 'http';
+      const protocol = production ? 'https' : 'http';
 
-    const serverUrl = `${protocol}://${address.address}:${port}${apolloServer.graphqlPath}`;
+      const serverUrl = `${protocol}://${address.address}:${port}${apolloServer.graphqlPath}`;
 
-    console.log('🚀 Server ready at', serverUrl);
-  } catch (error) {
-    console.error('An error occurred while starting the server: ', error);
+      console.log('🚀 Server ready at', serverUrl);
+    } catch (error) {
+      console.error('An error occurred while starting the server: ', error);
 
-    process.exit(1);
-  }
-})();
+      process.exit(1);
+    }
+  })();
 
 export default app;
