@@ -42,6 +42,7 @@ https://expressjs.com/en/advanced/best-practice-performance.html
 
 */
 // import createError from 'http-errors';
+// https://github.com/vercel/vercel/discussions/5846
 // In production, env vars are defined on the host
 if (!production) require('dotenv').config();
 var production = process.env.NODE_ENV === 'production';
