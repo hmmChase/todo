@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
 
 import { SIGN_UP } from '../graphql/queries/user';
-import Field from '../components/temp/Field';
+import Field from '../components/Field';
 import graphQLErrors from '../utils/graphQLErrors';
 
 function SignUp() {
@@ -18,7 +18,7 @@ function SignUp() {
     onCompleted: async () => await router.push('/'),
 
     onError: async error => {
-      console.log('signUp error: ', error);
+      console.log('SIGN_UP error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }

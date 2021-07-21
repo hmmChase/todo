@@ -15,7 +15,6 @@ const MyApp = props => {
   const { Component, pageProps } = props;
 
   const apolloClient = useApollo(pageProps);
-  // const apolloClient = useApollo(pageProps.initialApolloState)
 
   /**
    * Render our app

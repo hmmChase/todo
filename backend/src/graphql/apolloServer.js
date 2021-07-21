@@ -3,25 +3,16 @@ import { ApolloServer } from 'apollo-server-express';
 import prisma from '../prisma/prisma';
 import schema from './schema';
 
-const server = () => {
-  const development = process.env.NODE_ENV === 'development';
+// https://www.apollographql.com/docs/apollo-server/api/apollo-server/
 
-  return new ApolloServer({
-    schema,
+const apolloServer = new ApolloServer({
+  schema,
 
-    context: async ({ req, res }) => {
-      let accessToken = req.cookies.at;
+  context: async ({ req, res }) => {
+    let accessToken = req.cookies.at ? req.cookies.at : '';
 
-      return { req, res, prisma, accessToken };
-    },
+    return { req, res, prisma, accessToken };
+  }
+});
 
-    tracing: development,
-    debug: development,
-    introspection: development,
-    playground: development && {
-      settings: { 'editor.theme': 'light', 'request.credentials': 'include' }
-    }
-  });
-};
-
-export default server;
+export default apolloServer;

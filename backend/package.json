@@ -9,6 +9,7 @@
   "license": "",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/bin/www",
+    "dev:app": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/app.js",
     "start": "node ./build/app.js",
     "start:www": "node ./build/bin/www",
     "seed": "node ./src/prisma/seed.js",
@@ -21,13 +22,13 @@
     "postinstall": "npm run generate && npm run migrate:prod"
   },
   "dependencies": {
-    "@prisma/client": "^2.25.0",
-    "apollo-server-express": "^2.25.2",
+    "@prisma/client": "^2.27.0",
+    "apollo-server-express": "^3.0.2",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "debug": "^4.3.1",
+    "debug": "^4.3.2",
     "express": "^4.17.1",
     "graphql": "^15.5.1",
     "helmet": "^4.6.0",
@@ -38,14 +39,14 @@
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.14.5",
-    "@babel/core": "^7.14.6",
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.14.8",
     "@babel/node": "^7.14.7",
     "@babel/plugin-transform-runtime": "^7.14.5",
-    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-env": "^7.14.8",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
-    "nodemon": "^2.0.7",
-    "prisma": "^2.25.0"
+    "nodemon": "^2.0.12",
+    "prisma": "^2.27.0"
   }
 }

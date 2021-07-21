@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.validatePassword = exports.isPasswordWellFormed = exports.isEmailWellFormed = void 0;
+exports.isPasswordValid = exports.isPasswordWellFormed = exports.isEmailWellFormed = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -34,8 +34,7 @@ exports.isEmailWellFormed = isEmailWellFormed;
 
 var isPasswordWellFormed = function isPasswordWellFormed(password) {
   /*
-  https://regexr.com/3bfsi
-  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
+  https://regexr.com
   - within min & max characters
   */
   var tooShort = password.length < _config.passwordMinLength;
@@ -46,7 +45,7 @@ var isPasswordWellFormed = function isPasswordWellFormed(password) {
 
 exports.isPasswordWellFormed = isPasswordWellFormed;
 
-var validatePassword = /*#__PURE__*/function () {
+var isPasswordValid = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(inputPassword, hashedPassword) {
     var isCorrectPass;
     return _regenerator["default"].wrap(function _callee$(_context) {
@@ -74,10 +73,10 @@ var validatePassword = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function validatePassword(_x, _x2) {
+  return function isPasswordValid(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();
 
-exports.validatePassword = validatePassword;
+exports.isPasswordValid = isPasswordValid;
 //# sourceMappingURL=validation.js.map

@@ -246,32 +246,31 @@ var _default = {
 
                 (0, _validation.isEmailWellFormed)(emailNormalized); // Check if password is well-formed
 
-                (0, _validation.isPasswordWellFormed)(passwordNormalized); // Find user matching email
-
-                _context4.next = 17;
+                (0, _validation.isPasswordWellFormed)(passwordNormalized);
+                _context4.prev = 15;
+                _context4.next = 18;
                 return ctx.prisma.user.findUnique({
                   where: {
                     email: emailNormalized
                   }
                 });
 
-              case 17:
+              case 18:
                 foundUser = _context4.sent;
 
                 if (!foundUser) {
-                  _context4.next = 20;
+                  _context4.next = 21;
                   break;
                 }
 
                 throw new _apolloServerExpress.UserInputError('email.invalid');
 
-              case 20:
-                _context4.next = 22;
+              case 21:
+                _context4.next = 23;
                 return _bcryptjs["default"].hash(passwordNormalized, _config.saltRounds);
 
-              case 22:
+              case 23:
                 passwordHashed = _context4.sent;
-                _context4.prev = 23;
                 _context4.next = 26;
                 return ctx.prisma.user.create({
                   data: {
@@ -293,7 +292,7 @@ var _default = {
 
               case 33:
                 _context4.prev = 33;
-                _context4.t0 = _context4["catch"](23);
+                _context4.t0 = _context4["catch"](15);
                 console.log('user.signUp error: ', _context4.t0);
                 return _context4.abrupt("return", {});
 
@@ -302,7 +301,7 @@ var _default = {
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[23, 33]]);
+        }, _callee4, null, [[15, 33]]);
       }));
 
       function signUp(_x13, _x14, _x15, _x16) {
@@ -380,7 +379,7 @@ var _default = {
 
               case 21:
                 // Check if password input matches users password
-                (0, _validation.validatePassword)(password, userRecord.password); // Create access token
+                (0, _validation.isPasswordValid)(password, userRecord.password); // Create access token
 
                 accessToken = (0, _accessToken.createAccessToken)(userRecord.id); // Send back new access token
 

@@ -1,7 +1,8 @@
 // https://github.com/vercel/next.js/blob/canary/examples/with-apollo/lib/apolloClient.js
 
 import { useMemo } from 'react';
-import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 
@@ -13,20 +14,33 @@ let apolloClient;
 
 const server = typeof window === 'undefined';
 
-const createApolloClient = () => {
-  return new ApolloClient({
-    cache: new InMemoryCache(),
+const cache = new InMemoryCache();
 
-    link: new HttpLink({
-      uri: `${baseUrl}/gql`, // Server URL (must be absolute)
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    );
 
-      // Additional fetch() options like `credentials` or `headers`
-      credentials: 'include'
-    }),
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
+
+const httpLink = new HttpLink({
+  uri: `${baseUrl}/gql`,
+
+  credentials: 'include'
+});
+
+const createApolloClient = () =>
+  new ApolloClient({
+    cache,
+
+    link: from([errorLink, httpLink]),
 
     ssrMode: server
   });
-};
 
 export const initializeApollo = (initialState = null) => {
   const _apolloClient = apolloClient ?? createApolloClient();

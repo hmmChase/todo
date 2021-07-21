@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
+  # Comments in GraphQL are defined with the hash (#) symbol.
+
   type Query {
     user(id: ID!): User
 

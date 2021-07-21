@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _graphqlTools = require("graphql-tools");
+var _schema = require("@graphql-tools/schema");
 
 var _typeDefs = _interopRequireDefault(require("./typeDefs"));
 
@@ -15,11 +15,18 @@ var _resolvers = _interopRequireDefault(require("./resolvers"));
 
 // https://www.graphql-tools.com/docs/generate-schema/#makeexecutableschemaoptions
 var development = process.env.NODE_ENV === 'development';
-var schema = (0, _graphqlTools.makeExecutableSchema)({
+var schema = (0, _schema.makeExecutableSchema)({
+  // Type definitions define the "shape" of your data and specify
+  // which ways the data can be fetched from the GraphQL server.
   typeDefs: _typeDefs["default"],
-  resolvers: _resolvers["default"] // logger: development && { log: e => console.log(e) },
-  // allowUndefinedInResolve: !development
-
+  // Resolvers define the technique for fetching the types in the schema.
+  resolvers: _resolvers["default"],
+  logger: development && {
+    log: function log(e) {
+      return console.log(e);
+    }
+  },
+  allowUndefinedInResolve: !development
 });
 var _default = schema;
 exports["default"] = _default;
