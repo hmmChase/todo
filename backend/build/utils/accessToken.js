@@ -15,12 +15,9 @@ var _config = require("../config");
 
 var createAccessToken = function createAccessToken(userId) {
   var secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
-  var options = {
-    expiresIn: _config.accessTokenExpiryTime
-  };
   return _jsonwebtoken["default"].sign({
     userId: userId
-  }, secret, options);
+  }, secret, _config.JWToptions);
 };
 
 exports.createAccessToken = createAccessToken;

@@ -104,8 +104,9 @@ app.use(function (err, req, res, next) {
     }
   }, _callee, null, [[0, 6]]);
 }))(); // ./bin/www.js not working on vercel
+// if (production)
 
-if (production) (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2() {
+(0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2() {
   var httpServer, hostname, address, protocol, serverUrl;
   return _regenerator["default"].wrap(function _callee2$(_context2) {
     while (1) {
