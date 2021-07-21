@@ -20,13 +20,9 @@ var schema = (0, _schema.makeExecutableSchema)({
   // which ways the data can be fetched from the GraphQL server.
   typeDefs: _typeDefs["default"],
   // Resolvers define the technique for fetching the types in the schema.
-  resolvers: _resolvers["default"],
-  logger: development && {
-    log: function log(e) {
-      return console.log(e);
-    }
-  },
-  allowUndefinedInResolve: !development
+  resolvers: _resolvers["default"] // logger: development && { log: e => console.log(e) },
+  // allowUndefinedInResolve: !development
+
 });
 var _default = schema;
 exports["default"] = _default;
