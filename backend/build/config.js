@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.passwordMaxLength = exports.passwordMinLength = exports.cookieOptions = exports.JWToptions = exports.saltRounds = exports.graphqlPath = exports.corsOptions = exports.port = void 0;
+exports.passwordMaxLength = exports.passwordMinLength = exports.cookieOptions = exports.options = exports.saltRounds = exports.graphqlPath = exports.corsOptions = exports.port = void 0;
 var port = process.env.PORT || 4000;
 exports.port = port;
 var production = process.env.VERCEL_ENV === 'production' ? process.env.VERCEL_ENV : process.env.NODE_ENV === 'production';
@@ -21,10 +21,10 @@ exports.graphqlPath = graphqlPath;
 var saltRounds = 10;
 exports.saltRounds = saltRounds;
 var accessTokenExpiryTime = '1w';
-var JWToptions = {
+var options = {
   expiresIn: accessTokenExpiryTime
 };
-exports.JWToptions = JWToptions;
+exports.options = options;
 var cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
 // http://expressjs.com/en/5x/api.html#res.cookie
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies

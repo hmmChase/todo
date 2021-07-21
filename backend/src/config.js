@@ -23,7 +23,7 @@ export const saltRounds = 10;
 
 const accessTokenExpiryTime = '1w';
 
-export const JWToptions = { expiresIn: accessTokenExpiryTime };
+export const options = { expiresIn: accessTokenExpiryTime };
 
 const cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
 

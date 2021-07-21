@@ -17,7 +17,7 @@ var createAccessToken = function createAccessToken(userId) {
   var secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
   return _jsonwebtoken["default"].sign({
     userId: userId
-  }, secret, _config.JWToptions);
+  }, secret, _config.options);
 };
 
 exports.createAccessToken = createAccessToken;
