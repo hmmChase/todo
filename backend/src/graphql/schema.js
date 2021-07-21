@@ -13,10 +13,10 @@ const schema = makeExecutableSchema({
   typeDefs,
 
   // Resolvers define the technique for fetching the types in the schema.
-  resolvers
+  resolvers,
 
-  // logger: development && { log: e => console.log(e) },
-  // allowUndefinedInResolve: !development
+  logger: { log: e => (development ? console.log(e) : null) },
+  allowUndefinedInResolve: !development
 });
 
 export default schema;
