@@ -7,6 +7,7 @@ import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 
 import { baseUrl } from '../config';
+import schema from './schema';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -35,6 +36,8 @@ const httpLink = new HttpLink({
 
 const createApolloClient = () =>
   new ApolloClient({
+    schema,
+
     cache,
 
     link: from([errorLink, httpLink]),
@@ -77,9 +80,8 @@ export const initializeApollo = (initialState = null) => {
 export const useApollo = pageProps => {
   const state = pageProps[APOLLO_STATE_PROP_NAME];
 
+  // Update Apollo client only when the cache value has changed
   const store = useMemo(() => initializeApollo(state), [state]);
-
-  // const store = useMemo(() => initializeApollo(initialState), [initialState]);
 
   return store;
 };
