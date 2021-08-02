@@ -3,15 +3,12 @@ import jwt from 'jsonwebtoken';
 
 import { options } from '../config';
 
-export const createAccessToken = userId => {
-  const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
+const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 
-  return jwt.sign({ userId }, secret, options);
-};
+export const createAccessToken = userId =>
+  jwt.sign({ userId }, secret, options);
 
 export const verifyAccessToken = accessToken => {
-  const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
-
   try {
     // Decode payload if signature is valid and JWT not expired
     const payload = jwt.verify(accessToken, secret);

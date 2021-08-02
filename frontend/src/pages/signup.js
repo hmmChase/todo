@@ -6,8 +6,10 @@ import { useMutation, useApolloClient } from '@apollo/client';
 import { SIGN_UP } from '../graphql/queries/user';
 import Field from '../components/Field';
 import graphQLErrors from '../utils/graphQLErrors';
+import Layout from '../components/Layout';
+import Header from '../components/Header';
 
-function SignUp() {
+const SignUpPage = () => {
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
@@ -18,7 +20,7 @@ function SignUp() {
     onCompleted: async () => await router.push('/'),
 
     onError: async error => {
-      console.log('SIGN_UP error: ', error);
+      console.log('SignUp SIGN_UP error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -41,7 +43,7 @@ function SignUp() {
         }
       });
     } catch (error) {
-      console.log('error SignUp: ', error);
+      console.log('SignUp handleSubmit error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -80,6 +82,16 @@ function SignUp() {
       </form>
     </>
   );
-}
+};
 
-export default SignUp;
+SignUpPage.getLayout = function getLayout(page) {
+  return (
+    <Layout title='Sign up' description='SignUp page'>
+      <Header />
+
+      {page}
+    </Layout>
+  );
+};
+
+export default SignUpPage;

@@ -9,7 +9,7 @@ const apolloServer = new ApolloServer({
   schema,
 
   context: async ({ req, res }) => {
-    let accessToken = req.cookies.at ? req.cookies.at : '';
+    const accessToken = (req.cookies && req.cookies.at) || '';
 
     return { req, res, prisma, accessToken };
   }

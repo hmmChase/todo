@@ -16,11 +16,11 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    logIn(email: String!, password: String!): LoginResponse!
+    logIn(input: UserAuthInput!): UserAuthPayload!
 
     logOut: Boolean!
 
-    signUp(email: String!, password: String!): SignUpResponse!
+    signUp(input: UserAuthInput!): UserAuthPayload!
   }
 
   enum Role {
@@ -35,7 +35,7 @@ const typeDefs = gql`
     deletedAt: Float!
     email: String!
     password: String!
-    role: String!
+    role: Role!
     ideas: [Idea!]
   }
 
@@ -45,12 +45,13 @@ const typeDefs = gql`
     author: User!
   }
 
-  type LoginResponse {
+  type UserAuthPayload {
     user: User
   }
 
-  type SignUpResponse {
-    user: User
+  input UserAuthInput {
+    email: String!
+    password: String!
   }
 `;
 

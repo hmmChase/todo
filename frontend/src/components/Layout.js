@@ -2,15 +2,17 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import styled, { withTheme } from 'styled-components';
 
-import { siteTitle } from '../../config';
+import { siteTitle } from '../config';
 
 const Layout = props => {
-  const { children, title } = props;
+  const { children, title, description, theme } = props;
 
   return (
     <>
       <Head>
         <title>{title ? `${title} | ${siteTitle}` : `${siteTitle}`}</title>
+
+        <meta name='description' content={description} />
       </Head>
 
       <Main>{children}</Main>
@@ -19,7 +21,7 @@ const Layout = props => {
 };
 
 Layout.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
   title: PropTypes.string,
   theme: PropTypes.object
 };
@@ -27,8 +29,5 @@ Layout.propTypes = {
 export default withTheme(Layout);
 
 const Main = styled.main`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  min-height: 100%;
+	min-height: 100%;
 `;

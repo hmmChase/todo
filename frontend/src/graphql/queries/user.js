@@ -6,7 +6,7 @@ export const IS_LOGGED_IN = gql`
   }
 `;
 
-export const USER = gql`
+export const READ_USER = gql`
   query user($id: ID!) {
     user(id: $id) {
       id
@@ -15,7 +15,7 @@ export const USER = gql`
   }
 `;
 
-export const USERS = gql`
+export const READ_USERS = gql`
   query users {
     users {
       id
@@ -33,11 +33,9 @@ export const CURRENT_USER = gql`
   }
 `;
 
-// login(input: { email: $email, password: $password }) {
-
 export const LOG_IN = gql`
   mutation logIn($email: String!, $password: String!) {
-    logIn(email: $email, password: $password) {
+    logIn(input: { email: $email, password: $password }) {
       user {
         id
         email
@@ -54,7 +52,7 @@ export const LOG_OUT = gql`
 
 export const SIGN_UP = gql`
   mutation SIGN_UP($email: String!, $password: String!) {
-    signUp(email: $email, password: $password) {
+    signUp(input: { email: $email, password: $password }) {
       user {
         id
         email

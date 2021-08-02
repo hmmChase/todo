@@ -3,26 +3,27 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
 
-import { LOG_IN } from '../graphql/queries/user';
+import { IS_LOGGED_IN, LOG_IN } from '../graphql/queries/user';
 import Field from '../components/Field';
 import graphQLErrors from '../utils/graphQLErrors';
+import Layout from '../components/Layout';
+import Header from '../components/Header';
 
-const LogIn = () => {
+const LogInPage = () => {
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
 
-  const client = useApolloClient();
+  const apolloClient = useApolloClient();
 
   const [logIn] = useMutation(LOG_IN, {
-    onCompleted: async () => {
-      console.log('onCompleted:');
+    // update: cache =>
+    //   cache.writeQuery({ id: 'isLoggedIn', query: IS_LOGGED_IN, data: true }),
 
-      await router.push('/');
-    },
+    onCompleted: async () => await router.push('/'),
 
-    onError: async error => {
-      console.log('LOG_IN error: ', error);
+    onError: error => {
+      console.log('LogIn LOG_IN error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -36,7 +37,7 @@ const LogIn = () => {
     const passwordElement = event.currentTarget.elements.password;
 
     try {
-      await client.resetStore();
+      await apolloClient.resetStore;
 
       await logIn({
         variables: {
@@ -45,7 +46,7 @@ const LogIn = () => {
         }
       });
     } catch (error) {
-      console.log('error logIn: ', error);
+      console.log('LogIn handleSubmit error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -87,4 +88,14 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+LogInPage.getLayout = function getLayout(page) {
+  return (
+    <Layout title='Log in' description='LogIn page'>
+      <Header />
+
+      {page}
+    </Layout>
+  );
+};
+
+export default LogInPage;

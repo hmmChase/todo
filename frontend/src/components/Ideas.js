@@ -1,33 +1,44 @@
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { IDEAS } from '../graphql/queries/idea';
+
+import { READ_IDEAS } from '../graphql/queries/idea';
 import graphQLErrors from '../utils/graphQLErrors';
+import UpdateIdea from './UpdateIdea';
 
 const Ideas = () => {
   const [errorMsg, setErrorMsg] = useState();
 
-  const { loading, data } = useQuery(IDEAS, {
+  const { loading, error, data } = useQuery(READ_IDEAS, {
     onError: async error => {
-      console.log('IDEAS error: ', error);
+      console.log('Ideas READ_IDEAS error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
   });
 
-  const ideaCards = ideas =>
-    ideas.map(idea => <p key={`ideaCard${idea.id}`}>{idea.content}</p>);
+  if (loading) return <p>Loading...</p>;
 
-  if (loading) return <p>loading</p>;
+  if (error) return <p>Error: {errorMsg}</p>;
 
-  if (errorMsg) return <p>{errorMsg}</p>;
+  const ideaCards = data.ideas.map(idea => (
+    <li key={idea.id}>
+      <p>{idea.content}</p>
+
+      <UpdateIdea ideaId={idea.id} />
+    </li>
+  ));
 
   return (
     <>
-      {data && data.ideas && data.ideas.length > 0 ? (
-        ideaCards(data.ideas)
-      ) : (
-        <p>Add an Idea!</p>
-      )}
+      <ul>
+        {!loading && !error ? (
+          ideaCards
+        ) : (
+          <li>
+            <p>Add an Idea!</p>
+          </li>
+        )}
+      </ul>
     </>
   );
 };

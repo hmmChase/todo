@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const IDEA = gql`
+export const READ_IDEA = gql`
   query idea($id: ID!) {
     idea(id: $id) {
       id
@@ -12,7 +12,7 @@ export const IDEA = gql`
   }
 `;
 
-export const IDEAS = gql`
+export const READ_IDEAS = gql`
   query ideas {
     ideas {
       id
@@ -20,6 +20,24 @@ export const IDEAS = gql`
       author {
         id
       }
+    }
+  }
+`;
+
+export const CREATE_IDEA = gql`
+  mutation AddIdea($content: String!) {
+    addIdea(content: $content) {
+      id
+      content
+    }
+  }
+`;
+
+export const UPDATE_IDEA = gql`
+  mutation UpdateIdea($id: String!, $content: String!) {
+    updateIdea(id: $id, content: $content) {
+      id
+      content
     }
   }
 `;

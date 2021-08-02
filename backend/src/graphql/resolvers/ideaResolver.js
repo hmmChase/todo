@@ -1,4 +1,4 @@
-export default {
+const userResolver = {
   Query: {
     // Return idea matching ID
     idea: async (parent, args, ctx, info) => {
@@ -23,3 +23,5 @@ export default {
 
   // Mutation: {}
 };
+
+export default userResolver;

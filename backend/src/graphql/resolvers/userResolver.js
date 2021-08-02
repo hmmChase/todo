@@ -1,3 +1,5 @@
+// https://www.apollographql.com/docs/apollo-server/data/resolvers
+
 import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import bcrypt from 'bcryptjs';
 

@@ -16,16 +16,9 @@ const MyApp = props => {
 
   const apolloClient = useApollo(pageProps);
 
-  /**
-   * Render our app
-   * - We wrap the whole app with ApolloProvider, so any component in the app can
-   *    make GraphqL requests. Our provider needs the client we created above,
-   *    so we pass it as a prop
-   *
-   * - We need a router, so we can navigate the app. We're using Reach router for this.
-   *    The router chooses between which component to render, depending on the url path.
-   *    ex: localhost:3000/login will render only the `Login` component
-   */
+  // Use the layout defined at the page level, if available
+  // https://github.com/vercel/next.js/tree/canary/examples/layout-component
+  const getLayout = Component.getLayout || (page => page);
 
   return (
     <>
@@ -42,7 +35,7 @@ const MyApp = props => {
 
       <ApolloProvider client={apolloClient}>
         <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
+          {getLayout(<Component {...pageProps} />)}
         </ThemeProvider>
       </ApolloProvider>
     </>
