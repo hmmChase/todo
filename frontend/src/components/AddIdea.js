@@ -1,57 +1,63 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { ADD_IDEA } from '../graphql/queries/idea';
+
+import { READ_IDEAS, CREATE_IDEA, IDEA_FIELDS } from '../graphql/queries/idea';
 import graphQLErrors from '../utils/graphQLErrors';
 
 const AddIdea = () => {
   const [errorMsg, setErrorMsg] = useState();
 
-  const [addIdea] = useMutation(ADD_IDEA, {
-    // update(cache, { data: { addIdea } }) {
-    //   cache.modify({
-    //     fields: {
-    //       ideas(existingIdeas = []) {
-    //         const newIdeaRef = cache.writeFragment({
-    //           data: addIdea,
+  let input;
 
-    //           fragment: gql`
-    //             fragment NewIdea on Idea {
-    //               id
-    //               content
-    //             }
-    //           `
-    //         });
+  const [createIdea, { data, loading, error }] = useMutation(CREATE_IDEA, {
+    // Update the cache as an approximation of server-side mutation effects
+    // https://www.apollographql.com/docs/react/data/mutations/#refetching-queries
+    // refetchQueries: [{ query: READ_IDEAS }],
 
-    //         return existingIdeas.concat(newIdeaRef);
-    //       }
-    //     }
-    //   });
-    // },
+    // https://www.apollographql.com/docs/react/data/mutations/#the-update-function
+    update(cache, result) {
+      cache.modify({
+        fields: {
+          ideas(existingIdeas = []) {
+            const newIdeaRef = cache.writeFragment({
+              data: result.data.createIdea,
+
+              fragment: IDEA_FIELDS
+            });
+
+            return [...existingIdeas, newIdeaRef];
+          }
+        }
+      });
+    },
 
     onError: error => {
-      console.log('LogIn LOG_IN error: ', error);
+      console.log('AddIdea createIdea error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
   });
 
-  let input;
-
-  const handleSubmit = async event => {
-    event.preventDefault();
+  const handleSubmit = async (e, input) => {
+    e.preventDefault();
 
     try {
-      await addIdea({
-        variables: { content: input.value },
+      await createIdea({
+        variables: { content: input.value }
 
         // Optimistically add the Todo to the locally cached
         // list before the server responds
-        optimisticResponse: {
-          addIdea: { id: 'temp-id', __typename: 'Idea', content: input.value }
-        }
+        // https://www.apollographql.com/docs/react/performance/optimistic-ui/#the-optimisticresponse-option
+        // optimisticResponse: {
+        //   createIdea: {
+        //     id: 'temp-id',
+        //     __typename: 'Idea',
+        //     content: input.value
+        //   }
+        // }
       });
     } catch (error) {
-      console.log('LogIn handleSubmit error: ', error);
+      console.log('AddIdea handleSubmit error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -60,10 +66,10 @@ const AddIdea = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={e => handleSubmit(e, input)}>
       {errorMsg && <p>{errorMsg}</p>}
 
-      <input ref={node => (input = node)} />
+      <textarea ref={node => (input = node)} />
 
       <button type='submit'>New idea</button>
     </form>

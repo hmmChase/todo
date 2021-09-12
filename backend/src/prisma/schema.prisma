@@ -27,7 +27,7 @@ enum Role {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @unique @default(cuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -38,11 +38,11 @@ model User {
 }
 
 model Idea {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @unique @default(cuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
   content   String
   author    User      @relation(fields: [authorId], references: [id])
-  authorId  Int
+  authorId  String
 }

@@ -1,61 +1,81 @@
 import { gql } from '@apollo/client';
 
+//* - Fragments ----------
+
+export const USER_FIELDS = gql`
+  fragment userFields on Comment {
+    idd
+    email
+  }
+`;
+
+//* - Queries ----------
+
 export const IS_LOGGED_IN = gql`
-  query isLoggedIn {
+  query IsUserLoggedIn {
     isLoggedIn @client
   }
 `;
 
 export const READ_USER = gql`
-  query user($id: ID!) {
+  ${USER_FIELDS}
+
+  query User($id: ID!) {
     user(id: $id) {
-      id
-      email
+      ...userFields
     }
   }
 `;
 
 export const READ_USERS = gql`
-  query users {
+  ${USER_FIELDS}
+
+  query Users {
     users {
-      id
-      email
+      ...userFields
     }
   }
 `;
 
 export const CURRENT_USER = gql`
-  query currentUser {
+  ${USER_FIELDS}
+
+  query CurrentUser {
     currentUser {
-      id
-      email
+      ...userFields
     }
   }
 `;
 
+//* - Mutations ----------
+
 export const LOG_IN = gql`
-  mutation logIn($email: String!, $password: String!) {
+  ${USER_FIELDS}
+
+  mutation LogIn($email: String!, $password: String!) {
     logIn(input: { email: $email, password: $password }) {
       user {
-        id
-        email
+        ...userFields
       }
     }
   }
 `;
 
 export const LOG_OUT = gql`
-  mutation logOut {
+  ${USER_FIELDS}
+
+  mutation LogOut {
     logOut
   }
 `;
 
-export const SIGN_UP = gql`
-  mutation SIGN_UP($email: String!, $password: String!) {
-    signUp(input: { email: $email, password: $password }) {
+export const CREATE_USER = gql`
+  ${USER_FIELDS}
+
+  mutation CreateUser($email: String!, $password: String!) {
+    createUser(input: { email: $email, password: $password }) {
       user {
-        id
-        email
+        ...userFields
       }
     }
   }

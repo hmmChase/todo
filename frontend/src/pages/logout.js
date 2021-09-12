@@ -4,6 +4,8 @@ import { useMutation, useApolloClient } from '@apollo/client';
 
 import { LOG_OUT } from '../graphql/queries/user';
 
+//! Add logging out of all accounts
+
 const LogOutPage = () => {
   const apolloClient = useApolloClient();
 

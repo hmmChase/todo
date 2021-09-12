@@ -3,11 +3,10 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
 
-import { SIGN_UP } from '../graphql/queries/user';
+import { CREATE_USER } from '../graphql/queries/user';
 import Field from '../components/Field';
 import graphQLErrors from '../utils/graphQLErrors';
 import Layout from '../components/Layout';
-import Header from '../components/Header';
 
 const SignUpPage = () => {
   const [errorMsg, setErrorMsg] = useState();
@@ -16,11 +15,11 @@ const SignUpPage = () => {
 
   const client = useApolloClient();
 
-  const [signUp] = useMutation(SIGN_UP, {
+  const [createUser] = useMutation(CREATE_USER, {
     onCompleted: async () => await router.push('/'),
 
     onError: async error => {
-      console.log('SignUp SIGN_UP error: ', error);
+      console.log('SignUpPage CREATE_USER error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -36,7 +35,7 @@ const SignUpPage = () => {
     try {
       await client.resetStore();
 
-      await signUp({
+      await createUser({
         variables: {
           email: emailElement.value,
           password: passwordElement.value
@@ -86,9 +85,7 @@ const SignUpPage = () => {
 
 SignUpPage.getLayout = function getLayout(page) {
   return (
-    <Layout title='Sign up' description='SignUp page'>
-      <Header />
-
+    <Layout title='Sign up' description='SignUp page' header>
       {page}
     </Layout>
   );

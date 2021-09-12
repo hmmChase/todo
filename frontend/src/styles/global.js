@@ -278,10 +278,12 @@ Add the correct display in Chrome and Safari.
 const GlobalStyle = createGlobalStyle`
   ${modernNormalize}
 
-  html,
-  body,
-  #__next {
+  html, body {
     height: 100%;
+  }
+
+  #__next {
+    min-height: 100%;
   }
 
   body {

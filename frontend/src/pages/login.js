@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
 
 import { IS_LOGGED_IN, LOG_IN } from '../graphql/queries/user';
+import { isLoggedInVar } from '../graphql/cache';
 import Field from '../components/Field';
 import graphQLErrors from '../utils/graphQLErrors';
 import Layout from '../components/Layout';
-import Header from '../components/Header';
 
 const LogInPage = () => {
   const [errorMsg, setErrorMsg] = useState();
@@ -20,7 +20,15 @@ const LogInPage = () => {
     // update: cache =>
     //   cache.writeQuery({ id: 'isLoggedIn', query: IS_LOGGED_IN, data: true }),
 
-    onCompleted: async () => await router.push('/'),
+    onCompleted: async data => {
+      if (data.logIn) {
+        localStorage.setItem('userId', data.logIn.user.id);
+
+        isLoggedInVar(true);
+      }
+
+      await router.push('/');
+    },
 
     onError: error => {
       console.log('LogIn LOG_IN error: ', error);
@@ -90,9 +98,7 @@ const LogInPage = () => {
 
 LogInPage.getLayout = function getLayout(page) {
   return (
-    <Layout title='Log in' description='LogIn page'>
-      <Header />
-
+    <Layout title='Log in' description='LogIn page' header>
       {page}
     </Layout>
   );

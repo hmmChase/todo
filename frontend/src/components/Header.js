@@ -1,53 +1,22 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/client';
 
-import { CURRENT_USER } from '../graphql/queries/user';
+import HeaderLoggedIn from './HeaderLoggedIn';
+import HeaderLoggedOut from './HeaderLoggedOut';
+import HeaderUsername from './HeaderUsername';
 
-const Header = () => {
+const Header = props => {
+  const { isLoggedIn } = props;
+
   const router = useRouter();
 
   const isActive = pathname => router.pathname === pathname;
-
-  const { loading, error, data } = useQuery(CURRENT_USER, {
-    onError: error => console.log('Header CURRENT_USER error: ', error)
-  });
-
-  const currentUser = data?.currentUser;
-
-  const loggedIn = (
-    <li>
-      <Link href='/logout'>
-        <a data-active={isActive('/logout')}>Log out</a>
-      </Link>
-    </li>
-  );
-
-  const loggedOut = (
-    <>
-      <li>
-        <Link href='/login'>
-          <a data-active={isActive('/login')}>Log in</a>
-        </Link>
-      </li>
-
-      <li>
-        <Link href='/signup'>
-          <a data-active={isActive('/signup')}>Sign up</a>
-        </Link>
-      </li>
-    </>
-  );
 
   return (
     <header>
       <nav>
         <ul>
-          {currentUser && (
-            <li>
-              <p>You're signed in as {currentUser.email}</p>
-            </li>
-          )}
+          {/* {isLoggedIn && <HeaderUsername />} */}
 
           <li>
             <Link href='/'>
@@ -56,12 +25,36 @@ const Header = () => {
           </li>
 
           <li>
-            <Link href='/about'>
-              <a data-active={isActive('/about')}>About</a>
+            <Link href='/offset'>
+              <a data-active={isActive('/offset')}>Offset</a>
             </Link>
           </li>
 
-          {!loading && (currentUser ? loggedIn : loggedOut)}
+          <li>
+            <Link href='/csr'>
+              <a data-active={isActive('/csr')}>CSR</a>
+            </Link>
+          </li>
+
+          <li>
+            <Link href='/ssr'>
+              <a data-active={isActive('/ssr')}>SSR</a>
+            </Link>
+          </li>
+
+          <li>
+            <Link href='/ssg'>
+              <a data-active={isActive('/ssg')}>SSG</a>
+            </Link>
+          </li>
+
+          <li>
+            <Link href='/blog'>
+              <a data-active={isActive('/blog')}>Blog</a>
+            </Link>
+          </li>
+
+          {isLoggedIn ? <HeaderLoggedIn /> : <HeaderLoggedOut />}
         </ul>
       </nav>
 

@@ -1,5 +1,4 @@
 const theme = {
-  breakpoints: [480, 768, 992, 1200],
 
   unit: 8,
 
@@ -10,11 +9,13 @@ const theme = {
   },
 
   colors: {
-    primary: '',
-    secondary: '',
-    accent: '',
-    background: '',
-    text: ''
+    primary: '#220a82',
+    secondary: '#14cbc4',
+    accent: '#e535ab',
+    background: '#f7f8fa',
+    grey: '#d8d9e0',
+    text: '#343c5a',
+    textSecondary: '#747790'
   }
 };
 
