@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useMutation, useApolloClient } from '@apollo/client';
 
 import { LOG_OUT } from '../graphql/queries/user';
+import graphQLErrors from '../utils/graphQLErrors';
 
 //! Add logging out of all accounts
 
@@ -14,7 +15,11 @@ const LogOutPage = () => {
   const [logOut] = useMutation(LOG_OUT, {
     onCompleted: async () => await router.push('/'),
 
-    onError: error => console.log('LogOut LOG_OUT error: ', error)
+    onError: error => {
+      console.log('LogOutPage LOG_OUT error: ', error);
+
+      setErrorMsg(graphQLErrors(error));
+    }
   });
 
   useEffect(async () => {

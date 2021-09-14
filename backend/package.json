@@ -8,8 +8,8 @@
   "author": "",
   "license": "",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/bin/www",
-    "dev:app": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/app.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/app.js",
+    "dev:www": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/bin/www",
     "start": "node ./build/app.js",
     "start:www": "node ./build/bin/www",
     "seed": "node ./src/prisma/seed.js",
@@ -34,12 +34,14 @@
     "graphql": "^15.5.1",
     "graphql-middleware": "^6.0.10",
     "graphql-shield": "^7.5.0",
+    "graphql-subscriptions": "^1.2.1",
     "helmet": "^4.6.0",
     "http-errors": "^1.8.0",
     "isemail": "^3.2.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "rimraf": "^3.0.2",
+    "subscriptions-transport-ws": "^0.9.19",
     "ts-tiny-invariant": "^0.0.3"
   },
   "devDependencies": {

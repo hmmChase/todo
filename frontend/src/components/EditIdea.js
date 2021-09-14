@@ -12,18 +12,18 @@ const EditIdea = props => {
   const [errorMsg, setErrorMsg] = useState();
 
   const [updateIdea, { loading, error }] = useMutation(UPDATE_IDEA, {
-    onError: async error => {
-      console.log('Ideas UPDATE_IDEA error: ', error);
+    onError: error => {
+      console.log('EditIdea UPDATE_IDEA error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
   });
 
   const handleSubmit = async e => {
-    e.preDefault();
+    e.preventDefault();
 
     try {
-      await updateIdea({ variables: { id: ideaId, content: input.value } });
+      await updateIdea({ variables: { id: ideaId, content } });
     } catch (error) {
       console.log('EditIdea handleSubmit error: ', error);
 
@@ -31,17 +31,14 @@ const EditIdea = props => {
     }
   };
 
+  const handleChange = e => setContent(e.target.value);
+
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <textarea
-          onChange={e => setContent(e.target.value)}
-          cols={50}
-          rows={2}
-          value={content}
-        />
+        <textarea cols={50} rows={2} value={content} onChange={handleChange} />
 
-        <button type='submit'>Edit Idea</button>
+        <button type='submit'>Edit</button>
       </form>
 
       {loading && <p>Loading...</p>}

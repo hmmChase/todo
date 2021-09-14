@@ -23,7 +23,8 @@ export const refreshAccessToken = (res, userId) => {
 };
 
 export const verifyAccessToken = accessToken => {
-  if (!accessToken) return new AuthenticationError('user.invalidCredentials');
+  // If user not signed in, throw error
+  if (!accessToken) throw new AuthenticationError('user.notLoggedIn');
 
   try {
     // const payload = await Iron.unseal(accessToken, secret, Iron.defaults);
@@ -34,9 +35,9 @@ export const verifyAccessToken = accessToken => {
     // Return payload
     return payload;
   } catch (error) {
-    console.log('verifyAccessToken error : ', error);
+    console.log('verifyAccessToken error: ', error);
 
     // If not, throw error
-    throw new AuthenticationError('user.invalidCredentials');
+    throw new AuthenticationError('user.invalidToken');
   }
 };

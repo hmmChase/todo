@@ -20,8 +20,8 @@ const CurserPage = () => {
       // Allows component to rerender with loading:true whenever fetchMore is called
       notifyOnNetworkStatusChange: true,
 
-      onError: async error => {
-        console.log('Ideas READ_IDEAS error: ', error);
+      onError: error => {
+        console.log('CurserPage READ_IDEAS_PAGINATED_CURSER error: ', error);
 
         setErrorMsg(graphQLErrors(error));
       }

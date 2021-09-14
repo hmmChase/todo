@@ -27,7 +27,7 @@ enum Role {
 }
 
 model User {
-  id        String    @id @unique @default(cuid())
+  id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -38,7 +38,7 @@ model User {
 }
 
 model Idea {
-  id        String    @id @unique @default(cuid())
+  id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?

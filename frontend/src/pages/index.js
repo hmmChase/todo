@@ -14,6 +14,7 @@ import Layout from '../components/Layout';
 import isLoggedIn from '../utils/isLoggedIn';
 import graphQLErrors from '../utils/graphQLErrors';
 import Ideas from '../components/Ideas';
+import QueryResult from '../components/QueryResult';
 // import { useRouter } from 'next/router';
 
 const IndexPage = props => {
@@ -24,16 +25,14 @@ const IndexPage = props => {
   // const router = useRouter();
 
   const { loading, error, data } = useQuery(READ_IDEAS, {
-    onError: async error => {
-      console.log('Ideas READ_IDEAS error: ', error);
+    onError: error => {
+      console.log('IndexPage READ_IDEAS error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
   });
 
   const ideas = data?.ideas || [];
-
-  const haveIdeas = !!ideas.length;
 
   // const shouldRedirect = !(loading || error || currentUser);
 
@@ -43,13 +42,9 @@ const IndexPage = props => {
     <>
       <h1>hmmStart</h1>
 
-      {loading && <p>Loading...</p>}
-
-      {error && <p>Error: {errorMsg}</p>}
-
-      {haveIdeas && <Ideas ideas={ideas} />}
-
-      {!loading && !error && !haveIdeas && <p>No ideas found</p>}
+      <QueryResult error={errorMsg} loading={loading} data={data}>
+        <Ideas ideas={ideas} />
+      </QueryResult>
     </>
   );
 };
@@ -62,9 +57,9 @@ const IndexPage = props => {
  getServerSideProps is also called on client side route changes
 */
 
-export const getServerSideProps = async ctx => {
-  return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
-};
+// export const getServerSideProps = async ctx => {
+//   return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
+// };
 
 // export const getServerSideProps = async ctx => {
 //   if (ctx.req.headers.cookie) {

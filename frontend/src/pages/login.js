@@ -37,22 +37,17 @@ const LogInPage = () => {
     }
   });
 
-  const handleSubmit = async event => {
-    event.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault();
 
-    const emailElement = event.currentTarget.elements.email;
+    const email = e.currentTarget.elements.email.value;
 
-    const passwordElement = event.currentTarget.elements.password;
+    const password = e.currentTarget.elements.password.value;
 
     try {
       await apolloClient.resetStore;
 
-      await logIn({
-        variables: {
-          email: emailElement.value,
-          password: passwordElement.value
-        }
-      });
+      await logIn({ variables: { email, password } });
     } catch (error) {
       console.log('LogIn handleSubmit error: ', error);
 

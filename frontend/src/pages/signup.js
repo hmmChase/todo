@@ -18,19 +18,19 @@ const SignUpPage = () => {
   const [createUser] = useMutation(CREATE_USER, {
     onCompleted: async () => await router.push('/'),
 
-    onError: async error => {
+    onError: error => {
       console.log('SignUpPage CREATE_USER error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
   });
 
-  const handleSubmit = async event => {
-    event.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault();
 
-    const emailElement = event.currentTarget.elements.email;
+    const emailElement = e.currentTarget.elements.email;
 
-    const passwordElement = event.currentTarget.elements.password;
+    const passwordElement = e.currentTarget.elements.password;
 
     try {
       await client.resetStore();

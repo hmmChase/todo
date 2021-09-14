@@ -6,6 +6,13 @@ export const IDEA_FIELDS = gql`
   fragment IdeaFields on Idea {
     id
     content
+  }
+`;
+
+export const IDEA_AUTHOR_FIELDS = gql`
+  fragment IdeaAuthorFields on Idea {
+    id
+    content
     author {
       id
     }
@@ -15,57 +22,52 @@ export const IDEA_FIELDS = gql`
 //* - Queries ----------
 
 export const READ_IDEA = gql`
-  ${IDEA_FIELDS}
-
   query ReadIdea($id: ID!) {
     idea(id: $id) {
-      ...IdeaFields
+      ...IdeaAuthorFields
     }
   }
+  ${IDEA_AUTHOR_FIELDS}
 `;
 
 export const READ_IDEAS = gql`
-  ${IDEA_FIELDS}
-
   query ReadIdeas {
     ideas {
-      ...IdeaFields
+      ...IdeaAuthorFields
     }
   }
+  ${IDEA_AUTHOR_FIELDS}
 `;
 
 export const READ_IDEAS_CLIENT = gql`
-  ${IDEA_FIELDS}
-
   query ReadIdeasClient {
     ideas @client {
-      ...IdeaFields
+      ...IdeaAuthorFields
     }
   }
+  ${IDEA_AUTHOR_FIELDS}
 `;
 
 export const READ_IDEAS_PAGINATED_OFFSET = gql`
-  ${IDEA_FIELDS}
-
   query ReadIdeasPaginatedOffset($offset: Int, $limit: Int) {
     ideasPaginatedOffset(offset: $offset, limit: $limit) {
-      ...IdeaFields
+      ...IdeaAuthorFields
     }
   }
+  ${IDEA_AUTHOR_FIELDS}
 `;
 
 export const READ_IDEAS_PAGINATED_CURSER = gql`
-  ${IDEA_FIELDS}
-
   query ReadIdeasCurserPaginated($after: String) {
     ideasPaginatedCurser(after: $after) {
       cursor
       hasMore
       ideas {
-        ...IdeaFields
+        ...IdeaAuthorFields
       }
     }
   }
+  ${IDEA_AUTHOR_FIELDS}
 `;
 
 // export const CURRENT_USER_CURSER_PAGINATED_IDEAS = gql`
@@ -97,17 +99,33 @@ export const READ_IDEAS_PAGINATED_CURSER = gql`
 export const CREATE_IDEA = gql`
   mutation CreateIdea($content: String!) {
     createIdea(content: $content) {
+      ...IdeaFields
+    }
+  }
+  ${IDEA_FIELDS}
+`;
+
+export const UPDATE_IDEA = gql`
+  mutation UpdateIdea($id: ID!, $content: String!) {
+    updateIdea(id: $id, content: $content) {
+      ...IdeaFields
+    }
+  }
+  ${IDEA_FIELDS}
+`;
+
+export const DELETE_SOFT_IDEA = gql`
+  mutation DeleteSoftIdea($id: ID!) {
+    deleteSoftIdea(id: $id) {
       id
-      content
     }
   }
 `;
 
-export const UPDATE_IDEA = gql`
-  mutation UpdateIdea($id: String!, $content: String!) {
-    updateIdea(id: $id, content: $content) {
+export const DELETE_IDEA = gql`
+  mutation DeleteIdea($id: ID!) {
+    deleteIdea(id: $id) {
       id
-      content
     }
   }
 `;

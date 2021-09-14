@@ -36,15 +36,15 @@ const Layout = props => {
         </HeaderContainer>
       )}
 
-      <MainContainer fullWidth={fullWidth} grid={grid}>
-        {!home && (
-          <div>
-            <Link href='/'>
-              <a>← Back to home</a>
-            </Link>
-          </div>
-        )}
+      {!home && (
+        <div>
+          <Link href='/'>
+            <a>← Back to home</a>
+          </Link>
+        </div>
+      )}
 
+      <MainContainer fullWidth={fullWidth} grid={grid}>
         {children}
       </MainContainer>
     </>
@@ -63,6 +63,7 @@ Layout.propTypes = {
 export default withTheme(Layout);
 
 /** styles **/
+
 const HeaderContainer = styled.header(props => ({
   display: 'flex',
   flexDirection: 'row',

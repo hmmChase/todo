@@ -6,6 +6,8 @@ const typeDefs = gql`
   # - Types ----------
 
   type Query {
+    currentNumber: Int
+
     user(id: ID!): User
 
     users: [User!]!
@@ -50,7 +52,13 @@ const typeDefs = gql`
 
     updateIdea(id: ID!, content: String!): Idea!
 
+    deleteSoftIdea(id: ID!): Idea!
+
     deleteIdea(id: ID!): Idea!
+  }
+
+  type Subscription {
+    numberIncremented: Int
   }
 
   type User {

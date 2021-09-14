@@ -3,8 +3,8 @@ import { gql } from '@apollo/client';
 //* - Fragments ----------
 
 export const USER_FIELDS = gql`
-  fragment userFields on Comment {
-    idd
+  fragment userFields on User {
+    id
     email
   }
 `;
@@ -18,40 +18,35 @@ export const IS_LOGGED_IN = gql`
 `;
 
 export const READ_USER = gql`
-  ${USER_FIELDS}
-
   query User($id: ID!) {
     user(id: $id) {
       ...userFields
     }
   }
+  ${USER_FIELDS}
 `;
 
 export const READ_USERS = gql`
-  ${USER_FIELDS}
-
   query Users {
     users {
       ...userFields
     }
   }
+  ${USER_FIELDS}
 `;
 
 export const CURRENT_USER = gql`
-  ${USER_FIELDS}
-
   query CurrentUser {
     currentUser {
       ...userFields
     }
   }
+  ${USER_FIELDS}
 `;
 
 //* - Mutations ----------
 
 export const LOG_IN = gql`
-  ${USER_FIELDS}
-
   mutation LogIn($email: String!, $password: String!) {
     logIn(input: { email: $email, password: $password }) {
       user {
@@ -59,19 +54,16 @@ export const LOG_IN = gql`
       }
     }
   }
+  ${USER_FIELDS}
 `;
 
 export const LOG_OUT = gql`
-  ${USER_FIELDS}
-
   mutation LogOut {
     logOut
   }
 `;
 
 export const CREATE_USER = gql`
-  ${USER_FIELDS}
-
   mutation CreateUser($email: String!, $password: String!) {
     createUser(input: { email: $email, password: $password }) {
       user {
@@ -79,4 +71,5 @@ export const CREATE_USER = gql`
       }
     }
   }
+  ${USER_FIELDS}
 `;

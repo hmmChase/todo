@@ -15,6 +15,8 @@ import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import http from 'http';
+
 // import createError from 'http-errors';
 
 // https://github.com/vercel/vercel/discussions/5846
@@ -27,9 +29,23 @@ import apolloServer from './graphql/apolloServer';
 import indexRouter from './rest/routes';
 import { port, corsOptions, graphqlPath, deployedUrl } from './config.js';
 
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { execute, subscribe } from 'graphql';
+import schema from './graphql/schema';
+
 const production = process.env.NODE_ENV === 'production';
 
 const app = express();
+
+export const httpServer = http.createServer(app);
+
+// https://www.apollographql.com/docs/apollo-server/data/subscriptions/
+// https://github.com/apollographql/docs-examples/tree/main/apollo-server/v3/subscriptions
+export const subscriptionServer = SubscriptionServer.create(
+  { schema, execute, subscribe },
+
+  { server: httpServer, path: apolloServer.graphqlPath }
+);
 
 app.use(cors(corsOptions));
 // https://github.com/graphql/graphql-playground/issues/1283
@@ -70,29 +86,34 @@ app.use((err, req, res, next) => {
 })();
 
 // ./bin/www.js not working on vercel
-if (production)
-  (async () => {
-    try {
-      let httpServer;
+(async () => {
+  try {
+    let server;
 
-      const hostname = deployedUrl || 'localhost';
+    const hostname = deployedUrl || 'localhost';
 
-      await new Promise(
-        resolve => (httpServer = app.listen(port, hostname, resolve))
-      );
+    await new Promise(
+      resolve => (server = httpServer.listen(port, hostname, resolve))
+    );
 
-      const address = await httpServer.address();
+    const address = await server.address();
 
-      const protocol = production ? 'https' : 'http';
+    const protocol = production ? 'https' : 'http';
 
-      const serverUrl = `${protocol}://${address.address}:${port}${apolloServer.graphqlPath}`;
+    const serverUrl = `${protocol}://${address.address}:${port}`;
 
-      console.log('🚀 Server ready at', serverUrl);
-    } catch (error) {
-      console.error('An error occurred while starting the server: ', error);
+    console.log('🚀 Server ready at', serverUrl);
+    console.log(
+      `🚀 Query endpoint ready at http://localhost:${port}${apolloServer.graphqlPath}`
+    );
+    console.log(
+      `🚀 Subscription endpoint ready at ws://localhost:${port}${apolloServer.requestOptions.subscriptions.path}`
+    );
+  } catch (error) {
+    console.error('An error occurred while starting the server: ', error);
 
-      process.exit(1);
-    }
-  })();
+    process.exit(1);
+  }
+})();
 
 export default app;

@@ -1,4 +1,4 @@
-import { ForbiddenError } from 'apollo-server-express';
+import { AuthenticationError, ForbiddenError } from 'apollo-server-express';
 
 import { verifyAccessToken } from '../../utils/accessToken';
 
@@ -16,7 +16,9 @@ const ideaResolver = {
 
         return idea;
       } catch (error) {
-        console.log('idea.idea error: ', error);
+        console.log('idea idea error: ', error);
+
+        throw new AuthenticationError('idea.idea.error');
       }
     },
 
@@ -24,13 +26,16 @@ const ideaResolver = {
     ideas: async (parent, args, ctx, info) => {
       try {
         const ideas = await ctx.prisma.idea.findMany({
+          where: { deletedAt: null },
           orderBy: { createdAt: 'desc' },
           include: { author: { select: { id: true } } }
         });
 
         return ideas;
       } catch (error) {
-        console.log('idea.ideas error: ', error);
+        console.log('idea ideas error: ', error);
+
+        throw new AuthenticationError('idea.ideas.error');
       }
     },
 
@@ -39,7 +44,9 @@ const ideaResolver = {
       const { offset, limit } = args;
 
       if ((!offset && offset !== 0) || !limit)
-        throw new ForbiddenError('Please provide an offset and limit.');
+        throw new ForbiddenError(
+          'idea.ideasPaginatedOffset.invalidOffsetOrLimit'
+        );
 
       try {
         const ideas = await ctx.prisma.idea.findMany({
@@ -50,7 +57,9 @@ const ideaResolver = {
 
         return ideas;
       } catch (error) {
-        console.log('idea.ideasPaginatedOffset error: ', error);
+        console.log('idea ideasPaginatedOffset error: ', error);
+
+        throw new AuthenticationError('idea.ideasPaginatedOffset.error');
       }
     },
 
@@ -59,24 +68,23 @@ const ideaResolver = {
       const { cursor, limit } = args;
 
       if (!cursor || !limit)
-        throw new ForbiddenError('Please provide a cursor and limit.');
+        throw new ForbiddenError(
+          'idea.ideasPaginatedOffset.invalidCurserOrLimit'
+        );
 
       try {
         const ideas = await ctx.prisma.idea.findMany({
-          // skip: 1,
-
           take: limit,
-
           cursor: { id: cursor },
-
           orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
-
           include: { author: { select: { id: true } } }
         });
 
         return ideas;
       } catch (error) {
-        console.log('idea.ideasPaginatedCurser error: ', error);
+        console.log('idea ideasPaginatedCurser error: ', error);
+
+        throw new AuthenticationError('idea.ideasPaginatedCurser.error');
       }
     }
 
@@ -144,57 +152,108 @@ const ideaResolver = {
         // Return new idea
         return ideaRecord;
       } catch (error) {
-        console.log('idea.createIdea error: ', error);
+        console.log('idea createIdea error: ', error);
 
-        return new AuthenticationError('idea.createIdeaError');
+        throw new AuthenticationError('idea.createIdea.error');
       }
     },
 
     updateIdea: async (parent, args, ctx, info) => {
-      const { id, content } = req.body;
+      const { id, content } = args;
 
       // Verify access token and decode payload
       const payload = verifyAccessToken(ctx.accessToken);
 
-      // Request idea's author ID
-      const idea = await ctx.prisma.idea.findUnique({
-        where: { id },
-        include: { author: { select: { id: true } } }
-      });
+      try {
+        // Request idea's author ID
+        const idea = await ctx.prisma.idea.findUnique({
+          where: { id },
+          include: { author: { select: { id: true } } }
+        });
 
-      // Check if they own that idea
-      const ownsIdea = idea.author.id === payload.userId;
+        // Check if they own that idea
+        const ownsIdea = idea.author.id === payload.userId;
 
-      // If not, throw error
-      if (!ownsIdea) throw new ForbiddenError("That's not your idea.");
+        // If not, throw error
+        if (!ownsIdea) throw new ForbiddenError('idea.invalidOwnership');
 
-      // If so, update and return idea
-      const updatedIdea = ctx.prisma.mutation.updateIdea({
-        where: { id },
-        data: { content }
-      });
+        // If so, update and return idea
+        const updatedIdea = ctx.prisma.idea.update({
+          where: { id },
+          data: { content }
+        });
 
-      return updatedIdea;
+        return updatedIdea;
+      } catch (error) {
+        console.log('idea updateIdea error: ', error);
+
+        throw new AuthenticationError('idea.updateIdea.error');
+      }
+    },
+
+    deleteSoftIdea: async (parent, args, ctx, info) => {
+      const { id } = args;
+
+      // Verify access token and decode payload
+      const payload = verifyAccessToken(ctx.accessToken);
+
+      try {
+        // Request idea's author ID
+        const idea = await ctx.prisma.idea.findUnique({
+          where: { id },
+          include: { author: { select: { id: true } } }
+        });
+
+        // Check if they own that idea
+        const ownsIdea = idea.author.id === payload.userId;
+
+        // If not, throw error
+        if (!ownsIdea) throw new ForbiddenError('idea.invalidOwnership');
+
+        // Update idea soft delete field
+        const updatedIdea = await prisma.idea.update({
+          where: { id },
+          data: { deletedAt: new Date().toISOString() }
+        });
+
+        // Return ID
+        return updatedIdea;
+      } catch (error) {
+        console.log('idea deleteSoftIdea error: ', error);
+
+        throw new AuthenticationError('idea.deleteSoftIdea.error');
+      }
     },
 
     deleteIdea: async (parent, args, ctx, info) => {
+      const { id } = args;
+
       // Verify access token and decode payload
       const payload = verifyAccessToken(ctx.accessToken);
 
-      // Request idea's author ID using defined selection set
-      const idea = await ctx.prisma.query.idea(
-        { where: { id: args.id } },
-        `{ author { id }}`
-      );
+      try {
+        // Request idea's author ID
+        const idea = await ctx.prisma.idea.findUnique({
+          where: { id },
+          include: { author: { select: { id: true } } }
+        });
 
-      // Check if they own that idea
-      const ownsIdea = idea.author.id === payload.userId;
+        // Check if they own that idea
+        const ownsIdea = idea.author.id === payload.userId;
 
-      // If not, throw error
-      if (!ownsIdea) throw new ForbiddenError("That's not your idea.");
+        // If not, throw error
+        if (!ownsIdea) throw new ForbiddenError('idea.invalidOwnership');
 
-      // If so, delete idea and return idea ID
-      return ctx.prisma.mutation.deleteIdea({ where: { id: args.id } });
+        // Delete idea
+        const deletedIdea = ctx.prisma.idea.delete({ where: { id } });
+
+        // Return ID
+        return deletedIdea;
+      } catch (error) {
+        console.log('idea deleteIdea error: ', error);
+
+        throw new AuthenticationError('idea.deleteIdea.error');
+      }
     }
   }
 };

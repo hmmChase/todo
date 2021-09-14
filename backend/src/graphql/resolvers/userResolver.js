@@ -86,7 +86,7 @@ const userResolver = {
         });
 
         // If no user found, return error
-        if (!userRecord) return new AuthenticationError('user.notFound');
+        if (!userRecord) throw new AuthenticationError('user.notFound');
 
         // Send back new access token
 
@@ -100,7 +100,7 @@ const userResolver = {
       } catch (error) {
         console.log('user.currentUser error: ', error);
 
-        return new AuthenticationError('user.invalidCredentials');
+        throw new AuthenticationError('user.invalidCredentials');
       }
     }
   },

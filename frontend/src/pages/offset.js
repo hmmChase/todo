@@ -6,6 +6,7 @@ import { READ_IDEAS_PAGINATED_OFFSET } from '../graphql/queries/idea';
 import graphQLErrors from '../utils/graphQLErrors';
 import Layout from '../components/Layout';
 import IdeaList from '../components/IdeaList';
+import QueryResult from '../components/QueryResult';
 
 const OffsetPage = () => {
   const [errorMsg, setErrorMsg] = useState();
@@ -24,8 +25,8 @@ const OffsetPage = () => {
       // Allows component to rerender with loading:true whenever fetchMore is called
       notifyOnNetworkStatusChange: true,
 
-      onError: async error => {
-        console.log('Ideas READ_IDEAS error: ', error);
+      onError: error => {
+        console.log('OffsetPage READ_IDEAS_PAGINATED_OFFSET error: ', error);
 
         setErrorMsg(graphQLErrors(error));
       }
@@ -62,7 +63,7 @@ const OffsetPage = () => {
 
       console.log('fetched:', fetched);
     } catch (error) {
-      console.log('Ideas fetchMore error: ', error);
+      console.log('OffsetPage fetchMore error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -72,41 +73,31 @@ const OffsetPage = () => {
 
   const ideas = data?.ideasPaginatedOffset || [];
 
-  const haveIdeas = Boolean(ideas.length);
-
-  if (loading) return <p>Loading...</p>;
-
-  if (error) return <p>Error: {errorMsg}</p>;
+  const haveIdeas = !!ideas.length;
 
   return (
     <>
       <h1>Offset Page</h1>
 
-      {haveIdeas ? (
-        <>
-          <IdeaList ideas={ideas} />
+      <QueryResult error={errorMsg} loading={loading} data={data}>
+        <IdeaList ideas={ideas} />
+      </QueryResult>
 
-          <div>
-            <button onClick={handleChangePageBackwards}>{'<'}</button>
+      {haveIdeas && (
+        <div>
+          <button onClick={handleChangePageBackwards}>{'<'}</button>
 
-            <span> {page} </span>
+          <span> {page} </span>
 
-            <button onClick={handleChangePageForwards}>{'>'}</button>
-          </div>
-        </>
-      ) : (
-        <p>No ideas found</p>
+          <button onClick={handleChangePageForwards}>{'>'}</button>
+        </div>
       )}
 
-      {/* data.ideasPaginatedOffset.hasMore && */}
-
-      {data.ideasPaginatedOffset &&
+      {haveIdeas &&
         (isLoadingMore ? (
           <p>loading...</p>
         ) : (
-          <div>
-            <button onClick={handleLoadMore}>Load More</button>
-          </div>
+          <button onClick={handleLoadMore}>Load More</button>
         ))}
     </>
   );
