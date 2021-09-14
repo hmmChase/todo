@@ -10,11 +10,11 @@ import { useQuery } from '@apollo/client';
 
 // import { initializeApollo } from '../graphql/apolloClient';
 import { READ_IDEAS } from '../graphql/queries/idea';
-import Layout from '../components/Layout';
-import isLoggedIn from '../utils/isLoggedIn';
+import Layout from '../components/LAYOUTS/Layout';
+// import isLoggedIn from '../utils/isLoggedIn';
 import graphQLErrors from '../utils/graphQLErrors';
-import Ideas from '../components/Ideas';
-import QueryResult from '../components/QueryResult';
+import Ideas from '../components/IDEA/Ideas';
+import QueryResult from '../components/OTHER/QueryResult';
 // import { useRouter } from 'next/router';
 
 const IndexPage = props => {

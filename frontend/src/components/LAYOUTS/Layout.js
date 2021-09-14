@@ -3,10 +3,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styled, { withTheme } from 'styled-components';
 
-import { siteTitle } from '../config';
-import Header from './Header';
-import useWindowSize from '../utils/useWindowSize';
-import mq from '../utils/mediaQuery';
+import { siteTitle } from '../../config';
+import Header from '../SECTIONS/Header/Header';
+import useWindowSize from '../../utils/useWindowSize';
+import mq from '../../utils/mediaQuery';
 
 const Layout = props => {
   const {

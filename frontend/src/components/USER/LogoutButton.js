@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useApolloClient } from '@apollo/client';
 
 import { menuItemClassName } from '../components/menu-item';
-import { isLoggedInVar } from '../graphql/cache';
+import { isLoggedInVar } from '../../graphql/cache';
 
 const LogoutButton = () => {
   const client = useApolloClient();

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { READ_IDEAS, CREATE_IDEA, IDEA_FIELDS } from '../graphql/queries/idea';
-import graphQLErrors from '../utils/graphQLErrors';
+import { READ_IDEAS, CREATE_IDEA, IDEA_FIELDS } from '../../graphql/queries/idea';
+import graphQLErrors from '../../utils/graphQLErrors';
 
 const AddIdea = () => {
   const [errorMsg, setErrorMsg] = useState();

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { DELETE_SOFT_IDEA } from '../graphql/queries/idea';
-import graphQLErrors from '../utils/graphQLErrors';
+import { DELETE_SOFT_IDEA } from '../../graphql/queries/idea';
+import graphQLErrors from '../../utils/graphQLErrors';
 
 const RemoveIdea = props => {
   const { ideaId } = props;
