@@ -1,20 +1,20 @@
 // https://github.com/vercel/next.js/blob/canary/examples/with-apollo/lib/apolloClient.js
 
 import { useMemo } from 'react';
-import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
+import { ApolloClient, HttpLink, from } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 
 import { baseUrl } from '../config';
+import cache from './cache';
+import typeDefs from './typeDefs';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient;
 
 const server = typeof window === 'undefined';
-
-const cache = new InMemoryCache();
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
@@ -33,13 +33,23 @@ const httpLink = new HttpLink({
   credentials: 'include'
 });
 
+const link = from([errorLink, httpLink]);
+
 const createApolloClient = () =>
   new ApolloClient({
     cache,
 
-    link: from([errorLink, httpLink]),
+    typeDefs,
 
-    ssrMode: server
+    link,
+
+    // headers: {
+    //   authorization: localStorage.getItem('at') || ''
+    // },
+
+    ssrMode: server,
+
+    connectToDevTools: process.env.NODE_ENV === 'development'
   });
 
 export const initializeApollo = (initialState = null) => {
@@ -74,12 +84,18 @@ export const initializeApollo = (initialState = null) => {
   return _apolloClient;
 };
 
+export const addApolloState = (client, pageProp) => {
+  if (pageProps?.props)
+    pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
+
+  return pageProps;
+};
+
 export const useApollo = pageProps => {
   const state = pageProps[APOLLO_STATE_PROP_NAME];
 
+  // Update Apollo client only when the cache value has changed
   const store = useMemo(() => initializeApollo(state), [state]);
-
-  // const store = useMemo(() => initializeApollo(initialState), [initialState]);
 
   return store;
 };

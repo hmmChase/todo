@@ -3,45 +3,51 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
 
-import { SIGN_UP } from '../graphql/queries/user';
-import Field from '../components/Field';
+import { CREATE_USER } from '../graphql/queries/user';
+import { isLoggedInVar } from '../graphql/cache';
 import graphQLErrors from '../utils/graphQLErrors';
+import Layout from '../components/LAYOUTS/Layout';
+import Field from '../components/OTHER/Field';
 
-function SignUp() {
+const SignUpPage = () => {
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
 
   const client = useApolloClient();
 
-  const [signUp] = useMutation(SIGN_UP, {
-    onCompleted: async () => await router.push('/'),
+  const [createUser] = useMutation(CREATE_USER, {
+    // update: cache =>
+    //   cache.writeQuery({ id: 'isLoggedIn', query: IS_LOGGED_IN, data: true }),
 
-    onError: async error => {
-      console.log('SIGN_UP error: ', error);
+    onCompleted: async () => {
+      localStorage.setItem('userId', data.createUser.user.id);
+
+      isLoggedInVar(true);
+
+      await router.push('/');
+    },
+
+    onError: error => {
+      console.log('SignUpPage CREATE_USER error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
   });
 
-  const handleSubmit = async event => {
-    event.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault();
 
-    const emailElement = event.currentTarget.elements.email;
+    const email = e.currentTarget.elements.email.value;
 
-    const passwordElement = event.currentTarget.elements.password;
+    const password = e.currentTarget.elements.password.value;
 
     try {
       await client.resetStore();
 
-      await signUp({
-        variables: {
-          email: emailElement.value,
-          password: passwordElement.value
-        }
-      });
+      await createUser({ variables: { email, password } });
     } catch (error) {
-      console.log('error SignUp: ', error);
+      console.log('SignUpPage handleSubmit error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -55,17 +61,17 @@ function SignUp() {
         {errorMsg && <p>{errorMsg}</p>}
 
         <Field
+          label='Email'
           name='email'
           type='email'
           autoComplete='email'
-          label='Email'
           required
         />
 
         <Field
+          label='Password'
           name='password'
           type='password'
-          label='Password'
           autoComplete='password'
           required
         />
@@ -80,6 +86,12 @@ function SignUp() {
       </form>
     </>
   );
-}
+};
 
-export default SignUp;
+SignUpPage.getLayout = page => (
+  <Layout title='Sign up' description='SignUp page'>
+    {page}
+  </Layout>
+);
+
+export default SignUpPage;

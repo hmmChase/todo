@@ -1,27 +1,43 @@
 import { AuthenticationError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
+// import Iron from '@hapi/iron';
 
-import { options } from '../config';
+import { options, cookieOptions } from '../config';
+
+const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 
 export const createAccessToken = userId => {
-  const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
+  // const ironAT = await Iron.seal({ userId }, secret, Iron.defaults);
 
-  return jwt.sign({ userId }, secret, options);
+  const jwtAT = jwt.sign({ userId }, secret, options);
+
+  return jwtAT;
+};
+
+export const refreshAccessToken = (res, userId) => {
+  // Create new Access token
+  const accessToken = createAccessToken(userId);
+
+  // Set Access token cookie
+  res.cookie('at', accessToken, cookieOptions);
 };
 
 export const verifyAccessToken = accessToken => {
-  const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
+  // If user not signed in, throw error
+  if (!accessToken) throw new AuthenticationError('user.notLoggedIn');
 
   try {
+    // const payload = await Iron.unseal(accessToken, secret, Iron.defaults);
+
     // Decode payload if signature is valid and JWT not expired
     const payload = jwt.verify(accessToken, secret);
 
     // Return payload
     return payload;
   } catch (error) {
-    console.log('verifyAccessToken error : ', error);
+    console.log('verifyAccessToken error: ', error);
 
     // If not, throw error
-    throw new AuthenticationError('user.invalidCredentials');
+    throw new AuthenticationError('user.invalidToken');
   }
 };

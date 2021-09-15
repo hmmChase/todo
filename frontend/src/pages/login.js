@@ -4,48 +4,52 @@ import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
 
 import { LOG_IN } from '../graphql/queries/user';
-import Field from '../components/Field';
+import { isLoggedInVar } from '../graphql/cache';
 import graphQLErrors from '../utils/graphQLErrors';
+import Layout from '../components/LAYOUTS/Layout';
+import Field from '../components/OTHER/Field';
 
-const LogIn = () => {
+const LogInPage = () => {
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
 
-  const client = useApolloClient();
+  const apolloClient = useApolloClient();
 
   const [logIn] = useMutation(LOG_IN, {
-    onCompleted: async () => {
-      console.log('onCompleted:');
+    // update: cache =>
+    //   cache.writeQuery({ id: 'isLoggedIn', query: IS_LOGGED_IN, data: true }),
+
+    onCompleted: async data => {
+      if (data.logIn) {
+        localStorage.setItem('userId', data.logIn.user.id);
+
+        isLoggedInVar(true);
+      }
 
       await router.push('/');
     },
 
-    onError: async error => {
-      console.log('LOG_IN error: ', error);
+    onError: error => {
+      console.log('LogInPage LOG_IN error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
   });
 
-  const handleSubmit = async event => {
-    event.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault();
 
-    const emailElement = event.currentTarget.elements.email;
+    const email = e.currentTarget.elements.email.value;
 
-    const passwordElement = event.currentTarget.elements.password;
+    const password = e.currentTarget.elements.password.value;
 
     try {
-      await client.resetStore();
+      await apolloClient.resetStore;
 
-      await logIn({
-        variables: {
-          email: emailElement.value,
-          password: passwordElement.value
-        }
-      });
+      await logIn({ variables: { email, password } });
     } catch (error) {
-      console.log('error logIn: ', error);
+      console.log('LogInPage handleSubmit error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -59,17 +63,17 @@ const LogIn = () => {
         {errorMsg && <p>{errorMsg}</p>}
 
         <Field
+          label='Email'
           name='email'
           type='email'
-          label='Email'
           autoComplete='email'
           defaultValue='user@email.com'
           required
         />
         <Field
+          label='Password'
           name='password'
           type='password'
-          label='Password'
           autoComplete='password'
           defaultValue='user123$'
           required
@@ -87,4 +91,10 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+LogInPage.getLayout = page => (
+  <Layout title='Log in' description='LogIn page' hasHeader>
+    {page}
+  </Layout>
+);
+
+export default LogInPage;
