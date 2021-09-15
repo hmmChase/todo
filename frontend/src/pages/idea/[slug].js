@@ -1,35 +1,37 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import Layout from '../../components/Layout';
+import { useQuery } from '@apollo/client';
 
-const IdeaRoute = props => {
-  const isServer = typeof window === 'undefined';
+import { READ_IDEA } from '../../graphql/queries/idea';
+import graphQLErrors from '../../utils/graphQLErrors';
+import isLoggedIn from '../../utils/isLoggedIn';
+import QueryResult from '../../components/OTHER/QueryResult';
+import Layout from '../../components/LAYOUTS/Layout';
+import IdeaCard from '../../components/IDEA/IdeaCard';
 
-  const date = new Date();
-
-  console.log(
-    'isServer:',
-    isServer,
-    date.getMinutes(),
-    date.getSeconds(),
-    date.getMilliseconds()
-  );
+const IdeaPage = () => {
+  const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
 
   const slug = router.asPath.split('/')[2];
 
-  console.log('slug1: ', slug);
+  const { loading, error, data } = useQuery(READ_IDEA, {
+    variables: { id: slug },
 
-  const query = router.query;
+    onError: error => {
+      console.log('IdeaPage READ_IDEA error: ', error);
 
-  console.log('query1:', query);
+      setErrorMsg(graphQLErrors(error));
+    }
+  });
 
-  console.log('query2:', query.slug);
+  const idea = data?.idea || {};
 
   return (
-    <>
-      <h1>Idea {slug}</h1>
-    </>
+    <QueryResult error={errorMsg} loading={loading} data={data}>
+      <IdeaCard id={idea.id} content={idea.content} />
+    </QueryResult>
   );
 };
 
@@ -79,12 +81,21 @@ const IdeaRoute = props => {
 //   return { paths, fallback: false };
 // }
 
-IdeaRoute.getLayout = function getLayout(page) {
-  return (
-    <Layout title='Idea' description='Idea route' header>
-      {page}
-    </Layout>
-  );
+IdeaPage.getLayout = page => (
+  <Layout
+    title='Idea'
+    description='Idea page'
+    isLoggedIn={page.props.isLoggedIn}
+    onIdeaPage
+    hasHeader
+    hasBackButton
+  >
+    {page}
+  </Layout>
+);
+
+export const getServerSideProps = async ctx => {
+  return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
 };
 
-export default IdeaRoute;
+export default IdeaPage;

@@ -4,9 +4,10 @@ import { useQuery } from '@apollo/client';
 import { ideasPerPage } from '../config';
 import { READ_IDEAS_PAGINATED_OFFSET } from '../graphql/queries/idea';
 import graphQLErrors from '../utils/graphQLErrors';
-import Layout from '../components/Layout';
-import IdeaList from '../components/IdeaList';
-import QueryResult from '../components/QueryResult';
+import isLoggedIn from '../utils/isLoggedIn';
+import QueryResult from '../components/OTHER/QueryResult';
+import Layout from '../components/LAYOUTS/Layout';
+import Ideas from '../components/IDEA/Ideas';
 
 const OffsetPage = () => {
   const [errorMsg, setErrorMsg] = useState();
@@ -57,11 +58,9 @@ const OffsetPage = () => {
     setIsLoadingMore(true);
 
     try {
-      const fetched = await fetchMore({
+      await fetchMore({
         variables: { offset: offset + ideasPerPage, limit: ideasPerPage }
       });
-
-      console.log('fetched:', fetched);
     } catch (error) {
       console.log('OffsetPage fetchMore error: ', error);
 
@@ -80,7 +79,7 @@ const OffsetPage = () => {
       <h1>Offset Page</h1>
 
       <QueryResult error={errorMsg} loading={loading} data={data}>
-        <IdeaList ideas={ideas} />
+        <Ideas ideas={ideas} />
       </QueryResult>
 
       {haveIdeas && (
@@ -97,18 +96,25 @@ const OffsetPage = () => {
         (isLoadingMore ? (
           <p>loading...</p>
         ) : (
-          <button onClick={handleLoadMore}>Load More</button>
+          <button onClick={handleLoadMore}>More</button>
         ))}
     </>
   );
 };
 
-OffsetPage.getLayout = function getLayout(page) {
-  return (
-    <Layout title='Offset' description='Offset page' header>
-      {page}
-    </Layout>
-  );
+OffsetPage.getLayout = page => (
+  <Layout
+    title='Offset'
+    description='Offset page'
+    isLoggedIn={page.props.isLoggedIn}
+    hasHeader
+  >
+    {page}
+  </Layout>
+);
+
+export const getServerSideProps = async ctx => {
+  return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
 };
 
 export default OffsetPage;

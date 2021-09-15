@@ -59,7 +59,7 @@ export const READ_IDEAS_PAGINATED_OFFSET = gql`
 
 export const READ_IDEAS_PAGINATED_CURSER = gql`
   query ReadIdeasCurserPaginated($after: String) {
-    ideasPaginatedCurser(after: $after) {
+    readIdeasPaginatedCurser(take: $take, skip: $skip) {
       cursor
       hasMore
       ideas {
@@ -70,29 +70,14 @@ export const READ_IDEAS_PAGINATED_CURSER = gql`
   ${IDEA_AUTHOR_FIELDS}
 `;
 
-// export const CURRENT_USER_CURSER_PAGINATED_IDEAS = gql`
-//   query CurrentUserCurserPaginatedIdeas($take: Int, $skip: String) {
-//     currentUserCurserPaginatedIdeas(
-//       orderBy: createdAt_DESC
-//       take: $take
-//       skip: $skip
-//     ) {
-//       edges {
-//         node {
-//           id
-//           content
-//           author {
-//             id
-//           }
-//         }
-//       }
-//       pageInfo {
-//         endCursor
-//         hasNextPage
-//       }
-//     }
-//   }
-// `;
+export const CURRENT_USER_IDEAS = gql`
+  query CurrentUserIdeas {
+    currentUserIdeas {
+      ...IdeaFields
+    }
+  }
+  ${IDEA_FIELDS}
+`;
 
 //* - Mutations ----------
 

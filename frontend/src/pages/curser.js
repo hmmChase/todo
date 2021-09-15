@@ -4,8 +4,10 @@ import { useQuery } from '@apollo/client';
 import { ideasPerPage } from '../config';
 import { READ_IDEAS_PAGINATED_CURSER } from '../graphql/queries/idea';
 import graphQLErrors from '../utils/graphQLErrors';
-import Layout from '../components/Layout';
-import IdeaList from '../components/IdeaList';
+import isLoggedIn from '../utils/isLoggedIn';
+import QueryResult from '../components/OTHER/QueryResult';
+import Layout from '../components/LAYOUTS/Layout';
+import Ideas from '../components/IDEA/Ideas';
 
 const CurserPage = () => {
   const [errorMsg, setErrorMsg] = useState();
@@ -15,7 +17,7 @@ const CurserPage = () => {
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     READ_IDEAS_PAGINATED_CURSER,
     {
-      variables: { first: ideasPerPage, after: null },
+      variables: { take: ideasPerPage, skip: null },
 
       // Allows component to rerender with loading:true whenever fetchMore is called
       notifyOnNetworkStatusChange: true,
@@ -28,33 +30,57 @@ const CurserPage = () => {
     }
   );
 
-  const ideas = data?.ideasPaginatedOffset || [];
+  const handleLoadMore = async () => {
+    setIsLoadingMore(true);
 
-  const haveIdeas = Boolean(ideas.length);
+    try {
+      await fetchMore({
+        variables: { take: ideasPerPage, skip: offset + ideasPerPage }
+      });
+    } catch (error) {
+      console.log('CurserPage fetchMore error: ', error);
+
+      setErrorMsg(graphQLErrors(error));
+    }
+
+    setIsLoadingMore(false);
+  };
+
+  const ideas = data?.ideasPaginatedCurser || [];
+
+  const haveIdeas = !!ideas.length;
 
   return (
     <>
-      <h1>CSR Page</h1>
+      <h1>Curser Page</h1>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>An error has occurred.</p>
-      ) : !haveIdeas ? (
-        <p>No ideas found.</p>
-      ) : (
-        <IdeaList ideas={data.ideasPaginatedOffset} />
-      )}
+      <QueryResult error={errorMsg} loading={loading} data={data}>
+        <Ideas ideas={ideas} />
+      </QueryResult>
+
+      {haveIdeas &&
+        (isLoadingMore ? (
+          <p>loading...</p>
+        ) : (
+          <button onClick={handleLoadMore}>More</button>
+        ))}
     </>
   );
 };
 
-CurserPage.getLayout = function getLayout(page) {
-  return (
-    <Layout title='Offset' description='Offset page' header>
-      {page}
-    </Layout>
-  );
+CurserPage.getLayout = page => (
+  <Layout
+    title='Curser'
+    description='Curser page'
+    isLoggedIn={page.props.isLoggedIn}
+    hasHeader
+  >
+    {page}
+  </Layout>
+);
+
+export const getServerSideProps = async ctx => {
+  return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
 };
 
 export default CurserPage;

@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
 
 import { CREATE_USER } from '../graphql/queries/user';
-import Field from '../components/Field';
+import { isLoggedInVar } from '../graphql/cache';
 import graphQLErrors from '../utils/graphQLErrors';
-import Layout from '../components/Layout';
+import Layout from '../components/LAYOUTS/Layout';
+import Field from '../components/OTHER/Field';
 
 const SignUpPage = () => {
   const [errorMsg, setErrorMsg] = useState();
@@ -16,7 +17,16 @@ const SignUpPage = () => {
   const client = useApolloClient();
 
   const [createUser] = useMutation(CREATE_USER, {
-    onCompleted: async () => await router.push('/'),
+    // update: cache =>
+    //   cache.writeQuery({ id: 'isLoggedIn', query: IS_LOGGED_IN, data: true }),
+
+    onCompleted: async () => {
+      localStorage.setItem('userId', data.createUser.user.id);
+
+      isLoggedInVar(true);
+
+      await router.push('/');
+    },
 
     onError: error => {
       console.log('SignUpPage CREATE_USER error: ', error);
@@ -28,21 +38,16 @@ const SignUpPage = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const emailElement = e.currentTarget.elements.email;
+    const email = e.currentTarget.elements.email.value;
 
-    const passwordElement = e.currentTarget.elements.password;
+    const password = e.currentTarget.elements.password.value;
 
     try {
       await client.resetStore();
 
-      await createUser({
-        variables: {
-          email: emailElement.value,
-          password: passwordElement.value
-        }
-      });
+      await createUser({ variables: { email, password } });
     } catch (error) {
-      console.log('SignUp handleSubmit error: ', error);
+      console.log('SignUpPage handleSubmit error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -56,17 +61,17 @@ const SignUpPage = () => {
         {errorMsg && <p>{errorMsg}</p>}
 
         <Field
+          label='Email'
           name='email'
           type='email'
           autoComplete='email'
-          label='Email'
           required
         />
 
         <Field
+          label='Password'
           name='password'
           type='password'
-          label='Password'
           autoComplete='password'
           required
         />
@@ -83,12 +88,10 @@ const SignUpPage = () => {
   );
 };
 
-SignUpPage.getLayout = function getLayout(page) {
-  return (
-    <Layout title='Sign up' description='SignUp page' header>
-      {page}
-    </Layout>
-  );
-};
+SignUpPage.getLayout = page => (
+  <Layout title='Sign up' description='SignUp page'>
+    {page}
+  </Layout>
+);
 
 export default SignUpPage;

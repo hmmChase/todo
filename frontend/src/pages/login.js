@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
 
-import { IS_LOGGED_IN, LOG_IN } from '../graphql/queries/user';
+import { LOG_IN } from '../graphql/queries/user';
 import { isLoggedInVar } from '../graphql/cache';
-import Field from '../components/Field';
 import graphQLErrors from '../utils/graphQLErrors';
-import Layout from '../components/Layout';
+import Layout from '../components/LAYOUTS/Layout';
+import Field from '../components/OTHER/Field';
 
 const LogInPage = () => {
   const [errorMsg, setErrorMsg] = useState();
@@ -31,7 +31,7 @@ const LogInPage = () => {
     },
 
     onError: error => {
-      console.log('LogIn LOG_IN error: ', error);
+      console.log('LogInPage LOG_IN error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -49,7 +49,7 @@ const LogInPage = () => {
 
       await logIn({ variables: { email, password } });
     } catch (error) {
-      console.log('LogIn handleSubmit error: ', error);
+      console.log('LogInPage handleSubmit error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -63,17 +63,17 @@ const LogInPage = () => {
         {errorMsg && <p>{errorMsg}</p>}
 
         <Field
+          label='Email'
           name='email'
           type='email'
-          label='Email'
           autoComplete='email'
           defaultValue='user@email.com'
           required
         />
         <Field
+          label='Password'
           name='password'
           type='password'
-          label='Password'
           autoComplete='password'
           defaultValue='user123$'
           required
@@ -91,12 +91,10 @@ const LogInPage = () => {
   );
 };
 
-LogInPage.getLayout = function getLayout(page) {
-  return (
-    <Layout title='Log in' description='LogIn page' header>
-      {page}
-    </Layout>
-  );
-};
+LogInPage.getLayout = page => (
+  <Layout title='Log in' description='LogIn page' hasHeader>
+    {page}
+  </Layout>
+);
 
 export default LogInPage;

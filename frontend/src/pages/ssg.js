@@ -1,76 +1,54 @@
-import { gql, useQuery } from '@apollo/client';
-
 import { initializeApollo, addApolloState } from '../graphql/apolloClient';
-import Layout from '../components/Layout';
+import { READ_IDEAS } from '../graphql/queries/idea';
+import isLoggedIn from '../utils/isLoggedIn';
+import Layout from '../components/LAYOUTS/Layout';
+import Ideas from '../components/IDEA/Ideas';
 
-const POSTS_PER_PAGE = 10;
+const SSGPage = props => {
+  const { ideasRes } = props;
 
-const GET_POSTS = gql`
-  query getPosts($first: Int!, $after: String) {
-    posts(first: $first, after: $after) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          id
-          databaseId
-          title
-          slug
-        }
-      }
-    }
-  }
-`;
+  const ideas = ideasRes?.data?.ideas || [];
 
-const SSGPage = () => {
-  const { loading, error, data } = useQuery(GET_POSTS, {
-    variables: { first: POSTS_PER_PAGE, after: null }
-  });
-
-  const posts = data?.posts?.edges?.map(edge => edge.node) || [];
-
-  const havePosts = Boolean(posts.length);
+  const havePosts = !!ideas.length;
 
   return (
-    <Layout>
-      <h1>SSG Page</h1>
-
-      {loading ? (
+    <>
+      {ideasRes.loading ? (
         <p>Loading...</p>
-      ) : error ? (
+      ) : ideasRes.error ? (
         <p>An error has occurred.</p>
       ) : !havePosts ? (
-        <p>No posts found.</p>
+        <p>No ideas found.</p>
       ) : (
-        posts.map(post => (
-          <article
-            key={post.databaseId}
-            style={{
-              border: '2px solid #eee',
-              padding: '1rem',
-              marginBottom: '1rem',
-              borderRadius: '10px'
-            }}
-          >
-            <h2>{post.title}</h2>
-          </article>
-        ))
+        <Ideas ideas={ideas} />
       )}
-    </Layout>
+    </>
   );
 };
 
-export const getStaticProps = async context => {
+SSGPage.getLayout = page => (
+  <Layout
+    title='SSG'
+    description='SSG page'
+    isLoggedIn={page.props.isLoggedIn}
+    hasHeader
+  >
+    {page}
+  </Layout>
+);
+
+export const getStaticProps = async ctx => {
   const apolloClient = initializeApollo();
 
-  await apolloClient.query({
-    query: GET_POSTS,
-    variables: { first: POSTS_PER_PAGE, after: null }
-  });
+  const res = await apolloClient.query({ query: READ_IDEAS });
 
-  return addApolloState(apolloClient, { props: {} });
+  // addApolloState(apolloClient, { props: {} });
+
+  // return addApolloState(apolloClient, { props: { ideas: res.data.ideas } });
+
+  return {
+    props: { ideasRes: res }
+  };
 };
 
 export default SSGPage;

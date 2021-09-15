@@ -10,17 +10,14 @@ import { useQuery } from '@apollo/client';
 
 // import { initializeApollo } from '../graphql/apolloClient';
 import { READ_IDEAS } from '../graphql/queries/idea';
-import Layout from '../components/LAYOUTS/Layout';
-// import isLoggedIn from '../utils/isLoggedIn';
 import graphQLErrors from '../utils/graphQLErrors';
-import Ideas from '../components/IDEA/Ideas';
+import isLoggedIn from '../utils/isLoggedIn';
 import QueryResult from '../components/OTHER/QueryResult';
-// import { useRouter } from 'next/router';
+import Layout from '../components/LAYOUTS/Layout';
+import Ideas from '../components/IDEA/Ideas';
 
-const IndexPage = props => {
+const IndexPage = () => {
   const [errorMsg, setErrorMsg] = useState();
-
-  // const { isLoggedIn } = props;
 
   // const router = useRouter();
 
@@ -57,9 +54,20 @@ const IndexPage = props => {
  getServerSideProps is also called on client side route changes
 */
 
-// export const getServerSideProps = async ctx => {
-//   return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
-// };
+IndexPage.getLayout = page => (
+  <Layout
+    title='Home'
+    description='Home page'
+    isLoggedIn={page.props.isLoggedIn}
+    hasHeader
+  >
+    {page}
+  </Layout>
+);
+
+export const getServerSideProps = async ctx => {
+  return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
+};
 
 // export const getServerSideProps = async ctx => {
 //   if (ctx.req.headers.cookie) {
@@ -163,19 +171,5 @@ const IndexPage = props => {
 
 // };
 // };
-
-IndexPage.getLayout = page => (
-  <Layout
-    title='Home'
-    description='Home page'
-    isLoggedIn={page.props.isLoggedIn}
-    home
-    header
-    fullWidth
-    grid
-  >
-    {page}
-  </Layout>
-);
 
 export default IndexPage;

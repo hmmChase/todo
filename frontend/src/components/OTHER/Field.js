@@ -1,20 +1,24 @@
-const Field = ({ name, label, type, autoComplete, required, defaultValue }) => (
-  <div>
-    <label id={[name, 'label'].join('-')} htmlFor={[name, 'input'].join('-')}>
-      {label} {required ? <span title='Required'>*</span> : undefined}
-    </label>
+const Field = props => {
+  const { name, label, type, autoComplete, required, defaultValue } = props;
 
-    <br />
+  return (
+    <div>
+      <label id={[name, 'label'].join('-')} htmlFor={[name, 'input'].join('-')}>
+        {label} {required ? <span title='Required'>*</span> : undefined}
+      </label>
 
-    <input
-      autoComplete={autoComplete}
-      id={[name, 'input'].join('-')}
-      name={name}
-      required={required}
-      type={type}
-      defaultValue={defaultValue}
-    />
-  </div>
-);
+      <br />
+
+      <input
+        autoComplete={autoComplete}
+        id={[name, 'input'].join('-')}
+        name={name}
+        required={required}
+        type={type}
+        defaultValue={defaultValue}
+      />
+    </div>
+  );
+};
 
 export default Field;

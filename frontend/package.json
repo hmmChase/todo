@@ -12,23 +12,32 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next export"
+    "export": "next export",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.20",
-    "@graphql-tools/schema": "^7.1.5",
+    "@apollo/client": "^3.4.11",
+    "@graphql-tools/schema": "^8.2.0",
     "deepmerge": "^4.2.2",
-    "graphql": "^15.5.1",
+    "graphql": "^15.5.3",
     "isomorphic-unfetch": "^3.1.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
-    "next": "^11.0.1",
+    "next": "^11.1.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "styled-components": "^5.3.0"
+    "storybook-addon-next-router": "^3.0.8",
+    "styled-components": "^5.3.1"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.12.0"
+    "@babel/core": "^7.15.5",
+    "@storybook/addon-actions": "^6.3.8",
+    "@storybook/addon-essentials": "^6.3.8",
+    "@storybook/addon-links": "^6.3.8",
+    "@storybook/react": "^6.3.8",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-styled-components": "^1.13.2"
   }
 }

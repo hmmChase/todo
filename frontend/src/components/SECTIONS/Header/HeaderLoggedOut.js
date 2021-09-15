@@ -7,7 +7,7 @@ const HeaderLoggedOut = props => {
   const isActive = pathname => router.pathname === pathname;
 
   return (
-    <>
+    <ul>
       <li>
         <Link href='/login'>
           <a data-active={isActive('/login')}>Log in</a>
@@ -25,7 +25,7 @@ const HeaderLoggedOut = props => {
           color: red;
         }
       `}</style>
-    </>
+    </ul>
   );
 };
 

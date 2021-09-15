@@ -13,7 +13,13 @@ const LogOutPage = () => {
   const router = useRouter();
 
   const [logOut] = useMutation(LOG_OUT, {
-    onCompleted: async () => await router.push('/'),
+    onCompleted: async () => {
+      localStorage.setItem('userId', data.createUser.user.id);
+
+      isLoggedInVar(true);
+
+      await router.push('/');
+    },
 
     onError: error => {
       console.log('LogOutPage LOG_OUT error: ', error);

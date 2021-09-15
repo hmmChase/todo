@@ -9,8 +9,8 @@ const HeaderLoggedIn = props => {
   return (
     <>
       <li>
-        <Link href='/profile'>
-          <a data-active={isActive('/profile')}>Profile</a>
+        <Link href='/account'>
+          <a data-active={isActive('/account')}>Settings</a>
         </Link>
       </li>
 

@@ -39,6 +39,8 @@ const typeDefs = gql`
       """
       after: String
     ): IdeaConnection!
+
+    currentUserIdeas: [Idea!]!
   }
 
   type Mutation {

@@ -1,4 +1,3 @@
-import AddIdea from './AddIdea';
 import IdeaCard from './IdeaCard';
 
 const Ideas = props => {
@@ -12,13 +11,7 @@ const Ideas = props => {
     </li>
   ));
 
-  return (
-    <>
-      <AddIdea />
-
-      <ul>{ideaCards}</ul>
-    </>
-  );
+  return <ul>{ideaCards}</ul>;
 };
 
 export default Ideas;

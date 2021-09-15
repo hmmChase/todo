@@ -86,6 +86,25 @@ const ideaResolver = {
 
         throw new AuthenticationError('idea.ideasPaginatedCurser.error');
       }
+    },
+
+    currentUserIdeas: async (parent, args, ctx, info) => {
+      // Verify access token and decode payload
+      const payload = verifyAccessToken(ctx.accessToken);
+
+      try {
+        // Find and return all ideas matching userId
+        const ideas = await ctx.prisma.idea.findMany({
+          where: { author: { id: payload.userId }, deletedAt: null },
+          orderBy: { createdAt: 'desc' }
+        });
+
+        return ideas;
+      } catch (error) {
+        console.log('idea currentUserIdeas error: ', error);
+
+        throw new AuthenticationError('idea.currentUserIdeas.error');
+      }
     }
 
     // currentUserOffsetPaginatedIdeas: async (parent, args, ctx, info) => {
