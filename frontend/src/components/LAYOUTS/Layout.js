@@ -14,9 +14,7 @@ const Layout = props => {
     hasBackButton,
     children,
     title,
-    description,
-    fullWidth,
-    grid
+    description
   } = props;
 
   // const { width } = useWindowSize();

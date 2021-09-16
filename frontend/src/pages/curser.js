@@ -52,8 +52,6 @@ const CurserPage = () => {
 
   return (
     <>
-      <h1>Curser Page</h1>
-
       <QueryResult error={errorMsg} loading={loading} data={data}>
         <Ideas ideas={ideas} />
       </QueryResult>

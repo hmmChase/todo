@@ -278,6 +278,12 @@ Add the correct display in Chrome and Safari.
 const GlobalStyle = createGlobalStyle`
   ${modernNormalize}
 
+  *, *:before, *:after {
+    box-sizing: inherit;
+    font-family: 'Open Sans', sans-serif;
+    ${'' /* font-family: 'Roboto'; */}
+  }
+
   html, body {
     height: 100%;
   }
@@ -287,9 +293,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Roboto';
-    background-color: #fff;
-    color: #000;
+    background: ${props => props.theme.colors.backgrounds.body};
+    color: ${props => props.theme.colors.text.primaryText};
     font-size: 1em;
   }
 

@@ -1,3 +1,5 @@
+// import order: react=>next=>libs=>utils=>config=>queries=>components=>css
+
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 
@@ -36,13 +38,9 @@ const IndexPage = () => {
   // useEffect(() => shouldRedirect && router.push('/login'), [shouldRedirect]);
 
   return (
-    <>
-      <h1>hmmStart</h1>
-
-      <QueryResult error={errorMsg} loading={loading} data={data}>
-        <Ideas ideas={ideas} />
-      </QueryResult>
-    </>
+    <QueryResult error={errorMsg} loading={loading} data={data}>
+      <Ideas ideas={ideas} />
+    </QueryResult>
   );
 };
 

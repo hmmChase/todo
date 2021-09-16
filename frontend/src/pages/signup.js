@@ -89,7 +89,7 @@ const SignUpPage = () => {
 };
 
 SignUpPage.getLayout = page => (
-  <Layout title='Sign up' description='SignUp page'>
+  <Layout title='Sign up' description='SignUp page' hasHeader>
     {page}
   </Layout>
 );

@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 
 import DropDownUserIcon from '../USER/DropDownUserIcon';
-
-import userSvg from '../../public/images/user.svg';
+import userSvg from '../../images/user.svg';
 
 const IconUser = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);

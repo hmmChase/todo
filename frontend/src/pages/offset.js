@@ -76,8 +76,6 @@ const OffsetPage = () => {
 
   return (
     <>
-      <h1>Offset Page</h1>
-
       <QueryResult error={errorMsg} loading={loading} data={data}>
         <Ideas ideas={ideas} />
       </QueryResult>

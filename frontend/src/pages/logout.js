@@ -4,6 +4,7 @@ import { useMutation, useApolloClient } from '@apollo/client';
 
 import { LOG_OUT } from '../graphql/queries/user';
 import graphQLErrors from '../utils/graphQLErrors';
+import { isLoggedInVar } from '../graphql/cache';
 
 //! Add logging out of all accounts
 
@@ -14,7 +15,7 @@ const LogOutPage = () => {
 
   const [logOut] = useMutation(LOG_OUT, {
     onCompleted: async () => {
-      localStorage.setItem('userId', data.createUser.user.id);
+      localStorage.removeItem('userId');
 
       isLoggedInVar(true);
 

@@ -73,13 +73,36 @@ class MyDocument extends Document {
 
           {/* <meta name='twitter:card' content='summary_large_image' /> */}
 
-          {/* <link rel='icon' href='/favicon.ico' /> */}
+          {/* Favicon */}
+
+          <link
+            rel='shortcut icon'
+            type='image/x-icon'
+            href='/images/favicon.ico'
+          />
 
           <link rel='/manifest' href='manifest.json' />
+
+          {/* Fonts */}
 
           <link
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
+          />
+
+          <link
+            rel='preload'
+            href='/fonts/open-sans-v15-latin-regular.woff2'
+            as='font'
+            type='font/woff2'
+            crossOrigin='anonymous'
+          />
+          <link
+            rel='preload'
+            href='/fonts/play-v10-latin-regular.woff2'
+            as='font'
+            type='font/woff2'
+            crossOrigin='anonymous'
           />
         </Head>
 

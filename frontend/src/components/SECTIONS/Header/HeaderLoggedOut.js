@@ -1,32 +1,41 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
 const HeaderLoggedOut = props => {
-  const router = useRouter();
-
-  const isActive = pathname => router.pathname === pathname;
-
   return (
-    <ul>
-      <li>
+    <UL>
+      <LI>
         <Link href='/login'>
-          <a data-active={isActive('/login')}>Log in</a>
+          <A>Log in</A>
         </Link>
-      </li>
+      </LI>
 
-      <li>
+      <LI>
         <Link href='/signup'>
-          <a data-active={isActive('/signup')}>Sign up</a>
+          <A>Sign up</A>
         </Link>
-      </li>
-
-      <style jsx>{`
-        a[data-active='true'] {
-          color: red;
-        }
-      `}</style>
-    </ul>
+      </LI>
+    </UL>
   );
 };
 
 export default HeaderLoggedOut;
+
+/** styled components */
+
+const UL = styled.ul`
+  list-style: none;
+`;
+
+const LI = styled.ul`
+  display: inline;
+`;
+
+const A = styled.a`
+  background-color: ${props => props.theme.colors.buttons.actionButton};
+  border-radius: 4px;
+  /* border: none; */
+  color: ${props => props.theme.colors.buttons.text};
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+`;

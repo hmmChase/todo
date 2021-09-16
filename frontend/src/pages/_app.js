@@ -42,10 +42,10 @@ const MyApp = props => {
         />
       </Head>
 
-      <GlobalStyle />
-
       <ApolloProvider client={apolloClient}>
         <ThemeProvider theme={theme}>
+          <GlobalStyle />
+
           {getLayout(<Component {...pageProps} />)}
         </ThemeProvider>
       </ApolloProvider>

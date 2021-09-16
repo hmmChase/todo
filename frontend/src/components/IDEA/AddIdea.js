@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import styled from 'styled-components';
 
-import { READ_IDEAS, CREATE_IDEA, IDEA_FIELDS } from '../../graphql/queries/idea';
+import {
+  READ_IDEAS,
+  CREATE_IDEA,
+  IDEA_FIELDS
+} from '../../graphql/queries/idea';
 import graphQLErrors from '../../utils/graphQLErrors';
 
 const AddIdea = () => {
@@ -66,14 +71,45 @@ const AddIdea = () => {
   };
 
   return (
-    <form onSubmit={e => handleSubmit(e, input)}>
+    <Form onSubmit={e => handleSubmit(e, input)}>
       {errorMsg && <p>{errorMsg}</p>}
 
-      <textarea ref={node => (input = node)} />
+      <Textarea ref={node => (input = node)} />
 
-      <button type='submit'>New idea</button>
-    </form>
+      <SubmitBtn type='submit'>New idea</SubmitBtn>
+    </Form>
   );
 };
 
 export default AddIdea;
+
+const Form = styled.form`
+  display: flex;
+  position: relative;
+`;
+
+export const Textarea = styled.textarea`
+  border-radius: 0;
+  margin-bottom: 0 !important;
+
+  /* border: none; */
+  /* border-top-right-radius: 0; */
+  /* border-bottom-right-radius: 0; */
+  /* border-right: 1px solid ${props => props.theme.color.black}; */
+
+  &:focus {
+    border-color: #d9d9d9;
+    box-shadow: none;
+  }
+
+  &:hover {
+    border-color: #d9d9d9;
+    box-shadow: none;
+  }
+`;
+
+export const SubmitBtn = styled.button`
+  border: none;
+  border-radius: 0;
+  height: auto;
+`;
