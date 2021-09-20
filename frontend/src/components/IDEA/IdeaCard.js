@@ -1,22 +1,22 @@
 // import PropTypes from 'prop-types';
-import Link from 'next/link';
+import styled from 'styled-components';
 
-import EditIdea from './EditIdea';
 import RemoveIdea from './RemoveIdea';
+import DetailIcon from './DetailIcon';
 
 const IdeaCard = props => {
   const { id, content } = props;
 
   return (
-    <>
-      <Link href={`/idea/${id}`}>
-        <a>{content}</a>
-      </Link>
+    <Article>
+      <Content>{content}</Content>
 
-      <EditIdea ideaId={id} />
+      <IdeaCardBtns>
+        <DetailIconn ideaId={id} />
 
-      <RemoveIdea ideaId={id} />
-    </>
+        <RemoveIdea ideaId={id} />
+      </IdeaCardBtns>
+    </Article>
   );
 };
 
@@ -25,3 +25,22 @@ const IdeaCard = props => {
 // };
 
 export default IdeaCard;
+
+export const Article = styled.article`
+  display: flex;
+`;
+
+const IdeaCardBtns = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const DetailIconn = styled(DetailIcon)`
+  margin-right: 5px;
+`;
+
+export const Content = styled.p`
+  margin: 0;
+  align-self: center;
+`;

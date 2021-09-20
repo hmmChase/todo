@@ -72,11 +72,9 @@ const AddIdea = () => {
 
   return (
     <Form onSubmit={e => handleSubmit(e, input)}>
-      {errorMsg && <p>{errorMsg}</p>}
-
       <Textarea ref={node => (input = node)} />
 
-      <SubmitBtn type='submit'>New idea</SubmitBtn>
+      <SubmitBtn type='submit'>Add Idea</SubmitBtn>
     </Form>
   );
 };
@@ -85,17 +83,28 @@ export default AddIdea;
 
 const Form = styled.form`
   display: flex;
-  position: relative;
+
+  /* width: 100%; */
+  /* position: relative; */
 `;
 
-export const Textarea = styled.textarea`
-  border-radius: 0;
-  margin-bottom: 0 !important;
+export const Textarea = styled.textarea.attrs({ rows: 3 })`
+  width: 100%;
+
+  border: 1px solid #d9d9d9;
+  border-bottom: none;
+
+  resize: vertical;
+
+  min-height: 54px;
+
+  /* border-radius: 0; */
+  /* margin-bottom: 0 !important; */
 
   /* border: none; */
   /* border-top-right-radius: 0; */
   /* border-bottom-right-radius: 0; */
-  /* border-right: 1px solid ${props => props.theme.color.black}; */
+  /* border-right: 1px solid ${props => props.theme.colors.black}; */
 
   &:focus {
     border-color: #d9d9d9;

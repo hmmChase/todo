@@ -1,21 +1,13 @@
-import styled from 'styled-components';
-
 /**
- * Query Results conditionally renders Apollo useQuery hooks states:
- * loading, error or its children when data is ready
+ * Conditionally renders Apollo useQuery hook states
  */
 
 const QueryResult = props => {
   const { loading, error, data, children } = props;
 
-  if (error) return <p>ERROR: {error}</p>;
+  if (loading) return <p>loading...</p>;
 
-  if (loading)
-    return (
-      <SpinnerContainer>
-        <p>loading...</p>
-      </SpinnerContainer>
-    );
+  if (error) return <p>ERROR: {error}</p>;
 
   if (!data) return <p>Nothing to show...</p>;
 
@@ -23,13 +15,3 @@ const QueryResult = props => {
 };
 
 export default QueryResult;
-
-/* styled components */
-
-const SpinnerContainer = styled.div({
-  // display: 'flex',
-  // justifyContent: 'center',
-  // alignItems: 'center',
-  // width: '100%',
-  // height: '100vh'
-});

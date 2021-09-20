@@ -9,3 +9,5 @@ const backendUrlDev = 'http://localhost:8008';
 export const baseUrl = production ? backendUrlProd : backendUrlDev;
 
 export const ideasPerPage = 2;
+
+export const IdeaInputDebounceDelay = 200;

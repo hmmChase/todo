@@ -29,10 +29,10 @@ Dropdown.propTypes = {
 export default Dropdown;
 
 const Container = styled.div`
-  color: ${props => props.theme.colors.buttons.iconDefault};
   position: absolute;
   padding: 0 0.5rem;
   z-index: 999;
+
   /* display: flex; */
   /* overflow: auto; */
   /* margin: 0; */

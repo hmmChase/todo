@@ -9,11 +9,7 @@ const HeaderUsername = props => {
 
   const currentUser = data?.currentUser;
 
-  return (
-    <li>
-      <p>You're signed in as {currentUser && currentUser.email}</p>
-    </li>
-  );
+  return <p>You're signed in as {currentUser && currentUser.email}</p>;
 };
 
 // HeaderUsername.propTypes = {

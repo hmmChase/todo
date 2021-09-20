@@ -1,41 +1,49 @@
 import Link from 'next/link';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const HeaderLoggedOut = props => {
+const HeaderLoggedOut = () => {
   return (
-    <UL>
-      <LI>
-        <Link href='/login'>
-          <A>Log in</A>
-        </Link>
-      </LI>
+    <Container>
+      <Link href='/login'>
+        <ALogIn>Log in</ALogIn>
+      </Link>
 
-      <LI>
-        <Link href='/signup'>
-          <A>Sign up</A>
-        </Link>
-      </LI>
-    </UL>
+      <Link href='/signup'>
+        <ASignUp>Sign up</ASignUp>
+      </Link>
+    </Container>
   );
 };
 
 export default HeaderLoggedOut;
 
-/** styled components */
+const Container = styled.div`
+  display: flex;
+  margin-right: 10px;
 
-const UL = styled.ul`
-  list-style: none;
+  @media screen and (min-width: ${props =>
+      props.theme.widths.regularPageWidth}px) {
+    margin-right: 0;
+  }
 `;
 
-const LI = styled.ul`
-  display: inline;
-`;
-
-const A = styled.a`
-  background-color: ${props => props.theme.colors.buttons.actionButton};
+const linkStyles = css`
   border-radius: 4px;
-  /* border: none; */
-  color: ${props => props.theme.colors.buttons.text};
-  padding: 0.6rem 1rem;
   cursor: pointer;
+  padding: 0.5rem 1rem;
+`;
+
+const ALogIn = styled.a`
+  ${linkStyles}
+
+  background-color: ${props => props.theme.colors.white};
+  color: ${props => props.theme.colors.text.primaryText};
+  margin-right: 1rem;
+`;
+
+const ASignUp = styled.a`
+  ${linkStyles}
+
+  background-color: ${props => props.theme.colors.buttons.actionButton};
+  color: ${props => props.theme.colors.text.secondaryText};
 `;

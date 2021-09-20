@@ -12,24 +12,24 @@ const theme = {
     lightBlue: '#C8DCF0',
     green: 'limegreen',
     darkRed: '#8A0000',
+    white: '#fff',
 
     backgrounds: {
-      body: '#fff'
+      body: '#fff',
+      dropdown: '#7D8088'
     },
 
     text: {
       primaryText: '#393939',
       titleText: '#809BFF',
-      secondaryText: '#DCDDDE',
+      secondaryText: '#fff',
       terciaryText: '#7D8088'
     },
 
     buttons: {
-      text: '#fff',
       actionButton: '#6271C0',
       actionButtonHover: '#809BFF',
-      iconDefault: '#B3B3B3',
-      hover: '#FFF'
+      iconDefault: '#B3B3B3'
     }
   }
 };

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 import Image from 'next/image';
 
 import HeaderLoggedOut from './HeaderLoggedOut';
@@ -8,7 +8,7 @@ import HeaderLoggedOut from './HeaderLoggedOut';
 import AddIdea from '../../IDEA/AddIdea';
 import IconUser from '../../OTHER/IconUser';
 import { siteTitle } from '../../../config';
-import Ideabox from '../../../images/ideabox.png';
+import Ideabox from '../../../../public/images/ideabox.png';
 
 const Header = props => {
   const { isLoggedIn, onIdeaPage } = props;
@@ -20,8 +20,10 @@ const Header = props => {
   const slug = router.asPath.split('/')[2];
 
   return (
-    <Wrapper>
-      <Container>
+    <Container>
+      <Logo>
+        <BoxImg src={Ideabox} alt='ideabox' />
+
         <HeaderTitle
           aria-label={props['aria-label']}
           data-testid={props['data-testid']}
@@ -29,68 +31,64 @@ const Header = props => {
         >
           {siteTitle}
         </HeaderTitle>
+      </Logo>
 
-        <nav>
-          {/* {isLoggedIn && <HeaderUsername />} */}
+      <nav>
+        {/* {isLoggedIn && <HeaderUsername />} */}
 
-          <MenuList>
-            <li>
-              <Link href='/'>
-                <a data-active={isActive('/')}>Home</a>
-              </Link>
-            </li>
+        <MenuList>
+          <li>
+            <Link href='/'>
+              <a data-active={isActive('/')}>Home</a>
+            </Link>
+          </li>
 
-            <li>
-              <Link href='/offset'>
-                <a data-active={isActive('/offset')}>Offset</a>
-              </Link>
-            </li>
+          <li>
+            <Link href='/offset'>
+              <a data-active={isActive('/offset')}>Offset</a>
+            </Link>
+          </li>
 
-            <li>
-              <Link href='/curser'>
-                <a data-active={isActive('/curser')}>Curser</a>
-              </Link>
-            </li>
+          <li>
+            <Link href='/curser'>
+              <a data-active={isActive('/curser')}>Curser</a>
+            </Link>
+          </li>
 
-            <li>
-              <Link href='/ssr'>
-                <a data-active={isActive('/ssr')}>SSR</a>
-              </Link>
-            </li>
+          <li>
+            <Link href='/ssr'>
+              <a data-active={isActive('/ssr')}>SSR</a>
+            </Link>
+          </li>
 
-            <li>
-              <Link href='/ssg'>
-                <a data-active={isActive('/ssg')}>SSG</a>
-              </Link>
-            </li>
-          </MenuList>
-        </nav>
+          <li>
+            <Link href='/ssg'>
+              <a data-active={isActive('/ssg')}>SSG</a>
+            </Link>
+          </li>
+        </MenuList>
+      </nav>
 
-        {isLoggedIn ? <IconUser /> : <HeaderLoggedOut />}
+      {isLoggedIn ? <IconUser /> : <HeaderLoggedOut />}
 
-        <BoxImg src={Ideabox} alt='ideabox' />
+      {onIdeaPage ? (
+        <h2>{slug}</h2>
+      ) : (
+        <Bottom>
+          <AddIdea />
+        </Bottom>
+      )}
 
-        {onIdeaPage ? (
-          <h2>{slug}</h2>
-        ) : (
-          <Bottom>
-            <AddIdea />
-          </Bottom>
-        )}
-
-        <style jsx>{`
-          a[data-active='true'] {
-            color: red;
-          }
-        `}</style>
-      </Container>
-    </Wrapper>
+      <style jsx>{`
+        a[data-active='true'] {
+          color: red;
+        }
+      `}</style>
+    </Container>
   );
 };
 
-export default withTheme(Header);
-
-/** styled components */
+export default Header;
 
 // const HeaderContainer = styled.header(props => ({
 //   display: 'flex',
@@ -118,28 +116,30 @@ export default withTheme(Header);
 //   }
 // }));
 
-const Wrapper = styled.header`
-  background-color: ${props => props.theme.colors.lightBlue};
-  border-bottom: 1px solid ${props => props.theme.colors.black};
-`;
-
 const Container = styled.div`
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 0.5rem;
   grid-template-areas:
     'top-left top-middle top-right'
     'bottom bottom bottom';
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  flex-grow: 1;
-
-  padding: 10px 0 0 0;
-
-  > h1 {
-    font-family: 'Play', sans-serif;
-    letter-spacing: 0.05rem;
-  }
+  justify-items: center;
+  width: 100%;
+  position: relative;
+  padding-top: 1rem;
 `;
+
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const BoxImg = styled(Image).attrs({
+  layout: 'fixed',
+  width: 50,
+  height: 41
+})``;
 
 const HeaderTitle = styled.h1`
   /* font-size: calc(16px + 6 * ((100vw - 320px) / 680)); */
@@ -147,45 +147,17 @@ const HeaderTitle = styled.h1`
   margin: 0;
   font-family: 'Play', sans-serif;
   letter-spacing: 0.05rem;
-  padding-left: ${props => (props.children === siteTitle ? '70px' : '10px')};
+  display: inline;
 `;
 
 const MenuList = styled.ul`
   display: flex;
-  justify-content: space-evenly;
-  /* list-style: none; */ /* margin-left: auto; */
-  /* margin-right: auto; */
-  > li {
-    display: inline;
-  }
-`;
-
-const li = styled.li`
+  margin: 0;
+  padding: 0;
   list-style: none;
-  margin-left: auto;
-  margin-right: auto;
 `;
-
-//  const SignOutBtnn = styled(SignOutBtn)`
-//   margin-right: 10px;
-//   width: 88px;
-
-//   @media screen and (min-width: 910px) {
-//     margin-right: 0;
-//   }
-// `;
-
-//  const Welcome = styled.span`
-//   margin-right: 10px;
-// `;
 
 const Bottom = styled.div`
   grid-area: bottom;
-`;
-
-const BoxImg = styled(Image)`
-  position: absolute;
-  left: 10px;
-  top: -30px;
-  width: 50px;
+  width: 100%;
 `;

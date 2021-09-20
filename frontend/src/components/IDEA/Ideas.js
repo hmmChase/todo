@@ -1,17 +1,35 @@
+import styled from 'styled-components';
+
 import IdeaCard from './IdeaCard';
 
 const Ideas = props => {
   const { ideas } = props;
 
   const ideaCards = ideas.map(idea => (
-    //? onClick={() => Router.push('/idea/[id]', `/idea/${idea.id}`)}
+    <Wrapper key={idea.id}>
+      <hr />
 
-    <li key={idea.id}>
-      <IdeaCard id={idea.id} content={idea.content} />
-    </li>
+      <li>
+        <IdeaCard id={idea.id} content={idea.content} />
+      </li>
+    </Wrapper>
   ));
 
-  return <ul>{ideaCards}</ul>;
+  return <UL>{ideaCards}</UL>;
 };
 
 export default Ideas;
+
+const Wrapper = styled.div`
+  :first-child {
+    > hr {
+      display: none;
+    }
+  }
+`;
+
+const UL = styled.ul`
+  padding-left: 0;
+  list-style: none;
+  width: 100%;
+`;
