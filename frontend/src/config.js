@@ -11,3 +11,9 @@ export const baseUrl = production ? backendUrlProd : backendUrlDev;
 export const ideasPerPage = 2;
 
 export const IdeaInputDebounceDelay = 200;
+
+export const usernameMinLength = 5;
+export const usernameMaxLength = 30;
+
+export const passwordMinLength = 8;
+export const passwordMaxLength = 30;

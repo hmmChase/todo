@@ -1,13 +1,24 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
+import { object } from 'yup';
+import styled from 'styled-components';
+import { useFormik } from 'formik';
 
 import { LOG_IN } from '../graphql/queries/user';
 import { isLoggedInVar } from '../graphql/cache';
 import graphQLErrors from '../utils/graphQLErrors';
 import Layout from '../components/LAYOUTS/Layout';
-import Field from '../components/OTHER/Field';
+import FormInput from '../components/REUSEABLE/FormInput';
+import Button from '../components/REUSEABLE/Button';
+import DisplayError from '../components/OTHER/DisplayError';
+
+import { email, password } from '../utils/AuthInputValidation';
+
+const validationSchema = object().shape({
+  logInEmail: email,
+  logInPassword: password
+});
 
 const LogInPage = () => {
   const [errorMsg, setErrorMsg] = useState();
@@ -16,16 +27,18 @@ const LogInPage = () => {
 
   const apolloClient = useApolloClient();
 
-  const [logIn] = useMutation(LOG_IN, {
+  const [logIn, { loading, error }] = useMutation(LOG_IN, {
+    fetchPolicy: 'network-only',
+
     // update: cache =>
     //   cache.writeQuery({ id: 'isLoggedIn', query: IS_LOGGED_IN, data: true }),
 
     onCompleted: async data => {
-      if (data.logIn) {
-        localStorage.setItem('userId', data.logIn.user.id);
+      localStorage.setItem('userId', data.logIn.userId);
 
-        isLoggedInVar(true);
-      }
+      isLoggedInVar(true);
+
+      apolloClient.resetStore;
 
       await router.push('/');
     },
@@ -37,17 +50,30 @@ const LogInPage = () => {
     }
   });
 
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const formik = useFormik({
+    initialValues: { logInEmail: 'user@email.com', logInPassword: 'user123$' },
 
-    const email = e.currentTarget.elements.email.value;
+    validationSchema,
 
-    const password = e.currentTarget.elements.password.value;
+    // validateOnChange: false,
+    // validateOnBlur: true,
+
+    onSubmit: (values, formikHelpers) => handleSubmit(values, formikHelpers)
+  });
+
+  const handleSubmit = async (values, formikHelpers) => {
+    // const email = e.currentTarget.elements.email.value;
+
+    // const password = e.currentTarget.elements.password.value;
 
     try {
-      await apolloClient.resetStore;
+      await logIn({
+        variables: { email: values.logInEmail, password: values.logInPassword }
+      });
 
-      await logIn({ variables: { email, password } });
+      // formikHelpers.resetForm();
+
+      formikHelpers.setSubmitting(false);
     } catch (error) {
       console.log('LogInPage handleSubmit error: ', error);
 
@@ -57,35 +83,50 @@ const LogInPage = () => {
 
   return (
     <>
-      <h1>Log In</h1>
+      <h2 data-testid='LogInTitle'>Log In</h2>
 
-      <form onSubmit={handleSubmit}>
-        {errorMsg && <p>{errorMsg}</p>}
-
-        <Field
+      <form onSubmit={formik.handleSubmit}>
+        <FormInput
           label='Email'
-          name='email'
+          id='logInEmailId'
           type='email'
-          autoComplete='email'
-          defaultValue='user@email.com'
-          required
+          {...formik.getFieldProps('logInEmail')}
         />
-        <Field
+
+        {formik.touched.logInEmail && formik.errors.logInEmail ? (
+          <DisplayError error={{ message: formik.errors.logInEmail }} />
+        ) : null}
+
+        <FormInput
           label='Password'
-          name='password'
+          id='logInPasswordId'
           type='password'
-          autoComplete='password'
-          defaultValue='user123$'
-          required
+          {...formik.getFieldProps('logInPassword')}
         />
 
-        <button type='submit'>Log in</button>
+        {formik.touched.logInPassword && formik.errors.logInPassword ? (
+          <DisplayError error={{ message: formik.errors.logInPassword }} />
+        ) : null}
 
-        <span> or </span>
+        {error && <DisplayError error={error} />}
 
-        <Link href='/signup'>
-          <a>Sign up</a>
-        </Link>
+        <FloatRight>
+          <Button
+            aria-label='submit log in'
+            type='submit'
+            disabled={
+              !!(
+                !formik.values.logInEmail ||
+                !formik.values.logInPassword ||
+                formik.errors.logInEmail ||
+                formik.errors.logInPassword ||
+                formik.isSubmitting
+              )
+            }
+          >
+            Log In
+          </Button>
+        </FloatRight>
       </form>
     </>
   );
@@ -98,3 +139,7 @@ LogInPage.getLayout = page => (
 );
 
 export default LogInPage;
+
+const FloatRight = styled.div`
+  float: right;
+`;

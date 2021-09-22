@@ -2,9 +2,9 @@ const theme = {
   unit: 8,
 
   widths: {
-    largePageWidth: 1600,
+    textPageWidth: 800,
     regularPageWidth: 1100,
-    textPageWidth: 800
+    largePageWidth: 1600
   },
 
   colors: {
@@ -20,17 +20,25 @@ const theme = {
     },
 
     text: {
-      primaryText: '#393939',
       titleText: '#809BFF',
+      primaryText: '#393939',
       secondaryText: '#fff',
       terciaryText: '#7D8088'
-    },
-
-    buttons: {
-      actionButton: '#6271C0',
-      actionButtonHover: '#809BFF',
-      iconDefault: '#B3B3B3'
     }
+  },
+
+  buttons: {
+    borderRadius: '4px',
+    actionButton: '#6271C0',
+    actionButtonHover: '#809BFF',
+    iconDefault: '#B3B3B3'
+  },
+
+  statusDisplays: {
+    loading: { background: '#FFA500', text: '#000' },
+    error: { background: '#FF0000', text: '#000' },
+    success: { background: '#00FF00', text: '#000' },
+    info: { background: '#0000FF', text: '#fff' }
   }
 };
 
