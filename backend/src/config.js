@@ -11,6 +11,9 @@ const frontendUrlProd = 'https://hmm-start.vercel.app';
 
 const frontendUrlDev = 'http://localhost:1337';
 
+export const frontendUrl =
+  process.env.NODE_ENV === 'production' ? frontendUrlProd : frontendUrlDev;
+
 const CORSwhitelist = production
   ? [frontendUrlProd, `https://${deployedUrl}`]
   : [frontendUrlDev, 'https://studio.apollographql.com'];
@@ -43,3 +46,7 @@ export const cookieOptions = {
 
 export const passwordMinLength = 8;
 export const passwordMaxLength = 30;
+
+export const cryptoRandomBytesSize = 25;
+
+export const resetTokenExpiryTime = Date.now() + 1000 * 60 * 60; // 1 hour
