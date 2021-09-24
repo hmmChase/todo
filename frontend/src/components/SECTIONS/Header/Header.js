@@ -24,13 +24,7 @@ const Header = props => {
       <Logo>
         <BoxImg src={Ideabox} alt='ideabox' />
 
-        <HeaderTitle
-          aria-label={props['aria-label']}
-          data-testid={props['data-testid']}
-          className={props.className}
-        >
-          {siteTitle}
-        </HeaderTitle>
+        <HeaderTitle>{siteTitle}</HeaderTitle>
       </Logo>
 
       <nav>

@@ -44,6 +44,6 @@ const ALogIn = styled.a`
 const ASignUp = styled.a`
   ${linkStyles}
 
-  background-color: ${props => props.theme.colors.buttons.actionButton};
+  background-color: ${props => props.theme.buttons.actionButton};
   color: ${props => props.theme.colors.text.secondaryText};
 `;
