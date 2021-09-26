@@ -50,6 +50,13 @@ const typeDefs = gql`
 
     createUser(input: UserAuthInput!): UserAuthPayload!
 
+    reqPassReset(email: String!): Boolean!
+
+    changePassword(
+      resetPassToken: String!
+      newPassword: String!
+    ): UserAuthPayload!
+
     createIdea(content: String!): Idea!
 
     updateIdea(id: ID!, content: String!): Idea!

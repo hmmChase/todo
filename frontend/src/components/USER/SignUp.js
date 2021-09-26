@@ -26,16 +26,6 @@ const SignUp = () => {
 
   const apolloClient = useApolloClient();
 
-  // const update = (cache, data) => {
-  //   const isLoggedIn = !!data.data.signUp.accessToken;
-
-  //   cache.writeQuery({
-  //     id: 'isLoggedIn',
-  //     query: IS_LOGGED_IN,
-  //     data: { isLoggedIn }
-  //   });
-  // };
-
   const onCompleted = async data => {
     localStorage.setItem('userId', data.createUser.user.id);
 
@@ -54,8 +44,6 @@ const SignUp = () => {
 
   const [createUser] = useMutation(CREATE_USER, {
     fetchPolicy: 'network-only',
-
-    // update: (cache, data) => update(cache, data),
 
     onCompleted: data => onCompleted(data),
 
@@ -87,9 +75,6 @@ const SignUp = () => {
     initialValues: { signUpEmail: '', signUpPassword: '' },
 
     validationSchema,
-
-    // validateOnChange: false,
-    // validateOnBlur: true,
 
     onSubmit: (values, formikHelpers) => handleSubmit(values, formikHelpers)
   });

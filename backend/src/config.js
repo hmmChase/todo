@@ -50,3 +50,9 @@ export const passwordMaxLength = 30;
 export const cryptoRandomBytesSize = 25;
 
 export const resetTokenExpiryTime = Date.now() + 1000 * 60 * 60; // 1 hour
+
+export const mailOptions = {
+  host: 'smtp.mailtrap.io',
+  port: 2525,
+  auth: { user: process.env.MAILTRAP_USER, pass: process.env.MAILTRAP_PASS }
+};

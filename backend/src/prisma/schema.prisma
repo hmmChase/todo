@@ -11,6 +11,8 @@
 // prisma migrate does this automatically
 // npx prisma generate --schema=./src/prisma/schema.prisma
 
+// ----- Configuration -----
+
 datasource db {
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
@@ -21,20 +23,24 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// ----- Data models -----
+
 enum Role {
   USER
   ADMIN
 }
 
 model User {
-  id        String    @id @default(cuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  email     String    @unique
-  password  String
-  role      Role      @default(USER)
-  ideas     Idea[]
+  id                   String    @id @default(cuid())
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  deletedAt            DateTime?
+  email                String    @unique
+  password             String
+  role                 Role      @default(USER)
+  resetPassToken       String?   @unique
+  resetPassTokenExpiry DateTime?
+  ideas                Idea[]
 }
 
 model Idea {
