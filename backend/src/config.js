@@ -22,11 +22,11 @@ export const corsOptions = { origin: CORSwhitelist, credentials: true };
 
 export const graphqlPath = '/gql';
 
-export const saltRounds = 10;
+export const passwordHashSaltRounds = 10;
 
 const accessTokenExpiryTime = '1w';
 
-export const options = { expiresIn: accessTokenExpiryTime };
+export const JWToptions = { expiresIn: accessTokenExpiryTime };
 
 const cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
 
@@ -49,7 +49,7 @@ export const passwordMaxLength = 30;
 
 export const cryptoRandomBytesSize = 25;
 
-export const resetTokenExpiryTime = Date.now() + 1000 * 60 * 60; // 1 hour
+export const resetPassTokenExpiryTime = Date.now() + 1000 * 60 * 60; // 1 hour
 
 export const mailOptions = {
   host: 'smtp.mailtrap.io',

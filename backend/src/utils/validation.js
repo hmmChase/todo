@@ -1,5 +1,5 @@
 import { UserInputError } from 'apollo-server-express';
-import bcrypt from 'bcryptjs';
+import bcryptjs from 'bcryptjs';
 import isEmail from 'isemail';
 import { passwordMinLength, passwordMaxLength } from '../config';
 
@@ -34,8 +34,7 @@ export const isPasswordWellFormed = password => {
 
 export const isPasswordValid = async (inputPassword, hashedPassword) => {
   // const valid = await argon2.verify(hashedPassword, inputPassword);
-
-  const isCorrectPass = await bcrypt.compare(inputPassword, hashedPassword);
+  const isCorrectPass = await bcryptjs.compare(inputPassword, hashedPassword);
 
   if (!isCorrectPass) throw new UserInputError('login.invalidCredentials');
 };

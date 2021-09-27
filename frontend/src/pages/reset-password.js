@@ -37,9 +37,9 @@ ResetPasswordPage.getLayout = page => (
 );
 
 export const getServerSideProps = async ctx => {
-  const { resetPassToken, resetPassTokenExpiry } = ctx.query;
+  const { token, expiry } = ctx.query;
 
-  return { props: { resetPassToken, resetPassTokenExpiry } };
+  return { props: { resetPassToken: token, resetPassTokenExpiry: expiry } };
 };
 
 ResetPasswordPage.propTypes = {

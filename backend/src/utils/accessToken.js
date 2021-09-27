@@ -2,14 +2,14 @@ import { AuthenticationError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
 // import Iron from '@hapi/iron';
 
-import { options, cookieOptions } from '../config';
+import { JWToptions, cookieOptions } from '../config';
 
 const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 
 export const createAccessToken = userId => {
   // const ironAT = await Iron.seal({ userId }, secret, Iron.defaults);
 
-  const jwtAT = jwt.sign({ userId }, secret, options);
+  const jwtAT = jwt.sign({ userId }, secret, JWToptions);
 
   return jwtAT;
 };

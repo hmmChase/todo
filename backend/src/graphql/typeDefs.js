@@ -88,7 +88,7 @@ const typeDefs = gql`
   }
 
   type UserAuthPayload {
-    user: User
+    user: User!
   }
 
   """

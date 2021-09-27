@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { READ_IDEA } from '../../graphql/queries/idea';
 import graphQLErrors from '../../utils/graphQLErrors';
 import isLoggedIn from '../../utils/isLoggedIn';
-import QueryResult from '../../components/OTHER/QueryResult';
+import QueryResult from '../../components/REUSEABLE/QueryResult';
 import Layout from '../../components/LAYOUTS/Layout';
 import IdeaCard from '../../components/IDEA/IdeaCard';
 

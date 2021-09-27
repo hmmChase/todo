@@ -73,3 +73,20 @@ export const CREATE_USER = gql`
   }
   ${USER_FIELDS}
 `;
+
+export const REQ_PASS_RESET = gql`
+  mutation ReqPassReset($email: String!) {
+    reqPassReset(email: $email)
+  }
+`;
+
+export const CHANGE_PASSWORD = gql`
+  mutation ChangePassword($resetPassToken: String!, $newPassword: String!) {
+    changePassword(resetPassToken: $resetPassToken, newPassword: $newPassword) {
+      user {
+        ...userFields
+      }
+    }
+  }
+  ${USER_FIELDS}
+`;

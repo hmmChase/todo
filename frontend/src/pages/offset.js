@@ -5,7 +5,7 @@ import { ideasPerPage } from '../config';
 import { READ_IDEAS_PAGINATED_OFFSET } from '../graphql/queries/idea';
 import graphQLErrors from '../utils/graphQLErrors';
 import isLoggedIn from '../utils/isLoggedIn';
-import QueryResult from '../components/OTHER/QueryResult';
+import QueryResult from '../components/REUSEABLE/QueryResult';
 import Layout from '../components/LAYOUTS/Layout';
 import Ideas from '../components/IDEA/Ideas';
 
