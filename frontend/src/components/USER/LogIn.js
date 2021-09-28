@@ -48,6 +48,7 @@ const LogIn = () => {
   const onError = error => {
     console.log('LogIn onError error: ', error);
 
+    // Will set only UserInputError errors
     setErrorMsg(graphQLErrors(error));
   };
 
@@ -82,7 +83,7 @@ const LogIn = () => {
   };
 
   const formik = useFormik({
-    initialValues: { logInEmail: 'user@email.com', logInPassword: 'user123$' },
+    initialValues: { logInEmail: 'user@email.com', logInPassword: 'asdf1234' },
 
     validationSchema,
 

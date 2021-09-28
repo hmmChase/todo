@@ -16,9 +16,9 @@ const ideaResolver = {
 
         return idea;
       } catch (error) {
-        console.log('idea idea error: ', error);
+        console.log('idea.idea error: ', error);
 
-        throw new AuthenticationError('idea.idea.error');
+        throw error;
       }
     },
 
@@ -33,9 +33,9 @@ const ideaResolver = {
 
         return ideas;
       } catch (error) {
-        console.log('idea ideas error: ', error);
+        console.log('idea.ideas error: ', error);
 
-        throw new AuthenticationError('idea.ideas.error');
+        throw error;
       }
     },
 
@@ -57,9 +57,9 @@ const ideaResolver = {
 
         return ideas;
       } catch (error) {
-        console.log('idea ideasPaginatedOffset error: ', error);
+        console.log('idea.ideasPaginatedOffset error: ', error);
 
-        throw new AuthenticationError('idea.ideasPaginatedOffset.error');
+        throw error;
       }
     },
 
@@ -69,7 +69,7 @@ const ideaResolver = {
 
       if (!cursor || !limit)
         throw new ForbiddenError(
-          'idea.ideasPaginatedOffset.invalidCurserOrLimit'
+          'idea.ideasPaginatedCurser.invalidCurserOrLimit'
         );
 
       try {
@@ -82,9 +82,9 @@ const ideaResolver = {
 
         return ideas;
       } catch (error) {
-        console.log('idea ideasPaginatedCurser error: ', error);
+        console.log('idea.ideasPaginatedCurser error: ', error);
 
-        throw new AuthenticationError('idea.ideasPaginatedCurser.error');
+        throw error;
       }
     },
 
@@ -101,9 +101,9 @@ const ideaResolver = {
 
         return ideas;
       } catch (error) {
-        console.log('idea currentUserIdeas error: ', error);
+        console.log('idea.currentUserIdeas error: ', error);
 
-        throw new AuthenticationError('idea.currentUserIdeas.error');
+        throw error;
       }
     }
 
@@ -171,9 +171,9 @@ const ideaResolver = {
         // Return new idea
         return ideaRecord;
       } catch (error) {
-        console.log('idea createIdea error: ', error);
+        console.log('idea.createIdea error: ', error);
 
-        throw new AuthenticationError('idea.createIdea.error');
+        throw error;
       }
     },
 
@@ -204,9 +204,9 @@ const ideaResolver = {
 
         return updatedIdea;
       } catch (error) {
-        console.log('idea updateIdea error: ', error);
+        console.log('idea.updateIdea error: ', error);
 
-        throw new AuthenticationError('idea.updateIdea.error');
+        throw error;
       }
     },
 
@@ -238,9 +238,9 @@ const ideaResolver = {
         // Return ID
         return updatedIdea;
       } catch (error) {
-        console.log('idea deleteSoftIdea error: ', error);
+        console.log('idea.deleteSoftIdea error: ', error);
 
-        throw new AuthenticationError('idea.deleteSoftIdea.error');
+        throw error;
       }
     },
 
@@ -269,9 +269,9 @@ const ideaResolver = {
         // Return ID
         return deletedIdea;
       } catch (error) {
-        console.log('idea deleteIdea error: ', error);
+        console.log('idea.deleteIdea error: ', error);
 
-        throw new AuthenticationError('idea.deleteIdea.error');
+        throw error;
       }
     }
   }

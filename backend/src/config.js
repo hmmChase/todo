@@ -47,7 +47,7 @@ export const cookieOptions = {
 export const passwordMinLength = 8;
 export const passwordMaxLength = 30;
 
-export const cryptoRandomBytesSize = 25;
+export const cryptoRandomBytesSize = 16;
 
 export const resetPassTokenExpiryTime = Date.now() + 1000 * 60 * 60; // 1 hour
 

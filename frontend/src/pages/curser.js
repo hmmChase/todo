@@ -72,6 +72,7 @@ CurserPage.getLayout = page => (
     description='Curser page'
     isLoggedIn={page.props.isLoggedIn}
     hasHeader
+    hasFooter
   >
     {page}
   </Layout>

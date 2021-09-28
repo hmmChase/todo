@@ -1,0 +1,75 @@
+import { UserInputError } from 'apollo-server-express';
+import isEmail from 'isemail';
+
+import { passwordMinLength, passwordMaxLength } from '../config';
+
+export const validateInputs = inputs => {
+  // Loop through inputs
+  for (const key in inputs) {
+    // Get value
+    const value = inputs[key];
+
+    // Remove leading and trailing whitespace
+    const valueTrimmed = value.trim();
+
+    if (key === 'email') {
+      // Ensure lowercased
+      const emailNormalized = valueTrimmed.toLowerCase();
+
+      // Validate
+      validateEmail(emailNormalized);
+
+      // Update input
+      inputs.email = emailNormalized;
+    } else if (key === 'password') validatePassword(valueTrimmed);
+  }
+
+  return inputs;
+};
+
+/** ----- Email ----- */
+
+const validateEmail = email => {
+  // Check if missing args
+  if (!email) throw new UserInputError('user.auth.missing');
+
+  // Type check
+  if (typeof email !== 'string') throw new UserInputError('user.auth.invalid');
+
+  // Check if email is well-formed
+  isEmailWellFormed(email);
+};
+
+const isEmailWellFormed = email => {
+  // Ensure valid email address
+  const isvalid = isEmail.validate(email);
+
+  if (!isvalid) throw new UserInputError('user.auth.invalid');
+};
+
+/** ----- Password ----- */
+
+const validatePassword = password => {
+  // Check if missing args
+  if (!password) throw new UserInputError('user.auth.missing');
+
+  // Type check
+  if (typeof password !== 'string')
+    throw new UserInputError('user.auth.invalid');
+
+  // Check if password is well-formed
+  isPasswordWellFormed(password);
+};
+
+const isPasswordWellFormed = password => {
+  /*
+  https://regexr.com
+  - within min & max characters
+  */
+
+  const tooShort = password.length < passwordMinLength;
+  if (tooShort) throw new UserInputError('user.auth.passwordShort');
+
+  const tooLong = password.length > passwordMaxLength;
+  if (tooLong) throw new UserInputError('user.auth.passwordLong');
+};

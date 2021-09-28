@@ -1,24 +1,21 @@
 // https://www.apollographql.com/docs/apollo-server/data/resolvers
 
 import {
-  AuthenticationError,
   UserInputError,
+  AuthenticationError,
   ForbiddenError
 } from 'apollo-server-express';
-import bcrypt from 'bcryptjs';
+import bcryptjs from 'bcryptjs';
 
+import { refreshAccessToken, verifyAccessToken } from '../../utils/accessToken';
+import { prepareUser, passwordCompare } from '../../utils/user';
+import { validateInputs } from '../../utils/validateInputs';
+import { cookieOptions, passwordHashSaltRounds } from '../../config';
+import { sendPassResetEmail } from '../../handlers/emailHandler';
 import {
-  createAccessToken,
-  refreshAccessToken,
-  verifyAccessToken
-} from '../../utils/accessToken';
-import { userClientCleaner } from '../../utils/user';
-import {
-  isEmailWellFormed,
-  isPasswordWellFormed,
-  isPasswordValid
-} from '../../utils/validation';
-import { cookieOptions, saltRounds } from '../../config';
+  createResetPassToken,
+  validateResetPassTokenExpiry
+} from '../../utils/resetPassToken';
 
 const userResolver = {
   Query: {
@@ -50,7 +47,7 @@ const userResolver = {
       } catch (error) {
         console.log('user.user error: ', error);
 
-        return {};
+        throw error;
       }
     },
 
@@ -70,13 +67,13 @@ const userResolver = {
       } catch (error) {
         console.log('user.users error: ', error);
 
-        return {};
+        throw error;
       }
     },
 
     // Return authenticated user
     currentUser: async (parent, args, ctx, info) => {
-      // Verify access token and decode payload
+      // Verify access token & decode payload
       const payload = verifyAccessToken(ctx.accessToken);
 
       try {
@@ -100,142 +97,205 @@ const userResolver = {
       } catch (error) {
         console.log('user.currentUser error: ', error);
 
-        throw new AuthenticationError('user.invalidCredentials');
+        throw error;
       }
     }
   },
 
   Mutation: {
     logIn: async (parent, args, ctx, info) => {
-      const {
-        input: { email, password }
-      } = args;
+      const { input } = args;
 
-      // Check if missing args
-      if (!email || !password)
-        throw new ForbiddenError('login.missingCredentials');
-
-      // Type check
-      for (const input of [email, password])
-        if (typeof input !== 'string')
-          throw new UserInputError('error.invalidArgument');
-
-      // Normalize email
-      const emailNormalized = email.trim().toLowerCase();
-
-      // Normalize password
-      const passwordNormalized = email.trim();
-
-      // Check if email is well-formed
-      isEmailWellFormed(emailNormalized);
-
-      // Check if password is well-formed
-      isPasswordWellFormed(passwordNormalized);
+      // Normalize & validate inputs
+      const { email, password } = validateInputs({ ...input });
 
       try {
         // Find user matching email
         const userRecord = await ctx.prisma.user.findUnique({
-          where: { email: emailNormalized }
+          where: { email },
+          select: { id: true, email: true, password: true, role: true }
         });
 
         // If user not found, return error
-        if (!userRecord) throw new UserInputError('login.invalidCredentials');
+        if (!userRecord) throw new UserInputError('user.auth.invalid');
 
-        // Check if password input matches users password
-        isPasswordValid(password, userRecord.password);
+        // Check if input password matches users password
+        await passwordCompare(password, userRecord.password);
 
-        // Create access token
-        const accessToken = createAccessToken(userRecord.id);
+        // Create access token & user object
+        const [accessToken, user] = prepareUser(userRecord);
 
-        // Send back new access token
+        // Set new access token cookie
         ctx.res.cookie('at', accessToken, cookieOptions);
 
-        // Clean user data for client
-        const clientUserData = userClientCleaner(userRecord);
-
-        // Return user data
-        return { user: clientUserData };
+        // Return user
+        return user;
       } catch (error) {
         console.log('user.logIn error: ', error);
 
-        return {};
+        throw error;
       }
     },
 
     logOut: (parent, args, ctx, info) => {
-      // const cookie = serialize('at', '', {
-      //   maxAge: -1,
-      //   path: '/'
-      // });
+      // const cookie = serialize('at', '', { maxAge: -1, path: '/' });
       // ctx.res.setHeader('Set-Cookie', cookie);
 
-      delete cookieOptions.expires;
+      // delete cookieOptions.expires;
+
+      // Needed to delete cookie
       delete cookieOptions.maxAge;
 
+      // Delete cookie
       ctx.res.clearCookie('at', cookieOptions);
 
       return true;
     },
 
     createUser: async (parent, args, ctx, info) => {
-      const { email, password } = args;
+      const { input } = args;
 
-      // Check if missing args
-      if (!(email || password))
-        throw new ForbiddenError('error.missingArgument');
+      // Normalize & validate inputs
+      const { email, password } = validateInputs({ ...input });
 
-      // Type check
-      for (const input of [email, password])
-        if (typeof input !== 'string')
-          throw new UserInputError('error.invalidArgument');
+      try {
+        // Check if account already exists
+        const foundUser = await ctx.prisma.user.findUnique({
+          where: { email },
+          select: { id: true }
+        });
 
-      // Normalize email
-      const emailNormalized = email.trim().toLowerCase();
+        // If user found, return error
+        if (foundUser) throw new UserInputError('user.auth.alreadyExists');
 
-      // Normalize password
-      const passwordNormalized = email.trim();
+        // Encrypt password
+        // const hash = crypto
+        //   .pbkdf2Sync(password, passwordHashSaltRounds, 1000, 64, 'sha512')
+        //   .toString('hex');
+        // const hashedPassword = await argon2.hash(
+        //   newPassword,
+        //   passwordHashSaltRounds
+        // );
 
-      // Check if email is well-formed
-      isEmailWellFormed(emailNormalized);
+        // Encrypt password
+        const passwordHashed = await bcryptjs.hash(
+          password,
+          passwordHashSaltRounds
+        );
 
-      // Check if password is well-formed
-      isPasswordWellFormed(passwordNormalized);
+        // Create user
+        const userRecord = await ctx.prisma.user.create({
+          data: { email, password: passwordHashed },
+          select: { id: true, email: true, role: true }
+        });
+
+        // Create access token & user object
+        const [accessToken, user] = prepareUser(userRecord);
+
+        // Set new access token cookie
+        ctx.res.cookie('at', accessToken, cookieOptions);
+
+        // Return user
+        return user;
+      } catch (error) {
+        console.log('user.createUser error: ', error);
+
+        throw error;
+      }
+    },
+
+    reqPassReset: async (parent, args, ctx, info) => {
+      // Normalize & validate inputs
+      const { email } = validateInputs({ email: args.email });
 
       try {
         // Find user matching email
         const foundUser = await ctx.prisma.user.findUnique({
-          where: { email: emailNormalized }
+          where: { email },
+          select: { id: true }
         });
 
-        // If user found, return error
-        if (foundUser) throw new UserInputError('email.invalid');
+        // If user not found, return same as found user
+        if (!foundUser) return true;
 
-        // Encrypt password
-        const passwordHashed = await bcrypt.hash(
-          passwordNormalized,
-          saltRounds
+        // Generate reset password token & expiration
+        const [resetPassToken, resetPassTokenExpiry] =
+          await createResetPassToken();
+
+        // Update user with reset password token & expiration
+        await ctx.prisma.user.update({
+          where: { id: foundUser.id },
+          data: { resetPassToken, resetPassTokenExpiry }
+        });
+
+        // Send email with reset password link
+        sendPassResetEmail(email, resetPassToken, resetPassTokenExpiry);
+
+        // Return boolean
+        return true;
+      } catch (error) {
+        console.log('user.reqPassReset error: ', error);
+
+        throw error;
+      }
+    },
+
+    changePassword: async (parent, args, ctx, info) => {
+      const { resetPassToken, newPassword } = args;
+
+      // Normalize & validate inputs
+      const { password } = validateInputs({ password: newPassword });
+
+      try {
+        // Find user matching reset password token
+        const foundUser = await prisma.user.findUnique({
+          where: {
+            resetPassToken
+
+            // resetPassTokenExpiry: {
+            //   // if the expiration is after right now, it's valid
+            //   gt: Date.now()
+            // }
+          },
+          select: { id: true, resetPassTokenExpiry: true }
+        });
+
+        // If user not found, return error
+        if (!foundUser)
+          throw new AuthenticationError('user.resetPass.tokenError');
+
+        // Check if reset password token is expired
+        validateResetPassTokenExpiry(foundUser.resetPassTokenExpiry);
+
+        // Encrypt new password
+        const passwordHashed = await bcryptjs.hash(
+          password,
+          passwordHashSaltRounds
         );
 
-        // Create user
-        const newUserRecord = await ctx.prisma.user.create({
-          data: { email: emailNormalized, password: passwordHashed }
+        // Update user with new password & clear reset password token & expiry
+        const updatedUser = await prisma.user.update({
+          where: { id: foundUser.id },
+          data: {
+            password: passwordHashed,
+            resetPassToken: null,
+            resetPassTokenExpiry: null
+          },
+          select: { id: true, email: true, role: true }
         });
 
-        // Create access token
-        const accessToken = createAccessToken(newUserRecord.id);
+        // Create access token & user object
+        const [accessToken, user] = prepareUser(updatedUser);
 
-        // Send back new access token
+        // Set new access token cookie
         ctx.res.cookie('at', accessToken, cookieOptions);
 
-        // Clean user data for client
-        const clientUserData = userClientCleaner(newUserRecord);
-
-        // Return user data
-        return clientUserData;
+        // Return user
+        return user;
       } catch (error) {
-        console.log('user.signUp error: ', error);
+        console.log('user.changePassword error: ', error);
 
-        return {};
+        throw error;
       }
     }
   }

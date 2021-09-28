@@ -45,6 +45,7 @@ SSGPage.getLayout = page => {
       description='SSG page'
       // isLoggedIn={!!res.data.currentUser}
       hasHeader
+      hasFooter
     >
       {page}
     </Layout>

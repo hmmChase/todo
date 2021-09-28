@@ -10,7 +10,7 @@ import { isLoggedInVar } from '../../graphql/cache';
 import graphQLErrors from '../../utils/graphQLErrors';
 import FormInput from '../../components/REUSEABLE/FormInput';
 import Button from '../../components/REUSEABLE/Button';
-import DisplayError from '../../components/OTHER/DisplayError';
+import DisplayError from '../../components/REUSEABLE/DisplayError';
 import { email, password } from '../../utils/AuthInputValidation';
 import PassReqList from './PassReqList';
 

@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import Ideas from '../components/IDEA/Ideas';
 import Layout from '../components/LAYOUTS/Layout';
 import { CURRENT_USER_IDEAS } from '../graphql/queries/idea';
-import QueryResult from '../components/OTHER/QueryResult';
+import QueryResult from '../components/REUSEABLE/QueryResult';
 import graphQLErrors from '../utils/graphQLErrors';
 import isLoggedIn from '../utils/isLoggedIn';
 
@@ -38,6 +38,7 @@ AccountPage.getLayout = page => (
     description='Account page'
     isLoggedIn={page.props.isLoggedIn}
     hasHeader
+    hasFooter
   >
     {page}
   </Layout>

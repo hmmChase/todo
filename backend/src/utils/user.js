@@ -1,38 +1,41 @@
-import crypto from 'crypto';
-import { v4 as uuidv4 } from 'uuid';
+import { UserInputError } from 'apollo-server-express';
+import bcryptjs from 'bcryptjs';
+// import argon2 from 'argon2';
+// import crypto from 'crypto';
 
-const users = [];
+import { createAccessToken } from './accessToken';
 
-export const createUser = async (email, password) => {
-  // Here you should create the user and save the salt and hashed password (some dbs may have
-  // authentication methods that will do it for you so you don't have to worry about it):
-  const salt = crypto.randomBytes(16).toString('hex');
+export const prepareUser = userRecord => {
+  // Create payload for access token
+  const payload = { userId: userRecord.id };
 
-  const hash = crypto
-    .pbkdf2Sync(password, salt, 1000, 64, 'sha512')
-    .toString('hex');
+  // Create access token
+  const accessToken = createAccessToken(payload);
 
-  const user = { id: uuidv4(), createdAt: Date.now(), email, hash, salt };
+  // Clean user data for client
+  const clientUserData = userClientCleaner(userRecord);
 
-  // This is an in memory store for users, there is no data persistence without a proper DB
-  users.push(user);
+  // Create user object
+  const user = { user: clientUserData };
 
-  return user;
+  // Return access token & user object
+  return [accessToken, user];
 };
 
-// Compare the password of an already fetched user (using `findUser`) and compare the
-// password for a potential match
-export const validatePassword = async (user, inputPassword) => {
-  const inputHash = crypto
-    .pbkdf2Sync(inputPassword, user.salt, 1000, 64, 'sha512')
-    .toString('hex');
+export const passwordCompare = async (inputPassword, userPassword) => {
+  // const passwordHash = crypto
+  //   .pbkdf2Sync(inputPassword, salt, 1000, 64, 'sha512')
+  //   .toString('hex');
+  // const passwordsMatch = inputPassword === userPassword;
 
-  const passwordsMatch = user.hash === inputHash;
+  // const valid = await argon2.verify(inputPassword, userPassword);
 
-  return passwordsMatch;
+  const isCorrectPass = await bcryptjs.compare(inputPassword, userPassword);
+
+  if (!isCorrectPass) throw new UserInputError('user.auth.invalid');
 };
 
-export const userClientCleaner = user => ({
+const userClientCleaner = user => ({
   id: user.id,
   email: user.email,
   role: user.role

@@ -106,6 +106,7 @@ OffsetPage.getLayout = page => (
     description='Offset page'
     isLoggedIn={page.props.isLoggedIn}
     hasHeader
+    hasFooter
   >
     {page}
   </Layout>
