@@ -7,8 +7,12 @@ import {
 } from 'apollo-server-express';
 import bcryptjs from 'bcryptjs';
 
-import { refreshAccessToken, verifyAccessToken } from '../../utils/accessToken';
-import { prepareUser, passwordCompare } from '../../utils/user';
+import { verifyAccessToken } from '../../utils/accessToken';
+import {
+  prepareUser,
+  passwordCompare,
+  userClientCleaner
+} from '../../utils/user';
 import { validateInputs } from '../../utils/validateInputs';
 import { cookieOptions, passwordHashSaltRounds } from '../../config';
 import { sendPassResetEmail } from '../../handlers/emailHandler';
@@ -24,7 +28,7 @@ const userResolver = {
       const { id } = args;
 
       // Check if missing args
-      if (!id) throw new ForbiddenError('error.missingArgument');
+      if (!id) throw new ForbiddenError('user.missingArgument');
 
       // Convert string to number
       const numId = Number(id);
@@ -34,18 +38,22 @@ const userResolver = {
         throw new ForbiddenError('error.invalidArgument');
 
       try {
-        // Find user matching userId
+        // Find user matching user id
         const userRecord = await ctx.prisma.user.findUnique({
-          where: { id: numId }
+          where: { id: numId },
+          select: { id: true, email: true, role: true }
         });
 
         // Clean user data for client
         const clientUserData = userClientCleaner(userRecord);
 
-        // Return user data
-        return clientUserData;
+        // Create user object
+        const user = { user: clientUserData };
+
+        // Return user
+        return user;
       } catch (error) {
-        console.log('user.user error: ', error);
+        console.log('user user error: ', error);
 
         throw error;
       }
@@ -55,17 +63,25 @@ const userResolver = {
     users: async (parent, args, ctx, info) => {
       try {
         // Find all users
-        const userRecords = await ctx.prisma.user.findMany();
+        const userRecords = await ctx.prisma.user.findMany({
+          select: { id: true, email: true, role: true }
+        });
 
-        // Clean users data for client
-        const clientUsersData = userRecords.map(user =>
-          userClientCleaner(user)
-        );
+        const users = userRecords.map(userRecord => {
+          // Clean user data for client
+          const clientUserData = userClientCleaner(userRecord);
 
-        // Return users data
-        return clientUsersData;
+          // Create user object
+          const user = { user: clientUserData };
+
+          // Return user
+          return user;
+        });
+
+        // Return users
+        return users;
       } catch (error) {
-        console.log('user.users error: ', error);
+        console.log('user users error: ', error);
 
         throw error;
       }
@@ -79,23 +95,33 @@ const userResolver = {
       try {
         // Find user matching userId
         const userRecord = await ctx.prisma.user.findUnique({
-          where: { id: payload.userId }
+          where: { id: payload.userId },
+          select: { id: true, email: true, role: true }
         });
 
         // If no user found, return error
         if (!userRecord) throw new AuthenticationError('user.notFound');
 
-        // Send back new access token
+        /** refresh access token every time user is queried?
+        // Create access token & user object
+        const [accessToken, user] = prepareUser(userRecord);
 
-        refreshAccessToken(ctx.res, userRecord.id);
+        // Set new access token cookie
+        ctx.res.cookie('at', accessToken, cookieOptions);
+        */
 
         // Clean user data for client
         const clientUserData = userClientCleaner(userRecord);
 
-        // Return user data
-        return clientUserData;
+        // Create user object
+        const user = { user: clientUserData };
+
+        console.log('user:', user);
+
+        // Return user
+        return user;
       } catch (error) {
-        console.log('user.currentUser error: ', error);
+        console.log('user currentUser error: ', error);
 
         throw error;
       }
@@ -131,7 +157,7 @@ const userResolver = {
         // Return user
         return user;
       } catch (error) {
-        console.log('user.logIn error: ', error);
+        console.log('user logIn error: ', error);
 
         throw error;
       }
@@ -168,14 +194,17 @@ const userResolver = {
         // If user found, return error
         if (foundUser) throw new UserInputError('user.auth.alreadyExists');
 
+        /**
         // Encrypt password
-        // const hash = crypto
-        //   .pbkdf2Sync(password, passwordHashSaltRounds, 1000, 64, 'sha512')
-        //   .toString('hex');
-        // const hashedPassword = await argon2.hash(
-        //   newPassword,
-        //   passwordHashSaltRounds
-        // );
+        const hash = crypto
+          .pbkdf2Sync(password, passwordHashSaltRounds, 1000, 64, 'sha512')
+          .toString('hex');
+
+        const hashedPassword = await argon2.hash(
+          newPassword,
+          passwordHashSaltRounds
+        );
+        */
 
         // Encrypt password
         const passwordHashed = await bcryptjs.hash(
@@ -198,7 +227,7 @@ const userResolver = {
         // Return user
         return user;
       } catch (error) {
-        console.log('user.createUser error: ', error);
+        console.log('user createUser error: ', error);
 
         throw error;
       }
@@ -234,7 +263,7 @@ const userResolver = {
         // Return boolean
         return true;
       } catch (error) {
-        console.log('user.reqPassReset error: ', error);
+        console.log('user reqPassReset error: ', error);
 
         throw error;
       }
@@ -293,7 +322,7 @@ const userResolver = {
         // Return user
         return user;
       } catch (error) {
-        console.log('user.changePassword error: ', error);
+        console.log('user changePassword error: ', error);
 
         throw error;
       }

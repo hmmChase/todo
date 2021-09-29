@@ -7,30 +7,32 @@ import graphQLErrors from '../../utils/graphQLErrors';
 import isLoggedIn from '../../utils/isLoggedIn';
 import QueryResult from '../../components/REUSEABLE/QueryResult';
 import Layout from '../../components/LAYOUTS/Layout';
-import IdeaCard from '../../components/IDEA/IdeaCard';
+import IdeaDetail from '../../components/IDEA/IdeaDetail';
 
 const IdeaPage = () => {
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
 
-  const slug = router.asPath.split('/')[2];
+  const ideaId = router.query.ideaId;
+
+  const onError = error => {
+    console.log('IdeaPage READ_IDEA error: ', error);
+
+    setErrorMsg(graphQLErrors(error));
+  };
 
   const { loading, error, data } = useQuery(READ_IDEA, {
-    variables: { id: slug },
+    variables: { id: ideaId },
 
-    onError: error => {
-      console.log('IdeaPage READ_IDEA error: ', error);
-
-      setErrorMsg(graphQLErrors(error));
-    }
+    onError: error => onError(error)
   });
 
   const idea = data?.idea || {};
 
   return (
     <QueryResult error={errorMsg} loading={loading} data={data}>
-      <IdeaCard id={idea.id} content={idea.content} />
+      <IdeaDetail ideaId={idea.id} content={idea.content} />
     </QueryResult>
   );
 };
@@ -86,8 +88,8 @@ IdeaPage.getLayout = page => (
     title='Idea'
     description='Idea page'
     isLoggedIn={page.props.isLoggedIn}
-    onIdeaPage
     hasHeader
+    hasFooter
     hasBackButton
   >
     {page}

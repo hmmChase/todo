@@ -10,8 +10,8 @@ import Footer from '../SECTIONS/Footer';
 const Layout = props => {
   const {
     isLoggedIn,
-    onIdeaPage,
     hasHeader,
+    hasFooter,
     hasBackButton,
     children,
     title,
@@ -32,7 +32,7 @@ const Layout = props => {
         {hasHeader && (
           <HeaderWrap>
             <MaxWidth>
-              <Header isLoggedIn={isLoggedIn} onIdeaPage={onIdeaPage} />
+              <Header isLoggedIn={isLoggedIn} />
             </MaxWidth>
           </HeaderWrap>
         )}
@@ -45,11 +45,13 @@ const Layout = props => {
           </MaxWidth>
         </MainWrap>
 
-        <FooterWrap>
-          <MaxWidth>
-            <Footer />
-          </MaxWidth>
-        </FooterWrap>
+        {hasFooter && (
+          <FooterWrap>
+            <MaxWidth>
+              <Footer />
+            </MaxWidth>
+          </FooterWrap>
+        )}
       </LayoutWrap>
     </>
   );

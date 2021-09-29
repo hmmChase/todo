@@ -99,9 +99,9 @@ export const UPDATE_IDEA = gql`
   ${IDEA_FIELDS}
 `;
 
-export const DELETE_SOFT_IDEA = gql`
-  mutation DeleteSoftIdea($id: ID!) {
-    deleteSoftIdea(id: $id) {
+export const REMOVE_IDEA = gql`
+  mutation RemoveIdea($id: ID!) {
+    removeIdea(id: $id) {
       id
     }
   }

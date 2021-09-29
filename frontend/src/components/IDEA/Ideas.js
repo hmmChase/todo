@@ -10,7 +10,11 @@ const Ideas = props => {
       <hr />
 
       <li>
-        <IdeaCard id={idea.id} content={idea.content} />
+        <IdeaCard
+          ideaId={idea.id}
+          content={idea.content}
+          authorId={idea.author.id}
+        />
       </li>
     </Wrapper>
   ));

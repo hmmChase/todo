@@ -5,7 +5,7 @@ const isLoggedIn = headers => {
 
   // If cookie header present
   if (headers && headers.cookie) {
-    // Parse Acess token
+    // Parse Access token
     const accessToken = headers.cookie.replace('at=', '');
 
     // If Access token

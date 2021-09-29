@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 
-import { DELETE_SOFT_IDEA } from '../../graphql/queries/idea';
+import { REMOVE_IDEA } from '../../graphql/queries/idea';
 import graphQLErrors from '../../utils/graphQLErrors';
 import { XIconBtn } from '../REUSEABLE/IconBtn';
 
@@ -25,24 +25,24 @@ const RemoveIdea = props => {
       }
     });
 
-  const [deleteSoftIdea] = useMutation(DELETE_SOFT_IDEA, {
-    update(cache) {
-      update(cache);
-    },
+  const onError = error => {
+    console.log('RemoveIdea onError error: ', error);
 
-    onError: error => {
-      console.log('RemoveIdea DELETE_SOFT_IDEA error: ', error);
+    setErrorMsg(graphQLErrors(error));
+  };
 
-      setErrorMsg(graphQLErrors(error));
-    }
+  const [removeIdea] = useMutation(REMOVE_IDEA, {
+    update: cache => update(cache),
+
+    onError: error => onError(error)
   });
 
   const handleClick = async e => {
-    //? not working
+    //? prevent multiple clicks - not working?
     e.target.disabled = true;
 
     try {
-      await deleteSoftIdea({ variables: { id: ideaId } });
+      await removeIdea({ variables: { id: ideaId } });
     } catch (error) {
       console.log('RemoveIdea handleClick error: ', error);
 
@@ -50,7 +50,7 @@ const RemoveIdea = props => {
     }
   };
 
-  return <XIconBtn aria-label='delete idea' onClick={handleClick} />;
+  return <XIconBtn aria-label='remove idea' onClick={handleClick} />;
 };
 
 RemoveIdea.propTypes = {

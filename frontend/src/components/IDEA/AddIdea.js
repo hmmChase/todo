@@ -14,33 +14,36 @@ const AddIdea = () => {
 
   let input;
 
+  // https://www.apollographql.com/docs/react/data/mutations/#the-update-function
+  const update = (cache, result) =>
+    cache.modify({
+      fields: {
+        ideas(existingIdeas = []) {
+          const newIdeaRef = cache.writeFragment({
+            data: result.data.createIdea,
+
+            fragment: IDEA_FIELDS
+          });
+
+          return [...existingIdeas, newIdeaRef];
+        }
+      }
+    });
+
+  const onError = error => {
+    console.log('AddIdea onError error: ', error);
+
+    setErrorMsg(graphQLErrors(error));
+  };
+
   const [createIdea, { data, loading, error }] = useMutation(CREATE_IDEA, {
     // Update the cache as an approximation of server-side mutation effects
     // https://www.apollographql.com/docs/react/data/mutations/#refetching-queries
     // refetchQueries: [{ query: READ_IDEAS }],
 
-    // https://www.apollographql.com/docs/react/data/mutations/#the-update-function
-    update(cache, result) {
-      cache.modify({
-        fields: {
-          ideas(existingIdeas = []) {
-            const newIdeaRef = cache.writeFragment({
-              data: result.data.createIdea,
+    update: (cache, result) => update(cache, result),
 
-              fragment: IDEA_FIELDS
-            });
-
-            return [...existingIdeas, newIdeaRef];
-          }
-        }
-      });
-    },
-
-    onError: error => {
-      console.log('AddIdea createIdea error: ', error);
-
-      setErrorMsg(graphQLErrors(error));
-    }
+    onError: error => onError(error)
   });
 
   const handleSubmit = async (e, input) => {
@@ -50,16 +53,18 @@ const AddIdea = () => {
       await createIdea({
         variables: { content: input.value }
 
+        /**
         // Optimistically add the Todo to the locally cached
         // list before the server responds
-        // https://www.apollographql.com/docs/react/performance/optimistic-ui/#the-optimisticresponse-option
-        // optimisticResponse: {
-        //   createIdea: {
-        //     id: 'temp-id',
-        //     __typename: 'Idea',
-        //     content: input.value
-        //   }
-        // }
+        https://www.apollographql.com/docs/react/performance/optimistic-ui/#the-optimisticresponse-option
+        optimisticResponse: {
+          createIdea: {
+            id: 'temp-id',
+            __typename: 'Idea',
+            content: input.value
+          }
+        }
+        */
       });
     } catch (error) {
       console.log('AddIdea handleSubmit error: ', error);

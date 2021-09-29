@@ -11,13 +11,17 @@ import { siteTitle } from '../../../config';
 import Ideabox from '../../../../public/images/ideabox.png';
 
 const Header = props => {
-  const { isLoggedIn, onIdeaPage } = props;
+  const { isLoggedIn } = props;
 
   const router = useRouter();
 
-  const isActive = pathname => router.pathname === pathname;
+  const routePathArr = router.asPath.split('/');
 
-  const slug = router.asPath.split('/')[2];
+  const onIdeaDetailPage = routePathArr[1] === 'idea';
+
+  const isActive = path => routePathArr[1] === path;
+
+  const ideaId = routePathArr[2];
 
   return (
     <Container>
@@ -33,31 +37,31 @@ const Header = props => {
         <MenuList>
           <li>
             <Link href='/'>
-              <a data-active={isActive('/')}>Home</a>
+              <a data-active={isActive('')}>Home</a>
             </Link>
           </li>
 
           <li>
             <Link href='/offset'>
-              <a data-active={isActive('/offset')}>Offset</a>
+              <a data-active={isActive('offset')}>Offset</a>
             </Link>
           </li>
 
           <li>
             <Link href='/curser'>
-              <a data-active={isActive('/curser')}>Curser</a>
+              <a data-active={isActive('curser')}>Curser</a>
             </Link>
           </li>
 
           <li>
             <Link href='/ssr'>
-              <a data-active={isActive('/ssr')}>SSR</a>
+              <a data-active={isActive('ssr')}>SSR</a>
             </Link>
           </li>
 
           <li>
             <Link href='/ssg'>
-              <a data-active={isActive('/ssg')}>SSG</a>
+              <a data-active={isActive('ssg')}>SSG</a>
             </Link>
           </li>
         </MenuList>
@@ -65,8 +69,8 @@ const Header = props => {
 
       {isLoggedIn ? <IconUser /> : <HeaderLoggedOut />}
 
-      {onIdeaPage ? (
-        <h2>{slug}</h2>
+      {onIdeaDetailPage ? (
+        <h2>{ideaId}</h2>
       ) : (
         <Bottom>
           <AddIdea />

@@ -8,11 +8,11 @@ const typeDefs = gql`
   type Query {
     currentNumber: Int
 
-    user(id: ID!): User
+    user(id: ID!): UserAuthPayload
 
-    users: [User!]!
+    users: [UserAuthPayload!]!
 
-    currentUser: User
+    currentUser: UserAuthPayload
 
     idea(id: ID!): Idea
 
@@ -61,7 +61,8 @@ const typeDefs = gql`
 
     updateIdea(id: ID!, content: String!): Idea!
 
-    deleteSoftIdea(id: ID!): Idea!
+    # soft delete idea
+    removeIdea(id: ID!): Idea!
 
     deleteIdea(id: ID!): Idea!
   }

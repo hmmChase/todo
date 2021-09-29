@@ -11,12 +11,12 @@ const ideaResolver = {
       try {
         const idea = await ctx.prisma.idea.findUnique({
           where: { id },
-          include: { author: { select: { id: true } } }
+          select: { id: true, content: true, author: { select: { id: true } } }
         });
 
         return idea;
       } catch (error) {
-        console.log('idea.idea error: ', error);
+        console.log('idea idea error: ', error);
 
         throw error;
       }
@@ -27,13 +27,13 @@ const ideaResolver = {
       try {
         const ideas = await ctx.prisma.idea.findMany({
           where: { deletedAt: null },
-          orderBy: { createdAt: 'desc' },
-          include: { author: { select: { id: true } } }
+          select: { id: true, content: true, author: { select: { id: true } } },
+          orderBy: { createdAt: 'desc' }
         });
 
         return ideas;
       } catch (error) {
-        console.log('idea.ideas error: ', error);
+        console.log('idea ideas error: ', error);
 
         throw error;
       }
@@ -52,12 +52,14 @@ const ideaResolver = {
         const ideas = await ctx.prisma.idea.findMany({
           skip: offset,
           take: limit, // first
-          include: { author: { select: { id: true } } }
+          where: { deletedAt: null },
+          select: { id: true, content: true, author: { select: { id: true } } },
+          orderBy: { createdAt: 'desc' }
         });
 
         return ideas;
       } catch (error) {
-        console.log('idea.ideasPaginatedOffset error: ', error);
+        console.log('idea ideasPaginatedOffset error: ', error);
 
         throw error;
       }
@@ -76,13 +78,14 @@ const ideaResolver = {
         const ideas = await ctx.prisma.idea.findMany({
           take: limit,
           cursor: { id: cursor },
-          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
-          include: { author: { select: { id: true } } }
+          where: { deletedAt: null },
+          select: { id: true, content: true, author: { select: { id: true } } },
+          orderBy: { createdAt: 'desc' }
         });
 
         return ideas;
       } catch (error) {
-        console.log('idea.ideasPaginatedCurser error: ', error);
+        console.log('idea ideasPaginatedCurser error: ', error);
 
         throw error;
       }
@@ -96,12 +99,13 @@ const ideaResolver = {
         // Find and return all ideas matching userId
         const ideas = await ctx.prisma.idea.findMany({
           where: { author: { id: payload.userId }, deletedAt: null },
+          select: { id: true, content: true },
           orderBy: { createdAt: 'desc' }
         });
 
         return ideas;
       } catch (error) {
-        console.log('idea.currentUserIdeas error: ', error);
+        console.log('idea currentUserIdeas error: ', error);
 
         throw error;
       }
@@ -165,13 +169,13 @@ const ideaResolver = {
         // Create idea
         const ideaRecord = ctx.prisma.idea.create({
           data: { content, author: { connect: { id: payload.userId } } },
-          include: { author: { select: { id: true } } }
+          select: { id: true, content: true, author: { select: { id: true } } }
         });
 
         // Return new idea
         return ideaRecord;
       } catch (error) {
-        console.log('idea.createIdea error: ', error);
+        console.log('idea createIdea error: ', error);
 
         throw error;
       }
@@ -187,7 +191,7 @@ const ideaResolver = {
         // Request idea's author ID
         const idea = await ctx.prisma.idea.findUnique({
           where: { id },
-          include: { author: { select: { id: true } } }
+          select: { author: { select: { id: true } } }
         });
 
         // Check if they own that idea
@@ -196,21 +200,22 @@ const ideaResolver = {
         // If not, throw error
         if (!ownsIdea) throw new ForbiddenError('idea.invalidOwnership');
 
-        // If so, update and return idea
+        // Update idea
         const updatedIdea = ctx.prisma.idea.update({
           where: { id },
-          data: { content }
+          data: { content },
+          select: { id: true, content: true, author: { select: { id: true } } }
         });
 
         return updatedIdea;
       } catch (error) {
-        console.log('idea.updateIdea error: ', error);
+        console.log('idea updateIdea error: ', error);
 
         throw error;
       }
     },
 
-    deleteSoftIdea: async (parent, args, ctx, info) => {
+    removeIdea: async (parent, args, ctx, info) => {
       const { id } = args;
 
       // Verify access token and decode payload
@@ -220,7 +225,7 @@ const ideaResolver = {
         // Request idea's author ID
         const idea = await ctx.prisma.idea.findUnique({
           where: { id },
-          include: { author: { select: { id: true } } }
+          select: { author: { select: { id: true } } }
         });
 
         // Check if they own that idea
@@ -230,15 +235,16 @@ const ideaResolver = {
         if (!ownsIdea) throw new ForbiddenError('idea.invalidOwnership');
 
         // Update idea soft delete field
-        const updatedIdea = await prisma.idea.update({
+        const removedIdea = await prisma.idea.update({
           where: { id },
-          data: { deletedAt: new Date().toISOString() }
+          data: { deletedAt: new Date().toISOString() },
+          select: { id: true }
         });
 
-        // Return ID
-        return updatedIdea;
+        // Return removed idea
+        return removedIdea;
       } catch (error) {
-        console.log('idea.deleteSoftIdea error: ', error);
+        console.log('idea removeIdea error: ', error);
 
         throw error;
       }
@@ -254,7 +260,7 @@ const ideaResolver = {
         // Request idea's author ID
         const idea = await ctx.prisma.idea.findUnique({
           where: { id },
-          include: { author: { select: { id: true } } }
+          select: { author: { select: { id: true } } }
         });
 
         // Check if they own that idea
@@ -264,12 +270,15 @@ const ideaResolver = {
         if (!ownsIdea) throw new ForbiddenError('idea.invalidOwnership');
 
         // Delete idea
-        const deletedIdea = ctx.prisma.idea.delete({ where: { id } });
+        const deletedIdea = ctx.prisma.idea.delete({
+          where: { id },
+          select: { id: true }
+        });
 
-        // Return ID
+        // Return deleted idea
         return deletedIdea;
       } catch (error) {
-        console.log('idea.deleteIdea error: ', error);
+        console.log('idea deleteIdea error: ', error);
 
         throw error;
       }
