@@ -1,20 +1,22 @@
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
-  # Comments in GraphQL are defined with the hash (#) symbol.
-
   # - Types ----------
 
   type Query {
     currentNumber: Int
 
-    user(id: ID!): UserAuthPayload
+    # - User -----
+
+    user(id: ID!): UserAuthPayload!
 
     users: [UserAuthPayload!]!
 
     currentUser: UserAuthPayload
 
-    idea(id: ID!): Idea
+    # - Idea -----
+
+    idea(id: ID!): Idea!
 
     ideas: [Idea!]!
 
@@ -22,28 +24,30 @@ const typeDefs = gql`
       """
       Return results after this cursor
       """
-      offset: Int
+      offset: Int!
       """
       Number of nodes per page
       """
-      limit: Int
+      limit: Int!
     ): [Idea!]!
 
     ideasPaginatedCurser(
       """
       Number of nodes per page
       """
-      first: Int
+      first: Int!
       """
       If you add a cursor here, it will only return results _after_ this cursor
       """
-      after: String
+      after: String!
     ): IdeaConnection!
 
     currentUserIdeas: [Idea!]!
   }
 
   type Mutation {
+    # - User -----
+
     logIn(input: UserAuthInput!): UserAuthPayload!
 
     logOut: Boolean!
@@ -57,11 +61,13 @@ const typeDefs = gql`
       newPassword: String!
     ): UserAuthPayload!
 
+    # - Idea -----
+
     createIdea(content: String!): Idea!
 
     updateIdea(id: ID!, content: String!): Idea!
 
-    # soft delete idea
+    # soft delete
     removeIdea(id: ID!): Idea!
 
     deleteIdea(id: ID!): Idea!
@@ -79,7 +85,7 @@ const typeDefs = gql`
     email: String!
     password: String!
     role: Role!
-    ideas: [Idea!]
+    ideas: [Idea!]!
   }
 
   type Idea {

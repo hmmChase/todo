@@ -9,9 +9,9 @@ import bcryptjs from 'bcryptjs';
 
 import { verifyAccessToken } from '../../utils/accessToken';
 import {
-  prepareUser,
-  passwordCompare,
-  userClientCleaner
+  createUserObj,
+  createUserObjandPayload,
+  passwordCompare
 } from '../../utils/user';
 import { validateInputs } from '../../utils/validateInputs';
 import { cookieOptions, passwordHashSaltRounds } from '../../config';
@@ -44,11 +44,8 @@ const userResolver = {
           select: { id: true, email: true, role: true }
         });
 
-        // Clean user data for client
-        const clientUserData = userClientCleaner(userRecord);
-
         // Create user object
-        const user = { user: clientUserData };
+        const user = createUserObj(userRecord);
 
         // Return user
         return user;
@@ -68,11 +65,8 @@ const userResolver = {
         });
 
         const users = userRecords.map(userRecord => {
-          // Clean user data for client
-          const clientUserData = userClientCleaner(userRecord);
-
           // Create user object
-          const user = { user: clientUserData };
+          const user = createUserObj(userRecord);
 
           // Return user
           return user;
@@ -89,6 +83,9 @@ const userResolver = {
 
     // Return authenticated user
     currentUser: async (parent, args, ctx, info) => {
+      // If user not logged in, return null
+      if (!ctx.accessToken) return null;
+
       // Verify access token & decode payload
       const payload = verifyAccessToken(ctx.accessToken);
 
@@ -103,20 +100,15 @@ const userResolver = {
         if (!userRecord) throw new AuthenticationError('user.notFound');
 
         /** refresh access token every time user is queried?
-        // Create access token & user object
-        const [accessToken, user] = prepareUser(userRecord);
+        // Create user object & access token
+        const [user, accessToken] = createUserObjandPayload(userRecord);
 
         // Set new access token cookie
         ctx.res.cookie('at', accessToken, cookieOptions);
         */
 
-        // Clean user data for client
-        const clientUserData = userClientCleaner(userRecord);
-
         // Create user object
-        const user = { user: clientUserData };
-
-        console.log('user:', user);
+        const user = createUserObj(userRecord);
 
         // Return user
         return user;
@@ -148,8 +140,8 @@ const userResolver = {
         // Check if input password matches users password
         await passwordCompare(password, userRecord.password);
 
-        // Create access token & user object
-        const [accessToken, user] = prepareUser(userRecord);
+        // Create user object & access token
+        const [user, accessToken] = createUserObjandPayload(userRecord);
 
         // Set new access token cookie
         ctx.res.cookie('at', accessToken, cookieOptions);
@@ -218,8 +210,8 @@ const userResolver = {
           select: { id: true, email: true, role: true }
         });
 
-        // Create access token & user object
-        const [accessToken, user] = prepareUser(userRecord);
+        // Create user object & access token
+        const [user, accessToken] = createUserObjandPayload(userRecord);
 
         // Set new access token cookie
         ctx.res.cookie('at', accessToken, cookieOptions);
@@ -313,8 +305,8 @@ const userResolver = {
           select: { id: true, email: true, role: true }
         });
 
-        // Create access token & user object
-        const [accessToken, user] = prepareUser(updatedUser);
+        // Create user object & access token
+        const [user, accessToken] = createUserObjandPayload(updatedUser);
 
         // Set new access token cookie
         ctx.res.cookie('at', accessToken, cookieOptions);

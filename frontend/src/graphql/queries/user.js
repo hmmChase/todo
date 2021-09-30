@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+//! If you change something, also update mocks
+
 //* - Fragments ----------
 
 export const USER_FIELDS = gql`

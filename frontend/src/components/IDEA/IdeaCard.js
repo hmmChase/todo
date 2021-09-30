@@ -21,6 +21,8 @@ const IdeaCard = props => {
   };
 
   const { loading, error, data } = useQuery(CURRENT_USER, {
+    fetchPolicy: 'network-only',
+
     onError: error => onError(error)
   });
 

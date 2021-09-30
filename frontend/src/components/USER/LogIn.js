@@ -48,7 +48,6 @@ const LogIn = () => {
   const onError = error => {
     console.log('LogIn onError error: ', error);
 
-    // Will set only UserInputError errors
     setErrorMsg(graphQLErrors(error));
   };
 

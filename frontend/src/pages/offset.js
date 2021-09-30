@@ -18,6 +18,12 @@ const OffsetPage = () => {
 
   const [page, setPage] = useState((offset + ideasPerPage) / ideasPerPage);
 
+  const onError = error => {
+    console.log('OffsetPage onError error: ', error);
+
+    setErrorMsg(graphQLErrors(error));
+  };
+
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     READ_IDEAS_PAGINATED_OFFSET,
     {
@@ -26,11 +32,7 @@ const OffsetPage = () => {
       // Allows component to rerender with loading:true whenever fetchMore is called
       notifyOnNetworkStatusChange: true,
 
-      onError: error => {
-        console.log('OffsetPage READ_IDEAS_PAGINATED_OFFSET error: ', error);
-
-        setErrorMsg(graphQLErrors(error));
-      }
+      onError: error => onError(error)
     }
   );
 
