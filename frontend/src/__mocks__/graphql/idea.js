@@ -1,21 +1,21 @@
-import * as ideaQuery from '../../../graphql/queries/idea';
-import * as ideaMocks from '../idea';
+import * as ideaQuery from '../../graphql/queries/idea';
+import { idea, ideas } from '../idea';
 
 //* - Queries ----------
 
 export const READ_IDEA = {
   request: { query: ideaQuery.READ_IDEA, variables: { id: '1' } },
-  result: { data: { idea: ideaMocks.idea1 } }
+  result: { data: { idea: idea.idea1 } }
 };
 
 export const READ_IDEAS = {
-  request: { query: ideaQuery.READ_USERS },
-  result: { data: { ideas: ideaMocks.ideas } }
+  request: { query: ideaQuery.READ_IDEAS },
+  result: { data: { ideas: ideas } }
 };
 
 export const READ_IDEAS_CLIENT = {
   request: { query: ideaQuery.READ_IDEAS_CLIENT },
-  result: { data: { ideas: ideaMocks.ideas } }
+  result: { data: { ideas: ideas } }
 };
 
 export const READ_IDEAS_PAGINATED_OFFSET = {
@@ -23,7 +23,7 @@ export const READ_IDEAS_PAGINATED_OFFSET = {
     query: ideaQuery.READ_IDEAS_PAGINATED_OFFSET,
     variables: { offset: 1, limit: 3 }
   },
-  result: { data: { ideasPaginatedOffset: ideaMocks.ideas } }
+  result: { data: { ideasPaginatedOffset: ideas } }
 };
 
 export const READ_IDEAS_PAGINATED_CURSER = {
@@ -31,12 +31,12 @@ export const READ_IDEAS_PAGINATED_CURSER = {
     query: ideaQuery.READ_IDEAS_PAGINATED_CURSER,
     variables: { offset: 1, limit: 3 }
   },
-  result: { data: { ideasPaginatedCurser: ideaMocks.ideas } }
+  result: { data: { ideasPaginatedCurser: ideas } }
 };
 
 export const CURRENT_USER_IDEAS = {
   request: { query: ideaQuery.CURRENT_USER_IDEAS },
-  result: { data: { ideas: ideaMocks.ideas } }
+  result: { data: { ideas: ideas } }
 };
 
 //* - Mutations ----------

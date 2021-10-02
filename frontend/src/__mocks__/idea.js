@@ -1,6 +1,6 @@
-import * as userMocks from './user';
+// import * as userMocks from './user';
 
-const ideaMocks = {
+export const idea = {
   idea1: {
     id: 1,
     content: 'idea content 1'
@@ -29,9 +29,13 @@ const ideaMocks = {
     id: 5,
     content: 'idea content 5'
     // author: userMocks.user5
-  },
-
-  ideas: [idea1, idea2, idea3, idea4, idea5]
+  }
 };
 
-export default ideaMocks;
+export const ideas = [
+  idea.idea1,
+  idea.idea2,
+  idea.idea3,
+  idea.idea4,
+  idea.idea5
+];

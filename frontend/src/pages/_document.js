@@ -97,6 +97,7 @@ class MyDocument extends Document {
             type='font/woff2'
             crossOrigin='anonymous'
           />
+
           <link
             rel='preload'
             href='/fonts/play-v10-latin-regular.woff2'

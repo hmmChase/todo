@@ -54,7 +54,7 @@ const Dropdownn = styled(Dropdown)`
   width: 90px;
 `;
 
-const IconUserDefault = styled(Image)`
+const IconUserDefault = styled(Image).attrs({ layout: 'fill' })`
   border: 2px solid ${props => props.theme.colors.text.secondaryText};
   fill: ${props => props.theme.colors.backgrounds.widgetsHeader};
   border-radius: 50%;
