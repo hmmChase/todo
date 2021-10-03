@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Button = props => (
@@ -22,19 +22,17 @@ Button.propTypes = {
   // className: PropTypes.string,
   // children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
   // disabled: PropTypes.bool,
+  // type: PropTypes.oneOf(['submit']).isRequired,
   // htmlType: PropTypes.oneOf(['submit']),
   // loading: PropTypes.bool,
-  // onClick: PropTypes.func,
-  // type: PropTypes.oneOf(['default', 'primary', 'dashed', 'link']).isRequired
+  // onClick: PropTypes.func
 };
 
 export default Button;
 
-/** styled components */
-
-export const Buttonn = styled.button`
-  background-color: ${props => props.theme.colors.buttons.actionButton};
-  border-radius: 4px;
+const Buttonn = styled.button`
+  background-color: ${props => props.theme.buttons.actionButton};
+  border-radius: ${props => props.theme.buttons.radius};
   border: none;
   color: ${props => props.theme.colors.text.primaryText};
   padding: 0.6rem 1rem;

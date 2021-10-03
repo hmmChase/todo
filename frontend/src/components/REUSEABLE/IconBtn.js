@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import X from '../design/icons/X/X';
-import Expand from '../design/icons/Expand/Expand';
+import X from '../DESIGN/icons/X';
+import Expand from '../DESIGN/icons/Expand';
 
 export const ExpandIconBtn = props => (
   <Button aria-label={props['aria-label']} data-testid={props['data-testid']}>

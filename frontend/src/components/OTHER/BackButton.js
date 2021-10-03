@@ -2,7 +2,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import Button from '../REUSEABLE/Button';
-import Left from '../DESIGN/icons/Left/Left';
+import Left from '../DESIGN/icons/Left';
 
 const BackButton = () => (
   <Link href='/'>

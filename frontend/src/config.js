@@ -27,3 +27,8 @@ export const passwordRequirements = {
     'a number'
   ]
 };
+
+export const passResetTokenMissingError =
+  'Error: Please submit a new password reset request.';
+export const passResetTokenExpiredError =
+  'Your reset request is expired. Please submit a new one.';
