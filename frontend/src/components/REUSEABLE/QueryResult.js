@@ -16,6 +16,8 @@ const QueryResult = props => {
   if (!data) return <DisplayInfo>Nothing to show...</DisplayInfo>;
 
   if (data) return children;
+
+  return <DisplayError error={{ message: 'ERROR' }} />;
 };
 
 export default QueryResult;

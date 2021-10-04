@@ -72,7 +72,7 @@ const OffsetPage = () => {
     setIsLoadingMore(false);
   };
 
-  const ideas = data?.ideasPaginatedOffset || [];
+  const ideas = data?.ideasPaginatedOffset;
 
   const haveIdeas = !!ideas.length;
 

@@ -1,12 +1,12 @@
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
-  # - Types ----------
+  # ---------- Types ----------
 
   type Query {
     currentNumber: Int
 
-    # - User -----
+    # ---------- User ----------
 
     user(id: ID!): UserAuthPayload!
 
@@ -14,7 +14,7 @@ const typeDefs = gql`
 
     currentUser: UserAuthPayload
 
-    # - Idea -----
+    # ---------- Idea ----------
 
     idea(id: ID!): Idea!
 
@@ -46,7 +46,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    # - User -----
+    # ---------- User ----------
 
     logIn(input: UserAuthInput!): UserAuthPayload!
 
@@ -61,7 +61,7 @@ const typeDefs = gql`
       newPassword: String!
     ): UserAuthPayload!
 
-    # - Idea -----
+    # ---------- Idea ----------
 
     createIdea(content: String!): Idea!
 
@@ -109,14 +109,14 @@ const typeDefs = gql`
     ideas: [Idea!]!
   }
 
-  # - Enums ----------
+  # ---------- Enums ----------
 
   enum Role {
     USER
     ADMIN
   }
 
-  # - Inputs ----------
+  # ---------- Inputs ----------
 
   input UserAuthInput {
     email: String!

@@ -28,11 +28,11 @@ const IdeaPage = () => {
     onError: error => onError(error)
   });
 
-  const idea = data?.idea || {};
+  const idea = data?.idea;
 
   return (
-    <QueryResult error={errorMsg} loading={loading} data={data}>
-      <IdeaDetail ideaId={idea.id} content={idea.content} />
+    <QueryResult error={errorMsg} loading={loading} data={idea}>
+      <IdeaDetail idea={idea} />
     </QueryResult>
   );
 };

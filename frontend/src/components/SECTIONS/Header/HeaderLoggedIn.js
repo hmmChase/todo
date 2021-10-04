@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const HeaderLoggedIn = props => {
+const HeaderLoggedIn = () => {
   const router = useRouter();
 
   const isActive = pathname => router.pathname === pathname;

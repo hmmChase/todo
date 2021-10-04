@@ -6,17 +6,15 @@ const Ideas = props => {
   const { ideas } = props;
 
   const ideaCards = ideas.map(idea => (
-    <Wrapper key={idea.id}>
+    <LI key={idea.id}>
       <hr />
 
-      <li>
-        <IdeaCard
-          ideaId={idea.id}
-          content={idea.content}
-          authorId={idea.author.id}
-        />
-      </li>
-    </Wrapper>
+      <IdeaCard
+        ideaId={idea.id}
+        content={idea.content}
+        authorId={idea.author.id}
+      />
+    </LI>
   ));
 
   return <UL>{ideaCards}</UL>;
@@ -24,8 +22,13 @@ const Ideas = props => {
 
 export default Ideas;
 
-const Wrapper = styled.div`
-  :first-child {
+const LI = styled.li`
+  > hr {
+    border-top: 1px solid ${props => props.theme.colors.lightBlue};
+    margin: 0;
+  }
+
+  :first-of-type {
     > hr {
       display: none;
     }
@@ -34,6 +37,7 @@ const Wrapper = styled.div`
 
 const UL = styled.ul`
   padding-left: 0;
+  margin: 0;
   list-style: none;
   width: 100%;
 `;

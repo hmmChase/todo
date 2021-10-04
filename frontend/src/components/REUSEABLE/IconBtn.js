@@ -33,11 +33,13 @@ XIconBtn.propTypes = {
 
 const Button = styled.button`
   border: 1px solid rgb(117, 117, 117);
-  height: 20px;
-  width: 20px;
+  height: 22px;
+  width: 22px;
   cursor: pointer;
-  padding: 0;
+  padding: 2px;
   background-color: rgb(235, 245, 255);
+  vertical-align: middle;
+  border-radius: 25%;
 
   :hover {
     background-color: #c8dcf0;
