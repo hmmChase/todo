@@ -23,25 +23,23 @@ const Header = props => {
 
   return (
     <Container>
-      <Logo>
-        <BoxImg src={Ideabox} alt='ideabox' />
+      <Top>
+        <Logo>
+          <BoxImg src={Ideabox} alt='ideabox' />
 
-        <HeaderTitle>{siteTitle}</HeaderTitle>
-      </Logo>
+          <HeaderTitle>{siteTitle}</HeaderTitle>
+        </Logo>
 
-      <NavBar />
+        {/* <NavBar /> */}
 
-      {isLoggedIn ? <IconUser /> : <HeaderLoggedOut />}
+        {/* {isLoggedIn && <HeaderUsername />} */}
 
-      {/* {isLoggedIn && <HeaderUsername />} */}
+        {isLoggedIn ? <IconUser /> : <HeaderLoggedOut />}
+      </Top>
 
-      {onIdeaDetailPage ? (
-        <h2>{ideaId}</h2>
-      ) : (
-        <Bottom>
-          <AddIdea />
-        </Bottom>
-      )}
+      <Bottom>
+        {onIdeaDetailPage ? <IdeaTitle>{ideaId}</IdeaTitle> : <AddIdea />}
+      </Bottom>
     </Container>
   );
 };
@@ -75,17 +73,27 @@ export default Header;
 // }));
 
 const Container = styled.div`
-  display: grid;
-  grid-gap: 0.5rem;
-  grid-template-areas:
-    'top-left top-middle top-right'
-    'bottom bottom bottom';
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
+
+  /* display: grid; */
+  /* grid-gap: 0.5rem; */
+  /* grid-template-areas: */
+  /* 'top' */
+  /* 'bottom'; */
+  /* grid-template-columns: auto 1fr auto; */
+  /* align-items: center; */
+  /* justify-items: center; */
+  /* width: 100%; */
+  /* position: relative; */
+  /* padding-top: 1rem; */
+`;
+
+const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
   align-items: center;
-  justify-items: center;
-  width: 100%;
-  position: relative;
-  padding-top: 1rem;
 `;
 
 const Logo = styled.div`
@@ -99,6 +107,10 @@ const BoxImg = styled(Image).attrs({
   height: 41
 })``;
 
+const IdeaTitle = styled.h2`
+  margin: 0 0 1rem 1rem;
+`;
+
 const HeaderTitle = styled.h1`
   /* font-size: calc(16px + 6 * ((100vw - 320px) / 680)); */
   font-size: min(max(16px, 4vw), 22px);
@@ -108,7 +120,4 @@ const HeaderTitle = styled.h1`
   display: inline;
 `;
 
-const Bottom = styled.div`
-  grid-area: bottom;
-  width: 100%;
-`;
+const Bottom = styled.div``;

@@ -81,8 +81,6 @@ const MaxWidth = styled.div`
       props.theme.widths.regularPageWidth}px) {
     max-width: ${props => props.theme.widths.regularPageWidth}px;
     margin: 0 auto;
-    display: flex;
-    justify-content: center;
   }
 `;
 
@@ -101,4 +99,6 @@ const MainWrap = styled.main`
 const FooterWrap = styled.footer`
   grid-area: footer;
   border-top: 1px solid ${props => props.theme.colors.black};
+  display: flex;
+  justify-content: center;
 `;

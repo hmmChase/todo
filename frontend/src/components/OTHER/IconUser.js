@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import Image from 'next/image';
+import styled from 'styled-components';
 
 import userSvg from '../../images/user.svg';
 import Dropdown from '../REUSEABLE/Dropdown';
@@ -21,8 +21,10 @@ const IconUser = () => {
       )}
 
       <IconUserDefault
+        // https://styled-components.com/docs/api#transient-props
+        $isdropdownopen={isDropdownOpen}
         src={userSvg}
-        alt='Picture of the author'
+        alt='User icon'
         onClick={() => setDropdownOpen(true)}
       />
     </Container>
@@ -32,35 +34,33 @@ const IconUser = () => {
 export default IconUser;
 
 const Container = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
-  height: 2rem;
-  width: 2rem;
-  padding: 2px;
-  cursor: pointer;
-  position: relative;
-
   background-color: ${props =>
     props.isDropdownOpen ? props.theme.colors.backgrounds.dropdown : 'inherit'};
 `;
 
 const Dropdownn = styled(Dropdown)`
   background-color: ${props => props.theme.colors.backgrounds.dropdown};
-
   color: ${props => props.theme.colors.text.secondaryText};
-
-  top: 35px;
+  top: 32px;
   right: 0;
-  width: 90px;
+  border-top-left-radius: 10%;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
 `;
 
-const IconUserDefault = styled(Image).attrs({ layout: 'fill' })`
-  border: 2px solid ${props => props.theme.colors.text.secondaryText};
-  fill: ${props => props.theme.colors.backgrounds.widgetsHeader};
+const IconUserDefault = styled(Image).attrs({ height: '33px', width: '33px' })`
+  background-color: white;
   border-radius: 50%;
-
+  cursor: pointer;
+  padding: 2px !important;
+  border: 1px solid ${props => props.theme.colors.backgrounds.dropdown} !important;
   background-color: ${props =>
-    props.isDropdownOpen
+    props.$isdropdownopen
       ? props.theme.colors.backgrounds.dropdown
       : props.theme.colors.text.secondaryText};
 

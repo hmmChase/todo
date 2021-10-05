@@ -4,7 +4,7 @@ import SignUp from '../components/USER/SignUp';
 const SignUpPage = () => <SignUp />;
 
 SignUpPage.getLayout = page => (
-  <Layout title='Sign up' description='SignUp page' hasHeader hasFooter>
+  <Layout title='Sign up' description='SignUp page'>
     {page}
   </Layout>
 );

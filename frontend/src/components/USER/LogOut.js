@@ -70,8 +70,8 @@ const LogOut = () => {
   //     secure: process.env.NODE_ENV === 'production'
   //   });
 
-  //   client.resetStore().then(() => router.push('/'));
-  // }, [client]);
+  //   apolloClient.resetStore().then(() => router.push('/'));
+  // }, [apolloClient]);
 
   return <p>Logging out...</p>;
 };

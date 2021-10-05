@@ -11,7 +11,7 @@ const LogInPage = () => (
 );
 
 LogInPage.getLayout = page => (
-  <Layout title='Log in' description='LogIn page' hasHeader hasFooter>
+  <Layout title='Log in' description='LogIn page'>
     {page}
   </Layout>
 );

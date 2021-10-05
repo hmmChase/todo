@@ -78,7 +78,7 @@ const ReqPassReset = () => {
         )}
 
         <FormItemBtn>
-          <SubmitBtn
+          <Button
             aria-label='submit request password reset'
             type='submit'
             disabled={
@@ -90,7 +90,7 @@ const ReqPassReset = () => {
             }
           >
             Submit
-          </SubmitBtn>
+          </Button>
         </FormItemBtn>
       </form>
     </>
@@ -105,8 +105,4 @@ export default ReqPassReset;
 
 const FormItemBtn = styled.div`
   text-align: right;
-`;
-
-const SubmitBtn = styled(Button)`
-  margin-top: 20px;
 `;
