@@ -7,7 +7,7 @@ import Left from '../DESIGN/icons/Left';
 const BackButton = () => (
   <Link href='/'>
     <div>
-      <Buttonn aria-label='back'>
+      <Buttonn aria-label='back' type='text'>
         <Leftt />
         Back
       </Buttonn>

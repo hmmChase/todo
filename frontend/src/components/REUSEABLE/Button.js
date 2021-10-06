@@ -20,7 +20,7 @@ Button.propTypes = {
   'aria-label': PropTypes.string,
   'data-testid': PropTypes.string,
   className: PropTypes.string,
-  type: PropTypes.oneOf(['submit']).isRequired
+  type: PropTypes.oneOf(['submit', 'text']).isRequired
   // children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
   // disabled: PropTypes.bool,
   // htmlType: PropTypes.oneOf(['submit']),

@@ -1,50 +1,51 @@
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-import Layout from '../components/LAYOUTS/Layout';
+import FullPage from '../components/LAYOUTS/FullPage';
 import ResetPassError from '../components/USER/ResetPassError';
 import ResetPassword from '../components/USER/ResetPassword';
 
-const ResetPasswordPage = props => {
-  const { resetPassToken, resetPassTokenExpiry } = props;
+const ResetPasswordPage = () => {
+  const [isReady, setIsReady] = useState(false);
 
-  const isTokenPresent = !!(resetPassToken && resetPassTokenExpiry);
-  const isTokenExpired = Date.now() > resetPassTokenExpiry;
+  const router = useRouter();
 
-  return (
-    <>
-      {!isTokenPresent || isTokenExpired ? (
-        <ResetPassError
-          isTokenPresent={isTokenPresent}
-          isTokenExpired={isTokenExpired}
-        />
-      ) : (
-        <ResetPassword resetPassToken={resetPassToken} />
-      )}
-    </>
-  );
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    setIsReady(true);
+  }, [router.isReady]);
+
+  const { token, expiry } = router.query;
+
+  const isTokenPresent = !!(token && expiry);
+  const isTokenExpired = Date.now() > expiry;
+
+  if (isReady)
+    return (
+      <>
+        {!isTokenPresent || isTokenExpired ? (
+          <ResetPassError
+            isTokenPresent={isTokenPresent}
+            isTokenExpired={isTokenExpired}
+          />
+        ) : (
+          <ResetPassword resetPassToken={token} />
+        )}
+      </>
+    );
+
+  return <div>loading...</div>;
 };
 
 ResetPasswordPage.getLayout = page => (
-  <Layout
+  <FullPage
     title='Reset Password'
     description='Reset Password page'
     // isLoggedIn={page.props.isLoggedIn}
-    hasHeader
-    hasFooter
   >
     {page}
-  </Layout>
+  </FullPage>
 );
-
-export const getServerSideProps = async ctx => {
-  const { token, expiry } = ctx.query;
-
-  return { props: { resetPassToken: token, resetPassTokenExpiry: expiry } };
-};
-
-ResetPasswordPage.propTypes = {
-  resetPassToken: PropTypes.string,
-  resetPassTokenExpiry: PropTypes.string
-};
 
 export default ResetPasswordPage;

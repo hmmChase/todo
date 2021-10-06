@@ -118,6 +118,7 @@ const HeaderTitle = styled.h1`
   font-family: 'Play', sans-serif;
   letter-spacing: 0.05rem;
   display: inline;
+  color: ${props => props.theme.colors.darkRed};
 `;
 
 const Bottom = styled.div``;

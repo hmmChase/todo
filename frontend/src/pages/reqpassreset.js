@@ -1,17 +1,15 @@
-import Layout from '../components/LAYOUTS/Layout';
+import FullPage from '../components/LAYOUTS/FullPage';
 import ReqPassReset from '../components/USER/ReqPassReset';
 
 const ReqPassResetPage = () => <ReqPassReset />;
 
 ReqPassResetPage.getLayout = page => (
-  <Layout
+  <FullPage
     title='Request Password Reset'
     description='Request Password Reset page'
-    hasHeader
-    hasFooter
   >
     {page}
-  </Layout>
+  </FullPage>
 );
 
 export default ReqPassResetPage;
