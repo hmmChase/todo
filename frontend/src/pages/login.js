@@ -1,19 +1,19 @@
-import Layout from '../components/LAYOUTS/Layout';
+import FullPage from '../components/LAYOUTS/FullPage';
 import LogIn from '../components/USER/LogIn';
-import ForgotPassword from '../components/USER/ForgotPassword';
+import LogInLinks from '../components/USER/LogInLinks';
 
 const LogInPage = () => (
   <>
     <LogIn />
 
-    <ForgotPassword />
+    <LogInLinks />
   </>
 );
 
 LogInPage.getLayout = page => (
-  <Layout title='Log in' description='LogIn page'>
+  <FullPage title='Log in' description='LogIn page'>
     {page}
-  </Layout>
+  </FullPage>
 );
 
 export default LogInPage;

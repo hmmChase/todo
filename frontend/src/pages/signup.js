@@ -1,12 +1,19 @@
-import Layout from '../components/LAYOUTS/Layout';
+import FullPage from '../components/LAYOUTS/FullPage';
 import SignUp from '../components/USER/SignUp';
+import SignUpLinks from '../components/USER/SignUpLinks';
 
-const SignUpPage = () => <SignUp />;
+const SignUpPage = () => (
+  <>
+    <SignUp />
+
+    <SignUpLinks />
+  </>
+);
 
 SignUpPage.getLayout = page => (
-  <Layout title='Sign up' description='SignUp page'>
+  <FullPage title='Sign up' description='SignUp page'>
     {page}
-  </Layout>
+  </FullPage>
 );
 
 export default SignUpPage;
