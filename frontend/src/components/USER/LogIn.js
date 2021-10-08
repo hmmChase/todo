@@ -93,58 +93,58 @@ const LogIn = () => {
   });
 
   return (
-    <>
-      <h2>Log In</h2>
+    <Form onSubmit={formik.handleSubmit}>
+      <FormInput
+        label='Email'
+        id='logInEmailId'
+        type='email'
+        {...formik.getFieldProps('logInEmail')}
+      />
 
-      <form onSubmit={formik.handleSubmit}>
-        <FormInput
-          label='Email'
-          id='logInEmailId'
-          type='email'
-          {...formik.getFieldProps('logInEmail')}
-        />
+      {formik.touched.logInEmail && formik.errors.logInEmail ? (
+        <DisplayError error={{ message: formik.errors.logInEmail }} />
+      ) : null}
 
-        {formik.touched.logInEmail && formik.errors.logInEmail ? (
-          <DisplayError error={{ message: formik.errors.logInEmail }} />
-        ) : null}
+      <FormInput
+        label='Password'
+        id='logInPasswordId'
+        type='password'
+        {...formik.getFieldProps('logInPassword')}
+      />
 
-        <FormInput
-          label='Password'
-          id='logInPasswordId'
-          type='password'
-          {...formik.getFieldProps('logInPassword')}
-        />
+      {formik.touched.logInPassword && formik.errors.logInPassword ? (
+        <DisplayError error={{ message: formik.errors.logInPassword }} />
+      ) : null}
 
-        {formik.touched.logInPassword && formik.errors.logInPassword ? (
-          <DisplayError error={{ message: formik.errors.logInPassword }} />
-        ) : null}
+      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
 
-        {errorMsg && <DisplayError error={{ message: errorMsg }} />}
-
-        <FloatRight>
-          <Button
-            aria-label='submit log in'
-            type='submit'
-            disabled={
-              !!(
-                !formik.values.logInEmail ||
-                !formik.values.logInPassword ||
-                formik.errors.logInEmail ||
-                formik.errors.logInPassword ||
-                formik.isSubmitting
-              )
-            }
-          >
-            Log In
-          </Button>
-        </FloatRight>
-      </form>
-    </>
+      <Buttonn
+        aria-label='submit log in'
+        type='submit'
+        disabled={
+          !!(
+            !formik.values.logInEmail ||
+            !formik.values.logInPassword ||
+            formik.errors.logInEmail ||
+            formik.errors.logInPassword ||
+            formik.isSubmitting
+          )
+        }
+      >
+        Log In
+      </Buttonn>
+    </Form>
   );
 };
 
 export default LogIn;
 
-const FloatRight = styled.div`
-  float: right;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const Buttonn = styled(Button)`
+  align-self: flex-end;
 `;

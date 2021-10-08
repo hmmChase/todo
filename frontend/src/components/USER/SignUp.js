@@ -80,60 +80,60 @@ const SignUp = () => {
   });
 
   return (
-    <>
-      <h2>Sign Up</h2>
+    <Form onSubmit={formik.handleSubmit}>
+      <FormInput
+        label='Email'
+        id='signUpEmailId'
+        type='email'
+        {...formik.getFieldProps('signUpEmail')}
+      />
 
-      <form onSubmit={formik.handleSubmit}>
-        <FormInput
-          label='Email'
-          id='signUpEmailId'
-          type='email'
-          {...formik.getFieldProps('signUpEmail')}
-        />
+      {formik.touched.signUpEmail && formik.errors.signUpEmail ? (
+        <DisplayError error={{ message: formik.errors.signUpEmail }} />
+      ) : null}
 
-        {formik.touched.signUpEmail && formik.errors.signUpEmail ? (
-          <DisplayError error={{ message: formik.errors.signUpEmail }} />
-        ) : null}
+      <FormInput
+        label='Password'
+        id='signUpPasswordId'
+        type='password'
+        {...formik.getFieldProps('signUpPassword')}
+      />
 
-        <FormInput
-          label='Password'
-          id='signUpPasswordId'
-          type='password'
-          {...formik.getFieldProps('signUpPassword')}
-        />
+      {formik.touched.signUpPassword && formik.errors.signUpPassword ? (
+        <DisplayError error={{ message: formik.errors.signUpPassword }} />
+      ) : null}
 
-        {formik.touched.signUpPassword && formik.errors.signUpPassword ? (
-          <DisplayError error={{ message: formik.errors.signUpPassword }} />
-        ) : null}
+      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
 
-        {errorMsg && <DisplayError error={{ message: errorMsg }} />}
+      <PassReqList />
 
-        <PassReqList />
-
-        <FloatRight>
-          <Button
-            aria-label='submit sign up'
-            type='submit'
-            disabled={
-              !!(
-                !formik.values.signUpEmail ||
-                !formik.values.signUpPassword ||
-                formik.errors.signUpEmail ||
-                formik.errors.signUpPassword ||
-                formik.isSubmitting
-              )
-            }
-          >
-            Sign Up
-          </Button>
-        </FloatRight>
-      </form>
-    </>
+      <Buttonn
+        aria-label='submit sign up'
+        type='submit'
+        disabled={
+          !!(
+            !formik.values.signUpEmail ||
+            !formik.values.signUpPassword ||
+            formik.errors.signUpEmail ||
+            formik.errors.signUpPassword ||
+            formik.isSubmitting
+          )
+        }
+      >
+        Sign Up
+      </Buttonn>
+    </Form>
   );
 };
 
 export default SignUp;
 
-const FloatRight = styled.div`
-  float: right;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const Buttonn = styled(Button)`
+  align-self: flex-end;
 `;

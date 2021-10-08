@@ -56,44 +56,38 @@ const ReqPassReset = () => {
   });
 
   return (
-    <>
-      <h2>Request Password Reset</h2>
+    <Form onSubmit={formik.handleSubmit}>
+      <FormInput
+        label='Email'
+        id='reqPassResetEmailId'
+        type='email'
+        {...formik.getFieldProps('reqPassResetEmail')}
+      />
 
-      <form onSubmit={formik.handleSubmit}>
-        <FormInput
-          label='Email'
-          id='reqPassResetEmailId'
-          type='email'
-          {...formik.getFieldProps('reqPassResetEmail')}
-        />
+      {formik.touched.reqPassResetEmail && formik.errors.reqPassResetEmail ? (
+        <DisplayError error={{ message: formik.errors.reqPassResetEmail }} />
+      ) : null}
 
-        {formik.touched.reqPassResetEmail && formik.errors.reqPassResetEmail ? (
-          <DisplayError error={{ message: formik.errors.reqPassResetEmail }} />
-        ) : null}
+      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
 
-        {errorMsg && <DisplayError error={{ message: errorMsg }} />}
+      {!loading && !error && called && data && data.requestReset && (
+        <DisplaySuccess message='Check your email for a reset link.' />
+      )}
 
-        {!loading && !error && called && data && data.requestReset && (
-          <DisplaySuccess message='Check your email for a reset link.' />
-        )}
-
-        <FormItemBtn>
-          <Button
-            aria-label='submit request password reset'
-            type='submit'
-            disabled={
-              !!(
-                !formik.values.reqPassResetEmail ||
-                formik.errors.reqPassResetEmail ||
-                formik.isSubmitting
-              )
-            }
-          >
-            Submit
-          </Button>
-        </FormItemBtn>
-      </form>
-    </>
+      <Buttonn
+        aria-label='submit request password reset'
+        type='submit'
+        disabled={
+          !!(
+            !formik.values.reqPassResetEmail ||
+            formik.errors.reqPassResetEmail ||
+            formik.isSubmitting
+          )
+        }
+      >
+        Submit
+      </Buttonn>
+    </Form>
   );
 };
 
@@ -103,6 +97,12 @@ const ReqPassReset = () => {
 
 export default ReqPassReset;
 
-const FormItemBtn = styled.div`
-  text-align: right;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const Buttonn = styled(Button)`
+  align-self: flex-end;
 `;

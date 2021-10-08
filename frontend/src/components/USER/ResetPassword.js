@@ -82,44 +82,40 @@ const ResetPassword = props => {
   });
 
   return (
-    <>
-      <h2>Reset Password</h2>
+    <Form onSubmit={formik.handleSubmit}>
+      <FormInput
+        label='Password'
+        id='newPasswordId'
+        type='password'
+        {...formik.getFieldProps('newPassword')}
+      />
 
-      <form onSubmit={formik.handleSubmit}>
-        <FormInput
-          label='Password'
-          id='newPasswordId'
-          type='password'
-          {...formik.getFieldProps('newPassword')}
-        />
+      {formik.touched.newPassword && formik.errors.newPassword ? (
+        <DisplayError error={{ message: formik.errors.newPassword }} />
+      ) : null}
 
-        {formik.touched.newPassword && formik.errors.newPassword ? (
-          <DisplayError error={{ message: formik.errors.newPassword }} />
-        ) : null}
+      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
 
-        {errorMsg && <DisplayError error={{ message: errorMsg }} />}
+      <PassReqList />
 
-        <PassReqList />
+      <Buttonn
+        aria-label='submit reset password'
+        type='submit'
+        disabled={
+          !!(
+            !formik.values.newPassword ||
+            formik.errors.newPassword ||
+            formik.isSubmitting
+          )
+        }
+      >
+        Reset Password
+      </Buttonn>
 
-        <Button
-          aria-label='submit reset password'
-          type='submit'
-          disabled={
-            !!(
-              !formik.values.newPassword ||
-              formik.errors.newPassword ||
-              formik.isSubmitting
-            )
-          }
-        >
-          Reset Password
-        </Button>
-
-        {isSuccessful && (
-          <DisplaySuccess message={displayMessages.user.resetPass.success} />
-        )}
-      </form>
-    </>
+      {isSuccessful && (
+        <DisplaySuccess message={displayMessages.user.resetPass.success} />
+      )}
+    </Form>
   );
 };
 
@@ -130,8 +126,13 @@ ResetPassword.propTypes = {
 export default ResetPassword;
 
 const Form = styled.form`
-  max-width: 300px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const Buttonn = styled(Button)`
+  align-self: flex-end;
 `;
 
 const PassListContainer = styled.div`
