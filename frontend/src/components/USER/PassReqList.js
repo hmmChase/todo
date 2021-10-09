@@ -9,9 +9,9 @@ const PassReqList = () => {
 
   return (
     <PassListContainer>
-      <p>{passwordRequirements.title}</p>
+      <PassListTitle>{passwordRequirements.title}</PassListTitle>
 
-      <ul>{reqList}</ul>
+      <PassListList>{reqList}</PassListList>
     </PassListContainer>
   );
 };
@@ -20,6 +20,14 @@ export default PassReqList;
 
 const PassListContainer = styled.div`
   /* display: inline-block; */
+`;
+
+const PassListTitle = styled.p`
+  margin: 0;
+`;
+
+const PassListList = styled.ul`
+  margin: 0;
 `;
 
 const PassListItem = styled.li`

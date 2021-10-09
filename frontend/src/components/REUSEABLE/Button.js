@@ -32,9 +32,17 @@ export default Button;
 
 const Buttonn = styled.button`
   background-color: ${props => props.theme.buttons.actionButton};
-  border-radius: ${props => props.theme.buttons.radius};
+  border-radius: ${props => props.theme.buttons.borderRadius};
   border: none;
-  color: ${props => props.theme.colors.text.primaryText};
-  padding: 0.6rem 1rem;
+  color: ${props => props.theme.colors.text.secondaryText};
+  padding: 0.5rem 1rem;
   cursor: pointer;
+
+  &:hover {
+    background-color: ${props => props.theme.buttons.actionButtonHover};
+  }
+
+  &:active {
+    padding: 0.6rem 1rem 0.4rem 1rem;
+  }
 `;

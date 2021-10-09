@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useMutation, useApolloClient } from '@apollo/client';
 import { object } from 'yup';
 import styled from 'styled-components';
+import Link from 'next/link';
 import { useFormik } from 'formik';
 
 import { LOG_IN } from '../../graphql/queries/user';
@@ -133,6 +134,16 @@ const LogIn = () => {
       >
         Log In
       </Buttonn>
+
+      <LogInLinks>
+        <Link href='/reqpassreset'>
+          <A>Reset Password</A>
+        </Link>
+
+        <Link href='/signup'>
+          <A>Create account</A>
+        </Link>
+      </LogInLinks>
     </Form>
   );
 };
@@ -142,9 +153,29 @@ export default LogIn;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
+
+  > input {
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const Buttonn = styled(Button)`
   align-self: flex-end;
+  margin-bottom: 1rem;
+`;
+
+export const LogInLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const A = styled.a`
+  cursor: pointer;
+  align-self: flex-start;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;

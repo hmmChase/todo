@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { object } from 'yup';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
+import Link from 'next/link';
 
 import FormInput from '../../components/REUSEABLE/FormInput';
 import DisplayError from '../REUSEABLE/DisplayError';
@@ -87,6 +88,10 @@ const ReqPassReset = () => {
       >
         Submit
       </Buttonn>
+
+      <Link href='/login'>
+        <A>Log in</A>
+      </Link>
     </Form>
   );
 };
@@ -100,9 +105,22 @@ export default ReqPassReset;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
+
+  > input {
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const Buttonn = styled(Button)`
   align-self: flex-end;
+`;
+
+const A = styled.a`
+  cursor: pointer;
+  align-self: flex-start;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;

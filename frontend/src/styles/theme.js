@@ -31,6 +31,7 @@ const theme = {
     borderRadius: '4px',
     actionButton: '#6271C0',
     actionButtonHover: '#809BFF',
+    actionButtonActive: '#809BFF',
     iconDefault: '#B3B3B3'
   },
 

@@ -128,7 +128,11 @@ export default ResetPassword;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
+
+  > input {
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const Buttonn = styled(Button)`

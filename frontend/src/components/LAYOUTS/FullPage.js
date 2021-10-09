@@ -18,11 +18,11 @@ const FullPage = props => {
       <Container>
         <Header>
           <Link href='/'>
-            <a>
+            <HeaderA>
               <Img src='images/ideabox.png' alt='ideabox' />
 
               <Title1>{siteTitle}</Title1>
-            </a>
+            </HeaderA>
           </Link>
         </Header>
 
@@ -37,6 +37,7 @@ const FullPage = props => {
         </Content>
       </Container>
     </>
+
   );
 };
 
@@ -53,14 +54,32 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.header`
+  position: absolute;
   /* display: flex; */
   /* align-items: center; */
+
+  top: 0;
+  align-self: flex-start;
+
+  /* justify-self: flex-start; */
+
+  /* flex-direction: row; */
   /* padding: 20px; */
 `;
 
-export const Content = styled.div`
-  /* display: flex; */
+export const HeaderA = styled.a`
+  display: flex;
+  align-items: center;
+  margin: 2rem;
+  cursor: pointer;
   /* flex-direction: column; */
+`;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
   /* align-items: center; */
   /* gap: 2rem; */
 
@@ -118,9 +137,9 @@ export const HR = styled.hr`
   border: 0;
   height: 0.2rem;
   /* margin: 2rem 0; */
+  width: 100%;
 
   @media screen and (min-width: 800px) {
-    width: 15rem;
     /* position: absolute; */
     /* top: 100px; */
     /* transform: rotate(90deg); */
