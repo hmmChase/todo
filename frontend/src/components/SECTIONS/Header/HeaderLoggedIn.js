@@ -2,28 +2,36 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
+import Left from '../../DESIGN/icons/Left';
+
 const HeaderLoggedIn = () => {
   const router = useRouter();
 
-  const isActive = pathname => router.pathname === pathname;
+  const routePathArr = router.asPath.split('/');
+
+  const isActive = path => routePathArr[1] === path;
 
   return (
     <UL>
       <li>
         <Link href='/account'>
-          <a data-active={isActive('/account')}>Settings</a>
+          <Option>
+            <Right data-active={isActive('account')} />
+
+            <a data-active={isActive('account')}>Settings</a>
+          </Option>
         </Link>
       </li>
 
       <li>
         <Link href='/logout'>
-          <a data-active={isActive('/logout')}>Log out</a>
+          <a data-active={isActive('logout')}>Log out</a>
         </Link>
       </li>
 
       <style jsx>{`
         a[data-active='true'] {
-          color: red;
+          color: lightblue;
         }
       `}</style>
     </UL>
@@ -66,4 +74,16 @@ const UL = styled.ul`
       }
     }
   }
+`;
+
+export const Option = styled.div`
+  display: flex;
+`;
+
+const Right = styled(Left)`
+  fill: #fff;
+  height: 1rem;
+  margin-right: 8px;
+  transform: rotate(180deg);
+  display: ${props => (props['data-active'] ? 'inline' : 'none')};
 `;

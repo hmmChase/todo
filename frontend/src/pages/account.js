@@ -40,6 +40,7 @@ AccountPage.getLayout = page => (
     description='Account page'
     isLoggedIn={page.props.isLoggedIn}
     hasHeader
+    hasBackButton
     hasFooter
   >
     {page}

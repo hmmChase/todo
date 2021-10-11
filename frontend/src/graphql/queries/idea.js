@@ -75,10 +75,10 @@ export const READ_IDEAS_PAGINATED_CURSER = gql`
 export const CURRENT_USER_IDEAS = gql`
   query CurrentUserIdeas {
     currentUserIdeas {
-      ...IdeaFields
+      ...IdeaAuthorFields
     }
   }
-  ${IDEA_FIELDS}
+  ${IDEA_AUTHOR_FIELDS}
 `;
 
 //* - Mutations ----------

@@ -8,7 +8,7 @@ import AddIdea from '../../IDEA/AddIdea';
 import IconUser from '../../OTHER/IconUser';
 import { siteTitle } from '../../../config';
 import Ideabox from '../../../../public/images/ideabox.png';
-import NavBar from '../NavBar';
+// import NavBar from '../NavBar';
 
 const Header = props => {
   const { isLoggedIn } = props;

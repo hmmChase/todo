@@ -99,7 +99,7 @@ const ideaResolver = {
         // Find and return all ideas matching userId
         const ideas = await ctx.prisma.idea.findMany({
           where: { author: { id: payload.userId }, deletedAt: null },
-          select: { id: true, content: true },
+          select: { id: true, content: true, author: { select: { id: true } } },
           orderBy: { createdAt: 'desc' }
         });
 
