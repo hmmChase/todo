@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import styled from 'styled-components';
+
 import useKeypress from '../../utils/useKeypress';
 import useOnClickOutside from '../../utils/useOnClickOutside';
-import styled from 'styled-components';
 
 const IdeaDetailContent = props => {
   const { onSetText, text } = props;
@@ -20,6 +21,7 @@ const IdeaDetailContent = props => {
   useOnClickOutside(wrapperRef, () => {
     if (isInputActive) {
       onSetText(inputValue);
+
       setIsInputActive(false);
     }
   });
@@ -27,6 +29,7 @@ const IdeaDetailContent = props => {
   const onEnter = useCallback(() => {
     if (enter) {
       onSetText(inputValue);
+
       setIsInputActive(false);
     }
   }, [enter, inputValue, onSetText]);
@@ -34,21 +37,21 @@ const IdeaDetailContent = props => {
   const onEsc = useCallback(() => {
     if (esc) {
       setInputValue(text);
+
       setIsInputActive(false);
     }
   }, [esc, text]);
 
   // focus the cursor in the input field on edit start
   useEffect(() => {
-    if (isInputActive) {
-      inputRef.current.focus();
-    }
+    if (isInputActive) inputRef.current.focus();
   }, [isInputActive]);
 
   useEffect(() => {
     if (isInputActive) {
       // if Enter is pressed, save the text and close the editor
       onEnter();
+
       // if Escape is pressed, revert the text and close the editor
       onEsc();
     }

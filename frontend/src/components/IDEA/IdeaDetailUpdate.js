@@ -25,13 +25,12 @@ const IdeaDetailUpdate = props => {
     onError: error => onError(error)
   });
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedFn = useCallback(
     debounce(
       value => updateIdea({ variables: { id: props.id, content: value } }),
       IdeaInputDebounceDelay
     ),
-    []
+    [updateIdea]
   );
 
   const onSetText = text => {
@@ -42,11 +41,6 @@ const IdeaDetailUpdate = props => {
 
   return (
     <IdeaDetailContent
-      // aria-label='idea content'
-      // autoSize={{ minRows: 1, maxRows: 10 }}
-      // value={ideaContent}
-      // onChange={onChange}
-
       id={id}
       content={content}
       text={storedText.current}

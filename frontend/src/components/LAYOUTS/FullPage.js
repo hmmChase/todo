@@ -16,104 +16,61 @@ const FullPage = props => {
       </Head>
 
       <Container>
-        <Header>
+        <LogoWrapper>
           <Link href='/'>
-            <HeaderA>
+            <Logo>
               <Img src='images/ideabox.png' alt='ideabox' />
 
-              <Title1>{siteTitle}</Title1>
-            </HeaderA>
+              <SiteTitle>{siteTitle}</SiteTitle>
+            </Logo>
           </Link>
-        </Header>
+        </LogoWrapper>
 
         <Content>
+          {/* <ContentHalf> */}
+          <PageTitle>{title}</PageTitle>
+          {/* </ContentHalf> */}
+
           <ContentHalf>
-            <Title2>{title}</Title2>
+            <HR />
+
+            {children}
           </ContentHalf>
-
-          <HR />
-
-          <ContentHalf>{children}</ContentHalf>
         </Content>
       </Container>
     </>
-
   );
 };
 
 export default FullPage;
 
-export const Container = styled.div`
+const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   background-color: ${props => props.theme.colors.lightBlue};
   min-height: 100vh;
   justify-content: center;
   align-items: center;
-  /* padding-bottom: 20px; */
 `;
 
-export const Header = styled.header`
+const LogoWrapper = styled.div`
   position: absolute;
-  /* display: flex; */
-  /* align-items: center; */
-
   top: 0;
-  align-self: flex-start;
-
-  /* justify-self: flex-start; */
-
-  /* flex-direction: row; */
-  /* padding: 20px; */
+  left: 0;
 `;
 
-export const HeaderA = styled.a`
+const Logo = styled.a`
   display: flex;
   align-items: center;
-  margin: 2rem;
+  margin: 2rem 0 0 2rem;
   cursor: pointer;
-  /* flex-direction: column; */
 `;
 
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  /* align-items: center; */
-  /* gap: 2rem; */
-
-  /* min-width: 15rem; */
-  /* width: 80%; */
-  /* max-width: 20rem; */
-  /* flex-grow: 0; */
-
-  /* @media screen and (min-width: 800px) { */
-  /* position: relative; */
-  /* flex-direction: row; */
-  /* justify-content: space-around; */
-  /* max-width: 900px; */
-  /* } */
-`;
-
-export const ContentHalf = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* justify-items: center; */
-  /* align-content: center; */
-
-  @media screen and (min-width: 800px) {
-    /* width: 50%; */
-  }
-`;
-
-export const Img = styled.img`
+const Img = styled.img`
   height: 4rem;
 `;
 
-export const Title1 = styled.h1`
+const SiteTitle = styled.h1`
   color: ${props => props.theme.colors.darkRed};
   font-family: 'Play', sans-serif;
   font-size: 2rem;
@@ -121,13 +78,43 @@ export const Title1 = styled.h1`
   margin: 0;
 `;
 
-export const Title2 = styled.h2`
+const PageTitle = styled.h2`
   margin: 0 auto;
-  /* display: flex; */
-  /* justify-content: flex-end; */
+  display: flex;
 `;
 
-export const HR = styled.hr`
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  @media screen and (min-width: 800px) {
+    flex-direction: row;
+    align-items: center;
+  }
+`;
+
+const ContentHalf = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: 800px) {
+    /* flex: 1; */
+
+    position: relative;
+    justify-content: center;
+
+    /* flex-direction: row; */
+    /* align-items: center; */
+    /* width: 60%; */
+
+    /* align-items: center; */
+    /* justify-items: center; */
+    /* align-content: center; */
+  }
+`;
+
+const HR = styled.hr`
   background-image: linear-gradient(
     to right,
     rgba(0, 0, 0, 0),
@@ -136,101 +123,15 @@ export const HR = styled.hr`
   );
   border: 0;
   height: 0.2rem;
-  /* margin: 2rem 0; */
+  margin: 0;
+
   width: 100%;
 
   @media screen and (min-width: 800px) {
-    /* position: absolute; */
-    /* top: 100px; */
-    /* transform: rotate(90deg); */
+    width: 150%;
+    position: absolute;
+    transform: rotate(90deg);
+    left: calc(-75% - 1rem);
+    align-self: center;
   }
 `;
-
-// export const Container = styled.div`
-//   display: flex;
-//   /* flex-direction: column; */
-//   background-color: ${props => props.theme.colors.lightBlue};
-//   min-height: 100vh;
-//   justify-content: center;
-//   align-items: center;
-//   /* padding-bottom: 20px; */
-//   /* position: relative; */
-// `;
-
-// export const Header = styled.header`
-//   position: absolute;
-
-//   top: 0;
-
-//   display: flex;
-//   /* padding: 20px; */
-// `;
-
-// export const Content = styled.div`
-//   /* width: 100%; */
-
-//   display: flex;
-//   /* flex-direction: column; */
-//   /* min-width: 15rem; */
-//   width: 80%;
-
-//   gap: 2rem;
-//   /* max-width: 20rem; */
-//   /* flex-grow: 0; */
-//   justify-content: center;
-
-//   @media screen and (min-width: 800px) {
-//     /* position: relative; */
-//     /* flex-direction: row; */
-//     /* justify-content: space-around; */
-//     /* max-width: 900px; */
-//   }
-// `;
-
-// export const ContentHalf = styled.div`
-//   /* @media screen and (min-width: 800px) { */
-//   /* width: 40%; */
-//   /* } */
-
-//   position: relative;
-// `;
-
-// export const Img = styled.img`
-//   /* height: 4rem; */
-// `;
-
-// export const Title = styled.h1`
-//   color: ${props => props.theme.colors.darkRed};
-//   font-family: 'Play', sans-serif;
-//   font-size: 3rem;
-//   letter-spacing: 0.2rem;
-//   margin: 0;
-// `;
-
-// export const HR = styled.hr`
-//   background-image: linear-gradient(
-//     to right,
-//     rgba(0, 0, 0, 0),
-//     rgba(0, 0, 0, 0.75),
-//     rgba(0, 0, 0, 0)
-//   );
-//   border: 0;
-//   height: 0.2rem;
-//   margin: 0;
-
-//   left: calc(50% - 10rem);
-
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   justify-self: center;
-//   justify-items: center;
-//   align-content: center;
-
-//   /* @media screen and (min-width: 800px) { */
-//   width: 20rem;
-//   position: absolute;
-//   /* top: 160px; */
-//   transform: rotate(90deg);
-//   /* } */
-// `;

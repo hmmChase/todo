@@ -21,6 +21,7 @@ const Buttonn = styled(Button)`
   align-items: center;
   display: flex;
   padding-left: 6px;
+  margin: 1rem 0 0 1rem;
 `;
 
 const Leftt = styled(Left)`

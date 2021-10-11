@@ -7,10 +7,10 @@ const Button = props => (
     data-testid={props['data-testid']}
     className={props.className}
     type={props.type}
+    onClick={props.onClick}
     // disabled={props.disabled}
     // htmlType={props.htmlType}
     // loading={props.loading}
-    // onClick={props.onClick}
   >
     {props.children}
   </Buttonn>
@@ -20,12 +20,12 @@ Button.propTypes = {
   'aria-label': PropTypes.string,
   'data-testid': PropTypes.string,
   className: PropTypes.string,
-  type: PropTypes.oneOf(['submit', 'text']).isRequired
+  type: PropTypes.oneOf(['submit', 'text']).isRequired,
+  onClick: PropTypes.func
   // children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
   // disabled: PropTypes.bool,
   // htmlType: PropTypes.oneOf(['submit']),
   // loading: PropTypes.bool,
-  // onClick: PropTypes.func
 };
 
 export default Button;

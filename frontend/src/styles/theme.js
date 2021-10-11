@@ -11,7 +11,7 @@ const theme = {
     black: '#000',
     lightBlue: '#C8DCF0',
     green: 'limegreen',
-    darkRed: '#8A0000',
+    darkRed: '#66023C', // imperial purple
     white: '#fff',
 
     backgrounds: {

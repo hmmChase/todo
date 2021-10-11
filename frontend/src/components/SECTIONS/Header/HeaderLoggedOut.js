@@ -1,16 +1,39 @@
-import Link from 'next/link';
-import styled, { css } from 'styled-components';
+import { useState } from 'react';
+// import Link from 'next/link';
+import styled from 'styled-components';
+
+import LoginModal from '../../USER/LoginModal';
+import SignUpModal from '../../USER/SignUpModal';
+import Button from '../../REUSEABLE/Button';
 
 const HeaderLoggedOut = () => {
+  const [modalDisplay, setModalDisplay] = useState(null);
+
   return (
     <Container>
-      <Link href='/login'>
+      {/* <Link href='/login'>
         <ALogIn>Log in</ALogIn>
-      </Link>
+      </Link> */}
 
-      <Link href='/signup'>
+      {modalDisplay === 'login' && (
+        <LoginModal close={() => setModalDisplay(null)} />
+      )}
+
+      <ButtonLogIn type='text' onClick={() => setModalDisplay('login')}>
+        Log in
+      </ButtonLogIn>
+
+      {/* <Link href='/signup'>
         <ASignUp>Sign up</ASignUp>
-      </Link>
+      </Link> */}
+
+      {modalDisplay === 'signup' && (
+        <SignUpModal close={() => setModalDisplay(null)} />
+      )}
+
+      <ButtonSignUp type='text' onClick={() => setModalDisplay('signup')}>
+        Sign up
+      </ButtonSignUp>
     </Container>
   );
 };
@@ -27,23 +50,34 @@ const Container = styled.div`
   }
 `;
 
-const linkStyles = css`
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-`;
+// const ALogIn = styled.a`
+//   background-color: ${props => props.theme.colors.white};
+//   color: ${props => props.theme.colors.text.primaryText};
+//   margin-right: 1rem;
+// `;
 
-const ALogIn = styled.a`
-  ${linkStyles}
+// const ASignUp = styled.a`
+//   background-color: ${props => props.theme.buttons.actionButton};
+//   color: ${props => props.theme.colors.text.secondaryText};
+// `;
 
+export const ButtonLogIn = styled(Button)`
   background-color: ${props => props.theme.colors.white};
   color: ${props => props.theme.colors.text.primaryText};
   margin-right: 1rem;
+
+  :hover {
+    background-color: ${props => props.theme.colors.white};
+    /* color: ${props => props.theme.buttons.actionButton}; */
+  }
 `;
 
-const ASignUp = styled.a`
-  ${linkStyles}
+export const ButtonSignUp = styled(Button)`
+  /* background-color: ${props => props.theme.buttons.actionButton}; */
+  /* color: ${props => props.theme.colors.text.secondaryText}; */
 
-  background-color: ${props => props.theme.buttons.actionButton};
-  color: ${props => props.theme.colors.text.secondaryText};
+  :hover {
+    background-color: ${props => props.theme.buttons.actionButton};
+    /* color: ${props => props.theme.buttons.actionButton}; */
+  }
 `;

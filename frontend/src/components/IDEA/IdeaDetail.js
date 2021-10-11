@@ -31,13 +31,15 @@ const IdeaDetail = props => {
   const currentUserOwnsIdea = currentUserId === author.id;
 
   return (
-    <IdeaDetaill>
-      <>
-        <IdeaDetailUpdate id={id} content={content} />
+    <Container>
+      {currentUserOwnsIdea && (
+        <RemoveIdeaWrap>
+          <RemoveIdea ideaId={id} />
+        </RemoveIdeaWrap>
+      )}
 
-        {currentUserOwnsIdea && <RemoveIdea ideaId={id} />}
-      </>
-    </IdeaDetaill>
+      <IdeaDetailUpdate id={id} content={content} />
+    </Container>
   );
 };
 
@@ -51,6 +53,12 @@ IdeaDetail.propTypes = {
 
 export default IdeaDetail;
 
-const IdeaDetaill = styled.section`
-  margin-bottom: 2rem;
+const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 1rem 2rem 1rem;
+`;
+
+const RemoveIdeaWrap = styled.div`
+  align-self: flex-end;
 `;
