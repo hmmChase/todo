@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
-
 // import { useEffect } from 'react';
 // import Link from 'next/link';
 // import { useRouter } from 'next/router';
@@ -8,41 +7,40 @@ import { useQuery } from '@apollo/client';
 // import jwt from 'jsonwebtoken';
 // import fetch from 'isomorphic-unfetch';
 
-// import { initializeApollo } from '../graphql/apolloClient';
 import { READ_IDEAS } from '../graphql/queries/idea';
 import graphQLErrors from '../utils/graphQLErrors';
 import isLoggedIn from '../utils/isLoggedIn';
-import QueryResult from '../components/OTHER/QueryResult';
+import QueryResult from '../components/REUSEABLE/QueryResult';
 import Layout from '../components/LAYOUTS/Layout';
 import Ideas from '../components/IDEA/Ideas';
+// import { initializeApollo } from '../graphql/apolloClient';
 
 const IndexPage = () => {
   const [errorMsg, setErrorMsg] = useState();
 
   // const router = useRouter();
 
-  const { loading, error, data } = useQuery(READ_IDEAS, {
-    onError: error => {
-      console.log('IndexPage READ_IDEAS error: ', error);
+  const onError = error => {
+    console.log('IndexPage onError error: ', error);
 
-      setErrorMsg(graphQLErrors(error));
-    }
+    // Will set only UserInputError errors
+    setErrorMsg(graphQLErrors(error));
+  };
+
+  const { loading, error, data } = useQuery(READ_IDEAS, {
+    onError: error => onError(error)
   });
 
-  const ideas = data?.ideas || [];
+  const ideas = data?.ideas;
 
   // const shouldRedirect = !(loading || error || currentUser);
 
   // useEffect(() => shouldRedirect && router.push('/login'), [shouldRedirect]);
 
   return (
-    <>
-      <h1>hmmStart</h1>
-
-      <QueryResult error={errorMsg} loading={loading} data={data}>
-        <Ideas ideas={ideas} />
-      </QueryResult>
-    </>
+    <QueryResult error={errorMsg} loading={loading} data={data}>
+      <Ideas ideas={ideas} />
+    </QueryResult>
   );
 };
 
@@ -60,6 +58,7 @@ IndexPage.getLayout = page => (
     description='Home page'
     isLoggedIn={page.props.isLoggedIn}
     hasHeader
+    hasFooter
   >
     {page}
   </Layout>

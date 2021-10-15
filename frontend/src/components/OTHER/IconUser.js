@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import Image from 'next/image';
+import styled from 'styled-components';
 
-import DropDownUserIcon from '../USER/DropDownUserIcon';
-
-import userSvg from '../../public/images/user.svg';
+import userSvg from '../../images/user.svg';
+import Dropdown from '../REUSEABLE/Dropdown';
+import HeaderLoggedIn from '../SECTIONS/Header/HeaderLoggedIn';
 
 const IconUser = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -12,15 +12,19 @@ const IconUser = () => {
   return (
     <Container isDropdownOpen={isDropdownOpen}>
       {isDropdownOpen && (
-        <DropDownUserIcon
+        <Dropdownn
           isDropdownOpen={isDropdownOpen}
           close={() => setDropdownOpen(false)}
-        />
+        >
+          <HeaderLoggedIn />
+        </Dropdownn>
       )}
 
       <IconUserDefault
+        // https://styled-components.com/docs/api#transient-props
+        $isdropdownopen={isDropdownOpen}
         src={userSvg}
-        alt='Picture of the author'
+        alt='User icon'
         onClick={() => setDropdownOpen(true)}
       />
     </Container>
@@ -30,22 +34,37 @@ const IconUser = () => {
 export default IconUser;
 
 const Container = styled.div`
-  /* border-top-left-radius: 50%; */
-  /* border-top-right-radius: 50%; */
-  height: 2rem;
-  width: 2rem;
-  padding: 2px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
   position: relative;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  background-color: ${props =>
+    props.isDropdownOpen ? props.theme.colors.backgrounds.dropdown : 'inherit'};
 `;
 
-const IconUserDefault = styled(Image)`
-  background-color: ${props => props.theme.colors.text.secondaryText};
-  border: 2px solid ${props => props.theme.colors.text.secondaryText};
-  fill: ${props => props.theme.colors.backgrounds.widgetsHeader};
+const Dropdownn = styled(Dropdown)`
+  background-color: ${props => props.theme.colors.backgrounds.dropdown};
+  color: ${props => props.theme.colors.text.secondaryText};
+  top: 32px;
+  right: 0;
+  border-top-left-radius: 10%;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+`;
+
+const IconUserDefault = styled(Image).attrs({ height: '33px', width: '33px' })`
+  background-color: white;
   border-radius: 50%;
+  cursor: pointer;
+  padding: 2px !important;
+  border: 1px solid ${props => props.theme.colors.backgrounds.dropdown} !important;
+  background-color: ${props =>
+    props.$isdropdownopen
+      ? props.theme.colors.backgrounds.dropdown
+      : props.theme.colors.text.secondaryText};
 
   :hover {
-    background-color: ${props => props.theme.colors.text.primaryText};
+    background-color: ${props => props.theme.colors.backgrounds.dropdown};
   }
 `;

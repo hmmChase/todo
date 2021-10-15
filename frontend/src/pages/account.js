@@ -4,22 +4,24 @@ import { useQuery } from '@apollo/client';
 import Ideas from '../components/IDEA/Ideas';
 import Layout from '../components/LAYOUTS/Layout';
 import { CURRENT_USER_IDEAS } from '../graphql/queries/idea';
-import QueryResult from '../components/OTHER/QueryResult';
+import QueryResult from '../components/REUSEABLE/QueryResult';
 import graphQLErrors from '../utils/graphQLErrors';
 import isLoggedIn from '../utils/isLoggedIn';
 
 const AccountPage = () => {
   const [errorMsg, setErrorMsg] = useState();
 
-  const { data, loading, error } = useQuery(CURRENT_USER_IDEAS, {
-    onError: error => {
-      console.log('AccountPage CURRENT_USER_IDEAS error: ', error);
+  const onError = error => {
+    console.log('AccountPage onError error: ', error);
 
-      setErrorMsg(graphQLErrors(error));
-    }
+    setErrorMsg(graphQLErrors(error));
+  };
+
+  const { data, loading, error } = useQuery(CURRENT_USER_IDEAS, {
+    onError: error => onError(error)
   });
 
-  const ideas = data?.currentUserIdeas || [];
+  const ideas = data?.currentUserIdeas;
 
   return (
     <>
@@ -38,13 +40,23 @@ AccountPage.getLayout = page => (
     description='Account page'
     isLoggedIn={page.props.isLoggedIn}
     hasHeader
+    hasBackButton
+    hasFooter
   >
     {page}
   </Layout>
 );
 
 export const getServerSideProps = async ctx => {
-  return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
+  const { req, res } = ctx;
+
+  const result = isLoggedIn(req.headers);
+
+  if (result) return { props: { isLoggedIn: result } };
+
+  res.writeHead(302, { Location: '/' });
+
+  res.end();
 };
 
 export default AccountPage;

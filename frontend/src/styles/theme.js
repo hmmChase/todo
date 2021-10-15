@@ -2,40 +2,44 @@ const theme = {
   unit: 8,
 
   widths: {
-    largePageWidth: 1600,
+    textPageWidth: 800,
     regularPageWidth: 1100,
-    textPageWidth: 800
+    largePageWidth: 1600
   },
 
   colors: {
-    primary: '#220a82',
-    secondary: '#14cbc4',
-    accent: '#e535ab',
-    background: '#f7f8fa',
-    grey: '#d8d9e0',
-    text: '#343c5a',
-    textSecondary: '#747790',
+    black: '#000',
+    lightBlue: '#C8DCF0',
+    green: 'limegreen',
+    darkRed: '#66023C', // imperial purple
+    white: '#fff',
 
     backgrounds: {
-      features: '#18191B', // #171a1b
-      fullApp: '#202225', // #212124
-      widgetsHeader: '#2F3136', // #2e3236
-      cards: '#3A3C42' // #393c42
+      body: '#fff',
+      dropdown: '#7D8088'
     },
 
     text: {
-      titleText: '#809BFF', // #8199f9
-      primaryText: '#FFF',
-      secondaryText: '#DCDDDE',
+      titleText: '#809BFF',
+      primaryText: '#393939',
+      secondaryText: '#fff',
       terciaryText: '#7D8088'
-    },
-
-    buttons: {
-      actionButton: '#6271C0',
-      actionButtonHover: '#809BFF', // #8199f9
-      iconDefault: '#B3B3B3',
-      hover: '#FFF'
     }
+  },
+
+  buttons: {
+    borderRadius: '4px',
+    actionButton: '#6271C0',
+    actionButtonHover: '#809BFF',
+    actionButtonActive: '#809BFF',
+    iconDefault: '#B3B3B3'
+  },
+
+  statusDisplays: {
+    loading: { background: '#FFA500', text: '#000' },
+    error: { background: '#FF0000', text: '#000' },
+    success: { background: '#00FF00', text: '#000' },
+    info: { background: '#0000FF', text: '#fff' }
   }
 };
 

@@ -1,32 +1,83 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
+// import Link from 'next/link';
+import styled from 'styled-components';
 
-const HeaderLoggedOut = props => {
-  const router = useRouter();
+import LogInModal from '../../USER/LogInModal';
+import SignUpModal from '../../USER/SignUpModal';
+import Button from '../../REUSEABLE/Button';
 
-  const isActive = pathname => router.pathname === pathname;
+const HeaderLoggedOut = () => {
+  const [modalDisplay, setModalDisplay] = useState(null);
 
   return (
-    <ul>
-      <li>
-        <Link href='/login'>
-          <a data-active={isActive('/login')}>Log in</a>
-        </Link>
-      </li>
+    <Container>
+      {/* <Link href='/login'>
+        <ALogIn>Log in</ALogIn>
+      </Link> */}
 
-      <li>
-        <Link href='/signup'>
-          <a data-active={isActive('/signup')}>Sign up</a>
-        </Link>
-      </li>
+      {modalDisplay === 'login' && (
+        <LogInModal close={() => setModalDisplay(null)} />
+      )}
 
-      <style jsx>{`
-        a[data-active='true'] {
-          color: red;
-        }
-      `}</style>
-    </ul>
+      <ButtonLogIn type='text' onClick={() => setModalDisplay('login')}>
+        Log in
+      </ButtonLogIn>
+
+      {/* <Link href='/signup'>
+        <ASignUp>Sign up</ASignUp>
+      </Link> */}
+
+      {modalDisplay === 'signup' && (
+        <SignUpModal close={() => setModalDisplay(null)} />
+      )}
+
+      <ButtonSignUp type='text' onClick={() => setModalDisplay('signup')}>
+        Sign up
+      </ButtonSignUp>
+    </Container>
   );
 };
 
 export default HeaderLoggedOut;
+
+const Container = styled.div`
+  display: flex;
+  margin-right: 10px;
+
+  @media screen and (min-width: ${props =>
+      props.theme.widths.regularPageWidth}px) {
+    margin-right: 0;
+  }
+`;
+
+// const ALogIn = styled.a`
+//   background-color: ${props => props.theme.colors.white};
+//   color: ${props => props.theme.colors.text.primaryText};
+//   margin-right: 1rem;
+// `;
+
+// const ASignUp = styled.a`
+//   background-color: ${props => props.theme.buttons.actionButton};
+//   color: ${props => props.theme.colors.text.secondaryText};
+// `;
+
+export const ButtonLogIn = styled(Button)`
+  background-color: ${props => props.theme.colors.white};
+  color: ${props => props.theme.colors.text.primaryText};
+  margin-right: 1rem;
+
+  :hover {
+    background-color: ${props => props.theme.colors.white};
+    /* color: ${props => props.theme.buttons.actionButton}; */
+  }
+`;
+
+export const ButtonSignUp = styled(Button)`
+  /* background-color: ${props => props.theme.buttons.actionButton}; */
+  /* color: ${props => props.theme.colors.text.secondaryText}; */
+
+  :hover {
+    background-color: ${props => props.theme.buttons.actionButton};
+    /* color: ${props => props.theme.buttons.actionButton}; */
+  }
+`;

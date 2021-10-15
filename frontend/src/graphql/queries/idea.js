@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+//! If you change something, also update mocks
+
 //* - Fragments ----------
 
 export const IDEA_FIELDS = gql`
@@ -49,7 +51,7 @@ export const READ_IDEAS_CLIENT = gql`
 `;
 
 export const READ_IDEAS_PAGINATED_OFFSET = gql`
-  query ReadIdeasPaginatedOffset($offset: Int, $limit: Int) {
+  query ReadIdeasPaginatedOffset($offset: Int!, $limit: Int!) {
     ideasPaginatedOffset(offset: $offset, limit: $limit) {
       ...IdeaAuthorFields
     }
@@ -58,8 +60,8 @@ export const READ_IDEAS_PAGINATED_OFFSET = gql`
 `;
 
 export const READ_IDEAS_PAGINATED_CURSER = gql`
-  query ReadIdeasCurserPaginated($after: String) {
-    readIdeasPaginatedCurser(take: $take, skip: $skip) {
+  query ReadIdeasPaginatedCurser($after: String!) {
+    ideasPaginatedCurser(take: $take, skip: $skip) {
       cursor
       hasMore
       ideas {
@@ -73,10 +75,10 @@ export const READ_IDEAS_PAGINATED_CURSER = gql`
 export const CURRENT_USER_IDEAS = gql`
   query CurrentUserIdeas {
     currentUserIdeas {
-      ...IdeaFields
+      ...IdeaAuthorFields
     }
   }
-  ${IDEA_FIELDS}
+  ${IDEA_AUTHOR_FIELDS}
 `;
 
 //* - Mutations ----------
@@ -99,9 +101,9 @@ export const UPDATE_IDEA = gql`
   ${IDEA_FIELDS}
 `;
 
-export const DELETE_SOFT_IDEA = gql`
-  mutation DeleteSoftIdea($id: ID!) {
-    deleteSoftIdea(id: $id) {
+export const REMOVE_IDEA = gql`
+  mutation RemoveIdea($id: ID!) {
+    removeIdea(id: $id) {
       id
     }
   }

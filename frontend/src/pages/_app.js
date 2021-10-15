@@ -1,6 +1,8 @@
 // https://nextjs.org/docs/advanced-features/custom-app
 // https://github.com/vercel/next.js/tree/master/examples/with-styled-components
 
+//! import order: react=>next=>libs=>utils=>config=>queries=>components=>css
+
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
@@ -42,10 +44,10 @@ const MyApp = props => {
         />
       </Head>
 
-      <GlobalStyle />
-
       <ApolloProvider client={apolloClient}>
         <ThemeProvider theme={theme}>
+          <GlobalStyle />
+
           {getLayout(<Component {...pageProps} />)}
         </ThemeProvider>
       </ApolloProvider>

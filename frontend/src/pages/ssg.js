@@ -1,13 +1,14 @@
 import { initializeApollo, addApolloState } from '../graphql/apolloClient';
+import { CURRENT_USER } from '../graphql/queries/user';
 import { READ_IDEAS } from '../graphql/queries/idea';
-import isLoggedIn from '../utils/isLoggedIn';
+// import isLoggedIn from '../utils/isLoggedIn';
 import Layout from '../components/LAYOUTS/Layout';
 import Ideas from '../components/IDEA/Ideas';
 
 const SSGPage = props => {
   const { ideasRes } = props;
 
-  const ideas = ideasRes?.data?.ideas || [];
+  const ideas = ideasRes.data?.ideas || [];
 
   const havePosts = !!ideas.length;
 
@@ -26,16 +27,32 @@ const SSGPage = props => {
   );
 };
 
-SSGPage.getLayout = page => (
-  <Layout
-    title='SSG'
-    description='SSG page'
-    isLoggedIn={page.props.isLoggedIn}
-    hasHeader
-  >
-    {page}
-  </Layout>
-);
+SSGPage.getLayout = page => {
+  // const apolloClient = initializeApollo();
+
+  // const res = apolloClient.query({
+  //   query: CURRENT_USER,
+  //   creditials: 'include'
+  // });
+
+  // let currentUser;
+
+  // res.then(res => {
+
+  return (
+    <Layout
+      title='SSG'
+      description='SSG page'
+      // isLoggedIn={!!res.data.currentUser}
+      hasHeader
+      hasFooter
+    >
+      {page}
+    </Layout>
+  );
+
+  // });
+};
 
 export const getStaticProps = async ctx => {
   const apolloClient = initializeApollo();
@@ -46,9 +63,7 @@ export const getStaticProps = async ctx => {
 
   // return addApolloState(apolloClient, { props: { ideas: res.data.ideas } });
 
-  return {
-    props: { ideasRes: res }
-  };
+  return { props: { ideasRes: res } };
 };
 
 export default SSGPage;

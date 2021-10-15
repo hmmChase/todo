@@ -30,7 +30,7 @@ const apolloServer = new ApolloServer({
     console.log('operation: ', req.body.operationName);
     console.log('--------------------------------------------------');
 
-    const accessToken = (req.cookies && req.cookies.at) || '';
+    const accessToken = req?.cookies?.at || '';
 
     return { req, res, prisma, accessToken };
   }

@@ -32,6 +32,7 @@ SSRPage.getLayout = page => (
     description='SSR page'
     isLoggedIn={page.props.isLoggedIn}
     hasHeader
+    hasFooter
   >
     {page}
   </Layout>

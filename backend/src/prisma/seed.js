@@ -1,5 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
-const bcrypt = require('bcryptjs');
+const bcryptjs = require('bcryptjs');
 
 // 'npm run seed' to seed
 //? npx prisma db seed --schema=./src/prisma/schema.prisma --preview-feature
@@ -22,7 +22,7 @@ const main = async () => {
   const user = await prisma.user.create({
     data: {
       email: 'user@email.com',
-      password: await bcrypt.hash('user123$', 10),
+      password: await bcryptjs.hash('user123$', 10),
       role: 'USER',
       ideas: { create: ideas() }
     }
@@ -33,7 +33,7 @@ const main = async () => {
   const admin = await prisma.user.create({
     data: {
       email: 'admin@email.com',
-      password: await bcrypt.hash('admin123$', 10),
+      password: await bcryptjs.hash('admin123$', 10),
       role: 'ADMIN'
     }
   });
@@ -56,12 +56,12 @@ main()
 // const userData = [
 //   {
 //     email: 'admin@email.com',
-//     password: async () => await bcrypt.hash('admin123$', 10),
+//     password: async () => await bcryptjs.hash('admin123$', 10),
 //     role: 'ADMIN'
 //   },
 //   {
 //     email: 'user@email.com',
-//     password: async () => await bcrypt.hash('user123$', 10),
+//     password: async () => await bcryptjs.hash('user123$', 10),
 //     role: 'USER',
 //     ideas: { create: ideas() }
 //   }

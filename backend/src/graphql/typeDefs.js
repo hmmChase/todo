@@ -1,20 +1,22 @@
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
-  # Comments in GraphQL are defined with the hash (#) symbol.
-
-  # - Types ----------
+  # ---------- Types ----------
 
   type Query {
     currentNumber: Int
 
-    user(id: ID!): User
+    # ---------- User ----------
 
-    users: [User!]!
+    user(id: ID!): UserAuthPayload!
 
-    currentUser: User
+    users: [UserAuthPayload!]!
 
-    idea(id: ID!): Idea
+    currentUser: UserAuthPayload
+
+    # ---------- Idea ----------
+
+    idea(id: ID!): Idea!
 
     ideas: [Idea!]!
 
@@ -22,39 +24,51 @@ const typeDefs = gql`
       """
       Return results after this cursor
       """
-      offset: Int
+      offset: Int!
       """
       Number of nodes per page
       """
-      limit: Int
+      limit: Int!
     ): [Idea!]!
 
     ideasPaginatedCurser(
       """
       Number of nodes per page
       """
-      first: Int
+      first: Int!
       """
       If you add a cursor here, it will only return results _after_ this cursor
       """
-      after: String
+      after: String!
     ): IdeaConnection!
 
     currentUserIdeas: [Idea!]!
   }
 
   type Mutation {
+    # ---------- User ----------
+
     logIn(input: UserAuthInput!): UserAuthPayload!
 
     logOut: Boolean!
 
     createUser(input: UserAuthInput!): UserAuthPayload!
 
+    reqPassReset(email: String!): Boolean!
+
+    changePassword(
+      resetPassToken: String!
+      newPassword: String!
+    ): UserAuthPayload!
+
+    # ---------- Idea ----------
+
     createIdea(content: String!): Idea!
 
     updateIdea(id: ID!, content: String!): Idea!
 
-    deleteSoftIdea(id: ID!): Idea!
+    # soft delete
+    removeIdea(id: ID!): Idea!
 
     deleteIdea(id: ID!): Idea!
   }
@@ -71,7 +85,7 @@ const typeDefs = gql`
     email: String!
     password: String!
     role: Role!
-    ideas: [Idea!]
+    ideas: [Idea!]!
   }
 
   type Idea {
@@ -81,7 +95,7 @@ const typeDefs = gql`
   }
 
   type UserAuthPayload {
-    user: User
+    user: User!
   }
 
   """
@@ -95,14 +109,14 @@ const typeDefs = gql`
     ideas: [Idea!]!
   }
 
-  # - Enums ----------
+  # ---------- Enums ----------
 
   enum Role {
     USER
     ADMIN
   }
 
-  # - Inputs ----------
+  # ---------- Inputs ----------
 
   input UserAuthInput {
     email: String!

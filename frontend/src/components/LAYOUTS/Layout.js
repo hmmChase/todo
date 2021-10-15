@@ -1,22 +1,21 @@
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import Link from 'next/link';
 import styled, { withTheme } from 'styled-components';
 
 import { siteTitle } from '../../config';
 import Header from '../SECTIONS/Header/Header';
+import BackButton from '../OTHER/BackButton';
+import Footer from '../SECTIONS/Footer';
 
 const Layout = props => {
   const {
     isLoggedIn,
-    onIdeaPage,
     hasHeader,
+    hasFooter,
     hasBackButton,
     children,
     title,
-    description,
-    fullWidth,
-    grid
+    description
   } = props;
 
   // const { width } = useWindowSize();
@@ -29,17 +28,31 @@ const Layout = props => {
         <meta name='description' content={description} />
       </Head>
 
-      {hasHeader && <Header isLoggedIn={isLoggedIn} onIdeaPage={onIdeaPage} />}
+      <LayoutWrap>
+        {hasHeader && (
+          <HeaderWrap>
+            <MaxWidth>
+              <Header isLoggedIn={isLoggedIn} />
+            </MaxWidth>
+          </HeaderWrap>
+        )}
 
-      {hasBackButton && (
-        <div>
-          <Link href='/'>
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
+        <MainWrap>
+          <MaxWidth>
+            {hasBackButton && <BackButton />}
 
-      <MainContainer>{children}</MainContainer>
+            {children}
+          </MaxWidth>
+        </MainWrap>
+
+        {hasFooter && (
+          <FooterWrap>
+            <MaxWidth>
+              <Footer />
+            </MaxWidth>
+          </FooterWrap>
+        )}
+      </LayoutWrap>
     </>
   );
 };
@@ -55,18 +68,37 @@ Layout.propTypes = {
 
 export default withTheme(Layout);
 
-/** styled components */
+const LayoutWrap = styled.div`
+  display: grid;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
+`;
 
-const MainContainer = styled.main`
-  /* display: flex; */
-  /* justify-content: ${props => (props.grid ? 'center' : 'top')}; */
-  /* flex-direction: ${props => (props.grid ? 'row' : 'column')}; */
-  /* flex-wrap: wrap; */
-  /* align-self: center; */
-  /* flex-grow: 1; */
-  /* max-width: ${props =>
-    props.fullWidth ? null : `${props.theme.widths.regularPageWidth}px`}; */
-  /* width: 100%; */
-  /* padding: ${props => (props.fullWidth ? 0 : props.theme.unit * 2)}; */
-  /* padding-bottom: ${props => props.theme.unit * 5}; */
+const MaxWidth = styled.div`
+  @media screen and (min-width: ${props =>
+      props.theme.widths.regularPageWidth}px) {
+    max-width: ${props => props.theme.widths.regularPageWidth}px;
+    margin: 0 auto;
+  }
+`;
+
+const HeaderWrap = styled.header`
+  grid-area: header;
+  background-color: ${props => props.theme.colors.lightBlue};
+  border-bottom: 1px solid ${props => props.theme.colors.black};
+
+  /* position: fixed; */
+`;
+
+const MainWrap = styled.main`
+  grid-area: main;
+`;
+
+const FooterWrap = styled.footer`
+  grid-area: footer;
+  border-top: 1px solid ${props => props.theme.colors.black};
+  display: flex;
+  justify-content: center;
 `;

@@ -1,11 +1,14 @@
 import { gql } from '@apollo/client';
 
+//! If you change something, also update mocks
+
 //* - Fragments ----------
 
 export const USER_FIELDS = gql`
   fragment userFields on User {
     id
     email
+    role
   }
 `;
 
@@ -18,9 +21,11 @@ export const IS_LOGGED_IN = gql`
 `;
 
 export const READ_USER = gql`
-  query User($id: ID!) {
-    user(id: $id) {
-      ...userFields
+  query ReadUser($id: ID!) {
+    readUser(id: $id) {
+      user {
+        ...userFields
+      }
     }
   }
   ${USER_FIELDS}
@@ -29,7 +34,9 @@ export const READ_USER = gql`
 export const READ_USERS = gql`
   query Users {
     users {
-      ...userFields
+      user {
+        ...userFields
+      }
     }
   }
   ${USER_FIELDS}
@@ -38,7 +45,9 @@ export const READ_USERS = gql`
 export const CURRENT_USER = gql`
   query CurrentUser {
     currentUser {
-      ...userFields
+      user {
+        ...userFields
+      }
     }
   }
   ${USER_FIELDS}
@@ -66,6 +75,23 @@ export const LOG_OUT = gql`
 export const CREATE_USER = gql`
   mutation CreateUser($email: String!, $password: String!) {
     createUser(input: { email: $email, password: $password }) {
+      user {
+        ...userFields
+      }
+    }
+  }
+  ${USER_FIELDS}
+`;
+
+export const REQ_PASS_RESET = gql`
+  mutation ReqPassReset($email: String!) {
+    reqPassReset(email: $email)
+  }
+`;
+
+export const CHANGE_PASSWORD = gql`
+  mutation ChangePassword($resetPassToken: String!, $newPassword: String!) {
+    changePassword(resetPassToken: $resetPassToken, newPassword: $newPassword) {
       user {
         ...userFields
       }

@@ -1,53 +1,60 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 
-import { DELETE_SOFT_IDEA } from '../../graphql/queries/idea';
+import { REMOVE_IDEA } from '../../graphql/queries/idea';
 import graphQLErrors from '../../utils/graphQLErrors';
+import { XIconBtn } from '../REUSEABLE/IconBtn';
 
 const RemoveIdea = props => {
   const { ideaId } = props;
 
   const [errorMsg, setErrorMsg] = useState();
 
-  const [deleteSoftIdea] = useMutation(DELETE_SOFT_IDEA, {
-    update(cache) {
-      cache.modify({
-        fields: {
-          ideas(existingIdeas = []) {
-            const filteredIdeas = existingIdeas.filter(
-              idea => idea.__ref !== `Idea:${ideaId}`
-            );
+  const update = cache =>
+    cache.modify({
+      fields: {
+        ideas(existingIdeas = []) {
+          // Remove idea
+          const filteredIdeas = existingIdeas.filter(
+            idea => idea.__ref !== `Idea:${ideaId}`
+          );
 
-            return filteredIdeas;
-          }
+          return filteredIdeas;
         }
-      });
-    },
+      }
+    });
 
-    onError: error => {
-      console.log('RemoveIdea DELETE_SOFT_IDEA error: ', error);
+  const onError = error => {
+    console.log('RemoveIdea onError error: ', error);
 
-      setErrorMsg(graphQLErrors(error));
-    }
+    setErrorMsg(graphQLErrors(error));
+  };
+
+  const [removeIdea] = useMutation(REMOVE_IDEA, {
+    update: cache => update(cache),
+
+    onError: error => onError(error)
   });
 
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const handleClick = async e => {
+    //? prevent multiple clicks - not working?
+    e.target.disabled = true;
 
     try {
-      await deleteSoftIdea({ variables: { id: ideaId } });
+      await removeIdea({ variables: { id: ideaId } });
     } catch (error) {
-      console.log('RemoveIdea handleSubmit error: ', error);
+      console.log('RemoveIdea handleClick error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <button type='submit'>X</button>
-    </form>
-  );
+  return <XIconBtn aria-label='remove idea' onClick={handleClick} />;
+};
+
+RemoveIdea.propTypes = {
+  ideaId: PropTypes.string.isRequired
 };
 
 export default RemoveIdea;

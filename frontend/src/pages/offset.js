@@ -5,7 +5,7 @@ import { ideasPerPage } from '../config';
 import { READ_IDEAS_PAGINATED_OFFSET } from '../graphql/queries/idea';
 import graphQLErrors from '../utils/graphQLErrors';
 import isLoggedIn from '../utils/isLoggedIn';
-import QueryResult from '../components/OTHER/QueryResult';
+import QueryResult from '../components/REUSEABLE/QueryResult';
 import Layout from '../components/LAYOUTS/Layout';
 import Ideas from '../components/IDEA/Ideas';
 
@@ -18,6 +18,12 @@ const OffsetPage = () => {
 
   const [page, setPage] = useState((offset + ideasPerPage) / ideasPerPage);
 
+  const onError = error => {
+    console.log('OffsetPage onError error: ', error);
+
+    setErrorMsg(graphQLErrors(error));
+  };
+
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     READ_IDEAS_PAGINATED_OFFSET,
     {
@@ -26,11 +32,7 @@ const OffsetPage = () => {
       // Allows component to rerender with loading:true whenever fetchMore is called
       notifyOnNetworkStatusChange: true,
 
-      onError: error => {
-        console.log('OffsetPage READ_IDEAS_PAGINATED_OFFSET error: ', error);
-
-        setErrorMsg(graphQLErrors(error));
-      }
+      onError: error => onError(error)
     }
   );
 
@@ -70,14 +72,12 @@ const OffsetPage = () => {
     setIsLoadingMore(false);
   };
 
-  const ideas = data?.ideasPaginatedOffset || [];
+  const ideas = data?.ideasPaginatedOffset;
 
   const haveIdeas = !!ideas.length;
 
   return (
     <>
-      <h1>Offset Page</h1>
-
       <QueryResult error={errorMsg} loading={loading} data={data}>
         <Ideas ideas={ideas} />
       </QueryResult>
@@ -108,6 +108,7 @@ OffsetPage.getLayout = page => (
     description='Offset page'
     isLoggedIn={page.props.isLoggedIn}
     hasHeader
+    hasFooter
   >
     {page}
   </Layout>
