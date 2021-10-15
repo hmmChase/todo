@@ -42,9 +42,9 @@ const Container = styled.div`
 
 const Outer = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
   bottom: 0;
   left: 0;
-  position: absolute;
   right: 0;
   top: 0;
   z-index: 666;
@@ -53,9 +53,6 @@ const Outer = styled.div`
 const Inner = styled.div`
   background-color: ${props => props.theme.colors.lightBlue};
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  padding: 2em;
+  padding: 1em;
   z-index: 999;
 `;

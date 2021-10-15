@@ -2,7 +2,7 @@ import { useState } from 'react';
 // import Link from 'next/link';
 import styled from 'styled-components';
 
-import LoginModal from '../../USER/LoginModal';
+import LogInModal from '../../USER/LogInModal';
 import SignUpModal from '../../USER/SignUpModal';
 import Button from '../../REUSEABLE/Button';
 
@@ -16,7 +16,7 @@ const HeaderLoggedOut = () => {
       </Link> */}
 
       {modalDisplay === 'login' && (
-        <LoginModal close={() => setModalDisplay(null)} />
+        <LogInModal close={() => setModalDisplay(null)} />
       )}
 
       <ButtonLogIn type='text' onClick={() => setModalDisplay('login')}>

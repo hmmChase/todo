@@ -3,6 +3,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 import { siteTitle } from '../../config';
+import HorizontalRule from '../REUSEABLE/HorizontalRule';
 
 const FullPage = props => {
   const { children, title, description } = props;
@@ -27,15 +28,12 @@ const FullPage = props => {
         </LogoWrapper>
 
         <Content>
-          {/* <ContentHalf> */}
           <PageTitle>{title}</PageTitle>
-          {/* </ContentHalf> */}
 
-          <ContentHalf>
-            <HR />
-
+          <PageWrapper>
+            <HorizontalRulee />
             {children}
-          </ContentHalf>
+          </PageWrapper>
         </Content>
       </Container>
     </>
@@ -86,52 +84,32 @@ const PageTitle = styled.h2`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 
   @media screen and (min-width: 800px) {
     flex-direction: row;
     align-items: center;
+    gap: 2rem;
   }
 `;
 
-const ContentHalf = styled.div`
+const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
   @media screen and (min-width: 800px) {
-    /* flex: 1; */
-
     position: relative;
     justify-content: center;
-
-    /* flex-direction: row; */
-    /* align-items: center; */
-    /* width: 60%; */
-
-    /* align-items: center; */
-    /* justify-items: center; */
-    /* align-content: center; */
   }
 `;
 
-const HR = styled.hr`
-  background-image: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0.75),
-    rgba(0, 0, 0, 0)
-  );
-  border: 0;
-  height: 0.2rem;
-  margin: 0;
-
-  width: 100%;
+export const HorizontalRulee = styled(HorizontalRule)`
+  margin-bottom: 1rem;
 
   @media screen and (min-width: 800px) {
     width: 150%;
     position: absolute;
     transform: rotate(90deg);
     left: calc(-75% - 1rem);
-    align-self: center;
   }
 `;

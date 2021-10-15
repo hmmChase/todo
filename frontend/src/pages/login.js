@@ -1,7 +1,7 @@
 import FullPage from '../components/LAYOUTS/FullPage';
-import LogIn from '../components/USER/LogIn';
+import LogInForm from '../components/USER/LogInForm';
 
-const LogInPage = () => <LogIn />;
+const LogInPage = () => <LogInForm />;
 
 LogInPage.getLayout = page => (
   <FullPage title='Log in' description='LogIn page'>

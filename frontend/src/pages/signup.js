@@ -1,7 +1,7 @@
 import FullPage from '../components/LAYOUTS/FullPage';
-import SignUp from '../components/USER/SignUp';
+import SignUpForm from '../components/USER/SignUpForm';
 
-const SignUpPage = () => <SignUp />;
+const SignUpPage = () => <SignUpForm />;
 
 SignUpPage.getLayout = page => (
   <FullPage title='Sign up' description='SignUp page'>

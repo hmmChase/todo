@@ -13,8 +13,8 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next export",
-    "storybook": "start-storybook -s public -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "start-storybook -p 6006 -s public ",
+    "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
     "@apollo/client": "^3.4.11",
