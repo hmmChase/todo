@@ -53,6 +53,6 @@ const Outer = styled.div`
 const Inner = styled.div`
   background-color: ${props => props.theme.colors.lightBlue};
   border-radius: 10px;
-  padding: 1em;
+  padding: 1rem 2rem;
   z-index: 999;
 `;

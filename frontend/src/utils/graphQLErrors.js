@@ -1,22 +1,31 @@
 import displayMessages from './displayMessages';
 
 const graphQLErrors = error => {
+  let dispayMessage = '';
+
   if (error.graphQLErrors)
-    for (const graphQLError of error.graphQLErrors)
+    for (const graphQLError of error.graphQLErrors) {
       if (
         graphQLError.extensions &&
         graphQLError.extensions.code === 'BAD_USER_INPUT' // UserInputError
-      )
-        graphQLError.message;
+      ) {
+        // Split error into array of keys
+        const splitErrorArr = error.message.split('.');
 
-  const splitErrorArr = error.message.split('.');
+        // Current object section
+        let displayMessagesObj = displayMessages;
 
-  let errorMessageObj = displayMessages;
+        // Path through keys to the correct object section
+        // Final loop will return error message
+        for (let i = 0; i < splitErrorArr.length; i++) {
+          displayMessagesObj = displayMessagesObj[splitErrorArr[i]];
 
-  for (let i = 0; i < splitErrorArr.length; i++)
-    errorMessageObj = errorMessageObj[splitErrorArr[i]];
+          dispayMessage = displayMessagesObj;
+        }
+      }
+    }
 
-  return errorMessageObj;
+  return dispayMessage;
 };
 
 export default graphQLErrors;

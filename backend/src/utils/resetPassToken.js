@@ -17,5 +17,6 @@ export const createResetPassToken = async () => {
 export const validateResetPassTokenExpiry = resetPassTokenExpiry => {
   const isTokenExpired = Date.now() > resetPassTokenExpiry;
 
-  if (isTokenExpired) throw new UserInputError('user.resetPass.tokenExpired');
+  if (isTokenExpired)
+    throw new UserInputError('user.error.resetPass.tokenExpired');
 };

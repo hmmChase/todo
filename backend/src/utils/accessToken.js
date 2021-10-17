@@ -1,4 +1,4 @@
-import { AuthenticationError } from 'apollo-server-express';
+import { ForbiddenError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
 // import Iron from '@hapi/iron';
 
@@ -24,9 +24,11 @@ export const verifyAccessToken = accessToken => {
     // Return payload
     return payload;
   } catch (error) {
-    console.log('verifyAccessToken error: ', error);
+    console.log('accessToken verifyAccessToken error: ', error);
 
     // If not, throw error
-    throw new AuthenticationError('user.invalidToken');
+    throw new ForbiddenError(
+      'accessToken.error.verifyAccessToken.invalidToken'
+    );
   }
 };

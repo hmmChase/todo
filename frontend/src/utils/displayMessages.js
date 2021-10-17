@@ -1,30 +1,61 @@
 import { passwordMinLength, passwordMaxLength } from '../config';
 
 const displayMessages = {
-  idea: {},
-
   user: {
-    auth: {
-      missing: 'Please enter your email and password.',
+    error: {
+      user: {
+        missing: 'Error, try again',
+        invalid: 'Error, try again'
+      },
 
-      invalid: 'Invalid email or password.',
+      createUser: {
+        exists: 'Incorrect email or password'
+      },
 
-      alreadyExists: 'Account matching supplied email already exists.',
+      logIn: {
+        notFound: 'Incorrect email or password'
+      },
 
-      passwordShort: `Password must be at least ${passwordMinLength} characters`,
+      passwordCompare: {
+        notMatch: 'Incorrect password'
+      },
 
-      passwordLong: `Password must be no more than ${passwordMaxLength} characters`
+      changePassword: {
+        missing: 'Error, try again',
+        notFound: 'Incorrect email or password'
+      },
+
+      validateEmail: {
+        missing: 'Email is required',
+        invalid: 'Error, try again'
+      },
+
+      isEmailWellFormed: {
+        invalid: 'Email is invalid'
+      },
+
+      validatePassword: {
+        missing: 'Password is required',
+        invalid: 'Error, try again'
+      },
+
+      isPasswordWellFormed: {
+        tooShort: `Password must be at least ${passwordMinLength} characters`,
+        tooLong: `Password must be no more than ${passwordMaxLength} characters`
+      },
+
+      resetPass: {
+        tokenExpired:
+          'Your password reset request is expired. Please submit a new one'
+      }
     },
 
-    resetPass: {
-      tokenError: 'Token error: Please submit a new password reset request.',
+    info: {},
 
-      tokenExpired:
-        'Your password reset request is expired. Please submit a new one.',
+    success: {
+      ReqPassReset: 'Check your email for a password reset link',
 
-      reqSent: 'Please check your email for a password reset link.',
-
-      success: 'Your password has been successfully changed.'
+      ResetPassword: 'Your password has been changed'
     }
   }
 };

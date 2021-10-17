@@ -7,9 +7,12 @@
 // Create a migration from changes in Prisma schema
 // npx prisma migrate dev --schema=./src/prisma/schema.prisma --name some-update
 
-// Generate client if needed
-// prisma migrate does this automatically
+// Generate client if needed:
+// - prisma migrate does this automatically
 // npx prisma generate --schema=./src/prisma/schema.prisma
+
+// Seed database:
+// npm run seed
 
 // ----- Configuration -----
 
@@ -34,7 +37,7 @@ model User {
   id                   String    @id @default(cuid())
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt
-  deletedAt            DateTime?
+  removedAt            DateTime?
   email                String    @unique
   password             String
   role                 Role      @default(USER)
@@ -47,7 +50,7 @@ model Idea {
   id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  removedAt DateTime?
   content   String
   author    User      @relation(fields: [authorId], references: [id])
   authorId  String

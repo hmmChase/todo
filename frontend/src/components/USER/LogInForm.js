@@ -52,7 +52,7 @@ const LogInForm = () => {
     setErrorMsg(graphQLErrors(error));
   };
 
-  const [logIn] = useMutation(LOG_IN, {
+  const [logIn, { loading }] = useMutation(LOG_IN, {
     fetchPolicy: 'network-only',
 
     // update: (cache, data) => update(cache, data),
@@ -83,7 +83,7 @@ const LogInForm = () => {
   };
 
   const formik = useFormik({
-    initialValues: { logInEmail: 'user@email.com', logInPassword: 'asdf1234' },
+    initialValues: { logInEmail: 'user@email.com', logInPassword: 'user123$' },
 
     validationSchema,
 
@@ -122,6 +122,7 @@ const LogInForm = () => {
       <Buttonn
         aria-label='submit log in'
         type='submit'
+        loading={loading}
         disabled={
           !!(
             !formik.values.logInEmail ||
@@ -174,6 +175,8 @@ export const LogInLinks = styled.div`
 const A = styled.a`
   cursor: pointer;
   align-self: flex-start;
+  font-size: 0.8rem;
+  font-weight: bold;
 
   &:hover {
     text-decoration: underline;

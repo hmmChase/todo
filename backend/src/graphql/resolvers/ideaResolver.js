@@ -1,4 +1,4 @@
-import { AuthenticationError, ForbiddenError } from 'apollo-server-express';
+import { ForbiddenError } from 'apollo-server-express';
 
 import { verifyAccessToken } from '../../utils/accessToken';
 
@@ -26,7 +26,7 @@ const ideaResolver = {
     ideas: async (parent, args, ctx, info) => {
       try {
         const ideas = await ctx.prisma.idea.findMany({
-          where: { deletedAt: null },
+          where: { removedAt: null },
           select: { id: true, content: true, author: { select: { id: true } } },
           orderBy: { createdAt: 'desc' }
         });
@@ -45,14 +45,14 @@ const ideaResolver = {
 
       if ((!offset && offset !== 0) || !limit)
         throw new ForbiddenError(
-          'idea.ideasPaginatedOffset.invalidOffsetOrLimit'
+          'idea.error.ideasPaginatedOffset.invalidOffsetOrLimit'
         );
 
       try {
         const ideas = await ctx.prisma.idea.findMany({
           skip: offset,
           take: limit, // first
-          where: { deletedAt: null },
+          where: { removedAt: null },
           select: { id: true, content: true, author: { select: { id: true } } },
           orderBy: { createdAt: 'desc' }
         });
@@ -71,14 +71,14 @@ const ideaResolver = {
 
       if (!cursor || !limit)
         throw new ForbiddenError(
-          'idea.ideasPaginatedCurser.invalidCurserOrLimit'
+          'idea.error.ideasPaginatedCurser.invalidCurserOrLimit'
         );
 
       try {
         const ideas = await ctx.prisma.idea.findMany({
           take: limit,
           cursor: { id: cursor },
-          where: { deletedAt: null },
+          where: { removedAt: null },
           select: { id: true, content: true, author: { select: { id: true } } },
           orderBy: { createdAt: 'desc' }
         });
@@ -98,7 +98,7 @@ const ideaResolver = {
       try {
         // Find and return all ideas matching userId
         const ideas = await ctx.prisma.idea.findMany({
-          where: { author: { id: payload.userId }, deletedAt: null },
+          where: { author: { id: payload.userId }, removedAt: null },
           select: { id: true, content: true, author: { select: { id: true } } },
           orderBy: { createdAt: 'desc' }
         });
@@ -198,7 +198,8 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.userId;
 
         // If not, throw error
-        if (!ownsIdea) throw new ForbiddenError('idea.invalidOwnership');
+        if (!ownsIdea)
+          throw new ForbiddenError('idea.error.updateIdea.invalidOwnership');
 
         // Update idea
         const updatedIdea = ctx.prisma.idea.update({
@@ -232,12 +233,13 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.userId;
 
         // If not, throw error
-        if (!ownsIdea) throw new ForbiddenError('idea.invalidOwnership');
+        if (!ownsIdea)
+          throw new ForbiddenError('idea.error.removeIdea.invalidOwnership');
 
         // Update idea soft delete field
         const removedIdea = await prisma.idea.update({
           where: { id },
-          data: { deletedAt: new Date().toISOString() },
+          data: { removedAt: new Date().toISOString() },
           select: { id: true }
         });
 
@@ -267,7 +269,8 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.userId;
 
         // If not, throw error
-        if (!ownsIdea) throw new ForbiddenError('idea.invalidOwnership');
+        if (!ownsIdea)
+          throw new ForbiddenError('idea.error.deleteIdea.invalidOwnership');
 
         // Delete idea
         const deletedIdea = ctx.prisma.idea.delete({

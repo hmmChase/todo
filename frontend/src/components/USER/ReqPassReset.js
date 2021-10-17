@@ -13,6 +13,7 @@ import Button from '../../components/REUSEABLE/Button';
 import graphQLErrors from '../../utils/graphQLErrors';
 import { REQ_PASS_RESET } from '../../graphql/queries/user';
 import DisplaySuccess from '../REUSEABLE/DisplaySuccess';
+import displayMessages from '../../utils/displayMessages';
 
 const validationSchema = object().shape({ reqPassResetEmail: email });
 
@@ -72,7 +73,7 @@ const ReqPassReset = () => {
       {errorMsg && <DisplayError error={{ message: errorMsg }} />}
 
       {!loading && !error && called && data && data.requestReset && (
-        <DisplaySuccess message='Check your email for a reset link.' />
+        <DisplaySuccess message={displayMessages.user.success.ReqPassReset} />
       )}
 
       <Buttonn
@@ -119,6 +120,8 @@ const Buttonn = styled(Button)`
 const A = styled.a`
   cursor: pointer;
   align-self: flex-start;
+  font-size: 0.8rem;
+  font-weight: bold;
 
   &:hover {
     text-decoration: underline;

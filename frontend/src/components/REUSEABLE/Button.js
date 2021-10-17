@@ -1,31 +1,32 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Button = props => (
-  <Buttonn
-    aria-label={props['aria-label']}
-    data-testid={props['data-testid']}
-    className={props.className}
-    type={props.type}
-    onClick={props.onClick}
-    // disabled={props.disabled}
-    // htmlType={props.htmlType}
-    // loading={props.loading}
-  >
-    {props.children}
-  </Buttonn>
-);
+const Button = props => {
+  const { children, onClick, className, loading, disabled, type } = props;
+
+  return (
+    <Buttonn
+      aria-label={props['aria-label']}
+      data-testid={props['data-testid']}
+      className={className}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {loading ? `${children}...` : children}
+    </Buttonn>
+  );
+};
 
 Button.propTypes = {
   'aria-label': PropTypes.string,
   'data-testid': PropTypes.string,
   className: PropTypes.string,
   type: PropTypes.oneOf(['submit', 'text']).isRequired,
-  onClick: PropTypes.func
-  // children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
-  // disabled: PropTypes.bool,
-  // htmlType: PropTypes.oneOf(['submit']),
-  // loading: PropTypes.bool,
+  onClick: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
+  disabled: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 export default Button;

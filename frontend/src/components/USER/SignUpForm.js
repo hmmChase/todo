@@ -151,6 +151,8 @@ const Buttonn = styled(Button)`
 const A = styled.a`
   cursor: pointer;
   align-self: flex-start;
+  font-size: 0.8rem;
+  font-weight: bold;
 
   &:hover {
     text-decoration: underline;

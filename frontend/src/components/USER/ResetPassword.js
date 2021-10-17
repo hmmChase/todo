@@ -113,7 +113,7 @@ const ResetPassword = props => {
       </Buttonn>
 
       {isSuccessful && (
-        <DisplaySuccess message={displayMessages.user.resetPass.success} />
+        <DisplaySuccess message={displayMessages.user.success.ResetPassword} />
       )}
     </Form>
   );

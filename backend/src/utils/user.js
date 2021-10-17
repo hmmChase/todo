@@ -47,7 +47,8 @@ export const passwordCompare = async (inputPassword, userPassword) => {
 
   const isCorrectPass = await bcryptjs.compare(inputPassword, userPassword);
 
-  if (!isCorrectPass) throw new UserInputError('user.auth.invalid');
+  if (!isCorrectPass)
+    throw new UserInputError('user.error.passwordCompare.notMatch');
 };
 
 const userClientCleaner = user => ({
