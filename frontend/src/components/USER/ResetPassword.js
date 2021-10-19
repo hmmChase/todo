@@ -14,7 +14,7 @@ import graphQLErrors from '../../utils/graphQLErrors';
 import FormInput from '../../components/REUSEABLE/FormInput';
 import Button from '../../components/REUSEABLE/Button';
 import DisplayError from '../REUSEABLE/DisplayError';
-import displayMessages from '../../utils/displayMessages';
+import displayMessages from '../../configs/displayMessages';
 
 const validationSchema = object().shape({ newPassword: password });
 

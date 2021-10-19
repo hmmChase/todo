@@ -6,7 +6,7 @@ import HeaderLoggedOut from './HeaderLoggedOut';
 // import HeaderUsername from './HeaderUsername';
 import AddIdea from '../../IDEA/AddIdea';
 import IconUser from '../../OTHER/IconUser';
-import { siteTitle } from '../../../config';
+import { siteTitle } from '../../../configs/config';
 import Ideabox from '../../../../public/images/ideabox.png';
 // import NavBar from '../NavBar';
 

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import styled from 'styled-components';
 
-import { siteTitle } from '../../config';
+import { siteTitle } from '../../configs/config';
 import HorizontalRule from '../REUSEABLE/HorizontalRule';
 
 const FullPage = props => {
@@ -44,7 +44,6 @@ export default FullPage;
 
 const Container = styled.div`
   display: flex;
-  /* flex-direction: column; */
   background-color: ${props => props.theme.colors.lightBlue};
   min-height: 100vh;
   justify-content: center;

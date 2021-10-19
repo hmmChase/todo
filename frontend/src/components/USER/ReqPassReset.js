@@ -13,7 +13,7 @@ import Button from '../../components/REUSEABLE/Button';
 import graphQLErrors from '../../utils/graphQLErrors';
 import { REQ_PASS_RESET } from '../../graphql/queries/user';
 import DisplaySuccess from '../REUSEABLE/DisplaySuccess';
-import displayMessages from '../../utils/displayMessages';
+import displayMessages from '../../configs/displayMessages';
 
 const validationSchema = object().shape({ reqPassResetEmail: email });
 

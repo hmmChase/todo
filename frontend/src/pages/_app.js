@@ -3,6 +3,7 @@
 
 //! import order: react=>next=>libs=>utils=>config=>queries=>components=>css
 
+import { StrictMode } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
@@ -11,7 +12,7 @@ import { ThemeProvider } from 'styled-components';
 import { useApollo } from '../graphql/apolloClient';
 import GlobalStyle from '../styles/global';
 import theme from '../styles/theme';
-import { siteTitle } from '../config';
+import { siteTitle } from '../configs/config';
 
 const MyApp = props => {
   const { Component, pageProps } = props;
@@ -44,13 +45,15 @@ const MyApp = props => {
         />
       </Head>
 
-      <ApolloProvider client={apolloClient}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
+      <StrictMode>
+        <ApolloProvider client={apolloClient}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
 
-          {getLayout(<Component {...pageProps} />)}
-        </ThemeProvider>
-      </ApolloProvider>
+            {getLayout(<Component {...pageProps} />)}
+          </ThemeProvider>
+        </ApolloProvider>
+      </StrictMode>
     </>
   );
 };

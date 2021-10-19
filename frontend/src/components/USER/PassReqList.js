@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { passwordRequirements } from '../../config';
+import { passwordRequirements } from '../../configs/config';
 
 const PassReqList = () => {
   const reqList = passwordRequirements.reqs.map((req, index) => (

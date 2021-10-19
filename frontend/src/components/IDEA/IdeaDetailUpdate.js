@@ -5,7 +5,7 @@ import debounce from 'lodash.debounce';
 // import styled from 'styled-components';
 
 import graphQLErrors from '../../utils/graphQLErrors';
-import { IdeaInputDebounceDelay } from '../../config';
+import { IdeaInputDebounceDelay } from '../../configs/config';
 import { UPDATE_IDEA } from '../../graphql/queries/idea';
 import IdeaDetailContent from './IdeaDetailContent';
 

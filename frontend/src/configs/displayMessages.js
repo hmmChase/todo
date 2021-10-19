@@ -1,4 +1,4 @@
-import { passwordMinLength, passwordMaxLength } from '../config';
+import { passwordMinLength, passwordMaxLength } from './config';
 
 const displayMessages = {
   user: {
