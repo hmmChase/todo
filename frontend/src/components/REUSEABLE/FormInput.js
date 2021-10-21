@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const FormInput = props => {
-  const { label, id, name } = props;
+  const { id, label, name } = props;
 
   const fieldId = `${id}-${name}`;
 
@@ -16,9 +16,6 @@ const FormInput = props => {
 };
 
 FormInput.propTypes = {
-  'aria-label': PropTypes.string,
-  'data-testid': PropTypes.string,
-  className: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string,
   name: PropTypes.string.isRequired

@@ -1,95 +1,76 @@
-import { css } from 'styled-components';
+// import { css } from 'styled-components';
 
 const colors = {
-  white: white,
-  black: black,
+  white: 'white', // #FFFFFF
+  black: 'black', // #000000
 
   imperialPurple: '#66023C',
-  lightBlue: '#C8DCF0',
 
-  silver: silver,
-  gray: gray,
+  lightBlue: '#C8DCF0',
+  blue: '#809BFF',
+  darkBlue: '#6271C0',
+
+  gray: 'silver', // #C0C0C0
+  darkGray: 'gray', // #808080
   lightBlack: '#393939',
 
-  red: red,
-  green: green,
-  blue: blue,
-  orange: orange,
-  yellow: yellow
+  mistyRose: 'MistyRose', // #FFE4E1
+  honeyDew: 'HoneyDew', // #F0FFF0,
+  lemonChiffon: 'LemonChiffon', // #FFFACD
+  aliceBlue: 'AliceBlue' // #F0F8FF
 };
 
-const spacing = {
-  padding: { small: 10, medium: 20, large: 30 },
+const fontSize = {
+  small: '0.9rem',
+  default: '1rem',
+  large: '1.1rem',
+  h3: '1.5rem',
+  h2: '1.75rem',
+  h1: '2rem'
 
-  borderRadius: { small: 5, default: 10 }
+  // calc(16px + 6 * ((100vw - 320px) / 680))
+  // min(max(16px, 4vw), 22px)
 };
 
-const breakpoint = 600;
-const pageMargin = '5.55555';
+const borderRadius = { primary: '5px', round: '50%' };
 
-const pageMargins = css`
-  padding: 0 ${spacing.padding.medium}px;
-
-  @media (min-width: ${breakpoint * 1}px) {
-    margin: 0 ${pageMargin * 1}%;
-  }
-
-  @media (min-width: ${breakpoint * 2}px) {
-    margin: 0 ${pageMargin * 2}%;
-  }
-
-  @media (min-width: ${breakpoint * 3}px) {
-    margin: 0 ${pageMargin * 3}%;
-  }
-
-  @media (min-width: ${breakpoint * 4}px) {
-    margin: 0 ${pageMargin * 4}%;
-  }
-`;
-
-export const breakpoints = [480, 768, 992, 1200];
-
-export const mq = breakpoints.map(bp => `@media (min-width: ${bp}px)`);
+const width = { page: '800px' };
 
 const theme = {
-  unit: 8,
+  fontSize,
+  borderRadius,
+  width,
 
-  widths: {
-    textPageWidth: 800,
-    regularPageWidth: 1100,
-    largePageWidth: 1600
+  background: {
+    primary: colors.white,
+    secondary: colors.gray,
+    tertiary: colors.lightBlue,
+    quaternary: colors.blue,
+    quinary: colors.darkBlue,
+    senary: colors.aliceBlue,
+    septenary: colors.mistyRose,
+    octonary: colors.honeyDew,
+    nonary: colors.lemonChiffon,
+    denary: ''
   },
 
-  layout: {
-    title: colors.imperialPurple,
-    text: colors.lightBlack,
-    background: colors.lightBlue
+  text: {
+    primary: colors.lightBlack,
+    secondary: colors.white,
+    tertiary: colors.imperialPurple,
+    quaternary: colors.lightBlue,
+    quinary: colors.darkBlue
   },
 
-  border: 'rgba(0,0,0,.1)',
-
-  statusDisplays: {
-    loading: { background: '#FFA500', text: '#000' },
-    error: { background: '#FF0000', text: '#000' },
-    success: { background: '#00FF00', text: '#000' },
-    info: { background: '#0000FF', text: '#fff' },
-
-    positive: '#E1FFD4',
-    negative: '#FEDED2',
-    warning: '#FFF5CF'
+  border: {
+    primary: colors.black,
+    secondary: colors.gray,
+    tertiary: colors.darkGray,
+    quaternary: colors.lightBlue,
+    quinary: colors.darkBlue
   },
 
-  dropdown: {
-    background: colors.darkGrey
-  },
-
-  button: {
-    borderRadius: '4px',
-    background: '#6271C0',
-    hover: '#809BFF',
-    active: '#809BFF',
-    icon: '#B3B3B3'
-  }
+  fill: { primary: colors.white, secondary: colors.lightBlack }
 };
 
 export default theme;

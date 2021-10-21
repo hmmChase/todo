@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import IdeaCard from './IdeaCard';
@@ -20,11 +21,21 @@ const Ideas = props => {
   return <UL>{ideaCards}</UL>;
 };
 
+Ideas.propTypes = {
+  ideas: PropTypes.arrayOf(
+    PropTypes.shape({
+      author: PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired,
+      content: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired
+    }).isRequired
+  )
+};
+
 export default Ideas;
 
 const LI = styled.li`
   > hr {
-    border-top: 1px solid ${props => props.theme.colors.lightBlue};
+    border-top: 1px solid ${props => props.theme.border.quaternary};
     margin: 0;
   }
 
@@ -36,8 +47,8 @@ const LI = styled.li`
 `;
 
 const UL = styled.ul`
-  padding-left: 0;
-  margin: 0;
   list-style: none;
+  margin: 0;
+  padding-left: 0;
   width: 100%;
 `;

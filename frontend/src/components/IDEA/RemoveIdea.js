@@ -2,8 +2,8 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 
-import { REMOVE_IDEA } from '../../graphql/queries/idea';
 import graphQLErrors from '../../utils/graphQLErrors';
+import { REMOVE_IDEA } from '../../graphql/queries/idea';
 import { XIconBtn } from '../REUSEABLE/IconBtn';
 
 const RemoveIdea = props => {

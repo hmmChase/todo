@@ -1,6 +1,6 @@
 import { useRef } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import useOnClickOutside from '../../utils/useOnClickOutside';
 
@@ -23,8 +23,8 @@ const Modal = props => {
 };
 
 Modal.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-  close: PropTypes.any
+  children: PropTypes.element.isRequired,
+  close: PropTypes.func.isRequired
 };
 
 export default Modal;
@@ -42,16 +42,16 @@ const Container = styled.div`
 
 const Outer = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
   bottom: 0;
   left: 0;
+  position: absolute;
   right: 0;
   top: 0;
   z-index: 666;
 `;
 
 const Inner = styled.div`
-  background-color: ${props => props.theme.colors.lightBlue};
+  background-color: ${props => props.theme.background.tertiary};
   border-radius: 10px;
   padding: 1rem 2rem;
   z-index: 999;
