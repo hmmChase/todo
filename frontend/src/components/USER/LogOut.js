@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation, useApolloClient } from '@apollo/client';
 
-import { LOG_OUT, IS_LOGGED_IN } from '../../graphql/queries/user';
 import graphQLErrors from '../../utils/graphQLErrors';
+import { LOG_OUT, IS_LOGGED_IN } from '../../graphql/queries/user';
 import { isLoggedInVar } from '../../graphql/cache';
 
 //! Add logging out of all accounts

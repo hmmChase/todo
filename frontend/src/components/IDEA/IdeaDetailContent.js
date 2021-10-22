@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import styled, { css } from 'styled-components';
 
 import useKeypress from '../../utils/useKeypress';
 import useOnClickOutside from '../../utils/useOnClickOutside';
@@ -8,6 +9,7 @@ const IdeaDetailContent = props => {
   const { onSetText, text } = props;
 
   const [isInputActive, setIsInputActive] = useState(false);
+
   const [inputValue, setInputValue] = useState(text);
 
   const wrapperRef = useRef(null);
@@ -62,66 +64,67 @@ const IdeaDetailContent = props => {
     [setInputValue]
   );
 
-  const handleSpanClick = useCallback(() => setIsInputActive(true), [
+  const handleClick = useCallback(() => setIsInputActive(true), [
     setIsInputActive
   ]);
 
   return (
-    <Wrapper>
-      <span className='inline-text' ref={wrapperRef}>
-        <span
-          ref={textRef}
-          onClick={handleSpanClick}
-          className={`inline-text_copy inline-text_copy--${
-            !isInputActive ? 'active' : 'hidden'
-          }`}
-        >
-          {text}
-        </span>
+    <div ref={wrapperRef}>
+      <Span ref={textRef} onClick={handleClick} isInputActive={isInputActive}>
+        {text}
+      </Span>
 
-        <input
-          ref={inputRef}
-          // set the width to the input length multiplied by the x height
-          // it's not quite right but gets it close
-          style={{ minWidth: Math.ceil(inputValue.length) + 'ch' }}
-          value={inputValue}
-          onChange={handleInputChange}
-          className={`inline-text_input inline-text_input--${
-            isInputActive ? 'active' : 'hidden'
-          }`}
-        />
-      </span>
-    </Wrapper>
+      <Textarea
+        ref={inputRef}
+        // set the width to the input length multiplied by the x height
+        // it's not quite right but gets it close
+        value={inputValue}
+        onChange={handleInputChange}
+        isInputActive={isInputActive}
+      />
+    </div>
   );
+};
+
+IdeaDetailContent.propTypes = {
+  onSetText: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired
 };
 
 export default IdeaDetailContent;
 
-const Wrapper = styled.div`
-  /* these make sure it can work in any text element */
-  .inline-text_copy--active,
-  .inline-text_input--active {
-    font: inherit;
-    color: inherit;
-    text-align: inherit;
-    padding: 0;
-    background: none;
-    border: none;
-    border-bottom: 1px dashed #999999;
-    outline: none;
-  }
+const Span = styled.span`
+  ${props =>
+    !props.isInputActive
+      ? css`
+          border-bottom: 1px dashed ${props.theme.border.secondary};
+          cursor: pointer;
+          line-height: 1.5;
+          margin: 0;
+          padding: 0;
+        `
+      : css`
+          display: none;
+        `}
+`;
 
-  .inline-text_copy--active {
-    cursor: pointer;
-  }
-
-  .inline-text_copy--hidden,
-  .inline-text_input--hidden {
-    display: none;
-  }
-
-  .inline-text_input--active {
-    border-bottom: 1px solid #666666;
-    text-align: left;
-  }
+const Textarea = styled.textarea.attrs({
+  rows: 5
+  // rows: `${props => Math.ceil(props.value.length / 50)}`
+})`
+  ${props =>
+    props.isInputActive
+      ? css`
+          border: none;
+          border-bottom: 1px solid ${props.theme.border.secondary};
+          line-height: 1.5;
+          margin: 0;
+          outline: none;
+          padding: 0;
+          resize: vertical;
+          width: 100%;
+        `
+      : css`
+          display: none;
+        `}
 `;

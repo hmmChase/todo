@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
+import styled from 'styled-components';
 
-import RemoveIdea from './RemoveIdea';
-import DetailIcon from './DetailIcon';
-import { CURRENT_USER } from '../../graphql/queries/user';
 import graphQLErrors from '../../utils/graphQLErrors';
+import { CURRENT_USER } from '../../graphql/queries/user';
+import DetailIcon from './DetailIcon';
+import RemoveIdea from './RemoveIdea';
 
 const IdeaCard = props => {
   const { authorId, content, ideaId } = props;
@@ -19,7 +19,7 @@ const IdeaCard = props => {
     setErrorMsg(graphQLErrors(error));
   };
 
-  const { loading, error, data } = useQuery(CURRENT_USER, {
+  const { data } = useQuery(CURRENT_USER, {
     fetchPolicy: 'network-only',
 
     onError: error => onError(error)
@@ -52,23 +52,16 @@ export default IdeaCard;
 
 const Article = styled.article`
   display: flex;
-  padding: 0.5rem;
-  align-content: center;
+  padding: 1rem;
 `;
 
 const Content = styled.p`
-  margin: 0 0.25rem 0 0;
   flex-grow: 1;
+  margin: 0 0.25rem 0 0;
 `;
 
 const IdeaCardBtns = styled.div`
-  /* width: 100%; */
   display: flex;
-  /* justify-content: flex-end; */
-  /* align-items: flex-end; */
-  /* justify-items: flex-end; */
-  /* align-content: flex-end; */
-  /* align-self: flex-end; */
 `;
 
 const DetailIconn = styled(DetailIcon)`

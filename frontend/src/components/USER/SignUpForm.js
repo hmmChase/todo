@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
+import { useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
-import { useFormik } from 'formik';
-import Link from 'next/link';
 
+import { email, password } from '../../utils/AuthInputValidation';
+import graphQLErrors from '../../utils/graphQLErrors';
 import { CREATE_USER } from '../../graphql/queries/user';
 import { isLoggedInVar } from '../../graphql/cache';
-import graphQLErrors from '../../utils/graphQLErrors';
 import FormInput from '../REUSEABLE/FormInput';
+import PassReqList from './PassReqList';
 import Button from '../REUSEABLE/Button';
 import DisplayError from '../REUSEABLE/DisplayError';
-import { email, password } from '../../utils/AuthInputValidation';
-import PassReqList from './PassReqList';
 
 const validationSchema = object().shape({
   signUpEmail: email,
@@ -52,8 +52,6 @@ const SignUpForm = () => {
   });
 
   const handleSubmit = async (values, formikHelpers) => {
-    console.log('values:', values);
-
     try {
       await createUser({
         variables: {
@@ -149,9 +147,9 @@ const Buttonn = styled(Button)`
 `;
 
 const A = styled.a`
-  cursor: pointer;
   align-self: flex-start;
-  font-size: 0.8rem;
+  cursor: pointer;
+  font-size: ${props => props.theme.fontSize.small};
   font-weight: bold;
 
   &:hover {

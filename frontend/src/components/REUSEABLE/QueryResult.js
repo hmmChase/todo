@@ -1,10 +1,10 @@
+import PropTypes from 'prop-types';
+
 import DisplayLoading from './DisplayLoading';
 import DisplayError from './DisplayError';
 import DisplayInfo from './DisplayInfo';
 
-/**
- * Conditionally renders Apollo useQuery hook states
- */
+// Conditionally renders Apollo hook states
 
 const QueryResult = props => {
   const { loading, error, data, children } = props;
@@ -18,6 +18,13 @@ const QueryResult = props => {
   if (data) return children;
 
   return <DisplayError error={{ message: 'ERROR' }} />;
+};
+
+QueryResult.propTypes = {
+  children: PropTypes.node.isRequired,
+  data: PropTypes.any,
+  error: PropTypes.object,
+  loading: PropTypes.bool
 };
 
 export default QueryResult;

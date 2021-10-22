@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
+import styled from 'styled-components';
 
+import graphQLErrors from '../../utils/graphQLErrors';
 import { CURRENT_USER } from '../../graphql/queries/user';
 import RemoveIdea from './RemoveIdea';
 import IdeaDetailUpdate from './IdeaDetailUpdate';
-import graphQLErrors from '../../utils/graphQLErrors';
 
 const IdeaDetail = props => {
   const { idea } = props;
@@ -20,7 +20,7 @@ const IdeaDetail = props => {
     setErrorMsg(graphQLErrors(error));
   };
 
-  const { loading, error, data } = useQuery(CURRENT_USER, {
+  const { data } = useQuery(CURRENT_USER, {
     fetchPolicy: 'network-only',
 
     onError: error => onError(error)
@@ -45,9 +45,11 @@ const IdeaDetail = props => {
 
 IdeaDetail.propTypes = {
   idea: PropTypes.shape({
-    author: PropTypes.shape({ id: PropTypes.any.isRequired }).isRequired,
-    content: PropTypes.any.isRequired,
-    id: PropTypes.any.isRequired
+    author: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    }).isRequired,
+    content: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired
   })
 };
 
@@ -61,4 +63,5 @@ const Container = styled.section`
 
 const RemoveIdeaWrap = styled.div`
   align-self: flex-end;
+  margin-bottom: 1rem;
 `;

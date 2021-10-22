@@ -19,7 +19,7 @@ const PassReqList = () => {
 export default PassReqList;
 
 const PassListContainer = styled.div`
-  /* display: inline-block; */
+  margin-bottom: 0.5rem;
 `;
 
 const PassListTitle = styled.p`

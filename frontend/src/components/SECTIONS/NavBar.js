@@ -1,6 +1,6 @@
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 
 const NavBar = () => {
   const router = useRouter();
@@ -50,11 +50,11 @@ export default NavBar;
 
 const MenuList = styled.ul`
   display: flex;
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
 
   > li a[data-active='true'] {
-    color: red;
+    color: ${props => props.theme.text.tertiary};
   }
 `;

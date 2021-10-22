@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Modal from '../REUSEABLE/Modal';
@@ -21,20 +21,20 @@ const SignUpModal = props => {
   );
 };
 
-// ModalLogin.propTypes = {
-//   // myProp: PropTypes.string.isRequired
-// };
+SignUpModal.propTypes = {
+  close: PropTypes.func.isRequired
+};
 
 export default SignUpModal;
 
 const Container = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
 `;
 
 const Title = styled.h3`
-  font-size: 1.5rem;
+  font-size: ${props => props.theme.fontSize.h3};
   margin: 0;
 `;

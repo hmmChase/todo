@@ -20,12 +20,12 @@ export default BackButton;
 const Buttonn = styled(Button)`
   align-items: center;
   display: flex;
-  padding-left: 6px;
   margin: 1rem 0 0 1rem;
+  padding-left: 6px;
 `;
 
 const Leftt = styled(Left)`
-  fill: #fff;
+  fill: ${props => props.theme.fill.primary};
   height: 1rem;
   margin-right: 8px;
 `;

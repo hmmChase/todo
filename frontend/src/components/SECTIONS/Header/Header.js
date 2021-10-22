@@ -1,14 +1,15 @@
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 import Image from 'next/image';
+import styled from 'styled-components';
 
-import HeaderLoggedOut from './HeaderLoggedOut';
-// import HeaderUsername from './HeaderUsername';
-import AddIdea from '../../IDEA/AddIdea';
-import IconUser from '../../OTHER/IconUser';
 import { siteTitle } from '../../../configs/config';
 import Ideabox from '../../../../public/images/ideabox.png';
+import UserIcon from '../../OTHER/UserIcon';
+import HeaderLoggedOut from './HeaderLoggedOut';
+import CreateIdea from '../../IDEA/CreateIdea';
 // import NavBar from '../NavBar';
+// import HeaderUsername from './HeaderUsername';
 
 const Header = props => {
   const { isLoggedIn } = props;
@@ -34,14 +35,18 @@ const Header = props => {
 
         {/* {isLoggedIn && <HeaderUsername />} */}
 
-        {isLoggedIn ? <IconUser /> : <HeaderLoggedOut />}
+        {isLoggedIn ? <UserIcon /> : <HeaderLoggedOut />}
       </Top>
 
-      <Bottom>
-        {onIdeaDetailPage ? <IdeaTitle>{ideaId}</IdeaTitle> : <AddIdea />}
-      </Bottom>
+      <div>
+        {onIdeaDetailPage ? <IdeaTitle>{ideaId}</IdeaTitle> : <CreateIdea />}
+      </div>
     </Container>
   );
+};
+
+Header.propTypes = {
+  isLoggedIn: PropTypes.bool
 };
 
 export default Header;
@@ -75,30 +80,18 @@ export default Header;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-
-  /* display: grid; */
-  /* grid-gap: 0.5rem; */
-  /* grid-template-areas: */
-  /* 'top' */
-  /* 'bottom'; */
-  /* grid-template-columns: auto 1fr auto; */
-  /* align-items: center; */
-  /* justify-items: center; */
-  /* width: 100%; */
-  /* position: relative; */
-  /* padding-top: 1rem; */
 `;
 
 const Top = styled.div`
+  align-items: center;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
-  align-items: center;
 `;
 
 const Logo = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
 `;
 
 const BoxImg = styled(Image).attrs({
@@ -108,17 +101,14 @@ const BoxImg = styled(Image).attrs({
 })``;
 
 const IdeaTitle = styled.h2`
+  font-size: ${props => props.theme.fontSize.h2};
   margin: 0 0 1rem 1rem;
 `;
 
 const HeaderTitle = styled.h1`
-  /* font-size: calc(16px + 6 * ((100vw - 320px) / 680)); */
-  font-size: min(max(16px, 4vw), 22px);
-  margin: 0;
+  color: ${props => props.theme.text.tertiary};
   font-family: 'Play', sans-serif;
+  font-size: ${props => props.theme.fontSize.h1};
   letter-spacing: 0.05rem;
-  display: inline;
-  color: ${props => props.theme.colors.darkRed};
+  margin: 0;
 `;
-
-const Bottom = styled.div``;

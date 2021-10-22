@@ -9,8 +9,10 @@ import {
   IDEA_FIELDS
 } from '../../graphql/queries/idea';
 
-const AddIdea = () => {
+const CreateIdea = () => {
   const [errorMsg, setErrorMsg] = useState();
+
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   let input;
 
@@ -31,7 +33,7 @@ const AddIdea = () => {
     });
 
   const onError = error => {
-    console.log('AddIdea onError error: ', error);
+    console.log('CreateIdea onError error: ', error);
 
     setErrorMsg(graphQLErrors(error));
   };
@@ -67,7 +69,7 @@ const AddIdea = () => {
         */
       });
     } catch (error) {
-      console.log('AddIdea handleSubmit error: ', error);
+      console.log('CreateIdea handleSubmit error: ', error);
 
       setErrorMsg(graphQLErrors(error));
     }
@@ -75,42 +77,58 @@ const AddIdea = () => {
     input.value = '';
   };
 
+  const canSubmit = value => {
+    if (value === '') setIsSubmitDisabled(true);
+    else setIsSubmitDisabled(false);
+  };
+
+  const onChange = () => canSubmit(input.value);
+
   return (
     <Form onSubmit={e => handleSubmit(e, input)}>
-      <Textarea ref={node => (input = node)} />
+      <Textarea ref={node => (input = node)} onChange={onChange} />
 
-      <SubmitBtn type='submit'>Add Idea</SubmitBtn>
+      <SubmitBtn type='submit' disabled={isSubmitDisabled}>
+        +
+      </SubmitBtn>
     </Form>
   );
 };
 
-export default AddIdea;
+export default CreateIdea;
 
 const Form = styled.form`
   display: flex;
 `;
 
-export const Textarea = styled.textarea.attrs({ rows: 3 })`
-  border-bottom: none;
-  border-top-left-radius: ${props => props.theme.borderRadius.primary};
+export const Textarea = styled.textarea.attrs({ rows: 1 })`
   border: 0;
-  min-height: 54px;
+  border-top-left-radius: ${props => props.theme.borderRadius.primary};
+  min-height: 55px;
   resize: vertical;
+  padding: 0.25rem 0.5rem;
   width: 100%;
 
   &:focus {
-    border-color: ${props => props.theme.border.secondary};
-    box-shadow: none;
+    /* border-color: ${props => props.theme.border.secondary}; */
+    /* box-shadow: none; */
   }
 
   &:hover {
-    border-color: ${props => props.theme.border.secondary};
-    box-shadow: none;
+    /* border-color: ${props => props.theme.border.secondary}; */
+    /* box-shadow: none; */
   }
 `;
 
 export const SubmitBtn = styled.button`
   border-top-right-radius: ${props => props.theme.borderRadius.primary};
   border: none;
-  height: auto;
+  width: 59.16px;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+  font-size: 3rem;
+  text-align: center;
+  vertical-align: middle;
+  color: ${props => props.theme.text.tertiary};
 `;

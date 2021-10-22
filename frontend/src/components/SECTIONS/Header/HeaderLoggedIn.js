@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 import Left from '../../DESIGN/icons/Left';
@@ -50,27 +50,16 @@ const UL = styled.ul`
     padding: 10px 0;
 
     :not(:last-child) {
-      border-bottom: 1px solid #e5e5e5;
+      border-bottom: 1px solid ${props => props.theme.border.secondary};
     }
 
-    > span {
-      font-size: 0.9rem;
-
-      :hover {
-        color: ${props => props.theme.colors.text.primaryText};
-      }
-    }
+   
 
     > a {
-      color: inherit;
+      color: ${props => props.theme.text.secondary};
       text-decoration: none;
 
-      > span {
-        font-size: 0.9rem;
 
-        :hover {
-          color: ${props => props.theme.colors.text.primaryText};
-        }
       }
     }
   }
@@ -78,12 +67,12 @@ const UL = styled.ul`
 
 export const Option = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const Right = styled(Left)`
-  fill: #fff;
-  height: 1rem;
+  fill: ${props => props.theme.fill.primary};
+  height: 0.8rem;
   margin-right: 8px;
   transform: rotate(180deg);
-  display: ${props => (props['data-active'] ? 'inline' : 'none')};
 `;

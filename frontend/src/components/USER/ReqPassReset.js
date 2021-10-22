@@ -1,19 +1,18 @@
-// import PropTypes from 'prop-types';
-import { useFormik } from 'formik';
-import styled from 'styled-components';
-import { object } from 'yup';
-import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useMutation } from '@apollo/client';
+import { useFormik } from 'formik';
+import { object } from 'yup';
+import styled from 'styled-components';
 
-import FormInput from '../../components/REUSEABLE/FormInput';
-import DisplayError from '../REUSEABLE/DisplayError';
+import displayMessages from '../../configs/displayMessages';
 import { email } from '../../utils/AuthInputValidation';
-import Button from '../../components/REUSEABLE/Button';
 import graphQLErrors from '../../utils/graphQLErrors';
 import { REQ_PASS_RESET } from '../../graphql/queries/user';
+import FormInput from '../REUSEABLE/FormInput';
+import Button from '../../components/REUSEABLE/Button';
+import DisplayError from '../REUSEABLE/DisplayError';
 import DisplaySuccess from '../REUSEABLE/DisplaySuccess';
-import displayMessages from '../../configs/displayMessages';
 
 const validationSchema = object().shape({ reqPassResetEmail: email });
 
@@ -97,10 +96,6 @@ const ReqPassReset = () => {
   );
 };
 
-// ReqPassReset.propTypes = {
-//   // myProp: PropTypes.string.isRequired
-// };
-
 export default ReqPassReset;
 
 const Form = styled.form`
@@ -118,9 +113,9 @@ const Buttonn = styled(Button)`
 `;
 
 const A = styled.a`
-  cursor: pointer;
   align-self: flex-start;
-  font-size: 0.8rem;
+  cursor: pointer;
+  font-size: ${props => props.theme.fontSize.small};
   font-weight: bold;
 
   &:hover {

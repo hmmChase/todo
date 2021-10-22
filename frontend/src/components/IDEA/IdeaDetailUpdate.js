@@ -1,18 +1,17 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash.debounce';
-// import styled from 'styled-components';
 
-import graphQLErrors from '../../utils/graphQLErrors';
 import { IdeaInputDebounceDelay } from '../../configs/config';
+import graphQLErrors from '../../utils/graphQLErrors';
 import { UPDATE_IDEA } from '../../graphql/queries/idea';
 import IdeaDetailContent from './IdeaDetailContent';
 
 const IdeaDetailUpdate = props => {
   const { id, content } = props;
 
-  const storedText = useRef(content);
+  const [text, setText] = useState(content);
 
   const [errorMsg, setErrorMsg] = useState();
 
@@ -26,6 +25,7 @@ const IdeaDetailUpdate = props => {
     onError: error => onError(error)
   });
 
+  // executes on blur
   const debouncedFn = useCallback(
     debounce(
       value => updateIdea({ variables: { id: props.id, content: value } }),
@@ -35,7 +35,7 @@ const IdeaDetailUpdate = props => {
   );
 
   const onSetText = text => {
-    storedText.current = text;
+    setText(text);
 
     debouncedFn(text);
   };
@@ -44,15 +44,15 @@ const IdeaDetailUpdate = props => {
     <IdeaDetailContent
       id={id}
       content={content}
-      text={storedText.current}
+      text={text}
       onSetText={onSetText}
     />
   );
 };
 
 IdeaDetailUpdate.propTypes = {
-  id: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
+  content: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired
 };
 
 export default IdeaDetailUpdate;
