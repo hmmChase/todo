@@ -1,5 +1,3 @@
-// import { css } from 'styled-components';
-
 const colors = {
   white: 'white', // #FFFFFF
   black: 'black', // #000000
@@ -70,7 +68,10 @@ const theme = {
     quinary: colors.darkBlue
   },
 
-  fill: { primary: colors.white, secondary: colors.lightBlack }
+  fill: {
+    primary: colors.white,
+    secondary: colors.lightBlack
+  }
 };
 
 export default theme;
