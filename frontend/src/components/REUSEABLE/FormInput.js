@@ -29,5 +29,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
+  border: none;
+  border-radius: ${props => props.theme.borderRadius.primary};
   padding: 0.5rem;
 `;

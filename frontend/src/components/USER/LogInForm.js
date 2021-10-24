@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -8,7 +9,7 @@ import styled from 'styled-components';
 
 import { email, password } from '../../utils/AuthInputValidation';
 import graphQLErrors from '../../utils/graphQLErrors';
-import { LOG_IN } from '../../graphql/queries/user';
+import { LOG_IN, IS_LOGGED_IN } from '../../graphql/queries/user';
 import { isLoggedInVar } from '../../graphql/cache';
 import FormInput from '../REUSEABLE/FormInput';
 import Button from '../REUSEABLE/Button';
@@ -19,30 +20,34 @@ const validationSchema = object().shape({
   logInPassword: password
 });
 
-const LogInForm = () => {
+const LogInForm = props => {
+  const { close } = props;
+
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
 
   const apolloClient = useApolloClient();
 
-  // const update = (cache, data) => {
-  //   const isLoggedIn = !!data.data.signIn.accessToken;
+  const update = (cache, data) => {
+    const isLoggedIn = !!data?.logIn?.user?.id;
 
-  //   cache.writeQuery({
-  //     id: 'isLoggedIn',
-  //     query: IS_LOGGED_IN,
-  //     data: { isLoggedIn }
-  //   });
-  // };
+    cache.writeQuery({
+      id: 'isLoggedIn',
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn }
+    });
+  };
 
   const onCompleted = async data => {
+    apolloClient.resetStore();
+
     localStorage.setItem('userId', data.logIn.user.id);
 
     isLoggedInVar(true);
 
-    apolloClient.resetStore;
-
+    // if (close) close();
+    // else
     await router.push('/');
   };
 
@@ -55,7 +60,7 @@ const LogInForm = () => {
   const [logIn, { loading }] = useMutation(LOG_IN, {
     fetchPolicy: 'network-only',
 
-    // update: (cache, data) => update(cache, data),
+    update: (cache, data) => update(cache, data),
 
     onCompleted: data => onCompleted(data),
 
@@ -147,6 +152,10 @@ const LogInForm = () => {
       </LogInLinks>
     </Form>
   );
+};
+
+LogInForm.propTypes = {
+  close: PropTypes.func
 };
 
 export default LogInForm;

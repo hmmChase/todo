@@ -22,9 +22,9 @@ const fontSize = {
   small: '0.9rem',
   default: '1rem',
   large: '1.1rem',
-  h3: '1.5rem',
-  h2: '1.75rem',
-  h1: '2rem'
+  h3: '1.2rem',
+  h2: '1.3.5rem',
+  h1: '1.5rem'
 
   // calc(16px + 6 * ((100vw - 320px) / 680))
   // min(max(16px, 4vw), 22px)

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
-import graphQLErrors from '../../utils/graphQLErrors';
-import { CURRENT_USER } from '../../graphql/queries/user';
-import RemoveIdea from './RemoveIdea';
+import graphQLErrors from '../../../utils/graphQLErrors';
+import { CURRENT_USER } from '../../../graphql/queries/user';
+import RemoveIdea from '../RemoveIdea';
 import IdeaDetailUpdate from './IdeaDetailUpdate';
 
 const IdeaDetail = props => {
@@ -38,7 +38,11 @@ const IdeaDetail = props => {
         </RemoveIdeaWrap>
       )}
 
-      <IdeaDetailUpdate id={id} content={content} />
+      <IdeaDetailUpdate
+        id={id}
+        content={content}
+        currentUserOwnsIdea={currentUserOwnsIdea}
+      />
     </Container>
   );
 };

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import { ExpandIconBtn } from '../REUSEABLE/IconBtn';
+import { ExpandIconBtn } from '../../REUSEABLE/IconBtn';
 
 const DetailIcon = props => {
   const { className, ideaId } = props;

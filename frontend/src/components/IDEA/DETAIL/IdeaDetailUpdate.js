@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash.debounce';
 
-import { IdeaInputDebounceDelay } from '../../configs/config';
-import graphQLErrors from '../../utils/graphQLErrors';
-import { UPDATE_IDEA } from '../../graphql/queries/idea';
+import { IdeaInputDebounceDelay } from '../../../configs/config';
+import graphQLErrors from '../../../utils/graphQLErrors';
+import { UPDATE_IDEA } from '../../../graphql/queries/idea';
 import IdeaDetailContent from './IdeaDetailContent';
 
 const IdeaDetailUpdate = props => {
-  const { id, content } = props;
+  const { id, content, currentUserOwnsIdea } = props;
 
   const [text, setText] = useState(content);
 
@@ -46,12 +46,14 @@ const IdeaDetailUpdate = props => {
       content={content}
       text={text}
       onSetText={onSetText}
+      currentUserOwnsIdea={currentUserOwnsIdea}
     />
   );
 };
 
 IdeaDetailUpdate.propTypes = {
   content: PropTypes.string.isRequired,
+  currentUserOwnsIdea: PropTypes.bool,
   id: PropTypes.string.isRequired
 };
 

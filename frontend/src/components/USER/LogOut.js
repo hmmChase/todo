@@ -13,7 +13,17 @@ const LogOut = () => {
 
   const router = useRouter();
 
-  const onCompleted = async data => {
+  const update = (cache, data) => {
+    const isLoggedIn = !data?.logOut;
+
+    cache.writeQuery({
+      id: 'isLoggedIn',
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn }
+    });
+  };
+
+  const onCompleted = async () => {
     /*
     Since we're logging out, remove all traces of the current user from the
     cache. First use `cache.evict()` to remove the stored `currentUser` reference
@@ -32,18 +42,12 @@ const LogOut = () => {
 
     apolloClient.cache.reset();
 
+    // Remove user details from localStorage.
+    localStorage.removeItem('userId');
+
     // Let other parts of the application that are relying on logged in
     // state know we're now logged out.
     isLoggedInVar(false);
-
-    apolloClient.cache.writeQuery({
-      id: 'isLoggedIn',
-      query: IS_LOGGED_IN,
-      data: { isLoggedIn: false }
-    });
-
-    // Remove user details from localStorage.
-    localStorage.removeItem('userId');
 
     await router.push('/');
   };
@@ -55,6 +59,8 @@ const LogOut = () => {
   };
 
   const [logOut] = useMutation(LOG_OUT, {
+    update: (cache, data) => update(cache, data),
+
     onCompleted: data => onCompleted(data),
 
     onError: error => onError(error)

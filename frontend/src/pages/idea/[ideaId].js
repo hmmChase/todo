@@ -7,7 +7,7 @@ import graphQLErrors from '../../utils/graphQLErrors';
 import isLoggedIn from '../../utils/isLoggedIn';
 import QueryResult from '../../components/REUSEABLE/QueryResult';
 import Layout from '../../components/LAYOUTS/Layout';
-import IdeaDetail from '../../components/IDEA/IdeaDetail';
+import IdeaDetail from '../../components/IDEA/DETAIL/IdeaDetail';
 
 const IdeaPage = () => {
   const [errorMsg, setErrorMsg] = useState();

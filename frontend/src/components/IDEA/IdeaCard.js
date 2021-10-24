@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import graphQLErrors from '../../utils/graphQLErrors';
 import { CURRENT_USER } from '../../graphql/queries/user';
-import DetailIcon from './DetailIcon';
+import DetailIcon from './DETAIL/DetailIcon';
 import RemoveIdea from './RemoveIdea';
 
 const IdeaCard = props => {

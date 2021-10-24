@@ -39,7 +39,7 @@ const Layout = props => {
 
         <MainWrap>
           <MaxWidth>
-            {hasBackButton && <BackButton />}
+            {hasBackButton && <BackButtonn />}
 
             {children}
           </MaxWidth>
@@ -107,4 +107,8 @@ const FooterWrap = styled.footer`
   grid-area: footer;
   position: absolute;
   width: 100%;
+`;
+
+export const BackButtonn = styled(BackButton)`
+  margin: 1rem 0 1rem 1rem;
 `;

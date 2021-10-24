@@ -2,11 +2,11 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import useKeypress from '../../utils/useKeypress';
-import useOnClickOutside from '../../utils/useOnClickOutside';
+import useKeypress from '../../../utils/useKeypress';
+import useOnClickOutside from '../../../utils/useOnClickOutside';
 
 const IdeaDetailContent = props => {
-  const { onSetText, text } = props;
+  const { onSetText, text, currentUserOwnsIdea } = props;
 
   const [isInputActive, setIsInputActive] = useState(false);
 
@@ -68,25 +68,31 @@ const IdeaDetailContent = props => {
     setIsInputActive
   ]);
 
-  return (
-    <div ref={wrapperRef}>
-      <Span ref={textRef} onClick={handleClick} isInputActive={isInputActive}>
-        {text}
-      </Span>
+  // currentUserOwnsIdea is passed in from the parent component
 
-      <Textarea
-        ref={inputRef}
-        // set the width to the input length multiplied by the x height
-        // it's not quite right but gets it close
-        value={inputValue}
-        onChange={handleInputChange}
-        isInputActive={isInputActive}
-      />
-    </div>
-  );
+  if (currentUserOwnsIdea)
+    return (
+      <div ref={wrapperRef}>
+        <Span ref={textRef} onClick={handleClick} isInputActive={isInputActive}>
+          {text}
+        </Span>
+
+        <Textarea
+          ref={inputRef}
+          // set the width to the input length multiplied by the x height
+          // it's not quite right but gets it close
+          value={inputValue}
+          onChange={handleInputChange}
+          isInputActive={isInputActive}
+        />
+      </div>
+    );
+
+  return <p>{text}</p>;
 };
 
 IdeaDetailContent.propTypes = {
+  currentUserOwnsIdea: PropTypes.bool,
   onSetText: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired
 };
@@ -97,11 +103,14 @@ const Span = styled.span`
   ${props =>
     !props.isInputActive
       ? css`
-          border-bottom: 1px dashed ${props.theme.border.secondary};
           cursor: pointer;
           line-height: 1.5;
           margin: 0;
           padding: 0;
+
+          &:hover {
+            border-bottom: 1px solid ${props.theme.border.secondary};
+          }
         `
       : css`
           display: none;

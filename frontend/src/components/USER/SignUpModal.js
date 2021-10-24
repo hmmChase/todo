@@ -15,7 +15,7 @@ const SignUpModal = props => {
 
         <HorizontalRule />
 
-        <SignUpForm />
+        <SignUpForm close={close} />
       </Container>
     </Modal>
   );

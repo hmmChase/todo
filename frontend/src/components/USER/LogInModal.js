@@ -15,7 +15,7 @@ const LogInModal = props => {
 
         <HorizontalRule />
 
-        <LogInForm />
+        <LogInForm close={close} />
       </Container>
     </Modal>
   );

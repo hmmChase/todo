@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -8,7 +9,7 @@ import styled from 'styled-components';
 
 import { email, password } from '../../utils/AuthInputValidation';
 import graphQLErrors from '../../utils/graphQLErrors';
-import { CREATE_USER } from '../../graphql/queries/user';
+import { CREATE_USER, IS_LOGGED_IN } from '../../graphql/queries/user';
 import { isLoggedInVar } from '../../graphql/cache';
 import FormInput from '../REUSEABLE/FormInput';
 import PassReqList from './PassReqList';
@@ -20,20 +21,34 @@ const validationSchema = object().shape({
   signUpPassword: password
 });
 
-const SignUpForm = () => {
+const SignUpForm = props => {
+  const { close } = props;
+
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
 
   const apolloClient = useApolloClient();
 
+  const update = (cache, data) => {
+    const isLoggedIn = !!data?.createUser?.user?.id;
+
+    cache.writeQuery({
+      id: 'isLoggedIn',
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn }
+    });
+  };
+
   const onCompleted = async data => {
+    apolloClient.resetStore();
+
     localStorage.setItem('userId', data.createUser.user.id);
 
     isLoggedInVar(true);
 
-    apolloClient.resetStore;
-
+    // if (close) close();
+    // else
     await router.push('/');
   };
 
@@ -45,6 +60,8 @@ const SignUpForm = () => {
 
   const [createUser] = useMutation(CREATE_USER, {
     fetchPolicy: 'network-only',
+
+    update: (cache, data) => update(cache, data),
 
     onCompleted: data => onCompleted(data),
 
@@ -127,6 +144,10 @@ const SignUpForm = () => {
       </Link>
     </Form>
   );
+};
+
+SignUpForm.propTypes = {
+  close: PropTypes.func
 };
 
 export default SignUpForm;

@@ -6,7 +6,7 @@ const bcryptjs = require('bcryptjs');
 
 const prisma = new PrismaClient();
 
-const ideas = () => {
+const createIdeas = () => {
   const amtIdeas = 10;
   const ideas = [];
 
@@ -23,8 +23,8 @@ const main = async () => {
     data: {
       email: 'user@email.com',
       password: await bcryptjs.hash('user123$', 10),
-      role: 'USER',
-      ideas: { create: ideas() }
+      role: 'USER'
+      // ideas: { create: ideas() }
     }
   });
 
@@ -39,6 +39,113 @@ const main = async () => {
   });
 
   console.log('Created admin: ', admin);
+
+  // createIdeas().forEach(idea => {
+  //   setTimeout(
+  //     async () => {
+  //       const ideaRecord = await prisma.idea.create({
+  //         data: {
+  //           content: idea.content,
+  //           author: { connect: { id: user.id } }
+  //         }
+  //       });
+
+  //       console.log('Created idea: ', ideaRecord);
+  //     },
+
+  //     10000
+  //   );
+  // });
+
+  const ideaRecord1 = await prisma.idea.create({
+    data: {
+      content: 'seeded idea ' + 1,
+      author: { connect: { id: user.id } }
+    }
+  });
+
+  console.log('Created idea: ', ideaRecord1);
+
+  const ideaRecord2 = await prisma.idea.create({
+    data: {
+      content: 'seeded idea ' + 2,
+      author: { connect: { id: user.id } }
+    }
+  });
+
+  console.log('Created idea: ', ideaRecord2);
+
+  const ideaRecord3 = await prisma.idea.create({
+    data: {
+      content: 'seeded idea ' + 3,
+      author: { connect: { id: user.id } }
+    }
+  });
+
+  console.log('Created idea: ', ideaRecord3);
+
+  const ideaRecord4 = await prisma.idea.create({
+    data: {
+      content: 'seeded idea ' + 4,
+      author: { connect: { id: user.id } }
+    }
+  });
+
+  console.log('Created idea: ', ideaRecord4);
+
+  const ideaRecord5 = await prisma.idea.create({
+    data: {
+      content: 'seeded idea ' + 5,
+      author: { connect: { id: user.id } }
+    }
+  });
+
+  console.log('Created idea: ', ideaRecord5);
+
+  const ideaRecord6 = await prisma.idea.create({
+    data: {
+      content: 'seeded idea ' + 6,
+      author: { connect: { id: user.id } }
+    }
+  });
+
+  console.log('Created idea: ', ideaRecord6);
+
+  const ideaRecord7 = await prisma.idea.create({
+    data: {
+      content: 'seeded idea ' + 7,
+      author: { connect: { id: user.id } }
+    }
+  });
+
+  console.log('Created idea: ', ideaRecord7);
+
+  const ideaRecord8 = await prisma.idea.create({
+    data: {
+      content: 'seeded idea ' + 8,
+      author: { connect: { id: user.id } }
+    }
+  });
+
+  console.log('Created idea: ', ideaRecord8);
+
+  const ideaRecord9 = await prisma.idea.create({
+    data: {
+      content: 'seeded idea ' + 9,
+      author: { connect: { id: user.id } }
+    }
+  });
+
+  console.log('Created idea: ', ideaRecord9);
+
+  const ideaRecord10 = await prisma.idea.create({
+    data: {
+      content: 'seeded idea ' + 10,
+      author: { connect: { id: user.id } }
+    }
+  });
+
+  console.log('Created idea: ', ideaRecord10);
 };
 
 main()

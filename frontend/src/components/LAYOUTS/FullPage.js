@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import styled from 'styled-components';
 
 import { siteTitle } from '../../configs/config';
+import Ideabox from '../../../public/images/ideabox.png';
 import HorizontalRule from '../REUSEABLE/HorizontalRule';
 
 const FullPage = props => {
@@ -21,7 +23,7 @@ const FullPage = props => {
         <LogoWrapper>
           <Link href='/'>
             <Logo>
-              <Img src='images/ideabox.png' alt='ideabox' />
+              <BoxImg src={Ideabox} alt='ideabox' />
 
               <SiteTitle>{siteTitle}</SiteTitle>
             </Logo>
@@ -70,9 +72,11 @@ const Logo = styled.a`
   margin: 2rem 0 0 2rem;
 `;
 
-const Img = styled.img`
-  height: 4rem;
-`;
+const BoxImg = styled(Image).attrs({
+  layout: 'fixed',
+  width: 50,
+  height: 41
+})``;
 
 const SiteTitle = styled.h1`
   color: ${props => props.theme.text.tertiary};
