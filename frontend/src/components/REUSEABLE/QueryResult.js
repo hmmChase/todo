@@ -1,23 +1,22 @@
 import PropTypes from 'prop-types';
 
-import DisplayLoading from './DisplayLoading';
-import DisplayError from './DisplayError';
-import DisplayInfo from './DisplayInfo';
+import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 // Conditionally renders Apollo hook states
 
 const QueryResult = props => {
   const { loading, error, data, children } = props;
 
-  if (loading) return <DisplayLoading />;
+  if (loading) return <DisplayStatus status='loading' />;
 
-  if (error) return <DisplayError error={error} />;
+  if (error) return <DisplayStatus status='error' error={error} />;
 
-  if (!data) return <DisplayInfo>Nothing to show...</DisplayInfo>;
+  if (!data)
+    return <DisplayStatus status='info'>Nothing to show...</DisplayStatus>;
 
   if (data) return children;
 
-  return <DisplayError error={{ message: 'ERROR' }} />;
+  return <DisplayStatus status='error' error={{ message: 'ERROR' }} />;
 };
 
 QueryResult.propTypes = {

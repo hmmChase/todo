@@ -13,8 +13,7 @@ import { isLoggedInVar } from '../../graphql/cache';
 import FormInput from '../REUSEABLE/FormInput';
 import PassReqList from './PassReqList';
 import Button from '../REUSEABLE/Button';
-import DisplayError from '../REUSEABLE/DisplayError';
-import DisplaySuccess from '../REUSEABLE/DisplaySuccess';
+import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const validationSchema = object().shape({ newPassword: password });
 
@@ -91,10 +90,15 @@ const ResetPassword = props => {
       />
 
       {formik.touched.newPassword && formik.errors.newPassword ? (
-        <DisplayError error={{ message: formik.errors.newPassword }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.newPassword }}
+        />
       ) : null}
 
-      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
+      {errorMsg && (
+        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      )}
 
       <PassReqList />
 
@@ -113,7 +117,9 @@ const ResetPassword = props => {
       </Button>
 
       {isSuccessful && (
-        <DisplaySuccess message={displayMessages.user.success.ResetPassword} />
+        <DisplayStatus type='success'>
+          {displayMessages.user.success.ResetPassword}
+        </DisplayStatus>
       )}
     </Form>
   );

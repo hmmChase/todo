@@ -110,5 +110,5 @@ const FooterWrap = styled.footer`
 `;
 
 export const BackButtonn = styled(BackButton)`
-  margin: 1rem 0 1rem 1rem;
+  margin: 1rem auto 1rem 1rem;
 `;

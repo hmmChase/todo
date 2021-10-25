@@ -6,7 +6,7 @@ import {
   passResetTokenExpiredError
 } from '../../configs/config';
 import BackButton from '../OTHER/BackButton';
-import DisplayError from '../REUSEABLE/DisplayError';
+import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const ResetPassError = props => {
   const { isTokenPresent, isTokenPresent } = props;
@@ -16,11 +16,17 @@ const ResetPassError = props => {
       <BackButtonn />
 
       {!isTokenPresent && (
-        <DisplayError error={{ message: passResetTokenMissingError }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: passResetTokenMissingError }}
+        />
       )}
 
       {isTokenPresent && isTokenExpired && (
-        <DisplayError error={{ message: passResetTokenExpiredError }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: passResetTokenExpiredError }}
+        />
       )}
     </>
   );

@@ -11,8 +11,7 @@ import graphQLErrors from '../../utils/graphQLErrors';
 import { REQ_PASS_RESET } from '../../graphql/queries/user';
 import FormInput from '../REUSEABLE/FormInput';
 import Button from '../../components/REUSEABLE/Button';
-import DisplayError from '../REUSEABLE/DisplayError';
-import DisplaySuccess from '../REUSEABLE/DisplaySuccess';
+import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const validationSchema = object().shape({ reqPassResetEmail: email });
 
@@ -66,13 +65,20 @@ const ReqPassReset = () => {
       />
 
       {formik.touched.reqPassResetEmail && formik.errors.reqPassResetEmail ? (
-        <DisplayError error={{ message: formik.errors.reqPassResetEmail }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.reqPassResetEmail }}
+        />
       ) : null}
 
-      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
+      {errorMsg && (
+        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      )}
 
-      {!loading && !error && called && data && data.requestReset && (
-        <DisplaySuccess message={displayMessages.user.success.ReqPassReset} />
+      {!loading && !error && called && data && data.reqPassReset && (
+        <DisplayStatus status='success'>
+          {displayMessages.user.success.ReqPassReset}
+        </DisplayStatus>
       )}
 
       <Buttonn

@@ -14,7 +14,7 @@ import { isLoggedInVar } from '../../graphql/cache';
 import FormInput from '../REUSEABLE/FormInput';
 import PassReqList from './PassReqList';
 import Button from '../REUSEABLE/Button';
-import DisplayError from '../REUSEABLE/DisplayError';
+import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const validationSchema = object().shape({
   signUpEmail: email,
@@ -105,7 +105,10 @@ const SignUpForm = props => {
       />
 
       {formik.touched.signUpEmail && formik.errors.signUpEmail ? (
-        <DisplayError error={{ message: formik.errors.signUpEmail }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.signUpEmail }}
+        />
       ) : null}
 
       <FormInput
@@ -116,10 +119,15 @@ const SignUpForm = props => {
       />
 
       {formik.touched.signUpPassword && formik.errors.signUpPassword ? (
-        <DisplayError error={{ message: formik.errors.signUpPassword }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.signUpPassword }}
+        />
       ) : null}
 
-      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
+      {errorMsg && (
+        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      )}
 
       <PassReqList />
 

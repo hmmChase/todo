@@ -13,7 +13,7 @@ import { LOG_IN, IS_LOGGED_IN } from '../../graphql/queries/user';
 import { isLoggedInVar } from '../../graphql/cache';
 import FormInput from '../REUSEABLE/FormInput';
 import Button from '../REUSEABLE/Button';
-import DisplayError from '../REUSEABLE/DisplayError';
+import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const validationSchema = object().shape({
   logInEmail: email,
@@ -108,7 +108,10 @@ const LogInForm = props => {
       />
 
       {formik.touched.logInEmail && formik.errors.logInEmail ? (
-        <DisplayError error={{ message: formik.errors.logInEmail }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.logInEmail }}
+        />
       ) : null}
 
       <FormInput
@@ -119,10 +122,15 @@ const LogInForm = props => {
       />
 
       {formik.touched.logInPassword && formik.errors.logInPassword ? (
-        <DisplayError error={{ message: formik.errors.logInPassword }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.logInPassword }}
+        />
       ) : null}
 
-      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
+      {errorMsg && (
+        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      )}
 
       <Buttonn
         aria-label='submit log in'
