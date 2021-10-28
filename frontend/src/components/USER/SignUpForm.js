@@ -147,7 +147,7 @@ const SignUpForm = props => {
         Sign up
       </Buttonn>
 
-      <Link href='/login'>
+      <Link href='/login' passHref>
         <A>Log in</A>
       </Link>
     </Form>

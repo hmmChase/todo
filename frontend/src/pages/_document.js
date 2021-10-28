@@ -71,8 +71,6 @@ class MyDocument extends Document {
 
           <meta name='description' content='hmmStart' />
 
-          {/* <meta name='twitter:card' content='summary_large_image' /> */}
-
           {/* Favicon */}
 
           <link

@@ -150,11 +150,11 @@ const LogInForm = props => {
       </Buttonn>
 
       <LogInLinks>
-        <Link href='/reqpassreset'>
+        <Link href='/reqpassreset' passHref>
           <A>Reset Password</A>
         </Link>
 
-        <Link href='/signup'>
+        <Link href='/signup' passHref>
           <A>Create account</A>
         </Link>
       </LogInLinks>

@@ -14,7 +14,7 @@ const HeaderLoggedIn = () => {
   return (
     <UL>
       <li>
-        <Link href='/account'>
+        <Link href='/account' prefetch={false}>
           <Option>
             <Right data-active={isActive('account')} />
 
@@ -24,7 +24,7 @@ const HeaderLoggedIn = () => {
       </li>
 
       <li>
-        <Link href='/logout'>
+        <Link href='/logout' prefetch={false}>
           <a data-active={isActive('logout')}>Log out</a>
         </Link>
       </li>
@@ -53,7 +53,7 @@ const UL = styled.ul`
       border-bottom: 1px solid ${props => props.theme.border.secondary};
     }
 
-   
+
 
     > a {
       color: ${props => props.theme.text.secondary};

@@ -1,3 +1,5 @@
+// https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag
+
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -21,7 +23,7 @@ const FullPage = props => {
 
       <Container>
         <LogoWrapper>
-          <Link href='/'>
+          <Link href='/' passHref>
             <Logo>
               <BoxImg src={Ideabox} alt='ideabox' />
 

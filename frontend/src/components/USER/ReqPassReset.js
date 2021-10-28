@@ -95,7 +95,7 @@ const ReqPassReset = () => {
         Submit
       </Buttonn>
 
-      <Link href='/login'>
+      <Link href='/login' passHref>
         <A>Log in</A>
       </Link>
     </Form>

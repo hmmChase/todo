@@ -4,18 +4,24 @@ const colors = {
 
   imperialPurple: '#66023C',
 
-  lightBlue: '#C8DCF0',
-  blue: '#809BFF',
-  darkBlue: '#6271C0',
+  blue: {
+    light: '#C8DCF0',
+    medium: '#809BFF',
+    dark: '#6271C0'
+  },
 
-  gray: 'silver', // #C0C0C0
-  darkGray: 'gray', // #808080
-  lightBlack: '#393939',
+  gray: {
+    light: 'silver', // #C0C0C0
+    medium: 'gray', // #808080
+    dark: '#393939'
+  },
 
-  mistyRose: 'MistyRose', // #FFE4E1
-  honeyDew: 'HoneyDew', // #F0FFF0,
-  lemonChiffon: 'LemonChiffon', // #FFFACD
-  aliceBlue: 'AliceBlue' // #F0F8FF
+  pale: {
+    yellow: 'LemonChiffon', // #FFFACD
+    red: 'MistyRose', // #FFE4E1
+    green: 'HoneyDew', // #F0FFF0
+    blue: 'AliceBlue' // #F0F8FF
+  }
 };
 
 const fontSize = {
@@ -41,36 +47,36 @@ const theme = {
 
   background: {
     primary: colors.white,
-    secondary: colors.gray,
-    tertiary: colors.lightBlue,
-    quaternary: colors.blue,
-    quinary: colors.darkBlue,
-    senary: colors.aliceBlue,
-    septenary: colors.mistyRose,
-    octonary: colors.honeyDew,
-    nonary: colors.lemonChiffon,
+    secondary: colors.gray.medium,
+    tertiary: colors.blue.light,
+    quaternary: colors.blue.medium,
+    quinary: colors.blue.dark,
+    senary: colors.pale.blue,
+    septenary: colors.pale.red,
+    octonary: colors.pale.green,
+    nonary: colors.pale.yellow,
     denary: ''
   },
 
   text: {
-    primary: colors.lightBlack,
+    primary: colors.gray.dark,
     secondary: colors.white,
     tertiary: colors.imperialPurple,
-    quaternary: colors.lightBlue,
-    quinary: colors.darkBlue
+    quaternary: colors.blue.light,
+    quinary: colors.blue.dark
   },
 
   border: {
     primary: colors.black,
-    secondary: colors.gray,
-    tertiary: colors.darkGray,
-    quaternary: colors.lightBlue,
-    quinary: colors.darkBlue
+    secondary: colors.gray.medium,
+    tertiary: colors.gray.dark,
+    quaternary: colors.blue.light,
+    quinary: colors.blue.dark
   },
 
   fill: {
     primary: colors.white,
-    secondary: colors.lightBlack
+    secondary: colors.gray.dark
   }
 };
 
