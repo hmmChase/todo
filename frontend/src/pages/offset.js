@@ -74,7 +74,7 @@ const OffsetPage = () => {
 
   const ideas = data?.ideasPaginatedOffset;
 
-  const haveIdeas = !!ideas.length;
+  const haveIdeas = !!ideas;
 
   return (
     <>

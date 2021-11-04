@@ -81,6 +81,7 @@ const Container = styled.div`
 `;
 
 const MaxWidth = styled.div`
+  height: 100%;
   margin: 0 auto;
 
   @media screen and (min-width: ${props => props.theme.width.page}) {

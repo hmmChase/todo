@@ -1,24 +1,35 @@
 import styled from 'styled-components';
 
-const Loader = styled.div`
-  animation: spin 2s linear infinite;
-  border-radius: 50%;
-  border-top: 8px solid ${props => props.theme.border.secondary};
-  border: 8px solid ${props => props.theme.border.tertiary};
-  height: 40px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 40px;
-  width: 40px;
+const Loader = () => <Loaderr />;
 
-  @keyframes spin {
+export default Loader;
+
+const Loaderr = styled.div`
+  animation: loader 2s infinite ease;
+  border-radius: ${props => props.theme.borderRadius.primary};
+  border: 3px solid ${props => props.theme.border.quinary};
+  height: 30px;
+  width: 30px;
+
+  @keyframes loader {
     0% {
       transform: rotate(0deg);
     }
+
+    25% {
+      transform: rotate(90deg);
+    }
+
+    50% {
+      transform: rotate(180deg);
+    }
+
+    75% {
+      transform: rotate(270deg);
+    }
+
     100% {
       transform: rotate(360deg);
     }
   }
 `;
-
-export default Loader;

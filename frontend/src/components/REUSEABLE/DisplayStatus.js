@@ -31,8 +31,6 @@ const DisplayStatus = props => {
       </Span>
     );
 
-  if (status === 'loading') return <Span status={status}>Loading...</Span>;
-
   return <Span status={status}>{children}</Span>;
 };
 
@@ -54,8 +52,6 @@ const Span = styled.span`
     switch (props.status) {
       case 'info':
         return props.theme.background.honeyDew;
-      case 'loading':
-        return props.theme.background.nonary;
       case 'error':
         return props.theme.background.septenary;
       case 'success':

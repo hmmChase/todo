@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
+import Loader from '../OTHER/Loader';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 // Conditionally renders Apollo hook states
@@ -7,12 +9,26 @@ import DisplayStatus from '../REUSEABLE/DisplayStatus';
 const QueryResult = props => {
   const { loading, error, data, children } = props;
 
-  if (loading) return <DisplayStatus status='loading' />;
+  if (loading)
+    return (
+      <Center>
+        <Loader />
+      </Center>
+    );
 
-  if (error) return <DisplayStatus status='error' error={error} />;
+  if (error)
+    return (
+      <Center>
+        <DisplayStatus status='error' error={error} />
+      </Center>
+    );
 
   if (!data)
-    return <DisplayStatus status='info'>Nothing to show...</DisplayStatus>;
+    return (
+      <Center>
+        <DisplayStatus status='info'>Nothing here</DisplayStatus>
+      </Center>
+    );
 
   if (data) return children;
 
@@ -27,3 +43,10 @@ QueryResult.propTypes = {
 };
 
 export default QueryResult;
+
+export const Center = styled.div`
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+`;
