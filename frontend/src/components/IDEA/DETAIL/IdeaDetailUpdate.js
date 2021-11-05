@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash.debounce';
 
-import { IdeaInputDebounceDelay } from '../../../configs/config';
+import { IdeaInputDebounceDelay } from '../../../constants/config';
 import graphQLErrors from '../../../utils/graphQLErrors';
 import { UPDATE_IDEA } from '../../../graphql/queries/idea';
 import IdeaDetailContent from './IdeaDetailContent';

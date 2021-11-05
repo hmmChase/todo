@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { siteTitle } from '../../../configs/config';
+import { siteTitle } from '../../../constants/config';
 import Ideabox from '../../../../public/images/ideabox.png';
 import UserIcon from '../../OTHER/UserIcon';
 import HeaderLoggedOut from './HeaderLoggedOut';

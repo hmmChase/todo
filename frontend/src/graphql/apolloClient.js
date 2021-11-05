@@ -6,7 +6,7 @@ import { onError } from '@apollo/client/link/error';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 
-import { baseUrl } from '../configs/config';
+import { baseUrl } from '../constants/config';
 import cache from './cache';
 import typeDefs from './typeDefs';
 

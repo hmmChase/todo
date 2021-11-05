@@ -10,7 +10,8 @@ import {
   passwordCompare
 } from '../../utils/user';
 import { validateInputs } from '../../utils/validateInputs';
-import { cookieOptions, passwordHashSaltRounds } from '../../config';
+import { passwordHashSaltRounds } from '../../constants/config';
+import { cookieOptions } from '../../constants/cookie';
 import { sendPassResetEmail } from '../../handlers/emailHandler';
 import {
   createResetPassToken,
@@ -95,19 +96,28 @@ const userResolver = {
         // If no user found, return nothing
         if (!userRecord) return null;
 
-        /** refresh access token every time user is queried?
-        // Create user object & access token
-        const [user, accessToken] = createUserObjandPayload(userRecord);
+        let currentUser = {};
 
-        // Set new access token cookie
-        ctx.res.cookie('at', accessToken, cookieOptions);
-        */
+        const currentTime = (new Date().getTime() + 1) / 1000;
+        const oneDay = 86400000;
+        const isLessThanOneDay = currentTime + oneDay < payload.exp;
 
-        // Create user object
-        const user = createUserObj(userRecord);
+        // Refresh access token if within 1 day of expiration
+        if (isLessThanOneDay) {
+          // Create user object & access token
+          const [user, accessToken] = createUserObjandPayload(userRecord);
+
+          currentUser = user;
+
+          // Set new access token cookie
+          ctx.res.cookie('at', accessToken, cookieOptions);
+        } else {
+          // Create user object
+          currentUser = createUserObj(userRecord);
+        }
 
         // Return user
-        return user;
+        return currentUser;
       } catch (error) {
         console.log('user currentUser error: ', error);
 

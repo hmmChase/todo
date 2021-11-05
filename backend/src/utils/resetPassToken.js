@@ -2,7 +2,10 @@ import { UserInputError } from 'apollo-server-express';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
 
-import { cryptoRandomBytesSize, resetPassTokenExpiryTime } from '../config';
+import {
+  cryptoRandomBytesSize,
+  resetPassTokenExpiryTime
+} from '../constants/config';
 
 export const createResetPassToken = async () => {
   const randomBytesPromise = promisify(randomBytes);

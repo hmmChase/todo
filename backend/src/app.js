@@ -27,7 +27,8 @@ if (!production) require('dotenv').config();
 
 import apolloServer from './graphql/apolloServer';
 import indexRouter from './rest/routes';
-import { port, corsOptions, graphqlPath, deployedUrl } from './config.js';
+import { port, graphqlPath, deployedUrl } from './constants/config';
+import { corsOptions } from './constants/cors';
 
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';

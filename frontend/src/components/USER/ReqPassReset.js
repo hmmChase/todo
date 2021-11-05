@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-import displayMessages from '../../configs/displayMessages';
+import displayMessages from '../../constants/displayMessages';
 import { email } from '../../utils/AuthInputValidation';
 import graphQLErrors from '../../utils/graphQLErrors';
 import { REQ_PASS_RESET } from '../../graphql/queries/user';

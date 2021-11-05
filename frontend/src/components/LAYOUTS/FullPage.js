@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { siteTitle } from '../../configs/config';
+import { siteTitle } from '../../constants/config';
 import Ideabox from '../../../public/images/ideabox.png';
 import HorizontalRule from '../REUSEABLE/HorizontalRule';
 

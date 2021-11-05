@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { ideasPerPage } from '../configs/config';
+import { ideasPerPage } from '../constants/config';
 import { READ_IDEAS_PAGINATED_OFFSET } from '../graphql/queries/idea';
 import graphQLErrors from '../utils/graphQLErrors';
 import isLoggedIn from '../utils/isLoggedIn';

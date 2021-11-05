@@ -13,7 +13,7 @@ import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from 'styled-components';
 
-import { siteTitle } from '../configs/config';
+import { siteTitle } from '../constants/config';
 import { useApollo } from '../graphql/apolloClient';
 import GlobalStyle from '../styles/global';
 import theme from '../styles/theme';

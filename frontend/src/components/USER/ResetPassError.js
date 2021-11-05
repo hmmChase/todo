@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {
   passResetTokenMissingError,
   passResetTokenExpiredError
-} from '../../configs/config';
+} from '../../constants/config';
 import BackButton from '../OTHER/BackButton';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 

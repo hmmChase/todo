@@ -7,7 +7,7 @@ import {
   usernameMaxLength,
   passwordMinLength,
   passwordMaxLength
-} from '../configs/config';
+} from '../constants/config';
 
 /* Username */
 

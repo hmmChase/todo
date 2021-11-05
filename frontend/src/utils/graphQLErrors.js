@@ -1,4 +1,4 @@
-import displayMessages from '../configs/displayMessages';
+import displayMessages from '../constants/displayMessages';
 
 const graphQLErrors = error => {
   let dispayMessage = '';
