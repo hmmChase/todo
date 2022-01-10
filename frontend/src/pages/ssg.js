@@ -54,6 +54,18 @@ SSGPage.getLayout = page => {
   // });
 };
 
+// export const getStaticProps = async () => {
+//   const queryClient = new QueryClient();
+
+//   await queryClient.prefetchQuery(['posts', 10], () => getPosts(10));
+
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient)
+//     }
+//   };
+// };
+
 export const getStaticProps = async ctx => {
   const apolloClient = initializeApollo();
 

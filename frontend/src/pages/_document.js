@@ -69,6 +69,8 @@ class MyDocument extends Document {
         <Head>
           <meta charSet='utf-8' />
 
+          {/* SEO */}
+
           <meta name='description' content='hmmStart' />
 
           {/* Favicon */}
@@ -79,6 +81,9 @@ class MyDocument extends Document {
             href='/images/favicon.ico'
           />
 
+          {/* Progressive Web App Manifest + Theme Color */}
+
+          <meta name='theme-color' content='#000000' />
           <link rel='/manifest' href='manifest.json' />
 
           {/* Fonts */}
@@ -88,6 +93,80 @@ class MyDocument extends Document {
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
           />
 
+          <link
+            rel='preload'
+            href='/fonts/open-sans-v15-latin-regular.woff2'
+            as='font'
+            type='font/woff2'
+            crossOrigin='anonymous'
+          />
+
+          <link
+            rel='preload'
+            href='/fonts/play-v10-latin-regular.woff2'
+            as='font'
+            type='font/woff2'
+            crossOrigin='anonymous'
+          />
+
+          {/* PWA images */}
+
+          <link
+            rel='icon'
+            type='image/png'
+            href='/images/pwa/android-36x36.png'
+            sizes='36x36'
+          />
+
+          <link
+            rel='icon'
+            type='image/png'
+            href='/images/pwa/android-48x48.png'
+            sizes='48x48'
+          />
+
+          <link
+            rel='icon'
+            type='image/png'
+            href='/images/pwa/android-72x72.png'
+            sizes='72x72'
+          />
+
+          <link
+            rel='icon'
+            type='image/png'
+            href='/images/pwa/android-96x96.png'
+            sizes='96x96'
+          />
+
+          <link
+            rel='icon'
+            type='image/png'
+            href='/images/pwa/android-144x144.png'
+            sizes='144x144'
+          />
+
+          <link
+            rel='apple-touch-icon'
+            href='/images/pwa/apple-touch-icon-180x180.png'
+            sizes='180x180'
+          />
+
+          <link
+            rel='icon'
+            type='image/png'
+            href='/images/pwa/pwa-192x192.png'
+            sizes='192x192'
+          />
+
+          <link
+            rel='icon'
+            type='image/png'
+            href='/images/pwa/pwa-512x512.png'
+            sizes='512x512'
+          />
+
+          {/* Fonts */}
           <link
             rel='preload'
             href='/fonts/open-sans-v15-latin-regular.woff2'

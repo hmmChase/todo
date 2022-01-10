@@ -3,7 +3,7 @@
 
 /** import order
 react=>proptype=>next=>apollo=>styled=>other
-linebreak
+
 config=>utils=>graphql=>other=>components
 */
 

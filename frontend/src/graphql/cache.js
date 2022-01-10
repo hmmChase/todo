@@ -6,11 +6,12 @@ import { InMemoryCache, defaultDataIdFromObject } from '@apollo/client/cache';
 
 const serverSide = typeof window === 'undefined';
 
-let isToken = false;
+let isLoggedInVar = makeVar(false);
 
-if (!serverSide) isToken = !!localStorage.getItem('token');
+if (!serverSide && window.document)
+  isLoggedInVar = makeVar(!!localStorage.getItem('token'));
 
-export const isLoggedInVar = makeVar(isToken);
+export { isLoggedInVar };
 
 const cache = new InMemoryCache({
   // resultCaching: true,

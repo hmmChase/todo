@@ -9,7 +9,7 @@ import BackButton from '../OTHER/BackButton';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const ResetPassError = props => {
-  const { isTokenPresent, isTokenPresent } = props;
+  const { isTokenPresent, isTokenExpired } = props;
 
   return (
     <>
