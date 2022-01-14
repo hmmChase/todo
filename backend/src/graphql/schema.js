@@ -1,5 +1,4 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
-// import { applyMiddleware } from 'graphql-middleware';
 
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
@@ -21,7 +20,5 @@ const executableSchema = makeExecutableSchema({
 
   allowUndefinedInResolve: !development
 });
-
-// const schema = applyMiddleware(executableSchema, permissions);
 
 export default executableSchema;
