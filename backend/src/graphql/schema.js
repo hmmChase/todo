@@ -1,7 +1,8 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
-import typeDefs from './typeDefs';
-import resolvers from './resolvers';
+import typeDefs from './typeDefs.js';
+import resolvers from './resolvers/index.js';
+
 // import { permissions } from './permissions';
 
 // https://www.graphql-tools.com/docs/generate-schema/#makeexecutableschemaoptions

@@ -1,7 +1,7 @@
 import { UserInputError } from 'apollo-server-express';
 import isEmail from 'isemail';
 
-import { passwordMinLength, passwordMaxLength } from '../constants/config';
+import { passwordMinLength, passwordMaxLength } from '../constants/config.js';
 
 export const validateInputs = inputs => {
   // Loop through inputs

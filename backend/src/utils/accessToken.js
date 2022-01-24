@@ -2,7 +2,7 @@ import { ForbiddenError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
 // import Iron from '@hapi/iron';
 
-import { JWToptions } from '../constants/config';
+import { JWToptions } from '../constants/config.js';
 
 const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 

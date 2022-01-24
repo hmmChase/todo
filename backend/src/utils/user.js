@@ -3,7 +3,7 @@ import bcryptjs from 'bcryptjs';
 // import argon2 from 'argon2';
 // import crypto from 'crypto';
 
-import { createAccessToken } from './accessToken';
+import { createAccessToken } from './accessToken.js';
 
 export const createUserObj = userRecord => {
   // Clean user data for client

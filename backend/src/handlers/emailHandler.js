@@ -3,8 +3,8 @@ import ejs from 'ejs';
 import juice from 'juice';
 
 import logger from './logHandler.js';
-import { frontendUrl } from '../constants/config';
-import { mailOptions } from '../constants/mail';
+import { frontendUrl } from '../constants/config.js';
+import { mailOptions } from '../constants/mail.js';
 
 const transport = nodemailer.createTransport(mailOptions);
 

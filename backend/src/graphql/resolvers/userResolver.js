@@ -3,20 +3,20 @@
 import { UserInputError } from 'apollo-server-express';
 import bcryptjs from 'bcryptjs';
 
-import { verifyAccessToken } from '../../utils/accessToken';
+import { verifyAccessToken } from '../../utils/accessToken.js';
 import {
   createUserObj,
   createUserObjandPayload,
   passwordCompare
-} from '../../utils/user';
-import { validateInputs } from '../../utils/validateInputs';
-import { passwordHashSaltRounds } from '../../constants/config';
-import { cookieOptions } from '../../constants/cookie';
-import { sendPassResetEmail } from '../../handlers/emailHandler';
+} from '../../utils/user.js';
+import { validateInputs } from '../../utils/validateInputs.js';
+import { passwordHashSaltRounds } from '../../constants/config.js';
+import { cookieOptions } from '../../constants/cookie.js';
+import { sendPassResetEmail } from '../../handlers/emailHandler.js';
 import {
   createResetPassToken,
   validateResetPassTokenExpiry
-} from '../../utils/resetPassToken';
+} from '../../utils/resetPassToken.js';
 
 const userResolver = {
   Query: {

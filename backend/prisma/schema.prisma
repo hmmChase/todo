@@ -1,29 +1,29 @@
 // https://pris.ly/d/prisma-schema
 
 // Initialize database migrations:
-// npx prisma migrate dev --schema=./src/prisma/schema.prisma --name init
+// npx prisma migrate dev --name init
 
 // Whenever this files changes:
 // Create a migration from changes in Prisma schema
-// npx prisma migrate dev --schema=./src/prisma/schema.prisma --name some-update
+// npx prisma migrate dev --name some-update
 
 // Generate client if needed:
 // * prisma migrate does this automatically
-// npx prisma generate --schema=./src/prisma/schema.prisma
+// npx prisma generate
 
 // Seed database:
 // npm run seed
 
 // ----- Configuration -----
 
-datasource db {
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
-  provider          = "postgresql"
-}
-
 generator client {
   provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 // ----- Data models -----

@@ -4,14 +4,14 @@
   },
   "builds": [
     {
-      "src": "build/app.js",
+      "src": "bin/www.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "build/app.js"
+      "dest": "bin/www.js"
     }
   ]
 }

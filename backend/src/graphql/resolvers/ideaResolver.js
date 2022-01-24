@@ -1,6 +1,6 @@
 import { ForbiddenError } from 'apollo-server-express';
 
-import { verifyAccessToken } from '../../utils/accessToken';
+import { verifyAccessToken } from '../../utils/accessToken.js';
 
 const ideaResolver = {
   Query: {

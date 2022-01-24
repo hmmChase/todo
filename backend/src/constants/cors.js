@@ -3,7 +3,7 @@ import {
   frontendUrlDev,
   deployedUrl,
   production
-} from './config';
+} from './config.js';
 
 const CORSwhitelist = production
   ? [frontendUrlProd, `https://${deployedUrl}`]

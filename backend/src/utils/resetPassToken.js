@@ -5,7 +5,7 @@ import { promisify } from 'util';
 import {
   cryptoRandomBytesSize,
   resetPassTokenExpiryTime
-} from '../constants/config';
+} from '../constants/config.js';
 
 export const createResetPassToken = async () => {
   const randomBytesPromise = promisify(randomBytes);

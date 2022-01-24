@@ -1,7 +1,7 @@
 // http://expressjs.com/en/5x/api.html#res.cookie
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
 
-import { production } from './config';
+import { production } from './config.js';
 
 const cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
 
