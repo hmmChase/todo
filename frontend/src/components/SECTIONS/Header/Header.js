@@ -39,7 +39,11 @@ const Header = props => {
       </Top>
 
       <div>
-        {onIdeaDetailPage ? <IdeaTitle>{ideaId}</IdeaTitle> : <CreateIdea />}
+        {onIdeaDetailPage ? (
+          <IdeaTitle>{ideaId}</IdeaTitle>
+        ) : (
+          isLoggedIn && <CreateIdea />
+        )}
       </div>
     </Container>
   );
