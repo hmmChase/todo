@@ -1,39 +1,54 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
+import { useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
-import { useFormik } from 'formik';
-import Link from 'next/link';
 
-import { CREATE_USER } from '../../graphql/queries/user';
-import { isLoggedInVar } from '../../graphql/cache';
-import graphQLErrors from '../../utils/graphQLErrors';
-import FormInput from '../REUSEABLE/FormInput';
-import Button from '../REUSEABLE/Button';
-import DisplayError from '../REUSEABLE/DisplayError';
 import { email, password } from '../../utils/AuthInputValidation';
+import graphQLErrors from '../../utils/graphQLErrors';
+import { CREATE_USER, IS_LOGGED_IN } from '../../graphql/queries/user';
+import { isLoggedInVar } from '../../graphql/cache';
+import FormInput from '../REUSEABLE/FormInput';
 import PassReqList from './PassReqList';
+import Button from '../REUSEABLE/Button';
+import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const validationSchema = object().shape({
   signUpEmail: email,
   signUpPassword: password
 });
 
-const SignUpForm = () => {
+const SignUpForm = props => {
+  const { close } = props;
+
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
 
   const apolloClient = useApolloClient();
 
+  const update = (cache, data) => {
+    const isLoggedIn = !!data?.createUser?.user?.id;
+
+    cache.writeQuery({
+      id: 'isLoggedIn',
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn }
+    });
+  };
+
   const onCompleted = async data => {
+    apolloClient.resetStore();
+
     localStorage.setItem('userId', data.createUser.user.id);
 
     isLoggedInVar(true);
 
-    apolloClient.resetStore;
-
+    // if (close) close();
+    // else
     await router.push('/');
   };
 
@@ -46,14 +61,14 @@ const SignUpForm = () => {
   const [createUser] = useMutation(CREATE_USER, {
     fetchPolicy: 'network-only',
 
+    update: (cache, data) => update(cache, data),
+
     onCompleted: data => onCompleted(data),
 
     onError: error => onError(error)
   });
 
   const handleSubmit = async (values, formikHelpers) => {
-    console.log('values:', values);
-
     try {
       await createUser({
         variables: {
@@ -90,7 +105,10 @@ const SignUpForm = () => {
       />
 
       {formik.touched.signUpEmail && formik.errors.signUpEmail ? (
-        <DisplayError error={{ message: formik.errors.signUpEmail }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.signUpEmail }}
+        />
       ) : null}
 
       <FormInput
@@ -101,10 +119,15 @@ const SignUpForm = () => {
       />
 
       {formik.touched.signUpPassword && formik.errors.signUpPassword ? (
-        <DisplayError error={{ message: formik.errors.signUpPassword }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.signUpPassword }}
+        />
       ) : null}
 
-      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
+      {errorMsg && (
+        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      )}
 
       <PassReqList />
 
@@ -124,11 +147,15 @@ const SignUpForm = () => {
         Sign up
       </Buttonn>
 
-      <Link href='/login'>
+      <Link href='/login' passHref>
         <A>Log in</A>
       </Link>
     </Form>
   );
+};
+
+SignUpForm.propTypes = {
+  close: PropTypes.func
 };
 
 export default SignUpForm;
@@ -149,8 +176,10 @@ const Buttonn = styled(Button)`
 `;
 
 const A = styled.a`
-  cursor: pointer;
   align-self: flex-start;
+  cursor: pointer;
+  font-size: ${props => props.theme.fontSize.small};
+  font-weight: bold;
 
   &:hover {
     text-decoration: underline;

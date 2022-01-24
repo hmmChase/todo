@@ -1,48 +1,53 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
+import { useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
-import Link from 'next/link';
-import { useFormik } from 'formik';
 
-import { LOG_IN } from '../../graphql/queries/user';
-import { isLoggedInVar } from '../../graphql/cache';
+import { email, password } from '../../utils/AuthInputValidation';
 import graphQLErrors from '../../utils/graphQLErrors';
+import { LOG_IN, IS_LOGGED_IN } from '../../graphql/queries/user';
+import { isLoggedInVar } from '../../graphql/cache';
 import FormInput from '../REUSEABLE/FormInput';
 import Button from '../REUSEABLE/Button';
-import DisplayError from '../REUSEABLE/DisplayError';
-import { email, password } from '../../utils/AuthInputValidation';
+import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const validationSchema = object().shape({
   logInEmail: email,
   logInPassword: password
 });
 
-const LogInForm = () => {
+const LogInForm = props => {
+  const { close } = props;
+
   const [errorMsg, setErrorMsg] = useState();
 
   const router = useRouter();
 
   const apolloClient = useApolloClient();
 
-  // const update = (cache, data) => {
-  //   const isLoggedIn = !!data.data.signIn.accessToken;
+  const update = (cache, data) => {
+    const isLoggedIn = !!data?.logIn?.user?.id;
 
-  //   cache.writeQuery({
-  //     id: 'isLoggedIn',
-  //     query: IS_LOGGED_IN,
-  //     data: { isLoggedIn }
-  //   });
-  // };
+    cache.writeQuery({
+      id: 'isLoggedIn',
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn }
+    });
+  };
 
   const onCompleted = async data => {
+    apolloClient.resetStore();
+
     localStorage.setItem('userId', data.logIn.user.id);
 
     isLoggedInVar(true);
 
-    apolloClient.resetStore;
-
+    // if (close) close();
+    // else
     await router.push('/');
   };
 
@@ -52,10 +57,10 @@ const LogInForm = () => {
     setErrorMsg(graphQLErrors(error));
   };
 
-  const [logIn] = useMutation(LOG_IN, {
+  const [logIn, { loading }] = useMutation(LOG_IN, {
     fetchPolicy: 'network-only',
 
-    // update: (cache, data) => update(cache, data),
+    update: (cache, data) => update(cache, data),
 
     onCompleted: data => onCompleted(data),
 
@@ -83,7 +88,7 @@ const LogInForm = () => {
   };
 
   const formik = useFormik({
-    initialValues: { logInEmail: 'user@email.com', logInPassword: 'asdf1234' },
+    initialValues: { logInEmail: 'user@email.com', logInPassword: 'user123$' },
 
     validationSchema,
 
@@ -103,7 +108,10 @@ const LogInForm = () => {
       />
 
       {formik.touched.logInEmail && formik.errors.logInEmail ? (
-        <DisplayError error={{ message: formik.errors.logInEmail }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.logInEmail }}
+        />
       ) : null}
 
       <FormInput
@@ -114,14 +122,20 @@ const LogInForm = () => {
       />
 
       {formik.touched.logInPassword && formik.errors.logInPassword ? (
-        <DisplayError error={{ message: formik.errors.logInPassword }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.logInPassword }}
+        />
       ) : null}
 
-      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
+      {errorMsg && (
+        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      )}
 
       <Buttonn
         aria-label='submit log in'
         type='submit'
+        loading={loading}
         disabled={
           !!(
             !formik.values.logInEmail ||
@@ -136,16 +150,20 @@ const LogInForm = () => {
       </Buttonn>
 
       <LogInLinks>
-        <Link href='/reqpassreset'>
+        <Link href='/reqpassreset' passHref>
           <A>Reset Password</A>
         </Link>
 
-        <Link href='/signup'>
+        <Link href='/signup' passHref>
           <A>Create account</A>
         </Link>
       </LogInLinks>
     </Form>
   );
+};
+
+LogInForm.propTypes = {
+  close: PropTypes.func
 };
 
 export default LogInForm;
@@ -172,8 +190,10 @@ export const LogInLinks = styled.div`
 `;
 
 const A = styled.a`
-  cursor: pointer;
   align-self: flex-start;
+  cursor: pointer;
+  font-size: ${props => props.theme.fontSize.small};
+  font-weight: bold;
 
   &:hover {
     text-decoration: underline;

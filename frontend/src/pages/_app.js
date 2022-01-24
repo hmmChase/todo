@@ -1,17 +1,22 @@
 // https://nextjs.org/docs/advanced-features/custom-app
 // https://github.com/vercel/next.js/tree/master/examples/with-styled-components
 
-//! import order: react=>next=>libs=>utils=>config=>queries=>components=>css
+/** import order
+react=>proptype=>next=>apollo=>styled=>other
 
+config=>utils=>graphql=>other=>components
+*/
+
+import { StrictMode } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from 'styled-components';
 
+import { siteTitle } from '../constants/config';
 import { useApollo } from '../graphql/apolloClient';
 import GlobalStyle from '../styles/global';
 import theme from '../styles/theme';
-import { siteTitle } from '../config';
 
 const MyApp = props => {
   const { Component, pageProps } = props;
@@ -44,13 +49,15 @@ const MyApp = props => {
         />
       </Head>
 
-      <ApolloProvider client={apolloClient}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
+      <StrictMode>
+        <ApolloProvider client={apolloClient}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
 
-          {getLayout(<Component {...pageProps} />)}
-        </ThemeProvider>
-      </ApolloProvider>
+            {getLayout(<Component {...pageProps} />)}
+          </ThemeProvider>
+        </ApolloProvider>
+      </StrictMode>
     </>
   );
 };

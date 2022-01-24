@@ -2,7 +2,7 @@ import HeaderLoggedIn from './HeaderLoggedIn';
 
 export default {
   component: HeaderLoggedIn,
-  title: 'SECTIONS/Header/HeaderLoggedIn'
+  title: 'SECTIONS/HEADER/HeaderLoggedIn'
 };
 
 export const headerLoggedIn = () => <HeaderLoggedIn />;

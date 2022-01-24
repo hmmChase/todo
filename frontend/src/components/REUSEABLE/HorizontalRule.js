@@ -1,6 +1,15 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const HorizontalRule = props => <HR className={props.className} />;
+const HorizontalRule = props => {
+  const { className } = props;
+
+  return <HR className={className} />;
+};
+
+HorizontalRule.propTypes = {
+  className: PropTypes.string
+};
 
 export default HorizontalRule;
 

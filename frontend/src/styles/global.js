@@ -298,7 +298,6 @@ const GlobalStyle = createGlobalStyle`
 
   *, ::before, ::after {
     font-family: 'Open Sans', sans-serif;
-    ${'' /* font-family: 'Roboto'; */}
   }
 
   html, body {
@@ -310,16 +309,10 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${props => props.theme.colors.backgrounds.body};
-    color: ${props => props.theme.colors.text.primaryText};
-    font-size: 1em;
+    background: ${props => props.theme.background.primary};
+    color: ${props => props.theme.text.primary};
+    font-size: ${props => props.theme.fontSize.primary};
   }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
 `;
 
 export default GlobalStyle;

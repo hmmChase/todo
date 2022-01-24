@@ -1,25 +1,22 @@
 // https://www.apollographql.com/docs/apollo-server/data/resolvers
 
-import {
-  UserInputError,
-  AuthenticationError,
-  ForbiddenError
-} from 'apollo-server-express';
+import { UserInputError } from 'apollo-server-express';
 import bcryptjs from 'bcryptjs';
 
-import { verifyAccessToken } from '../../utils/accessToken';
+import { verifyAccessToken } from '../../utils/accessToken.js';
 import {
   createUserObj,
   createUserObjandPayload,
   passwordCompare
-} from '../../utils/user';
-import { validateInputs } from '../../utils/validateInputs';
-import { cookieOptions, passwordHashSaltRounds } from '../../config';
-import { sendPassResetEmail } from '../../handlers/emailHandler';
+} from '../../utils/user.js';
+import { validateInputs } from '../../utils/validateInputs.js';
+import { passwordHashSaltRounds } from '../../constants/config.js';
+import { cookieOptions } from '../../constants/cookie.js';
+import { sendPassResetEmail } from '../../handlers/emailHandler.js';
 import {
   createResetPassToken,
   validateResetPassTokenExpiry
-} from '../../utils/resetPassToken';
+} from '../../utils/resetPassToken.js';
 
 const userResolver = {
   Query: {
@@ -28,14 +25,14 @@ const userResolver = {
       const { id } = args;
 
       // Check if missing args
-      if (!id) throw new ForbiddenError('user.missingArgument');
+      if (!id) throw new UserInputError('user.error.user.missing');
 
       // Convert string to number
       const numId = Number(id);
 
       // Type check
       if (typeof numId !== 'number')
-        throw new ForbiddenError('error.invalidArgument');
+        throw new UserInputError('user.error.user.invalid');
 
       try {
         // Find user matching user id
@@ -96,22 +93,31 @@ const userResolver = {
           select: { id: true, email: true, role: true }
         });
 
-        // If no user found, return error
-        if (!userRecord) throw new AuthenticationError('user.notFound');
+        // If no user found, return nothing
+        if (!userRecord) return null;
 
-        /** refresh access token every time user is queried?
-        // Create user object & access token
-        const [user, accessToken] = createUserObjandPayload(userRecord);
+        let currentUser = {};
 
-        // Set new access token cookie
-        ctx.res.cookie('at', accessToken, cookieOptions);
-        */
+        const currentTime = (new Date().getTime() + 1) / 1000;
+        const oneDay = 86400000;
+        const isLessThanOneDay = currentTime + oneDay < payload.exp;
 
-        // Create user object
-        const user = createUserObj(userRecord);
+        // Refresh access token if within 1 day of expiration
+        if (isLessThanOneDay) {
+          // Create user object & access token
+          const [user, accessToken] = createUserObjandPayload(userRecord);
+
+          currentUser = user;
+
+          // Set new access token cookie
+          ctx.res.cookie('at', accessToken, cookieOptions);
+        } else {
+          // Create user object
+          currentUser = createUserObj(userRecord);
+        }
 
         // Return user
-        return user;
+        return currentUser;
       } catch (error) {
         console.log('user currentUser error: ', error);
 
@@ -135,7 +141,7 @@ const userResolver = {
         });
 
         // If user not found, return error
-        if (!userRecord) throw new UserInputError('user.auth.invalid');
+        if (!userRecord) throw new UserInputError('user.error.logIn.notFound');
 
         // Check if input password matches users password
         await passwordCompare(password, userRecord.password);
@@ -184,7 +190,7 @@ const userResolver = {
         });
 
         // If user found, return error
-        if (foundUser) throw new UserInputError('user.auth.alreadyExists');
+        if (foundUser) throw new UserInputError('user.error.createUser.exists');
 
         /**
         // Encrypt password
@@ -264,6 +270,9 @@ const userResolver = {
     changePassword: async (parent, args, ctx, info) => {
       const { resetPassToken, newPassword } = args;
 
+      if (!resetPassToken || !newPassword)
+        throw new UserInputError('user.error.changePassword.missing');
+
       // Normalize & validate inputs
       const { password } = validateInputs({ password: newPassword });
 
@@ -283,7 +292,7 @@ const userResolver = {
 
         // If user not found, return error
         if (!foundUser)
-          throw new AuthenticationError('user.resetPass.tokenError');
+          throw new UserInputError('user.error.changePassword.notFound');
 
         // Check if reset password token is expired
         validateResetPassTokenExpiry(foundUser.resetPassTokenExpiry);

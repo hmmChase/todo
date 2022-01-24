@@ -81,7 +81,7 @@ const typeDefs = gql`
     id: ID!
     createdAt: Float!
     updatedAt: Float!
-    deletedAt: Float!
+    removedAt: Float!
     email: String!
     password: String!
     role: Role!

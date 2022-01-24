@@ -1,7 +1,7 @@
 import { UserInputError } from 'apollo-server-express';
 import isEmail from 'isemail';
 
-import { passwordMinLength, passwordMaxLength } from '../config';
+import { passwordMinLength, passwordMaxLength } from '../constants/config.js';
 
 export const validateInputs = inputs => {
   // Loop through inputs
@@ -31,10 +31,11 @@ export const validateInputs = inputs => {
 
 const validateEmail = email => {
   // Check if missing args
-  if (!email) throw new UserInputError('user.auth.missing');
+  if (!email) throw new UserInputError('user.error.validateEmail.missing');
 
   // Type check
-  if (typeof email !== 'string') throw new UserInputError('user.auth.invalid');
+  if (typeof email !== 'string')
+    throw new UserInputError('user.error.validateEmail.invalid');
 
   // Check if email is well-formed
   isEmailWellFormed(email);
@@ -44,18 +45,20 @@ const isEmailWellFormed = email => {
   // Ensure valid email address
   const isvalid = isEmail.validate(email);
 
-  if (!isvalid) throw new UserInputError('user.auth.invalid');
+  if (!isvalid)
+    throw new UserInputError('user.error.isEmailWellFormed.invalid');
 };
 
 /** ----- Password ----- */
 
 const validatePassword = password => {
   // Check if missing args
-  if (!password) throw new UserInputError('user.auth.missing');
+  if (!password)
+    throw new UserInputError('user.error.validatePassword.missing');
 
   // Type check
   if (typeof password !== 'string')
-    throw new UserInputError('user.auth.invalid');
+    throw new UserInputError('user.error.validatePassword.invalid');
 
   // Check if password is well-formed
   isPasswordWellFormed(password);
@@ -68,8 +71,10 @@ const isPasswordWellFormed = password => {
   */
 
   const tooShort = password.length < passwordMinLength;
-  if (tooShort) throw new UserInputError('user.auth.passwordShort');
+  if (tooShort)
+    throw new UserInputError('user.error.isPasswordWellFormed.tooShort');
 
   const tooLong = password.length > passwordMaxLength;
-  if (tooLong) throw new UserInputError('user.auth.passwordLong');
+  if (tooLong)
+    throw new UserInputError('user.error.isPasswordWellFormed.tooLong');
 };

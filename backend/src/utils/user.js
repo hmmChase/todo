@@ -3,7 +3,7 @@ import bcryptjs from 'bcryptjs';
 // import argon2 from 'argon2';
 // import crypto from 'crypto';
 
-import { createAccessToken } from './accessToken';
+import { createAccessToken } from './accessToken.js';
 
 export const createUserObj = userRecord => {
   // Clean user data for client
@@ -47,7 +47,8 @@ export const passwordCompare = async (inputPassword, userPassword) => {
 
   const isCorrectPass = await bcryptjs.compare(inputPassword, userPassword);
 
-  if (!isCorrectPass) throw new UserInputError('user.auth.invalid');
+  if (!isCorrectPass)
+    throw new UserInputError('user.error.passwordCompare.notMatch');
 };
 
 const userClientCleaner = user => ({

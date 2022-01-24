@@ -2,26 +2,26 @@
 
 import { ApolloServer } from 'apollo-server-express';
 
-import { subscriptionServer } from '../app';
-import prisma from '../prisma/prisma';
-import schema from './schema';
+import prisma from '../../prisma/prisma.cjs';
+import schema from './schema.js';
+// import { subscriptionServer } from '../app';
 
 const apolloServer = new ApolloServer({
   schema,
 
-  subscriptions: { path: '/ws' },
+  // subscriptions: { path: '/ws' },
 
-  plugins: [
-    {
-      async serverWillStart() {
-        return {
-          async drainServer() {
-            subscriptionServer.close();
-          }
-        };
-      }
-    }
-  ],
+  // plugins: [
+  //   {
+  //     async serverWillStart() {
+  //       return {
+  //         async drainServer() {
+  //           subscriptionServer.close();
+  //         }
+  //       };
+  //     }
+  //   }
+  // ],
 
   context: async ({ req, res }) => {
     console.log('--------------------------------------------------');

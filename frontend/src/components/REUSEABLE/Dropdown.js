@@ -21,7 +21,7 @@ const Dropdown = props => {
 };
 
 Dropdown.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.element.isRequired,
   className: PropTypes.string,
   close: PropTypes.func.isRequired
 };
@@ -30,17 +30,4 @@ export default Dropdown;
 
 const Container = styled.div`
   position: absolute;
-  /* padding: 0 0.5rem; */
-  /* z-index: 999; */
-
-  /* display: flex; */
-  /* overflow: auto; */
-  /* margin: 0; */
-  /* right: 0px; */
-  /* top: 0px; */
-  /* width: 180px; */
-  /* background-color: ${props => props.theme.colors.backgrounds.fullApp}; */
-  /* border-bottom-left-radius: 0.5rem; */
-  /* border-top-left-radius: 0.5rem; */
-  /* background-color: black; */
 `;

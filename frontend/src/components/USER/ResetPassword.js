@@ -1,20 +1,19 @@
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useMutation, useApolloClient } from '@apollo/client';
 import { useFormik } from 'formik';
 import { object } from 'yup';
+import styled from 'styled-components';
 
+import displayMessages from '../../constants/displayMessages';
 import { password } from '../../utils/AuthInputValidation';
-import { CHANGE_PASSWORD } from '../../graphql/queries/user';
-import DisplaySuccess from '../REUSEABLE/DisplaySuccess';
-import PassReqList from './PassReqList';
-import { isLoggedInVar } from '../../graphql/cache';
 import graphQLErrors from '../../utils/graphQLErrors';
-import FormInput from '../../components/REUSEABLE/FormInput';
-import Button from '../../components/REUSEABLE/Button';
-import DisplayError from '../REUSEABLE/DisplayError';
-import displayMessages from '../../utils/displayMessages';
+import { CHANGE_PASSWORD } from '../../graphql/queries/user';
+import { isLoggedInVar } from '../../graphql/cache';
+import FormInput from '../REUSEABLE/FormInput';
+import PassReqList from './PassReqList';
+import Button from '../REUSEABLE/Button';
+import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const validationSchema = object().shape({ newPassword: password });
 
@@ -91,14 +90,19 @@ const ResetPassword = props => {
       />
 
       {formik.touched.newPassword && formik.errors.newPassword ? (
-        <DisplayError error={{ message: formik.errors.newPassword }} />
+        <DisplayStatus
+          status='error'
+          error={{ message: formik.errors.newPassword }}
+        />
       ) : null}
 
-      {errorMsg && <DisplayError error={{ message: errorMsg }} />}
+      {errorMsg && (
+        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      )}
 
       <PassReqList />
 
-      <Buttonn
+      <Button
         aria-label='submit reset password'
         type='submit'
         disabled={
@@ -110,10 +114,12 @@ const ResetPassword = props => {
         }
       >
         Reset Password
-      </Buttonn>
+      </Button>
 
       {isSuccessful && (
-        <DisplaySuccess message={displayMessages.user.resetPass.success} />
+        <DisplayStatus type='success'>
+          {displayMessages.user.success.ResetPassword}
+        </DisplayStatus>
       )}
     </Form>
   );
@@ -133,25 +139,4 @@ const Form = styled.form`
   > input {
     margin-bottom: 0.5rem;
   }
-`;
-
-const Buttonn = styled(Button)`
-  align-self: flex-end;
-`;
-
-const PassListContainer = styled.div`
-  display: inline-block;
-  margin-top: 20px;
-`;
-
-const PassListItem = styled.li`
-  padding: 0;
-`;
-
-const FormItemBtn = styled.div`
-  float: right;
-`;
-
-const SubmitBtn = styled(Button)`
-  margin-top: 20px;
 `;

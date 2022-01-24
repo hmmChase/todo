@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import X from '../DESIGN/icons/X';
 import Expand from '../DESIGN/icons/Expand';
+import X from '../DESIGN/icons/X';
 
 export const ExpandIconBtn = props => (
   <Button aria-label={props['aria-label']} data-testid={props['data-testid']}>
@@ -10,15 +10,19 @@ export const ExpandIconBtn = props => (
   </Button>
 );
 
-export const XIconBtn = props => (
-  <Button
-    aria-label={props['aria-label']}
-    data-testid={props['data-testid']}
-    onClick={props.onClick}
-  >
-    <X />
-  </Button>
-);
+export const XIconBtn = props => {
+  const { onClick } = props;
+
+  return (
+    <Button
+      aria-label={props['aria-label']}
+      data-testid={props['data-testid']}
+      onClick={onClick}
+    >
+      <X />
+    </Button>
+  );
+};
 
 ExpandIconBtn.propTypes = {
   'aria-label': PropTypes.string,
@@ -32,25 +36,25 @@ XIconBtn.propTypes = {
 };
 
 const Button = styled.button`
-  border: 1px solid rgb(117, 117, 117);
-  height: 22px;
-  width: 22px;
+  background-color: ${props => props.theme.background.tertiary};
+  border-radius: ${props => props.theme.borderRadius.primary};
+  border: 1px solid ${props => props.theme.border.secondary};
   cursor: pointer;
+  height: 22px;
   padding: 2px;
-  background-color: rgb(235, 245, 255);
   vertical-align: middle;
-  border-radius: 25%;
+  width: 22px;
 
   :hover {
-    background-color: #c8dcf0;
-  }
-
-  :active {
     padding: 1px;
   }
 
+  :active {
+    padding: 2px;
+  }
+
   > svg {
-    fill: #1890ff;
-    margin: 3px;
+    fill: ${props => props.theme.fill.secondary};
+    margin: 2px;
   }
 `;

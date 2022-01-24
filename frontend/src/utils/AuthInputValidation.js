@@ -7,7 +7,7 @@ import {
   usernameMaxLength,
   passwordMinLength,
   passwordMaxLength
-} from '../config.js';
+} from '../constants/config';
 
 /* Username */
 

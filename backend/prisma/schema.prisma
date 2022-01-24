@@ -1,0 +1,57 @@
+// https://pris.ly/d/prisma-schema
+
+// Initialize database migrations:
+// npx prisma migrate dev --name init
+
+// Whenever this files changes:
+// Create a migration from changes in Prisma schema
+// npx prisma migrate dev --name some-update
+
+// Generate client if needed:
+// * prisma migrate does this automatically
+// npx prisma generate
+
+// Seed database:
+// npm run seed
+
+// ----- Configuration -----
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+// ----- Data models -----
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id                   String    @id @default(cuid())
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  removedAt            DateTime?
+  email                String    @unique
+  password             String
+  role                 Role      @default(USER)
+  resetPassToken       String?   @unique
+  resetPassTokenExpiry DateTime?
+  ideas                Idea[]
+}
+
+model Idea {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  removedAt DateTime?
+  content   String
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String
+}

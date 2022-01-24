@@ -1,8 +1,8 @@
-import { AuthenticationError } from 'apollo-server-express';
+import { ForbiddenError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
 // import Iron from '@hapi/iron';
 
-import { JWToptions } from '../config';
+import { JWToptions } from '../constants/config.js';
 
 const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 
@@ -14,6 +14,8 @@ export const createAccessToken = payload => {
   return jwtAccessToken;
 };
 
+//! TODO: https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/
+
 export const verifyAccessToken = accessToken => {
   try {
     // const payload = await Iron.unseal(accessToken, secret, Iron.defaults);
@@ -24,9 +26,9 @@ export const verifyAccessToken = accessToken => {
     // Return payload
     return payload;
   } catch (error) {
-    console.log('verifyAccessToken error: ', error);
+    console.log('accessToken verifyAccessToken error: ', error);
 
     // If not, throw error
-    throw new AuthenticationError('user.invalidToken');
+    throw new ForbiddenError(error.message);
   }
 };

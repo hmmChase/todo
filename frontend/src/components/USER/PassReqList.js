@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { passwordRequirements } from '../../config';
+import { passwordRequirements } from '../../constants/config';
 
 const PassReqList = () => {
   const reqList = passwordRequirements.reqs.map((req, index) => (
@@ -19,7 +19,7 @@ const PassReqList = () => {
 export default PassReqList;
 
 const PassListContainer = styled.div`
-  /* display: inline-block; */
+  margin-bottom: 0.5rem;
 `;
 
 const PassListTitle = styled.p`
