@@ -3,7 +3,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 import { siteTitle } from '../../constants/config';
-import Header from '../SECTIONS/HEADER/Header';
+import Header from '../SECTIONS/Header/Header';
 import BackButton from '../OTHER/BackButton';
 import Footer from '../SECTIONS/Footer';
 
