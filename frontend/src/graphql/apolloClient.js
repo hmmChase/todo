@@ -6,7 +6,7 @@ import { onError } from '@apollo/client/link/error';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 
-import { baseUrl } from '../constants/config';
+import { backendUrl } from '../constants/config';
 import cache from './cache';
 import typeDefs from './typeDefs';
 
@@ -28,7 +28,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: `${baseUrl}/gql`,
+  uri: `${backendUrl}/gql`,
 
   credentials: 'include'
 });
