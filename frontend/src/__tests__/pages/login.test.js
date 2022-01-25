@@ -4,7 +4,7 @@ import {
   fireEvent,
   waitFor
 } from '../../utils/test-utils';
-import LogInPage from '../login';
+import LogInPage from '../../pages/login';
 import { LOG_IN } from '../../graphql/queries/user';
 import cache, { isLoggedInVar } from '../../graphql/cache';
 

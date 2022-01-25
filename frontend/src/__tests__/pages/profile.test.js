@@ -1,5 +1,5 @@
 import { renderApollo, cleanup, waitFor } from '../../utils/test-utils';
-import AccountPage from '../account';
+import AccountPage from '../../pages/account';
 import { CURRENT_USER } from '../../graphql/queries/user';
 
 const mockIdea = {
