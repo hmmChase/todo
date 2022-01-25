@@ -1,6 +1,8 @@
-const production = process.env.NODE_ENV === 'production';
-
 export const siteTitle = 'hmmStart';
+
+export const production =
+  process.env.VERCEL_ENV === 'production' ||
+  process.env.NODE_ENV === 'production';
 
 const backendUrlProd = 'https://hmm-start-backend.vercel.app';
 
