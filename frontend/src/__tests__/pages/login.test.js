@@ -2,11 +2,11 @@ import {
   renderApollo,
   cleanup,
   fireEvent,
-  waitForElement
-} from '../../test-utils';
-import LogInPage from './login';
+  waitFor
+} from '../../utils/test-utils';
+import LogInPage from '../../pages/login';
 import { LOG_IN } from '../../graphql/queries/user';
-import { cache, isLoggedInVar } from '../../graphql/cache';
+import cache, { isLoggedInVar } from '../../graphql/cache';
 
 describe('Login Page', () => {
   // automatically unmount and cleanup DOM after the test is finished.
@@ -42,7 +42,7 @@ describe('Login Page', () => {
     fireEvent.click(getByText(/log in/i));
 
     // login is done if loader is gone
-    await waitForElement(() => getByText(/log in/i));
+    await waitFor(() => getByText(/log in/i));
 
     expect(isLoggedInVar()).toBeTruthy();
   });
