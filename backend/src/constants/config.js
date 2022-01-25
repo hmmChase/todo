@@ -6,6 +6,8 @@ export const production =
 
 export const frontendUrlProd = 'https://hmm-start.vercel.app';
 
+export const frontendUrlPrev = 'https://hmm-start-git-dev-hmmchase.vercel.app/';
+
 export const frontendUrlDev = 'http://localhost:1337';
 
 export const deployedUrl = process.env.VERCEL_URL;

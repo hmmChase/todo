@@ -8,6 +8,8 @@ const isLoggedIn = headers => {
     process.env.ACCESS_TOKEN_SECRET
   );
 
+  console.log(' process.env.VERCEL_ENV:', process.env.VERCEL_ENV);
+
   // If cookie header present
   if (headers && headers.cookie) {
     // Parse Access token

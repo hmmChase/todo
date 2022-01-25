@@ -6,6 +6,8 @@ export const production =
 
 const backendUrlProd = 'https://hmm-start-backend.vercel.app';
 
+const backendUrlPrev = 'https://hmm-start-backend-git-dev-hmmchase.vercel.app';
+
 const backendUrlDev = 'http://localhost:8008';
 
 export const baseUrl = production ? backendUrlProd : backendUrlDev;

@@ -57,6 +57,8 @@ app.use(logger(production ? 'combined' : 'dev'));
 
 app.use(router);
 
+console.log(' process.env.VERCEL_ENV:', process.env.VERCEL_ENV);
+
 // // catch 404 and forward to error handler
 // app.use((req, res, next) => next(createError(404)));
 
