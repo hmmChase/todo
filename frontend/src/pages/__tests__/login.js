@@ -2,7 +2,8 @@ import {
   renderApollo,
   cleanup,
   fireEvent,
-  waitForElement
+  waitForElement,
+  expect
 } from '../../utils/test-utils';
 import LogInPage from '../login';
 import { LOG_IN } from '../../graphql/queries/user';
