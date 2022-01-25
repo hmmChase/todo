@@ -2,7 +2,7 @@ import {
   renderApollo,
   cleanup,
   fireEvent,
-  waitForElement,
+  waitFor,
   expect
 } from '../../utils/test-utils';
 import LogInPage from '../login';
@@ -43,7 +43,7 @@ describe('Login Page', () => {
     fireEvent.click(getByText(/log in/i));
 
     // login is done if loader is gone
-    await waitForElement(() => getByText(/log in/i));
+    await waitFor(() => getByText(/log in/i));
 
     expect(isLoggedInVar()).toBeTruthy();
   });

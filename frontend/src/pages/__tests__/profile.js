@@ -1,4 +1,4 @@
-import { renderApollo, cleanup, waitForElement } from '../../utils/test-utils';
+import { renderApollo, cleanup, waitFor } from '../../utils/test-utils';
 import AccountPage from '../account';
 import { CURRENT_USER } from '../../graphql/queries/user';
 
@@ -30,6 +30,6 @@ describe('Account Page', () => {
     const { getByText } = renderApollo(<AccountPage />, { mocks });
 
     // if the account renders, it will have the list of missions booked
-    await waitForElement(() => getByText(/test mission/i));
+    await waitFor(() => getByText(/test mission/i));
   });
 });
