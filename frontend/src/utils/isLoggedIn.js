@@ -3,6 +3,11 @@ import jwt from 'jsonwebtoken';
 const isLoggedIn = headers => {
   const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 
+  console.log(
+    'process.env.ACCESS_TOKEN_SECRET:',
+    process.env.ACCESS_TOKEN_SECRET
+  );
+
   // If cookie header present
   if (headers && headers.cookie) {
     // Parse Access token
