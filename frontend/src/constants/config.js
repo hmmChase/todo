@@ -8,11 +8,13 @@ const backendUrlDev = 'http://localhost:8008';
 const backendUrlPrev = 'https://hmm-start-backend-git-dev-hmmchase.vercel.app';
 const backendUrlProd = 'https://hmm-start-backend.vercel.app';
 
-export const backendUrl = development
-  ? backendUrlDev
-  : preview
-  ? backendUrlPrev
-  : production && backendUrlProd;
+export const backendUrl = production ? backendUrlProd : backendUrlDev;
+
+// export const backendUrl = development
+//   ? backendUrlDev
+//   : preview
+//   ? backendUrlPrev
+//   : production && backendUrlProd;
 
 export const ideasPerPage = 2;
 

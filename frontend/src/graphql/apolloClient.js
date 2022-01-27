@@ -4,7 +4,9 @@ import { useMemo } from 'react';
 import { ApolloClient, HttpLink, from } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import merge from 'deepmerge';
-import isEqual from 'lodash/isEqual';
+import isEqual from 'lodash.isequal';
+
+// import { concatPagination } from '@apollo/client/utilities';
 
 import { backendUrl } from '../constants/config';
 import cache from './cache';
@@ -37,17 +39,15 @@ const link = from([errorLink, httpLink]);
 
 const createApolloClient = () =>
   new ApolloClient({
+    ssrMode: server,
+
+    link,
+
     cache,
 
     typeDefs,
 
-    link,
-
-    // headers: {
-    //   authorization: localStorage.getItem('at') || ''
-    // },
-
-    ssrMode: server,
+    // headers: { authorization: localStorage.getItem('at') || '' },
 
     connectToDevTools: process.env.NODE_ENV === 'development'
   });
