@@ -18,8 +18,6 @@ import Ideas from '../components/IDEA/Ideas';
 const IndexPage = () => {
   const [errorMsg, setErrorMsg] = useState();
 
-  console.log('process.env.VERCEL_ENV:', process.env.VERCEL_ENV);
-
   // const router = useRouter();
 
   const onError = error => {

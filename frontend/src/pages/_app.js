@@ -21,6 +21,9 @@ import theme from '../styles/theme';
 const MyApp = props => {
   const { Component, pageProps } = props;
 
+  console.log('process.env.VERCEL_ENV:', process.env.VERCEL_ENV);
+  console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
+
   const apolloClient = useApollo(pageProps);
 
   // console.log('apolloClient cache: ', apolloClient.cache.data.data);
