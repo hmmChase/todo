@@ -4,9 +4,11 @@ import { useMemo } from 'react';
 import { ApolloClient, HttpLink, from } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import merge from 'deepmerge';
-import isEqual from 'lodash/isEqual';
+import isEqual from 'lodash.isequal';
 
-import { baseUrl } from '../constants/config';
+// import { concatPagination } from '@apollo/client/utilities';
+
+import { backendUrl } from '../constants/config';
 import cache from './cache';
 import typeDefs from './typeDefs';
 
@@ -28,7 +30,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: `${baseUrl}/gql`,
+  uri: `${backendUrl}/gql`,
 
   credentials: 'include'
 });
@@ -37,17 +39,15 @@ const link = from([errorLink, httpLink]);
 
 const createApolloClient = () =>
   new ApolloClient({
+    ssrMode: server,
+
+    link,
+
     cache,
 
     typeDefs,
 
-    link,
-
-    // headers: {
-    //   authorization: localStorage.getItem('at') || ''
-    // },
-
-    ssrMode: server,
+    // headers: { authorization: localStorage.getItem('at') || '' },
 
     connectToDevTools: process.env.NODE_ENV === 'development'
   });

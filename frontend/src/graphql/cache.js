@@ -4,6 +4,8 @@
 import { makeVar } from '@apollo/client';
 import { InMemoryCache, defaultDataIdFromObject } from '@apollo/client/cache';
 
+// import { concatPagination } from '@apollo/client/utilities';
+
 const serverSide = typeof window === 'undefined';
 
 let isLoggedInVar = makeVar(false);
@@ -50,6 +52,8 @@ const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
+        // allPosts: concatPagination(),
+
         isLoggedIn: {
           read() {
             return isLoggedInVar();

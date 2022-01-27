@@ -4,6 +4,7 @@ import { ApolloServer } from 'apollo-server-express';
 
 import prisma from '../../prisma/prisma.cjs';
 import schema from './schema.js';
+
 // import { subscriptionServer } from '../app';
 
 const apolloServer = new ApolloServer({

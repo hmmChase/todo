@@ -1,12 +1,20 @@
-const production = process.env.NODE_ENV === 'production';
-
 export const siteTitle = 'hmmStart';
 
-const backendUrlProd = 'https://hmm-start-backend.vercel.app';
+const development = process.env.NODE_ENV === 'development';
+const preview = process.env.VERCEL_ENV === 'preview';
+const production = process.env.VERCEL_ENV === 'production';
 
 const backendUrlDev = 'http://localhost:8008';
+const backendUrlPrev = 'https://hmm-start-backend-git-dev-hmmchase.vercel.app';
+const backendUrlProd = 'https://hmm-start-backend.vercel.app';
 
-export const baseUrl = production ? backendUrlProd : backendUrlDev;
+export const backendUrl = production ? backendUrlProd : backendUrlDev;
+
+// export const backendUrl = development
+//   ? backendUrlDev
+//   : preview
+//   ? backendUrlPrev
+//   : production && backendUrlProd;
 
 export const ideasPerPage = 2;
 
