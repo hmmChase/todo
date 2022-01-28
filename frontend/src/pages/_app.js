@@ -28,7 +28,10 @@ const MyApp = props => {
     process.env.NEXT_PUBLIC_VERCEL_ENV
   );
 
-  console.log('NEXT_PUBLIC_VERCEL_URL:', NEXT_PUBLIC_VERCEL_URL);
+  console.log(
+    'process.env.NEXT_PUBLIC_VERCEL_URL:',
+    process.env.NEXT_PUBLIC_VERCEL_URL
+  );
 
   const apolloClient = useApollo(pageProps);
 
