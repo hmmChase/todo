@@ -1,23 +1,19 @@
 export const siteTitle = 'hmmStart';
 
-const development = process.env.NODE_ENV === 'development';
 // https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser
+const development = process.env.NODE_ENV === 'development';
 const preview = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
-const production =
-  process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ||
-  process.env.NODE_ENV === 'production';
+const production = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production';
 
 const backendUrlDev = 'http://localhost:8008';
 const backendUrlPrev = 'https://hmm-start-backend-git-dev-hmmchase.vercel.app';
 const backendUrlProd = 'https://hmm-start-backend.vercel.app';
 
-export const backendUrl = production ? backendUrlProd : backendUrlDev;
-
-// export const backendUrl = development
-//   ? backendUrlDev
-//   : preview
-//   ? backendUrlPrev
-//   : production && backendUrlProd;
+export const backendUrl = development
+  ? backendUrlDev
+  : preview
+  ? backendUrlPrev
+  : production && backendUrlProd;
 
 export const ideasPerPage = 2;
 
