@@ -3,7 +3,9 @@ export const siteTitle = 'hmmStart';
 const development = process.env.NODE_ENV === 'development';
 // https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser
 const preview = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
-const production = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production';
+const production =
+  process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ||
+  process.env.NODE_ENV === 'production';
 
 const backendUrlDev = 'http://localhost:8008';
 const backendUrlPrev = 'https://hmm-start-backend-git-dev-hmmchase.vercel.app';
