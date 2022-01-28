@@ -12,7 +12,7 @@ export const cookieOptions = {
   secure: production,
   sameSite: production ? 'none' : 'strict', // production is cross-site
   // path: '/gql', // use '/' if cookie not showing in chrome
-  domain: '', //  hmm-start-backend.vercel.app
-  // domain: production ? `hmm-start.vercel.app:${port}` : 'localhost'
+  domain: '', //  hmmstart-backend.vercel.app
+  // domain: production ? `hmmstart.vercel.app:${port}` : 'localhost'
   sameParty: true // allow cookies to be set by same origin
 };

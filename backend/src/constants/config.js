@@ -5,8 +5,8 @@ const preview = process.env.VERCEL_ENV === 'preview';
 export const production = process.env.VERCEL_ENV === 'production';
 
 const frontendUrlDev = 'http://localhost:1337';
-const frontendUrlPrev = 'https://hmm-start-git-dev-hmmchase.vercel.app';
-const frontendUrlProd = 'https://hmm-start.vercel.app';
+const frontendUrlPrev = 'https://hmmstart-git-dev-hmmchase.vercel.app';
+const frontendUrlProd = 'https://hmmstart.vercel.app';
 
 export const deployedUrl = process.env.VERCEL_URL;
 
