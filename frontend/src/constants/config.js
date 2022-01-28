@@ -6,8 +6,8 @@ const preview = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 const production = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production';
 
 const backendUrlDev = 'http://localhost:8008';
-const backendUrlPrev = 'https://hmm-start-backend-git-dev-hmmchase.vercel.app';
-const backendUrlProd = 'https://hmm-start-backend.vercel.app';
+const backendUrlPrev = 'https://hmmstart-backend-git-dev-hmmchase.vercel.app';
+const backendUrlProd = 'https://hmmstart-backend.vercel.app';
 
 export const backendUrl = development
   ? backendUrlDev
