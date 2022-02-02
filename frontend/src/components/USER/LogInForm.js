@@ -27,28 +27,26 @@ const LogInForm = props => {
 
   const router = useRouter();
 
-  const apolloClient = useApolloClient();
+  // const apolloClient = useApolloClient();
 
   const update = (cache, data) => {
-    const isLoggedIn = !!data?.logIn?.user?.id;
-
-    cache.writeQuery({
-      id: 'isLoggedIn',
-      query: IS_LOGGED_IN,
-      data: { isLoggedIn }
-    });
+    // const isLoggedIn = !!data?.logIn?.user?.id;
+    // cache.writeQuery({
+    //   id: 'isLoggedIn',
+    //   query: IS_LOGGED_IN,
+    //   data: { isLoggedIn }
+    // });
   };
 
   const onCompleted = async data => {
-    apolloClient.resetStore();
+    // apolloClient.resetStore();
 
-    localStorage.setItem('userId', data.logIn.user.id);
+    // localStorage.setItem('userId', data.logIn.user.id);
 
     isLoggedInVar(true);
 
-    // if (close) close();
-    // else
-    await router.push('/');
+    if (close) close();
+    else await router.push('/');
   };
 
   const onError = error => {

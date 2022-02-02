@@ -1,10 +1,8 @@
-const { PrismaClient } = require('@prisma/client');
-const bcryptjs = require('bcryptjs');
-
 // 'npm run seed' to seed
-//? npx prisma db seed --schema=./src/prisma/schema.prisma --preview-feature
 
-const prisma = new PrismaClient();
+import bcryptjs from 'bcryptjs';
+
+import prisma from './prisma.js';
 
 const createIdeas = () => {
   const amtIdeas = 10;

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 import { siteTitle } from '../../constants/config';
+import { isLoggedInVar } from '../../graphql/cache';
 import Header from '../SECTIONS/Header/Header';
 import BackButton from '../OTHER/BackButton';
 import Footer from '../SECTIONS/Footer';
@@ -18,6 +19,8 @@ const Layout = props => {
     children
   } = props;
 
+  isLoggedInVar(isLoggedIn);
+
   // const { width } = useWindowSize();
 
   return (
@@ -32,7 +35,7 @@ const Layout = props => {
         {hasHeader && (
           <HeaderWrap>
             <MaxWidth>
-              <Header isLoggedIn={isLoggedIn} />
+              <Header />
             </MaxWidth>
           </HeaderWrap>
         )}

@@ -3,81 +3,76 @@
 
 import { makeVar } from '@apollo/client';
 import { InMemoryCache, defaultDataIdFromObject } from '@apollo/client/cache';
-
 // import { concatPagination } from '@apollo/client/utilities';
 
-const serverSide = typeof window === 'undefined';
+// const serverSide = typeof window === 'undefined';
 
 let isLoggedInVar = makeVar(false);
 
-if (!serverSide && window.document)
-  isLoggedInVar = makeVar(!!localStorage.getItem('token'));
+// if (!serverSide && window.document)
+//   isLoggedInVar = makeVar(!!localStorage.getItem('token'));
 
 export { isLoggedInVar };
 
-const cache = new InMemoryCache({
-  // resultCaching: true,
-  // freezeResults: true,
+const cache = new InMemoryCache({});
 
-  // dataIdFromObject(object) {
-  //   switch (object.__typename) {
-  //     case 'Idea':
-  //       return `${object.__typename}:${object.slug}`;
-  //     case 'User':
-  //       return `${object.__typename}:${object.email}`;
-  //     default:
-  //       return defaultDataIdFromObject(object);
-  //   }
-  // },
+// const cache = new InMemoryCache({
+//   // resultCaching: true,
+//   // freezeResults: true,
 
-  // cacheRedirects: {
-  //   Query: {
-  //     articleBySlug(_root, args, context) {
-  //       return context.getCacheKey({ __typename: 'Article', slug: args.slug });
-  //     },
+//   // dataIdFromObject(object) {
+//   //   switch (object.__typename) {
+//   //     case 'Idea':
+//   //       return `${object.__typename}:${object.slug}`;
+//   //     case 'User':
+//   //       return `${object.__typename}:${object.email}`;
+//   //     default:
+//   //       return defaultDataIdFromObject(object);
+//   //   }
+//   // },
 
-  //     comment(_root, args, context) {
-  //       return context.getCacheKey({ __typename: 'Comment', id: args.id });
-  //     },
+//   // cacheRedirects: {
+//   //   Query: {
+//   //     articleBySlug(_root, args, context) {
+//   //       return context.getCacheKey({ __typename: 'Article', slug: args.slug });
+//   //     },
 
-  //     userByEmail(_root, args, context) {
-  //       return context.getCacheKey({
-  //         __typename: 'User',
-  //         username: args.email
-  //       });
-  //     }
-  //   }
-  // },
+//   //     comment(_root, args, context) {
+//   //       return context.getCacheKey({ __typename: 'Comment', id: args.id });
+//   //     },
 
-  typePolicies: {
-    Query: {
-      fields: {
-        // allPosts: concatPagination(),
+//   //     userByEmail(_root, args, context) {
+//   //       return context.getCacheKey({
+//   //         __typename: 'User',
+//   //         username: args.email
+//   //       });
+//   //     }
+//   //   }
+//   // },
 
-        isLoggedIn: {
-          read() {
-            return isLoggedInVar();
-          }
-        }
-
-        // ideas: {
-        //   keyArgs: false,
-
-        //   merge(existing, incoming) {
-        //     let ideas = [];
-
-        //     if (existing && existing.ideas)
-        //       ideas = ideas.concat(existing.ideas);
-
-        //     if (incoming && incoming.ideas)
-        //       ideas = ideas.concat(incoming.ideas);
-
-        //     return { ...incoming, ideas };
-        //   }
-        // }
-      }
-    }
-  }
-});
+//   typePolicies: {
+//     Query: {
+//       fields: {
+//         // allIdeas: concatPagination(),
+//         // isLoggedIn: {
+//         //   read() {
+//         //     return isLoggedInVar();
+//         //   }
+//         // }
+//         // ideas: {
+//         //   keyArgs: false,
+//         //   merge(existing, incoming) {
+//         //     let ideas = [];
+//         //     if (existing && existing.ideas)
+//         //       ideas = ideas.concat(existing.ideas);
+//         //     if (incoming && incoming.ideas)
+//         //       ideas = ideas.concat(incoming.ideas);
+//         //     return { ...incoming, ideas };
+//         //   }
+//         // }
+//       }
+//     }
+//   }
+// });
 
 export default cache;

@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
 
 import { siteTitle } from '../../../constants/config';
+import { isLoggedInVar } from '../../../graphql/cache';
 import Ideabox from '../../../../public/images/ideabox.png';
 import UserIcon from '../../OTHER/UserIcon';
 import HeaderLoggedOut from './HeaderLoggedOut';
@@ -11,8 +11,8 @@ import CreateIdea from '../../IDEA/CreateIdea';
 // import NavBar from '../NavBar';
 // import HeaderUsername from './HeaderUsername';
 
-const Header = props => {
-  const { isLoggedIn } = props;
+const Header = () => {
+  const isLoggedIn = isLoggedInVar();
 
   const router = useRouter();
 
@@ -47,10 +47,6 @@ const Header = props => {
       </div>
     </Container>
   );
-};
-
-Header.propTypes = {
-  isLoggedIn: PropTypes.bool
 };
 
 export default Header;

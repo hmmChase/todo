@@ -1,9 +1,5 @@
-/*
-
-https://expressjs.com/en/advanced/best-practice-security.html
-https://expressjs.com/en/advanced/best-practice-performance.html
-
-*/
+// https://expressjs.com/en/advanced/best-practice-security.html
+// https://expressjs.com/en/advanced/best-practice-performance.html
 
 const production = process.env.NODE_ENV === 'production';
 

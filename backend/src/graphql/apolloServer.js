@@ -2,7 +2,7 @@
 
 import { ApolloServer } from 'apollo-server-express';
 
-import prisma from '../../prisma/prisma.cjs';
+import prisma from '../../prisma/prisma.js';
 import schema from './schema.js';
 
 // import { subscriptionServer } from '../app';
