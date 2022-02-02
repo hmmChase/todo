@@ -2,12 +2,14 @@ import { ForbiddenError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
 // import Iron from '@hapi/iron';
 
-import { JWToptions } from '../constants/config.js';
+import { accessTokenExpiryTime } from '../constants/config.js';
 
 const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 
 export const createAccessToken = payload => {
   // const ironAT = await Iron.seal(payload, secret, Iron.defaults);
+
+  const JWToptions = { expiresIn: accessTokenExpiryTime };
 
   const jwtAccessToken = jwt.sign(payload, secret, JWToptions);
 

@@ -18,9 +18,7 @@ export const frontendUrl = development
 
 export const graphqlPath = '/gql';
 
-const accessTokenExpiryTime = '1w';
-
-export const JWToptions = { expiresIn: accessTokenExpiryTime };
+export const accessTokenExpiryTime = '1w';
 
 export const passwordMinLength = 8;
 
