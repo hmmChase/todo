@@ -5,6 +5,12 @@ import bcryptjs from 'bcryptjs';
 
 import { createAccessToken } from './accessToken.js';
 
+const userClientCleaner = user => ({
+  id: user.id,
+  email: user.email,
+  role: user.role
+});
+
 export const createUserObj = userRecord => {
   // Clean user data for client
   const clientUserData = userClientCleaner(userRecord);
@@ -16,7 +22,7 @@ export const createUserObj = userRecord => {
   return userObj;
 };
 
-export const createPayload = userRecord => {
+const createPayload = userRecord => {
   // Create payload for access token
   const payload = { userId: userRecord.id };
 
@@ -50,9 +56,3 @@ export const passwordCompare = async (inputPassword, userPassword) => {
   if (!isCorrectPass)
     throw new UserInputError('user.error.passwordCompare.notMatch');
 };
-
-const userClientCleaner = user => ({
-  id: user.id,
-  email: user.email,
-  role: user.role
-});
