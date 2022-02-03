@@ -28,4 +28,6 @@ export const cryptoRandomBytesSize = 16;
 
 export const passwordHashSaltRounds = 10;
 
+export const cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
+
 export const resetPassTokenExpiryTime = Date.now() + 1000 * 60 * 60; // 1 hour
