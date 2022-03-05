@@ -25,14 +25,14 @@ const userResolver = {
       const { id } = args;
 
       // Check if missing args
-      if (!id) throw new UserInputError('user.error.user.missing');
+      if (!id) throw new UserInputError('error.user.user.missing');
 
       // Convert string to number
       const numId = Number(id);
 
       // Type check
       if (typeof numId !== 'number')
-        throw new UserInputError('user.error.user.invalid');
+        throw new UserInputError('error.user.user.invalid');
 
       try {
         // Find user matching user id
@@ -141,7 +141,7 @@ const userResolver = {
         });
 
         // If user not found, return error
-        if (!userRecord) throw new UserInputError('user.error.logIn.notFound');
+        if (!userRecord) throw new UserInputError('error.user.email.notFound');
 
         // Check if input password matches users password
         await passwordCompare(password, userRecord.password);
@@ -190,7 +190,7 @@ const userResolver = {
         });
 
         // If user found, return error
-        if (foundUser) throw new UserInputError('user.error.createUser.exists');
+        if (foundUser) throw new UserInputError('error.user.createUser.exists');
 
         /**
         // Encrypt password
@@ -271,7 +271,7 @@ const userResolver = {
       const { resetPassToken, newPassword } = args;
 
       if (!resetPassToken || !newPassword)
-        throw new UserInputError('user.error.changePassword.missing');
+        throw new UserInputError('error.user.changePassword.missing');
 
       // Normalize & validate inputs
       const { password } = validateInputs({ password: newPassword });
@@ -292,7 +292,7 @@ const userResolver = {
 
         // If user not found, return error
         if (!foundUser)
-          throw new UserInputError('user.error.changePassword.notFound');
+          throw new UserInputError('error.user.changePassword.notFound');
 
         // Check if reset password token is expired
         validateResetPassTokenExpiry(foundUser.resetPassTokenExpiry);

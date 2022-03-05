@@ -53,6 +53,5 @@ export const passwordCompare = async (inputPassword, userPassword) => {
 
   const isCorrectPass = await bcryptjs.compare(inputPassword, userPassword);
 
-  if (!isCorrectPass)
-    throw new UserInputError('user.error.passwordCompare.notMatch');
+  if (!isCorrectPass) throw new UserInputError('error.user.password.invalid');
 };

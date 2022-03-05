@@ -21,5 +21,5 @@ export const validateResetPassTokenExpiry = resetPassTokenExpiry => {
   const isTokenExpired = Date.now() > resetPassTokenExpiry;
 
   if (isTokenExpired)
-    throw new UserInputError('user.error.resetPass.tokenExpired');
+    throw new UserInputError('error.user.resetPass.tokenExpired');
 };

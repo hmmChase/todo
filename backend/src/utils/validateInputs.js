@@ -31,11 +31,11 @@ export const validateInputs = inputs => {
 
 const validateEmail = email => {
   // Check if missing args
-  if (!email) throw new UserInputError('user.error.validateEmail.missing');
+  if (!email) throw new UserInputError('error.user.validateEmail.missing');
 
   // Type check
   if (typeof email !== 'string')
-    throw new UserInputError('user.error.validateEmail.invalid');
+    throw new UserInputError('error.user.validateEmail.invalid');
 
   // Check if email is well-formed
   isEmailWellFormed(email);
@@ -46,7 +46,7 @@ const isEmailWellFormed = email => {
   const isvalid = isEmail.validate(email);
 
   if (!isvalid)
-    throw new UserInputError('user.error.isEmailWellFormed.invalid');
+    throw new UserInputError('error.user.isEmailWellFormed.invalid');
 };
 
 /** ----- Password ----- */
@@ -54,11 +54,11 @@ const isEmailWellFormed = email => {
 const validatePassword = password => {
   // Check if missing args
   if (!password)
-    throw new UserInputError('user.error.validatePassword.missing');
+    throw new UserInputError('error.user.validatePassword.missing');
 
   // Type check
   if (typeof password !== 'string')
-    throw new UserInputError('user.error.validatePassword.invalid');
+    throw new UserInputError('error.user.validatePassword.invalid');
 
   // Check if password is well-formed
   isPasswordWellFormed(password);
@@ -72,9 +72,9 @@ const isPasswordWellFormed = password => {
 
   const tooShort = password.length < passwordMinLength;
   if (tooShort)
-    throw new UserInputError('user.error.isPasswordWellFormed.tooShort');
+    throw new UserInputError('error.user.isPasswordWellFormed.tooShort');
 
   const tooLong = password.length > passwordMaxLength;
   if (tooLong)
-    throw new UserInputError('user.error.isPasswordWellFormed.tooLong');
+    throw new UserInputError('error.user.isPasswordWellFormed.tooLong');
 };

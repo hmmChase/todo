@@ -1,8 +1,8 @@
 import { passwordMinLength, passwordMaxLength } from './config';
 
 const displayMessages = {
-  user: {
-    error: {
+  error: {
+    user: {
       user: {
         missing: 'Error, try again',
         invalid: 'Error, try again'
@@ -12,12 +12,12 @@ const displayMessages = {
         exists: 'Incorrect email or password'
       },
 
-      logIn: {
+      email: {
         notFound: 'Incorrect email or password'
       },
 
-      passwordCompare: {
-        notMatch: 'Incorrect password'
+      password: {
+        invalid: 'Incorrect password'
       },
 
       changePassword: {
