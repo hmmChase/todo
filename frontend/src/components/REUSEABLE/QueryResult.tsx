@@ -1,12 +1,22 @@
+import type { ReactNode } from 'react';
+import { ApolloError } from '@apollo/client';
+
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Loader from '../OTHER/Loader';
-import DisplayStatus from '../REUSEABLE/DisplayStatus';
+import DisplayStatus from './DisplayStatus';
 
 // Conditionally renders Apollo hook states
 
-const QueryResult = props => {
+interface Props {
+  loading?: boolean;
+  error?: ApolloError;
+  data?: any;
+  children?: ReactNode;
+}
+
+const QueryResult = (props: Props) => {
   const { loading, error, data, children } = props;
 
   if (loading)

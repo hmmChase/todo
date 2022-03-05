@@ -23,7 +23,7 @@ const validationSchema = object().shape({
 const LogInForm = props => {
   const { close } = props;
 
-  const [errorMsg, setErrorMsg] = useState();
+  const [errorMsg, setErrorMsg] = useState<string | undefined>();
 
   const router = useRouter();
 

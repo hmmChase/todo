@@ -1,7 +1,17 @@
+import type { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { ApolloError } from '@apollo/client';
 
-const DisplayStatus = props => {
+type Status = 'info' | 'loading' | 'error' | 'success';
+
+interface Props {
+  children: ReactNode;
+  status: Status;
+  error?: ApolloError;
+}
+
+const DisplayStatus = (props: Props) => {
   const { children, status, error } = props;
 
   if (error && error.graphQLErrors && error.graphQLErrors.length)
@@ -27,7 +37,7 @@ const DisplayStatus = props => {
   if (error)
     return (
       <Span data-testid='errorMessage' status={status}>
-        'Opps, something went wrong.'
+        Opps, something went wrong.
       </Span>
     );
 

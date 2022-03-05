@@ -10,7 +10,7 @@ import { email } from '../../utils/AuthInputValidation';
 import graphQLErrors from '../../utils/graphQLErrors';
 import { REQ_PASS_RESET } from '../../graphql/queries/user';
 import FormInput from '../REUSEABLE/FormInput';
-import Button from '../../components/REUSEABLE/Button';
+import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const validationSchema = object().shape({ reqPassResetEmail: email });

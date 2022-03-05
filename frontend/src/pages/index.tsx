@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { NextPage, GetServerSideProps } from 'next';
+import { ApolloError, useQuery } from '@apollo/client';
+
+import type { ReactElement } from 'react';
 // import { useEffect } from 'react';
 // import Link from 'next/link';
 // import { useRouter } from 'next/router';
@@ -15,12 +18,12 @@ import Layout from '../components/LAYOUTS/Layout';
 import Ideas from '../components/IDEA/Ideas';
 // import { initializeApollo } from '../graphql/apolloClient';
 
-const IndexPage = () => {
-  const [errorMsg, setErrorMsg] = useState();
+const IndexPage: NextPage = () => {
+  const [errorMsg, setErrorMsg] = useState<string | undefined>();
 
   // const router = useRouter();
 
-  const onError = error => {
+  const onError = (error: ApolloError) => {
     console.log('IndexPage onError error: ', error);
 
     // Will set only UserInputError errors
@@ -52,19 +55,33 @@ const IndexPage = () => {
  getServerSideProps is also called on client side route changes
 */
 
-IndexPage.getLayout = page => (
-  <Layout
-    title='Home'
-    description='Home page'
-    isLoggedIn={page.props.isLoggedIn}
-    hasHeader
-    hasFooter
-  >
-    {page}
-  </Layout>
-);
+// IndexPage.getLayout = page => (
+//   <Layout
+//     title='Home'
+//     description='Home page'
+//     isLoggedIn={page.props.isLoggedIn}
+//     hasHeader
+//     hasFooter
+//   >
+//     {page}
+//   </Layout>
+// );
 
-export const getServerSideProps = async ctx => {
+IndexPage.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout
+      title='Home'
+      description='Home page'
+      isLoggedIn={page.props.isLoggedIn}
+      hasHeader
+      hasFooter
+    >
+      {page}
+    </Layout>
+  );
+};
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
   return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
 };
 
