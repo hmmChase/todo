@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import styled from 'styled-components';
 
-const HorizontalRule = props => {
+interface Props {
+  className?: string;
+}
+
+const HorizontalRule: FC<Props> = props => {
   const { className } = props;
 
   return <HR className={className} />;
-};
-
-HorizontalRule.propTypes = {
-  className: PropTypes.string
 };
 
 export default HorizontalRule;

@@ -1,5 +1,4 @@
-import { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import { FC, useState, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash.debounce';
 
@@ -8,7 +7,13 @@ import graphQLErrors from '../../../utils/graphQLErrors';
 import { UPDATE_IDEA } from '../../../graphql/queries/idea';
 import IdeaDetailContent from './IdeaDetailContent';
 
-const IdeaDetailUpdate = props => {
+interface Props {
+  content: string;
+  currentUserOwnsIdea?: boolean;
+  id: string;
+}
+
+const IdeaDetailUpdate: FC<Props> = props => {
   const { id, content, currentUserOwnsIdea } = props;
 
   const [text, setText] = useState(content);
@@ -49,12 +54,6 @@ const IdeaDetailUpdate = props => {
       currentUserOwnsIdea={currentUserOwnsIdea}
     />
   );
-};
-
-IdeaDetailUpdate.propTypes = {
-  content: PropTypes.string.isRequired,
-  currentUserOwnsIdea: PropTypes.bool,
-  id: PropTypes.string.isRequired
 };
 
 export default IdeaDetailUpdate;

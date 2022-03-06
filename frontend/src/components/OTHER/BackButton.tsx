@@ -1,11 +1,15 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
 import Button from '../REUSEABLE/Button';
 import Left from '../DESIGN/icons/Left';
 
-const BackButton = props => {
+interface Props {
+  className?: string;
+}
+
+const BackButton: FC<Props> = props => {
   const { className } = props;
 
   return (
@@ -18,10 +22,6 @@ const BackButton = props => {
       </div>
     </Link>
   );
-};
-
-BackButton.propTypes = {
-  className: PropTypes.string
 };
 
 export default BackButton;

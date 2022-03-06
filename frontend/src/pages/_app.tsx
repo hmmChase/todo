@@ -7,11 +7,29 @@ react=>proptype=>next=>apollo=>styled=>other
 config=>utils=>graphql=>other=>components
 */
 
-import { StrictMode, ReactNode } from 'react';
-import type { MyAppProps } from 'next/app';
+import { StrictMode } from 'react';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from 'styled-components';
+
+import { ReactNode } from 'react';
+import { AppPropsWithLayout } from 'next/app';
+// import type { MyAppProps } from 'next/app';
+
+// import { AppContext, AppInitialProps, AppLayoutProps } from 'next/app';
+// import type { NextComponentType } from 'next';
+
+// import type { AppProps } from 'next/app';
+// import { ReactNode } from 'react';
+// import { NextPage } from 'next';
+
+// type Page<P = {}> = NextPage<P> & {
+//   getLayout?: (page: ReactNode) => ReactNode;
+// };
+
+// type Props = AppProps & {
+//   Component: Page;
+// };
 
 import { siteTitle } from '../constants/config';
 import { useApollo } from '../graphql/apolloClient';
@@ -19,17 +37,24 @@ import reportWebVitals from '../reportWebVitals';
 import GlobalStyle from '../styles/global';
 import theme from '../styles/theme';
 
-const MyApp = (props: MyAppProps): JSX.Element => {
-  const { Component, pageProps } = props;
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+  // const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
+  //   Component,
+  //   pageProps
+  // }: AppLayoutProps) => {
+  // const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+  // const { Component, pageProps } = props;
 
   const apolloClient = useApollo(pageProps);
 
   // console.log('apolloClient cache: ', apolloClient.cache.data.data);
 
   // Use the layout defined at the page level, if available
+  // https://nextjs.org/docs/basic-features/layouts#per-page-layouts
   // https://github.com/vercel/next.js/tree/canary/examples/layout-component
-  const getLayout =
-    Component.getLayout || ((page: ReactNode): ReactNode => page);
+  // const getLayout = Component.getLayout ?? (page => page);
+  // const getLayout = Component.getLayout || (page => page);
+  const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
   return (
     <>

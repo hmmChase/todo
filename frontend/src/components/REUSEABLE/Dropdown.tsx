@@ -1,10 +1,15 @@
-import { useRef } from 'react';
-import PropTypes from 'prop-types';
+import { FC, ReactNode, useRef } from 'react';
 import styled from 'styled-components';
 
 import useOnClickOutside from '../../utils/useOnClickOutside';
 
-const Dropdown = props => {
+interface Props {
+  className?: string;
+  close: () => void;
+  children: ReactNode;
+}
+
+const Dropdown: FC<Props> = props => {
   const { className, close, children } = props;
 
   // Create a ref that we add to the element for which we want to detect outside clicks
@@ -18,12 +23,6 @@ const Dropdown = props => {
       {children}
     </Container>
   );
-};
-
-Dropdown.propTypes = {
-  children: PropTypes.element.isRequired,
-  className: PropTypes.string,
-  close: PropTypes.func.isRequired
 };
 
 export default Dropdown;

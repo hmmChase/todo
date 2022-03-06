@@ -1,12 +1,11 @@
 // https://github.com/vercel/next.js/tree/canary/examples/active-class-name
 
-import PropTypes from 'prop-types';
-import { Children, cloneElement } from 'react';
+import { FC, ReactNode, Children, cloneElement } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-const NavBar = () => (
+const NavBar: FC = () => (
   <nav>
     <UL>
       <li>
@@ -42,7 +41,14 @@ const NavBar = () => (
   </nav>
 );
 
-const ActiveLink = props => {
+interface Props {
+  children: ReactNode;
+  activeClassName?: string;
+  href?: string;
+  as?: string;
+}
+
+const ActiveLink: FC<Props> = props => {
   const { children, activeClassName, href, as } = props;
 
   const { asPath } = useRouter();
@@ -61,13 +67,6 @@ const ActiveLink = props => {
       {cloneElement(child, { className: className || null })}
     </Link>
   );
-};
-
-ActiveLink.propTypes = {
-  activeClassName: PropTypes.string,
-  as: PropTypes.string,
-  children: PropTypes.element.isRequired,
-  href: PropTypes.string
 };
 
 export default NavBar;

@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import styled from 'styled-components';
 
-const Loader = () => <Loaderr />;
+const Loader: FC = () => <Loaderr />;
 
 export default Loader;
 

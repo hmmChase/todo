@@ -1,12 +1,15 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { FC, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import graphQLErrors from '../../utils/graphQLErrors';
 import { REMOVE_IDEA } from '../../graphql/queries/idea';
 import { XIconBtn } from '../REUSEABLE/IconBtn';
 
-const RemoveIdea = props => {
+interface Props {
+  ideaId: string;
+}
+
+const RemoveIdea: FC<Props> = props => {
   const { ideaId } = props;
 
   const [errorMsg, setErrorMsg] = useState();
@@ -51,10 +54,6 @@ const RemoveIdea = props => {
   };
 
   return <XIconBtn aria-label='remove idea' onClick={handleClick} />;
-};
-
-RemoveIdea.propTypes = {
-  ideaId: PropTypes.string.isRequired
 };
 
 export default RemoveIdea;

@@ -1,9 +1,17 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import IdeaCard from './IdeaCard';
 
-const Ideas = props => {
+interface Props {
+  ideas: {
+    id: string;
+    author: { id: string };
+    content: string;
+  }[];
+}
+
+const Ideas: FC<Props> = props => {
   const { ideas } = props;
 
   const ideaCards = ideas.map(idea => (
@@ -19,16 +27,6 @@ const Ideas = props => {
   ));
 
   return <UL>{ideaCards}</UL>;
-};
-
-Ideas.propTypes = {
-  ideas: PropTypes.arrayOf(
-    PropTypes.shape({
-      author: PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired,
-      content: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired
-    }).isRequired
-  )
 };
 
 export default Ideas;

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import React, { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 
@@ -8,7 +8,17 @@ import Header from '../SECTIONS/Header/Header';
 import BackButton from '../OTHER/BackButton';
 import Footer from '../SECTIONS/Footer';
 
-const Layout = props => {
+interface Props {
+  title: string;
+  description: string;
+  children: ReactNode;
+  isLoggedIn: boolean;
+  hasBackButton?: boolean;
+  hasFooter?: boolean;
+  hasHeader?: boolean;
+}
+
+const Layout: FC<Props> = props => {
   const {
     isLoggedIn,
     title,
@@ -58,16 +68,6 @@ const Layout = props => {
       </Container>
     </>
   );
-};
-
-Layout.propTypes = {
-  children: PropTypes.element.isRequired,
-  description: PropTypes.string.isRequired,
-  hasBackButton: PropTypes.bool,
-  hasFooter: PropTypes.bool,
-  hasHeader: PropTypes.bool,
-  isLoggedIn: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired
 };
 
 export default Layout;

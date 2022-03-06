@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ import {
   IDEA_FIELDS
 } from '../../graphql/queries/idea';
 
-const CreateIdea = () => {
+const CreateIdea: FC = () => {
   const [errorMsg, setErrorMsg] = useState();
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);

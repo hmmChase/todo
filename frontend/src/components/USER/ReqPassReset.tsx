@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import Link from 'next/link';
 import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
@@ -15,7 +15,7 @@ import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 const validationSchema = object().shape({ reqPassResetEmail: email });
 
-const ReqPassReset = () => {
+const ReqPassReset: FC = () => {
   const [errorMsg, setErrorMsg] = useState();
 
   const onError = error => {

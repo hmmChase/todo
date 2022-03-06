@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -5,7 +6,7 @@ import LogInModal from '../../USER/LogInModal';
 import SignUpModal from '../../USER/SignUpModal';
 import Button from '../../REUSEABLE/Button';
 
-const HeaderLoggedOut = () => {
+const HeaderLoggedOut: FC = () => {
   const [modalDisplay, setModalDisplay] = useState(null);
 
   return (

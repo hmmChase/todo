@@ -1,9 +1,14 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import Link from 'next/link';
 
 import { ExpandIconBtn } from '../../REUSEABLE/IconBtn';
 
-const DetailIcon = props => {
+interface Props {
+  className?: string;
+  ideaId: string;
+}
+
+const DetailIcon: FC<Props> = props => {
   const { className, ideaId } = props;
 
   return (
@@ -13,11 +18,6 @@ const DetailIcon = props => {
       </div>
     </Link>
   );
-};
-
-DetailIcon.propTypes = {
-  className: PropTypes.string,
-  ideaId: PropTypes.string.isRequired
 };
 
 export default DetailIcon;

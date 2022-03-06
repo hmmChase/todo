@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -8,7 +8,12 @@ import {
 import BackButton from '../OTHER/BackButton';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
-const ResetPassError = props => {
+interface Props {
+  isTokenPresent: boolean;
+  isTokenExpired: boolean;
+}
+
+const ResetPassError: FC<Props> = props => {
   const { isTokenPresent, isTokenExpired } = props;
 
   return (
@@ -30,11 +35,6 @@ const ResetPassError = props => {
       )}
     </>
   );
-};
-
-ResetPassError.propTypes = {
-  isTokenExpired: PropTypes.bool.isRequired,
-  isTokenPresent: PropTypes.bool.isRequired
 };
 
 export default ResetPassError;

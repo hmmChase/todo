@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -16,12 +16,16 @@ import PassReqList from './PassReqList';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
+interface Props {
+  close?: () => void;
+}
+
 const validationSchema = object().shape({
   signUpEmail: email,
   signUpPassword: password
 });
 
-const SignUpForm = props => {
+const SignUpForm: FC<Props> = props => {
   const { close } = props;
 
   const [errorMsg, setErrorMsg] = useState();
@@ -152,10 +156,6 @@ const SignUpForm = props => {
       </Link>
     </Form>
   );
-};
-
-SignUpForm.propTypes = {
-  close: PropTypes.func
 };
 
 export default SignUpForm;

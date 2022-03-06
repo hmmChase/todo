@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
@@ -8,7 +8,13 @@ import { CURRENT_USER } from '../../graphql/queries/user';
 import DetailIcon from './DETAIL/DetailIcon';
 import RemoveIdea from './RemoveIdea';
 
-const IdeaCard = props => {
+interface Props {
+  authorId: string;
+  content: string;
+  ideaId: string;
+}
+
+const IdeaCard: FC<Props> = props => {
   const { authorId, content, ideaId } = props;
 
   const [errorMsg, setErrorMsg] = useState();

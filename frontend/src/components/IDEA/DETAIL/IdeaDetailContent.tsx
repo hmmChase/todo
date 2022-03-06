@@ -1,11 +1,16 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import { FC, useState, useEffect, useRef, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 
 import useKeypress from '../../../utils/useKeypress';
 import useOnClickOutside from '../../../utils/useOnClickOutside';
 
-const IdeaDetailContent = props => {
+interface Props {
+  currentUserOwnsIdea?: boolean;
+  onSetText: (text: string) => void;
+  text: string;
+}
+
+const IdeaDetailContent: FC<Props> = props => {
   const { onSetText, text, currentUserOwnsIdea } = props;
 
   const [isInputActive, setIsInputActive] = useState(false);
@@ -64,9 +69,10 @@ const IdeaDetailContent = props => {
     [setInputValue]
   );
 
-  const handleClick = useCallback(() => setIsInputActive(true), [
-    setIsInputActive
-  ]);
+  const handleClick = useCallback(
+    () => setIsInputActive(true),
+    [setIsInputActive]
+  );
 
   // currentUserOwnsIdea is passed in from the parent component
 
@@ -89,12 +95,6 @@ const IdeaDetailContent = props => {
     );
 
   return <p>{text}</p>;
-};
-
-IdeaDetailContent.propTypes = {
-  currentUserOwnsIdea: PropTypes.bool,
-  onSetText: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired
 };
 
 export default IdeaDetailContent;

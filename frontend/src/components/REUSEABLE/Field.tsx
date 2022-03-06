@@ -1,6 +1,13 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 
-const Field = props => {
+interface Props {
+  label?: string;
+  name: string;
+  required?: boolean;
+  type: string;
+}
+
+const Field: FC<Props> = props => {
   const { name, label, required, type } = props;
 
   return (
@@ -19,13 +26,6 @@ const Field = props => {
       />
     </div>
   );
-};
-
-Field.propTypes = {
-  label: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  required: PropTypes.bool,
-  type: PropTypes.string.isRequired
 };
 
 export default Field;

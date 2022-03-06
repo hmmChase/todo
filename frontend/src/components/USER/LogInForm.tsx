@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
@@ -15,12 +14,16 @@ import FormInput from '../REUSEABLE/FormInput';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
+interface Props {
+  close?: () => void;
+}
+
 const validationSchema = object().shape({
   logInEmail: email,
   logInPassword: password
 });
 
-const LogInForm = props => {
+const LogInForm: FC<Props> = props => {
   const { close } = props;
 
   const [errorMsg, setErrorMsg] = useState<string | undefined>();
@@ -158,10 +161,6 @@ const LogInForm = props => {
       </LogInLinks>
     </Form>
   );
-};
-
-LogInForm.propTypes = {
-  close: PropTypes.func
 };
 
 export default LogInForm;

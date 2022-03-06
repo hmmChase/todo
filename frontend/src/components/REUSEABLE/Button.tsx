@@ -1,7 +1,19 @@
-import PropTypes from 'prop-types';
+import { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-const Button = props => {
+interface Props {
+  'aria-label'?: string;
+  'data-testid'?: string;
+  className?: string;
+  disabled?: boolean;
+  onClick?: () => void;
+  alt?: string;
+  type: 'submit' | 'text';
+  loading?: boolean;
+  children: ReactNode;
+}
+
+const Button: FC<Props> = props => {
   const { className, disabled, onClick, alt, type, loading, children } = props;
 
   return (
@@ -17,18 +29,6 @@ const Button = props => {
       {loading ? `${children}...` : children}
     </Buttonn>
   );
-};
-
-Button.propTypes = {
-  'aria-label': PropTypes.string,
-  'data-testid': PropTypes.string,
-  alt: PropTypes.bool,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  loading: PropTypes.bool,
-  onClick: PropTypes.func,
-  type: PropTypes.oneOf(['submit', 'text']).isRequired
 };
 
 export default Button;

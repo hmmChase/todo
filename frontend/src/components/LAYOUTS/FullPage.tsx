@@ -1,6 +1,6 @@
 // https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag
 
-import PropTypes from 'prop-types';
+import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -10,13 +10,19 @@ import { siteTitle } from '../../constants/config';
 import Ideabox from '../../../public/images/ideabox.png';
 import HorizontalRule from '../REUSEABLE/HorizontalRule';
 
-const FullPage = props => {
+interface Props {
+  title: string;
+  description: string;
+  children: ReactNode;
+}
+
+const FullPage: FC<Props> = props => {
   const { title, description, children } = props;
 
   return (
     <>
       <Head>
-        <title>{title ? `${title} | ${siteTitle}` : `${siteTitle}`}</title>
+        <title>{`${title} | ${siteTitle}`}</title>
 
         <meta name='description' content={description} />
       </Head>
@@ -43,12 +49,6 @@ const FullPage = props => {
       </Container>
     </>
   );
-};
-
-FullPage.propTypes = {
-  children: PropTypes.element.isRequired,
-  description: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
 };
 
 export default FullPage;

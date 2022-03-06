@@ -1,7 +1,13 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import styled from 'styled-components';
 
-const FormInput = props => {
+interface Props {
+  id: string;
+  label?: string;
+  name: string;
+}
+
+const FormInput: FC<Props> = props => {
   const { id, label, name } = props;
 
   const fieldId = `${id}-${name}`;
@@ -13,12 +19,6 @@ const FormInput = props => {
       <Input {...props} id={fieldId} aria-label={name} data-testid={name} />
     </>
   );
-};
-
-FormInput.propTypes = {
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  name: PropTypes.string.isRequired
 };
 
 export default FormInput;

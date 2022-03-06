@@ -1,11 +1,15 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import Modal from '../REUSEABLE/Modal';
 import HorizontalRule from '../REUSEABLE/HorizontalRule';
 import LogInForm from './LogInForm';
 
-const LogInModal = props => {
+interface Props {
+  close: () => void;
+}
+
+const LogInModal: FC<Props> = props => {
   const { close } = props;
 
   return (
@@ -19,10 +23,6 @@ const LogInModal = props => {
       </Container>
     </Modal>
   );
-};
-
-LogInModal.propTypes = {
-  close: PropTypes.func.isRequired
 };
 
 export default LogInModal;

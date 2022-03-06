@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
@@ -11,7 +12,7 @@ import CreateIdea from '../../IDEA/CreateIdea';
 // import NavBar from '../NavBar';
 // import HeaderUsername from './HeaderUsername';
 
-const Header = () => {
+const Header: FC = () => {
   const isLoggedIn = isLoggedInVar();
 
   const router = useRouter();

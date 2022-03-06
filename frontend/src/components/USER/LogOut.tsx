@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation, useApolloClient } from '@apollo/client';
 
@@ -8,7 +8,7 @@ import { isLoggedInVar } from '../../graphql/cache';
 
 //! Add logging out of all accounts
 
-const LogOut = () => {
+const LogOut: FC = () => {
   const apolloClient = useApolloClient();
 
   const router = useRouter();

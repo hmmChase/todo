@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { FC, useState } from 'react';
 import { useMutation, useApolloClient } from '@apollo/client';
 import { useFormik } from 'formik';
 import { object } from 'yup';
@@ -15,9 +14,13 @@ import PassReqList from './PassReqList';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
+interface Props {
+  resetPassToken: string;
+}
+
 const validationSchema = object().shape({ newPassword: password });
 
-const ResetPassword = props => {
+const ResetPassword: FC<Props> = props => {
   const { resetPassToken } = props;
 
   const [errorMsg, setErrorMsg] = useState();
@@ -123,10 +126,6 @@ const ResetPassword = props => {
       )}
     </Form>
   );
-};
-
-ResetPassword.propTypes = {
-  resetPassToken: PropTypes.string.isRequired
 };
 
 export default ResetPassword;

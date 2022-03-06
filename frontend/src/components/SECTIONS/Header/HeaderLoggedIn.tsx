@@ -1,10 +1,11 @@
+import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from 'styled-components';
 
 import Left from '../../DESIGN/icons/Left';
 
-const HeaderLoggedIn = () => {
+const HeaderLoggedIn: FC = () => {
   const router = useRouter();
 
   const routePathArr = router.asPath.split('/');

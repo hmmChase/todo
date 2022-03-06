@@ -1,3 +1,5 @@
-const Footer = () => <p>hmmStart</p>;
+import { FC } from 'react';
+
+const Footer: FC = () => <p>hmmStart</p>;
 
 export default Footer;

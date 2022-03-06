@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { FC, ReactNode } from 'react';
 import styled, { css, withTheme } from 'styled-components';
 
 const Wrapper = styled.div`
@@ -7,7 +7,17 @@ const Wrapper = styled.div`
   ${({ media, device: size, styles }) => `${media[size]`${styles}`}`};
 `;
 
-const DynamicMediaQuery = ({ size, feature, styles, theme, children }) => {
+interface Props {
+  size: string;
+  feature: string;
+  styles: string;
+  theme: { breakpoints: { [key: string]: number } };
+  children: ReactNode;
+}
+
+const DynamicMediaQuery: FC<Props> = props => {
+  const { size, feature, styles, theme, children } = props;
+
   /**
    * Generate media template
    * Ref: https://www.styled-components.com/docs/advanced#media-templates
@@ -37,10 +47,3 @@ const DynamicMediaQuery = ({ size, feature, styles, theme, children }) => {
 const themedQuery = withTheme(DynamicMediaQuery);
 
 export { themedQuery as DynamicMediaQuery };
-
-DynamicMediaQuery.propTypes = {
-  size: PropTypes.string.isRequired,
-  feature: PropTypes.string.isRequired,
-  styles: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
-};

@@ -1,17 +1,14 @@
-import type { ReactNode } from 'react';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import styled from 'styled-components';
 import { ApolloError } from '@apollo/client';
 
-type Status = 'info' | 'loading' | 'error' | 'success';
-
 interface Props {
-  children: ReactNode;
-  status: Status;
+  children: string;
+  status: 'info' | 'loading' | 'error' | 'success';
   error?: ApolloError;
 }
 
-const DisplayStatus = (props: Props) => {
+const DisplayStatus: FC<Props> = props => {
   const { children, status, error } = props;
 
   if (error && error.graphQLErrors && error.graphQLErrors.length)
@@ -42,17 +39,6 @@ const DisplayStatus = (props: Props) => {
     );
 
   return <Span status={status}>{children}</Span>;
-};
-
-DisplayStatus.propTypes = {
-  children: PropTypes.string,
-  error: PropTypes.exact({
-    extraInfo: PropTypes.any,
-    graphQLErrors: PropTypes.array,
-    message: PropTypes.string,
-    networkError: PropTypes.object
-  }),
-  status: PropTypes.oneOf(['info', 'loading', 'error', 'success']).isRequired
 };
 
 export default DisplayStatus;

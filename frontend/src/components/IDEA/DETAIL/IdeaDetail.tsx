@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { FC, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
@@ -8,7 +7,15 @@ import { CURRENT_USER } from '../../../graphql/queries/user';
 import RemoveIdea from '../RemoveIdea';
 import IdeaDetailUpdate from './IdeaDetailUpdate';
 
-const IdeaDetail = props => {
+interface Props {
+  idea: {
+    id: string;
+    author: { id: string };
+    content: string;
+  };
+}
+
+const IdeaDetail: FC<Props> = props => {
   const { idea } = props;
   const { id, content, author } = idea;
 
@@ -45,16 +52,6 @@ const IdeaDetail = props => {
       />
     </Container>
   );
-};
-
-IdeaDetail.propTypes = {
-  idea: PropTypes.shape({
-    author: PropTypes.shape({
-      id: PropTypes.string.isRequired
-    }).isRequired,
-    content: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired
-  })
 };
 
 export default IdeaDetail;
