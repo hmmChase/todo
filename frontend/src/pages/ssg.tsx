@@ -1,3 +1,5 @@
+import { NextPage } from 'next';
+
 // import { initializeApollo, addApolloState } from '../graphql/apolloClient';
 // import { CURRENT_USER } from '../graphql/queries/user';
 // import { READ_IDEAS } from '../graphql/queries/idea';
@@ -5,7 +7,7 @@
 // import Layout from '../components/LAYOUTS/Layout';
 // import Ideas from '../components/IDEA/Ideas';
 
-const SSGPage = props => {
+const SSGPage: NextPage = props => {
   // const { ideasRes } = props;
 
   // const ideas = ideasRes.data?.ideas || [];

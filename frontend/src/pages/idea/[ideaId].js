@@ -1,37 +1,25 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 
 import { READ_IDEA } from '../../graphql/queries/idea';
-import graphQLErrors from '../../utils/graphQLErrors';
 import isLoggedIn from '../../utils/isLoggedIn';
 import QueryResult from '../../components/REUSEABLE/QueryResult';
 import Layout from '../../components/LAYOUTS/Layout';
 import IdeaDetail from '../../components/IDEA/DETAIL/IdeaDetail';
 
 const IdeaPage = () => {
-  const [errorMsg, setErrorMsg] = useState();
-
   const router = useRouter();
 
   const ideaId = router.query.ideaId;
 
-  const onError = error => {
-    console.log('IdeaPage READ_IDEA error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
   const { loading, error, data } = useQuery(READ_IDEA, {
-    variables: { id: ideaId },
-
-    onError: error => onError(error)
+    variables: { id: ideaId }
   });
 
   const idea = data?.idea;
 
   return (
-    <QueryResult error={errorMsg} loading={loading} data={idea}>
+    <QueryResult loading={loading} error={error} data={idea}>
       <IdeaDetail idea={idea} />
     </QueryResult>
   );

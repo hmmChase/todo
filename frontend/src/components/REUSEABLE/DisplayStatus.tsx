@@ -1,44 +1,39 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { ApolloError } from '@apollo/client';
 
 interface Props {
-  children: string;
+  children: string | string[];
   status: 'info' | 'loading' | 'error' | 'success';
-  error?: ApolloError;
 }
 
 const DisplayStatus: FC<Props> = props => {
-  const { children, status, error } = props;
+  const { children, status } = props;
 
-  if (error && error.graphQLErrors && error.graphQLErrors.length)
+  if (Array.isArray(children))
     return (
-      <ErrorList>
-        {error.graphQLErrors.map((error, i) => (
-          <ErrorItem key={`error${i}`}>
-            <Span data-testid='errorMessage' status={status}>
-              {error.message}
+      <MsgList>
+        {children.map((statusMsg, i) => (
+          <MsgItem key={`msg${i}`}>
+            <Span data-testid='msgItem' status={status}>
+              {statusMsg}
             </Span>
-          </ErrorItem>
+          </MsgItem>
         ))}
-      </ErrorList>
+      </MsgList>
     );
 
-  if (error && error.message)
+  if (typeof children === 'string')
     return (
-      <Span data-testid='errorMessage' status={status}>
-        {error.message}
+      <Span data-testid='msgItem' status={status}>
+        {children}
       </Span>
     );
 
-  if (error)
-    return (
-      <Span data-testid='errorMessage' status={status}>
-        Opps, something went wrong.
-      </Span>
-    );
-
-  return <Span status={status}>{children}</Span>;
+  return (
+    <Span data-testid='msgItem' status={'error'}>
+      Opps, something went wrong.
+    </Span>
+  );
 };
 
 export default DisplayStatus;
@@ -61,13 +56,13 @@ const Span = styled.span`
   padding: 4px;
 `;
 
-const ErrorList = styled.ul`
+const MsgList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
 `;
 
-const ErrorItem = styled.li`
+const MsgItem = styled.li`
   :not(:first-child) {
     margin-top: 10px;
   }

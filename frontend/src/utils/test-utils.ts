@@ -1,9 +1,19 @@
 // https://testing-library.com/docs/react-testing-library/setup
 // https://www.apollographql.com/docs/react/api/react/testing/
+// https://github.com/apollographql/fullstack-tutorial/blob/master/final/client/src/test-utils.tsx
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { MockedProvider } from '@apollo/client/testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+
+type RenderApolloOptions = {
+  mocks?: MockedResponse[],
+  addTypename?: any,
+  defaultOptions?: any,
+  cache?: any,
+  resolvers?: any,
+  [st: string]: any;
+}
 
 const AllTheProviders = ({ children }) => {
   return (

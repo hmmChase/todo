@@ -1,7 +1,9 @@
+import { NextPage } from 'next';
+
 import FullPage from '../components/LAYOUTS/FullPage';
 import ReqPassReset from '../components/USER/ReqPassReset';
 
-const ReqPassResetPage = () => <ReqPassReset />;
+const ReqPassResetPage: NextPage = () => <ReqPassReset />;
 
 ReqPassResetPage.getLayout = page => (
   <FullPage

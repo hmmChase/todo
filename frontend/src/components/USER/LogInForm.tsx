@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useMutation, useApolloClient } from '@apollo/client';
@@ -26,8 +26,6 @@ const validationSchema = object().shape({
 const LogInForm: FC<Props> = props => {
   const { close } = props;
 
-  const [errorMsg, setErrorMsg] = useState<string | undefined>();
-
   const router = useRouter();
 
   // const apolloClient = useApolloClient();
@@ -52,20 +50,12 @@ const LogInForm: FC<Props> = props => {
     else await router.push('/');
   };
 
-  const onError = error => {
-    console.log('LogIn onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
-  const [logIn, { loading }] = useMutation(LOG_IN, {
+  const [logIn, { loading, error }] = useMutation(LOG_IN, {
     fetchPolicy: 'network-only',
 
     update: (cache, data) => update(cache, data),
 
-    onCompleted: data => onCompleted(data),
-
-    onError: error => onError(error)
+    onCompleted: data => onCompleted(data)
   });
 
   const handleSubmit = async (values, formikHelpers) => {
@@ -82,9 +72,7 @@ const LogInForm: FC<Props> = props => {
 
       formikHelpers.setSubmitting(false);
     } catch (error) {
-      console.log('LogIn handleSubmit error: ', error);
-
-      setErrorMsg(graphQLErrors(error));
+      // console.log('LogIn handleSubmit error: ', error);
     }
   };
 
@@ -109,10 +97,7 @@ const LogInForm: FC<Props> = props => {
       />
 
       {formik.touched.logInEmail && formik.errors.logInEmail ? (
-        <DisplayStatus
-          status='error'
-          error={{ message: formik.errors.logInEmail }}
-        />
+        <DisplayStatus status='error'>{formik.errors.logInEmail}</DisplayStatus>
       ) : null}
 
       <FormInput
@@ -123,14 +108,13 @@ const LogInForm: FC<Props> = props => {
       />
 
       {formik.touched.logInPassword && formik.errors.logInPassword ? (
-        <DisplayStatus
-          status='error'
-          error={{ message: formik.errors.logInPassword }}
-        />
+        <DisplayStatus status='error'>
+          {formik.errors.logInPassword}
+        </DisplayStatus>
       ) : null}
 
-      {errorMsg && (
-        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      {error && (
+        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
       )}
 
       <Buttonn

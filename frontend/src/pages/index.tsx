@@ -1,17 +1,14 @@
-import { useState } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
-import { ApolloError, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import type { ReactElement } from 'react';
 // import { useEffect } from 'react';
 // import Link from 'next/link';
 // import { useRouter } from 'next/router';
-// import { useQuery } from '@apollo/client';
 // import jwt from 'jsonwebtoken';
 // import fetch from 'isomorphic-unfetch';
 
 import { READ_IDEAS } from '../graphql/queries/idea';
-import graphQLErrors from '../utils/graphQLErrors';
 import isLoggedIn from '../utils/isLoggedIn';
 import QueryResult from '../components/REUSEABLE/QueryResult';
 import Layout from '../components/LAYOUTS/Layout';
@@ -19,20 +16,9 @@ import Ideas from '../components/IDEA/Ideas';
 // import { initializeApollo } from '../graphql/apolloClient';
 
 const IndexPage: NextPage = () => {
-  const [errorMsg, setErrorMsg] = useState<string | undefined>();
-
   // const router = useRouter();
 
-  const onError = (error: ApolloError) => {
-    console.log('IndexPage onError error: ', error);
-
-    // Will set only UserInputError errors
-    setErrorMsg(graphQLErrors(error));
-  };
-
-  const { loading, error, data } = useQuery(READ_IDEAS, {
-    onError: error => onError(error)
-  });
+  const { loading, error, data } = useQuery(READ_IDEAS);
 
   const ideas = data?.ideas;
 
@@ -41,7 +27,7 @@ const IndexPage: NextPage = () => {
   // useEffect(() => shouldRedirect && router.push('/login'), [shouldRedirect]);
 
   return (
-    <QueryResult error={errorMsg} loading={loading} data={data}>
+    <QueryResult loading={loading} error={error} data={data}>
       <Ideas ideas={ideas} />
     </QueryResult>
   );

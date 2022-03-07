@@ -1,8 +1,7 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
-import graphQLErrors from '../../../utils/graphQLErrors';
 import { CURRENT_USER } from '../../../graphql/queries/user';
 import RemoveIdea from '../RemoveIdea';
 import IdeaDetailUpdate from './IdeaDetailUpdate';
@@ -17,21 +16,10 @@ interface Props {
 
 const IdeaDetail: FC<Props> = props => {
   const { idea } = props;
+
   const { id, content, author } = idea;
 
-  const [errorMsg, setErrorMsg] = useState();
-
-  const onError = error => {
-    console.log('IdeaDetail onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
-  const { data } = useQuery(CURRENT_USER, {
-    fetchPolicy: 'network-only',
-
-    onError: error => onError(error)
-  });
+  const { data } = useQuery(CURRENT_USER, { fetchPolicy: 'network-only' });
 
   const currentUserId = data?.currentUser?.user?.id;
 

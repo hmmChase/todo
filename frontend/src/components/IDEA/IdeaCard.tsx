@@ -1,9 +1,7 @@
-import { FC, useState } from 'react';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
-import graphQLErrors from '../../utils/graphQLErrors';
 import { CURRENT_USER } from '../../graphql/queries/user';
 import DetailIcon from './DETAIL/DetailIcon';
 import RemoveIdea from './RemoveIdea';
@@ -17,18 +15,8 @@ interface Props {
 const IdeaCard: FC<Props> = props => {
   const { authorId, content, ideaId } = props;
 
-  const [errorMsg, setErrorMsg] = useState();
-
-  const onError = error => {
-    console.log('IdeaCard onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
   const { data } = useQuery(CURRENT_USER, {
-    fetchPolicy: 'network-only',
-
-    onError: error => onError(error)
+    fetchPolicy: 'network-only'
   });
 
   const currentUserId = data?.currentUser?.user?.id;
@@ -46,12 +34,6 @@ const IdeaCard: FC<Props> = props => {
       </IdeaCardBtns>
     </Article>
   );
-};
-
-IdeaCard.propTypes = {
-  authorId: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  ideaId: PropTypes.string.isRequired
 };
 
 export default IdeaCard;

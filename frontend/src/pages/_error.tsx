@@ -1,32 +1,43 @@
 // https://nextjs.org/docs/advanced-features/custom-error-page#more-advanced-error-page-customizing
 
-import PropTypes from 'prop-types';
+import { FC, useState } from 'react';
+import { NextPage } from 'next';
 import Link from 'next/link';
 
-const LinkHome = () => (
+const LinkHome: FC = () => (
   <Link href='/'>
     <button>Home</button>
   </Link>
 );
 
-const Error = props => {
-  let error;
+interface Props {
+  statusCode: number | boolean;
+}
 
-  switch (props.statusCode) {
+type State = {
+  error: string;
+};
+
+const ErrorPage: NextPage<Props> = props => {
+  const { statusCode } = props;
+
+  const { error, setError } = useState<State>('');
+
+  switch (statusCode) {
     case 404:
-      error = 'Page Not Found';
+      setError('Page Not Found');
       break;
 
     case 500:
-      error = 'Internal Server Error';
+      setError('Internal Server Error');
       break;
 
     case true:
-      error = `HTTP ${statusCode} Error`;
+      setError(`HTTP ${statusCode} Error`);
       break;
 
     default:
-      error = 'Error';
+      setError('Error');
       break;
   }
 
@@ -39,7 +50,7 @@ const Error = props => {
   );
 };
 
-Error.getInitialProps = ctx => {
+ErrorPage.getInitialProps = ctx => {
   const { res, err } = ctx;
 
   let statusCode;
@@ -51,6 +62,4 @@ Error.getInitialProps = ctx => {
   return { statusCode };
 };
 
-Error.propTypes = { statusCode: PropTypes.number };
-
-export default Error;
+export default ErrorPage;

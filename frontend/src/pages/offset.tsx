@@ -1,28 +1,20 @@
 import { useState } from 'react';
+import { NextPage, GetServerSideProps } from 'next';
 import { useQuery } from '@apollo/client';
 
 import { ideasPerPage } from '../constants/config';
 import { READ_IDEAS_PAGINATED_OFFSET } from '../graphql/queries/idea';
-import graphQLErrors from '../utils/graphQLErrors';
 import isLoggedIn from '../utils/isLoggedIn';
 import QueryResult from '../components/REUSEABLE/QueryResult';
 import Layout from '../components/LAYOUTS/Layout';
 import Ideas from '../components/IDEA/Ideas';
 
-const OffsetPage = () => {
-  const [errorMsg, setErrorMsg] = useState();
-
+const OffsetPage: NextPage = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const [offset, setOffset] = useState(0);
 
   const [page, setPage] = useState((offset + ideasPerPage) / ideasPerPage);
-
-  const onError = error => {
-    console.log('OffsetPage onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
 
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     READ_IDEAS_PAGINATED_OFFSET,
@@ -30,9 +22,7 @@ const OffsetPage = () => {
       variables: { offset, limit: ideasPerPage },
 
       // Allows component to rerender with loading:true whenever fetchMore is called
-      notifyOnNetworkStatusChange: true,
-
-      onError: error => onError(error)
+      notifyOnNetworkStatusChange: true
     }
   );
 
@@ -65,8 +55,6 @@ const OffsetPage = () => {
       });
     } catch (error) {
       console.log('OffsetPage fetchMore error: ', error);
-
-      setErrorMsg(graphQLErrors(error));
     }
 
     setIsLoadingMore(false);
@@ -77,28 +65,28 @@ const OffsetPage = () => {
   const haveIdeas = !!ideas;
 
   return (
-    <>
-      <QueryResult error={errorMsg} loading={loading} data={data}>
+    <QueryResult loading={loading} error={error} data={data}>
+      <>
         <Ideas ideas={ideas} />
-      </QueryResult>
 
-      {haveIdeas && (
-        <div>
-          <button onClick={handleChangePageBackwards}>{'<'}</button>
+        {haveIdeas && (
+          <div>
+            <button onClick={handleChangePageBackwards}>{'<'}</button>
 
-          <span> {page} </span>
+            <span> {page} </span>
 
-          <button onClick={handleChangePageForwards}>{'>'}</button>
-        </div>
-      )}
+            <button onClick={handleChangePageForwards}>{'>'}</button>
+          </div>
+        )}
 
-      {haveIdeas &&
-        (isLoadingMore ? (
-          <p>loading...</p>
-        ) : (
-          <button onClick={handleLoadMore}>More</button>
-        ))}
-    </>
+        {haveIdeas &&
+          (isLoadingMore ? (
+            <p>loading...</p>
+          ) : (
+            <button onClick={handleLoadMore}>More</button>
+          ))}
+      </>
+    </QueryResult>
   );
 };
 
@@ -114,7 +102,7 @@ OffsetPage.getLayout = page => (
   </Layout>
 );
 
-export const getServerSideProps = async ctx => {
+export const getServerSideProps: GetServerSideProps = async ctx => {
   return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
 };
 

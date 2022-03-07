@@ -14,16 +14,20 @@ import typeDefs from './typeDefs';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
+const development = process.env.NODE_ENV === 'development';
+
 let apolloClient;
 
 const server = typeof window === 'undefined';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
-    graphQLErrors.forEach(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
+    graphQLErrors.forEach(
+      ({ message, locations, path }) =>
+        development &&
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        )
     );
 
   if (networkError) console.log(`[Network error]: ${networkError}`);

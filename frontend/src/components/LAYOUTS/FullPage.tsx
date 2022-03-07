@@ -14,10 +14,11 @@ interface Props {
   title: string;
   description: string;
   children: ReactNode;
+  hasBackButton?: boolean;
 }
 
 const FullPage: FC<Props> = props => {
-  const { title, description, children } = props;
+  const { title, description, children, hasBackButton } = props;
 
   return (
     <>

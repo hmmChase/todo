@@ -1,25 +1,14 @@
-import { useState } from 'react';
+import { NextPage, GetServerSideProps } from 'next';
 import { useQuery } from '@apollo/client';
 
 import Ideas from '../components/IDEA/Ideas';
 import Layout from '../components/LAYOUTS/Layout';
 import { CURRENT_USER_IDEAS } from '../graphql/queries/idea';
 import QueryResult from '../components/REUSEABLE/QueryResult';
-import graphQLErrors from '../utils/graphQLErrors';
 import isLoggedIn from '../utils/isLoggedIn';
 
-const AccountPage = () => {
-  const [errorMsg, setErrorMsg] = useState();
-
-  const onError = error => {
-    console.log('AccountPage onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
-  const { data, loading, error } = useQuery(CURRENT_USER_IDEAS, {
-    onError: error => onError(error)
-  });
+const AccountPage: NextPage = () => {
+  const { loading, error, data } = useQuery(CURRENT_USER_IDEAS);
 
   const ideas = data?.currentUserIdeas;
 
@@ -27,7 +16,7 @@ const AccountPage = () => {
     <>
       <h2>My Ideas</h2>
 
-      <QueryResult error={errorMsg} loading={loading} data={data}>
+      <QueryResult loading={loading} error={error} data={data}>
         <Ideas ideas={ideas} />
       </QueryResult>
     </>
@@ -47,7 +36,7 @@ AccountPage.getLayout = page => (
   </Layout>
 );
 
-export const getServerSideProps = async ctx => {
+export const getServerSideProps: GetServerSideProps = async ctx => {
   const { req, res } = ctx;
 
   const result = isLoggedIn(req.headers);
@@ -57,6 +46,8 @@ export const getServerSideProps = async ctx => {
   res.writeHead(302, { Location: '/' });
 
   res.end();
+
+  return { props: {} };
 };
 
 export default AccountPage;

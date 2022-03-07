@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
 import FullPage from '../components/LAYOUTS/FullPage';
 import ResetPassError from '../components/USER/ResetPassError';
 import ResetPassword from '../components/USER/ResetPassword';
 
-const ResetPasswordPage = () => {
+const ResetPasswordPage: NextPage = () => {
   const [isReady, setIsReady] = useState(false);
 
   const router = useRouter();

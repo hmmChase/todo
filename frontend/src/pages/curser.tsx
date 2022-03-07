@@ -1,17 +1,15 @@
 import { useState } from 'react';
+import { NextPage, GetServerSideProps } from 'next';
 import { useQuery } from '@apollo/client';
 
 import { ideasPerPage } from '../constants/config';
 import { READ_IDEAS_PAGINATED_CURSER } from '../graphql/queries/idea';
-import graphQLErrors from '../utils/graphQLErrors';
 import isLoggedIn from '../utils/isLoggedIn';
 import QueryResult from '../components/REUSEABLE/QueryResult';
 import Layout from '../components/LAYOUTS/Layout';
 import Ideas from '../components/IDEA/Ideas';
 
-const CurserPage = () => {
-  const [errorMsg, setErrorMsg] = useState();
-
+const CurserPage: NextPage = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
@@ -20,13 +18,7 @@ const CurserPage = () => {
       variables: { take: ideasPerPage, skip: null },
 
       // Allows component to rerender with loading:true whenever fetchMore is called
-      notifyOnNetworkStatusChange: true,
-
-      onError: error => {
-        console.log('CurserPage READ_IDEAS_PAGINATED_CURSER error: ', error);
-
-        setErrorMsg(graphQLErrors(error));
-      }
+      notifyOnNetworkStatusChange: true
     }
   );
 
@@ -39,8 +31,6 @@ const CurserPage = () => {
       });
     } catch (error) {
       console.log('CurserPage fetchMore error: ', error);
-
-      setErrorMsg(graphQLErrors(error));
     }
 
     setIsLoadingMore(false);
@@ -51,18 +41,18 @@ const CurserPage = () => {
   const haveIdeas = !!ideas.length;
 
   return (
-    <>
-      <QueryResult error={errorMsg} loading={loading} data={data}>
+    <QueryResult loading={loading} error={error} data={data}>
+      <>
         <Ideas ideas={ideas} />
-      </QueryResult>
 
-      {haveIdeas &&
-        (isLoadingMore ? (
-          <p>loading...</p>
-        ) : (
-          <button onClick={handleLoadMore}>More</button>
-        ))}
-    </>
+        {haveIdeas &&
+          (isLoadingMore ? (
+            <p>loading...</p>
+          ) : (
+            <button onClick={handleLoadMore}>More</button>
+          ))}
+      </>
+    </QueryResult>
   );
 };
 
@@ -78,7 +68,7 @@ CurserPage.getLayout = page => (
   </Layout>
 );
 
-export const getServerSideProps = async ctx => {
+export const getServerSideProps: GetServerSideProps = async ctx => {
   return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
 };
 

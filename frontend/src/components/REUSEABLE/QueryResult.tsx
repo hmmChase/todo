@@ -4,18 +4,20 @@ import styled from 'styled-components';
 
 import Loader from '../OTHER/Loader';
 import DisplayStatus from './DisplayStatus';
+import graphQLErrors from '../../utils/graphQLErrors';
 
 // Conditionally renders Apollo hook states
 
 interface Props {
-  loading?: boolean;
-  children: ReactElement | null;
+  loading: boolean;
   error?: ApolloError;
-  data?: string | number | [] | object;
+  data?: string | number | object | [];
+  children: ReactElement;
+  loader?: boolean;
 }
 
 const QueryResult: FC<Props> = props => {
-  const { loading, error, data, children } = props;
+  const { loading, error, data, children, loader } = props;
 
   if (loading)
     return (
@@ -27,7 +29,7 @@ const QueryResult: FC<Props> = props => {
   if (error)
     return (
       <Center>
-        <DisplayStatus status='error' error={error} />
+        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
       </Center>
     );
 
@@ -40,7 +42,7 @@ const QueryResult: FC<Props> = props => {
 
   if (data) return children;
 
-  return <DisplayStatus status='error' error={{ message: 'ERROR' }} />;
+  return <DisplayStatus status='error'>ERROR</DisplayStatus>;
 };
 
 export default QueryResult;
