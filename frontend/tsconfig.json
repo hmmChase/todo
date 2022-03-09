@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    // "watch": true,
-    "target": "ESNext",
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,8 +16,14 @@
     "incremental": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
     // "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@graphql-types@": [
+        "node_modules/@types/graphql-let/__generated__/__types__"
+      ]
+    }
   },
   "include": [
     "src",

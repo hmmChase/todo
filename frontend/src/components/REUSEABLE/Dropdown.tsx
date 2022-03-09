@@ -13,7 +13,7 @@ const Dropdown: FC<Props> = props => {
   const { className, close, children } = props;
 
   // Create a ref that we add to the element for which we want to detect outside clicks
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
 
   // Call hook passing in the ref and a function to call on outside click
   useOnClickOutside(ref, close);

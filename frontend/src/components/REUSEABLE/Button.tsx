@@ -7,7 +7,7 @@ interface Props {
   className?: string;
   disabled?: boolean;
   onClick?: () => void;
-  alt?: string;
+  alt?: boolean;
   type: 'submit' | 'text';
   loading?: boolean;
   children: ReactNode;

@@ -2,19 +2,43 @@
 // https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-local-state
 
 import { makeVar } from '@apollo/client';
-import { InMemoryCache, defaultDataIdFromObject } from '@apollo/client/cache';
+import {
+  InMemoryCache,
+  Reference,
+  defaultDataIdFromObject
+} from '@apollo/client/cache';
 // import { concatPagination } from '@apollo/client/utilities';
 
 // const serverSide = typeof window === 'undefined';
 
-let isLoggedInVar = makeVar(false);
+let isLoggedInVar = makeVar<boolean>(false);
 
-// if (!serverSide && window.document)
-//   isLoggedInVar = makeVar(!!localStorage.getItem('token'));
+const cache: InMemoryCache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        isLoggedIn: {
+          read() {
+            return isLoggedInVar();
+          }
+        }
 
-export { isLoggedInVar };
-
-const cache = new InMemoryCache({});
+        // allIdeas: concatPagination(),
+        // ideas: {
+        //   keyArgs: false,
+        //   merge(existing, incoming) {
+        //     let ideas: Reference[] = [];
+        //     if (existing && existing.ideas)
+        //       ideas = ideas.concat(existing.ideas);
+        //     if (incoming && incoming.ideas)
+        //       ideas = ideas.concat(incoming.ideas);
+        //     return { ...incoming, ideas };
+        //   }
+        // }
+      }
+    }
+  }
+});
 
 // const cache = new InMemoryCache({
 //   // resultCaching: true,
@@ -49,30 +73,8 @@ const cache = new InMemoryCache({});
 //   //     }
 //   //   }
 //   // },
-
-//   typePolicies: {
-//     Query: {
-//       fields: {
-//         // allIdeas: concatPagination(),
-//         // isLoggedIn: {
-//         //   read() {
-//         //     return isLoggedInVar();
-//         //   }
-//         // }
-//         // ideas: {
-//         //   keyArgs: false,
-//         //   merge(existing, incoming) {
-//         //     let ideas = [];
-//         //     if (existing && existing.ideas)
-//         //       ideas = ideas.concat(existing.ideas);
-//         //     if (incoming && incoming.ideas)
-//         //       ideas = ideas.concat(incoming.ideas);
-//         //     return { ...incoming, ideas };
-//         //   }
-//         // }
-//       }
-//     }
-//   }
 // });
+
+export { isLoggedInVar };
 
 export default cache;

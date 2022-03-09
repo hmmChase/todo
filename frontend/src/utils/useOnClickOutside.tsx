@@ -1,21 +1,13 @@
 // https://usehooks.com/useOnClickOutside/
-// https://usehooks-ts.com/react-hook/use-on-click-outside
 
-import { RefObject, useEffect } from 'react';
+import { useEffect } from 'react';
 
-type UseOnClickOutside = (
-  ref: RefObject<HTMLElement>,
-  handler: (event: Event) => void
-) => void;
-
-type Listener = (event: MouseEvent | TouchEvent) => void;
-
-const useOnClickOutside: UseOnClickOutside = (ref, handler) =>
+const useOnClickOutside = (ref, handler) =>
   useEffect(
     () => {
-      const listener: Listener = event => {
+      const listener = event => {
         // Do nothing if clicking ref's element or descendent elements
-        if (!ref.current || ref.current.contains(event.target as Node)) return;
+        if (!ref.current || ref.current.contains(event.target)) return;
 
         handler(event);
       };

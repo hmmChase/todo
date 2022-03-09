@@ -15,7 +15,7 @@ export const USER_FIELDS = gql`
 //* - Queries ----------
 
 export const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
+  query IsLoggedIn {
     isLoggedIn @client
   }
 `;

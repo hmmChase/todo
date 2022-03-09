@@ -1,23 +1,22 @@
-import { FC, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { FC, FormEvent, useState } from 'react';
+import { ApolloCache, FetchResult, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 
-import graphQLErrors from '../../utils/graphQLErrors';
 import {
   // READ_IDEAS,
   CREATE_IDEA,
   IDEA_FIELDS
 } from '../../graphql/queries/idea';
 
-const CreateIdea: FC = () => {
-  const [errorMsg, setErrorMsg] = useState();
+type TextArea = HTMLTextAreaElement | null;
 
+const CreateIdea: FC = () => {
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
-  let input;
+  let input: TextArea;
 
   // https://www.apollographql.com/docs/react/data/mutations/#the-update-function
-  const update = (cache, result) =>
+  const update = (cache: ApolloCache<any>, result: FetchResult<any>) =>
     cache.modify({
       fields: {
         ideas(existingIdeas = []) {
@@ -32,23 +31,15 @@ const CreateIdea: FC = () => {
       }
     });
 
-  const onError = error => {
-    console.log('CreateIdea onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
   const [createIdea] = useMutation(CREATE_IDEA, {
     // Update the cache as an approximation of server-side mutation effects
     // https://www.apollographql.com/docs/react/data/mutations/#refetching-queries
     // refetchQueries: [{ query: READ_IDEAS }],
 
-    update: (cache, result) => update(cache, result),
-
-    onError: error => onError(error)
+    update: (cache, result) => update(cache, result)
   });
 
-  const handleSubmit = async (e, input) => {
+  const handleSubmit = async (e: FormEvent, input: TextArea) => {
     e.preventDefault();
 
     try {
@@ -69,15 +60,13 @@ const CreateIdea: FC = () => {
         */
       });
     } catch (error) {
-      console.log('CreateIdea handleSubmit error: ', error);
-
-      setErrorMsg(graphQLErrors(error));
+      // console.log('CreateIdea handleSubmit error: ', error);
     }
 
     input.value = '';
   };
 
-  const canSubmit = value => {
+  const canSubmit = (value: string) => {
     if (value === '') setIsSubmitDisabled(true);
     else setIsSubmitDisabled(false);
   };

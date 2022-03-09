@@ -108,7 +108,6 @@ const IdeaTitle = styled.h2`
 
 const HeaderTitle = styled.h1`
   color: ${props => props.theme.text.tertiary};
-  font-family: 'Play', sans-serif;
   font-size: ${props => props.theme.fontSize.h1};
   letter-spacing: 0.05rem;
   margin: 0;

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useMutation, useApolloClient } from '@apollo/client';
-import { useFormik } from 'formik';
+import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
@@ -18,12 +18,15 @@ interface Props {
   resetPassToken: string;
 }
 
+type HandleSubmit = (
+  values: { newPassword: any },
+  formikHelpers: FormikHelpers<{ newPassword: string }>
+) => void;
+
 const validationSchema = object().shape({ newPassword: password });
 
 const ResetPassword: FC<Props> = props => {
   const { resetPassToken } = props;
-
-  const [errorMsg, setErrorMsg] = useState();
 
   const [isSuccessful, setIsSuccessful] = useState(false);
 
@@ -39,24 +42,16 @@ const ResetPassword: FC<Props> = props => {
     if (data && data.changePassword.user.id) setIsSuccessful(true);
   };
 
-  const onError = error => {
-    console.log('ResetPassword onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
   const [changePassword, { loading, error, data }] = useMutation(
     CHANGE_PASSWORD,
     {
       fetchPolicy: 'network-only',
 
-      onCompleted: data => onCompleted(data),
-
-      onError: error => onError(error)
+      onCompleted: data => onCompleted(data)
     }
   );
 
-  const handleSubmit = async (values, formikHelpers) => {
+  const handleSubmit: HandleSubmit = async (values, formikHelpers) => {
     try {
       await changePassword({
         variables: { resetPassToken, newPassword: values.newPassword }
@@ -66,9 +61,7 @@ const ResetPassword: FC<Props> = props => {
 
       formikHelpers.setSubmitting(false);
     } catch (error) {
-      console.log('ResetPassword handleSubmit error: ', error);
-
-      setErrorMsg(graphQLErrors(error));
+      // console.log('ResetPassword handleSubmit error: ', error);
     }
   };
 
@@ -93,14 +86,13 @@ const ResetPassword: FC<Props> = props => {
       />
 
       {formik.touched.newPassword && formik.errors.newPassword ? (
-        <DisplayStatus
-          status='error'
-          error={{ message: formik.errors.newPassword }}
-        />
+        <DisplayStatus status='error'>
+          {formik.errors.newPassword}
+        </DisplayStatus>
       ) : null}
 
-      {errorMsg && (
-        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      {error && (
+        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
       )}
 
       <PassReqList />
@@ -120,8 +112,8 @@ const ResetPassword: FC<Props> = props => {
       </Button>
 
       {isSuccessful && (
-        <DisplayStatus type='success'>
-          {displayMessages.user.success.ResetPassword}
+        <DisplayStatus status='success'>
+          {displayMessages.success.user.ResetPassword}
         </DisplayStatus>
       )}
     </Form>

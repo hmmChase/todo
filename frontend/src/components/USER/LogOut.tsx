@@ -1,8 +1,12 @@
 import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useMutation, useApolloClient } from '@apollo/client';
+import {
+  useMutation,
+  useApolloClient,
+  ApolloCache,
+  FetchResult
+} from '@apollo/client';
 
-import graphQLErrors from '../../utils/graphQLErrors';
 import { LOG_OUT, IS_LOGGED_IN } from '../../graphql/queries/user';
 import { isLoggedInVar } from '../../graphql/cache';
 
@@ -13,7 +17,7 @@ const LogOut: FC = () => {
 
   const router = useRouter();
 
-  const update = (cache, data) => {
+  const update = (cache: ApolloCache<any>, data: FetchResult<any>) => {
     const isLoggedIn = !data?.logOut;
 
     cache.writeQuery({
@@ -52,18 +56,10 @@ const LogOut: FC = () => {
     await router.push('/');
   };
 
-  const onError = error => {
-    console.log('LogOut onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
   const [logOut] = useMutation(LOG_OUT, {
     update: (cache, data) => update(cache, data),
 
-    onCompleted: data => onCompleted(data),
-
-    onError: error => onError(error)
+    onCompleted
   });
 
   useEffect(async () => await logOut(), [logOut]);

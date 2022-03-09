@@ -18,7 +18,7 @@ export const ExpandIconBtn: FC<ExpandIconBtnProps> = props => (
 interface XIconBtnProps {
   'aria-label'?: string;
   'data-testid'?: string;
-  onClick: () => void;
+  onClick: Function;
 }
 
 export const XIconBtn: FC<XIconBtnProps> = props => {

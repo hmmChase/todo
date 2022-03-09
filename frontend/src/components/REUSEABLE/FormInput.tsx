@@ -5,10 +5,11 @@ interface Props {
   id: string;
   label?: string;
   name: string;
+  type?: string;
 }
 
 const FormInput: FC<Props> = props => {
-  const { id, label, name } = props;
+  const { id, label, name, type } = props;
 
   const fieldId = `${id}-${name}`;
 
@@ -16,7 +17,13 @@ const FormInput: FC<Props> = props => {
     <>
       {label && <Label htmlFor={fieldId}>{label}</Label>}
 
-      <Input {...props} id={fieldId} aria-label={name} data-testid={name} />
+      <Input
+        {...props}
+        id={fieldId}
+        aria-label={name}
+        data-testid={name}
+        type={type}
+      />
     </>
   );
 };

@@ -1,7 +1,7 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import { useMutation } from '@apollo/client';
-import { useFormik } from 'formik';
+import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
@@ -13,27 +13,20 @@ import FormInput from '../REUSEABLE/FormInput';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
+type HandleSubmit = (
+  values: { reqPassResetEmail: string },
+  formikHelpers: FormikHelpers<{ reqPassResetEmail: string }>
+) => void;
+
 const validationSchema = object().shape({ reqPassResetEmail: email });
 
 const ReqPassReset: FC = () => {
-  const [errorMsg, setErrorMsg] = useState();
-
-  const onError = error => {
-    console.log('ReqPassReset onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
   const [reqPassReset, { loading, error, data, called }] = useMutation(
     REQ_PASS_RESET,
-    {
-      fetchPolicy: 'network-only',
-
-      onError: error => onError(error)
-    }
+    { fetchPolicy: 'network-only' }
   );
 
-  const handleSubmit = async (values, formikHelpers) => {
+  const handleSubmit: HandleSubmit = async (values, formikHelpers) => {
     try {
       await reqPassReset({ variables: { email: values.reqPassResetEmail } });
 
@@ -41,9 +34,7 @@ const ReqPassReset: FC = () => {
 
       formikHelpers.setSubmitting(false);
     } catch (error) {
-      console.log('ReqPassReset handleSubmit error: ', error);
-
-      setErrorMsg(graphQLErrors(error));
+      // console.log('ReqPassReset handleSubmit error: ', error);
     }
   };
 
@@ -65,19 +56,18 @@ const ReqPassReset: FC = () => {
       />
 
       {formik.touched.reqPassResetEmail && formik.errors.reqPassResetEmail ? (
-        <DisplayStatus
-          status='error'
-          error={{ message: formik.errors.reqPassResetEmail }}
-        />
+        <DisplayStatus status='error'>
+          {formik.errors.reqPassResetEmail}
+        </DisplayStatus>
       ) : null}
 
-      {errorMsg && (
-        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      {error && (
+        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
       )}
 
       {!loading && !error && called && data && data.reqPassReset && (
         <DisplayStatus status='success'>
-          {displayMessages.user.success.ReqPassReset}
+          {displayMessages.success.user.ReqPassReset}
         </DisplayStatus>
       )}
 

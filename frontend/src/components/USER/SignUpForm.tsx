@@ -1,9 +1,13 @@
 import { FC } from 'react';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useMutation, useApolloClient } from '@apollo/client';
-import { useFormik } from 'formik';
+import {
+  useMutation,
+  useApolloClient,
+  ApolloCache,
+  FetchResult
+} from '@apollo/client';
+import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
@@ -20,6 +24,11 @@ interface Props {
   close?: () => void;
 }
 
+type HandleSubmit = (
+  values: { signUpEmail: string; signUpPassword: string },
+  formikHelpers: FormikHelpers<{ signUpEmail: string; signUpPassword: string }>
+) => void;
+
 const validationSchema = object().shape({
   signUpEmail: email,
   signUpPassword: password
@@ -28,13 +37,11 @@ const validationSchema = object().shape({
 const SignUpForm: FC<Props> = props => {
   const { close } = props;
 
-  const [errorMsg, setErrorMsg] = useState();
-
   const router = useRouter();
 
   const apolloClient = useApolloClient();
 
-  const update = (cache, data) => {
+  const update = (cache: ApolloCache<any>, data: FetchResult<any>) => {
     const isLoggedIn = !!data?.createUser?.user?.id;
 
     cache.writeQuery({
@@ -56,23 +63,15 @@ const SignUpForm: FC<Props> = props => {
     await router.push('/');
   };
 
-  const onError = error => {
-    console.log('SignUp onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
-  const [createUser] = useMutation(CREATE_USER, {
+  const [createUser, { error }] = useMutation(CREATE_USER, {
     fetchPolicy: 'network-only',
 
     update: (cache, data) => update(cache, data),
 
-    onCompleted: data => onCompleted(data),
-
-    onError: error => onError(error)
+    onCompleted: data => onCompleted(data)
   });
 
-  const handleSubmit = async (values, formikHelpers) => {
+  const handleSubmit: HandleSubmit = async (values, formikHelpers) => {
     try {
       await createUser({
         variables: {
@@ -85,9 +84,7 @@ const SignUpForm: FC<Props> = props => {
 
       formikHelpers.setSubmitting(false);
     } catch (error) {
-      console.log('SignUp handleSubmit error: ', error);
-
-      setErrorMsg(graphQLErrors(error));
+      // console.log('SignUp handleSubmit error: ', error);
     }
   };
 
@@ -109,10 +106,9 @@ const SignUpForm: FC<Props> = props => {
       />
 
       {formik.touched.signUpEmail && formik.errors.signUpEmail ? (
-        <DisplayStatus
-          status='error'
-          error={{ message: formik.errors.signUpEmail }}
-        />
+        <DisplayStatus status='error'>
+          {formik.errors.signUpEmail}
+        </DisplayStatus>
       ) : null}
 
       <FormInput
@@ -123,14 +119,13 @@ const SignUpForm: FC<Props> = props => {
       />
 
       {formik.touched.signUpPassword && formik.errors.signUpPassword ? (
-        <DisplayStatus
-          status='error'
-          error={{ message: formik.errors.signUpPassword }}
-        />
+        <DisplayStatus status='error'>
+          {formik.errors.signUpPassword}
+        </DisplayStatus>
       ) : null}
 
-      {errorMsg && (
-        <DisplayStatus status='error' error={{ message: errorMsg }} />
+      {error && (
+        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
       )}
 
       <PassReqList />

@@ -48,11 +48,13 @@ const displayMessages = {
         tokenExpired:
           'Your password reset request is expired. Please submit a new one'
       }
-    },
+    }
+  },
 
-    info: {},
+  info: {},
 
-    success: {
+  success: {
+    user: {
       ReqPassReset: 'Check your email for a password reset link',
 
       ResetPassword: 'Your password has been changed'

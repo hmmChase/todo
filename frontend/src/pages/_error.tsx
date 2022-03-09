@@ -14,36 +14,32 @@ interface Props {
   statusCode: number | boolean;
 }
 
-type State = {
-  error: string;
-};
-
 const ErrorPage: NextPage<Props> = props => {
   const { statusCode } = props;
 
-  const { error, setError } = useState<State>('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   switch (statusCode) {
     case 404:
-      setError('Page Not Found');
+      setErrorMsg('Page Not Found');
       break;
 
     case 500:
-      setError('Internal Server Error');
+      setErrorMsg('Internal Server Error');
       break;
 
     case true:
-      setError(`HTTP ${statusCode} Error`);
+      setErrorMsg(`HTTP ${statusCode} Error`);
       break;
 
     default:
-      setError('Error');
+      setErrorMsg('Error');
       break;
   }
 
   return (
     <div>
-      <h1>{error}</h1>
+      <p>{errorMsg}</p>
 
       <LinkHome />
     </div>

@@ -1,7 +1,6 @@
-import { FC, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { FC, FormEvent } from 'react';
+import { ApolloCache, useMutation } from '@apollo/client';
 
-import graphQLErrors from '../../utils/graphQLErrors';
 import { REMOVE_IDEA } from '../../graphql/queries/idea';
 import { XIconBtn } from '../REUSEABLE/IconBtn';
 
@@ -12,9 +11,7 @@ interface Props {
 const RemoveIdea: FC<Props> = props => {
   const { ideaId } = props;
 
-  const [errorMsg, setErrorMsg] = useState();
-
-  const update = cache =>
+  const update = (cache: ApolloCache<any>) =>
     cache.modify({
       fields: {
         ideas(existingIdeas = []) {
@@ -28,28 +25,18 @@ const RemoveIdea: FC<Props> = props => {
       }
     });
 
-  const onError = error => {
-    console.log('RemoveIdea onError error: ', error);
-
-    setErrorMsg(graphQLErrors(error));
-  };
-
   const [removeIdea] = useMutation(REMOVE_IDEA, {
-    update: cache => update(cache),
-
-    onError: error => onError(error)
+    update: cache => update(cache)
   });
 
-  const handleClick = async e => {
+  const handleClick = async (e: FormEvent) => {
     //? prevent multiple clicks - not working?
     e.target.disabled = true;
 
     try {
       await removeIdea({ variables: { id: ideaId } });
     } catch (error) {
-      console.log('RemoveIdea handleClick error: ', error);
-
-      setErrorMsg(graphQLErrors(error));
+      // console.log('RemoveIdea handleClick error: ', error);
     }
   };
 

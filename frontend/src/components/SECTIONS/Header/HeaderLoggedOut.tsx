@@ -1,5 +1,4 @@
-import { FC } from 'react';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 
 import LogInModal from '../../USER/LogInModal';
@@ -7,12 +6,12 @@ import SignUpModal from '../../USER/SignUpModal';
 import Button from '../../REUSEABLE/Button';
 
 const HeaderLoggedOut: FC = () => {
-  const [modalDisplay, setModalDisplay] = useState(null);
+  const [modalDisplay, setModalDisplay] = useState('');
 
   return (
     <Container>
       {modalDisplay === 'login' && (
-        <LogInModal close={() => setModalDisplay(null)} />
+        <LogInModal close={() => setModalDisplay('')} />
       )}
 
       <ButtonLogIn alt type='text' onClick={() => setModalDisplay('login')}>
@@ -20,7 +19,7 @@ const HeaderLoggedOut: FC = () => {
       </ButtonLogIn>
 
       {modalDisplay === 'signup' && (
-        <SignUpModal close={() => setModalDisplay(null)} />
+        <SignUpModal close={() => setModalDisplay('')} />
       )}
 
       <Button type='text' onClick={() => setModalDisplay('signup')}>
