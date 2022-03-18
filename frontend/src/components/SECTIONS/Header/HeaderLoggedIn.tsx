@@ -10,12 +10,12 @@ const HeaderLoggedIn: FC = () => {
 
   const routePathArr = router.asPath.split('/');
 
-  const isActive = path => routePathArr[1] === path;
+  const isActive = (path: string) => routePathArr[1] === path;
 
   return (
     <UL>
       <li>
-        <Link href='/account' prefetch={false}>
+        <Link href='/account' passHref prefetch={false}>
           <Option>
             <Right data-active={isActive('account')} />
 
@@ -49,26 +49,20 @@ const UL = styled.ul`
   > li {
     cursor: pointer;
     padding: 10px 0;
-
     :not(:last-child) {
       border-bottom: 1px solid ${props => props.theme.border.secondary};
     }
 
-
-
     > a {
       color: ${props => props.theme.text.secondary};
       text-decoration: none;
-
-
-      }
     }
   }
 `;
 
 export const Option = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
 `;
 
 const Right = styled(Left)`

@@ -1,29 +1,25 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import Modal from '../REUSEABLE/Modal';
 import HorizontalRule from '../REUSEABLE/HorizontalRule';
+import Modal from '../REUSEABLE/Modal';
 import SignUpForm from './SignUpForm';
 
 interface Props {
   close: () => void;
 }
 
-const SignUpModal: FC<Props> = props => {
-  const { close } = props;
+const SignUpModal: FC<Props> = ({ close }) => (
+  <Modal close={close}>
+    <Container>
+      <Title>Sign up</Title>
 
-  return (
-    <Modal close={close}>
-      <Container>
-        <Title>Sign up</Title>
+      <HorizontalRule />
 
-        <HorizontalRule />
-
-        <SignUpForm close={close} />
-      </Container>
-    </Modal>
-  );
-};
+      <SignUpForm close={close} />
+    </Container>
+  </Modal>
+);
 
 export default SignUpModal;
 

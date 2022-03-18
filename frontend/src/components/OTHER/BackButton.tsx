@@ -9,20 +9,16 @@ interface Props {
   className?: string;
 }
 
-const BackButton: FC<Props> = props => {
-  const { className } = props;
-
-  return (
-    <Link href='/'>
-      <div className={className}>
-        <Buttonn aria-label='back' type='text'>
-          <Leftt />
-          Back
-        </Buttonn>
-      </div>
-    </Link>
-  );
-};
+const BackButton: FC<Props> = ({ className }) => (
+  <Link href='/' passHref>
+    <div className={className}>
+      <Buttonn name='back'>
+        <Leftt />
+        Back
+      </Buttonn>
+    </div>
+  </Link>
+);
 
 export default BackButton;
 

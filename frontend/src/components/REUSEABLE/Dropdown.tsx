@@ -1,28 +1,20 @@
-import { FC, ReactNode, useRef } from 'react';
+import { FC, ReactNode, RefObject } from 'react';
 import styled from 'styled-components';
 
-import useOnClickOutside from '../../utils/useOnClickOutside';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 interface Props {
+  children: ReactNode;
   className?: string;
   close: () => void;
-  children: ReactNode;
+  insideRef: RefObject<HTMLDivElement>;
 }
 
-const Dropdown: FC<Props> = props => {
-  const { className, close, children } = props;
-
-  // Create a ref that we add to the element for which we want to detect outside clicks
-  const ref = useRef<HTMLDivElement>(null);
-
+const Dropdown: FC<Props> = ({ children, className, close, insideRef }) => {
   // Call hook passing in the ref and a function to call on outside click
-  useOnClickOutside(ref, close);
+  useOnClickOutside(close, insideRef);
 
-  return (
-    <Container className={className} ref={ref}>
-      {children}
-    </Container>
-  );
+  return <Container className={className}>{children}</Container>;
 };
 
 export default Dropdown;

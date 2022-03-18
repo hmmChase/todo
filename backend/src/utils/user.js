@@ -24,7 +24,7 @@ export const createUserObj = userRecord => {
 
 const createPayload = userRecord => {
   // Create payload for access token
-  const payload = { userId: userRecord.id };
+  const payload = createUserObj(userRecord);
 
   // Create access token
   const accessToken = createAccessToken(payload);

@@ -1,6 +1,12 @@
 // https://nextjs.org/docs/advanced-features/custom-document
 
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, {
+  DocumentContext,
+  Head,
+  Html,
+  Main,
+  NextScript
+} from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
 // Resolution order
@@ -28,7 +34,7 @@ import { ServerStyleSheet } from 'styled-components';
 class MyDocument extends Document {
   // `getInitialProps` belongs to `_document` (instead of `_app`),
   // it's compatible with server-side generation (SSG).
-  static async getInitialProps(ctx) {
+  static async getInitialProps(ctx: DocumentContext) {
     // Render app and page and get the context of the page with collected side effects.
     const sheet = new ServerStyleSheet();
 
@@ -71,116 +77,116 @@ class MyDocument extends Document {
 
           {/* SEO */}
 
-          <meta name='description' content='hmmStart' />
+          <meta content='hmmStart' name='description' />
 
           {/* Favicon */}
 
           <link
+            href='/images/favicon.ico'
             rel='shortcut icon'
             type='image/x-icon'
-            href='/images/favicon.ico'
           />
 
           {/* Progressive Web App Manifest + Theme Color */}
 
-          <meta name='theme-color' content='#000000' />
-          <link rel='/manifest' href='manifest.json' />
+          <meta content='#000000' name='theme-color' />
+          <link href='manifest.json' rel='/manifest' />
 
           {/* Fonts */}
 
           <link
-            rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
+            rel='stylesheet'
           />
 
           <link
-            rel='preload'
+            as='font'
+            crossOrigin='anonymous'
             href='/fonts/open-sans-v15-latin-regular.woff2'
-            as='font'
+            rel='preload'
             type='font/woff2'
-            crossOrigin='anonymous'
           />
 
           <link
-            rel='preload'
-            href='/fonts/play-v10-latin-regular.woff2'
             as='font'
-            type='font/woff2'
             crossOrigin='anonymous'
+            href='/fonts/play-v10-latin-regular.woff2'
+            rel='preload'
+            type='font/woff2'
           />
 
           {/* PWA images */}
 
           <link
-            rel='icon'
-            type='image/png'
             href='/images/pwa/android-36x36.png'
+            rel='icon'
             sizes='36x36'
+            type='image/png'
           />
 
           <link
-            rel='icon'
-            type='image/png'
             href='/images/pwa/android-48x48.png'
+            rel='icon'
             sizes='48x48'
+            type='image/png'
           />
 
           <link
-            rel='icon'
-            type='image/png'
             href='/images/pwa/android-72x72.png'
+            rel='icon'
             sizes='72x72'
+            type='image/png'
           />
 
           <link
-            rel='icon'
-            type='image/png'
             href='/images/pwa/android-96x96.png'
-            sizes='96x96'
-          />
-
-          <link
             rel='icon'
+            sizes='96x96'
             type='image/png'
-            href='/images/pwa/android-144x144.png'
-            sizes='144x144'
           />
 
           <link
-            rel='apple-touch-icon'
+            href='/images/pwa/android-144x144.png'
+            rel='icon'
+            sizes='144x144'
+            type='image/png'
+          />
+
+          <link
             href='/images/pwa/apple-touch-icon-180x180.png'
+            rel='apple-touch-icon'
             sizes='180x180'
           />
 
           <link
-            rel='icon'
-            type='image/png'
             href='/images/pwa/pwa-192x192.png'
+            rel='icon'
             sizes='192x192'
+            type='image/png'
           />
 
           <link
-            rel='icon'
-            type='image/png'
             href='/images/pwa/pwa-512x512.png'
+            rel='icon'
             sizes='512x512'
+            type='image/png'
           />
 
           {/* Fonts */}
           <link
-            rel='preload'
-            href='/fonts/open-sans-v15-latin-regular.woff2'
             as='font'
-            type='font/woff2'
             crossOrigin='anonymous'
+            href='/fonts/open-sans-v15-latin-regular.woff2'
+            rel='preload'
+            type='font/woff2'
           />
 
           <link
-            rel='preload'
-            href='/fonts/play-v10-latin-regular.woff2'
             as='font'
-            type='font/woff2'
             crossOrigin='anonymous'
+            href='/fonts/play-v10-latin-regular.woff2'
+            rel='preload'
+            type='font/woff2'
           />
         </Head>
 

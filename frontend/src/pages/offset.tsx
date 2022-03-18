@@ -1,22 +1,22 @@
 import { useState } from 'react';
-import { NextPage, GetServerSideProps } from 'next';
+import { NextPageWithLayout } from 'next';
 import { useQuery } from '@apollo/client';
 
+import { Ideas } from '../models';
 import { ideasPerPage } from '../constants/config';
 import { READ_IDEAS_PAGINATED_OFFSET } from '../graphql/queries/idea';
-import isLoggedIn from '../utils/isLoggedIn';
-import QueryResult from '../components/REUSEABLE/QueryResult';
+import IdeaList from '../components/IDEA/IdeaList';
 import Layout from '../components/LAYOUTS/Layout';
-import Ideas from '../components/IDEA/Ideas';
+import QueryResult from '../components/REUSEABLE/QueryResult';
 
-const OffsetPage: NextPage = () => {
+const OffsetPage: NextPageWithLayout = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const [offset, setOffset] = useState(0);
 
   const [page, setPage] = useState((offset + ideasPerPage) / ideasPerPage);
 
-  const { loading, error, data, fetchMore, networkStatus } = useQuery(
+  const { loading, error, data, fetchMore } = useQuery(
     READ_IDEAS_PAGINATED_OFFSET,
     {
       variables: { offset, limit: ideasPerPage },
@@ -46,28 +46,24 @@ const OffsetPage: NextPage = () => {
     setPage(nextPage);
   };
 
-  const handleLoadMore = async () => {
+  const handleLoadMore = () => {
     setIsLoadingMore(true);
 
-    try {
-      await fetchMore({
-        variables: { offset: offset + ideasPerPage, limit: ideasPerPage }
-      });
-    } catch (error) {
-      console.log('OffsetPage fetchMore error: ', error);
-    }
+    fetchMore({
+      variables: { offset: offset + ideasPerPage, limit: ideasPerPage }
+    });
 
     setIsLoadingMore(false);
   };
 
-  const ideas = data?.ideasPaginatedOffset;
+  const ideas: Ideas = data?.ideasPaginatedOffset;
 
   const haveIdeas = !!ideas;
 
   return (
     <QueryResult loading={loading} error={error} data={data}>
       <>
-        <Ideas ideas={ideas} />
+        <IdeaList ideas={ideas} />
 
         {haveIdeas && (
           <div>
@@ -90,20 +86,12 @@ const OffsetPage: NextPage = () => {
   );
 };
 
-OffsetPage.getLayout = page => (
-  <Layout
-    title='Offset'
-    description='Offset page'
-    isLoggedIn={page.props.isLoggedIn}
-    hasHeader
-    hasFooter
-  >
-    {page}
-  </Layout>
-);
-
-export const getServerSideProps: GetServerSideProps = async ctx => {
-  return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
+OffsetPage.getLayout = function getLayout(page) {
+  return (
+    <Layout title='Offset' description='Offset page' hasHeader hasFooter>
+      {page}
+    </Layout>
+  );
 };
 
 export default OffsetPage;

@@ -7,59 +7,63 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import { siteTitle } from '../../constants/config';
-import Ideabox from '../../../public/images/ideabox.png';
+import BackButton from '../OTHER/BackButton';
 import HorizontalRule from '../REUSEABLE/HorizontalRule';
+import Ideabox from '../../../public/images/ideabox.png';
 
 interface Props {
-  title: string;
-  description: string;
   children: ReactNode;
+  description: string;
   hasBackButton?: boolean;
+  title: string;
 }
 
-const FullPage: FC<Props> = props => {
-  const { title, description, children, hasBackButton } = props;
+const FullPage: FC<Props> = ({
+  children,
+  description,
+  hasBackButton,
+  title
+}) => (
+  <>
+    <Head>
+      <title>{`${title} | ${siteTitle}`}</title>
 
-  return (
-    <>
-      <Head>
-        <title>{`${title} | ${siteTitle}`}</title>
+      <meta content={description} name='description' />
+    </Head>
 
-        <meta name='description' content={description} />
-      </Head>
+    <Container>
+      <LogoWrapper>
+        <Link href='/' passHref>
+          <Logo>
+            <BoxImg alt='ideabox' src={Ideabox} />
 
-      <Container>
-        <LogoWrapper>
-          <Link href='/' passHref>
-            <Logo>
-              <BoxImg src={Ideabox} alt='ideabox' />
+            <SiteTitle>{siteTitle}</SiteTitle>
+          </Logo>
+        </Link>
+      </LogoWrapper>
 
-              <SiteTitle>{siteTitle}</SiteTitle>
-            </Logo>
-          </Link>
-        </LogoWrapper>
+      <Content>
+        <PageTitle>{title}</PageTitle>
 
-        <Content>
-          <PageTitle>{title}</PageTitle>
+        {hasBackButton && <BackButtonn />}
 
-          <PageWrapper>
-            <HorizontalRulee />
-            {children}
-          </PageWrapper>
-        </Content>
-      </Container>
-    </>
-  );
-};
+        <PageWrapper>
+          <HorizontalRulee />
+          {children}
+        </PageWrapper>
+      </Content>
+    </Container>
+  </>
+);
 
 export default FullPage;
 
 const Container = styled.div`
   align-items: center;
+  background-color: ${props => props.theme.background.tertiary};
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  background-color: ${props => props.theme.background.tertiary};
 `;
 
 const LogoWrapper = styled.div`
@@ -76,9 +80,9 @@ const Logo = styled.a`
 `;
 
 const BoxImg = styled(Image).attrs({
+  height: 41,
   layout: 'fixed',
-  width: 50,
-  height: 41
+  width: 50
 })``;
 
 const SiteTitle = styled.h1`
@@ -125,4 +129,8 @@ export const HorizontalRulee = styled(HorizontalRule)`
     transform: rotate(90deg);
     width: 150%;
   }
+`;
+
+export const BackButtonn = styled(BackButton)`
+  margin: 1rem auto 1rem 1rem;
 `;

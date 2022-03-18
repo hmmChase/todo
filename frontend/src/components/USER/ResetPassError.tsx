@@ -2,40 +2,30 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 import {
-  passResetTokenMissingError,
-  passResetTokenExpiredError
+  passResetTokenExpiredError,
+  passResetTokenMissingError
 } from '../../constants/config';
 import BackButton from '../OTHER/BackButton';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 
 interface Props {
-  isTokenPresent: boolean;
   isTokenExpired: boolean;
+  isTokenPresent: boolean;
 }
 
-const ResetPassError: FC<Props> = props => {
-  const { isTokenPresent, isTokenExpired } = props;
+const ResetPassError: FC<Props> = ({ isTokenExpired, isTokenPresent }) => (
+  <>
+    <BackButtonn />
 
-  return (
-    <>
-      <BackButtonn />
+    {!isTokenPresent && (
+      <DisplayStatus status='error'>{passResetTokenMissingError}</DisplayStatus>
+    )}
 
-      {!isTokenPresent && (
-        <DisplayStatus
-          status='error'
-          error={{ message: passResetTokenMissingError }}
-        />
-      )}
-
-      {isTokenPresent && isTokenExpired && (
-        <DisplayStatus
-          status='error'
-          error={{ message: passResetTokenExpiredError }}
-        />
-      )}
-    </>
-  );
-};
+    {isTokenPresent && isTokenExpired && (
+      <DisplayStatus status='error'>{passResetTokenExpiredError}</DisplayStatus>
+    )}
+  </>
+);
 
 export default ResetPassError;
 

@@ -1,13 +1,14 @@
+import { NextPageWithLayout } from 'next';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 
+import { Idea } from '../../models';
 import { READ_IDEA } from '../../graphql/queries/idea';
-import isLoggedIn from '../../utils/isLoggedIn';
-import QueryResult from '../../components/REUSEABLE/QueryResult';
-import Layout from '../../components/LAYOUTS/Layout';
 import IdeaDetail from '../../components/IDEA/DETAIL/IdeaDetail';
+import Layout from '../../components/LAYOUTS/Layout';
+import QueryResult from '../../components/REUSEABLE/QueryResult';
 
-const IdeaPage = () => {
+const IdeaPage: NextPageWithLayout = () => {
   const router = useRouter();
 
   const ideaId = router.query.ideaId;
@@ -16,7 +17,7 @@ const IdeaPage = () => {
     variables: { id: ideaId }
   });
 
-  const idea = data?.idea;
+  const idea: Idea = data?.idea;
 
   return (
     <QueryResult loading={loading} error={error} data={idea}>
@@ -71,21 +72,16 @@ const IdeaPage = () => {
 //   return { paths, fallback: false };
 // }
 
-IdeaPage.getLayout = page => (
-  <Layout
-    title='Idea'
-    description='Idea page'
-    isLoggedIn={page.props.isLoggedIn}
-    hasHeader
-    hasFooter
-    hasBackButton
-  >
-    {page}
-  </Layout>
-);
-
-export const getServerSideProps = async ctx => {
-  return { props: { isLoggedIn: isLoggedIn(ctx.req.headers) } };
+IdeaPage.getLayout = function getLayout(page) {
+  return (
+    <Layout
+      title='Idea'
+      description='Idea page'
+      hasHeader
+      hasFooter
+      hasBackButton
+    >
+      {page}
+    </Layout>
+  );
 };
-
-export default IdeaPage;

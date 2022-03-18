@@ -1,68 +1,62 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useMutation, useApolloClient } from '@apollo/client';
-import { useFormik } from 'formik';
+import { useMutation } from '@apollo/client';
+import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
 import { email, password } from '../../utils/AuthInputValidation';
-import graphQLErrors from '../../utils/graphQLErrors';
-import { LOG_IN, IS_LOGGED_IN } from '../../graphql/queries/user';
 import { isLoggedInVar } from '../../graphql/cache';
-import FormInput from '../REUSEABLE/FormInput';
+import { LOG_IN } from '../../graphql/queries/user';
+import { User } from '../../models';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
+import FormInput from '../REUSEABLE/FormInput';
+import graphQLErrors from '../../utils/graphQLErrors';
+import useUser from '../../hooks/useUser';
 
 interface Props {
   close?: () => void;
 }
+
+interface Data {
+  logIn: { user: User };
+}
+
+type HandleSubmit = (
+  formikHelpers: FormikHelpers<{ logInEmail: string; logInPassword: string }>,
+  values: { logInEmail: string; logInPassword: string }
+) => void;
 
 const validationSchema = object().shape({
   logInEmail: email,
   logInPassword: password
 });
 
-const LogInForm: FC<Props> = props => {
-  const { close } = props;
-
+const LogInForm: FC<Props> = ({ close }) => {
   const router = useRouter();
 
-  // const apolloClient = useApolloClient();
+  const { setUser } = useUser();
 
-  const update = (cache, data) => {
-    // const isLoggedIn = !!data?.logIn?.user?.id;
-    // cache.writeQuery({
-    //   id: 'isLoggedIn',
-    //   query: IS_LOGGED_IN,
-    //   data: { isLoggedIn }
-    // });
-  };
+  const onCompleted = (data: Data) => {
+    if (data.logIn.user) {
+      isLoggedInVar(true);
 
-  const onCompleted = async data => {
-    // apolloClient.resetStore();
+      setUser(data.logIn.user);
 
-    // localStorage.setItem('userId', data.logIn.user.id);
-
-    isLoggedInVar(true);
-
-    if (close) close();
-    else await router.push('/');
+      // when logging in from /login page
+      if (!close) router.push('/');
+    }
   };
 
   const [logIn, { loading, error }] = useMutation(LOG_IN, {
     fetchPolicy: 'network-only',
 
-    update: (cache, data) => update(cache, data),
-
     onCompleted: data => onCompleted(data)
   });
 
-  const handleSubmit = async (values, formikHelpers) => {
-    // const email = e.currentTarget.elements.email.value;
-
-    // const password = e.currentTarget.elements.password.value;
-
+  const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
     try {
       await logIn({
         variables: { email: values.logInEmail, password: values.logInPassword }
@@ -84,14 +78,14 @@ const LogInForm: FC<Props> = props => {
     // validateOnChange: false,
     // validateOnBlur: true,
 
-    onSubmit: (values, formikHelpers) => handleSubmit(values, formikHelpers)
+    onSubmit: (values, formikHelpers) => handleSubmit(formikHelpers, values)
   });
 
   return (
     <Form onSubmit={formik.handleSubmit}>
       <FormInput
-        label='Email'
         id='logInEmailId'
+        label='Email'
         type='email'
         {...formik.getFieldProps('logInEmail')}
       />
@@ -101,8 +95,8 @@ const LogInForm: FC<Props> = props => {
       ) : null}
 
       <FormInput
-        label='Password'
         id='logInPasswordId'
+        label='Password'
         type='password'
         {...formik.getFieldProps('logInPassword')}
       />
@@ -118,9 +112,6 @@ const LogInForm: FC<Props> = props => {
       )}
 
       <Buttonn
-        aria-label='submit log in'
-        type='submit'
-        loading={loading}
         disabled={
           !!(
             !formik.values.logInEmail ||
@@ -130,6 +121,9 @@ const LogInForm: FC<Props> = props => {
             formik.isSubmitting
           )
         }
+        loading={loading}
+        name='logIn'
+        type='submit'
       >
         Log in
       </Buttonn>

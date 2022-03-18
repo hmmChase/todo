@@ -1,11 +1,11 @@
 // https://nextjs.org/docs/advanced-features/custom-error-page#more-advanced-error-page-customizing
 
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
 
-const LinkHome: FC = () => (
-  <Link href='/'>
+const LinkHome: NextPage = () => (
+  <Link href='/' passHref>
     <button>Home</button>
   </Link>
 );
@@ -14,9 +14,7 @@ interface Props {
   statusCode: number | boolean;
 }
 
-const ErrorPage: NextPage<Props> = props => {
-  const { statusCode } = props;
-
+const ErrorPage: NextPage<Props> = ({ statusCode }) => {
   const [errorMsg, setErrorMsg] = useState('');
 
   switch (statusCode) {

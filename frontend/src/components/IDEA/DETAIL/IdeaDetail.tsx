@@ -3,22 +3,14 @@ import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
 import { CURRENT_USER } from '../../../graphql/queries/user';
-import RemoveIdea from '../RemoveIdea';
 import IdeaDetailUpdate from './IdeaDetailUpdate';
+import RemoveIdea from '../RemoveIdea';
 
 interface Props {
-  idea: {
-    id: string;
-    author: { id: string };
-    content: string;
-  };
+  idea: { author: { id: string }; content: string; id: string };
 }
 
-const IdeaDetail: FC<Props> = props => {
-  const { idea } = props;
-
-  const { id, content, author } = idea;
-
+const IdeaDetail: FC<Props> = ({ idea: { author, content, id } }) => {
   const { data } = useQuery(CURRENT_USER, { fetchPolicy: 'network-only' });
 
   const currentUserId = data?.currentUser?.user?.id;
@@ -34,9 +26,9 @@ const IdeaDetail: FC<Props> = props => {
       )}
 
       <IdeaDetailUpdate
-        id={id}
         content={content}
         currentUserOwnsIdea={currentUserOwnsIdea}
+        id={id}
       />
     </Container>
   );

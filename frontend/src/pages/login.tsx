@@ -1,14 +1,16 @@
-import { NextPage } from 'next';
+import { NextPageWithLayout } from 'next';
 
 import FullPage from '../components/LAYOUTS/FullPage';
 import LogInForm from '../components/USER/LogInForm';
 
-const LogInPage: NextPage = () => <LogInForm />;
+const LogInPage: NextPageWithLayout = () => <LogInForm />;
 
-LogInPage.getLayout = page => (
-  <FullPage title='Log in' description='LogIn page'>
-    {page}
-  </FullPage>
-);
+LogInPage.getLayout = function getLayout(page) {
+  return (
+    <FullPage title='Log in' description='LogIn page'>
+      {page}
+    </FullPage>
+  );
+};
 
 export default LogInPage;

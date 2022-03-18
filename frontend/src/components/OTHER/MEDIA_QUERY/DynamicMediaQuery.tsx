@@ -4,20 +4,24 @@ import styled, { css, withTheme } from 'styled-components';
 const Wrapper = styled.div`
   display: flex;
 
-  ${({ media, device: size, styles }) => `${media[size]`${styles}`}`};
+  ${({ device: size, media, styles }) => `${media[size]`${styles}`}`};
 `;
 
 interface Props {
-  size: string;
+  children: ReactNode;
   feature: string;
+  size: string;
   styles: string;
   theme: { breakpoints: { [key: string]: number } };
-  children: ReactNode;
 }
 
-const DynamicMediaQuery: FC<Props> = props => {
-  const { size, feature, styles, theme, children } = props;
-
+const DynamicMediaQuery: FC<Props> = ({
+  children,
+  feature,
+  size,
+  styles,
+  theme
+}) => {
   /**
    * Generate media template
    * Ref: https://www.styled-components.com/docs/advanced#media-templates

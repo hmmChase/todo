@@ -8,16 +8,12 @@ interface Props {
   ideaId: string;
 }
 
-const DetailIcon: FC<Props> = props => {
-  const { className, ideaId } = props;
-
-  return (
-    <Link href={`/idea/${ideaId}`}>
-      <div className={className}>
-        <ExpandIconBtn aria-label='idea detail' />
-      </div>
-    </Link>
-  );
-};
+const DetailIcon: FC<Props> = ({ className, ideaId }) => (
+  <Link href={`/idea/${ideaId}`} passHref>
+    <div className={className}>
+      <ExpandIconBtn name='ideaDetail' />
+    </div>
+  </Link>
+);
 
 export default DetailIcon;

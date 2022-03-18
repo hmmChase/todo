@@ -1,35 +1,30 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import IdeaCard from './IdeaCard';
+import { Ideas } from '../../models';
+import IdeaItem from './IdeaItem';
 
 interface Props {
-  ideas: {
-    id: string;
-    author: { id: string };
-    content: string;
-  }[];
+  ideas: Ideas;
 }
 
-const Ideas: FC<Props> = props => {
-  const { ideas } = props;
-
-  const ideaCards = ideas.map(idea => (
+const IdeaList: FC<Props> = ({ ideas }) => {
+  const ideaItems = ideas.map(idea => (
     <LI key={idea.id}>
       <hr />
 
-      <IdeaCard
-        ideaId={idea.id}
-        content={idea.content}
+      <IdeaItem
         authorId={idea.author.id}
+        content={idea.content}
+        ideaId={idea.id}
       />
     </LI>
   ));
 
-  return <UL>{ideaCards}</UL>;
+  return <UL>{ideaItems}</UL>;
 };
 
-export default Ideas;
+export default IdeaList;
 
 const LI = styled.li`
   > hr {

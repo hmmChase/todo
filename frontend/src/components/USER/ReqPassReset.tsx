@@ -5,17 +5,17 @@ import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-import displayMessages from '../../constants/displayMessages';
 import { email } from '../../utils/AuthInputValidation';
-import graphQLErrors from '../../utils/graphQLErrors';
 import { REQ_PASS_RESET } from '../../graphql/queries/user';
-import FormInput from '../REUSEABLE/FormInput';
 import Button from '../REUSEABLE/Button';
+import displayMessages from '../../constants/displayMessages';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
+import FormInput from '../REUSEABLE/FormInput';
+import graphQLErrors from '../../utils/graphQLErrors';
 
 type HandleSubmit = (
-  values: { reqPassResetEmail: string },
-  formikHelpers: FormikHelpers<{ reqPassResetEmail: string }>
+  formikHelpers: FormikHelpers<{ reqPassResetEmail: string }>,
+  values: { reqPassResetEmail: string }
 ) => void;
 
 const validationSchema = object().shape({ reqPassResetEmail: email });
@@ -26,7 +26,7 @@ const ReqPassReset: FC = () => {
     { fetchPolicy: 'network-only' }
   );
 
-  const handleSubmit: HandleSubmit = async (values, formikHelpers) => {
+  const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
     try {
       await reqPassReset({ variables: { email: values.reqPassResetEmail } });
 
@@ -43,14 +43,14 @@ const ReqPassReset: FC = () => {
 
     validationSchema,
 
-    onSubmit: (values, formikHelpers) => handleSubmit(values, formikHelpers)
+    onSubmit: (values, formikHelpers) => handleSubmit(formikHelpers, values)
   });
 
   return (
     <Form onSubmit={formik.handleSubmit}>
       <FormInput
-        label='Email'
         id='reqPassResetEmailId'
+        label='Email'
         type='email'
         {...formik.getFieldProps('reqPassResetEmail')}
       />
@@ -72,8 +72,6 @@ const ReqPassReset: FC = () => {
       )}
 
       <Buttonn
-        aria-label='submit request password reset'
-        type='submit'
         disabled={
           !!(
             !formik.values.reqPassResetEmail ||
@@ -81,6 +79,8 @@ const ReqPassReset: FC = () => {
             formik.isSubmitting
           )
         }
+        name='passwordReset'
+        type='submit'
       >
         Submit
       </Buttonn>

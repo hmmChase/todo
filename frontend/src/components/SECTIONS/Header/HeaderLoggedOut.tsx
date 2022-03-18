@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
 
+import Button from '../../REUSEABLE/Button';
 import LogInModal from '../../USER/LogInModal';
 import SignUpModal from '../../USER/SignUpModal';
-import Button from '../../REUSEABLE/Button';
 
 const HeaderLoggedOut: FC = () => {
   const [modalDisplay, setModalDisplay] = useState('');
@@ -14,7 +14,7 @@ const HeaderLoggedOut: FC = () => {
         <LogInModal close={() => setModalDisplay('')} />
       )}
 
-      <ButtonLogIn alt type='text' onClick={() => setModalDisplay('login')}>
+      <ButtonLogIn alt name='logIn' onClick={() => setModalDisplay('login')}>
         Log in
       </ButtonLogIn>
 
@@ -22,7 +22,7 @@ const HeaderLoggedOut: FC = () => {
         <SignUpModal close={() => setModalDisplay('')} />
       )}
 
-      <Button type='text' onClick={() => setModalDisplay('signup')}>
+      <Button name='signUp' onClick={() => setModalDisplay('signup')}>
         Sign up
       </Button>
     </Container>

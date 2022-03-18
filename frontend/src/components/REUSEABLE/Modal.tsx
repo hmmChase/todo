@@ -1,35 +1,27 @@
 import { FC, ReactNode, useRef } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import useOnClickOutside from '../../utils/useOnClickOutside';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 interface Props {
-  close: () => void;
   children: ReactNode;
+  close: () => void;
 }
 
-const Modal: FC<Props> = props => {
-  const { close, children } = props;
+const Modal: FC<Props> = ({ children, close }) => {
+  // create a ref that we add to the element for which we want to detect outside clicks
+  const insideRef = useRef<HTMLDivElement>(null);
 
-  // Create a ref that we add to the element for which we want to detect outside clicks
-  const ref = useRef();
-
-  // Call hook passing in the ref and a function to call on outside click
-  useOnClickOutside(ref, close);
+  // call hook passing in the ref and a function to call on outside click
+  useOnClickOutside(close, insideRef);
 
   return (
     <Container>
       <Outer />
 
-      <Inner ref={ref}>{children}</Inner>
+      <Inner ref={insideRef}>{children}</Inner>
     </Container>
   );
-};
-
-Modal.propTypes = {
-  children: PropTypes.element.isRequired,
-  close: PropTypes.func.isRequired
 };
 
 export default Modal;

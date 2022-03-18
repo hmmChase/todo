@@ -5,11 +5,9 @@ interface Props {
   className?: string;
 }
 
-const HorizontalRule: FC<Props> = props => {
-  const { className } = props;
-
-  return <HR className={className} />;
-};
+const HorizontalRule: FC<Props> = ({ className }) => (
+  <HR className={className} />
+);
 
 export default HorizontalRule;
 

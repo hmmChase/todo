@@ -1,29 +1,36 @@
-import { FC, ReactNode } from 'react';
+import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
 interface Props {
-  'aria-label'?: string;
-  'data-testid'?: string;
+  alt?: boolean;
+  children: ReactNode;
   className?: string;
   disabled?: boolean;
-  onClick?: () => void;
-  alt?: boolean;
-  type: 'submit' | 'text';
   loading?: boolean;
-  children: ReactNode;
+  name: string;
+  onClick?: () => void;
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
-const Button: FC<Props> = props => {
-  const { className, disabled, onClick, alt, type, loading, children } = props;
-
+const Button: FC<Props> = ({
+  alt,
+  children,
+  className,
+  disabled,
+  loading,
+  name,
+  onClick,
+  type
+}) => {
   return (
     <Buttonn
-      aria-label={props['aria-label']}
-      data-testid={props['data-testid']}
-      className={className}
-      disabled={disabled}
-      onClick={onClick}
       $alt={alt}
+      aria-label={name}
+      className={className}
+      data-testid={name}
+      disabled={disabled}
+      name={name}
+      onClick={onClick}
       type={type}
     >
       {loading ? `${children}...` : children}

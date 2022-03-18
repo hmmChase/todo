@@ -4,18 +4,19 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import { siteTitle } from '../../../constants/config';
-import { isLoggedInVar } from '../../../graphql/cache';
+import CreateIdea from '../../IDEA/CreateIdea';
+import HeaderLoggedOut from './HeaderLoggedOut';
 import Ideabox from '../../../../public/images/ideabox.png';
 import UserIcon from '../../OTHER/UserIcon';
-import HeaderLoggedOut from './HeaderLoggedOut';
-import CreateIdea from '../../IDEA/CreateIdea';
+import useUser from '../../../hooks/useUser';
+
 // import NavBar from '../NavBar';
 // import HeaderUsername from './HeaderUsername';
 
 const Header: FC = () => {
-  const isLoggedIn = isLoggedInVar();
-
   const router = useRouter();
+
+  const { user } = useUser();
 
   const routePathArr = router.asPath.split('/');
 
@@ -34,16 +35,16 @@ const Header: FC = () => {
 
         {/* <NavBar /> */}
 
-        {/* {isLoggedIn && <HeaderUsername />} */}
+        {/* {user && <HeaderUsername />} */}
 
-        {isLoggedIn ? <UserIcon /> : <HeaderLoggedOut />}
+        {user ? <UserIcon /> : <HeaderLoggedOut />}
       </Top>
 
       <div>
         {onIdeaDetailPage ? (
           <IdeaTitle>{ideaId}</IdeaTitle>
         ) : (
-          isLoggedIn && <CreateIdea />
+          user && <CreateIdea />
         )}
       </div>
     </Container>
@@ -96,9 +97,9 @@ const Logo = styled.div`
 `;
 
 const BoxImg = styled(Image).attrs({
+  height: 41,
   layout: 'fixed',
-  width: 50,
-  height: 41
+  width: 50
 })``;
 
 const IdeaTitle = styled.h2`

@@ -12,12 +12,8 @@ interface Props {
   ideaId: string;
 }
 
-const IdeaCard: FC<Props> = props => {
-  const { authorId, content, ideaId } = props;
-
-  const { data } = useQuery(CURRENT_USER, {
-    fetchPolicy: 'network-only'
-  });
+const IdeaItem: FC<Props> = ({ authorId, content, ideaId }) => {
+  const { data } = useQuery(CURRENT_USER, { fetchPolicy: 'network-only' });
 
   const currentUserId = data?.currentUser?.user?.id;
 
@@ -27,16 +23,16 @@ const IdeaCard: FC<Props> = props => {
     <Article>
       <Content>{content}</Content>
 
-      <IdeaCardBtns>
+      <IdeaItemBtns>
         <DetailIconn ideaId={ideaId} />
 
         {currentUserOwnsIdea && <RemoveIdea ideaId={ideaId} />}
-      </IdeaCardBtns>
+      </IdeaItemBtns>
     </Article>
   );
 };
 
-export default IdeaCard;
+export default IdeaItem;
 
 const Article = styled.article`
   display: flex;
@@ -48,7 +44,7 @@ const Content = styled.p`
   margin: 0 0.25rem 0 0;
 `;
 
-const IdeaCardBtns = styled.div`
+const IdeaItemBtns = styled.div`
   display: flex;
 `;
 

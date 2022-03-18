@@ -1,39 +1,29 @@
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import styled from 'styled-components';
 
 import Expand from '../DESIGN/icons/Expand';
 import X from '../DESIGN/icons/X';
 
 interface ExpandIconBtnProps {
-  'aria-label'?: string;
-  'data-testid'?: string;
+  name: string;
 }
 
-export const ExpandIconBtn: FC<ExpandIconBtnProps> = props => (
-  <Button aria-label={props['aria-label']} data-testid={props['data-testid']}>
+export const ExpandIconBtn: FC<ExpandIconBtnProps> = ({ name }) => (
+  <Button aria-label={name} data-testid={name}>
     <Expand />
   </Button>
 );
 
 interface XIconBtnProps {
-  'aria-label'?: string;
-  'data-testid'?: string;
-  onClick: Function;
+  name: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const XIconBtn: FC<XIconBtnProps> = props => {
-  const { onClick } = props;
-
-  return (
-    <Button
-      aria-label={props['aria-label']}
-      data-testid={props['data-testid']}
-      onClick={onClick}
-    >
-      <X />
-    </Button>
-  );
-};
+export const XIconBtn: FC<XIconBtnProps> = ({ name, onClick }) => (
+  <Button aria-label={name} data-testid={name} onClick={onClick}>
+    <X />
+  </Button>
+);
 
 const Button = styled.button`
   background-color: ${props => props.theme.background.tertiary};

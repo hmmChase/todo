@@ -1,37 +1,40 @@
-import { FC, useState, useEffect, useRef, useCallback } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import useKeypress from '../../../utils/useKeypress';
 import useOnClickOutside from '../../../utils/useOnClickOutside';
 
 interface Props {
-  currentUserOwnsIdea?: boolean;
+  currentUserOwnsIdea: boolean;
   onSetText: (text: string) => void;
   text: string;
 }
 
-const IdeaDetailContent: FC<Props> = props => {
-  const { onSetText, text, currentUserOwnsIdea } = props;
-
+const IdeaDetailContent: FC<Props> = ({
+  currentUserOwnsIdea,
+  onSetText,
+  text
+}) => {
   const [isInputActive, setIsInputActive] = useState(false);
-
   const [inputValue, setInputValue] = useState(text);
 
-  const wrapperRef = useRef(null);
-  const textRef = useRef(null);
-  const inputRef = useRef(null);
+  const divRef = useRef<HTMLDivElement>(null);
+  const spanRef = useRef<HTMLSpanElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const enter = useKeypress('Enter');
-  const esc = useKeypress('Escape');
+  const escape = useKeypress('Escape');
 
-  // check to see if the user clicked outside of this component
-  useOnClickOutside(wrapperRef, () => {
+  const handler = () => {
     if (isInputActive) {
       onSetText(inputValue);
 
       setIsInputActive(false);
     }
-  });
+  };
+
+  // check to see if the user clicked outside of this component
+  useOnClickOutside(divRef, handler);
 
   const onEnter = useCallback(() => {
     if (enter) {
@@ -41,55 +44,54 @@ const IdeaDetailContent: FC<Props> = props => {
     }
   }, [enter, inputValue, onSetText]);
 
-  const onEsc = useCallback(() => {
-    if (esc) {
+  const onEscape = useCallback(() => {
+    if (escape) {
       setInputValue(text);
 
       setIsInputActive(false);
     }
-  }, [esc, text]);
+  }, [escape, text]);
 
   // focus the cursor in the input field on edit start
   useEffect(() => {
-    if (isInputActive) inputRef.current.focus();
+    if (isInputActive) textAreaRef.current?.focus();
   }, [isInputActive]);
 
+  // watch the Enter and Escape key presses
   useEffect(() => {
     if (isInputActive) {
       // if Enter is pressed, save the text and close the editor
       onEnter();
 
       // if Escape is pressed, revert the text and close the editor
-      onEsc();
+      onEscape();
     }
-  }, [onEnter, onEsc, isInputActive]); // watch the Enter and Escape key presses
-
-  const handleInputChange = useCallback(
-    event => setInputValue(event.target.value),
-    [setInputValue]
-  );
+  }, [isInputActive, onEnter, onEscape]);
 
   const handleClick = useCallback(
     () => setIsInputActive(true),
+
     [setIsInputActive]
   );
 
-  // currentUserOwnsIdea is passed in from the parent component
+  const handleChange = useCallback(
+    e => setInputValue(e.target.value),
+
+    [setInputValue]
+  );
 
   if (currentUserOwnsIdea)
     return (
-      <div ref={wrapperRef}>
-        <Span ref={textRef} onClick={handleClick} isInputActive={isInputActive}>
+      <div ref={divRef}>
+        <Span isInputActive={isInputActive} onClick={handleClick} ref={spanRef}>
           {text}
         </Span>
 
         <Textarea
-          ref={inputRef}
-          // set the width to the input length multiplied by the x height
-          // it's not quite right but gets it close
-          value={inputValue}
-          onChange={handleInputChange}
           isInputActive={isInputActive}
+          onChange={handleChange}
+          ref={textAreaRef}
+          value={inputValue}
         />
       </div>
     );

@@ -2,31 +2,30 @@ import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {
-  useMutation,
+  MutationUpdaterFn,
   useApolloClient,
-  ApolloCache,
-  FetchResult
+  useMutation
 } from '@apollo/client';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-import { email, password } from '../../utils/AuthInputValidation';
-import graphQLErrors from '../../utils/graphQLErrors';
 import { CREATE_USER, IS_LOGGED_IN } from '../../graphql/queries/user';
+import { email, password } from '../../utils/AuthInputValidation';
 import { isLoggedInVar } from '../../graphql/cache';
-import FormInput from '../REUSEABLE/FormInput';
-import PassReqList from './PassReqList';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
+import FormInput from '../REUSEABLE/FormInput';
+import graphQLErrors from '../../utils/graphQLErrors';
+import PassReqList from './PassReqList';
 
 interface Props {
   close?: () => void;
 }
 
 type HandleSubmit = (
-  values: { signUpEmail: string; signUpPassword: string },
-  formikHelpers: FormikHelpers<{ signUpEmail: string; signUpPassword: string }>
+  formikHelpers: FormikHelpers<{ signUpEmail: string; signUpPassword: string }>,
+  values: { signUpEmail: string; signUpPassword: string }
 ) => void;
 
 const validationSchema = object().shape({
@@ -34,14 +33,12 @@ const validationSchema = object().shape({
   signUpPassword: password
 });
 
-const SignUpForm: FC<Props> = props => {
-  const { close } = props;
-
+const SignUpForm: FC<Props> = ({ close }) => {
   const router = useRouter();
 
   const apolloClient = useApolloClient();
 
-  const update = (cache: ApolloCache<any>, data: FetchResult<any>) => {
+  const update: MutationUpdaterFn = (cache, data) => {
     const isLoggedIn = !!data?.createUser?.user?.id;
 
     cache.writeQuery({
@@ -51,10 +48,10 @@ const SignUpForm: FC<Props> = props => {
     });
   };
 
-  const onCompleted = async data => {
-    apolloClient.resetStore();
+  const onCompleted = async (data: any) => {
+    // localStorage.setItem('userId', data.createUser.user.id);
 
-    localStorage.setItem('userId', data.createUser.user.id);
+    apolloClient.resetStore();
 
     isLoggedInVar(true);
 
@@ -71,7 +68,7 @@ const SignUpForm: FC<Props> = props => {
     onCompleted: data => onCompleted(data)
   });
 
-  const handleSubmit: HandleSubmit = async (values, formikHelpers) => {
+  const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
     try {
       await createUser({
         variables: {
@@ -93,7 +90,7 @@ const SignUpForm: FC<Props> = props => {
 
     validationSchema,
 
-    onSubmit: (values, formikHelpers) => handleSubmit(values, formikHelpers)
+    onSubmit: (values, formikHelpers) => handleSubmit(formikHelpers, values)
   });
 
   return (
@@ -131,8 +128,6 @@ const SignUpForm: FC<Props> = props => {
       <PassReqList />
 
       <Buttonn
-        aria-label='submit sign up'
-        type='submit'
         disabled={
           !!(
             !formik.values.signUpEmail ||
@@ -142,6 +137,8 @@ const SignUpForm: FC<Props> = props => {
             formik.isSubmitting
           )
         }
+        name='signUp'
+        type='submit'
       >
         Sign up
       </Buttonn>

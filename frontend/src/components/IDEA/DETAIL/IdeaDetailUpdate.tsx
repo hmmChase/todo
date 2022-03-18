@@ -1,4 +1,4 @@
-import { FC, useState, useCallback } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash.debounce';
 
@@ -8,37 +8,37 @@ import IdeaDetailContent from './IdeaDetailContent';
 
 interface Props {
   content: string;
-  currentUserOwnsIdea?: boolean;
+  currentUserOwnsIdea: boolean;
   id: string;
 }
 
-const IdeaDetailUpdate: FC<Props> = props => {
-  const { id, content, currentUserOwnsIdea } = props;
-
+const IdeaDetailUpdate: FC<Props> = ({ content, currentUserOwnsIdea, id }) => {
   const [text, setText] = useState(content);
 
   const [updateIdea] = useMutation(UPDATE_IDEA);
 
   // executes on blur
   const debouncedFn = useCallback(
-    debounce(
-      value => updateIdea({ variables: { id, content: value } }),
-      IdeaInputDebounceDelay
-    ),
-    [updateIdea]
+    () =>
+      debounce(
+        (value: string) => updateIdea({ variables: { content: value, id } }),
+
+        IdeaInputDebounceDelay
+      ),
+    [id, updateIdea]
   );
 
   const onSetText = (text: string) => {
     setText(text);
 
-    debouncedFn(text);
+    debouncedFn();
   };
 
   return (
     <IdeaDetailContent
-      text={text}
-      onSetText={onSetText}
       currentUserOwnsIdea={currentUserOwnsIdea}
+      onSetText={onSetText}
+      text={text}
     />
   );
 };

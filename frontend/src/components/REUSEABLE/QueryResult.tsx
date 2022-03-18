@@ -1,23 +1,25 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactNode } from 'react';
 import { ApolloError } from '@apollo/client';
 import styled from 'styled-components';
 
-import Loader from '../OTHER/Loader';
 import DisplayStatus from './DisplayStatus';
 import graphQLErrors from '../../utils/graphQLErrors';
-
-// Conditionally renders Apollo hook states
+import Loader from '../OTHER/Loader';
 
 interface Props {
-  loading: boolean;
-  error?: ApolloError;
+  children: ReactNode;
   data?: string | number | object | [];
-  children: ReactElement;
-  loader?: boolean;
+  error?: ApolloError;
+  loading: boolean;
 }
 
-const QueryResult: FC<Props> = props => {
-  const { loading, error, data, children, loader } = props;
+const QueryResult: FC<Props> = ({ children, data, error, loading }) => {
+  if (error)
+    return (
+      <Center>
+        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
+      </Center>
+    );
 
   if (loading)
     return (
@@ -26,21 +28,14 @@ const QueryResult: FC<Props> = props => {
       </Center>
     );
 
-  if (error)
-    return (
-      <Center>
-        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
-      </Center>
-    );
-
   if (!data)
     return (
       <Center>
-        <DisplayStatus status='info'>Nothing here</DisplayStatus>
+        <DisplayStatus status='info'>Nothing to show</DisplayStatus>
       </Center>
     );
 
-  if (data) return children;
+  if (data) return <>{children}</>;
 
   return <DisplayStatus status='error'>ERROR</DisplayStatus>;
 };

@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPageWithLayout } from 'next';
 
 // import { initializeApollo, addApolloState } from '../graphql/apolloClient';
 // import { CURRENT_USER } from '../graphql/queries/user';
@@ -7,7 +7,7 @@ import { NextPage } from 'next';
 // import Layout from '../components/LAYOUTS/Layout';
 // import Ideas from '../components/IDEA/Ideas';
 
-const SSGPage: NextPage = props => {
+const SSGPage: NextPageWithLayout = props => {
   // const { ideasRes } = props;
 
   // const ideas = ideasRes.data?.ideas || [];
@@ -45,7 +45,6 @@ const SSGPage: NextPage = props => {
 //     <Layout
 //       title='SSG'
 //       description='SSG page'
-//       // isLoggedIn={!!res.data.currentUser}
 //       hasHeader
 //       hasFooter
 //     >

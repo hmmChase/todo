@@ -3,18 +3,16 @@ import styled from 'styled-components';
 
 interface Props {
   children: string | string[];
-  status: 'info' | 'loading' | 'error' | 'success';
+  status: 'error' | 'info' | 'success';
 }
 
-const DisplayStatus: FC<Props> = props => {
-  const { children, status } = props;
-
+const DisplayStatus: FC<Props> = ({ children, status }) => {
   if (Array.isArray(children))
     return (
       <MsgList>
         {children.map((statusMsg, i) => (
           <MsgItem key={`msg${i}`}>
-            <Span data-testid='msgItem' status={status}>
+            <Span data-testid='statusMsg' status={status}>
               {statusMsg}
             </Span>
           </MsgItem>
@@ -24,13 +22,13 @@ const DisplayStatus: FC<Props> = props => {
 
   if (typeof children === 'string')
     return (
-      <Span data-testid='msgItem' status={status}>
+      <Span data-testid='statusMsg' status={status}>
         {children}
       </Span>
     );
 
   return (
-    <Span data-testid='msgItem' status={'error'}>
+    <Span data-testid='statusMsg' status={'error'}>
       Opps, something went wrong.
     </Span>
   );
@@ -41,10 +39,10 @@ export default DisplayStatus;
 const Span = styled.span`
   background-color: ${props => {
     switch (props.status) {
-      case 'info':
-        return props.theme.background.honeyDew;
       case 'error':
         return props.theme.background.septenary;
+      case 'info':
+        return props.theme.background.honeyDew;
       case 'success':
         return props.theme.background.senary;
       default:

@@ -1,29 +1,25 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import Modal from '../REUSEABLE/Modal';
 import HorizontalRule from '../REUSEABLE/HorizontalRule';
 import LogInForm from './LogInForm';
+import Modal from '../REUSEABLE/Modal';
 
 interface Props {
   close: () => void;
 }
 
-const LogInModal: FC<Props> = props => {
-  const { close } = props;
+const LogInModal: FC<Props> = ({ close }) => (
+  <Modal close={close}>
+    <Container>
+      <Title>Log in</Title>
 
-  return (
-    <Modal close={close}>
-      <Container>
-        <Title>Log in</Title>
+      <HorizontalRule />
 
-        <HorizontalRule />
-
-        <LogInForm close={close} />
-      </Container>
-    </Modal>
-  );
-};
+      <LogInForm close={close} />
+    </Container>
+  </Modal>
+);
 
 export default LogInModal;
 

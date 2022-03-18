@@ -1,9 +1,35 @@
 // https://github.com/vercel/next.js/tree/canary/examples/active-class-name
 
-import { FC, ReactNode, Children, cloneElement } from 'react';
+import { Children, cloneElement, FC, ReactElement } from 'react';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+import Link, { LinkProps } from 'next/link';
 import styled from 'styled-components';
+
+interface Props {
+  activeClassName?: string;
+  as?: string;
+  children: ReactElement;
+  href: LinkProps['href'];
+}
+
+const ActiveLink: FC<Props> = ({ activeClassName, as, children, href }) => {
+  const { asPath } = useRouter();
+
+  const child = Children.only(children);
+
+  const childClassName = child.props.className || '';
+
+  const className =
+    asPath === href || asPath === as
+      ? `${childClassName} ${activeClassName}`.trim()
+      : childClassName;
+
+  return (
+    <Link href={href}>
+      {cloneElement(child, { className: className || null })}
+    </Link>
+  );
+};
 
 const NavBar: FC = () => (
   <nav>
@@ -40,34 +66,6 @@ const NavBar: FC = () => (
     </UL>
   </nav>
 );
-
-interface Props {
-  children: ReactNode;
-  activeClassName?: string;
-  href?: string;
-  as?: string;
-}
-
-const ActiveLink: FC<Props> = props => {
-  const { children, activeClassName, href, as } = props;
-
-  const { asPath } = useRouter();
-
-  const child = Children.only(children);
-
-  const childClassName = child.props.className || '';
-
-  const className =
-    asPath === href || asPath === as
-      ? `${childClassName} ${activeClassName}`.trim()
-      : childClassName;
-
-  return (
-    <Link {...props}>
-      {cloneElement(child, { className: className || null })}
-    </Link>
-  );
-};
 
 export default NavBar;
 

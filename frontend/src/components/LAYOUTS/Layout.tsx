@@ -1,74 +1,63 @@
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 
 import { siteTitle } from '../../constants/config';
-import { isLoggedInVar } from '../../graphql/cache';
-import Header from '../SECTIONS/Header/Header';
 import BackButton from '../OTHER/BackButton';
 import Footer from '../SECTIONS/Footer';
+import Header from '../SECTIONS/Header/Header';
 
 interface Props {
-  title: string;
-  description: string;
   children: ReactNode;
-  isLoggedIn: boolean;
+  description: string;
   hasBackButton?: boolean;
   hasFooter?: boolean;
   hasHeader?: boolean;
+  title: string;
 }
 
-const Layout: FC<Props> = props => {
-  const {
-    isLoggedIn,
-    title,
-    description,
-    hasHeader,
-    hasBackButton,
-    hasFooter,
-    children
-  } = props;
+const Layout: FC<Props> = ({
+  children,
+  description,
+  hasBackButton,
+  hasFooter,
+  hasHeader,
+  title
+}) => (
+  <>
+    <Head>
+      <title>{`${title} | ${siteTitle}`}</title>
 
-  isLoggedInVar(isLoggedIn);
+      <meta name='description' content={description} />
+    </Head>
 
-  // const { width } = useWindowSize();
-
-  return (
-    <>
-      <Head>
-        <title>{title ? `${title} | ${siteTitle}` : `${siteTitle}`}</title>
-
-        <meta name='description' content={description} />
-      </Head>
-
-      <Container>
-        {hasHeader && (
-          <HeaderWrap>
-            <MaxWidth>
-              <Header />
-            </MaxWidth>
-          </HeaderWrap>
-        )}
-
-        <MainWrap>
+    <Container>
+      {hasHeader && (
+        <HeaderWrap>
           <MaxWidth>
-            {hasBackButton && <BackButtonn />}
-
-            {children}
+            <Header />
           </MaxWidth>
-        </MainWrap>
+        </HeaderWrap>
+      )}
 
-        {hasFooter && (
-          <FooterWrap>
-            <MaxWidth>
-              <Footer />
-            </MaxWidth>
-          </FooterWrap>
-        )}
-      </Container>
-    </>
-  );
-};
+      <MainWrap>
+        <MaxWidth>
+          {hasBackButton && <BackButtonn />}
+
+          {children}
+        </MaxWidth>
+      </MainWrap>
+
+      {hasFooter && (
+        <FooterWrap>
+          <MaxWidth>
+            <Footer />
+          </MaxWidth>
+        </FooterWrap>
+      )}
+    </Container>
+  </>
+);
 
 export default Layout;
 

@@ -1,16 +1,30 @@
-import { FC } from 'react';
+import {
+  ChangeEventHandler,
+  FC,
+  FocusEventHandler,
+  HTMLInputTypeAttribute
+} from 'react';
 import styled from 'styled-components';
 
 interface Props {
   id: string;
   label?: string;
   name: string;
-  type?: string;
+  onBlur: FocusEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  type: HTMLInputTypeAttribute;
+  value: string;
 }
 
-const FormInput: FC<Props> = props => {
-  const { id, label, name, type } = props;
-
+const FormInput: FC<Props> = ({
+  id,
+  label,
+  name,
+  onBlur,
+  onChange,
+  type,
+  value
+}) => {
   const fieldId = `${id}-${name}`;
 
   return (
@@ -18,11 +32,13 @@ const FormInput: FC<Props> = props => {
       {label && <Label htmlFor={fieldId}>{label}</Label>}
 
       <Input
-        {...props}
-        id={fieldId}
         aria-label={name}
         data-testid={name}
+        id={fieldId}
+        onBlur={onBlur}
+        onChange={onChange}
         type={type}
+        value={value}
       />
     </>
   );
@@ -36,7 +52,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  border: none;
   border-radius: ${props => props.theme.borderRadius.primary};
+  border: none;
   padding: 0.5rem;
 `;

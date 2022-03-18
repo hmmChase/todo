@@ -1,39 +1,37 @@
 import { FC, useState } from 'react';
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-import displayMessages from '../../constants/displayMessages';
-import { password } from '../../utils/AuthInputValidation';
-import graphQLErrors from '../../utils/graphQLErrors';
 import { CHANGE_PASSWORD } from '../../graphql/queries/user';
 import { isLoggedInVar } from '../../graphql/cache';
-import FormInput from '../REUSEABLE/FormInput';
-import PassReqList from './PassReqList';
+import { password } from '../../utils/AuthInputValidation';
 import Button from '../REUSEABLE/Button';
+import displayMessages from '../../constants/displayMessages';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
+import FormInput from '../REUSEABLE/FormInput';
+import graphQLErrors from '../../utils/graphQLErrors';
+import PassReqList from './PassReqList';
 
 interface Props {
-  resetPassToken: string;
+  resetPassToken: string | string[];
 }
 
 type HandleSubmit = (
-  values: { newPassword: any },
-  formikHelpers: FormikHelpers<{ newPassword: string }>
+  formikHelpers: FormikHelpers<{ newPassword: string }>,
+  values: { newPassword: any }
 ) => void;
 
 const validationSchema = object().shape({ newPassword: password });
 
-const ResetPassword: FC<Props> = props => {
-  const { resetPassToken } = props;
-
+const ResetPassword: FC<Props> = ({ resetPassToken }) => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
   const apolloClient = useApolloClient();
 
-  const onCompleted = data => {
-    localStorage.setItem('userId', data.changePassword.user.id);
+  const onCompleted = (data: any) => {
+    // localStorage.setItem('userId', data.changePassword.user.id);
 
     isLoggedInVar(true);
 
@@ -42,16 +40,13 @@ const ResetPassword: FC<Props> = props => {
     if (data && data.changePassword.user.id) setIsSuccessful(true);
   };
 
-  const [changePassword, { loading, error, data }] = useMutation(
-    CHANGE_PASSWORD,
-    {
-      fetchPolicy: 'network-only',
+  const [changePassword, { error }] = useMutation(CHANGE_PASSWORD, {
+    fetchPolicy: 'network-only',
 
-      onCompleted: data => onCompleted(data)
-    }
-  );
+    onCompleted: data => onCompleted(data)
+  });
 
-  const handleSubmit: HandleSubmit = async (values, formikHelpers) => {
+  const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
     try {
       await changePassword({
         variables: { resetPassToken, newPassword: values.newPassword }
@@ -73,7 +68,7 @@ const ResetPassword: FC<Props> = props => {
     // validateOnChange: false,
     // validateOnBlur: true,
 
-    onSubmit: (values, formikHelpers) => handleSubmit(values, formikHelpers)
+    onSubmit: (values, formikHelpers) => handleSubmit(formikHelpers, values)
   });
 
   return (
@@ -98,8 +93,6 @@ const ResetPassword: FC<Props> = props => {
       <PassReqList />
 
       <Button
-        aria-label='submit reset password'
-        type='submit'
         disabled={
           !!(
             !formik.values.newPassword ||
@@ -107,6 +100,8 @@ const ResetPassword: FC<Props> = props => {
             formik.isSubmitting
           )
         }
+        name='resetPassword'
+        type='submit'
       >
         Reset Password
       </Button>

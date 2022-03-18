@@ -1,5 +1,5 @@
-import { FC, FormEvent } from 'react';
-import { ApolloCache, useMutation } from '@apollo/client';
+import { FC, MouseEventHandler } from 'react';
+import { MutationUpdaterFn, useMutation } from '@apollo/client';
 
 import { REMOVE_IDEA } from '../../graphql/queries/idea';
 import { XIconBtn } from '../REUSEABLE/IconBtn';
@@ -8,14 +8,12 @@ interface Props {
   ideaId: string;
 }
 
-const RemoveIdea: FC<Props> = props => {
-  const { ideaId } = props;
-
-  const update = (cache: ApolloCache<any>) =>
+const RemoveIdea: FC<Props> = ({ ideaId }) => {
+  const update: MutationUpdaterFn = cache =>
     cache.modify({
       fields: {
         ideas(existingIdeas = []) {
-          // Remove idea
+          // remove idea
           const filteredIdeas = existingIdeas.filter(
             idea => idea.__ref !== `Idea:${ideaId}`
           );
@@ -26,21 +24,17 @@ const RemoveIdea: FC<Props> = props => {
     });
 
   const [removeIdea] = useMutation(REMOVE_IDEA, {
-    update: cache => update(cache)
+    update: (cache, data) => update(cache, data)
   });
 
-  const handleClick = async (e: FormEvent) => {
-    //? prevent multiple clicks - not working?
-    e.target.disabled = true;
+  const handleClick: MouseEventHandler<HTMLButtonElement> = e => {
+    // prevent multiple clicks
+    e.currentTarget.disabled = true;
 
-    try {
-      await removeIdea({ variables: { id: ideaId } });
-    } catch (error) {
-      // console.log('RemoveIdea handleClick error: ', error);
-    }
+    removeIdea({ variables: { id: ideaId } });
   };
 
-  return <XIconBtn aria-label='remove idea' onClick={handleClick} />;
+  return <XIconBtn name='removeIdea' onClick={handleClick} />;
 };
 
 export default RemoveIdea;

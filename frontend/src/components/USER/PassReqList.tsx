@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { passwordRequirements } from '../../constants/config';
 
 const PassReqList: FC = () => {
-  const reqList = passwordRequirements.reqs.map((req, index) => (
-    <PassListItem key={index}>{req}</PassListItem>
+  const reqList = passwordRequirements.reqs.map((req, i) => (
+    <PassListItem key={i}>{req}</PassListItem>
   ));
 
   return (

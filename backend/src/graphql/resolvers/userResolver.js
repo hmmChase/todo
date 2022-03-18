@@ -87,9 +87,9 @@ const userResolver = {
       const payload = verifyAccessToken(ctx.accessToken);
 
       try {
-        // Find user matching userId
+        // Find user matching user id
         const userRecord = await ctx.prisma.user.findUnique({
-          where: { id: payload.userId },
+          where: { id: payload.user.id },
           select: { id: true, email: true, role: true }
         });
 
@@ -162,6 +162,8 @@ const userResolver = {
     },
 
     logOut: (parent, args, ctx, info) => {
+      console.log('dkljaklsdjfsdklafjlk;sda');
+
       // const cookie = serialize('at', '', { maxAge: -1, path: '/' });
       // ctx.res.setHeader('Set-Cookie', cookie);
 
