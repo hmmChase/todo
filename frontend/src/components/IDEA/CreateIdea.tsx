@@ -8,19 +8,18 @@ import {
 import { MutationUpdaterFn, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 
-import {
-  // READ_IDEAS,
-  CREATE_IDEA,
-  IDEA_FIELDS
-} from '../../graphql/queries/idea';
+import { CREATE_IDEA, IDEA_FIELDS } from '../../graphql/queries/idea';
 import { Ideas } from '../../models';
+import useUser from '../../hooks/useUser';
 
 const CreateIdea: FC = () => {
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
+  const { user } = useUser();
+
   const ideaInputRef = useRef<HTMLTextAreaElement>(null);
 
-  // update the cache to add our new idea
+  // Update the cache to add our new idea
   // https://www.apollographql.com/docs/react/api/react/hooks/#update
   // https://www.apollographql.com/docs/react/data/mutations/#the-update-function
   // https://www.apollographql.com/docs/react/data/mutations/#updating-the-cache-directly
@@ -40,10 +39,6 @@ const CreateIdea: FC = () => {
     });
 
   const [createIdea] = useMutation(CREATE_IDEA, {
-    // Update the cache as an approximation of server-side mutation effects
-    // https://www.apollographql.com/docs/react/data/mutations/#refetching-queries
-    // refetchQueries: [{ query: READ_IDEAS }],
-
     update: (cache, result) => update(cache, result)
   });
 
@@ -53,14 +48,14 @@ const CreateIdea: FC = () => {
     createIdea({
       variables: { content: ideaInputRef.current?.value },
 
-      // Optimistically add the Todo to the locally cached
-      // list before the server responds
+      // Optimistically add the idea to the cache before the server responds
       // https://www.apollographql.com/docs/react/performance/optimistic-ui/#the-optimisticresponse-option
       optimisticResponse: {
         createIdea: {
-          id: 'temp-id',
           __typename: 'Idea',
-          content: ideaInputRef.current!.value
+          id: 'temp-id',
+          content: ideaInputRef.current!.value,
+          author: { id: user?.id, __typename: 'User' }
         }
       }
     });

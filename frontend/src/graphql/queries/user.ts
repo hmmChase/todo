@@ -72,9 +72,9 @@ export const LOG_OUT = gql`
   }
 `;
 
-export const CREATE_USER = gql`
-  mutation CreateUser($email: String!, $password: String!) {
-    createUser(input: { email: $email, password: $password }) {
+export const SIGN_UP = gql`
+  mutation SignUp($email: String!, $password: String!) {
+    signUp(input: { email: $email, password: $password }) {
       user {
         ...userFields
       }
@@ -83,15 +83,15 @@ export const CREATE_USER = gql`
   ${USER_FIELDS}
 `;
 
-export const REQ_PASS_RESET = gql`
-  mutation ReqPassReset($email: String!) {
-    reqPassReset(email: $email)
+export const PASS_RESET_REQ = gql`
+  mutation PassResetReq($email: String!) {
+    passResetReq(email: $email)
   }
 `;
 
-export const CHANGE_PASSWORD = gql`
-  mutation ChangePassword($resetPassToken: String!, $newPassword: String!) {
-    changePassword(resetPassToken: $resetPassToken, newPassword: $newPassword) {
+export const PASS_RESET = gql`
+  mutation PassReset($resetPassToken: String!, $newPassword: String!) {
+    passReset(resetPassToken: $resetPassToken, newPassword: $newPassword) {
       user {
         ...userFields
       }

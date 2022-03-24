@@ -28,7 +28,7 @@ const Header: FC = () => {
     <Container>
       <Top>
         <Logo>
-          <BoxImg src={Ideabox} alt='ideabox' />
+          <BoxImg alt='ideabox' priority src={Ideabox} />
 
           <HeaderTitle>{siteTitle}</HeaderTitle>
         </Logo>

@@ -15,7 +15,7 @@ const verifyUser = (userCookie: string | undefined) => {
   // If cookie header present
   if (userCookie) {
     // Parse Access token
-    const accessToken = userCookie.replace('at=', '');
+    const accessToken = userCookie.replace('access=', '');
 
     // If Access token
     if (accessToken) {

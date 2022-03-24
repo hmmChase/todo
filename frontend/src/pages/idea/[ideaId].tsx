@@ -13,15 +13,19 @@ const IdeaPage: NextPageWithLayout = () => {
 
   const ideaId = router.query.ideaId;
 
-  const { loading, error, data } = useQuery(READ_IDEA, {
+  const { data, error, loading } = useQuery(READ_IDEA, {
     variables: { id: ideaId }
   });
 
   const idea: Idea = data?.idea;
 
   return (
-    <QueryResult loading={loading} error={error} data={idea}>
-      <IdeaDetail idea={idea} />
+    <QueryResult data={data} error={error} loading={loading}>
+      <IdeaDetail
+        authorId={idea?.author?.id}
+        content={idea?.content}
+        ideaId={idea?.id}
+      />
     </QueryResult>
   );
 };
@@ -85,3 +89,5 @@ IdeaPage.getLayout = function getLayout(page) {
     </Layout>
   );
 };
+
+export default IdeaPage;

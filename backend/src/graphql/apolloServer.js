@@ -2,6 +2,7 @@
 
 import { ApolloServer } from 'apollo-server-express';
 
+import { development } from '../constants/config.js';
 import prisma from '../../prisma/prisma.js';
 import schema from './schema.js';
 
@@ -34,7 +35,9 @@ const apolloServer = new ApolloServer({
     const accessToken = req?.cookies?.at || '';
 
     return { req, res, prisma, accessToken };
-  }
+  },
+
+  introspection: development
 });
 
 export default apolloServer;

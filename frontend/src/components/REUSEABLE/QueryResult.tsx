@@ -8,23 +8,23 @@ import Loader from '../OTHER/Loader';
 
 interface Props {
   children: ReactNode;
-  data?: string | number | object | [];
+  data?: number | object | string | [];
   error?: ApolloError;
   loading: boolean;
 }
 
 const QueryResult: FC<Props> = ({ children, data, error, loading }) => {
-  if (error)
-    return (
-      <Center>
-        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
-      </Center>
-    );
-
   if (loading)
     return (
       <Center>
         <Loader />
+      </Center>
+    );
+
+  if (error)
+    return (
+      <Center>
+        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
       </Center>
     );
 

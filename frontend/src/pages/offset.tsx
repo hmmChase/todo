@@ -16,7 +16,7 @@ const OffsetPage: NextPageWithLayout = () => {
 
   const [page, setPage] = useState((offset + ideasPerPage) / ideasPerPage);
 
-  const { loading, error, data, fetchMore } = useQuery(
+  const { data, error, loading, fetchMore } = useQuery(
     READ_IDEAS_PAGINATED_OFFSET,
     {
       variables: { offset, limit: ideasPerPage },
@@ -61,7 +61,7 @@ const OffsetPage: NextPageWithLayout = () => {
   const haveIdeas = !!ideas;
 
   return (
-    <QueryResult loading={loading} error={error} data={data}>
+    <QueryResult data={data} error={error} loading={loading}>
       <>
         <IdeaList ideas={ideas} />
 

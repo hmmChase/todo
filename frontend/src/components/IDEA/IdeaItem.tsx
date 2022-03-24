@@ -1,10 +1,9 @@
 import { FC } from 'react';
-import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
-import { CURRENT_USER } from '../../graphql/queries/user';
-import DetailIcon from './DETAIL/DetailIcon';
+import IdeaDetailIcon from './DETAIL/IdeaDetailIcon';
 import RemoveIdea from './RemoveIdea';
+import useUser from '../../hooks/useUser';
 
 interface Props {
   authorId: string;
@@ -13,18 +12,16 @@ interface Props {
 }
 
 const IdeaItem: FC<Props> = ({ authorId, content, ideaId }) => {
-  const { data } = useQuery(CURRENT_USER, { fetchPolicy: 'network-only' });
+  const { user } = useUser();
 
-  const currentUserId = data?.currentUser?.user?.id;
-
-  const currentUserOwnsIdea = currentUserId === authorId;
+  const currentUserOwnsIdea = user?.id === authorId;
 
   return (
     <Article>
       <Content>{content}</Content>
 
       <IdeaItemBtns>
-        <DetailIconn ideaId={ideaId} />
+        <IdeaDetailIconn ideaId={ideaId} />
 
         {currentUserOwnsIdea && <RemoveIdea ideaId={ideaId} />}
       </IdeaItemBtns>
@@ -48,6 +45,6 @@ const IdeaItemBtns = styled.div`
   display: flex;
 `;
 
-const DetailIconn = styled(DetailIcon)`
+const IdeaDetailIconn = styled(IdeaDetailIcon)`
   margin-right: 0.25rem;
 `;

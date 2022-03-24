@@ -26,17 +26,17 @@ const LogOut = () => {
 
     apolloClient.cache.gc();
 
+    apolloClient.cache.reset();
+
     apolloClient.clearStore();
 
     apolloClient.resetStore();
 
-    apolloClient.cache.reset();
-
     // Let other parts of the application that are relying on logged in
     // state know we're now logged out.
-    isLoggedInVar(false);
-
     setUser(null);
+
+    isLoggedInVar(false);
 
     await router.push('/');
   };

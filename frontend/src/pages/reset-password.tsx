@@ -3,10 +3,15 @@ import { NextPageWithLayout } from 'next';
 import { useRouter } from 'next/router';
 
 import FullPage from '../components/LAYOUTS/FullPage';
-import ResetPassError from '../components/USER/ResetPassError';
-import ResetPassword from '../components/USER/ResetPassword';
+import PassReset from '../components/USER/PassReset';
+import PassResetError from '../components/USER/PassResetError';
 
-const ResetPasswordPage: NextPageWithLayout = () => {
+type QueryParams = {
+  token: string;
+  expiry: string;
+};
+
+const PassResetPage: NextPageWithLayout = () => {
   const [isReady, setIsReady] = useState(false);
 
   const router = useRouter();
@@ -17,7 +22,7 @@ const ResetPasswordPage: NextPageWithLayout = () => {
     setIsReady(true);
   }, [router.isReady]);
 
-  const { token, expiry } = router.query;
+  const { token, expiry } = router.query as QueryParams;
 
   const isTokenPresent = !!(token && expiry);
 
@@ -27,12 +32,12 @@ const ResetPasswordPage: NextPageWithLayout = () => {
     return (
       <>
         {!isTokenPresent || isTokenExpired ? (
-          <ResetPassError
+          <PassResetError
             isTokenExpired={isTokenExpired}
             isTokenPresent={isTokenPresent}
           />
         ) : (
-          <ResetPassword resetPassToken={token} />
+          <PassReset passResetToken={token} />
         )}
       </>
     );
@@ -40,12 +45,12 @@ const ResetPasswordPage: NextPageWithLayout = () => {
   return <div>loading...</div>;
 };
 
-ResetPasswordPage.getLayout = function getLayout(page) {
+PassResetPage.getLayout = function getLayout(page) {
   return (
-    <FullPage title='Reset Password' description='Reset Password page'>
+    <FullPage title='Password Reset' description='Password Reset page'>
       {page}
     </FullPage>
   );
 };
 
-export default ResetPasswordPage;
+export default PassResetPage;

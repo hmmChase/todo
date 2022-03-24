@@ -1,26 +1,28 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import {
-  MutationUpdaterFn,
-  useApolloClient,
-  useMutation
-} from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-import { CREATE_USER, IS_LOGGED_IN } from '../../graphql/queries/user';
-import { email, password } from '../../utils/AuthInputValidation';
+import { email, password } from '../../utils/validateAuthInputs';
 import { isLoggedInVar } from '../../graphql/cache';
+import { SIGN_UP } from '../../graphql/queries/user';
+import { User } from '../../models';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 import FormInput from '../REUSEABLE/FormInput';
 import graphQLErrors from '../../utils/graphQLErrors';
 import PassReqList from './PassReqList';
+import useUser from '../../hooks/useUser';
 
 interface Props {
   close?: () => void;
+}
+
+interface Data {
+  signUp: { user: User };
 }
 
 type HandleSubmit = (
@@ -36,53 +38,31 @@ const validationSchema = object().shape({
 const SignUpForm: FC<Props> = ({ close }) => {
   const router = useRouter();
 
-  const apolloClient = useApolloClient();
+  const { setUser } = useUser();
 
-  const update: MutationUpdaterFn = (cache, data) => {
-    const isLoggedIn = !!data?.createUser?.user?.id;
-
-    cache.writeQuery({
-      id: 'isLoggedIn',
-      query: IS_LOGGED_IN,
-      data: { isLoggedIn }
-    });
-  };
-
-  const onCompleted = async (data: any) => {
-    // localStorage.setItem('userId', data.createUser.user.id);
-
-    apolloClient.resetStore();
+  const onCompleted = (data: Data) => {
+    setUser(data.signUp.user);
 
     isLoggedInVar(true);
 
-    // if (close) close();
-    // else
-    await router.push('/');
+    // when logging in from /signup page
+    if (!close) router.push('/');
   };
 
-  const [createUser, { error }] = useMutation(CREATE_USER, {
+  const [signUp, { error, loading }] = useMutation(SIGN_UP, {
     fetchPolicy: 'network-only',
-
-    update: (cache, data) => update(cache, data),
 
     onCompleted: data => onCompleted(data)
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
-    try {
-      await createUser({
-        variables: {
-          email: values.signUpEmail,
-          password: values.signUpPassword
-        }
-      });
+    await signUp({
+      variables: { email: values.signUpEmail, password: values.signUpPassword }
+    });
 
-      formikHelpers.resetForm();
+    formikHelpers.resetForm();
 
-      formikHelpers.setSubmitting(false);
-    } catch (error) {
-      // console.log('SignUp handleSubmit error: ', error);
-    }
+    formikHelpers.setSubmitting(false);
   };
 
   const formik = useFormik({
@@ -96,8 +76,8 @@ const SignUpForm: FC<Props> = ({ close }) => {
   return (
     <Form onSubmit={formik.handleSubmit}>
       <FormInput
+        id='signUpEmail'
         label='Email'
-        id='signUpEmailId'
         type='email'
         {...formik.getFieldProps('signUpEmail')}
       />
@@ -109,8 +89,8 @@ const SignUpForm: FC<Props> = ({ close }) => {
       ) : null}
 
       <FormInput
+        id='signUpPassword'
         label='Password'
-        id='signUpPasswordId'
         type='password'
         {...formik.getFieldProps('signUpPassword')}
       />
@@ -137,6 +117,7 @@ const SignUpForm: FC<Props> = ({ close }) => {
             formik.isSubmitting
           )
         }
+        loading={loading}
         name='signUp'
         type='submit'
       >

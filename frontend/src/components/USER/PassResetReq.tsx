@@ -1,12 +1,12 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Link from 'next/link';
 import { useMutation } from '@apollo/client';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-import { email } from '../../utils/AuthInputValidation';
-import { REQ_PASS_RESET } from '../../graphql/queries/user';
+import { email } from '../../utils/validateAuthInputs';
+import { PASS_RESET_REQ } from '../../graphql/queries/user';
 import Button from '../REUSEABLE/Button';
 import displayMessages from '../../constants/displayMessages';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
@@ -14,32 +14,31 @@ import FormInput from '../REUSEABLE/FormInput';
 import graphQLErrors from '../../utils/graphQLErrors';
 
 type HandleSubmit = (
-  formikHelpers: FormikHelpers<{ reqPassResetEmail: string }>,
-  values: { reqPassResetEmail: string }
+  formikHelpers: FormikHelpers<{ passResetReqEmail: string }>,
+  values: { passResetReqEmail: string }
 ) => void;
 
-const validationSchema = object().shape({ reqPassResetEmail: email });
+const validationSchema = object().shape({ passResetReqEmail: email });
 
-const ReqPassReset: FC = () => {
-  const [reqPassReset, { loading, error, data, called }] = useMutation(
-    REQ_PASS_RESET,
-    { fetchPolicy: 'network-only' }
-  );
+const PassResetReq: FC = () => {
+  const [success, setSuccess] = useState(false);
+
+  const [passResetReq, { error, loading }] = useMutation(PASS_RESET_REQ, {
+    fetchPolicy: 'network-only',
+
+    onCompleted: () => setSuccess(true)
+  });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
-    try {
-      await reqPassReset({ variables: { email: values.reqPassResetEmail } });
+    await passResetReq({ variables: { email: values.passResetReqEmail } });
 
-      formikHelpers.resetForm();
+    formikHelpers.resetForm();
 
-      formikHelpers.setSubmitting(false);
-    } catch (error) {
-      // console.log('ReqPassReset handleSubmit error: ', error);
-    }
+    formikHelpers.setSubmitting(false);
   };
 
   const formik = useFormik({
-    initialValues: { reqPassResetEmail: 'user@email.com' },
+    initialValues: { passResetReqEmail: 'user@email.com' },
 
     validationSchema,
 
@@ -49,15 +48,15 @@ const ReqPassReset: FC = () => {
   return (
     <Form onSubmit={formik.handleSubmit}>
       <FormInput
-        id='reqPassResetEmailId'
+        id='passResetReqEmail'
         label='Email'
         type='email'
-        {...formik.getFieldProps('reqPassResetEmail')}
+        {...formik.getFieldProps('passResetReqEmail')}
       />
 
-      {formik.touched.reqPassResetEmail && formik.errors.reqPassResetEmail ? (
+      {formik.touched.passResetReqEmail && formik.errors.passResetReqEmail ? (
         <DisplayStatus status='error'>
-          {formik.errors.reqPassResetEmail}
+          {formik.errors.passResetReqEmail}
         </DisplayStatus>
       ) : null}
 
@@ -65,21 +64,22 @@ const ReqPassReset: FC = () => {
         <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
       )}
 
-      {!loading && !error && called && data && data.reqPassReset && (
+      {success && (
         <DisplayStatus status='success'>
-          {displayMessages.success.user.ReqPassReset}
+          {displayMessages.user.passReset.sent}
         </DisplayStatus>
       )}
 
       <Buttonn
         disabled={
           !!(
-            !formik.values.reqPassResetEmail ||
-            formik.errors.reqPassResetEmail ||
+            !formik.values.passResetReqEmail ||
+            formik.errors.passResetReqEmail ||
             formik.isSubmitting
           )
         }
-        name='passwordReset'
+        loading={loading}
+        name='passReset'
         type='submit'
       >
         Submit
@@ -92,7 +92,7 @@ const ReqPassReset: FC = () => {
   );
 };
 
-export default ReqPassReset;
+export default PassResetReq;
 
 const Form = styled.form`
   display: flex;

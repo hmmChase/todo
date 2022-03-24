@@ -1,6 +1,8 @@
-// https://www.prisma.io/docs/support/help-articles/nextjs-prisma-client-dev-practices
-
+// https://pris.ly/d/help/next-js-best-practices
 import pkg from '@prisma/client';
+
+// PrismaClient is attached to the `global` object in development to prevent
+// exhausting your database connection limit.
 
 const { PrismaClient } = pkg;
 

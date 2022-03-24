@@ -12,7 +12,7 @@ import QueryResult from '../components/REUSEABLE/QueryResult';
 const CurserPage: NextPageWithLayout = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const { loading, error, data, fetchMore } = useQuery(
+  const { data, error, loading, fetchMore } = useQuery(
     READ_IDEAS_PAGINATED_CURSER,
     {
       variables: { take: ideasPerPage, skip: null },
@@ -35,7 +35,7 @@ const CurserPage: NextPageWithLayout = () => {
   const haveIdeas = !!ideas.length;
 
   return (
-    <QueryResult loading={loading} error={error} data={data}>
+    <QueryResult data={data} error={error} loading={loading}>
       <IdeaList ideas={ideas} />
 
       {haveIdeas &&

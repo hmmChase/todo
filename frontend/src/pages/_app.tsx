@@ -72,6 +72,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext);
 
+  // https://github.com/vercel/next.js/discussions/10874
   // if on server, verify user
   if (typeof window === 'undefined') {
     const userCookie = appContext.ctx.req?.headers.cookie;

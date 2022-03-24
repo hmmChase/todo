@@ -1,63 +1,46 @@
-import { passwordMinLength, passwordMaxLength } from './config';
+import { passwordMaxLength, passwordMinLength } from './config';
 
 const displayMessages = {
-  error: {
-    user: {
-      user: {
-        missing: 'Error, try again',
-        invalid: 'Error, try again'
-      },
+  error: 'Error, try again',
 
-      createUser: {
-        exists: 'Incorrect email or password'
-      },
+  empty: 'Nothing to see here',
 
-      email: {
-        notFound: 'Incorrect email or password'
-      },
+  user: {
+    null: 'No account found',
+    exists: 'Email already in use',
 
-      password: {
-        invalid: 'Incorrect password'
-      },
+    email: {
+      required: 'Required',
+      invalid: 'Invalid email',
+      length: 'Must be 255 characters or less'
+    },
 
-      changePassword: {
-        missing: 'Error, try again',
-        notFound: 'Incorrect email or password'
-      },
+    password: {
+      required: 'Required',
+      wrong: 'Wrong password',
 
-      validateEmail: {
-        missing: 'Email is required',
-        invalid: 'Error, try again'
-      },
+      short: `Password must be at least ${passwordMinLength} characters.`,
+      long: `Password must be no more than ${passwordMaxLength} characters.`,
 
-      isEmailWellFormed: {
-        invalid: 'Email is invalid'
-      },
-
-      validatePassword: {
-        missing: 'Password is required',
-        invalid: 'Error, try again'
-      },
-
-      isPasswordWellFormed: {
-        tooShort: `Password must be at least ${passwordMinLength} characters`,
-        tooLong: `Password must be no more than ${passwordMaxLength} characters`
-      },
-
-      resetPass: {
-        tokenExpired:
-          'Your password reset request is expired. Please submit a new one'
+      requirements: {
+        title: 'Password must contain:',
+        rules: [
+          'at least 8 charactors',
+          'an uppercase letter',
+          'a lowercase letter',
+          'a number'
+        ]
       }
-    }
-  },
+    },
 
-  info: {},
+    passReset: {
+      expired:
+        'Your password reset request is expired. Please submit a new one.',
+      sent: 'Check your email for a password reset link.',
+      success: 'Your password has been changed.',
 
-  success: {
-    user: {
-      ReqPassReset: 'Check your email for a password reset link',
-
-      ResetPassword: 'Your password has been changed'
+      tokenMissing: 'Error: Please submit a new password reset request.',
+      tokenExpired: 'Your reset request is expired. Please submit a new one.'
     }
   }
 };

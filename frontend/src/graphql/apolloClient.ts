@@ -3,32 +3,28 @@
 // https://github.com/vercel/next.js/blob/canary/examples/with-typescript-graphql/lib/apollo.ts
 
 import { useMemo } from 'react';
-import { IncomingMessage, ServerResponse } from 'http';
 import {
   ApolloClient,
-  NormalizedCacheObject,
+  from,
   HttpLink,
-  from
+  NormalizedCacheObject
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+import { IncomingMessage, ServerResponse } from 'http';
 import merge from 'deepmerge';
 import isEqual from 'lodash.isequal';
-
-// import { concatPagination } from '@apollo/client/utilities';
 
 import { backendUrl } from '../constants/config';
 import cache from './cache';
 import typeDefs from './typeDefs';
 
+type ResolverContext = { req?: IncomingMessage; res?: ServerResponse };
+
 const development = process.env.NODE_ENV === 'development';
 
-export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
+const server = typeof window === 'undefined';
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
-
-export type ResolverContext = { req?: IncomingMessage; res?: ServerResponse };
-
-const server = typeof window === 'undefined';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
@@ -53,8 +49,6 @@ const link = from([errorLink, httpLink]);
 
 const createApolloClient = (context?: ResolverContext) =>
   new ApolloClient({
-    ssrMode: server,
-
     link,
 
     cache,
@@ -62,6 +56,11 @@ const createApolloClient = (context?: ResolverContext) =>
     typeDefs,
 
     // headers: { authorization: localStorage.getItem('at') || '' },
+
+    ssrMode: server,
+
+    // https://www.apollographql.com/docs/react/performance/server-side-rendering/#store-rehydration
+    ssrForceFetchDelay: 100,
 
     connectToDevTools: process.env.NODE_ENV === 'development'
   });
@@ -105,15 +104,18 @@ export const initializeApollo = (
   return _apolloClient;
 };
 
-export const addApolloState = (client, pageProps) => {
+export const addApolloState = (
+  client: ApolloClient<NormalizedCacheObject>,
+  pageProps: any
+) => {
   if (pageProps?.props)
-    pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
+    pageProps.props['__APOLLO_STATE__'] = client.cache.extract();
 
   return pageProps;
 };
 
-export const useApollo = pageProps => {
-  const state = pageProps[APOLLO_STATE_PROP_NAME];
+export const useApollo = (pageProps: any) => {
+  const state = pageProps['__APOLLO_STATE__'];
 
   // Update Apollo client only when the cache value has changed
   const store = useMemo(() => initializeApollo(state), [state]);

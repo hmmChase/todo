@@ -35,6 +35,7 @@ const FormInput: FC<Props> = ({
         aria-label={name}
         data-testid={name}
         id={fieldId}
+        name={name}
         onBlur={onBlur}
         onChange={onChange}
         type={type}

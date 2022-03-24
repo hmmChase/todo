@@ -10,10 +10,10 @@ const DisplayStatus: FC<Props> = ({ children, status }) => {
   if (Array.isArray(children))
     return (
       <MsgList>
-        {children.map((statusMsg, i) => (
+        {children.map((msg, i) => (
           <MsgItem key={`msg${i}`}>
-            <Span data-testid='statusMsg' status={status}>
-              {statusMsg}
+            <Span data-testid='statusMsg' $status={status}>
+              {msg}
             </Span>
           </MsgItem>
         ))}
@@ -22,13 +22,13 @@ const DisplayStatus: FC<Props> = ({ children, status }) => {
 
   if (typeof children === 'string')
     return (
-      <Span data-testid='statusMsg' status={status}>
+      <Span data-testid='statusMsg' $status={status}>
         {children}
       </Span>
     );
 
   return (
-    <Span data-testid='statusMsg' status={'error'}>
+    <Span data-testid='statusMsg' $status='error'>
       Opps, something went wrong.
     </Span>
   );
@@ -38,7 +38,7 @@ export default DisplayStatus;
 
 const Span = styled.span`
   background-color: ${props => {
-    switch (props.status) {
+    switch (props.$status) {
       case 'error':
         return props.theme.background.septenary;
       case 'info':

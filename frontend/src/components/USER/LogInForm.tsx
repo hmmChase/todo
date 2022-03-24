@@ -6,7 +6,7 @@ import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-import { email, password } from '../../utils/AuthInputValidation';
+import { email, password } from '../../utils/validateAuthInputs';
 import { isLoggedInVar } from '../../graphql/cache';
 import { LOG_IN } from '../../graphql/queries/user';
 import { User } from '../../models';
@@ -40,43 +40,34 @@ const LogInForm: FC<Props> = ({ close }) => {
   const { setUser } = useUser();
 
   const onCompleted = (data: Data) => {
-    if (data.logIn.user) {
-      isLoggedInVar(true);
+    setUser(data.logIn.user);
 
-      setUser(data.logIn.user);
+    isLoggedInVar(true);
 
-      // when logging in from /login page
-      if (!close) router.push('/');
-    }
+    // when logging in from /login page
+    if (!close) router.push('/');
   };
 
-  const [logIn, { loading, error }] = useMutation(LOG_IN, {
+  const [logIn, { error, loading }] = useMutation(LOG_IN, {
     fetchPolicy: 'network-only',
 
     onCompleted: data => onCompleted(data)
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
-    try {
-      await logIn({
-        variables: { email: values.logInEmail, password: values.logInPassword }
-      });
+    await logIn({
+      variables: { email: values.logInEmail, password: values.logInPassword }
+    });
 
-      formikHelpers.resetForm();
+    formikHelpers.resetForm();
 
-      formikHelpers.setSubmitting(false);
-    } catch (error) {
-      // console.log('LogIn handleSubmit error: ', error);
-    }
+    formikHelpers.setSubmitting(false);
   };
 
   const formik = useFormik({
     initialValues: { logInEmail: 'user@email.com', logInPassword: 'user123$' },
 
     validationSchema,
-
-    // validateOnChange: false,
-    // validateOnBlur: true,
 
     onSubmit: (values, formikHelpers) => handleSubmit(formikHelpers, values)
   });

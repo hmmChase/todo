@@ -1,34 +1,33 @@
 import { FC } from 'react';
-import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
-import { CURRENT_USER } from '../../../graphql/queries/user';
 import IdeaDetailUpdate from './IdeaDetailUpdate';
 import RemoveIdea from '../RemoveIdea';
+import useUser from '../../../hooks/useUser';
 
 interface Props {
-  idea: { author: { id: string }; content: string; id: string };
+  authorId: string;
+  content: string;
+  ideaId: string;
 }
 
-const IdeaDetail: FC<Props> = ({ idea: { author, content, id } }) => {
-  const { data } = useQuery(CURRENT_USER, { fetchPolicy: 'network-only' });
+const IdeaDetail: FC<Props> = ({ authorId, content, ideaId }) => {
+  const { user } = useUser();
 
-  const currentUserId = data?.currentUser?.user?.id;
-
-  const currentUserOwnsIdea = currentUserId === author.id;
+  const currentUserOwnsIdea = user?.id === authorId;
 
   return (
     <Container>
       {currentUserOwnsIdea && (
         <RemoveIdeaWrap>
-          <RemoveIdea ideaId={id} />
+          <RemoveIdea ideaId={ideaId} />
         </RemoveIdeaWrap>
       )}
 
       <IdeaDetailUpdate
         content={content}
         currentUserOwnsIdea={currentUserOwnsIdea}
-        id={id}
+        id={ideaId}
       />
     </Container>
   );

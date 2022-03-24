@@ -1,3 +1,6 @@
+// Whenever this files changes:
+// npx prisma generate
+
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
@@ -52,14 +55,11 @@ const typeDefs = gql`
 
     logOut: Boolean!
 
-    createUser(input: UserAuthInput!): UserAuthPayload!
+    signUp(input: UserAuthInput!): UserAuthPayload!
 
-    reqPassReset(email: String!): Boolean!
+    passResetReq(email: String!): Boolean!
 
-    changePassword(
-      resetPassToken: String!
-      newPassword: String!
-    ): UserAuthPayload!
+    passReset(resetPassToken: String!, newPassword: String!): UserAuthPayload!
 
     # --- Idea ---
 

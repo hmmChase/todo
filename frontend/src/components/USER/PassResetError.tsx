@@ -13,7 +13,7 @@ interface Props {
   isTokenPresent: boolean;
 }
 
-const ResetPassError: FC<Props> = ({ isTokenExpired, isTokenPresent }) => (
+const PassResetError: FC<Props> = ({ isTokenExpired, isTokenPresent }) => (
   <>
     <BackButtonn />
 
@@ -27,7 +27,7 @@ const ResetPassError: FC<Props> = ({ isTokenExpired, isTokenPresent }) => (
   </>
 );
 
-export default ResetPassError;
+export default PassResetError;
 
 export const BackButtonn = styled(BackButton)`
   margin: 1rem 0 2rem 0;

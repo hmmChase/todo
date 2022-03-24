@@ -96,9 +96,9 @@ const ideaResolver = {
       const payload = verifyAccessToken(ctx.accessToken);
 
       try {
-        // Find and return all ideas matching userId
+        // Find and return all ideas matching user id
         const ideas = await ctx.prisma.idea.findMany({
-          where: { author: { id: payload.userId }, removedAt: null },
+          where: { author: { id: payload.user.id }, removedAt: null },
           select: { id: true, content: true, author: { select: { id: true } } },
           orderBy: { createdAt: 'desc' }
         });
@@ -117,7 +117,7 @@ const ideaResolver = {
     //   // Verify access token and decode payload
     //   const payload = verifyAccessToken(ctx.accessToken);
 
-    //   // Find and return paginated ideas matching userId
+    //   // Find and return paginated ideas matching user id
     //   const ideas = await prisma.idea.findMany({
     //     skip,
     //     take,
@@ -133,11 +133,11 @@ const ideaResolver = {
     //   // Verify access token and decode payload
     //   const payload = verifyAccessToken(ctx.accessToken);
 
-    //   // // Find and return paginated ideas matching userId
+    //   // // Find and return paginated ideas matching user id
     //   // const ideas = await prisma.idea.findMany({
     //   //   skip,
     //   //   take,
-    //   //   where: { id: payload.userId }
+    //   //   where: { id: payload.user.id }
     //   // });
 
     //   // return ideas;
@@ -145,7 +145,7 @@ const ideaResolver = {
     //   const ideas = await ctx.prisma.idea.findMany({
     //     skip,
     //     take,
-    //     where: { author: { id: payload.userId } }
+    //     where: { author: { id: payload.user.id } }
     //   });
 
     //   return {
@@ -168,7 +168,7 @@ const ideaResolver = {
       try {
         // Create idea
         const ideaRecord = ctx.prisma.idea.create({
-          data: { content, author: { connect: { id: payload.userId } } },
+          data: { content, author: { connect: { id: payload.user.id } } },
           select: { id: true, content: true, author: { select: { id: true } } }
         });
 
@@ -195,7 +195,7 @@ const ideaResolver = {
         });
 
         // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.userId;
+        const ownsIdea = idea.author.id === payload.user.id;
 
         // If not, throw error
         if (!ownsIdea)
@@ -266,7 +266,7 @@ const ideaResolver = {
         });
 
         // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.userId;
+        const ownsIdea = idea.author.id === payload.user.id;
 
         // If not, throw error
         if (!ownsIdea)

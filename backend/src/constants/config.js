@@ -1,6 +1,6 @@
 export const port = process.env.PORT || 4000;
 
-const development = process.env.NODE_ENV === 'development';
+export const development = process.env.NODE_ENV === 'development';
 const preview = process.env.VERCEL_ENV === 'preview';
 export const production = process.env.VERCEL_ENV === 'production';
 
@@ -18,16 +18,15 @@ export const frontendUrl = development
 
 export const graphqlPath = '/gql';
 
-export const accessTokenExpiryTime = '1w';
-
 export const passwordMinLength = 8;
-
 export const passwordMaxLength = 30;
-
-export const cryptoRandomBytesSize = 16;
 
 export const passwordHashSaltRounds = 10;
 
-export const cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
+export const passwordResetTokenBytesSize = 16;
 
-export const resetPassTokenExpiryTime = Date.now() + 1000 * 60 * 60; // 1 hour
+export const accessTokenExpiry = '1w';
+
+export const accessCookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
+
+export let passResetExpiry = Date.now() + 1000 * 60 * 60; // 1 hour from now
