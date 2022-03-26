@@ -13,7 +13,7 @@ import { User } from '../../models';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 import FormInput from '../REUSEABLE/FormInput';
-import graphQLErrors from '../../utils/graphQLErrors';
+import gqlErrMsgMap from '../../utils/gqlErrMsgMap';
 import PassReqList from './PassReqList';
 import useUser from '../../hooks/useUser';
 
@@ -102,7 +102,7 @@ const SignUpForm: FC<Props> = ({ close }) => {
       ) : null}
 
       {error && (
-        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
+        <DisplayStatus status='error'>{gqlErrMsgMap(error)}</DisplayStatus>
       )}
 
       <PassReqList />

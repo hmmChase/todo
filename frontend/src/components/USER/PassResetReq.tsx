@@ -11,7 +11,7 @@ import Button from '../REUSEABLE/Button';
 import displayMessages from '../../constants/displayMessages';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 import FormInput from '../REUSEABLE/FormInput';
-import graphQLErrors from '../../utils/graphQLErrors';
+import gqlErrMsgMap from '../../utils/gqlErrMsgMap';
 
 type HandleSubmit = (
   formikHelpers: FormikHelpers<{ passResetReqEmail: string }>,
@@ -61,7 +61,7 @@ const PassResetReq: FC = () => {
       ) : null}
 
       {error && (
-        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
+        <DisplayStatus status='error'>{gqlErrMsgMap(error)}</DisplayStatus>
       )}
 
       {success && (

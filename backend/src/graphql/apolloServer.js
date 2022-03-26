@@ -1,5 +1,8 @@
 // https://www.apollographql.com/docs/apollo-server/api/apollo-server/
 
+// Apollo Sandbox:
+// https://sandbox.apollo.dev/?endpoint=http://localhost:8008/gql
+
 import { ApolloServer } from 'apollo-server-express';
 
 import { development } from '../constants/config.js';
@@ -25,19 +28,16 @@ const apolloServer = new ApolloServer({
   //   }
   // ],
 
-  context: async ({ req, res }) => {
-    console.log('--------------------------------------------------');
-    console.log('server-side? ', !!req.headers['x-server']);
-    console.log('cookie: ', req.headers.cookie);
-    console.log('operation: ', req.body.operationName);
-    console.log('--------------------------------------------------');
+  introspection: development,
 
-    const accessToken = req?.cookies?.at || '';
+  debug: development,
+
+  context: async ({ req, res }) => {
+    // https://www.apollographql.com/docs/apollo-server/security/authentication/
+    const accessToken = req?.cookies?.access;
 
     return { req, res, prisma, accessToken };
-  },
-
-  introspection: development
+  }
 });
 
 export default apolloServer;

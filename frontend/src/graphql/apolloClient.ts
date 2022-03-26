@@ -14,27 +14,22 @@ import { IncomingMessage, ServerResponse } from 'http';
 import merge from 'deepmerge';
 import isEqual from 'lodash.isequal';
 
-import { backendUrl } from '../constants/config';
+import { backendUrl, development, server } from '../constants/config';
 import cache from './cache';
 import typeDefs from './typeDefs';
 
 type ResolverContext = { req?: IncomingMessage; res?: ServerResponse };
 
-const development = process.env.NODE_ENV === 'development';
-
-const server = typeof window === 'undefined';
-
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.forEach(
-      ({ message, locations, path }) =>
-        development &&
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        )
-    );
+  if (development && graphQLErrors)
+    graphQLErrors.forEach(error => {
+      const { extensions, message, path } = error;
+      console.log(
+        `[GraphQL error]: ${extensions.code}, Path: ${path}, Message: ${message}`
+      );
+    });
 
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });

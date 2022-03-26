@@ -1,9 +1,9 @@
 import { passwordMaxLength, passwordMinLength } from './config';
 
 const displayMessages = {
-  error: 'Error, try again',
+  error: 'Something went wrong',
 
-  empty: 'Nothing to see here',
+  empty: 'Nothing to show',
 
   user: {
     null: 'No account found',

@@ -79,11 +79,7 @@ const typeDefs = gql`
 
   type User {
     id: ID!
-    createdAt: Float!
-    updatedAt: Float!
-    removedAt: Float!
     email: String!
-    password: String!
     role: Role!
     ideas: [Idea!]!
   }

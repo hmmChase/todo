@@ -9,6 +9,10 @@ export const USER_FIELDS = gql`
     id
     email
     role
+    ideas {
+      id
+      content
+    }
   }
 `;
 
@@ -23,20 +27,16 @@ export const IS_LOGGED_IN = gql`
 export const READ_USER = gql`
   query ReadUser($id: ID!) {
     readUser(id: $id) {
-      user {
-        ...userFields
-      }
+      ...userFields
     }
   }
   ${USER_FIELDS}
 `;
 
 export const READ_USERS = gql`
-  query Users {
-    users {
-      user {
-        ...userFields
-      }
+  query ReadUsers {
+    readUsers {
+      ...userFields
     }
   }
   ${USER_FIELDS}
@@ -45,9 +45,7 @@ export const READ_USERS = gql`
 export const CURRENT_USER = gql`
   query CurrentUser {
     currentUser {
-      user {
-        ...userFields
-      }
+      ...userFields
     }
   }
   ${USER_FIELDS}

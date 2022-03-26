@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  children: string | string[];
+  children: string | null;
   status: 'error' | 'info' | 'success';
 }
 
@@ -27,11 +27,7 @@ const DisplayStatus: FC<Props> = ({ children, status }) => {
       </Span>
     );
 
-  return (
-    <Span data-testid='statusMsg' $status='error'>
-      Opps, something went wrong.
-    </Span>
-  );
+  return null;
 };
 
 export default DisplayStatus;
