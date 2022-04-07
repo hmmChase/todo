@@ -47,7 +47,9 @@ const PassReset: FC<Props> = ({ passResetToken }) => {
   const [passReset, { error, loading }] = useMutation(PASS_RESET, {
     fetchPolicy: 'network-only',
 
-    onCompleted: data => onCompleted(data)
+    onCompleted: data => onCompleted(data),
+
+    onError: () => {}
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {

@@ -1,72 +1,62 @@
 // https://www.apollographql.com/docs/apollo-server/data/resolvers
 
-import { UserInputError } from 'apollo-server-express';
+import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import bcryptjs from 'bcryptjs';
 
 import { accessCookieOptions } from '../../constants/cookie.js';
+import { consoleLog } from '../../utils/myLogger.js';
 import { createAccessToken } from '../../utils/accessToken.js';
 import { createPassReset, validatePassReset } from '../../utils/passReset.js';
 import { createUserObj, passwordCompare } from '../../utils/user.js';
-import { passwordHashSaltRounds } from '../../constants/config.js';
+import { development, passwordHashSaltRounds } from '../../constants/config.js';
 import { sendPassResetReqEmail } from '../../handlers/emailHandler.js';
 import { validateInputs } from '../../utils/validateInputs.js';
 import { verifyAccessToken } from '../../utils/accessToken.js';
 
 const userResolver = {
   Query: {
-    // Return user matching id
+    /* Return user matching id */
     user: async (parent, args, ctx, info) => {
       const { id } = args;
 
-      // Validate id
-      if (!id || typeof id !== 'string')
-        throw new UserInputError('invalid', { argumentName: 'id' });
-
       try {
         // Find user matching user id
-        const foundUser = await ctx.prisma.user.findUnique({
+        const user = await ctx.prisma.user.findUnique({
           where: { id },
-          select: { id: true, email: true, role: true }
+          select: {
+            id: true,
+            email: true,
+            role: true,
+            ideas: { select: { id: true, content: true } }
+          }
         });
-
-        // If user not found, return nothing
-        if (!foundUser) return null;
-
-        // Create user object
-        const user = createUserObj(foundUser);
 
         // Return user
         return user;
       } catch (error) {
-        console.log('user user error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
     },
 
-    // Return all users
+    /* Return all users */
     users: async (parent, args, ctx, info) => {
       try {
         // Find all users
-        const foundUsers = await ctx.prisma.user.findMany({
-          select: { id: true, email: true, role: true }
-        });
-
-        // If users not found, return nothing
-        if (!foundUsers) return null;
-
-        const users = foundUsers.map(userRecord => {
-          // Create user object
-          const user = createUserObj(userRecord);
-
-          // Return user
-          return user;
+        const users = await ctx.prisma.user.findMany({
+          select: {
+            id: true,
+            email: true,
+            role: true,
+            ideas: { select: { id: true, content: true } }
+          }
         });
 
         // Return users
         return users;
       } catch (error) {
-        console.log('user users error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }

@@ -73,7 +73,7 @@ export const sendPassResetReqEmail = (
   passResetExpiry,
   passResetToken
 ) => {
-  const passResetUrl = `${frontendUrl}/reset-password?token=${passResetToken}&expiry=${passResetExpiry}`;
+  const passResetUrl = `${frontendUrl}/password_reset?token=${passResetToken}&expiry=${passResetExpiry}`;
 
   const options = {
     filename: 'passResetReqEmail',

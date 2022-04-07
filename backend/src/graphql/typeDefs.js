@@ -11,15 +11,15 @@ const typeDefs = gql`
 
     # --- User ---
 
-    user(id: ID!): UserAuthPayload!
+    user(id: ID!): User
 
-    users: [UserAuthPayload!]!
+    users: [User!]!
 
-    currentUser: UserAuthPayload
+    currentUser: User
 
     # --- Idea ---
 
-    idea(id: ID!): Idea!
+    idea(id: ID!): Idea
 
     ideas: [Idea!]!
 

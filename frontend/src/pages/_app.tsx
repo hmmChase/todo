@@ -21,7 +21,7 @@ import theme from '../styles/theme';
 import UserProvider from '../context/User';
 import verifyUser from '../utils/verifyUser';
 
-const MyApp = ({ Component, pageProps, userPayload }: AppPropsWithLayout) => {
+const MyApp = ({ Component, pageProps, user }: AppPropsWithLayout) => {
   const apolloClient = useApollo(pageProps);
 
   // Use the layout defined at the page level, if available
@@ -51,7 +51,7 @@ const MyApp = ({ Component, pageProps, userPayload }: AppPropsWithLayout) => {
       <StrictMode>
         <ApolloProvider client={apolloClient}>
           <ThemeProvider theme={theme}>
-            <UserProvider userPayload={userPayload}>
+            <UserProvider currentUser={user}>
               <GlobalStyle />
 
               {getLayout(<Component {...pageProps} />)}
@@ -73,13 +73,14 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
 
   // https://github.com/vercel/next.js/discussions/10874
-  // if on server, verify user
+  // If on server, verify user
   if (typeof window === 'undefined') {
+    // Req is only available on server
     const userCookie = appContext.ctx.req?.headers.cookie;
 
-    const userPayload = verifyUser(userCookie);
+    const user = verifyUser(userCookie);
 
-    return { userPayload, ...appProps };
+    return { user, ...appProps };
   }
 
   return { ...appProps };

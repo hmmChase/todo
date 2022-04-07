@@ -41,7 +41,11 @@ const LogOut = () => {
     await router.push('/');
   };
 
-  const [logOut] = useMutation(LOG_OUT, { onCompleted });
+  const [logOut] = useMutation(LOG_OUT, {
+    onCompleted,
+
+    onError: () => {}
+  });
 
   useEffect(() => {
     const logout = async () => await logOut();

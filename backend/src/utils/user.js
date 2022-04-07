@@ -19,5 +19,8 @@ export const passwordCompare = async (inputPassword, userPassword) => {
 
   const isCorrectPass = await bcryptjs.compare(inputPassword, userPassword);
 
-  if (!isCorrectPass) throw new UserInputError({ msg: 'user.password.wrong' });
+  if (!isCorrectPass)
+    throw new UserInputError('user password wrong', {
+      displayCode: 'user.password.wrong'
+    });
 };

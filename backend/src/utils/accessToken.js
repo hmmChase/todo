@@ -26,6 +26,6 @@ export const verifyAccessToken = accessToken => {
 
     return payload;
   } catch (error) {
-    throw new AuthenticationError(error.message);
+    throw new AuthenticationError(error);
   }
 };

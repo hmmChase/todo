@@ -19,6 +19,6 @@ declare module 'next' {
 declare module 'next/app' {
   type AppPropsWithLayout<P = {}> = AppProps<P> & {
     Component: NextPageWithLayout<P>;
-    userPayload: User | null;
+    user: User | null;
   };
 }

@@ -9,25 +9,25 @@ import {
 import { User } from '../models';
 
 interface ContextState {
-  setUser: Dispatch<SetStateAction<User | null>>;
   user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
 }
 
 export const UserContext = createContext<ContextState>({
-  setUser: () => {},
-  user: null
+  user: null,
+  setUser: () => {}
 });
 
 interface Props {
   children: ReactNode;
-  userPayload: User | null;
+  currentUser: User | null;
 }
 
-const UserProvider = ({ children, userPayload }: Props) => {
-  const [user, setUser] = useState<User | null>(userPayload);
+const UserProvider = ({ children, currentUser }: Props) => {
+  const [user, setUser] = useState<User | null>(currentUser);
 
   return (
-    <UserContext.Provider value={{ setUser, user }}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
   );

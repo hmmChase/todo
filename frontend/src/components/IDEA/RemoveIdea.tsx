@@ -24,7 +24,9 @@ const RemoveIdea: FC<Props> = ({ ideaId }) => {
     });
 
   const [removeIdea] = useMutation(REMOVE_IDEA, {
-    update: (cache, data) => update(cache, data)
+    update: (cache, data) => update(cache, data),
+
+    onError: () => {}
   });
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = e => {

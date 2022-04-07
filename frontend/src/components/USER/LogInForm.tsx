@@ -51,7 +51,9 @@ const LogInForm: FC<Props> = ({ close }) => {
   const [logIn, { error, loading }] = useMutation(LOG_IN, {
     fetchPolicy: 'network-only',
 
-    onCompleted: data => onCompleted(data)
+    onCompleted: data => onCompleted(data),
+
+    onError: () => {}
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {

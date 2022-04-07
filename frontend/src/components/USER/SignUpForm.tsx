@@ -52,7 +52,9 @@ const SignUpForm: FC<Props> = ({ close }) => {
   const [signUp, { error, loading }] = useMutation(SIGN_UP, {
     fetchPolicy: 'network-only',
 
-    onCompleted: data => onCompleted(data)
+    onCompleted: data => onCompleted(data),
+
+    onError: () => {}
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {

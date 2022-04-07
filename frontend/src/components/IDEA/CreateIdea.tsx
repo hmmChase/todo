@@ -39,7 +39,9 @@ const CreateIdea: FC = () => {
     });
 
   const [createIdea] = useMutation(CREATE_IDEA, {
-    update: (cache, result) => update(cache, result)
+    update: (cache, result) => update(cache, result),
+
+    onError: () => {}
   });
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {

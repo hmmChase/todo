@@ -23,7 +23,7 @@ type ResolverContext = { req?: IncomingMessage; res?: ServerResponse };
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (development && graphQLErrors)
+  if (graphQLErrors)
     graphQLErrors.forEach(error => {
       const { extensions, message, path } = error;
       console.log(
@@ -40,7 +40,7 @@ const httpLink = new HttpLink({
   credentials: 'include'
 });
 
-const link = from([errorLink, httpLink]);
+const link = development ? from([errorLink, httpLink]) : from([httpLink]);
 
 const createApolloClient = (context?: ResolverContext) =>
   new ApolloClient({
