@@ -11,8 +11,8 @@ import { User } from '../../models';
 import Button from '../REUSEABLE/Button';
 import displayMessages from '../../constants/displayMessages';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
+import errorMessages from '../../utils/errorMessages';
 import FormInput from '../REUSEABLE/FormInput';
-import gqlErrMsgMap from '../../utils/gqlErrMsgMap';
 import PassReqList from './PassReqList';
 import useUser from '../../hooks/useUser';
 
@@ -32,6 +32,8 @@ type HandleSubmit = (
 const validationSchema = object().shape({ newPassword: password });
 
 const PassReset: FC<Props> = ({ passResetToken }) => {
+  const [gqlErrMsg, setGqlErrMsg] = useState('');
+
   const [success, setSuccess] = useState(false);
 
   const { setUser } = useUser();
@@ -49,7 +51,7 @@ const PassReset: FC<Props> = ({ passResetToken }) => {
 
     onCompleted: data => onCompleted(data),
 
-    onError: () => {}
+    onError: error => setGqlErrMsg(errorMessages(error))
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
@@ -79,15 +81,13 @@ const PassReset: FC<Props> = ({ passResetToken }) => {
         {...formik.getFieldProps('newPassword')}
       />
 
-      {formik.touched.newPassword && formik.errors.newPassword ? (
+      {formik.touched.newPassword && formik.errors.newPassword && (
         <DisplayStatus status='error'>
           {formik.errors.newPassword}
         </DisplayStatus>
-      ) : null}
-
-      {error && (
-        <DisplayStatus status='error'>{gqlErrMsgMap(error)}</DisplayStatus>
       )}
+
+      {gqlErrMsg && <DisplayStatus status='error'>{gqlErrMsg}</DisplayStatus>}
 
       {success && (
         <DisplayStatus status='success'>

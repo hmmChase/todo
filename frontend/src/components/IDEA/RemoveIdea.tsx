@@ -8,6 +8,10 @@ interface Props {
   ideaId: string;
 }
 
+interface Idea {
+  __ref: string;
+}
+
 const RemoveIdea: FC<Props> = ({ ideaId }) => {
   const update: MutationUpdaterFn = cache =>
     cache.modify({
@@ -15,7 +19,7 @@ const RemoveIdea: FC<Props> = ({ ideaId }) => {
         ideas(existingIdeas = []) {
           // remove idea
           const filteredIdeas = existingIdeas.filter(
-            idea => idea.__ref !== `Idea:${ideaId}`
+            (idea: Idea) => idea.__ref !== `Idea:${ideaId}`
           );
 
           return filteredIdeas;

@@ -11,9 +11,11 @@ import QueryResult from '../../components/REUSEABLE/QueryResult';
 const IdeaPage: NextPageWithLayout = () => {
   const router = useRouter();
 
-  const ideaId = router.query.ideaId;
+  const ideaId = router.query.id;
 
   const { data, error, loading } = useQuery(READ_IDEA, {
+    fetchPolicy: 'cache-first',
+
     variables: { id: ideaId }
   });
 
@@ -22,7 +24,7 @@ const IdeaPage: NextPageWithLayout = () => {
   return (
     <QueryResult data={data} error={error} loading={loading}>
       <IdeaDetail
-        authorId={idea?.author?.id}
+        authorId={idea?.author!.id}
         content={idea?.content}
         ideaId={idea?.id}
       />

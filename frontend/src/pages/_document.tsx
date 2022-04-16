@@ -89,7 +89,7 @@ class MyDocument extends Document {
 
           {/* Progressive Web App Manifest + Theme Color */}
 
-          <meta content='#000000' name='theme-color' />
+          <meta content='#000' name='theme-color' />
           <link href='manifest.json' rel='/manifest' />
 
           {/* Fonts */}
@@ -170,23 +170,6 @@ class MyDocument extends Document {
             rel='icon'
             sizes='512x512'
             type='image/png'
-          />
-
-          {/* Fonts */}
-          <link
-            as='font'
-            crossOrigin='anonymous'
-            href='/fonts/open-sans-v15-latin-regular.woff2'
-            rel='preload'
-            type='font/woff2'
-          />
-
-          <link
-            as='font'
-            crossOrigin='anonymous'
-            href='/fonts/play-v10-latin-regular.woff2'
-            rel='preload'
-            type='font/woff2'
           />
         </Head>
 

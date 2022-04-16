@@ -2,23 +2,23 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  children: string | null;
+  children: string;
   status: 'error' | 'info' | 'success';
 }
 
 const DisplayStatus: FC<Props> = ({ children, status }) => {
-  if (Array.isArray(children))
-    return (
-      <MsgList>
-        {children.map((msg, i) => (
-          <MsgItem key={`msg${i}`}>
-            <Span data-testid='statusMsg' $status={status}>
-              {msg}
-            </Span>
-          </MsgItem>
-        ))}
-      </MsgList>
-    );
+  // if (Array.isArray(children))
+  //   return (
+  //     <MsgList>
+  //       {children.map((msg, i) => (
+  //         <MsgItem key={`msg${i}`}>
+  //           <Span data-testid='statusMsg' $status={status}>
+  //             {msg}
+  //           </Span>
+  //         </MsgItem>
+  //       ))}
+  //     </MsgList>
+  //   );
 
   if (typeof children === 'string')
     return (

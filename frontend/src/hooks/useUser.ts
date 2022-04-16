@@ -8,7 +8,7 @@ import { UserContext } from '../context/User';
 const useUser = () => {
   // const [user, setUser] = useState();
 
-  const { setUser, user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   // const { error, loading, data } = useQuery(CURRENT_USER, {
   //   fetchPolicy: 'no-cache',
@@ -22,7 +22,7 @@ const useUser = () => {
 
   // return { error, loading, data };
 
-  return { setUser, user };
+  return { user, setUser };
 };
 
 export default useUser;

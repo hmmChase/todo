@@ -2,8 +2,9 @@ import { FC, ReactNode } from 'react';
 import { ApolloError } from '@apollo/client';
 import styled from 'styled-components';
 
+import displayMessages from '../../constants/displayMessages';
 import DisplayStatus from './DisplayStatus';
-import graphQLErrors from '../../utils/graphQLErrors';
+import errorMessages from '../../utils/errorMessages';
 import Loader from '../OTHER/Loader';
 
 interface Props {
@@ -24,20 +25,20 @@ const QueryResult: FC<Props> = ({ children, data, error, loading }) => {
   if (error)
     return (
       <Center>
-        <DisplayStatus status='error'>{graphQLErrors(error)}</DisplayStatus>
+        <DisplayStatus status='error'>{errorMessages(error)}</DisplayStatus>
       </Center>
     );
 
   if (!data)
     return (
       <Center>
-        <DisplayStatus status='info'>Nothing to show</DisplayStatus>
+        <DisplayStatus status='info'>{displayMessages.empty}</DisplayStatus>
       </Center>
     );
 
   if (data) return <>{children}</>;
 
-  return <DisplayStatus status='error'>ERROR</DisplayStatus>;
+  return null;
 };
 
 export default QueryResult;

@@ -1,8 +1,8 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import useKeypress from '../../../utils/useKeypress';
-import useOnClickOutside from '../../../utils/useOnClickOutside';
+import useKeypress from '../../../hooks/useKeypress';
+import useOnClickOutside from '../../../hooks/useOnClickOutside';
 
 interface Props {
   currentUserOwnsIdea: boolean;
@@ -18,11 +18,10 @@ const IdeaDetailContent: FC<Props> = ({
   const [isInputActive, setIsInputActive] = useState(false);
   const [inputValue, setInputValue] = useState(text);
 
-  const divRef = useRef<HTMLDivElement>(null);
-  const spanRef = useRef<HTMLSpanElement>(null);
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const outsideRef = useRef<HTMLDivElement>(null);
+  const ideaEditRef = useRef<HTMLTextAreaElement>(null);
 
-  const enter = useKeypress('Enter');
+  // const enter = useKeypress('Enter');
   const escape = useKeypress('Escape');
 
   const handler = () => {
@@ -34,15 +33,15 @@ const IdeaDetailContent: FC<Props> = ({
   };
 
   // check to see if the user clicked outside of this component
-  useOnClickOutside(divRef, handler);
+  useOnClickOutside(handler, outsideRef);
 
-  const onEnter = useCallback(() => {
-    if (enter) {
-      onSetText(inputValue);
+  // const onEnter = useCallback(() => {
+  //   if (enter) {
+  //     onSetText(inputValue);
 
-      setIsInputActive(false);
-    }
-  }, [enter, inputValue, onSetText]);
+  //     setIsInputActive(false);
+  //   }
+  // }, [enter, inputValue, onSetText]);
 
   const onEscape = useCallback(() => {
     if (escape) {
@@ -54,19 +53,19 @@ const IdeaDetailContent: FC<Props> = ({
 
   // focus the cursor in the input field on edit start
   useEffect(() => {
-    if (isInputActive) textAreaRef.current?.focus();
+    if (isInputActive) ideaEditRef.current?.focus();
   }, [isInputActive]);
 
   // watch the Enter and Escape key presses
   useEffect(() => {
     if (isInputActive) {
       // if Enter is pressed, save the text and close the editor
-      onEnter();
+      // onEnter();
 
       // if Escape is pressed, revert the text and close the editor
       onEscape();
     }
-  }, [isInputActive, onEnter, onEscape]);
+  }, [isInputActive, onEscape]); // onEnter
 
   const handleClick = useCallback(
     () => setIsInputActive(true),
@@ -82,17 +81,17 @@ const IdeaDetailContent: FC<Props> = ({
 
   if (currentUserOwnsIdea)
     return (
-      <div ref={divRef}>
-        <Span isInputActive={isInputActive} onClick={handleClick} ref={spanRef}>
-          {text}
-        </Span>
-
-        <Textarea
-          isInputActive={isInputActive}
-          onChange={handleChange}
-          ref={textAreaRef}
-          value={inputValue}
-        />
+      <div ref={outsideRef}>
+        {/* if the user is editing the text, show the input field */}
+        {isInputActive ? (
+          <Textarea
+            onChange={handleChange}
+            ref={ideaEditRef}
+            value={inputValue}
+          />
+        ) : (
+          <Span onClick={handleClick}>{text}</Span>
+        )}
       </div>
     );
 
@@ -102,40 +101,24 @@ const IdeaDetailContent: FC<Props> = ({
 export default IdeaDetailContent;
 
 const Span = styled.span`
-  ${props =>
-    !props.isInputActive
-      ? css`
-          cursor: pointer;
-          line-height: 1.5;
-          margin: 0;
-          padding: 0;
+  cursor: pointer;
+  line-height: 1.5;
+  padding-left: 4px;
 
-          &:hover {
-            border-bottom: 1px solid ${props.theme.border.secondary};
-          }
-        `
-      : css`
-          display: none;
-        `}
+  &:hover {
+    border-bottom: 1px solid ${props => props.theme.border.secondary};
+  }
 `;
 
 const Textarea = styled.textarea.attrs({
   rows: 5
   // rows: `${props => Math.ceil(props.value.length / 50)}`
 })`
-  ${props =>
-    props.isInputActive
-      ? css`
-          border: none;
-          border-bottom: 1px solid ${props.theme.border.secondary};
-          line-height: 1.5;
-          margin: 0;
-          outline: none;
-          padding: 0;
-          resize: vertical;
-          width: 100%;
-        `
-      : css`
-          display: none;
-        `}
+  border-radius: 5px;
+  border: 1px solid ${props => props.theme.border.secondary};
+  line-height: 1.5;
+  outline: none;
+  padding: 0 0.2rem;
+  resize: vertical;
+  width: 100%;
 `;

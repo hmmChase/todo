@@ -3,6 +3,7 @@
 // https://github.com/vercel/next.js/blob/canary/examples/with-typescript-graphql/lib/apollo.ts
 
 import { useMemo } from 'react';
+import { IncomingMessage, ServerResponse } from 'http';
 import {
   ApolloClient,
   from,
@@ -10,9 +11,8 @@ import {
   NormalizedCacheObject
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import { IncomingMessage, ServerResponse } from 'http';
-import merge from 'deepmerge';
 import isEqual from 'lodash.isequal';
+import merge from 'deepmerge';
 
 import { backendUrl, development, server } from '../constants/config';
 import cache from './cache';
@@ -22,16 +22,38 @@ type ResolverContext = { req?: IncomingMessage; res?: ServerResponse };
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+const errorLink = onError(error => {
+  const { graphQLErrors, networkError, operation, response } = error;
+
+  // console.log('operation: ', JSON.stringify(operation, null, 4));
+  // console.log('response: ', JSON.stringify(response, null, 4));
+
   if (graphQLErrors)
-    graphQLErrors.forEach(error => {
-      const { extensions, message, path } = error;
+    graphQLErrors.forEach(graphQLError => {
+      const { extensions, message, path } = graphQLError;
+
       console.log(
-        `[GraphQL error]: ${extensions.code}, Path: ${path}, Message: ${message}`
+        '%c[GraphQL error]:',
+        'background: #222; color: #bada55',
+        `${extensions.code}`,
+        '\n',
+        `Path: ${path}`,
+        '\n',
+        `Message: ${message}`
       );
     });
 
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+  if (networkError) {
+    const { name, message, stack } = networkError;
+
+    console.log(
+      '[Network error]:',
+      'background: #222; color: #bada55',
+      `${name}`,
+      '\n',
+      `Message: ${message}`
+    );
+  }
 });
 
 const httpLink = new HttpLink({

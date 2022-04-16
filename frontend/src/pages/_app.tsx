@@ -63,18 +63,36 @@ const MyApp = ({ Component, pageProps, user }: AppPropsWithLayout) => {
   );
 };
 
+//? if on server, verify user
+// if (typeof window === 'undefined') {
+//   MyApp.getInitialProps = async (appContext: AppContext) => {
+//     // calls page's `getInitialProps` and fills `appProps.pageProps`
+//     const appProps = await App.getInitialProps(appContext);
+
+//     // https://github.com/vercel/next.js/discussions/10874
+//     const userCookie = appContext.ctx.req?.headers.cookie;
+
+//     const user = verifyUser(userCookie);
+
+//     return { user, ...appProps };
+//   };
+// }
+
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to
 // perform automatic static optimization, causing every page in your app to
 // be server-side rendered.
 //
+
 MyApp.getInitialProps = async (appContext: AppContext) => {
   // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext);
 
+  const server = typeof window === 'undefined';
+
   // https://github.com/vercel/next.js/discussions/10874
   // If on server, verify user
-  if (typeof window === 'undefined') {
+  if (server) {
     // Req is only available on server
     const userCookie = appContext.ctx.req?.headers.cookie;
 

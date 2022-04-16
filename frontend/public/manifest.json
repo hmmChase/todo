@@ -1,7 +1,7 @@
 {
   "name": "hmmStart",
   "short_name": "hs",
-  "description": "An example CRUD app with user authentication.",
+  "description": "An app head start.",
   "dir": "ltr",
   "lang": "en",
   "start_url": ".",

@@ -19,9 +19,9 @@ const verifyUser = (accessCookie: string | undefined) => {
 
   try {
     // Decode payload if signature is valid and JWT not expired
-    const payload = jwt.verify(accessToken, secret) as JwtPayload;
+    const { user } = jwt.verify(accessToken, secret) as JwtPayload;
 
-    return payload;
+    return user;
   } catch {
     return null;
   }

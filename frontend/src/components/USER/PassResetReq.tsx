@@ -10,8 +10,8 @@ import { PASS_RESET_REQ } from '../../graphql/queries/user';
 import Button from '../REUSEABLE/Button';
 import displayMessages from '../../constants/displayMessages';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
+import errorMessages from '../../utils/errorMessages';
 import FormInput from '../REUSEABLE/FormInput';
-import gqlErrMsgMap from '../../utils/gqlErrMsgMap';
 
 type HandleSubmit = (
   formikHelpers: FormikHelpers<{ passResetReqEmail: string }>,
@@ -21,6 +21,8 @@ type HandleSubmit = (
 const validationSchema = object().shape({ passResetReqEmail: email });
 
 const PassResetReq: FC = () => {
+  const [gqlErrMsg, setGqlErrMsg] = useState('');
+
   const [success, setSuccess] = useState(false);
 
   const [passResetReq, { error, loading }] = useMutation(PASS_RESET_REQ, {
@@ -28,7 +30,7 @@ const PassResetReq: FC = () => {
 
     onCompleted: () => setSuccess(true),
 
-    onError: () => {}
+    onError: error => setGqlErrMsg(errorMessages(error))
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
@@ -56,14 +58,10 @@ const PassResetReq: FC = () => {
         {...formik.getFieldProps('passResetReqEmail')}
       />
 
-      {formik.touched.passResetReqEmail && formik.errors.passResetReqEmail ? (
+      {formik.touched.passResetReqEmail && formik.errors.passResetReqEmail && (
         <DisplayStatus status='error'>
           {formik.errors.passResetReqEmail}
         </DisplayStatus>
-      ) : null}
-
-      {error && (
-        <DisplayStatus status='error'>{gqlErrMsgMap(error)}</DisplayStatus>
       )}
 
       {success && (
@@ -71,6 +69,8 @@ const PassResetReq: FC = () => {
           {displayMessages.user.passReset.sent}
         </DisplayStatus>
       )}
+
+      {gqlErrMsg && <DisplayStatus status='error'>{gqlErrMsg}</DisplayStatus>}
 
       <Buttonn
         disabled={

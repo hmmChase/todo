@@ -15,17 +15,18 @@ interface Props {
 const IdeaDetailUpdate: FC<Props> = ({ content, currentUserOwnsIdea, id }) => {
   const [text, setText] = useState(content);
 
-  const [updateIdea] = useMutation(UPDATE_IDEA);
+  const [updateIdea] = useMutation(UPDATE_IDEA, { onError: () => {} });
 
-  // executes on blur
+  // Executes on blur
   const debouncedFn = useCallback(
     () =>
       debounce(
-        (value: string) => updateIdea({ variables: { content: value, id } }),
+        // (value: string) => updateIdea({ variables: { content: value, id } }),
+        () => updateIdea({ variables: { content: text, id } }),
 
         IdeaInputDebounceDelay
       ),
-    [id, updateIdea]
+    [id, text, updateIdea]
   );
 
   const onSetText = (text: string) => {

@@ -3,13 +3,16 @@
 import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import bcryptjs from 'bcryptjs';
 
+import {
+  sendPassResetReqEmail,
+  sendSignUpEmail
+} from '../../handlers/emailHandler.js';
 import { accessCookieOptions } from '../../constants/cookie.js';
 import { consoleLog } from '../../utils/myLogger.js';
 import { createAccessToken } from '../../utils/accessToken.js';
 import { createPassReset, validatePassReset } from '../../utils/passReset.js';
-import { createUserObj, passwordCompare } from '../../utils/user.js';
 import { development, passwordHashSaltRounds } from '../../constants/config.js';
-import { sendPassResetReqEmail } from '../../handlers/emailHandler.js';
+import { passwordCompare } from '../../utils/user.js';
 import { validateInputs } from '../../utils/validateInputs.js';
 import { verifyAccessToken } from '../../utils/accessToken.js';
 
@@ -62,26 +65,25 @@ const userResolver = {
       }
     },
 
-    // Return authenticated user
+    /* Return authenticated user */
     currentUser: async (parent, args, ctx, info) => {
       // If user not logged in, return null
-      if (!ctx.accessToken) return null;
+      if (!ctx.accessToken) throw new AuthenticationError('no access token');
 
       // Verify access token & decode payload
       const payload = verifyAccessToken(ctx.accessToken);
 
       try {
         // Find user matching user id
-        const foundUser = await ctx.prisma.user.findUnique({
+        const user = await ctx.prisma.user.findUnique({
           where: { id: payload.user.id },
-          select: { id: true, email: true, role: true }
+          select: {
+            id: true,
+            email: true,
+            role: true,
+            ideas: { select: { id: true, content: true } }
+          }
         });
-
-        // If user not found, return nothing
-        if (!foundUser) return null;
-
-        // Create user object
-        const user = createUserObj(foundUser);
 
         const currentTime = (new Date().getTime() + 1) / 1000;
         const oneDay = 86400000;
@@ -99,7 +101,7 @@ const userResolver = {
         // Return user
         return user;
       } catch (error) {
-        console.log('user currentUser error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
@@ -107,6 +109,7 @@ const userResolver = {
   },
 
   Mutation: {
+    /* Authenticate user */
     logIn: async (parent, args, ctx, info) => {
       const { input } = args;
 
@@ -115,35 +118,47 @@ const userResolver = {
 
       try {
         // Find user matching email
-        const foundUser = await ctx.prisma.user.findUnique({
+        const user = await ctx.prisma.user.findUnique({
           where: { email },
-          select: { id: true, email: true, password: true, role: true }
+          select: {
+            id: true,
+            email: true,
+            role: true,
+            password: true,
+            ideas: { select: { id: true, content: true } }
+          }
         });
 
-        // If user not found, return error
-        if (!foundUser) throw new UserInputError({ msg: 'user.null' });
+        // If user not found, throw error with display code
+        if (!user)
+          throw new UserInputError('user not found', {
+            displayCode: 'user.null'
+          });
 
-        // Check if input password matches users password
-        await passwordCompare(password, foundUser.password);
+        // Check if input password matches user password
+        await passwordCompare(password, user.password);
 
-        // Create user object
-        const user = createUserObj(foundUser);
+        // VERY IMPORTANT
+        delete user.password;
 
         // Create access token
-        const accessToken = createAccessToken(user);
+        const accessToken = createAccessToken({ user });
 
         // Set new access cookie
         ctx.res.cookie('access', accessToken, accessCookieOptions);
 
         // Return user
-        return user;
+        return { user };
       } catch (error) {
-        console.log('user logIn error: ', error);
+        // UserInputError gets caught here
+        development && consoleLog(error);
 
+        // Throw caught error, else generic error is returned
         throw error;
       }
     },
 
+    /* Clear authenticated user */
     logOut: (parent, args, ctx, info) => {
       // Needed to delete cookie
       delete accessCookieOptions.maxAge;
@@ -151,9 +166,11 @@ const userResolver = {
       // Delete cookie
       ctx.res.clearCookie('access', accessCookieOptions);
 
+      // Return boolean
       return true;
     },
 
+    /* Create & authenticate new user */
     signUp: async (parent, args, ctx, info) => {
       const { input } = args;
 
@@ -167,8 +184,11 @@ const userResolver = {
           select: { id: true }
         });
 
-        // If user found, return error
-        if (foundUser) throw new UserInputError({ msg: 'user.exists' });
+        // If user found, throw error with display code
+        if (foundUser)
+          throw new UserInputError('user already exists', {
+            displayCode: 'user.exists'
+          });
 
         /**
         // Encrypt password
@@ -194,11 +214,8 @@ const userResolver = {
           select: { id: true, email: true, role: true }
         });
 
-        // Create user object
-        const user = createUserObj(createdUser);
-
         // Create access token
-        const accessToken = createAccessToken(user);
+        const accessToken = createAccessToken({ user: createdUser });
 
         // Set new access cookie
         ctx.res.cookie('access', accessToken, accessCookieOptions);
@@ -207,14 +224,15 @@ const userResolver = {
         sendSignUpEmail(email);
 
         // Return user
-        return user;
+        return { user: createdUser };
       } catch (error) {
-        console.log('user signUp error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
     },
 
+    /* Send password reset request email */
     passResetReq: async (parent, args, ctx, info) => {
       const { input } = args;
 
@@ -223,20 +241,23 @@ const userResolver = {
 
       try {
         // Find user matching email
-        const foundUser = await ctx.prisma.user.findUnique({
+        const user = await ctx.prisma.user.findUnique({
           where: { email },
           select: { id: true }
         });
 
-        // If user not found, return same as found user
-        if (!foundUser) return true;
+        // If user not found, throw error with display code
+        if (!user)
+          throw new UserInputError('user not found', {
+            displayCode: 'user.null'
+          });
 
         // Generate password reset token & expiration
         const [passResetExpiry, passResetToken] = await createPassReset();
 
         // Update user with password reset token & expiration
         await ctx.prisma.user.update({
-          where: { id: foundUser.id },
+          where: { id: user.id },
           data: { passResetExpiry, passResetToken }
         });
 
@@ -246,21 +267,15 @@ const userResolver = {
         // Return boolean
         return true;
       } catch (error) {
-        console.log('user passResetReq error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
     },
 
+    /* Reset user password */
     passReset: async (parent, args, ctx, info) => {
       const { newPassword, passResetToken } = args;
-
-      if (!newPassword || !passResetToken)
-        throw new UserInputError('missing', {
-          argumentName:
-            (!newPassword && 'newPassword') ||
-            (!passResetToken && 'passResetToken')
-        });
 
       // Normalize & validate inputs
       const { password } = validateInputs({ password: newPassword });
@@ -299,11 +314,13 @@ const userResolver = {
             passResetExpiry: null,
             passResetToken: null
           },
-          select: { id: true, email: true, role: true }
+          select: {
+            id: true,
+            email: true,
+            role: true,
+            ideas: { select: { id: true, content: true } }
+          }
         });
-
-        // Create user object
-        const user = createUserObj(updatedUser);
 
         // Create access token
         const accessToken = createAccessToken(user);
@@ -312,9 +329,9 @@ const userResolver = {
         ctx.res.cookie('access', accessToken, accessCookieOptions);
 
         // Return user
-        return user;
+        return { user: updatedUser };
       } catch (error) {
-        console.log('user passReset error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }

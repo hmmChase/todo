@@ -14,7 +14,7 @@ const IdeaList: FC<Props> = ({ ideas }) => {
       <hr />
 
       <IdeaItem
-        authorId={idea.author.id}
+        authorId={idea.author!.id}
         content={idea.content}
         ideaId={idea.id}
       />

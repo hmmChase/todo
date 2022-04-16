@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useMutation } from '@apollo/client';
@@ -12,8 +12,8 @@ import { LOG_IN } from '../../graphql/queries/user';
 import { User } from '../../models';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
+import errorMessages from '../../utils/errorMessages';
 import FormInput from '../REUSEABLE/FormInput';
-import gqlErrMsgMap from '../../utils/gqlErrMsgMap';
 import useUser from '../../hooks/useUser';
 
 interface Props {
@@ -35,6 +35,8 @@ const validationSchema = object().shape({
 });
 
 const LogInForm: FC<Props> = ({ close }) => {
+  const [gqlErrMsg, setGqlErrMsg] = useState('');
+
   const router = useRouter();
 
   const { setUser } = useUser();
@@ -48,12 +50,12 @@ const LogInForm: FC<Props> = ({ close }) => {
     if (!close) router.push('/');
   };
 
-  const [logIn, { error, loading }] = useMutation(LOG_IN, {
+  const [logIn, { loading }] = useMutation(LOG_IN, {
     fetchPolicy: 'network-only',
 
     onCompleted: data => onCompleted(data),
 
-    onError: () => {}
+    onError: error => setGqlErrMsg(errorMessages(error))
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
@@ -83,9 +85,9 @@ const LogInForm: FC<Props> = ({ close }) => {
         {...formik.getFieldProps('logInEmail')}
       />
 
-      {formik.touched.logInEmail && formik.errors.logInEmail ? (
+      {formik.touched.logInEmail && formik.errors.logInEmail && (
         <DisplayStatus status='error'>{formik.errors.logInEmail}</DisplayStatus>
-      ) : null}
+      )}
 
       <FormInput
         id='logInPasswordId'
@@ -94,15 +96,13 @@ const LogInForm: FC<Props> = ({ close }) => {
         {...formik.getFieldProps('logInPassword')}
       />
 
-      {formik.touched.logInPassword && formik.errors.logInPassword ? (
+      {formik.touched.logInPassword && formik.errors.logInPassword && (
         <DisplayStatus status='error'>
           {formik.errors.logInPassword}
         </DisplayStatus>
-      ) : null}
-
-      {error && (
-        <DisplayStatus status='error'>{gqlErrMsgMap(error)}</DisplayStatus>
       )}
+
+      {gqlErrMsg && <DisplayStatus status='error'>{gqlErrMsg}</DisplayStatus>}
 
       <Buttonn
         disabled={

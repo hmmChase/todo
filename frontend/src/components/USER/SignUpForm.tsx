@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useMutation } from '@apollo/client';
@@ -12,8 +12,8 @@ import { SIGN_UP } from '../../graphql/queries/user';
 import { User } from '../../models';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
+import errorMessages from '../../utils/errorMessages';
 import FormInput from '../REUSEABLE/FormInput';
-import gqlErrMsgMap from '../../utils/gqlErrMsgMap';
 import PassReqList from './PassReqList';
 import useUser from '../../hooks/useUser';
 
@@ -36,6 +36,8 @@ const validationSchema = object().shape({
 });
 
 const SignUpForm: FC<Props> = ({ close }) => {
+  const [gqlErrMsg, setGqlErrMsg] = useState('');
+
   const router = useRouter();
 
   const { setUser } = useUser();
@@ -54,7 +56,7 @@ const SignUpForm: FC<Props> = ({ close }) => {
 
     onCompleted: data => onCompleted(data),
 
-    onError: () => {}
+    onError: error => setGqlErrMsg(errorMessages(error))
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
@@ -84,11 +86,11 @@ const SignUpForm: FC<Props> = ({ close }) => {
         {...formik.getFieldProps('signUpEmail')}
       />
 
-      {formik.touched.signUpEmail && formik.errors.signUpEmail ? (
+      {formik.touched.signUpEmail && formik.errors.signUpEmail && (
         <DisplayStatus status='error'>
           {formik.errors.signUpEmail}
         </DisplayStatus>
-      ) : null}
+      )}
 
       <FormInput
         id='signUpPassword'
@@ -97,15 +99,13 @@ const SignUpForm: FC<Props> = ({ close }) => {
         {...formik.getFieldProps('signUpPassword')}
       />
 
-      {formik.touched.signUpPassword && formik.errors.signUpPassword ? (
+      {formik.touched.signUpPassword && formik.errors.signUpPassword && (
         <DisplayStatus status='error'>
           {formik.errors.signUpPassword}
         </DisplayStatus>
-      ) : null}
-
-      {error && (
-        <DisplayStatus status='error'>{gqlErrMsgMap(error)}</DisplayStatus>
       )}
+
+      {gqlErrMsg && <DisplayStatus status='error'>{gqlErrMsg}</DisplayStatus>}
 
       <PassReqList />
 
