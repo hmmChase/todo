@@ -1,7 +1,7 @@
-import { DynamicMediaQuery } from './DynamicMediaQuery';
-import { HideMediaQuery } from './HideMediaQuery';
+// import { DynamicMediaQuery } from './DynamicMediaQuery';
+// import { HideMediaQuery } from './HideMediaQuery';
 
-export const MediaQuery = () => null;
+// export const MediaQuery = () => null;
 
-MediaQuery.Dynamic = DynamicMediaQuery;
-MediaQuery.Hide = HideMediaQuery;
+// MediaQuery.Dynamic = DynamicMediaQuery;
+// MediaQuery.Hide = HideMediaQuery;
