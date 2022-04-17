@@ -4,71 +4,24 @@
 
 import { useMemo } from 'react';
 import { IncomingMessage, ServerResponse } from 'http';
-import {
-  ApolloClient,
-  from,
-  HttpLink,
-  NormalizedCacheObject
-} from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import isEqual from 'lodash.isequal';
 import merge from 'deepmerge';
 
-import { backendUrl, development, server } from '../constants/config';
+import { development, server } from '../constants/config';
 import cache from './cache';
+import link from './links';
 import typeDefs from './typeDefs';
 
 type ResolverContext = { req?: IncomingMessage; res?: ServerResponse };
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
-const errorLink = onError(error => {
-  const { graphQLErrors, networkError, operation, response } = error;
-
-  // console.log('operation: ', JSON.stringify(operation, null, 4));
-  // console.log('response: ', JSON.stringify(response, null, 4));
-
-  if (graphQLErrors)
-    graphQLErrors.forEach(graphQLError => {
-      const { extensions, message, path } = graphQLError;
-
-      console.log(
-        '%c[GraphQL error]:',
-        'background: #222; color: #bada55',
-        `${extensions.code}`,
-        '\n',
-        `Path: ${path}`,
-        '\n',
-        `Message: ${message}`
-      );
-    });
-
-  if (networkError) {
-    const { name, message, stack } = networkError;
-
-    console.log(
-      '[Network error]:',
-      'background: #222; color: #bada55',
-      `${name}`,
-      '\n',
-      `Message: ${message}`
-    );
-  }
-});
-
-const httpLink = new HttpLink({
-  uri: `${backendUrl}/gql`,
-
-  credentials: 'include'
-});
-
-const link = development ? from([errorLink, httpLink]) : from([httpLink]);
-
 const createApolloClient = (context?: ResolverContext) =>
   new ApolloClient({
-    link,
-
     cache,
+
+    link,
 
     typeDefs,
 
@@ -79,7 +32,7 @@ const createApolloClient = (context?: ResolverContext) =>
     // https://www.apollographql.com/docs/react/performance/server-side-rendering/#store-rehydration
     ssrForceFetchDelay: 100,
 
-    connectToDevTools: process.env.NODE_ENV === 'development'
+    connectToDevTools: development
   });
 
 export const initializeApollo = (

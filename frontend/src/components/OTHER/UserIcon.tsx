@@ -22,7 +22,7 @@ const UserIcon: FC = () => {
 
       <IconUser
         // https://styled-components.com/docs/api#transient-props
-        $isdropdownopen={isDropdownOpen}
+        $isDropdownOpen={isDropdownOpen}
         alt='User icon'
         onClick={() => setDropdownOpen(!isDropdownOpen)}
         src={userSvg}
@@ -33,7 +33,11 @@ const UserIcon: FC = () => {
 
 export default UserIcon;
 
-const Container = styled.div`
+interface scProps {
+  $isDropdownOpen: boolean;
+}
+
+const Container = styled.div<scProps>`
   background-color: ${props =>
     props.$isDropdownOpen ? props.theme.background.quinary : 'inherit'};
   border-top-left-radius: ${props => props.theme.borderRadius.round};
@@ -52,9 +56,12 @@ const Dropdownn = styled(Dropdown)`
   top: 33px; /* UserIcon height */
 `;
 
-const IconUser = styled(Image).attrs({ height: '33px', width: '33px' })`
+const IconUser = styled(Image).attrs({
+  height: '33px',
+  width: '33px'
+})<scProps>`
   background-color: ${props =>
-    props.$isdropdownopen
+    props.$isDropdownOpen
       ? props.theme.background.quinary
       : props.theme.background.primary};
   border-bottom-left-radius: ${props => props.theme.borderRadius.primary};

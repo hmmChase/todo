@@ -1,67 +1,67 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
-export const fetchUser = async (cookie = '') => {
-  if (typeof window !== 'undefined' && window.__user) return window.__user;
+// export const fetchUser = async (cookie = '') => {
+//   if (typeof window !== 'undefined' && window.__user) return window.__user;
 
-  const res = await fetch('/api/me', cookie ? { headers: { cookie } } : {});
+//   const res = await fetch('/api/me', cookie ? { headers: { cookie } } : {});
 
-  if (!res.ok) {
-    delete window.__user;
+//   if (!res.ok) {
+//     delete window.__user;
 
-    return null;
-  }
+//     return null;
+//   }
 
-  const data = await res.json();
+//   const data = await res.json();
 
-  if (typeof window !== 'undefined') window.__user = data;
+//   if (typeof window !== 'undefined') window.__user = data;
 
-  return data;
-};
+//   return data;
+// };
 
-export const useFetchUser = async ({ required } = {}) => {
-  const [loading, setLoading] = useState(
-    () => !(typeof window !== 'undefined' && window.__user)
-  );
+// export const useFetchUser = async ({ required } = {}) => {
+//   const [loading, setLoading] = useState(
+//     () => !(typeof window !== 'undefined' && window.__user)
+//   );
 
-  const [user, setUser] = useState(() => {
-    if (typeof window === 'undefined') return null;
+//   const [user, setUser] = useState(() => {
+//     if (typeof window === 'undefined') return null;
 
-    return window.__user || null;
-  });
+//     return window.__user || null;
+//   });
 
-  useEffect(
-    () => {
-      if (!loading && user) return;
+//   useEffect(
+//     () => {
+//       if (!loading && user) return;
 
-      setLoading(true);
+//       setLoading(true);
 
-      let isMounted = true;
+//       let isMounted = true;
 
-      fetchUser().then(user => {
-        // Only set the user if the component is still mounted
-        if (isMounted) {
-          // When the user is not logged in but login is required
-          if (required && !user) {
-            window.location.href = '/api/login';
+//       fetchUser().then(user => {
+//         // Only set the user if the component is still mounted
+//         if (isMounted) {
+//           // When the user is not logged in but login is required
+//           if (required && !user) {
+//             window.location.href = '/api/login';
 
-            return;
-          }
+//             return;
+//           }
 
-          setUser(user);
-          setLoading(false);
-        }
-      });
+//           setUser(user);
+//           setLoading(false);
+//         }
+//       });
 
-      return () => (isMounted = false);
-    },
+//       return () => (isMounted = false);
+//     },
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//     []
+//   );
 
-  return { user, loading };
-};
+//   return { user, loading };
+// };
 
-// import { useFetchUser } from '../lib/user'
-// const { user, loading } = useFetchUser();
-// const { user, loading } = useFetchUser({ required: true });
+// // import { useFetchUser } from '../lib/user'
+// // const { user, loading } = useFetchUser();
+// // const { user, loading } = useFetchUser({ required: true });

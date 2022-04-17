@@ -21,8 +21,8 @@ const IdeaDetailContent: FC<Props> = ({
   const outsideRef = useRef<HTMLDivElement>(null);
   const ideaEditRef = useRef<HTMLTextAreaElement>(null);
 
-  // const enter = useKeypress('Enter');
-  const escape = useKeypress('Escape');
+  // const enter = useKeypress({ targetKey: 'Enter' });
+  const escape = useKeypress({ targetKey: 'Escape' });
 
   const handler = () => {
     if (isInputActive) {

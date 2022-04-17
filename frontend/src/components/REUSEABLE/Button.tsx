@@ -40,7 +40,11 @@ const Button: FC<Props> = ({
 
 export default Button;
 
-const Buttonn = styled.button`
+interface scProps {
+  $alt?: boolean;
+}
+
+const Buttonn = styled.button<scProps>`
   background-color: ${props =>
     props.$alt
       ? props.theme.background.primary
