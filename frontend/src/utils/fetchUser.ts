@@ -1,3 +1,5 @@
+// Not used
+
 // import { useState, useEffect } from 'react';
 
 // export const fetchUser = async (cookie = '') => {

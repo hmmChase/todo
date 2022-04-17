@@ -1,32 +1,23 @@
-// import jwt from 'jsonwebtoken';
+// Not used
 
-// import { getAccessToken } from '../utils/accessToken';
-// import { IS_LOGGED_IN } from './queries';
+import { IS_LOGGED_IN } from './queries/user';
+import verifyUser from '../utils/verifyUser';
+import { InMemoryCache } from '@apollo/client';
 
-// const verifyAccessToken = accessToken => {
-//   try {
-//     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+const cache = () => {
+  (cache: InMemoryCache, accessCookie: string) => {
+    // const theAccessToken = accessToken || getAccessToken();
 
-//     return true;
-//   } catch {
-//     return false;
-//   }
-// };
+    let isLoggedIn = false;
 
-// const cache = () => {
-//   (cache, accessToken) => {
-//     const theAccessToken = accessToken || getAccessToken();
+    if (accessCookie) isLoggedIn = verifyUser(accessCookie) !== null;
 
-//     let isLoggedIn = false;
+    cache.writeQuery({
+      id: 'isLoggedIn',
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn }
+    });
+  };
+};
 
-//     if (theAccessToken) isLoggedIn = verifyAccessToken(theAccessToken);
-
-//     cache.writeQuery({
-//       id: 'isLoggedIn',
-//       query: IS_LOGGED_IN,
-//       data: { isLoggedIn }
-//     });
-//   };
-// };
-
-// export default cache;
+export default cache;
