@@ -46,6 +46,8 @@ const borderRadius = { primary: '5px', round: '50%' };
 const width = { page: '800px' };
 
 const theme = {
+  breakpoints: { mobile: 320, tablet: 768, desktop: 1024 },
+
   fonts,
   fontSize,
   borderRadius,
