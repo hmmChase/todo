@@ -1,9 +1,10 @@
 {
   "name": "hmmStart",
-  "short_name": "hmmStart",
-  "description": "An example CRUD app with user authentication.",
+  "short_name": "hs",
+  "description": "An app head start.",
   "dir": "ltr",
   "lang": "en",
+  "start_url": ".",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#000000",

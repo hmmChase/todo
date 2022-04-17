@@ -38,32 +38,32 @@ export const LOG_OUT = {
   result: { data: { logOut: true } }
 };
 
-export const CREATE_USER = {
+export const SIGN_UP = {
   request: {
-    query: userQuery.CREATE_USER,
+    query: userQuery.SIGN_UP,
     variables: { email: 'user1@email.com', password: 'asdf1234' }
   },
-  result: { data: { createUser: { user: user.user1 } } }
+  result: { data: { signUp: { user: user.user1 } } }
 };
 
-export const REQ_PASS_RESET = {
+export const PASS_RESET_REQ = {
   request: {
-    query: userQuery.REQ_PASS_RESET,
+    query: userQuery.PASS_RESET_REQ,
     variables: {
       email: 'user1@email.com',
       resetPassToken: '4e4a8fb6e44ec32642cfa410243652f85885bc72'
     }
   },
-  result: { data: { reqPassReset: true } }
+  result: { data: { passResetReq: true } }
 };
 
-export const CHANGE_PASSWORD = {
+export const PASS_RESET = {
   request: {
-    query: userQuery.CHANGE_PASSWORD,
+    query: userQuery.PASS_RESET,
     variables: {
-      resetPassToken: '4e4a8fb6e44ec32642cfa410243652f85885bc72',
-      password: 'asdf1234'
+      password: 'asdf1234',
+      resetPassToken: '4e4a8fb6e44ec32642cfa410243652f85885bc72'
     }
   },
-  result: { data: { resetPassword: { user: user.user1 } } }
+  result: { data: { resetPass: { user: user.user1 } } }
 };

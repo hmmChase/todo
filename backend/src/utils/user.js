@@ -3,37 +3,9 @@ import bcryptjs from 'bcryptjs';
 // import argon2 from 'argon2';
 // import crypto from 'crypto';
 
-import { createAccessToken } from './accessToken.js';
-
-export const createUserObj = userRecord => {
-  // Clean user data for client
-  const clientUserData = userClientCleaner(userRecord);
-
-  // Create user object
-  const userObj = { user: clientUserData };
-
-  // Return user object
-  return userObj;
-};
-
-export const createPayload = userRecord => {
-  // Create payload for access token
-  const payload = { userId: userRecord.id };
-
-  // Create access token
-  const accessToken = createAccessToken(payload);
-
-  // Return access token
-  return accessToken;
-};
-
-export const createUserObjandPayload = userRecord => {
-  const user = createUserObj(userRecord);
-
-  const accessToken = createPayload(userRecord);
-
-  return [user, accessToken];
-};
+export const createUserObj = user => ({
+  user: { id: user.id, email: user.email, role: user.role }
+});
 
 export const passwordCompare = async (inputPassword, userPassword) => {
   /**
@@ -48,11 +20,7 @@ export const passwordCompare = async (inputPassword, userPassword) => {
   const isCorrectPass = await bcryptjs.compare(inputPassword, userPassword);
 
   if (!isCorrectPass)
-    throw new UserInputError('user.error.passwordCompare.notMatch');
+    throw new UserInputError('user password wrong', {
+      displayCode: 'user.password.wrong'
+    });
 };
-
-const userClientCleaner = user => ({
-  id: user.id,
-  email: user.email,
-  role: user.role
-});

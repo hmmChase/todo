@@ -3,31 +3,31 @@ import { MockedProvider } from '@apollo/client/testing';
 import { ThemeProvider } from 'styled-components';
 import * as Image from 'next/image';
 
-import GlobalStyle from '../src/styles/global';
-import theme from '../src/styles/theme';
 import {
-  IS_LOGGED_IN,
-  READ_USER,
-  READ_USERS,
   CURRENT_USER,
+  IS_LOGGED_IN,
   LOG_IN,
   LOG_OUT,
-  CREATE_USER,
-  REQ_PASS_RESET,
-  CHANGE_PASSWORD
+  PASS_RESET_REQ,
+  PASS_RESET,
+  READ_USER,
+  READ_USERS,
+  SIGN_UP
 } from '../src/__mocks__/graphql/user';
 import {
-  READ_IDEA,
-  READ_IDEAS,
-  READ_IDEAS_CLIENT,
-  READ_IDEAS_PAGINATED_OFFSET,
-  READ_IDEAS_PAGINATED_CURSER,
-  CURRENT_USER_IDEAS,
   CREATE_IDEA,
-  UPDATE_IDEA,
+  CURRENT_USER_IDEAS,
+  DELETE_IDEA,
+  READ_IDEA,
+  READ_IDEAS_CLIENT,
+  READ_IDEAS_PAGINATED_CURSER,
+  READ_IDEAS_PAGINATED_OFFSET,
+  READ_IDEAS,
   REMOVE_IDEA,
-  DELETE_IDEA
+  UPDATE_IDEA
 } from '../src/__mocks__/graphql/idea';
+import GlobalStyle from '../src/styles/global';
+import theme from '../src/styles/theme';
 
 // https://github.com/vercel/next.js/issues/18393
 const OriginalNextImage = Image.default;
@@ -44,27 +44,27 @@ export const decorators = [
     <MockedProvider
       mocks={[
         // user
-        IS_LOGGED_IN,
-        READ_USER,
-        READ_USERS,
         CURRENT_USER,
+        IS_LOGGED_IN,
         LOG_IN,
         LOG_OUT,
-        CREATE_USER,
-        REQ_PASS_RESET,
-        CHANGE_PASSWORD,
+        PASS_RESET_REQ,
+        PASS_RESET,
+        READ_USER,
+        READ_USERS,
+        SIGN_UP,
 
         // idea
-        READ_IDEA,
-        READ_IDEAS,
-        READ_IDEAS_CLIENT,
-        READ_IDEAS_PAGINATED_OFFSET,
-        READ_IDEAS_PAGINATED_CURSER,
-        CURRENT_USER_IDEAS,
         CREATE_IDEA,
-        UPDATE_IDEA,
+        CURRENT_USER_IDEAS,
+        DELETE_IDEA,
+        READ_IDEA,
+        READ_IDEAS_CLIENT,
+        READ_IDEAS_PAGINATED_CURSER,
+        READ_IDEAS_PAGINATED_OFFSET,
+        READ_IDEAS,
         REMOVE_IDEA,
-        DELETE_IDEA
+        UPDATE_IDEA
       ]}
       addTypename={false}
     >

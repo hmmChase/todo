@@ -2,9 +2,9 @@ import nodemailer from 'nodemailer';
 import ejs from 'ejs';
 import juice from 'juice';
 
-import logger from './logHandler.js';
 import { frontendUrl } from '../constants/config.js';
 import { mailOptions } from '../constants/mail.js';
+import logger from './logHandler.js';
 
 const transport = nodemailer.createTransport(mailOptions);
 
@@ -47,9 +47,9 @@ export const sendEmail = async options => {
   const emailHtml = await generateHTML(options.filename, options);
 
   const mailOptions = {
-    from: 'hmmStart <hmmstart@email.com>',
-    to: options.user.email,
+    from: 'hmmStart <no-reply@hmmstart.com>',
     subject: options.subject,
+    to: options.user.email,
     html: emailHtml
   };
 
@@ -60,25 +60,27 @@ export const sendEmail = async options => {
 
 export const sendSignUpEmail = email => {
   const options = {
-    subject: 'Welcome to hmmStart',
     filename: 'signUpEmail',
+    subject: 'Welcome to hmmStart',
     user: { email }
   };
 
   sendEmail(options);
 };
 
-export const sendPassResetEmail = (
+export const sendPassResetReqEmail = (
   email,
-  resetPassToken,
-  resetPassTokenExpiry
+  passResetExpiry,
+  passResetToken
 ) => {
-  const resetPasswordUrl = `${frontendUrl}/reset-password?token=${resetPassToken}&expiry=${resetPassTokenExpiry}`;
+  const passResetUrl = `${frontendUrl}/password_reset?token=${passResetToken}&expiry=${passResetExpiry}`;
 
-  sendEmail({
-    subject: 'Password Reset for hmmStart',
-    filename: 'resetPassEmail',
+  const options = {
+    filename: 'passResetReqEmail',
+    subject: 'Password Reset Request',
     user: { email },
-    resetPasswordUrl
-  });
+    passResetUrl
+  };
+
+  sendEmail(options);
 };

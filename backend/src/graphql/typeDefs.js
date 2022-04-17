@@ -1,3 +1,6 @@
+// Whenever this files changes:
+// npx prisma generate
+
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
@@ -6,17 +9,17 @@ const typeDefs = gql`
   type Query {
     currentNumber: Int
 
-    # ---------- User ----------
+    # --- User ---
 
-    user(id: ID!): UserAuthPayload!
+    user(id: ID!): User
 
-    users: [UserAuthPayload!]!
+    users: [User!]!
 
-    currentUser: UserAuthPayload
+    currentUser: User
 
-    # ---------- Idea ----------
+    # --- Idea ---
 
-    idea(id: ID!): Idea!
+    idea(id: ID!): Idea
 
     ideas: [Idea!]!
 
@@ -46,22 +49,19 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    # ---------- User ----------
+    # --- User ---
 
     logIn(input: UserAuthInput!): UserAuthPayload!
 
     logOut: Boolean!
 
-    createUser(input: UserAuthInput!): UserAuthPayload!
+    signUp(input: UserAuthInput!): UserAuthPayload!
 
-    reqPassReset(email: String!): Boolean!
+    passResetReq(email: String!): Boolean!
 
-    changePassword(
-      resetPassToken: String!
-      newPassword: String!
-    ): UserAuthPayload!
+    passReset(resetPassToken: String!, newPassword: String!): UserAuthPayload!
 
-    # ---------- Idea ----------
+    # --- Idea ---
 
     createIdea(content: String!): Idea!
 
@@ -79,11 +79,7 @@ const typeDefs = gql`
 
   type User {
     id: ID!
-    createdAt: Float!
-    updatedAt: Float!
-    removedAt: Float!
     email: String!
-    password: String!
     role: Role!
     ideas: [Idea!]!
   }

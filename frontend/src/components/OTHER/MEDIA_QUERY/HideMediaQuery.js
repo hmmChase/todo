@@ -1,25 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// Not used
+
+// import { FC, ReactNode } from 'react';
 import styled, { withTheme } from 'styled-components';
-import { UnknownTypeException } from '../Exception';
-import { BaseContainer } from '../_elements';
-import { Types } from '../../types';
+
+// interface QueryProps {
+//   queryType?: 'min-width' | 'max-width';
+//   pixelSize?: number;
+// }
 
 const Query = styled(BaseContainer)`
   display: flex;
   align-items: center;
 
-  @media only screen and (${props => props.queryType}: ${props =>
-      props.pixelSize / 16}em) {
+  /* @media only screen and (${props => props.queryType}: ${props =>
+    props.pixelSize / 16}em) {
     display: none;
-  }
+  } */
 `;
 
-Query.propTypes = {
-  queryType: PropTypes.oneOf(['min-width', 'max-width']),
-  pixelSize: PropTypes.number
-};
+// interface HideMediaQueryProps {
+//   above?: string;
+//   below?: string;
+//   children: ReactNode;
+//   theme: { breakpoints: { [key: string]: number } };
+// }
 
+// : FC<HideMediaQueryProps>
 const HideMediaQuery = props => {
   let { above, below, theme, children } = props;
 
@@ -46,11 +52,5 @@ const HideMediaQuery = props => {
 };
 
 const themed = withTheme(HideMediaQuery);
-export { themed as HideMediaQuery };
 
-HideMediaQuery.propTypes = {
-  above: PropTypes.string,
-  below: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  theme: Types.theme.isRequired
-};
+export { themed as HideMediaQuery };

@@ -10,31 +10,32 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon bin/www.js",
     "start": "node bin/www.js",
-    "seed": "node src/prisma/seed.js"
+    "seed": "node prisma/seed.js"
   },
   "dependencies": {
-    "@prisma/client": "^3.8.1",
-    "apollo-server-express": "^3.6.2",
+    "@prisma/client": "^3.11.0",
+    "apollo-server-express": "^3.6.5",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "debug": "^4.3.3",
-    "dotenv": "^14.2.0",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
-    "express": "^4.17.2",
-    "graphql": "^16.2.0",
+    "express": "^4.17.3",
+    "graphql": "^16.3.0",
     "helmet": "^5.0.2",
     "isemail": "^3.2.0",
     "jsonwebtoken": "^8.5.1",
     "juice": "^8.0.0",
     "morgan": "^1.10.0",
-    "nodemailer": "^6.7.2",
-    "winston": "^3.4.0"
+    "nodemailer": "^6.7.3",
+    "winston": "^3.6.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.0.0",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.15",
-    "prisma": "^3.8.1"
+    "prisma": "^3.11.0"
   }
 }

@@ -1,28 +1,30 @@
 import { ForbiddenError } from 'apollo-server-express';
 
+import { consoleLog } from '../../utils/myLogger.js';
+import { development } from '../../constants/config.js';
 import { verifyAccessToken } from '../../utils/accessToken.js';
 
 const ideaResolver = {
   Query: {
-    // Return idea matching ID
+    /* Return idea matching ID */
     idea: async (parent, args, ctx, info) => {
       const { id } = args;
 
       try {
+        // Find idea matching user id
         const idea = await ctx.prisma.idea.findUnique({
           where: { id },
           select: { id: true, content: true, author: { select: { id: true } } }
         });
 
+        // Return idea
         return idea;
       } catch (error) {
-        console.log('idea idea error: ', error);
-
-        throw error;
+        development && console.error(error.message);
       }
     },
 
-    // Return all ideas
+    /* Return all ideas */
     ideas: async (parent, args, ctx, info) => {
       try {
         const ideas = await ctx.prisma.idea.findMany({
@@ -33,13 +35,13 @@ const ideaResolver = {
 
         return ideas;
       } catch (error) {
-        console.log('idea ideas error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
     },
 
-    // Return offset paginated ideas
+    /* Return offset paginated ideas */
     ideasPaginatedOffset: async (parent, args, ctx, info) => {
       const { offset, limit } = args;
 
@@ -59,13 +61,13 @@ const ideaResolver = {
 
         return ideas;
       } catch (error) {
-        console.log('idea ideasPaginatedOffset error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
     },
 
-    // Return curser paginated ideas
+    /* Return curser paginated ideas */
     ideasPaginatedCurser: async (parent, args, ctx, info) => {
       const { cursor, limit } = args;
 
@@ -85,27 +87,32 @@ const ideaResolver = {
 
         return ideas;
       } catch (error) {
-        console.log('idea ideasPaginatedCurser error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
     },
 
+    /* Return authenticated user's ideas */
     currentUserIdeas: async (parent, args, ctx, info) => {
-      // Verify access token and decode payload
+      // If user not logged in, return null
+      if (!ctx.accessToken) throw new AuthenticationError('no access token');
+      // if (!ctx.accessToken) return null;
+
+      // Verify access token & decode payload
       const payload = verifyAccessToken(ctx.accessToken);
 
       try {
-        // Find and return all ideas matching userId
+        // Find all ideas matching author id
         const ideas = await ctx.prisma.idea.findMany({
-          where: { author: { id: payload.userId }, removedAt: null },
+          where: { author: { id: payload.user.id }, removedAt: null },
           select: { id: true, content: true, author: { select: { id: true } } },
           orderBy: { createdAt: 'desc' }
         });
 
         return ideas;
       } catch (error) {
-        console.log('idea currentUserIdeas error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
@@ -117,7 +124,7 @@ const ideaResolver = {
     //   // Verify access token and decode payload
     //   const payload = verifyAccessToken(ctx.accessToken);
 
-    //   // Find and return paginated ideas matching userId
+    //   // Find and return paginated ideas matching user id
     //   const ideas = await prisma.idea.findMany({
     //     skip,
     //     take,
@@ -133,11 +140,11 @@ const ideaResolver = {
     //   // Verify access token and decode payload
     //   const payload = verifyAccessToken(ctx.accessToken);
 
-    //   // // Find and return paginated ideas matching userId
+    //   // // Find and return paginated ideas matching user id
     //   // const ideas = await prisma.idea.findMany({
     //   //   skip,
     //   //   take,
-    //   //   where: { id: payload.userId }
+    //   //   where: { id: payload.user.id }
     //   // });
 
     //   // return ideas;
@@ -145,7 +152,7 @@ const ideaResolver = {
     //   const ideas = await ctx.prisma.idea.findMany({
     //     skip,
     //     take,
-    //     where: { author: { id: payload.userId } }
+    //     where: { author: { id: payload.user.id } }
     //   });
 
     //   return {
@@ -168,14 +175,14 @@ const ideaResolver = {
       try {
         // Create idea
         const ideaRecord = ctx.prisma.idea.create({
-          data: { content, author: { connect: { id: payload.userId } } },
+          data: { content, author: { connect: { id: payload.user.id } } },
           select: { id: true, content: true, author: { select: { id: true } } }
         });
 
         // Return new idea
         return ideaRecord;
       } catch (error) {
-        console.log('idea createIdea error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
@@ -195,7 +202,7 @@ const ideaResolver = {
         });
 
         // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.userId;
+        const ownsIdea = idea.author.id === payload.user.id;
 
         // If not, throw error
         if (!ownsIdea)
@@ -210,7 +217,7 @@ const ideaResolver = {
 
         return updatedIdea;
       } catch (error) {
-        console.log('idea updateIdea error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
@@ -246,7 +253,7 @@ const ideaResolver = {
         // Return removed idea
         return removedIdea;
       } catch (error) {
-        console.log('idea removeIdea error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }
@@ -266,7 +273,7 @@ const ideaResolver = {
         });
 
         // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.userId;
+        const ownsIdea = idea.author.id === payload.user.id;
 
         // If not, throw error
         if (!ownsIdea)
@@ -281,7 +288,7 @@ const ideaResolver = {
         // Return deleted idea
         return deletedIdea;
       } catch (error) {
-        console.log('idea deleteIdea error: ', error);
+        development && consoleLog(error);
 
         throw error;
       }

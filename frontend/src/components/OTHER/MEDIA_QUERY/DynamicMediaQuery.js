@@ -1,24 +1,26 @@
-import PropTypes from 'prop-types';
+// Not used
+
+// import { FC, ReactNode } from 'react';
 import styled, { css, withTheme } from 'styled-components';
 
-const Wrapper = styled.div`
-  display: flex;
+// interface Props {
+//   children: ReactNode;
+//   feature: string;
+//   size: string;
+//   styles: string;
+//   theme: { breakpoints: { [key: string]: number } };
+// }
 
-  ${({ media, device: size, styles }) => `${media[size]`${styles}`}`};
-`;
-
-const DynamicMediaQuery = ({ size, feature, styles, theme, children }) => {
-  /**
-   * Generate media template
-   * Ref: https://www.styled-components.com/docs/advanced#media-templates
-   */
-
+// : FC<Props>
+const DynamicMediaQuery = ({ children, feature, size, styles, theme }) => {
   const mediaQueries = Object.keys(theme.breakpoints).reduce(
     (accumulator, breakpointName) => {
       accumulator[breakpointName] = (...args) =>
         css`
-          @media (${feature}: ${theme.breakpoints[breakpointName] / 16}em) {
+          ${
+            '' /* @media (${feature}: ${theme.breakpoints[breakpointName] / 16}em) {
             ${css(...args)}
+          } */
           }
         `.join('');
 
@@ -38,9 +40,8 @@ const themedQuery = withTheme(DynamicMediaQuery);
 
 export { themedQuery as DynamicMediaQuery };
 
-DynamicMediaQuery.propTypes = {
-  size: PropTypes.string.isRequired,
-  feature: PropTypes.string.isRequired,
-  styles: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
-};
+const Wrapper = styled.div`
+  display: flex;
+
+  ${({ device: size, media, styles }) => `${media[size]`${styles}`}`};
+`;

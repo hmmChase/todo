@@ -1,18 +1,16 @@
 // http://expressjs.com/en/5x/api.html#res.cookie
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
 
-import { production } from './config.js';
+import { accessCookieExpiry, production } from './config.js';
 
-const cookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
-
-export const cookieOptions = {
-  maxAge: cookieExpiry,
-  // expires: new Date(Date.now() + cookieExpiry * 1000),
-  httpOnly: true,
-  secure: production,
-  sameSite: production ? 'none' : 'strict', // production is cross-site
-  // path: '/gql', // use '/' if cookie not showing in chrome
+export const accessCookieOptions = {
   domain: '', //  hmmstart-backend.vercel.app
+  httpOnly: true,
+  maxAge: accessCookieExpiry,
+  sameParty: true, // allow cookies to be set by same origin
+  sameSite: production ? 'none' : 'strict', // production is cross-site
+  secure: production
   // domain: production ? `hmmstart.vercel.app:${port}` : 'localhost'
-  sameParty: true // allow cookies to be set by same origin
+  // expires: new Date(Date.now() + accessCookieExpiry * 1000),
+  // path: '/gql', // use '/' if cookie not showing in chrome
 };

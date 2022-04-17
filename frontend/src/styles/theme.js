@@ -24,6 +24,11 @@ const colors = {
   }
 };
 
+const fonts = {
+  title: "'Play', sans-serif",
+  body: "'Open Sans', sans-serif"
+};
+
 const fontSize = {
   small: '0.9rem',
   default: '1rem',
@@ -41,6 +46,9 @@ const borderRadius = { primary: '5px', round: '50%' };
 const width = { page: '800px' };
 
 const theme = {
+  breakpoints: { mobile: 320, tablet: 768, desktop: 1024 },
+
+  fonts,
   fontSize,
   borderRadius,
   width,

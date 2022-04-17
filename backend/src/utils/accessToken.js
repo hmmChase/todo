@@ -1,13 +1,15 @@
-import { ForbiddenError } from 'apollo-server-express';
+import { AuthenticationError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
 // import Iron from '@hapi/iron';
 
-import { JWToptions } from '../constants/config.js';
+import { accessTokenExpiry } from '../constants/config.js';
 
 const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 
 export const createAccessToken = payload => {
   // const ironAT = await Iron.seal(payload, secret, Iron.defaults);
+
+  const JWToptions = { expiresIn: accessTokenExpiry };
 
   const jwtAccessToken = jwt.sign(payload, secret, JWToptions);
 
@@ -20,15 +22,10 @@ export const verifyAccessToken = accessToken => {
   try {
     // const payload = await Iron.unseal(accessToken, secret, Iron.defaults);
 
-    // Decode payload if signature is valid and JWT not expired
     const payload = jwt.verify(accessToken, secret);
 
-    // Return payload
     return payload;
   } catch (error) {
-    console.log('accessToken verifyAccessToken error: ', error);
-
-    // If not, throw error
-    throw new ForbiddenError(error.message);
+    throw new AuthenticationError(error);
   }
 };
