@@ -32,7 +32,11 @@ const DisplayStatus: FC<Props> = ({ children, status }) => {
 
 export default DisplayStatus;
 
-const Span = styled.span`
+interface SpanProps {
+  $status: 'error' | 'info' | 'success';
+}
+
+const Span = styled.span<SpanProps>`
   background-color: ${props => {
     switch (props.$status) {
       case 'error':
