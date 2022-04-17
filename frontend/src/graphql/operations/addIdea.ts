@@ -1,16 +1,19 @@
-// const createAddIdea = ideaVar => {
-//   const createNewIdeaId = allIdeas =>
-//     allIdeas.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1;
+// Not used
 
-//   const createNewIdea = (content, allIdeas) => {
-//     return { content, id: createNewIdeaId(allIdeas) };
-//   };
+import { ReactiveVar } from '@apollo/client';
 
-//   return content => {
-//     const allIdeas = ideaVar();
+const createAddIdea = (ideaVar: ReactiveVar<boolean>) => {
+  // const createNewIdeaId = allIdeas =>
+  //   allIdeas.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1;
+  // const createNewIdea = (content, allIdeas) => {
+  //   return { content, id: createNewIdeaId(allIdeas) };
+  // };
+  // return content => {
+  //   const allIdeas = ideaVar();
+  //   ideaVar(allIdeas.concat([createNewIdea(content, allIdeas)]));
+  // };
 
-//     ideaVar(allIdeas.concat([createNewIdea(content, allIdeas)]));
-//   };
-// };
+  return {};
+};
 
-// export default createAddIdea;
+export default createAddIdea;
