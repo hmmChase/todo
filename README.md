@@ -1,5 +1,7 @@
 # hmmStart
 
+*An app head start!*
+
 ## Install
 
 ### FRONTEND
