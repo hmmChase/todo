@@ -1,5 +1,4 @@
 // https://nextjs.org/docs/advanced-features/custom-document
-// https://github.com/vercel/next.js/issues/36008
 
 import Document, {
   DocumentContext,
@@ -36,41 +35,22 @@ class MyDocument extends Document {
   // `getInitialProps` belongs to `_document` (instead of `_app`),
   // it's compatible with server-side generation (SSG).
   static async getInitialProps(ctx: DocumentContext) {
-    // Render app and page and get the context of the page with collected side effects.
-    const sheet = new ServerStyleSheet();
-
     const originalRenderPage = ctx.renderPage;
 
-    try {
-      // Run the React rendering logic synchronously
-      ctx.renderPage = () =>
-        originalRenderPage({
-          // Useful for wrapping the whole react tree
-          enhanceApp: App => App,
+    // Run the React rendering logic synchronously
+    ctx.renderPage = () =>
+      originalRenderPage({
+        // Useful for wrapping the whole react tree
+        enhanceApp: App => App,
 
-          // Useful for wrapping in a per-page basis
-          enhanceComponent: Component => Component
-        });
+        // Useful for wrapping in a per-page basis
+        enhanceComponent: Component => Component
+      });
 
-      // Run the parent `getInitialProps`, it now includes the custom `renderPage`
-      const initialProps = await Document.getInitialProps(ctx);
+    // Run the parent `getInitialProps`, it now includes the custom `renderPage`
+    const initialProps = await Document.getInitialProps(ctx);
 
-      return {
-        ...initialProps,
-
-        // Styles fragment is rendered after the app and page rendering finish.
-        // getStyleElement returns an array of React elements
-        styles: [
-          <>
-            {initialProps.styles}
-
-            {sheet.getStyleElement()}
-          </>
-        ]
-      };
-    } finally {
-      sheet.seal();
-    }
+    return initialProps;
   }
 
   render() {
