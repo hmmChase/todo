@@ -1,28 +1,27 @@
 // https://usehooks.com/useKeyPress/
 // https://github.com/react-typed-hooks/react-typed-hooks/blob/main/packages/useKeyPress/src/useKeyPress.ts
 
-import { KeyboardEvent, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-interface UseKeyPressOptions {
-  targetKey: KeyboardEvent['key'];
-}
-const useKeyPress = ({ targetKey }: UseKeyPressOptions): boolean => {
+const useKeyPress = (targetKey: string): boolean => {
   // State for keeping track of whether key is pressed
   const [keyPressed, setKeyPressed] = useState(false);
 
   // If pressed key is our target key then set to true
   const downHandler = useCallback(
-    ({ key }) => {
+    ({ key }: KeyboardEvent) => {
       if (key === targetKey) setKeyPressed(true);
     },
+
     [targetKey]
   );
 
   // If released key is our target key then set to false
   const upHandler = useCallback(
-    ({ key }) => {
+    ({ key }: KeyboardEvent) => {
       if (key === targetKey) setKeyPressed(false);
     },
+
     [targetKey]
   );
 
