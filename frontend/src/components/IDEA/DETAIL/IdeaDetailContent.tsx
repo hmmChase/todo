@@ -1,5 +1,13 @@
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
-import styled, { css } from 'styled-components';
+import {
+  ChangeEventHandler,
+  FC,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
+import styled from 'styled-components';
 
 import useKeypress from '../../../hooks/useKeypress';
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
@@ -21,10 +29,10 @@ const IdeaDetailContent: FC<Props> = ({
   const outsideRef = useRef<HTMLDivElement>(null);
   const ideaEditRef = useRef<HTMLTextAreaElement>(null);
 
-  // const enter = useKeypress({ targetKey: 'Enter' });
-  const escape = useKeypress({ targetKey: 'Escape' });
+  // const enter = useKeypress('Enter');
+  const escape = useKeypress('Escape');
 
-  const handler = () => {
+  const clickOutsideHandler = () => {
     if (isInputActive) {
       onSetText(inputValue);
 
@@ -33,7 +41,7 @@ const IdeaDetailContent: FC<Props> = ({
   };
 
   // check to see if the user clicked outside of this component
-  useOnClickOutside(handler, outsideRef);
+  useOnClickOutside(clickOutsideHandler, outsideRef);
 
   // const onEnter = useCallback(() => {
   //   if (enter) {
@@ -67,13 +75,13 @@ const IdeaDetailContent: FC<Props> = ({
     }
   }, [isInputActive, onEscape]); // onEnter
 
-  const handleClick = useCallback(
+  const handleClick: MouseEventHandler<HTMLSpanElement> = useCallback(
     () => setIsInputActive(true),
 
     [setIsInputActive]
   );
 
-  const handleChange = useCallback(
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
     e => setInputValue(e.target.value),
 
     [setInputValue]
