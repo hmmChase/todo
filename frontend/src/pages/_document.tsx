@@ -1,4 +1,5 @@
 // https://nextjs.org/docs/advanced-features/custom-document
+// https://github.com/vercel/next.js/issues/36008
 
 import Document, {
   DocumentContext,
@@ -41,11 +42,14 @@ class MyDocument extends Document {
     const originalRenderPage = ctx.renderPage;
 
     try {
+      // Run the React rendering logic synchronously
       ctx.renderPage = () =>
         originalRenderPage({
-          // enhanceApp wraps the whole react tree
-          // collectStyles wraps your element in a provider
-          enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+          // Useful for wrapping the whole react tree
+          enhanceApp: App => App,
+
+          // Useful for wrapping in a per-page basis
+          enhanceComponent: Component => Component
         });
 
       // Run the parent `getInitialProps`, it now includes the custom `renderPage`
@@ -56,13 +60,13 @@ class MyDocument extends Document {
 
         // Styles fragment is rendered after the app and page rendering finish.
         // getStyleElement returns an array of React elements
-        styles: (
+        styles: [
           <>
             {initialProps.styles}
 
             {sheet.getStyleElement()}
           </>
-        )
+        ]
       };
     } finally {
       sheet.seal();
