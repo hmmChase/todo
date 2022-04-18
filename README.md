@@ -1,3 +1,5 @@
+<!-- markdownlint-disable no-duplicate-header -->
+
 # hmmStart
 
 *An app head start!*
@@ -33,6 +35,18 @@
 
 ## Deploy to Vercel
 
+### FRONTEND
+
+1. On dashboard, click `New Project`
+2. Select the git repository of the app
+3. Enter:
+   - project name: `(name)-frontend`
+   - framework preset: `Next.js`
+   - root directory: `frontend`
+   - environment variables:
+      - `ACCESS_TOKEN_SECRET`
+4. Deploy
+
 ### BACKEND
 
 1. On dashboard, click `New Project`
@@ -44,16 +58,4 @@
    - environment variables:
      - `DATABASE_URL`
      - `ACCESS_TOKEN_SECRET`
-4. Deploy
-
-### FRONTEND
-
-1. On dashboard, click `New Project`
-2. Select the git repository of the app
-3. Enter:
-   - project name: `(name)-frontend`
-   - framework preset: `Next.js`
-   - root directory: `frontend`
-   - environment variables:
-      - `ACCESS_TOKEN_SECRET`
 4. Deploy
