@@ -1,7 +1,8 @@
 export const port = process.env.PORT || 4000;
 
 export const development = process.env.NODE_ENV === 'development';
-const preview = process.env.VERCEL_ENV === 'preview';
+export const preview = process.env.VERCEL_ENV === 'preview';
+
 export const production =
   process.env.NODE_ENV === 'production' &&
   process.env.VERCEL_ENV === 'production';
