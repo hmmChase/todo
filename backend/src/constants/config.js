@@ -2,16 +2,13 @@ export const port = process.env.PORT || 4000;
 
 export const development = process.env.NODE_ENV === 'development';
 export const preview = process.env.VERCEL_ENV === 'preview';
-
-export const production =
-  process.env.NODE_ENV === 'production' &&
-  process.env.VERCEL_ENV === 'production';
+export const production = process.env.VERCEL_ENV === 'production';
 
 const frontendUrlDev = 'http://localhost:1337';
 const frontendUrlPrev = 'https://hmmstart-git-dev-hmmchase.vercel.app';
 const frontendUrlProd = 'https://hmmstart.vercel.app';
 
-export const deployedUrl = process.env.VERCEL_URL;
+// export const deployedUrl = process.env.VERCEL_URL;
 
 export const frontendUrl = development
   ? frontendUrlDev

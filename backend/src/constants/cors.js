@@ -1,7 +1,13 @@
-import { production, frontendUrl, deployedUrl } from './config.js';
+import { frontendUrl, production } from './config.js';
 
-const CORSwhitelist = production
-  ? [frontendUrl, `https://${deployedUrl}`]
-  : [frontendUrl, 'https://studio.apollographql.com'];
+const corsDev = [frontendUrl, 'https://studio.apollographql.com'];
+const corsPrev = [frontendUrl];
+const corsProd = [frontendUrl];
+
+const CORSwhitelist = development
+  ? corsDev
+  : preview
+  ? corsPrev
+  : production && corsProd;
 
 export const corsOptions = { origin: CORSwhitelist, credentials: true };
