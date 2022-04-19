@@ -16,15 +16,7 @@ import compression from 'compression';
 // import createError from 'http-errors';
 
 import { corsOptions } from './constants/cors.js';
-// import { development, graphqlPath } from './constants/config.js';
-import {
-  development,
-  graphqlPath,
-  preview,
-  production,
-  deployedUrl,
-  frontendUrl
-} from './constants/config.js';
+import { development, graphqlPath } from './constants/config.js';
 import apolloServer from './graphql/apolloServer.js';
 import myLogger from './utils/myLogger.js';
 import router from './rest/routes.js';
@@ -35,11 +27,6 @@ import router from './rest/routes.js';
 // import schema from './graphql/schema.js';
 
 const app = express();
-
-console.log('preview:', preview);
-console.log('production:', production);
-console.log('deployedUrl:', deployedUrl);
-console.log('frontendUrl:', frontendUrl);
 
 // export const httpServer = http.createServer(app);
 
