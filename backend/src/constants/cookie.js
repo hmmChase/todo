@@ -3,7 +3,7 @@
 
 import { accessCookieExpiry, production } from './config.js';
 
-export const accessCookieOptions = {
+const accessCookieOptions = {
   domain: '', //  hmmstart-backend.vercel.app
   httpOnly: true,
   maxAge: accessCookieExpiry,
@@ -14,3 +14,5 @@ export const accessCookieOptions = {
   // expires: new Date(Date.now() + accessCookieExpiry * 1000),
   // path: '/gql', // use '/' if cookie not showing in chrome
 };
+
+export default accessCookieOptions;

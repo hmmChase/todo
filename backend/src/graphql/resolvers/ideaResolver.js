@@ -1,4 +1,4 @@
-import { ForbiddenError } from 'apollo-server-express';
+import { AuthenticationError, ForbiddenError } from 'apollo-server-express';
 
 import { consoleLog } from '../../utils/myLogger.js';
 import { development } from '../../constants/config.js';
@@ -45,10 +45,11 @@ const ideaResolver = {
     ideasPaginatedOffset: async (parent, args, ctx, info) => {
       const { offset, limit } = args;
 
-      if ((!offset && offset !== 0) || !limit)
+      if ((!offset && offset !== 0) || !limit) {
         throw new ForbiddenError(
           'idea.error.ideasPaginatedOffset.invalidOffsetOrLimit'
         );
+      }
 
       try {
         const ideas = await ctx.prisma.idea.findMany({
@@ -71,10 +72,11 @@ const ideaResolver = {
     ideasPaginatedCurser: async (parent, args, ctx, info) => {
       const { cursor, limit } = args;
 
-      if (!cursor || !limit)
+      if (!cursor || !limit) {
         throw new ForbiddenError(
           'idea.error.ideasPaginatedCurser.invalidCurserOrLimit'
         );
+      }
 
       try {
         const ideas = await ctx.prisma.idea.findMany({
@@ -205,8 +207,9 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.user.id;
 
         // If not, throw error
-        if (!ownsIdea)
+        if (!ownsIdea) {
           throw new ForbiddenError('idea.error.updateIdea.invalidOwnership');
+        }
 
         // Update idea
         const updatedIdea = ctx.prisma.idea.update({
@@ -240,11 +243,12 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.userId;
 
         // If not, throw error
-        if (!ownsIdea)
+        if (!ownsIdea) {
           throw new ForbiddenError('idea.error.removeIdea.invalidOwnership');
+        }
 
         // Update idea soft delete field
-        const removedIdea = await prisma.idea.update({
+        const removedIdea = await ctx.prisma.idea.update({
           where: { id },
           data: { removedAt: new Date().toISOString() },
           select: { id: true }
@@ -276,8 +280,9 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.user.id;
 
         // If not, throw error
-        if (!ownsIdea)
+        if (!ownsIdea) {
           throw new ForbiddenError('idea.error.deleteIdea.invalidOwnership');
+        }
 
         // Delete idea
         const deletedIdea = ctx.prisma.idea.delete({

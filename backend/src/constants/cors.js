@@ -1,4 +1,4 @@
-import { frontendUrl, production } from './config.js';
+import { development, frontendUrl, preview, production } from './config.js';
 
 const corsDev = [frontendUrl, 'https://studio.apollographql.com'];
 const corsPrev = [frontendUrl];

@@ -14,8 +14,6 @@ export const createPassReset = async () => {
 
   const passResetToken = resetTokenBytes.toString('hex');
 
-  passResetExpiry = new Date(passResetExpiry).toISOString();
-
   return [passResetExpiry, passResetToken];
 };
 
