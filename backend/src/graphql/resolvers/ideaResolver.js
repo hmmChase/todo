@@ -1,4 +1,4 @@
-import { ForbiddenError } from 'apollo-server-express';
+import { AuthenticationError, ForbiddenError } from 'apollo-server-express';
 
 import { consoleLog } from '../../utils/myLogger.js';
 import { development } from '../../constants/config.js';
@@ -20,19 +20,23 @@ const ideaResolver = {
         // Return idea
         return idea;
       } catch (error) {
-        development && console.error(error.message);
+        development && consoleLog(error);
+
+        throw error;
       }
     },
 
     /* Return all ideas */
     ideas: async (parent, args, ctx, info) => {
       try {
+        // Find all ideas that haven't been deleted
         const ideas = await ctx.prisma.idea.findMany({
           where: { removedAt: null },
           select: { id: true, content: true, author: { select: { id: true } } },
           orderBy: { createdAt: 'desc' }
         });
 
+        // Return ideas
         return ideas;
       } catch (error) {
         development && consoleLog(error);
@@ -103,13 +107,14 @@ const ideaResolver = {
       const payload = verifyAccessToken(ctx.accessToken);
 
       try {
-        // Find all ideas matching author id
+        // Find all ideas matching author id & haven't been deleted
         const ideas = await ctx.prisma.idea.findMany({
           where: { author: { id: payload.user.id }, removedAt: null },
           select: { id: true, content: true, author: { select: { id: true } } },
           orderBy: { createdAt: 'desc' }
         });
 
+        // Return current user ideas
         return ideas;
       } catch (error) {
         development && consoleLog(error);
@@ -174,13 +179,13 @@ const ideaResolver = {
 
       try {
         // Create idea
-        const ideaRecord = ctx.prisma.idea.create({
+        const idea = ctx.prisma.idea.create({
           data: { content, author: { connect: { id: payload.user.id } } },
           select: { id: true, content: true, author: { select: { id: true } } }
         });
 
         // Return new idea
-        return ideaRecord;
+        return idea;
       } catch (error) {
         development && consoleLog(error);
 
@@ -215,6 +220,7 @@ const ideaResolver = {
           select: { id: true, content: true, author: { select: { id: true } } }
         });
 
+        // Return updated idea
         return updatedIdea;
       } catch (error) {
         development && consoleLog(error);
@@ -244,7 +250,7 @@ const ideaResolver = {
           throw new ForbiddenError('idea.error.removeIdea.invalidOwnership');
 
         // Update idea soft delete field
-        const removedIdea = await prisma.idea.update({
+        const removedIdea = await ctx.prisma.idea.update({
           where: { id },
           data: { removedAt: new Date().toISOString() },
           select: { id: true }

@@ -19,7 +19,7 @@ const HeaderLoggedIn: FC = () => {
           <Option>
             <Right data-active={isActive('account')} />
 
-            <a data-active={isActive('account')}>Settings</a>
+            <a data-active={isActive('account')}>Account</a>
           </Option>
         </Link>
       </li>

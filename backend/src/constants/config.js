@@ -1,22 +1,12 @@
-export const port = process.env.PORT || 4000;
+/* Environments */
 
 export const development = process.env.NODE_ENV === 'development';
-const preview = process.env.VERCEL_ENV === 'preview';
-export const production =
-  process.env.NODE_ENV === 'production' &&
-  process.env.VERCEL_ENV === 'production';
+export const preview = process.env.VERCEL_ENV === 'preview';
+export const production = process.env.VERCEL_ENV === 'production';
 
-const frontendUrlDev = 'http://localhost:1337';
-const frontendUrlPrev = 'https://hmmstart-git-dev-hmmchase.vercel.app';
-const frontendUrlProd = 'https://hmmstart.vercel.app';
+/* Settings */
 
-export const deployedUrl = process.env.VERCEL_URL;
-
-export const frontendUrl = development
-  ? frontendUrlDev
-  : preview
-  ? frontendUrlPrev
-  : production && frontendUrlProd;
+export const port = process.env.PORT || 4000;
 
 export const graphqlPath = '/gql';
 
@@ -31,4 +21,20 @@ export const accessTokenExpiry = '1w';
 
 export const accessCookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
 
-export let passResetExpiry = Date.now() + 1000 * 60 * 60; // 1 hour from now
+export const passResetExpiry = new Date(
+  Date.now() + 1000 * 60 * 60
+).toISOString(); // 1 hour from now
+
+/* URLs */
+
+const frontendUrlDev = 'http://localhost:1337';
+const frontendUrlPrev = 'https://hmmstart-git-dev-hmmchase.vercel.app';
+const frontendUrlProd = 'https://hmmstart.vercel.app';
+
+// export const deployedUrl = process.env.VERCEL_URL;
+
+export const frontendUrl = development
+  ? frontendUrlDev
+  : preview
+  ? frontendUrlPrev
+  : production && frontendUrlProd;

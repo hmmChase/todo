@@ -1,4 +1,5 @@
-import { GetServerSideProps, NextPageWithLayout } from 'next';
+// import { GetServerSideProps, NextPageWithLayout } from 'next';
+import { NextPageWithLayout } from 'next';
 import { useQuery } from '@apollo/client';
 
 import { CURRENT_USER_IDEAS } from '../graphql/queries/idea';
@@ -6,7 +7,7 @@ import { Ideas } from '../models';
 import IdeaList from '../components/IDEA/IdeaList';
 import Layout from '../components/LAYOUTS/Layout';
 import QueryResult from '../components/REUSEABLE/QueryResult';
-import verifyUser from '../utils/verifyUser';
+// import verifyUser from '../utils/verifyUser';
 
 const AccountPage: NextPageWithLayout = () => {
   const { data, error, loading } = useQuery(CURRENT_USER_IDEAS);
@@ -38,18 +39,18 @@ AccountPage.getLayout = function getLayout(page) {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
-  const { req, res } = ctx;
+// export const getServerSideProps: GetServerSideProps = async ctx => {
+//   const { req, res } = ctx;
 
-  const userPayload = verifyUser(req.headers.cookie);
+//   const userPayload = verifyUser(req.headers.cookie);
 
-  if (!userPayload) {
-    res.writeHead(302, { Location: '/' });
+//   if (!userPayload) {
+//     res.writeHead(302, { Location: '/' });
 
-    res.end();
-  }
+//     res.end();
+//   }
 
-  return { props: {} };
-};
+//   return { props: {} };
+// };
 
 export default AccountPage;

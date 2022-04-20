@@ -7,14 +7,16 @@ import {
   sendPassResetReqEmail,
   sendSignUpEmail
 } from '../../handlers/emailHandler.js';
-import { accessCookieOptions } from '../../constants/cookie.js';
+import {
+  createAccessToken,
+  verifyAccessToken
+} from '../../utils/accessToken.js';
 import { consoleLog } from '../../utils/myLogger.js';
-import { createAccessToken } from '../../utils/accessToken.js';
 import { createPassReset, validatePassReset } from '../../utils/passReset.js';
 import { development, passwordHashSaltRounds } from '../../constants/config.js';
 import { passwordCompare } from '../../utils/user.js';
 import { validateInputs } from '../../utils/validateInputs.js';
-import { verifyAccessToken } from '../../utils/accessToken.js';
+import accessCookieOptions from '../../constants/cookie.js';
 
 const userResolver = {
   Query: {
@@ -92,7 +94,7 @@ const userResolver = {
         //? Refresh access token if within 1 day of expiration
         if (isLessThanOneDay) {
           // Create access token
-          const accessToken = createAccessToken(user);
+          const accessToken = createAccessToken({ user });
 
           // Set new access cookie
           ctx.res.cookie('access', accessToken, accessCookieOptions);
@@ -282,7 +284,7 @@ const userResolver = {
 
       try {
         // Find user matching password reset token
-        const foundUser = await prisma.user.findUnique({
+        const foundUser = await ctx.prisma.user.findUnique({
           where: {
             passResetToken
 
@@ -307,7 +309,7 @@ const userResolver = {
         );
 
         // Update user with new password & clear password reset token & expiry
-        const updatedUser = await prisma.user.update({
+        const updatedUser = await ctx.prisma.user.update({
           where: { id: foundUser.id },
           data: {
             password: passwordHashed,
@@ -323,7 +325,7 @@ const userResolver = {
         });
 
         // Create access token
-        const accessToken = createAccessToken(user);
+        const accessToken = createAccessToken({ user: updatedUser });
 
         // Set new access cookie
         ctx.res.cookie('access', accessToken, accessCookieOptions);

@@ -22,6 +22,8 @@ import UserProvider from '../context/User';
 import verifyUser from '../utils/verifyUser';
 
 const MyApp = ({ Component, pageProps, user }: AppPropsWithLayout) => {
+  console.log('MyApp user:', user);
+
   const apolloClient = useApollo(pageProps);
 
   // Use the layout defined at the page level, if available
@@ -84,11 +86,19 @@ const MyApp = ({ Component, pageProps, user }: AppPropsWithLayout) => {
 // be server-side rendered.
 //
 
+// Called client-side on:
+// - page navigation
+
+// Called server-side on:
+// - initial page load
+
 MyApp.getInitialProps = async (appContext: AppContext) => {
   // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext);
 
   const server = typeof window === 'undefined';
+
+  console.log('getInitialProps server:', server);
 
   // https://github.com/vercel/next.js/discussions/10874
   // If on server, verify user
@@ -96,7 +106,11 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
     // Req is only available on server
     const userCookie = appContext.ctx.req?.headers.cookie;
 
+    console.log('getInitialProps userCookie:', userCookie);
+
     const user = verifyUser(userCookie);
+
+    console.log('getInitialProps user:', user);
 
     return { user, ...appProps };
   }
