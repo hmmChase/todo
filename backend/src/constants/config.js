@@ -29,4 +29,6 @@ export const accessTokenExpiry = '1w';
 
 export const accessCookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
 
-export const passResetExpiry = (new Date.now() + 1000 * 60 * 60).toISOString(); // 1 hour from now
+export const passResetExpiry = new Date(
+  Date.now() + 1000 * 60 * 60
+).toISOString(); // 1 hour from now

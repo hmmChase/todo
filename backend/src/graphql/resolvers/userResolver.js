@@ -7,13 +7,15 @@ import {
   sendPassResetReqEmail,
   sendSignUpEmail
 } from '../../handlers/emailHandler.js';
+import {
+  createAccessToken,
+  verifyAccessToken
+} from '../../utils/accessToken.js';
 import { consoleLog } from '../../utils/myLogger.js';
-import { createAccessToken } from '../../utils/accessToken.js';
 import { createPassReset, validatePassReset } from '../../utils/passReset.js';
 import { development, passwordHashSaltRounds } from '../../constants/config.js';
 import { passwordCompare } from '../../utils/user.js';
 import { validateInputs } from '../../utils/validateInputs.js';
-import { verifyAccessToken } from '../../utils/accessToken.js';
 import accessCookieOptions from '../../constants/cookie.js';
 
 const userResolver = {
