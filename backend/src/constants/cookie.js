@@ -18,7 +18,7 @@ const accessCookieOptions = {
   secure: !development,
   // domain: '' //  hmmstart-backend.vercel.app
   // domain: production ? `hmmstart.vercel.app:${port}` : 'localhost'
-  domain: development ? 'localhost' : 'hmmstart-git-dev-hmmchase.vercel.app'
+  domain: development ? 'localhost' : '.vercel.app'
   // expires: new Date(Date.now() + accessCookieExpiry * 1000),
   // path: '/gql', // use '/' if cookie not showing in chrome
 };
