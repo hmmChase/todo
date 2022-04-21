@@ -11,8 +11,8 @@ import {
 const accessCookieOptions = {
   httpOnly: true,
   maxAge: accessCookieExpiry,
-  // sameParty: true, // allow cookies to be set by same origin
-  sameSite: 'none', // deployed frontend/backend is cross-site
+  sameParty: true, // allow cookies to be set by same origin
+  sameSite: 'lax', // deployed frontend/backend is cross-site
   secure: true
   // domain: '' //  hmmstart-backend.vercel.app
   // domain: production ? `hmmstart.vercel.app:${port}` : 'localhost'
