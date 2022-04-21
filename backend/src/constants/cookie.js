@@ -8,8 +8,8 @@ const accessCookieOptions = {
   maxAge: accessCookieExpiry,
   sameParty: true, // allow cookies to be set by same origin
   sameSite: !development ? 'none' : 'strict', // deployed frontend/backend is cross-site
-  secure: !development
-  // domain: '', //  hmmstart-backend.vercel.app
+  secure: !development,
+  domain: '' //  hmmstart-backend.vercel.app
   // domain: production ? `hmmstart.vercel.app:${port}` : 'localhost'
   // expires: new Date(Date.now() + accessCookieExpiry * 1000),
   // path: '/gql', // use '/' if cookie not showing in chrome
