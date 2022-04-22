@@ -100,8 +100,6 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
 
   console.log('getInitialProps server:', server);
 
-  console.log('document.cookie:', document.cookie);
-
   // https://github.com/vercel/next.js/discussions/10874
   // If on server, verify user
   if (server) {
