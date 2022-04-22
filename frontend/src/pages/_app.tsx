@@ -103,7 +103,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   // https://github.com/vercel/next.js/discussions/10874
   // If on server, verify user
   if (server) {
-    console.log('getInitialProps cookies:', appContext?.ctx?.req?.cookies);
+    console.log('getInitialProps cookie:', appContext.ctx.req?.headers.cookie);
 
     // Req is only available on server
     const userCookie = appContext.ctx.req?.headers.cookie;
