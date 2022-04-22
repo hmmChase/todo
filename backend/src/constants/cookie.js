@@ -4,8 +4,8 @@
 // https://github.com/cfredric/sameparty
 
 import {
-  accessCookieExpiry,
-  development
+  accessCookieExpiry
+  // development
   // frontendUrl,
   // port
 } from './config.js';
@@ -13,10 +13,10 @@ import {
 const accessCookieOptions = {
   httpOnly: true,
   maxAge: accessCookieExpiry,
-  sameParty: false, // allow cookies to be set by same origin
+  sameParty: true, // allow cookies to be set by same origin
   sameSite: 'none', // Vercel subdomains are cross-site - https://publicsuffix.org/
-  secure: true,
-  domain: development ? 'localhost' : '.vercel.app'
+  secure: true
+  // domain: development ? 'localhost' : '.vercel.app'
   // domain: '' //  hmmstart-backend.vercel.app
   // domain: production ? `hmmstart.vercel.app:${port}` : 'localhost'
   // expires: new Date(Date.now() + accessCookieExpiry * 1000),
