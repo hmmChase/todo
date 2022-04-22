@@ -22,7 +22,7 @@ import UserProvider from '../context/User';
 import verifyUser from '../utils/verifyUser';
 
 const MyApp = ({ Component, pageProps, user }: AppPropsWithLayout) => {
-  console.log('MyApp user:', user);
+  // console.log('MyApp user:', user);
 
   const apolloClient = useApollo(pageProps);
 
@@ -98,21 +98,21 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
 
   const server = typeof window === 'undefined';
 
-  console.log('getInitialProps server:', server);
+  // console.log('getInitialProps server:', server);
 
   // https://github.com/vercel/next.js/discussions/10874
   // If on server, verify user
   if (server) {
-    console.log('appContext.ctx.req:', appContext.ctx.req);
+    console.log('getInitialProps cookies:', appContext?.ctx?.req?.cookies);
 
     // Req is only available on server
     const userCookie = appContext.ctx.req?.headers.cookie;
 
-    console.log('getInitialProps userCookie:', userCookie);
+    // console.log('getInitialProps userCookie:', userCookie);
 
     const user = verifyUser(userCookie);
 
-    console.log('getInitialProps user:', user);
+    // console.log('getInitialProps user:', user);
 
     return { user, ...appProps };
   }

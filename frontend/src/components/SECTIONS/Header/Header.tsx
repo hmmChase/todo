@@ -18,8 +18,6 @@ const Header: FC = () => {
 
   const { user } = useUser();
 
-  console.log('Header user:', user);
-
   const routePathArr = router.asPath.split('/');
 
   const onIdeaDetailPage = routePathArr[1] === 'idea';
