@@ -1,5 +1,7 @@
 // http://expressjs.com/en/5x/api.html#res.cookie
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+// https://web.dev/same-site-same-origin/
+// https://github.com/cfredric/sameparty
 
 import {
   accessCookieExpiry,
@@ -11,8 +13,8 @@ import {
 const accessCookieOptions = {
   httpOnly: true,
   maxAge: accessCookieExpiry,
-  sameParty: true, // allow cookies to be set by same origin
-  sameSite: 'none', // deployed frontend/backend is cross-site
+  sameParty: false, // allow cookies to be set by same origin
+  sameSite: 'none', // Vercel subdomains are cross-site - https://publicsuffix.org/
   secure: true,
   domain: development ? 'localhost' : '.vercel.app'
   // domain: '' //  hmmstart-backend.vercel.app
