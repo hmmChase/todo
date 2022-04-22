@@ -14,7 +14,8 @@ IndexPage.getLayout = function getLayout(page) {
 };
 
 export async function getServerSideProps(ctx: any) {
-  console.log('getServerSideProps cookie:', ctx.req.headers.cookie);
+  console.log('getServerSideProps req:', ctx.req);
+  console.log('getServerSideProps res:', ctx.res);
 
   return { props: {} };
 }
