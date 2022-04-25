@@ -32,7 +32,7 @@ const CurserPage: NextPageWithLayout = () => {
 
   const ideas: Ideas = data?.ideasPaginatedCurser;
 
-  const haveIdeas = !!ideas.length;
+  const haveIdeas = ideas.length > 0;
 
   return (
     <QueryResult data={data} error={error} loading={loading}>
