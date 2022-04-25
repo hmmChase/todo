@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useMutation } from '@apollo/client';
@@ -7,14 +7,14 @@ import { object } from 'yup';
 import styled from 'styled-components';
 
 import { email, password } from '../../utils/validateAuthInputs';
-import { isLoggedInVar } from '../../graphql/cache';
+// import { isLoggedInVar } from '../../graphql/cache';
 import { LOG_IN } from '../../graphql/queries/user';
 import { User } from '../../models';
+import { UserCtx } from '../../context/User';
 import Button from '../REUSEABLE/Button';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 import errorMessages from '../../utils/errorMessages';
 import FormInput from '../REUSEABLE/FormInput';
-import useUser from '../../hooks/useUser';
 
 interface Props {
   close?: () => void;
@@ -37,14 +37,14 @@ const validationSchema = object().shape({
 const LogInForm: FC<Props> = ({ close }) => {
   const [gqlErrMsg, setGqlErrMsg] = useState('');
 
-  const router = useRouter();
+  const { setUser } = useContext(UserCtx);
 
-  const { setUser } = useUser();
+  const router = useRouter();
 
   const onCompleted = (data: Data) => {
     setUser(data.logIn.user);
 
-    isLoggedInVar(true);
+    // isLoggedInVar(true);
 
     // when logging in from /login page
     if (!close) router.push('/');

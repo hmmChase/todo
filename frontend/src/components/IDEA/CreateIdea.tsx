@@ -2,6 +2,7 @@ import {
   ChangeEventHandler,
   FC,
   FormEventHandler,
+  useContext,
   useRef,
   useState
 } from 'react';
@@ -10,12 +11,11 @@ import styled from 'styled-components';
 
 import { CREATE_IDEA, IDEA_FIELDS } from '../../graphql/queries/idea';
 import { Ideas } from '../../models';
-import useUser from '../../hooks/useUser';
-
+import { UserCtx } from '../../context/User';
 const CreateIdea: FC = () => {
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
-  const { user } = useUser();
+  const { user } = useContext(UserCtx);
 
   const ideaInputRef = useRef<HTMLTextAreaElement>(null);
 

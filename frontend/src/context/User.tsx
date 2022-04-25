@@ -5,7 +5,9 @@ import {
   SetStateAction,
   useState
 } from 'react';
+// import { useQuery } from '@apollo/client';
 
+// import { CURRENT_USER } from '../graphql/queries/user';
 import { User } from '../models';
 
 interface ContextState {
@@ -13,23 +15,33 @@ interface ContextState {
   setUser: Dispatch<SetStateAction<User | null>>;
 }
 
-export const UserContext = createContext<ContextState>({
+export const UserCtx = createContext<ContextState>({
   user: null,
   setUser: () => {}
 });
 
 interface Props {
   children: ReactNode;
-  currentUser: User | null;
+  // currentUser: User | null;
 }
 
-const UserProvider = ({ children, currentUser }: Props) => {
-  const [user, setUser] = useState<User | null>(currentUser);
+const UserProvider = (props: Props) => {
+  const { children } = props;
+
+  const [user, setUser] = useState<User | null>(null);
+
+  // const { error, loading, data } = useQuery(CURRENT_USER, {
+  //   fetchPolicy: 'no-cache',
+
+  //   onCompleted: data => {
+  //     setUser(data.currentUser);
+
+  //     // isLoggedInVar(!!data.currentUser.user.id);
+  //   }
+  // });
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
+    <UserCtx.Provider value={{ user, setUser }}>{children}</UserCtx.Provider>
   );
 };
 

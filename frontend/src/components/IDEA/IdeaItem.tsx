@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import styled from 'styled-components';
 
+import { UserCtx } from '../../context/User';
 import IdeaDetailIcon from './DETAIL/IdeaDetailIcon';
 import RemoveIdea from './RemoveIdea';
-import useUser from '../../hooks/useUser';
 
 interface Props {
   authorId: string;
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const IdeaItem: FC<Props> = ({ authorId, content, ideaId }) => {
-  const { user } = useUser();
+  const { user } = useContext(UserCtx);
 
   const currentUserOwnsIdea = user?.id === authorId;
 

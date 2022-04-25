@@ -1,28 +1,42 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
+import { CURRENT_USER } from '../../../graphql/queries/user';
 import { siteTitle } from '../../../constants/config';
+import { UserCtx } from '../../../context/User';
 import CreateIdea from '../../IDEA/CreateIdea';
 import HeaderLoggedOut from './HeaderLoggedOut';
 import Ideabox from '../../../../public/images/ideabox.png';
 import UserIcon from '../../OTHER/UserIcon';
-import useUser from '../../../hooks/useUser';
 
 // import NavBar from '../NavBar';
 // import HeaderUsername from './HeaderUsername';
 
 const Header: FC = () => {
-  const router = useRouter();
+  // const [user, setUser] = useState<User | null>(null);
 
-  const { user } = useUser();
+  const { user, setUser } = useContext(UserCtx);
+
+  const router = useRouter();
 
   const routePathArr = router.asPath.split('/');
 
   const onIdeaDetailPage = routePathArr[1] === 'idea';
 
   const ideaId = routePathArr[2];
+
+  const { error, loading, data } = useQuery(CURRENT_USER, {
+    fetchPolicy: 'no-cache',
+
+    onCompleted: data => {
+      setUser(data.currentUser);
+
+      // isLoggedInVar(!!data.currentUser.user.id);
+    }
+  });
 
   return (
     <Container>

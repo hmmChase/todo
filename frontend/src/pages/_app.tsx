@@ -7,28 +7,46 @@ react=>next=>apollo=>other=>styled
 alphabetize local imports
 */
 
-import { ReactElement, ReactNode, StrictMode } from 'react';
+import {
+  ReactElement,
+  ReactNode,
+  StrictMode
+  // useEffect,
+  // useState
+} from 'react';
 import App, { AppContext, AppPropsWithLayout } from 'next/app';
 import Head from 'next/head';
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider, useQuery } from '@apollo/client';
 import { ThemeProvider } from 'styled-components';
+import { initializeApollo, addApolloState } from '../graphql/apolloClient';
+// import { READ_IDEAS } from '../graphql/queries/idea';
 
+// import { CURRENT_USER } from '../graphql/queries/user';
 import { siteTitle } from '../constants/config';
 import { useApollo } from '../graphql/apolloClient';
+// import coloredLog from '../utils/coloredLog';
 import GlobalStyle from '../styles/global';
 import reportWebVitals from '../reportWebVitals';
 import theme from '../styles/theme';
 import UserProvider from '../context/User';
-import verifyUser from '../utils/verifyUser';
+// import verifyUser from '../utils/verifyUser';
 
-const MyApp = ({ Component, pageProps, user }: AppPropsWithLayout) => {
-  // console.log('MyApp user:', user);
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+  // const [user, setUser] = useState(null);
 
   const apolloClient = useApollo(pageProps);
 
   // Use the layout defined at the page level, if available
   const getLayout =
     Component.getLayout || ((page: ReactElement) => page as ReactNode);
+
+  // useEffect(() => {
+  // const {
+  // data: { user }
+  // } = async () => await apolloClient.query({ query: CURRENT_USER });
+
+  //   setUser(user);
+  // }, []);
 
   return (
     <>
@@ -53,7 +71,7 @@ const MyApp = ({ Component, pageProps, user }: AppPropsWithLayout) => {
       <StrictMode>
         <ApolloProvider client={apolloClient}>
           <ThemeProvider theme={theme}>
-            <UserProvider currentUser={user}>
+            <UserProvider>
               <GlobalStyle />
 
               {getLayout(<Component {...pageProps} />)}
@@ -64,6 +82,22 @@ const MyApp = ({ Component, pageProps, user }: AppPropsWithLayout) => {
     </>
   );
 };
+
+// MyApp.getInitialProps = async (appContext: AppContext) => {
+// const apolloClient = initializeApollo();
+
+// const res = await apolloClient.query({ query: CURRENT_USER });
+
+// console.log('res:', res);
+
+// addApolloState(apolloClient, { props: {} });
+
+// return addApolloState(apolloClient, { props: { ideas: res.data.ideas } });
+
+// return { props: { user: verifyUser(appContext.ctx.req?.headers.cookie) } };
+
+//   return { props: {} };
+// };
 
 //? if on server, verify user
 // if (typeof window === 'undefined') {
@@ -92,33 +126,33 @@ const MyApp = ({ Component, pageProps, user }: AppPropsWithLayout) => {
 // Called server-side on:
 // - initial page load
 
-MyApp.getInitialProps = async (appContext: AppContext) => {
-  // calls page's `getInitialProps` and fills `appProps.pageProps`
-  const appProps = await App.getInitialProps(appContext);
+// MyApp.getInitialProps = async (appContext: AppContext) => {
+//   // calls page's `getInitialProps` and fills `appProps.pageProps`
+//   const appProps = await App.getInitialProps(appContext);
 
-  const server = typeof window === 'undefined';
+//   const server = typeof window === 'undefined';
 
-  // console.log('getInitialProps server:', server);
+//   // console.log('getInitialProps server:', server);
 
-  // https://github.com/vercel/next.js/discussions/10874
-  // If on server, verify user
-  if (server) {
-    // console.log('getInitialProps cookie:', appContext.ctx.req?.headers.cookie);
+//   // https://github.com/vercel/next.js/discussions/10874
+//   // If on server, verify user
+//   if (server) {
+//     // console.log('getInitialProps cookie:', appContext.ctx.req?.headers.cookie);
 
-    // Req is only available on server
-    const userCookie = appContext.ctx.req?.headers.cookie;
+//     // Req is only available on server
+//     const userCookie = appContext.ctx.req?.headers.cookie;
 
-    // console.log('getInitialProps userCookie:', userCookie);
+//     // console.log('getInitialProps userCookie:', userCookie);
 
-    const user = verifyUser(userCookie);
+//     const user = verifyUser(userCookie);
 
-    // console.log('getInitialProps user:', user);
+//     // console.log('getInitialProps user:', user);
 
-    return { user, ...appProps };
-  }
+//     return { user, ...appProps };
+//   }
 
-  return { ...appProps };
-};
+//   return { ...appProps };
+// };
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

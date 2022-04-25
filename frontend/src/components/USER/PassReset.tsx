@@ -1,20 +1,20 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-import { isLoggedInVar } from '../../graphql/cache';
+// import { isLoggedInVar } from '../../graphql/cache';
 import { PASS_RESET } from '../../graphql/queries/user';
 import { password } from '../../utils/validateAuthInputs';
 import { User } from '../../models';
+import { UserCtx } from '../../context/User';
 import Button from '../REUSEABLE/Button';
 import displayMessages from '../../constants/displayMessages';
 import DisplayStatus from '../REUSEABLE/DisplayStatus';
 import errorMessages from '../../utils/errorMessages';
 import FormInput from '../REUSEABLE/FormInput';
 import PassReqList from './PassReqList';
-import useUser from '../../hooks/useUser';
 
 interface Props {
   passResetToken: string;
@@ -36,12 +36,12 @@ const PassReset: FC<Props> = ({ passResetToken }) => {
 
   const [success, setSuccess] = useState(false);
 
-  const { setUser } = useUser();
+  const { setUser } = useContext(UserCtx);
 
   const onCompleted = (data: Data) => {
     setUser(data.passReset.user);
 
-    isLoggedInVar(true);
+    // isLoggedInVar(true);
 
     setSuccess(true);
   };
