@@ -10,10 +10,9 @@ import { ApolloError, useQuery } from '@apollo/client';
 import { CURRENT_USER } from '../graphql/queries/user';
 import { User } from '../models';
 
-interface UserState {
+interface UserState extends User {
   error?: ApolloError;
   loading: boolean;
-  user: User | null;
 }
 
 interface ContextState {
@@ -46,7 +45,7 @@ const UserProvider = ({ children }: Props) => {
     }
   });
 
-  const userState: UserState = { error, loading, user };
+  const userState: UserState = { error, loading, ...user! };
 
   return (
     <UserCtx.Provider value={{ user: userState, setUser }}>
