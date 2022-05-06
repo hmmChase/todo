@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import Link from 'next/link';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
@@ -9,9 +9,9 @@ import { email } from '../../utils/validateAuthInputs';
 import { PASS_RESET_REQ } from '../../graphql/queries/user';
 import Button from '../REUSEABLE/Button';
 import displayMessages from '../../constants/displayMessages';
-import DisplayStatus from '../REUSEABLE/DisplayStatus';
-import errorMessages from '../../utils/errorMessages';
+import Error from '../REUSEABLE/Error';
 import FormInput from '../REUSEABLE/FormInput';
+import Status from '../REUSEABLE/Status';
 
 type HandleSubmit = (
   formikHelpers: FormikHelpers<{ passResetReqEmail: string }>,
@@ -21,7 +21,7 @@ type HandleSubmit = (
 const validationSchema = object().shape({ passResetReqEmail: email });
 
 const PassResetReq: FC = () => {
-  const [gqlErrMsg, setGqlErrMsg] = useState('');
+  const [apolloError, setApolloError] = useState<ApolloError>();
 
   const [success, setSuccess] = useState(false);
 
@@ -30,7 +30,7 @@ const PassResetReq: FC = () => {
 
     onCompleted: () => setSuccess(true),
 
-    onError: error => setGqlErrMsg(errorMessages(error))
+    onError: error => setApolloError(error)
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
@@ -59,18 +59,14 @@ const PassResetReq: FC = () => {
       />
 
       {formik.touched.passResetReqEmail && formik.errors.passResetReqEmail && (
-        <DisplayStatus status='error'>
-          {formik.errors.passResetReqEmail}
-        </DisplayStatus>
+        <Error error={formik.errors.passResetReqEmail} />
       )}
+
+      {apolloError && <Error error={apolloError} />}
 
       {success && (
-        <DisplayStatus status='success'>
-          {displayMessages.user.passReset.sent}
-        </DisplayStatus>
+        <Status status='success'>{displayMessages.user.passReset.sent}</Status>
       )}
-
-      {gqlErrMsg && <DisplayStatus status='error'>{gqlErrMsg}</DisplayStatus>}
 
       <Buttonn
         disabled={

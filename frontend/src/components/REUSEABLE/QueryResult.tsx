@@ -1,42 +1,37 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, ReactElement } from 'react';
 import { ApolloError } from '@apollo/client';
 import styled from 'styled-components';
 
 import displayMessages from '../../constants/displayMessages';
-import DisplayStatus from './DisplayStatus';
-import errorMessages from '../../utils/errorMessages';
-import Loader from '../OTHER/Loader';
+import Error from './Error';
+import Loading from './Loading';
+import Status from './Status';
 
 interface Props {
   children: ReactNode;
-  data?: number | object | string | [];
+  data: any;
   error?: ApolloError;
-  loading: boolean;
+  loader?: boolean | ReactElement;
+  loading: boolean | undefined;
 }
 
-const QueryResult: FC<Props> = ({ children, data, error, loading }) => {
-  if (loading)
+const QueryResult: FC<Props> = ({ children, data, error, loader, loading }) => {
+  // Uncomment to test loading state
+  // loading = true;
+
+  if (loading) return <Loading loader={loader} />;
+
+  if (error) return <Error error={error} />;
+
+  // If data is an empty array, display empty message
+  if (!error && !loading && data && Array.isArray(data) && data.length === 0)
     return (
       <Center>
-        <Loader />
+        <Status status='info'>{displayMessages.empty}</Status>
       </Center>
     );
 
-  if (error)
-    return (
-      <Center>
-        <DisplayStatus status='error'>{errorMessages(error)}</DisplayStatus>
-      </Center>
-    );
-
-  if (!data)
-    return (
-      <Center>
-        <DisplayStatus status='info'>{displayMessages.empty}</DisplayStatus>
-      </Center>
-    );
-
-  if (data) return <>{children}</>;
+  if (!error && !loading && data) return <>{children}</>;
 
   return null;
 };

@@ -16,15 +16,15 @@ import {
 } from 'react';
 import App, { AppContext, AppPropsWithLayout } from 'next/app';
 import Head from 'next/head';
-import { ApolloProvider, useQuery } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from 'styled-components';
-import { initializeApollo, addApolloState } from '../graphql/apolloClient';
+// import { initializeApollo, addApolloState } from '../graphql/apolloClient';
 // import { READ_IDEAS } from '../graphql/queries/idea';
 
 // import { CURRENT_USER } from '../graphql/queries/user';
+// import coloredLog from '../utils/coloredLog';
 import { siteTitle } from '../constants/config';
 import { useApollo } from '../graphql/apolloClient';
-// import coloredLog from '../utils/coloredLog';
 import GlobalStyle from '../styles/global';
 import reportWebVitals from '../reportWebVitals';
 import theme from '../styles/theme';

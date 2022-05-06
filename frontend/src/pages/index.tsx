@@ -1,4 +1,5 @@
 import { NextPageWithLayout } from 'next';
+
 import Ideas from '../components/IDEA/Ideas';
 import Layout from '../components/LAYOUTS/Layout';
 
@@ -12,11 +13,11 @@ IndexPage.getLayout = function getLayout(page) {
   );
 };
 
-export const getServerSideProps = (ctx: any) => {
-  console.log('getServerSideProps req:', Object.keys(ctx.req));
-  console.log('getServerSideProps headers:', Object.keys(ctx.req.headers));
+// export const getServerSideProps = (ctx: any) => {
+//   // console.log('getServerSideProps req:', Object.keys(ctx.req));
+//   // console.log('getServerSideProps headers:', Object.keys(ctx.req.headers));
 
-  return { props: {} };
-};
+//   return { props: {} };
+// };
 
 export default IndexPage;

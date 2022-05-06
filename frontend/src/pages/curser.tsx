@@ -35,7 +35,7 @@ const CurserPage: NextPageWithLayout = () => {
   // const haveIdeas = ideas.length > 0;
 
   return (
-    <QueryResult data={data} error={error} loading={loading}>
+    <QueryResult data={ideas} error={error} loading={loading}>
       <IdeaList ideas={ideas} />
 
       {/* {haveIdeas &&

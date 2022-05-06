@@ -5,13 +5,19 @@ import {
   SetStateAction,
   useState
 } from 'react';
-// import { useQuery } from '@apollo/client';
+import { ApolloError, useQuery } from '@apollo/client';
 
-// import { CURRENT_USER } from '../graphql/queries/user';
+import { CURRENT_USER } from '../graphql/queries/user';
 import { User } from '../models';
 
-interface ContextState {
+interface UserState {
+  error?: ApolloError;
+  loading: boolean;
   user: User | null;
+}
+
+interface ContextState {
+  user: UserState | null;
   setUser: Dispatch<SetStateAction<User | null>>;
 }
 
@@ -25,23 +31,27 @@ interface Props {
   // currentUser: User | null;
 }
 
-const UserProvider = (props: Props) => {
-  const { children } = props;
-
+const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // const { error, loading, data } = useQuery(CURRENT_USER, {
-  //   fetchPolicy: 'no-cache',
+  const { error, loading } = useQuery(CURRENT_USER, {
+    errorPolicy: 'all',
 
-  //   onCompleted: data => {
-  //     setUser(data.currentUser);
+    fetchPolicy: 'cache-first',
 
-  //     // isLoggedInVar(!!data.currentUser.user.id);
-  //   }
-  // });
+    onCompleted: data => {
+      setUser(data.currentUser);
+
+      // isLoggedInVar(!!data.currentUser.user.id);
+    }
+  });
+
+  const userState: UserState = { error, loading, user };
 
   return (
-    <UserCtx.Provider value={{ user, setUser }}>{children}</UserCtx.Provider>
+    <UserCtx.Provider value={{ user: userState, setUser }}>
+      {children}
+    </UserCtx.Provider>
   );
 };
 

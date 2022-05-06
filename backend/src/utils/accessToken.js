@@ -2,7 +2,8 @@ import { AuthenticationError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
 // import Iron from '@hapi/iron';
 
-import { accessTokenExpiry } from '../constants/config.js';
+import { accessTokenExpiry, development } from '../constants/config.js';
+import { consoleLog } from '../utils/myLogger.js';
 
 const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 
@@ -26,6 +27,8 @@ export const verifyAccessToken = accessToken => {
 
     return payload;
   } catch (error) {
+    development && consoleLog(error);
+
     throw new AuthenticationError(error);
   }
 };
