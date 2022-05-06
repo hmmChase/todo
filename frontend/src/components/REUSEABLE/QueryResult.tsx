@@ -9,7 +9,7 @@ import Status from './Status';
 
 interface Props {
   children: ReactNode;
-  data: any;
+  data?: any;
   error?: ApolloError;
   loader?: boolean | ReactElement;
   loading: boolean | undefined;
@@ -31,7 +31,7 @@ const QueryResult: FC<Props> = ({ children, data, error, loader, loading }) => {
       </Center>
     );
 
-  if (!error && !loading && data) return <>{children}</>;
+  if (!error && !loading && children) return <>{children}</>;
 
   return null;
 };

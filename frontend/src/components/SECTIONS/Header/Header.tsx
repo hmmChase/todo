@@ -37,8 +37,8 @@ const Header: FC = () => {
 
         {/* {user && <HeaderUsername />} */}
 
-        <QueryResult error={user?.error} loading={user?.loading} data={user}>
-          {user ? <UserIcon /> : <HeaderLoggedOut />}
+        <QueryResult loading={user?.loading}>
+          {user?.id ? <UserIcon /> : <HeaderLoggedOut />}
         </QueryResult>
       </Top>
 

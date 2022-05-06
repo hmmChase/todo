@@ -5,13 +5,13 @@ import {
   SetStateAction,
   useState
 } from 'react';
-import { ApolloError, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import { CURRENT_USER } from '../graphql/queries/user';
 import { User } from '../models';
 
 interface UserState extends User {
-  error?: ApolloError;
+  // error?: ApolloError;
   loading: boolean;
 }
 
@@ -33,7 +33,7 @@ interface Props {
 const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
 
-  const { error, loading } = useQuery(CURRENT_USER, {
+  const { loading } = useQuery(CURRENT_USER, {
     errorPolicy: 'all',
 
     fetchPolicy: 'cache-first',
@@ -45,7 +45,7 @@ const UserProvider = ({ children }: Props) => {
     }
   });
 
-  const userState: UserState = { error, loading, ...user! };
+  const userState: UserState = { loading, ...user! };
 
   return (
     <UserCtx.Provider value={{ user: userState, setUser }}>
