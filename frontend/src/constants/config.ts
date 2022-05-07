@@ -19,7 +19,8 @@ export const IdeaInputDebounceDelay = 200;
 /* URLs */
 
 const backendUrlDev = 'http://localhost:8008';
-const backendUrlPrev = 'https://hmmstart-backend-git-dev-hmmchase.vercel.app';
+const backendUrlPrev =
+  'https://hmmstart-backend-git-preview-hmmchase.vercel.app';
 const backendUrlProd = 'https://hmmstart-backend.vercel.app';
 
 export const backendUrl = development
