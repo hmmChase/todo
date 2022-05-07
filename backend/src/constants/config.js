@@ -28,7 +28,7 @@ export const passResetExpiry = new Date(
 /* URLs */
 
 const frontendUrlDev = 'http://localhost:1337';
-const frontendUrlPrev = 'https://hmmstart-git-dev-hmmchase.vercel.app';
+const frontendUrlPrev = 'https://hmmstart-git-preview-hmmchase.vercel.app';
 const frontendUrlProd = 'https://hmmstart.vercel.app';
 
 // export const deployedUrl = process.env.VERCEL_URL;
