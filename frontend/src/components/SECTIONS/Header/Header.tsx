@@ -1,24 +1,22 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
 
 import { siteTitle } from '../../../constants/config';
+import { UserCtx } from '../../../context/User';
 import CreateIdea from '../../IDEA/CreateIdea';
 import HeaderLoggedOut from './HeaderLoggedOut';
 import Ideabox from '../../../../public/images/ideabox.png';
-import UserIcon from '../../OTHER/UserIcon';
-import useUser from '../../../hooks/useUser';
-
+import QueryResult from '../../REUSEABLE/QueryResult';
+import UserIcon from '../../USER/UserIcon';
 // import NavBar from '../NavBar';
 // import HeaderUsername from './HeaderUsername';
 
 const Header: FC = () => {
+  const { user } = useContext(UserCtx);
+
   const router = useRouter();
-
-  const { user } = useUser();
-
-  console.log('Header user:', user);
 
   const routePathArr = router.asPath.split('/');
 
@@ -39,7 +37,9 @@ const Header: FC = () => {
 
         {/* {user && <HeaderUsername />} */}
 
-        {user ? <UserIcon /> : <HeaderLoggedOut />}
+        <QueryResult loading={user?.loading}>
+          {user?.id ? <UserIcon /> : <HeaderLoggedOut />}
+        </QueryResult>
       </Top>
 
       <div>
@@ -115,3 +115,32 @@ const HeaderTitle = styled.h1`
   letter-spacing: 0.05rem;
   margin: 0;
 `;
+
+const asdf = {
+  errors: [
+    {
+      message: '',
+      locations: [{ line: 2, column: 3 }],
+      path: ['currentUser'],
+      extensions: {
+        code: 'UNAUTHENTICATED',
+        exception: {
+          stacktrace: [
+            'AuthenticationError',
+            '    at Object.currentUser (file:///C:/_Code/Projects/hmmStart/backend/src/graphql/resolvers/userResolver.js:73:35)',
+            '    at field.resolve (C:\\_Code\\Projects\\hmmStart\\backend\\node_modules\\apollo-server-core\\dist\\utils\\schemaInstrumentation.js:56:26)',
+            '    at executeField (C:\\_Code\\Projects\\hmmStart\\backend\\node_modules\\graphql\\execution\\execute.js:479:20)',
+            '    at executeFields (C:\\_Code\\Projects\\hmmStart\\backend\\node_modules\\graphql\\execution\\execute.js:411:20)',
+            '    at executeOperation (C:\\_Code\\Projects\\hmmStart\\backend\\node_modules\\graphql\\execution\\execute.js:342:14)',
+            '    at execute (C:\\_Code\\Projects\\hmmStart\\backend\\node_modules\\graphql\\execution\\execute.js:136:20)',
+            '    at execute (C:\\_Code\\Projects\\hmmStart\\backend\\node_modules\\apollo-server-core\\dist\\requestPipeline.js:205:48)',
+            '    at processGraphQLRequest (C:\\_Code\\Projects\\hmmStart\\backend\\node_modules\\apollo-server-core\\dist\\requestPipeline.js:148:34)',
+            '    at processTicksAndRejections (node:internal/process/task_queues:96:5)',
+            '    at async processHTTPRequest (C:\\_Code\\Projects\\hmmStart\\backend\\node_modules\\apollo-server-core\\dist\\runHttpQuery.js:186:30)'
+          ]
+        }
+      }
+    }
+  ],
+  data: { currentUser: null }
+};

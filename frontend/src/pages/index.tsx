@@ -13,4 +13,11 @@ IndexPage.getLayout = function getLayout(page) {
   );
 };
 
+// export const getServerSideProps = (ctx: any) => {
+//   // console.log('getServerSideProps req:', Object.keys(ctx.req));
+//   // console.log('getServerSideProps headers:', Object.keys(ctx.req.headers));
+
+//   return { props: {} };
+// };
+
 export default IndexPage;

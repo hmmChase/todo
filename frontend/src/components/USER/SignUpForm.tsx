@@ -1,21 +1,20 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
+// import { isLoggedInVar } from '../../graphql/cache';
 import { email, password } from '../../utils/validateAuthInputs';
-import { isLoggedInVar } from '../../graphql/cache';
 import { SIGN_UP } from '../../graphql/queries/user';
 import { User } from '../../models';
+import { UserCtx } from '../../context/User';
 import Button from '../REUSEABLE/Button';
-import DisplayStatus from '../REUSEABLE/DisplayStatus';
-import errorMessages from '../../utils/errorMessages';
+import Error from '../REUSEABLE/Error';
 import FormInput from '../REUSEABLE/FormInput';
 import PassReqList from './PassReqList';
-import useUser from '../../hooks/useUser';
 
 interface Props {
   close?: () => void;
@@ -36,16 +35,16 @@ const validationSchema = object().shape({
 });
 
 const SignUpForm: FC<Props> = ({ close }) => {
-  const [gqlErrMsg, setGqlErrMsg] = useState('');
+  const [apolloError, setApolloError] = useState<ApolloError>();
+
+  const { setUser } = useContext(UserCtx);
 
   const router = useRouter();
-
-  const { setUser } = useUser();
 
   const onCompleted = (data: Data) => {
     setUser(data.signUp.user);
 
-    isLoggedInVar(true);
+    // isLoggedInVar(true);
 
     // when logging in from /signup page
     if (!close) router.push('/');
@@ -56,7 +55,7 @@ const SignUpForm: FC<Props> = ({ close }) => {
 
     onCompleted: data => onCompleted(data),
 
-    onError: error => setGqlErrMsg(errorMessages(error))
+    onError: error => setApolloError(error)
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
@@ -87,9 +86,7 @@ const SignUpForm: FC<Props> = ({ close }) => {
       />
 
       {formik.touched.signUpEmail && formik.errors.signUpEmail && (
-        <DisplayStatus status='error'>
-          {formik.errors.signUpEmail}
-        </DisplayStatus>
+        <Error error={formik.errors.signUpEmail} />
       )}
 
       <FormInput
@@ -100,12 +97,10 @@ const SignUpForm: FC<Props> = ({ close }) => {
       />
 
       {formik.touched.signUpPassword && formik.errors.signUpPassword && (
-        <DisplayStatus status='error'>
-          {formik.errors.signUpPassword}
-        </DisplayStatus>
+        <Error error={formik.errors.signUpPassword} />
       )}
 
-      {gqlErrMsg && <DisplayStatus status='error'>{gqlErrMsg}</DisplayStatus>}
+      {apolloError && <Error error={apolloError} />}
 
       <PassReqList />
 

@@ -22,7 +22,7 @@ const IdeaPage: NextPageWithLayout = () => {
   const idea: Idea = data?.idea;
 
   return (
-    <QueryResult data={data} error={error} loading={loading}>
+    <QueryResult data={idea} error={error} loading={loading}>
       <IdeaDetail
         authorId={idea?.author!.id}
         content={idea?.content}

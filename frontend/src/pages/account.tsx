@@ -18,7 +18,7 @@ const AccountPage: NextPageWithLayout = () => {
     <>
       <h2>My Ideas</h2>
 
-      <QueryResult data={data} error={error} loading={loading}>
+      <QueryResult data={ideas} error={error} loading={loading}>
         <IdeaList ideas={ideas} />
       </QueryResult>
     </>

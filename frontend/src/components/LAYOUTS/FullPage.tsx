@@ -7,7 +7,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import { siteTitle } from '../../constants/config';
-import BackButton from '../OTHER/BackButton';
+import BackButton from '../REUSEABLE/BackButton';
 import HorizontalRule from '../REUSEABLE/HorizontalRule';
 import Ideabox from '../../../public/images/ideabox.png';
 

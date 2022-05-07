@@ -2,6 +2,7 @@ import { from, HttpLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 
 import { backendUrl, development } from '../constants/config';
+import coloredLog from '../utils/coloredLog';
 
 const errorLink = onError(error => {
   const { graphQLErrors, networkError, operation, response } = error;
@@ -13,27 +14,17 @@ const errorLink = onError(error => {
     graphQLErrors.forEach(graphQLError => {
       const { extensions, message, path } = graphQLError;
 
-      console.log(
-        '%c[GraphQL error]:',
-        'background: #222; color: #bada55',
-        `${extensions.code}`,
-        '\n',
-        `Path: ${path}`,
-        '\n',
-        `Message: ${message}`
+      coloredLog(
+        'GraphQL error',
+        `Message: ${message} \nCode: ${extensions.code} \nPath: ${path}`,
+        '#C0FFEE'
       );
     });
 
   if (networkError) {
     const { name, message, stack } = networkError;
 
-    console.log(
-      '[Network error]:',
-      'background: #222; color: #bada55',
-      `${name}`,
-      '\n',
-      `Message: ${message}`
-    );
+    coloredLog('Network error', `${name} \nMessage: ${message}`, '#C0FFEE');
   }
 });
 

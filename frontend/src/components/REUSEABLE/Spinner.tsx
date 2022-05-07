@@ -1,18 +1,18 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-const Loader: FC = () => <Loaderr />;
+const Spinner: FC = () => <Spinnerr />;
 
-export default Loader;
+export default Spinner;
 
-const Loaderr = styled.div`
-  animation: loader 2s infinite ease;
+const Spinnerr = styled.div`
+  animation: spinner 2s infinite ease;
   border-radius: ${props => props.theme.borderRadius.primary};
   border: 3px solid ${props => props.theme.border.quinary};
   height: 30px;
   width: 30px;
 
-  @keyframes loader {
+  @keyframes spinner {
     0% {
       transform: rotate(0deg);
     }

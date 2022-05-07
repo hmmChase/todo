@@ -6,20 +6,7 @@ interface Props {
   status: 'error' | 'info' | 'success';
 }
 
-const DisplayStatus: FC<Props> = ({ children, status }) => {
-  // if (Array.isArray(children))
-  //   return (
-  //     <MsgList>
-  //       {children.map((msg, i) => (
-  //         <MsgItem key={`msg${i}`}>
-  //           <Span data-testid='statusMsg' $status={status}>
-  //             {msg}
-  //           </Span>
-  //         </MsgItem>
-  //       ))}
-  //     </MsgList>
-  //   );
-
+const Status: FC<Props> = ({ children, status }) => {
   if (typeof children === 'string')
     return (
       <Span data-testid='statusMsg' $status={status}>
@@ -30,7 +17,7 @@ const DisplayStatus: FC<Props> = ({ children, status }) => {
   return null;
 };
 
-export default DisplayStatus;
+export default Status;
 
 interface SpanProps {
   $status: 'error' | 'info' | 'success';
@@ -52,16 +39,4 @@ const Span = styled.span<SpanProps>`
   border-radius: ${props => props.theme.borderRadius.primary};
   border: 1px solid ${props => props.theme.border.secondary};
   padding: 4px;
-`;
-
-const MsgList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
-const MsgItem = styled.li`
-  :not(:first-child) {
-    margin-top: 10px;
-  }
 `;

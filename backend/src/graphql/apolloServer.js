@@ -5,7 +5,7 @@
 
 import { ApolloServer } from 'apollo-server-express';
 
-import { development } from '../constants/config.js';
+// import { development } from '../constants/config.js';
 import prisma from '../../prisma/prisma.js';
 import schema from './schema.js';
 
@@ -28,9 +28,9 @@ const apolloServer = new ApolloServer({
   //   }
   // ],
 
-  introspection: development,
+  // introspection: development,
 
-  debug: development,
+  // debug: development,
 
   context: async ({ req, res }) => {
     // https://www.apollographql.com/docs/apollo-server/security/authentication/

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import Button from '../REUSEABLE/Button';
+import Button from './Button';
 import Left from '../DESIGN/icons/Left';
 
 interface Props {

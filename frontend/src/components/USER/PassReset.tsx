@@ -1,20 +1,20 @@
-import { FC, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { FC, useContext, useState } from 'react';
+import { ApolloError, useMutation } from '@apollo/client';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-import { isLoggedInVar } from '../../graphql/cache';
+// import { isLoggedInVar } from '../../graphql/cache';
 import { PASS_RESET } from '../../graphql/queries/user';
 import { password } from '../../utils/validateAuthInputs';
 import { User } from '../../models';
+import { UserCtx } from '../../context/User';
 import Button from '../REUSEABLE/Button';
 import displayMessages from '../../constants/displayMessages';
-import DisplayStatus from '../REUSEABLE/DisplayStatus';
-import errorMessages from '../../utils/errorMessages';
+import Error from '../REUSEABLE/Error';
 import FormInput from '../REUSEABLE/FormInput';
 import PassReqList from './PassReqList';
-import useUser from '../../hooks/useUser';
+import Status from '../REUSEABLE/Status';
 
 interface Props {
   passResetToken: string;
@@ -32,16 +32,16 @@ type HandleSubmit = (
 const validationSchema = object().shape({ newPassword: password });
 
 const PassReset: FC<Props> = ({ passResetToken }) => {
-  const [gqlErrMsg, setGqlErrMsg] = useState('');
+  const [apolloError, setApolloError] = useState<ApolloError>();
 
   const [success, setSuccess] = useState(false);
 
-  const { setUser } = useUser();
+  const { setUser } = useContext(UserCtx);
 
   const onCompleted = (data: Data) => {
     setUser(data.passReset.user);
 
-    isLoggedInVar(true);
+    // isLoggedInVar(true);
 
     setSuccess(true);
   };
@@ -51,7 +51,7 @@ const PassReset: FC<Props> = ({ passResetToken }) => {
 
     onCompleted: data => onCompleted(data),
 
-    onError: error => setGqlErrMsg(errorMessages(error))
+    onError: error => setApolloError(error)
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
@@ -82,17 +82,15 @@ const PassReset: FC<Props> = ({ passResetToken }) => {
       />
 
       {formik.touched.newPassword && formik.errors.newPassword && (
-        <DisplayStatus status='error'>
-          {formik.errors.newPassword}
-        </DisplayStatus>
+        <Error error={formik.errors.newPassword} />
       )}
 
-      {gqlErrMsg && <DisplayStatus status='error'>{gqlErrMsg}</DisplayStatus>}
+      {apolloError && <Error error={apolloError} />}
 
       {success && (
-        <DisplayStatus status='success'>
+        <Status status='success'>
           {displayMessages.user.passReset.success}
-        </DisplayStatus>
+        </Status>
       )}
 
       <PassReqList />

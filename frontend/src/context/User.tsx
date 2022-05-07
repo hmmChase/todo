@@ -5,31 +5,52 @@ import {
   SetStateAction,
   useState
 } from 'react';
+import { useQuery } from '@apollo/client';
 
+import { CURRENT_USER } from '../graphql/queries/user';
 import { User } from '../models';
 
+interface UserState extends User {
+  // error?: ApolloError;
+  loading: boolean;
+}
+
 interface ContextState {
-  user: User | null;
+  user: UserState | null;
   setUser: Dispatch<SetStateAction<User | null>>;
 }
 
-export const UserContext = createContext<ContextState>({
+export const UserCtx = createContext<ContextState>({
   user: null,
   setUser: () => {}
 });
 
 interface Props {
   children: ReactNode;
-  currentUser: User | null;
+  // currentUser: User | null;
 }
 
-const UserProvider = ({ children, currentUser }: Props) => {
-  const [user, setUser] = useState<User | null>(currentUser);
+const UserProvider = ({ children }: Props) => {
+  const [user, setUser] = useState<User | null>(null);
+
+  const { loading } = useQuery(CURRENT_USER, {
+    errorPolicy: 'all',
+
+    fetchPolicy: 'cache-first',
+
+    onCompleted: data => {
+      setUser(data.currentUser);
+
+      // isLoggedInVar(!!data.currentUser.user.id);
+    }
+  });
+
+  const userState: UserState = { loading, ...user! };
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserCtx.Provider value={{ user: userState, setUser }}>
       {children}
-    </UserContext.Provider>
+    </UserCtx.Provider>
   );
 };
 

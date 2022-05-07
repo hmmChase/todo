@@ -1,6 +1,6 @@
 // Not used
 
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
 // export const fetchUser = async (cookie = '') => {
 //   if (typeof window !== 'undefined' && window.__user) return window.__user;

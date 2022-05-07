@@ -61,7 +61,7 @@ const OffsetPage: NextPageWithLayout = () => {
   const haveIdeas = !!ideas;
 
   return (
-    <QueryResult data={data} error={error} loading={loading}>
+    <QueryResult data={ideas} error={error} loading={loading}>
       <>
         <IdeaList ideas={ideas} />
 

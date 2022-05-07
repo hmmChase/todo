@@ -1,15 +1,23 @@
 // http://expressjs.com/en/5x/api.html#res.cookie
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+// https://web.dev/same-site-same-origin/
+// https://github.com/cfredric/sameparty
 
-import { accessCookieExpiry, production } from './config.js';
+import {
+  accessCookieExpiry
+  // development
+  // frontendUrl,
+  // port
+} from './config.js';
 
 const accessCookieOptions = {
-  domain: '', //  hmmstart-backend.vercel.app
   httpOnly: true,
   maxAge: accessCookieExpiry,
-  sameParty: true, // allow cookies to be set by same origin
-  sameSite: production ? 'none' : 'strict', // production is cross-site
-  secure: production
+  sameSite: 'none', // Vercel subdomains are cross-site - https://publicsuffix.org/
+  secure: true
+  // sameParty: true, // allow cookies to be set by same origin
+  // domain: development ? 'localhost' : '.vercel.app'
+  // domain: '' //  hmmstart-backend.vercel.app
   // domain: production ? `hmmstart.vercel.app:${port}` : 'localhost'
   // expires: new Date(Date.now() + accessCookieExpiry * 1000),
   // path: '/gql', // use '/' if cookie not showing in chrome
