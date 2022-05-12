@@ -13,14 +13,16 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next export",
-    "storybook": "start-storybook -p 6006 -s public ",
-    "build-storybook": "build-storybook -s public",
+    "storybook": "start-storybook -p 6006 -s public --no-dll",
+    "build-storybook": "build-storybook -s public --no-dll",
+    "serve-storybook": "serve storybook-static",
     "test": "jest --watch",
     "test:ci": "jest --ci"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@graphql-tools/schema": "^8.3.9",
+    "apollo-link-token-refresh": "^0.4.0",
     "deepmerge": "^4.2.2",
     "formik": "^2.2.9",
     "graphql": "^16.3.0",
@@ -35,10 +37,13 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.10",
     "@storybook/addon-actions": "^6.4.22",
     "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-interactions": "^6.4.22",
     "@storybook/addon-links": "^6.4.22",
     "@storybook/react": "^6.4.22",
+    "@storybook/testing-library": "^0.0.11",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -50,9 +55,11 @@
     "@types/node": "^17.0.24",
     "@types/react": "^18.0.5",
     "@types/styled-components": "^5.1.25",
+    "babel-loader": "^8.2.5",
     "eslint": "^8.13.0",
     "eslint-config-next": "^12.1.5",
     "jest": "^27.5.1",
+    "storybook-addon-next": "^1.6.2",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"
   }

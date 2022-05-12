@@ -28,13 +28,13 @@
     // }
   },
   "include": [
-    "src",
     "next-env.d.ts",
-    "additional.d.ts",
-    "**/*.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.js"
+    "**/*.js",
+    "**/*.mjs",
+    "**/*.jsx",
+    ".storybook/*.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", ".next", "out", "storybook-static"]
 }

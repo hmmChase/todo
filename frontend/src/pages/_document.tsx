@@ -1,5 +1,7 @@
 // https://nextjs.org/docs/advanced-features/custom-document
+// https://github.com/vercel/next.js/tree/canary/examples/with-styled-components
 
+import { Fragment } from 'react';
 import Document, {
   DocumentContext,
   Head,
@@ -32,10 +34,10 @@ import { ServerStyleSheet } from 'styled-components';
 // 4. page.render
 
 class MyDocument extends Document {
-  // `getInitialProps` belongs to `_document` (instead of `_app`),
-  // it's compatible with server-side generation (SSG).
+  // `getInitialProps` belongs to `_document` (instead of `_app`)
+  // It's compatible with server-side generation (SSG)
   static async getInitialProps(ctx: DocumentContext) {
-    // Render app and page and get the context of the page with collected side effects.
+    // Render app and page and get the context of the page with collected side effects
     const sheet = new ServerStyleSheet();
 
     const originalRenderPage = ctx.renderPage;
@@ -43,6 +45,7 @@ class MyDocument extends Document {
     try {
       // Run the React rendering logic synchronously
       ctx.renderPage = () =>
+        // Render app and page to get the context of the page with collected side effects
         originalRenderPage({
           // enhanceApp useful for wrapping the whole react tree
           // collectStyles wraps your element in a provider
@@ -58,14 +61,16 @@ class MyDocument extends Document {
       return {
         ...initialProps,
 
-        // Styles fragment is rendered after the app and page rendering finish.
+        // Pass styleTags as a prop
+        // Extract the styles as <style> tags using getStyleElement
+        // Styles fragment is rendered after the app and page rendering finish
         // getStyleElement returns an array of React elements
         styles: [
-          <>
+          <Fragment key={1}>
             {initialProps.styles}
 
             {sheet.getStyleElement()}
-          </>
+          </Fragment>
         ]
       };
     } finally {
