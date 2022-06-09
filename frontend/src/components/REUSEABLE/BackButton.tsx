@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import Button from './Button';
-import Left from '../DESIGN/icons/Left';
+import Left from '../DESIGN/ICONS/Left';
 
 interface Props {
   className?: string;

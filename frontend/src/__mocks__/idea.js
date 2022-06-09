@@ -1,6 +1,6 @@
 import * as userMocks from './user';
 
-export const ideaItemData = {
+export const idea = {
   idea1: {
     id: '1',
     content: 'idea content 1',
@@ -32,10 +32,10 @@ export const ideaItemData = {
   }
 };
 
-export const ideaListData = [
-  ideaItemData.idea1,
-  ideaItemData.idea2,
-  ideaItemData.idea3,
-  ideaItemData.idea4,
-  ideaItemData.idea5
+export const ideas = [
+  idea.idea1,
+  idea.idea2,
+  idea.idea3,
+  idea.idea4,
+  idea.idea5
 ];

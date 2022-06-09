@@ -30,7 +30,7 @@ const LogOut = () => {
 
     apolloClient.clearStore();
 
-    apolloClient.resetStore();
+    // apolloClient.resetStore();
 
     // Let other parts of the application that are relying on logged in
     // state know we're now logged out.
