@@ -41,59 +41,79 @@ Object.defineProperty(Image, 'default', {
 // Global decorator to apply the styles to all stories
 export const decorators = [
   Story => (
-    <MockedProvider
-      mocks={[
-        // user
-        CURRENT_USER,
-        IS_LOGGED_IN,
-        LOG_IN,
-        LOG_OUT,
-        PASS_RESET_REQ,
-        PASS_RESET,
-        READ_USER,
-        READ_USERS,
-        SIGN_UP,
+    // <MockedProvider
+    //   mocks={[
+    //     // user
+    //     CURRENT_USER,
+    //     IS_LOGGED_IN,
+    //     LOG_IN,
+    //     LOG_OUT,
+    //     PASS_RESET_REQ,
+    //     PASS_RESET,
+    //     READ_USER,
+    //     READ_USERS,
+    //     SIGN_UP,
 
-        // idea
-        CREATE_IDEA,
-        CURRENT_USER_IDEAS,
-        DELETE_IDEA,
-        READ_IDEA,
-        READ_IDEAS_CLIENT,
-        READ_IDEAS_PAGINATED_CURSER,
-        READ_IDEAS_PAGINATED_OFFSET,
-        READ_IDEAS,
-        REMOVE_IDEA,
-        UPDATE_IDEA
-      ]}
-      addTypename={false}
-    >
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
+    //     // idea
+    //     CREATE_IDEA,
+    //     CURRENT_USER_IDEAS,
+    //     DELETE_IDEA,
+    //     READ_IDEA,
+    //     READ_IDEAS_CLIENT,
+    //     READ_IDEAS_PAGINATED_CURSER,
+    //     READ_IDEAS_PAGINATED_OFFSET,
+    //     READ_IDEAS,
+    //     REMOVE_IDEA,
+    //     UPDATE_IDEA
+    //   ]}
+    //   addTypename={false}
+    // >
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
 
-        <Story />
-      </ThemeProvider>
-    </MockedProvider>
+      <Story />
+    </ThemeProvider>
+    // </MockedProvider>
   )
 ];
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 
-  controls: { matchers: { color: /(background|color)$/i, date: /Date$/ } }
+  controls: { matchers: { color: /(background|color)$/i, date: /Date$/ } },
+
+  apolloClient: {
+    MockedProvider,
+
+    mocks: [
+      // user
+      CURRENT_USER,
+      IS_LOGGED_IN,
+      LOG_IN,
+      LOG_OUT,
+      PASS_RESET_REQ,
+      PASS_RESET,
+      READ_USER,
+      READ_USERS,
+      SIGN_UP,
+
+      // idea
+      CREATE_IDEA,
+      CURRENT_USER_IDEAS,
+      DELETE_IDEA,
+      READ_IDEA,
+      READ_IDEAS_CLIENT,
+      READ_IDEAS_PAGINATED_CURSER,
+      READ_IDEAS_PAGINATED_OFFSET,
+      READ_IDEAS,
+      REMOVE_IDEA,
+      UPDATE_IDEA
+    ]
+  },
 
   // actions: { argTypesRegex: '^on[A-Z].*' },
 
   // controls: { matchers: { color: /(background|color)$/i, date: /Date$/ } },
 
-  // nextRouter: {
-  //   Provider: RouterContext.Provider,
-  //   path: '/', // defaults to `/`
-  //   asPath: '/', // defaults to `/`
-  //   query: {}, // defaults to `{}`
-
-  //   // defaults to using addon actions integration,
-  //   // can override any method in the router
-  //   push() {}
-  // }
+  nextRouter: { Provider: RouterContext.Provider }
 };

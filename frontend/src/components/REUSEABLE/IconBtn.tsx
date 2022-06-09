@@ -1,8 +1,8 @@
 import { FC, MouseEventHandler } from 'react';
 import styled from 'styled-components';
 
-import Expand from '../DESIGN/icons/Expand';
-import X from '../DESIGN/icons/X';
+import Expand from '../DESIGN/ICONS/Expand';
+import X from '../DESIGN/ICONS/X';
 
 interface ExpandIconBtnProps {
   name: string;
