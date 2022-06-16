@@ -17,8 +17,6 @@ const Modal: FC<Props> = ({ children, close }) => {
 
   return (
     <Container>
-      <Outer />
-
       <Inner ref={insideRef}>{children}</Inner>
     </Container>
   );
@@ -28,23 +26,15 @@ export default Modal;
 
 const Container = styled.div`
   align-items: center;
-  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
+  height: 100%;
   justify-content: center;
   left: 0;
-  position: absolute;
-  right: 0;
+  position: fixed;
   top: 0;
-`;
-
-const Outer = styled.div`
-  background-color: rgba(0, 0, 0, 0.5);
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 666;
+  width: 100%;
+  z-index: 111;
 `;
 
 const Inner = styled.div`
