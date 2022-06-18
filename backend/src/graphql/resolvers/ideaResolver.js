@@ -71,23 +71,29 @@ const ideaResolver = {
       }
     },
 
-    /* Return curser paginated ideas */
-    ideasPaginatedCurser: async (parent, args, ctx, info) => {
+    /* Return cursor paginated ideas */
+    ideasPaginatedCursor: async (parent, args, ctx, info) => {
       const { cursor, limit } = args;
 
       if (!cursor || !limit)
         throw new ForbiddenError(
-          'idea.error.ideasPaginatedCurser.invalidCurserOrLimit'
+          'idea.error.ideasPaginatedCursor.invalidCursorOrLimit'
         );
 
       try {
         const ideas = await ctx.prisma.idea.findMany({
-          take: limit,
+          skip: 1, // Skip the cursor
+          take: limit, // first
           cursor: { id: cursor },
           where: { removedAt: null },
           select: { id: true, content: true, author: { select: { id: true } } },
           orderBy: { createdAt: 'desc' }
         });
+
+        // Bookmark your location in the result set - in this
+        // case, the ID of the last post in the list of 4.
+        // const lastPostInResults = ideas[3]; // Remember: zero-based index! :)
+        // const myCursor = lastPostInResults.id; // Example: 29
 
         return ideas;
       } catch (error) {
@@ -139,7 +145,7 @@ const ideaResolver = {
     //   return ideas;
     // },
 
-    // currentUserCurserPaginatedIdeas: async (parent, args, ctx, info) => {
+    // currentUserCursorPaginatedIdeas: async (parent, args, ctx, info) => {
     //   const { skip, take } = args;
 
     //   // Verify access token and decode payload

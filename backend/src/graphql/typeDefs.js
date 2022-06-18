@@ -34,7 +34,7 @@ const typeDefs = gql`
       limit: Int!
     ): [Idea!]!
 
-    ideasPaginatedCurser(
+    ideasPaginatedCursor(
       """
       Number of nodes per page
       """
