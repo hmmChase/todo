@@ -26,12 +26,12 @@ export const READ_IDEAS_PAGINATED_OFFSET = {
   result: { data: { ideasPaginatedOffset: ideas } }
 };
 
-export const READ_IDEAS_PAGINATED_CURSER = {
+export const READ_IDEAS_PAGINATED_CURSOR = {
   request: {
-    query: ideaQuery.READ_IDEAS_PAGINATED_CURSER,
+    query: ideaQuery.READ_IDEAS_PAGINATED_CURSOR,
     variables: { offset: 1, limit: 3 }
   },
-  result: { data: { ideasPaginatedCurser: ideas } }
+  result: { data: { ideasPaginatedCursor: ideas } }
 };
 
 export const CURRENT_USER_IDEAS = {

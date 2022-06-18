@@ -59,9 +59,9 @@ export const READ_IDEAS_PAGINATED_OFFSET = gql`
   ${IDEA_AUTHOR_FIELDS}
 `;
 
-export const READ_IDEAS_PAGINATED_CURSER = gql`
-  query ReadIdeasPaginatedCurser($after: String!) {
-    ideasPaginatedCurser(take: $take, skip: $skip) {
+export const READ_IDEAS_PAGINATED_CURSOR = gql`
+  query ReadIdeasPaginatedCursor($after: String!) {
+    ideasPaginatedCursor(take: $take, skip: $skip) {
       cursor
       hasMore
       ideas {

@@ -4,16 +4,16 @@ import { useQuery } from '@apollo/client';
 
 import { Ideas } from '../models';
 import { ideasPerPage } from '../constants/config';
-import { READ_IDEAS_PAGINATED_CURSER } from '../graphql/queries/idea';
+import { READ_IDEAS_PAGINATED_CURSOR } from '../graphql/queries/idea';
 import IdeaList from '../components/IDEA/IdeaList';
 import Layout from '../components/LAYOUTS/Layout';
 import QueryResult from '../components/REUSEABLE/QueryResult';
 
-const CurserPage: NextPageWithLayout = () => {
+const CursorPage: NextPageWithLayout = () => {
   // const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const { data, error, loading, fetchMore } = useQuery(
-    READ_IDEAS_PAGINATED_CURSER,
+    READ_IDEAS_PAGINATED_CURSOR,
     {
       variables: { take: ideasPerPage, skip: null },
 
@@ -30,7 +30,7 @@ const CurserPage: NextPageWithLayout = () => {
   //   setIsLoadingMore(false);
   // };
 
-  const ideas: Ideas = data?.ideasPaginatedCurser;
+  const ideas: Ideas = data?.ideasPaginatedCursor;
 
   // const haveIdeas = ideas.length > 0;
 
@@ -48,12 +48,12 @@ const CurserPage: NextPageWithLayout = () => {
   );
 };
 
-CurserPage.getLayout = function getLayout(page) {
+CursorPage.getLayout = function getLayout(page) {
   return (
-    <Layout title='Curser' description='Curser page' hasHeader hasFooter>
+    <Layout title='Cursor' description='Cursor page' hasHeader hasFooter>
       {page}
     </Layout>
   );
 };
 
-export default CurserPage;
+export default CursorPage;
