@@ -7,6 +7,7 @@ export interface User {
 
 export interface Idea {
   id: string;
+  createdAt: string;
   content: string;
   author?: User;
 }

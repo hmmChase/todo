@@ -7,18 +7,19 @@ import { gql } from '@apollo/client';
 export const IDEA_FIELDS = gql`
   fragment IdeaFields on Idea {
     id
+    createdAt
     content
   }
 `;
 
 export const IDEA_AUTHOR_FIELDS = gql`
   fragment IdeaAuthorFields on Idea {
-    id
-    content
+    ...IdeaFields
     author {
       id
     }
   }
+  ${IDEA_FIELDS}
 `;
 
 //* - Queries ----------
@@ -60,8 +61,8 @@ export const READ_IDEAS_PAGINATED_OFFSET = gql`
 `;
 
 export const READ_IDEAS_PAGINATED_CURSOR = gql`
-  query ReadIdeasPaginatedCursor($after: String!) {
-    ideasPaginatedCursor(take: $take, skip: $skip) {
+  query ReadIdeasPaginatedCursor($after: String, $pageSize: Int!) {
+    ideasPaginatedCursor(after: $after, pageSize: $pageSize) {
       cursor
       hasMore
       ideas {

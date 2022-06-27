@@ -36,13 +36,13 @@ const typeDefs = gql`
 
     ideasPaginatedCursor(
       """
-      Number of nodes per page
+      Number of nodes per page (first)
       """
-      first: Int!
+      pageSize: Int
       """
       If you add a cursor here, it will only return results _after_ this cursor
       """
-      after: String!
+      after: String
     ): IdeaConnection!
 
     currentUserIdeas: [Idea!]!
@@ -86,6 +86,7 @@ const typeDefs = gql`
 
   type Idea {
     id: ID!
+    createdAt: String!
     content: String!
     author: User!
   }

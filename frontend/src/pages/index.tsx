@@ -1,9 +1,9 @@
 import { NextPageWithLayout } from 'next';
 
-import Ideas from '../components/IDEA/Ideas';
+import IdeasPageOffset from '../components/IDEA/IdeasPageOffset';
 import Layout from '../components/LAYOUTS/Layout';
 
-const IndexPage: NextPageWithLayout = () => <Ideas />;
+const IndexPage: NextPageWithLayout = () => <IdeasPageOffset />;
 
 IndexPage.getLayout = function getLayout(page) {
   return (
