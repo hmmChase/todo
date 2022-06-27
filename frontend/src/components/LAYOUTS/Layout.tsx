@@ -89,7 +89,7 @@ const HeaderWrap = styled.header`
 
 const MainWrap = styled.main`
   grid-area: main;
-  padding-bottom: 51px; /* Footer height */
+  padding: 1rem 0 calc(1rem + 51px) 0; /* Add Footer height to bottom */
 `;
 
 const FooterWrap = styled.footer`
