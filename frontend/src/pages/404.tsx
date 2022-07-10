@@ -2,7 +2,7 @@
 
 import { NextPageWithLayout } from 'next';
 
-import FullPage from '../components/LAYOUTS/FullPage';
+import FullPage from '@/components/LAYOUTS/FullPage';
 
 const FourOFourPage: NextPageWithLayout = () => <p>Nothing to see here.</p>;
 

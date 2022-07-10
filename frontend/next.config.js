@@ -6,11 +6,11 @@ const nextConfig = {
   compiler: {
     // https://nextjs.org/docs/advanced-features/compiler#styled-components
     // ssr and displayName are configured by default
-    //? fileName: true,
-    //? minify: true,
-    //? transpileTemplateLiterals: true,
-    //? pure: true
     styledComponents: true
+    // fileName: true,
+    // minify: true,
+    // transpileTemplateLiterals: true,
+    // pure: true
   }
 
   // serverRuntimeConfig: {

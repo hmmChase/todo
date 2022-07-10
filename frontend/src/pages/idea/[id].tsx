@@ -2,11 +2,11 @@ import { NextPageWithLayout } from 'next';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 
-import { Idea } from '../../models';
-import { READ_IDEA } from '../../graphql/queries/idea';
-import IdeaDetail from '../../components/IDEA/DETAIL/IdeaDetail';
-import Layout from '../../components/LAYOUTS/Layout';
-import QueryResult from '../../components/REUSEABLE/QueryResult';
+import { Idea } from '@/models';
+import { READ_IDEA } from '@/graphql/queries/idea';
+import IdeaDetail from '@/components/IDEA/DETAIL/IdeaDetail';
+import Layout from '@/components/LAYOUTS/Layout';
+import QueryResult from '@/components/REUSEABLE/QueryResult';
 
 const IdeaPage: NextPageWithLayout = () => {
   const router = useRouter();

@@ -2,14 +2,11 @@ import { useEffect, useState } from 'react';
 import { NextPageWithLayout } from 'next';
 import { useRouter } from 'next/router';
 
-import FullPage from '../components/LAYOUTS/FullPage';
-import PassReset from '../components/USER/PassReset';
-import PassResetError from '../components/USER/PassResetError';
+import FullPage from '@/components/LAYOUTS/FullPage';
+import PassReset from '@/components/USER/PassReset';
+import PassResetError from '@/components/USER/PassResetError';
 
-type QueryParams = {
-  token: string;
-  expiry: string;
-};
+type QueryParams = { token: string; expiry: string };
 
 const PassResetPage: NextPageWithLayout = () => {
   const [isReady, setIsReady] = useState(false);

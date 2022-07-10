@@ -1,7 +1,7 @@
 import { NextPageWithLayout } from 'next';
 
-import FullPage from '../components/LAYOUTS/FullPage';
-import SignUpForm from '../components/USER/SignUpForm';
+import FullPage from '@/components/LAYOUTS/FullPage';
+import SignUpForm from '@/components/USER/SignUpForm';
 
 const SignUpPage: NextPageWithLayout = () => <SignUpForm />;
 

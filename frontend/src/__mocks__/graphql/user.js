@@ -1,5 +1,5 @@
+import { user, users } from '../models/user';
 import * as userQuery from '../../graphql/queries/user';
-import { user, users } from '../user';
 
 //* - Queries ----------
 
