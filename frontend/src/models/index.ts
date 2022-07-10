@@ -1,4 +1,5 @@
 export interface User {
+  __typename?: string;
   id: string;
   email: string;
   role: string;
@@ -6,10 +7,11 @@ export interface User {
 }
 
 export interface Idea {
+  __typename?: string;
   id: string;
   createdAt: string;
   content: string;
-  author?: User;
+  author?: { id: User['id'] };
 }
 
 export type Ideas = Idea[];

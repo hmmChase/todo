@@ -1,7 +1,7 @@
 import { NextPageWithLayout } from 'next';
 
-import FullPage from '../components/LAYOUTS/FullPage';
-import PassResetReq from '../components/USER/PassResetReq';
+import FullPage from '@/components/LAYOUTS/FullPage';
+import PassResetReq from '@/components/USER/PassResetReq';
 
 const PassResetReqPage: NextPageWithLayout = () => <PassResetReq />;
 

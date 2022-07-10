@@ -1,5 +1,5 @@
+import { idea, ideas } from '../models/idea';
 import * as ideaQuery from '../../graphql/queries/idea';
-import { idea, ideas } from '../idea';
 
 //* - Queries ----------
 

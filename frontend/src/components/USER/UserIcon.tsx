@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Dropdown from '../REUSEABLE/Dropdown';
 import HeaderLoggedIn from '../SECTIONS/Header/HeaderLoggedIn';
-import userSvg from '../../../public/images/user.svg';
+import userSvg from '/public/images/user.svg';
 
 const UserIcon: FC = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);

@@ -18,18 +18,18 @@ import App, { AppContext, AppPropsWithLayout } from 'next/app';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from 'styled-components';
-// import { initializeApollo, addApolloState } from '../graphql/apolloClient';
-// import { READ_IDEAS } from '../graphql/queries/idea';
 
-// import { CURRENT_USER } from '../graphql/queries/user';
-// import coloredLog from '../utils/coloredLog';
-import { siteTitle } from '../constants/config';
-import { useApollo } from '../graphql/apolloClient';
-import GlobalStyle from '../styles/global';
-import reportWebVitals from '../reportWebVitals';
-import theme from '../styles/theme';
-import UserProvider from '../context/User';
-// import verifyUser from '../utils/verifyUser';
+import { siteTitle } from '@/constants/config';
+import { useApollo } from '@/graphql/apolloClient';
+import GlobalStyle from '@/styles/global';
+import reportWebVitals from '@/root/reportWebVitals';
+import theme from '@/styles/theme';
+import UserProvider from '@/context/User';
+// import { CURRENT_USER } from '@/graphql/queries/user';
+// import { initializeApollo, addApolloState } from '@/graphql/apolloClient';
+// import { READ_IDEAS } from '@/graphql/queries/idea';
+// import coloredLog from '@/utils/coloredLog';
+// import verifyUser from '@/utils/verifyUser';
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   // const [user, setUser] = useState(null);

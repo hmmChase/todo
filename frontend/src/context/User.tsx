@@ -30,7 +30,7 @@ export const UserCtx = createContext<ContextState>({
 
 interface Props {
   children: ReactNode;
-  currentUser: Userr;
+  // currentUser: Userr;
 }
 
 const UserProvider = ({ children }: Props) => {
