@@ -9,8 +9,8 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-import useKeypress from '../../../hooks/useKeypress';
-import useOnClickOutside from '../../../hooks/useOnClickOutside';
+import useKeypress from '@/hooks/useKeypress';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 interface Props {
   currentUserOwnsIdea: boolean;

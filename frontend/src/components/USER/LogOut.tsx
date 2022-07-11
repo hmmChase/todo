@@ -2,9 +2,9 @@ import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useApolloClient, useMutation } from '@apollo/client';
 
-import { isLoggedInVar } from '../../graphql/cache';
-import { LOG_OUT } from '../../graphql/queries/user';
-import { UserCtx } from '../../context/User';
+import { isLoggedInVar } from '@/graphql/cache';
+import { LOG_OUT } from '@/graphql/queries/user';
+import { UserCtx } from '@/context/User';
 
 const LogOut = () => {
   const { setUser } = useContext(UserCtx);

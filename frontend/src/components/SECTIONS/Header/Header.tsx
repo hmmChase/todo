@@ -3,15 +3,15 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { siteTitle } from '../../../constants/config';
-import { UserCtx } from '../../../context/User';
-import CreateIdea from '../../IDEA/CreateIdea';
-import HeaderLoggedOut from './HeaderLoggedOut';
-import Ideabox from '../../../../public/images/ideabox.png';
-import QueryResult from '../../REUSEABLE/QueryResult';
-import UserIcon from '../../USER/UserIcon';
-// import NavBar from '../NavBar';
-// import HeaderUsername from './HeaderUsername';
+import { siteTitle } from '@/constants/config';
+import { UserCtx } from '@/context/User';
+import CreateIdea from '@/components/IDEA/CreateIdea';
+import HeaderLoggedOut from '@/components/SECTIONS/HEADER/HeaderLoggedOut';
+import Ideabox from '@/public/images/ideabox.png';
+import QueryResult from '@/components/REUSEABLE/QueryResult';
+import UserIcon from '@/components/USER/UserIcon';
+// import NavBar from '@/components/SECTIONS/NavBar';
+// import HeaderUsername from '@/components/SECTIONS/HEADER/HeaderUsername';
 
 const Header: FC = () => {
   const { user } = useContext(UserCtx);

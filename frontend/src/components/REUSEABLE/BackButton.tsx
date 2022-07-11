@@ -2,8 +2,8 @@ import { FC } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import Button from './Button';
-import Left from '../DESIGN/ICONS/Left';
+import Button from '@/components/REUSEABLE/Button';
+import Left from '@/components/DESIGN/ICONS/Left';
 
 interface Props {
   className?: string;

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 
-import { ExpandIconBtn } from '../../REUSEABLE/IconBtn';
+import { ExpandIconBtn } from '@/components/REUSEABLE/IconBtn';
 
 interface Props {
   className?: string;

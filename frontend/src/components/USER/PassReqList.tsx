@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import displayMessages from '../../constants/displayMessages';
+import displayMessages from '@/constants/displayMessages';
 
 const PassReqList: FC = () => {
   const reqList = displayMessages.user.password.requirements.rules.map(

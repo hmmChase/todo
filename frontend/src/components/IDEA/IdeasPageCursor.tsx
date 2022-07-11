@@ -1,12 +1,12 @@
 import { FC, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { Ideas } from '../../models';
-import { ideasPerPage } from '../../constants/config';
-import { READ_IDEAS_PAGINATED_CURSOR } from '../../graphql/queries/idea';
-import IdeaList from '../../components/IDEA/IdeaList';
-import Loading from '../../components/REUSEABLE/Loading';
-import QueryResult from '../../components/REUSEABLE/QueryResult';
+import { Ideas } from '@/models';
+import { ideasPerPage } from '@/constants/config';
+import { READ_IDEAS_PAGINATED_CURSOR } from '@/graphql/queries/idea';
+import IdeaList from '@/components/IDEA/IdeaList';
+import Loading from '@/components/REUSEABLE/Loading';
+import QueryResult from '@/components/REUSEABLE/QueryResult';
 
 const IdeasPageCursor: FC = () => {
   // const [page, setPage] = useState(0);

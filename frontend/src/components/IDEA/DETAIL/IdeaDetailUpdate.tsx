@@ -2,9 +2,9 @@ import { FC, useCallback, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash.debounce';
 
-import { IdeaInputDebounceDelay } from '../../../constants/config';
-import { UPDATE_IDEA } from '../../../graphql/queries/idea';
-import IdeaDetailContent from './IdeaDetailContent';
+import { IdeaInputDebounceDelay } from '@/constants/config';
+import { UPDATE_IDEA } from '@/graphql/queries/idea';
+import IdeaDetailContent from '@/components/IDEA/DETAIL/IdeaDetailContent';
 
 interface Props {
   content: string;

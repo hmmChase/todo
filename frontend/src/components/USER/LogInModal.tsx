@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import HorizontalRule from '../REUSEABLE/HorizontalRule';
-import LogInForm from './LogInForm';
-import Modal from '../REUSEABLE/Modal';
+import HorizontalRule from '@/components/REUSEABLE/HorizontalRule';
+import LogInForm from '@/components/USER/LogInForm';
+import Modal from '@/components/REUSEABLE/Modal';
 
 interface Props {
   close: () => void;

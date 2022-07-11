@@ -1,8 +1,8 @@
 import { from, HttpLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 
-import { backendUrl, development } from '../constants/config';
-import coloredLog from '../utils/coloredLog';
+import { backendUrl, development } from '@/constants/config';
+import coloredLog from '@/utils/coloredLog';
 
 // import { TokenRefreshLink } from 'apollo-link-token-refresh';
 
