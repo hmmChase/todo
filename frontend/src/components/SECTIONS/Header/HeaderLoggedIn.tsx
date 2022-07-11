@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import Left from '../../DESIGN/ICONS/Left';
+import Left from '@/components/DESIGN/ICONS/Left';
 
 const HeaderLoggedIn: FC = () => {
   const router = useRouter();

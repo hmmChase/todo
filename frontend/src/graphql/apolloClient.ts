@@ -8,10 +8,10 @@ import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import isEqual from 'lodash.isequal';
 import merge from 'deepmerge';
 
-import { development, server } from '../constants/config';
-import cache from './cache';
-import link from './links';
-import typeDefs from './typeDefs';
+import { development, server } from '@/constants/config';
+import cache from '@/graphql/cache';
+import link from '@/graphql/links';
+import typeDefs from '@/graphql/typeDefs';
 
 type ResolverContext = { req?: IncomingMessage; res?: ServerResponse };
 

@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import { Ideas } from '../../models';
-import IdeaItem from './IdeaItem';
+import { Ideas } from '@/models';
+import IdeaItem from '@/components/IDEA/IdeaItem';
 
 interface Props {
   ideas: Ideas;

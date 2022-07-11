@@ -2,13 +2,13 @@ import { FC, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
-import { Ideas } from '../../models';
-import { ideasPerPage } from '../../constants/config';
-import { READ_IDEAS_PAGINATED_OFFSET } from '../../graphql/queries/idea';
-import Button from '../REUSEABLE/Button';
-import IdeaList from './IdeaList';
-import Loading from '../../components/REUSEABLE/Loading';
-import QueryResult from '../REUSEABLE/QueryResult';
+import { Ideas } from '@/models';
+import { ideasPerPage } from '@/constants/config';
+import { READ_IDEAS_PAGINATED_OFFSET } from '@/graphql/queries/idea';
+import Button from '@/components/REUSEABLE/Button';
+import IdeaList from '@/components/IDEA/IdeaList';
+import Loading from '@/components/REUSEABLE/Loading';
+import QueryResult from '@/components/REUSEABLE/QueryResult';
 
 const IdeasPageOffset: FC = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);

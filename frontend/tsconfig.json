@@ -29,6 +29,7 @@
       "@/hooks/*": ["hooks/*"],
       "@/models": ["models"],
       "@/pages/*": ["pages/*"],
+      "@/public/*": ["../public/*"],
       "@/root/*": ["../*"],
       "@/styles/*": ["styles/*"],
       "@/utils/*": ["utils/*"]
@@ -48,5 +49,11 @@
     "types.d.ts"
     // ".storybook/*.js"
   ],
-  "exclude": ["node_modules", ".next", "out", "storybook-static"]
+  "exclude": [
+    ".next",
+    "**/*.test.js",
+    "**/*.test.ts",
+    "node_modules",
+    "storybook-static"
+  ]
 }

@@ -6,15 +6,15 @@ import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-// import { isLoggedInVar } from '../../graphql/cache';
-import { email, password } from '../../utils/validateAuthInputs';
-import { SIGN_UP } from '../../graphql/queries/user';
-import { User } from '../../models';
-import { UserCtx } from '../../context/User';
-import Button from '../REUSEABLE/Button';
-import Error from '../REUSEABLE/Error';
-import FormInput from '../REUSEABLE/FormInput';
-import PassReqList from './PassReqList';
+import { email, password } from '@/utils/validateAuthInputs';
+import { SIGN_UP } from '@/graphql/queries/user';
+import { User } from '@/models';
+import { UserCtx } from '@/context/User';
+import Button from '@/components/REUSEABLE/Button';
+import Error from '@/components/REUSEABLE/Error';
+import FormInput from '@/components/REUSEABLE/FormInput';
+import PassReqList from '@/components/USER/PassReqList';
+// import { isLoggedInVar } from '@/graphql/cache';
 
 interface Props {
   close?: () => void;

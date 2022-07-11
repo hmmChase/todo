@@ -1,9 +1,9 @@
 import { FC, useContext } from 'react';
 import styled from 'styled-components';
 
-import { UserCtx } from '../../context/User';
-import IdeaDetailIcon from './DETAIL/IdeaDetailIcon';
-import RemoveIdea from './RemoveIdea';
+import { UserCtx } from '@/context/User';
+import IdeaDetailIcon from '@/components/IDEA/DETAIL/IdeaDetailIcon';
+import RemoveIdea from '@/components/IDEA/RemoveIdea';
 
 interface Props {
   authorId: string;

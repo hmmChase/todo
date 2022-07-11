@@ -4,17 +4,17 @@ import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-// import { isLoggedInVar } from '../../graphql/cache';
-import { PASS_RESET } from '../../graphql/queries/user';
-import { password } from '../../utils/validateAuthInputs';
-import { User } from '../../models';
-import { UserCtx } from '../../context/User';
-import Button from '../REUSEABLE/Button';
-import displayMessages from '../../constants/displayMessages';
-import Error from '../REUSEABLE/Error';
-import FormInput from '../REUSEABLE/FormInput';
-import PassReqList from './PassReqList';
-import Status from '../REUSEABLE/Status';
+import { PASS_RESET } from '@/graphql/queries/user';
+import { password } from '@/utils/validateAuthInputs';
+import { User } from '@/models';
+import { UserCtx } from '@/context/User';
+import Button from '@/components/REUSEABLE/Button';
+import displayMessages from '@/constants/displayMessages';
+import Error from '@/components/REUSEABLE/Error';
+import FormInput from '@/components/REUSEABLE/FormInput';
+import PassReqList from '@/components/USER/PassReqList';
+import Status from '@/components/REUSEABLE/Status';
+// import { isLoggedInVar } from '@/graphql/cache';
 
 interface Props {
   passResetToken: string;

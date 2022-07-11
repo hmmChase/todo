@@ -5,14 +5,13 @@ import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-import { email } from '../../utils/validateAuthInputs';
-import { PASS_RESET_REQ } from '../../graphql/queries/user';
-import Button from '../REUSEABLE/Button';
-import displayMessages from '../../constants/displayMessages';
-import Error from '../REUSEABLE/Error';
-import FormInput from '../REUSEABLE/FormInput';
-import Status from '../REUSEABLE/Status';
-
+import { email } from '@/utils/validateAuthInputs';
+import { PASS_RESET_REQ } from '@/graphql/queries/user';
+import Button from '@/components/REUSEABLE/Button';
+import displayMessages from '@/constants/displayMessages';
+import Error from '@/components/REUSEABLE/Error';
+import FormInput from '@/components/REUSEABLE/FormInput';
+import Status from '@/components/REUSEABLE/Status';
 type HandleSubmit = (
   formikHelpers: FormikHelpers<{ passResetReqEmail: string }>,
   values: { passResetReqEmail: string }

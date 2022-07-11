@@ -2,9 +2,9 @@ import { FC, useRef, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import Dropdown from '../REUSEABLE/Dropdown';
-import HeaderLoggedIn from '../SECTIONS/Header/HeaderLoggedIn';
-import userSvg from '/public/images/user.svg';
+import Dropdown from '@/components/REUSEABLE/Dropdown';
+import HeaderLoggedIn from '@/components/SECTIONS/HEADER/HeaderLoggedIn';
+import userSvg from '@/public/images/user.svg';
 
 const UserIcon: FC = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);

@@ -1,4 +1,4 @@
-import { development } from '../constants/config';
+import { development } from '@/constants/config';
 
 interface ColoredLog {
   (color: string, title: string, message?: string): void;

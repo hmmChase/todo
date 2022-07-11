@@ -2,10 +2,10 @@ import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 
-import { siteTitle } from '../../constants/config';
-import BackButton from '../REUSEABLE/BackButton';
-import Footer from '../SECTIONS/Footer';
-import Header from '../SECTIONS/Header/Header';
+import { siteTitle } from '@/constants/config';
+import BackButton from '@/components/REUSEABLE/BackButton';
+import Footer from '@/components/SECTIONS/Footer';
+import Header from '@/components/SECTIONS/HEADER/Header';
 
 interface Props {
   children: ReactNode;

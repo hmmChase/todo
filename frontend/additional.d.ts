@@ -6,7 +6,7 @@ import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 
-import { User } from './src/models/';
+import { User } from '@/models';
 
 type GetLayout = (page: ReactElement) => ReactNode;
 

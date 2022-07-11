@@ -1,8 +1,8 @@
 import { ApolloError } from '@apollo/client';
 import styled from 'styled-components';
 
-import displayMessages from '../../constants/displayMessages';
-import Status from './Status';
+import displayMessages from '@/constants/displayMessages';
+import Status from '@/components/REUSEABLE/Status';
 
 type Keys = Array<keyof typeof displayMessages>;
 
