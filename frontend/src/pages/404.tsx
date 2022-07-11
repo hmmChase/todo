@@ -4,7 +4,7 @@ import { NextPageWithLayout } from 'next';
 
 import FullPage from '@/components/LAYOUTS/FullPage';
 
-const FourOFourPage: NextPageWithLayout = () => <p>Nothing to see here.</p>;
+const FourOFourPage: NextPageWithLayout = () => <p>Not Found</p>;
 
 FourOFourPage.getLayout = function getLayout(page) {
   return (
