@@ -209,7 +209,8 @@ dist
 .vscode
 .history
 
-
-
 # vercel
 .vercel
+
+# storybook
+storybook-static

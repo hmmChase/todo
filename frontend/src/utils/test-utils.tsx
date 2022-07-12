@@ -3,35 +3,35 @@
 // https://github.com/apollographql/fullstack-tutorial/blob/master/final/client/src/test-utils.tsx
 
 import { ReactElement } from 'react';
-import { render } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { render } from '@testing-library/react';
 
 // this adds custom jest matchers from jest-dom
 import '@testing-library/jest-dom/extend-expect';
 
 type RenderApolloOptions = {
-  mocks?: MockedResponse[];
-  addTypename?: any;
-  defaultOptions?: any;
-  cache?: any;
-  resolvers?: any;
   [st: string]: any;
+  addTypename?: any;
+  cache?: any;
+  defaultOptions?: any;
+  mocks?: MockedResponse[];
+  resolvers?: any;
 };
 
 const AllTheProviders = ({
-  children,
-  mocks,
   addTypename,
-  defaultOptions,
   cache,
+  children,
+  defaultOptions,
+  mocks,
   resolvers
 }: RenderApolloOptions) => (
   // <ThemeProvider>
   <MockedProvider
-    mocks={mocks}
     addTypename={addTypename}
-    defaultOptions={defaultOptions}
     cache={cache}
+    defaultOptions={defaultOptions}
+    mocks={mocks}
     resolvers={resolvers}
   >
     {children}

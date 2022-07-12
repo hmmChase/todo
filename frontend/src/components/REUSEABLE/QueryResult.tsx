@@ -1,11 +1,11 @@
-import { FC, ReactNode, ReactElement } from 'react';
+import { FC, ReactElement, ReactNode } from 'react';
 import { ApolloError } from '@apollo/client';
 import styled from 'styled-components';
 
-import displayMessages from '../../constants/displayMessages';
-import Error from './Error';
-import Loading from './Loading';
-import Status from './Status';
+import displayMessages from '@/constants/displayMessages';
+import Error from '@/components/REUSEABLE/Error';
+import Loading from '@/components/REUSEABLE/Loading';
+import Status from '@/components/REUSEABLE/Status';
 
 interface Props {
   children: ReactNode;

@@ -7,7 +7,8 @@ import {
 } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { CURRENT_USER } from '../graphql/queries/user';
+import { CURRENT_USER, IS_LOGGED_IN } from '../graphql/queries/user';
+import { isLoggedInVar } from '../graphql/cache';
 import { User } from '../models';
 
 interface UserState extends User {
@@ -15,9 +16,11 @@ interface UserState extends User {
   loading: boolean;
 }
 
+type Userr = User | null;
+
 interface ContextState {
   user: UserState | null;
-  setUser: Dispatch<SetStateAction<User | null>>;
+  setUser: Dispatch<SetStateAction<Userr>>;
 }
 
 export const UserCtx = createContext<ContextState>({
@@ -27,23 +30,27 @@ export const UserCtx = createContext<ContextState>({
 
 interface Props {
   children: ReactNode;
-  // currentUser: User | null;
+  // currentUser: Userr;
 }
 
 const UserProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Userr>(null);
 
   const { loading } = useQuery(CURRENT_USER, {
     errorPolicy: 'all',
 
     fetchPolicy: 'cache-first',
 
-    onCompleted: data => {
-      setUser(data.currentUser);
+    onCompleted: (data: { currentUser: Userr }) => {
+      if (data.currentUser) {
+        setUser(data.currentUser);
 
-      // isLoggedInVar(!!data.currentUser.user.id);
+        isLoggedInVar(!!data.currentUser);
+      }
     }
   });
+
+  // const { data } = useQuery(IS_LOGGED_IN);
 
   const userState: UserState = { loading, ...user! };
 

@@ -1,4 +1,4 @@
-import { passwordMaxLength, passwordMinLength } from './config';
+import { passwordMaxLength, passwordMinLength } from '@/constants/config';
 
 const displayMessages = {
   error: 'Something went wrong',

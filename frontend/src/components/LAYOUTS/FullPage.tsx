@@ -6,10 +6,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { siteTitle } from '../../constants/config';
-import BackButton from '../REUSEABLE/BackButton';
-import HorizontalRule from '../REUSEABLE/HorizontalRule';
-import Ideabox from '../../../public/images/ideabox.png';
+import { siteTitle } from '@/constants/config';
+import BackButton from '@/components/REUSEABLE/BackButton';
+import HorizontalRule from '@/components/REUSEABLE/HorizontalRule';
+import Ideabox from '@/public/images/ideabox.png';
 
 interface Props {
   children: ReactNode;

@@ -3,6 +3,7 @@ import { AuthenticationError, ForbiddenError } from 'apollo-server-express';
 import { consoleLog } from '../../utils/myLogger.js';
 import { development } from '../../constants/config.js';
 import { verifyAccessToken } from '../../utils/accessToken.js';
+import paginateResults from '../../utils/paginateResults.js';
 
 const ideaResolver = {
   Query: {
@@ -59,7 +60,12 @@ const ideaResolver = {
           skip: offset,
           take: limit, // first
           where: { removedAt: null },
-          select: { id: true, content: true, author: { select: { id: true } } },
+          select: {
+            id: true,
+            createdAt: true,
+            content: true,
+            author: { select: { id: true } }
+          },
           orderBy: { createdAt: 'desc' }
         });
 
@@ -71,25 +77,81 @@ const ideaResolver = {
       }
     },
 
-    /* Return curser paginated ideas */
-    ideasPaginatedCurser: async (parent, args, ctx, info) => {
-      const { cursor, limit } = args;
+    //todo: figure out what to use as a cursor
 
-      if (!cursor || !limit)
-        throw new ForbiddenError(
-          'idea.error.ideasPaginatedCurser.invalidCurserOrLimit'
-        );
+    /* Return cursor paginated ideas */
+    ideasPaginatedCursor: async (parent, args, ctx, info) => {
+      const { after, pageSize } = args;
+
+      // if (!cursor || !limit)
+      //   throw new ForbiddenError(
+      //     'idea.error.ideasPaginatedCursor.invalidCursorOrLimit'
+      //   );
+
+      console.log('after:', after);
+      console.log('pageSize:', pageSize);
+
+      // if ((!offset && offset !== 0) || !limit)
+      //   throw new ForbiddenError(
+      //     'idea.error.ideasPaginatedCursor.invalidOffsetOrLimit'
+      //   );
 
       try {
         const ideas = await ctx.prisma.idea.findMany({
-          take: limit,
-          cursor: { id: cursor },
+          // cursor: { createdAt: after },
+          // take: pageSize,
           where: { removedAt: null },
-          select: { id: true, content: true, author: { select: { id: true } } },
+          select: {
+            id: true,
+            createdAt: true,
+            content: true,
+            author: { select: { id: true } }
+          },
           orderBy: { createdAt: 'desc' }
         });
 
-        return ideas;
+        // console.log('ideas:', ideas);
+
+        const ideasPaginated = paginateResults({
+          after,
+          pageSize,
+          results: ideas
+        });
+
+        console.log('ideasPaginated:', ideasPaginated);
+
+        // try {
+        //   const ideas = await ctx.prisma.idea.findMany({
+        //     skip: 1, // Skip the cursor
+        //     take: limit, // first
+        //     cursor: { id: cursor },
+        //     where: { removedAt: null },
+        //     select: { id: true, content: true, author: { select: { id: true } } },
+        //     orderBy: { createdAt: 'desc' }
+        //   });
+
+        // Bookmark your location in the result set - in this
+        // case, the ID of the last post in the list of 4.
+        // const lastPostInResults = ideas[3]; // Remember: zero-based index! :)
+        // const myCursor = lastPostInResults.id; // Example: 29
+
+        // if there are launches, get the cursor of the last launch, else null
+        const cursor = ideasPaginated.length
+          ? ideasPaginated[ideasPaginated.length - 1].createdAt
+          : null;
+
+        console.log('cursor:', cursor);
+
+        // if the cursor of the end of the paginated results is the same as the
+        // last item in _all_ results, then there are no more results after this
+        const hasMore = ideasPaginated.length
+          ? ideasPaginated[ideasPaginated.length - 1].createdAt !==
+            ideas[ideas.length - 1].createdAt
+          : false;
+
+        console.log('hasMore:', hasMore);
+
+        return { cursor, hasMore, ideas: ideasPaginated };
       } catch (error) {
         development && consoleLog(error);
 
@@ -139,7 +201,7 @@ const ideaResolver = {
     //   return ideas;
     // },
 
-    // currentUserCurserPaginatedIdeas: async (parent, args, ctx, info) => {
+    // currentUserCursorPaginatedIdeas: async (parent, args, ctx, info) => {
     //   const { skip, take } = args;
 
     //   // Verify access token and decode payload

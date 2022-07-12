@@ -1,8 +1,10 @@
 import HeaderLoggedIn from './HeaderLoggedIn';
 
-export default {
+const story = {
   component: HeaderLoggedIn,
   title: 'SECTIONS/HEADER/HeaderLoggedIn'
 };
 
 export const headerLoggedIn = () => <HeaderLoggedIn />;
+
+export default story;

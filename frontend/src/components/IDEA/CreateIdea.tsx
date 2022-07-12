@@ -9,9 +9,10 @@ import {
 import { MutationUpdaterFn, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 
-import { CREATE_IDEA, IDEA_FIELDS } from '../../graphql/queries/idea';
-import { Ideas } from '../../models';
-import { UserCtx } from '../../context/User';
+import { CREATE_IDEA, IDEA_FIELDS } from '@/graphql/queries/idea';
+import { Ideas } from '@/models';
+import { UserCtx } from '@/context/User';
+
 const CreateIdea: FC = () => {
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
 
-import Spinner from './Spinner';
+import Spinner from '@/components/REUSEABLE/Spinner';
 
 interface LoadingProps {
   loader?: boolean | ReactElement;

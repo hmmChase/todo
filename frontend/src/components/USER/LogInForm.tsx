@@ -6,14 +6,14 @@ import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
 import styled from 'styled-components';
 
-// import { isLoggedInVar } from '../../graphql/cache';
-import { email, password } from '../../utils/validateAuthInputs';
-import { LOG_IN } from '../../graphql/queries/user';
-import { User } from '../../models';
-import { UserCtx } from '../../context/User';
-import Button from '../REUSEABLE/Button';
-import Error from '../REUSEABLE/Error';
-import FormInput from '../REUSEABLE/FormInput';
+import { email, password } from '@/utils/validateAuthInputs';
+import { isLoggedInVar } from '@/graphql/cache';
+import { LOG_IN } from '@/graphql/queries/user';
+import { User } from '@/models';
+import { UserCtx } from '@/context/User';
+import Button from '@/components/REUSEABLE/Button';
+import Error from '@/components/REUSEABLE/Error';
+import FormInput from '@/components/REUSEABLE/FormInput';
 
 interface Props {
   close?: () => void;
@@ -41,9 +41,13 @@ const LogInForm: FC<Props> = ({ close }) => {
   const router = useRouter();
 
   const onCompleted = (data: Data) => {
-    setUser(data.logIn.user);
+    if (data.logIn) {
+      setUser(data.logIn.user);
 
-    // isLoggedInVar(true);
+      isLoggedInVar(true);
+
+      // localStorage.setItem('userId', data.logIn.user.id);
+    }
 
     // when logging in from /login page
     if (!close) router.push('/');

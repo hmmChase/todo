@@ -2,10 +2,10 @@ import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 
-import { siteTitle } from '../../constants/config';
-import BackButton from '../REUSEABLE/BackButton';
-import Footer from '../SECTIONS/Footer';
-import Header from '../SECTIONS/Header/Header';
+import { siteTitle } from '@/constants/config';
+import BackButton from '@/components/REUSEABLE/BackButton';
+import Footer from '@/components/SECTIONS/Footer';
+import Header from '@/components/SECTIONS/HEADER/Header';
 
 interface Props {
   children: ReactNode;
@@ -89,7 +89,7 @@ const HeaderWrap = styled.header`
 
 const MainWrap = styled.main`
   grid-area: main;
-  padding-bottom: 51px; /* Footer height */
+  padding: 1rem 0 calc(1rem + 51px) 0; /* Add Footer height to bottom */
 `;
 
 const FooterWrap = styled.footer`

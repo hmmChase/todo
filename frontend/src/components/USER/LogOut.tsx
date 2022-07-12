@@ -2,9 +2,9 @@ import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useApolloClient, useMutation } from '@apollo/client';
 
-// import { isLoggedInVar } from '../../graphql/cache';
-import { LOG_OUT } from '../../graphql/queries/user';
-import { UserCtx } from '../../context/User';
+import { isLoggedInVar } from '@/graphql/cache';
+import { LOG_OUT } from '@/graphql/queries/user';
+import { UserCtx } from '@/context/User';
 
 const LogOut = () => {
   const { setUser } = useContext(UserCtx);
@@ -26,17 +26,17 @@ const LogOut = () => {
 
     apolloClient.cache.gc();
 
-    apolloClient.cache.reset();
+    // apolloClient.cache.reset();
 
-    apolloClient.clearStore();
+    // apolloClient.clearStore();
 
-    apolloClient.resetStore();
+    // apolloClient.resetStore();
 
     // Let other parts of the application that are relying on logged in
     // state know we're now logged out.
     setUser(null);
 
-    // isLoggedInVar(false);
+    isLoggedInVar(false);
 
     await router.push('/');
   };

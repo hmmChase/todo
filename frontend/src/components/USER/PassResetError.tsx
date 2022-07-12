@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import BackButton from '../REUSEABLE/BackButton';
-import displayMessages from '../../constants/displayMessages';
-import Error from '../REUSEABLE/Error';
+import BackButton from '@/components/REUSEABLE/BackButton';
+import displayMessages from '@/constants/displayMessages';
+import Error from '@/components/REUSEABLE/Error';
 
 interface Props {
   isTokenExpired: boolean;

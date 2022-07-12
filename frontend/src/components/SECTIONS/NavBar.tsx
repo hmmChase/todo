@@ -47,8 +47,8 @@ const NavBar: FC = () => (
       </li>
 
       <li>
-        <ActiveLink href='/curser' activeClassName='active'>
-          <A>Curser</A>
+        <ActiveLink href='/cursor' activeClassName='active'>
+          <A>Cursor</A>
         </ActiveLink>
       </li>
 

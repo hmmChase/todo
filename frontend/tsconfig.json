@@ -3,7 +3,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
@@ -20,21 +20,40 @@
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es5"
-    // "paths": {
-    //   "@graphql-types@": [
-    //     "node_modules/@types/graphql-let/__generated__/__types__"
-    //   ]
-    // }
+    "target": "es5",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/constants/*": ["constants/*"],
+      "@/context/*": ["context/*"],
+      "@/graphql/*": ["graphql/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/models": ["models"],
+      "@/pages/*": ["pages/*"],
+      "@/public/*": ["../public/*"],
+      "@/root/*": ["../*"],
+      "@/styles/*": ["styles/*"],
+      "@/utils/*": ["utils/*"]
+      // "@graphql-types@": [
+      //   "node_modules/@types/graphql-let/__generated__/__types__"
+      // ]
+    }
   },
   "include": [
-    "src",
-    "next-env.d.ts",
-    "additional.d.ts",
-    "**/*.d.ts",
+    "**/*.js",
+    "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.js"
+    "jest.config.js",
+    "jest.setup.js",
+    "next-env.d.ts",
+    "types.d.ts"
+    // ".storybook/*.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    ".next",
+    "**/*.test.js",
+    "**/*.test.ts",
+    "node_modules",
+    "storybook-static"
+  ]
 }
