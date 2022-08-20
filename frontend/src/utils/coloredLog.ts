@@ -1,7 +1,7 @@
 import { development } from '@/constants/config';
 
 interface ColoredLog {
-  (color: string, title: string, message?: string): void;
+  (title: string, message?: string, color?: string): void;
 }
 
 const coloredLog: ColoredLog = (title, message, color) => {

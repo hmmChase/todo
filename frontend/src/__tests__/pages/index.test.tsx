@@ -1,7 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import IndexPage from '../../pages/index';
+// import { render, screen } from '../../utils/test-utils';
+// import IndexPage from '../../pages/index';
+
+// import { render, screen } from '@/utils/test-utils';
+import IndexPage from '@/pages/index';
 
 describe('IndexPage', () => {
   it('renders homepage unchanged', () => {

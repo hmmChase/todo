@@ -7,9 +7,9 @@ import {
 } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { CURRENT_USER, IS_LOGGED_IN } from '../graphql/queries/user';
-import { isLoggedInVar } from '../graphql/cache';
-import { User } from '../models';
+import { CURRENT_USER, IS_LOGGED_IN } from '@/graphql/queries/user';
+import { isLoggedInVar } from '@/graphql/cache';
+import { User } from '@/models';
 
 interface UserState extends User {
   // error?: ApolloError;
