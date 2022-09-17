@@ -5,7 +5,7 @@ import { makeVar } from '@apollo/client';
 import { defaultDataIdFromObject, InMemoryCache } from '@apollo/client/cache';
 // import { concatPagination } from '@apollo/client/utilities';
 
-import { Idea } from '@/models';
+import { Idea } from '@/models/index';
 
 export let isLoggedInVar = makeVar<boolean>(false);
 

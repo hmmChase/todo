@@ -29,6 +29,8 @@ export const backendUrl = development
   ? backendUrlPrev
   : production && backendUrlProd;
 
+export const gqlUri = `${backendUrl}/gql`;
+
 /* Other */
 
 export const server = typeof window === 'undefined';

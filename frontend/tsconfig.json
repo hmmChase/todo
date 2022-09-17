@@ -3,7 +3,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
@@ -27,10 +27,11 @@
       "@/context/*": ["src/context/*"],
       "@/graphql/*": ["src/graphql/*"],
       "@/hooks/*": ["src/hooks/*"],
+      "@/mocks/*": ["src/__mocks__/*"],
       "@/models/*": ["src/models/*"],
       "@/pages/*": ["src/pages/*"],
       "@/public/*": ["public/*"],
-      "@/root/*": ["/*"],
+      "@/root/*": ["*"],
       "@/styles/*": ["src/styles/*"],
       "@/utils/*": ["src/utils/*"]
 

@@ -17,6 +17,7 @@ const customJestConfig = {
 
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
+
     // (.*)$: capture whatever comes after the exact match (the directory)
     // $1: map it to this value in the directory I specify
     // it translates to "anything that matches @/ should be sent to <rootDir>/src/<rest of the path>
@@ -27,12 +28,13 @@ const customJestConfig = {
     '^@/context/(.*)$': '<rootDir>/src/context/$1',
     '^@/graphql/(.*)$': '<rootDir>/src/graphql/$1',
     '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@/mocks/(.*)$': ['<rootDir>/src/__mocks__/$1'],
     '^@/models/(.*)$': '<rootDir>/src/models/$1',
     '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
     '^@/public/(.*)$': '<rootDir>/public/$1',
     '^@/root/(.*)$': '<rootDir>/$1',
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
-    '^@/utils/(.*)$': '<rootDir>/src/utils/$1)'
+    '^@/utils/(.*)$': '<rootDir>/src/utils/$1'
 
     // Handle image imports
     // https://jestjs.io/docs/webpack#handling-static-assets
