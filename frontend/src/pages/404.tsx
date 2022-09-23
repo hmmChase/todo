@@ -2,15 +2,15 @@
 
 import { NextPageWithLayout } from 'next';
 
-import FullPage from '@/components/LAYOUTS/FullPage';
+import Full from '@/components/LAYOUTS/Full/Full';
 
 const FourOFourPage: NextPageWithLayout = () => <p>Not Found</p>;
 
 FourOFourPage.getLayout = function getLayout(page) {
   return (
-    <FullPage title='404' description='404 page' hasBackButton>
+    <Full title='404' description='404 page' hasBackButton>
       {page}
-    </FullPage>
+    </Full>
   );
 };
 

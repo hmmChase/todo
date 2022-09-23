@@ -25,6 +25,7 @@ import GlobalStyle from '@/styles/global';
 import reportWebVitals from '@/root/reportWebVitals';
 import theme from '@/styles/theme';
 import UserProvider from '@/context/User';
+
 // import { CURRENT_USER } from '@/graphql/queries/user';
 // import { initializeApollo, addApolloState } from '@/graphql/apolloClient';
 // import { READ_IDEAS } from '@/graphql/queries/idea';

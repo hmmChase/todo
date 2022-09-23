@@ -1,18 +1,18 @@
 import { NextPageWithLayout } from 'next';
 
-import FullPage from '@/components/LAYOUTS/FullPage';
-import PassResetReq from '@/components/USER/PassResetReq';
+import Full from '@/components/LAYOUTS/Full/Full';
+import PassResetReq from '@/components/USER/PassResetReq/PassResetReq';
 
 const PassResetReqPage: NextPageWithLayout = () => <PassResetReq />;
 
 PassResetReqPage.getLayout = function getLayout(page) {
   return (
-    <FullPage
+    <Full
       title='Password Reset Request'
       description='Password Reset Request page'
     >
       {page}
-    </FullPage>
+    </Full>
   );
 };
 

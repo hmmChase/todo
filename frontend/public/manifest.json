@@ -1,14 +1,14 @@
 {
-  "name": "hmmStart",
-  "short_name": "hS",
+  "background_color": "#ffffff",
   "description": "An app head start.",
   "dir": "ltr",
-  "lang": "en",
-  "start_url": ".",
   "display": "standalone",
+  "lang": "en",
+  "name": "hmmStart",
   "orientation": "portrait",
+  "short_name": "hS",
+  "start_url": ".",
   "theme_color": "#000000",
-  "background_color": "#ffffff",
   "icons": [
     {
       "src": "/images/pwa/android-36x36.png",

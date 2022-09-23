@@ -3,7 +3,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
@@ -22,17 +22,19 @@
     "strictNullChecks": true,
     "target": "es5",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/constants/*": ["constants/*"],
-      "@/context/*": ["context/*"],
-      "@/graphql/*": ["graphql/*"],
-      "@/hooks/*": ["hooks/*"],
-      "@/models": ["models"],
-      "@/pages/*": ["pages/*"],
-      "@/public/*": ["../public/*"],
-      "@/root/*": ["../*"],
-      "@/styles/*": ["styles/*"],
-      "@/utils/*": ["utils/*"]
+      "@/components/*": ["src/components/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@/context/*": ["src/context/*"],
+      "@/graphql/*": ["src/graphql/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/mocks/*": ["src/__mocks__/*"],
+      "@/models/*": ["src/models/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/public/*": ["public/*"],
+      "@/root/*": ["*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/utils/*": ["src/utils/*"]
+
       // "@graphql-types@": [
       //   "node_modules/@types/graphql-let/__generated__/__types__"
       // ]
@@ -43,6 +45,7 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
+    "additional.d.ts",
     "jest.config.js",
     "jest.setup.js",
     "next-env.d.ts",

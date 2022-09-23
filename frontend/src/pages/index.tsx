@@ -1,15 +1,15 @@
 import { NextPageWithLayout } from 'next';
 
-import IdeasPageOffset from '@/components/IDEA/IdeasPageOffset';
-import Layout from '@/components/LAYOUTS/Layout';
+import App from '@/components/LAYOUTS/App/App';
+import IdeasPageOffset from '@/components/IDEA/IdeasPageOffset/IdeasPageOffset';
 
 const IndexPage: NextPageWithLayout = () => <IdeasPageOffset />;
 
 IndexPage.getLayout = function getLayout(page) {
   return (
-    <Layout title='Home' description='Home page' hasHeader hasFooter>
+    <App title='Home' description='Home page' hasHeader hasFooter>
       {page}
-    </Layout>
+    </App>
   );
 };
 

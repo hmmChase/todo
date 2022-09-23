@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { NextPageWithLayout } from 'next';
 import { useRouter } from 'next/router';
 
-import FullPage from '@/components/LAYOUTS/FullPage';
-import PassReset from '@/components/USER/PassReset';
-import PassResetError from '@/components/USER/PassResetError';
+import Full from '@/components/LAYOUTS/Full/Full';
+import PassReset from '@/components/USER/PassReset/PassReset';
+import PassResetError from '@/components/USER/PassResetError/PassResetError';
 
 type QueryParams = { token: string; expiry: string };
 
@@ -44,9 +44,9 @@ const PassResetPage: NextPageWithLayout = () => {
 
 PassResetPage.getLayout = function getLayout(page) {
   return (
-    <FullPage title='Password Reset' description='Password Reset page'>
+    <Full title='Password Reset' description='Password Reset page'>
       {page}
-    </FullPage>
+    </Full>
   );
 };
 

@@ -2,7 +2,7 @@
 
 import jwt from 'jsonwebtoken';
 
-import { User } from '@/models';
+import { User } from '@/models/index';
 
 interface JwtPayload {
   user: User;
