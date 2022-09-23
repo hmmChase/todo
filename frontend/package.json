@@ -18,7 +18,7 @@
     "serve-storybook": "serve storybook",
     "test": "jest --watch",
     "test:ci": "jest --ci",
-    "generate": "graphql-codegen --debug --verbose"
+    "codegen": "graphql-codegen --debug --verbose"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",

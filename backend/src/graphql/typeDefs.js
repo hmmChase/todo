@@ -1,3 +1,5 @@
+// https:www.graphql.org/learn/schema/
+
 // Whenever this files changes:
 // npx prisma generate
 
