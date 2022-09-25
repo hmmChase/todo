@@ -1,7 +1,7 @@
 import { from, HttpLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 
-import { backendUrl, development } from '@/constants/config';
+import { development, gqlUri } from '@/constants/config';
 import coloredLog from '@/utils/coloredLog';
 
 // import { TokenRefreshLink } from 'apollo-link-token-refresh';
@@ -78,7 +78,7 @@ const errorLink = onError(error => {
 // });
 
 const httpLink = new HttpLink({
-  uri: `${backendUrl}/gql`,
+  uri: gqlUri,
 
   credentials: 'include'
 });
