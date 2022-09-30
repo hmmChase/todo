@@ -1,3 +1,5 @@
+import { DefaultTheme } from 'styled-components';
+
 const colors = {
   white: 'white', // #FFFFFF
   black: 'black', // #000000
@@ -45,8 +47,8 @@ const borderRadius = { primary: '5px', round: '50%' };
 
 const width = { page: '800px' };
 
-const theme = {
-  breakpoints: { mobile: 320, tablet: 768, desktop: 1024 },
+const theme: DefaultTheme = {
+  breakpoints: { sm: 640, md: 768, lg: 1024, xl: 1280 },
 
   fonts,
   fontSize,
