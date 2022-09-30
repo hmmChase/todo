@@ -3,7 +3,7 @@
 // https://dev.to/ofilipowicz/next-js-per-page-layouts-and-typescript-lh5
 
 import type { ReactElement, ReactNode } from 'react';
-import type { NextPage } from 'next';
+import type { NextPage, NextPageWithLayout } from 'next';
 import type { AppProps } from 'next/app';
 
 // import { User } from "@/models";

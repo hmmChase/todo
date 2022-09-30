@@ -4,6 +4,7 @@
 import { Fragment } from 'react';
 import Document, {
   DocumentContext,
+  DocumentInitialProps,
   Head,
   Html,
   Main,
@@ -36,8 +37,9 @@ import { ServerStyleSheet } from 'styled-components';
 class MyDocument extends Document {
   // `getInitialProps` belongs to `_document` (instead of `_app`)
   // It's compatible with server-side generation (SSG)
-  static async getInitialProps(ctx: DocumentContext) {
-    // Render app and page and get the context of the page with collected side effects
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
     const sheet = new ServerStyleSheet();
 
     const originalRenderPage = ctx.renderPage;
@@ -47,8 +49,9 @@ class MyDocument extends Document {
       ctx.renderPage = () =>
         // Render app and page to get the context of the page with collected side effects
         originalRenderPage({
-          // enhanceApp useful for wrapping the whole react tree
+          // Retrieve styles from components in the page
           // collectStyles wraps your element in a provider
+          // enhanceApp useful for wrapping the whole react tree
           enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
 
           // Useful for wrapping in a per-page basis
@@ -61,10 +64,10 @@ class MyDocument extends Document {
       return {
         ...initialProps,
 
-        // Pass styleTags as a prop
         // Extract the styles as <style> tags using getStyleElement
-        // Styles fragment is rendered after the app and page rendering finish
         // getStyleElement returns an array of React elements
+        // Pass styleTags as a prop
+        // Styles fragment is rendered after the app and page rendering finish
         styles: [
           <Fragment key={1}>
             {initialProps.styles}
