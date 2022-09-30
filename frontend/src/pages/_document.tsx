@@ -68,7 +68,6 @@ class MyDocument extends Document {
         // getStyleElement returns an array of React elements
         // Pass styleTags as a prop
         // Styles fragment is rendered after the app and page rendering finish
-        // styles: [initialProps.styles, sheet.getStyleElement()]
         styles: [
           <Fragment key={1}>
             {initialProps.styles}

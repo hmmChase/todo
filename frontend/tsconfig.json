@@ -1,4 +1,4 @@
-// https://react-typescript-cheatsheet.netlify.app/
+// https://www.typescriptlang.org/tsconfig
 
 {
   "compilerOptions": {
@@ -34,10 +34,6 @@
       "@/root/*": ["*"],
       "@/styles/*": ["src/styles/*"],
       "@/utils/*": ["src/utils/*"]
-
-      // "@graphql-types@": [
-      //   "node_modules/@types/graphql-let/__generated__/__types__"
-      // ]
     }
   },
   "include": [
