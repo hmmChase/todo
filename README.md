@@ -59,5 +59,3 @@
      - `DATABASE_URL`
      - `ACCESS_TOKEN_SECRET`
 4. Deploy
-
-test
