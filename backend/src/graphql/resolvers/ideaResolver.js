@@ -1,5 +1,4 @@
-import { AuthenticationError, ForbiddenError } from 'apollo-server-express';
-
+import { AuthenticationError, ForbiddenError } from '../../utils/error.js';
 import { consoleLog } from '../../utils/myLogger.js';
 import { development } from '../../constants/config.js';
 import { verifyAccessToken } from '../../utils/accessToken.js';
@@ -15,7 +14,12 @@ const ideaResolver = {
         // Find idea matching user id
         const idea = await ctx.prisma.idea.findUnique({
           where: { id },
-          select: { id: true, content: true, author: { select: { id: true } } }
+          select: {
+            id: true,
+            createdAt: true,
+            content: true,
+            author: { select: { id: true } }
+          }
         });
 
         // Return idea
@@ -33,7 +37,12 @@ const ideaResolver = {
         // Find all ideas that haven't been deleted
         const ideas = await ctx.prisma.idea.findMany({
           where: { removedAt: null },
-          select: { id: true, content: true, author: { select: { id: true } } },
+          select: {
+            id: true,
+            createdAt: true,
+            content: true,
+            author: { select: { id: true } }
+          },
           orderBy: { createdAt: 'desc' }
         });
 
@@ -51,7 +60,7 @@ const ideaResolver = {
       const { offset, limit } = args;
 
       if ((!offset && offset !== 0) || !limit)
-        throw new ForbiddenError(
+        throw ForbiddenError(
           'idea.error.ideasPaginatedOffset.invalidOffsetOrLimit'
         );
 
@@ -84,7 +93,7 @@ const ideaResolver = {
       const { after, pageSize } = args;
 
       // if (!cursor || !limit)
-      //   throw new ForbiddenError(
+      //   throw ForbiddenError(
       //     'idea.error.ideasPaginatedCursor.invalidCursorOrLimit'
       //   );
 
@@ -92,7 +101,7 @@ const ideaResolver = {
       console.log('pageSize:', pageSize);
 
       // if ((!offset && offset !== 0) || !limit)
-      //   throw new ForbiddenError(
+      //   throw ForbiddenError(
       //     'idea.error.ideasPaginatedCursor.invalidOffsetOrLimit'
       //   );
 
@@ -162,7 +171,7 @@ const ideaResolver = {
     /* Return authenticated user's ideas */
     currentUserIdeas: async (parent, args, ctx, info) => {
       // If user not logged in, return null
-      if (!ctx.accessToken) throw new AuthenticationError('no access token');
+      if (!ctx.accessToken) throw AuthenticationError('no access token');
       // if (!ctx.accessToken) return null;
 
       // Verify access token & decode payload
@@ -172,7 +181,12 @@ const ideaResolver = {
         // Find all ideas matching author id & haven't been deleted
         const ideas = await ctx.prisma.idea.findMany({
           where: { author: { id: payload.user.id }, removedAt: null },
-          select: { id: true, content: true, author: { select: { id: true } } },
+          select: {
+            id: true,
+            createdAt: true,
+            content: true,
+            author: { select: { id: true } }
+          },
           orderBy: { createdAt: 'desc' }
         });
 
@@ -273,7 +287,7 @@ const ideaResolver = {
 
         // If not, throw error
         if (!ownsIdea)
-          throw new ForbiddenError('idea.error.updateIdea.invalidOwnership');
+          throw ForbiddenError('idea.error.updateIdea.invalidOwnership');
 
         // Update idea
         const updatedIdea = ctx.prisma.idea.update({
@@ -309,7 +323,7 @@ const ideaResolver = {
 
         // If not, throw error
         if (!ownsIdea)
-          throw new ForbiddenError('idea.error.removeIdea.invalidOwnership');
+          throw ForbiddenError('idea.error.removeIdea.invalidOwnership');
 
         // Update idea soft delete field
         const removedIdea = await ctx.prisma.idea.update({
@@ -345,7 +359,7 @@ const ideaResolver = {
 
         // If not, throw error
         if (!ownsIdea)
-          throw new ForbiddenError('idea.error.deleteIdea.invalidOwnership');
+          throw ForbiddenError('idea.error.deleteIdea.invalidOwnership');
 
         // Delete idea
         const deletedIdea = ctx.prisma.idea.delete({

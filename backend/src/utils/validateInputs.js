@@ -1,17 +1,17 @@
-import { UserInputError } from 'apollo-server-express';
 import isEmail from 'isemail';
 
 import { passwordMaxLength, passwordMinLength } from '../constants/config.js';
+import { UserInputError } from '../utils/error.js';
 
 /** ----- Email ----- */
 
 const validateEmail = email => {
   // Check if missing args
-  if (!email) throw new UserInputError('missing', { argumentName: 'email' });
+  if (!email) throw UserInputError('missing', { argumentName: 'email' });
 
   // Type check
   if (typeof email !== 'string')
-    throw new UserInputError('type', { argumentName: 'email' });
+    throw UserInputError('type', { argumentName: 'email' });
 
   // Check if email is well-formed
   isEmailWellFormed(email);
@@ -21,8 +21,7 @@ const isEmailWellFormed = email => {
   // Ensure valid email address
   const isvalid = isEmail.validate(email);
 
-  if (!isvalid)
-    throw new UserInputError('error.user.isEmailWellFormed.invalid');
+  if (!isvalid) throw UserInputError('error.user.isEmailWellFormed.invalid');
 };
 
 /** ----- Password ----- */
@@ -34,20 +33,19 @@ const isPasswordWellFormed = password => {
   */
 
   const tooShort = password.length < passwordMinLength;
-  if (tooShort) throw new UserInputError({ msg: 'user.password.short' });
+  if (tooShort) throw UserInputError({ msg: 'user.password.short' });
 
   const tooLong = password.length > passwordMaxLength;
-  if (tooLong) throw new UserInputError({ msg: 'user.password.long' });
+  if (tooLong) throw UserInputError({ msg: 'user.password.long' });
 };
 
 const validatePassword = password => {
   // Check if missing args
-  if (!password)
-    throw new UserInputError('missing', { argumentName: 'password' });
+  if (!password) throw UserInputError('missing', { argumentName: 'password' });
 
   // Type check
   if (typeof password !== 'string')
-    throw new UserInputError('type', { argumentName: 'password' });
+    throw UserInputError('type', { argumentName: 'password' });
 
   // Check if password is well-formed
   isPasswordWellFormed(password);

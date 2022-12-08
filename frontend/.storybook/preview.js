@@ -1,4 +1,4 @@
-import * as NextImage from 'next/image';
+import * as NextImage from 'next/legacy/image';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { MockedProvider } from '@apollo/client/testing';
 import { ThemeProvider } from 'styled-components';

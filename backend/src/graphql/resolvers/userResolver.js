@@ -1,8 +1,8 @@
 // https://www.apollographql.com/docs/apollo-server/data/resolvers
 
-import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import bcryptjs from 'bcryptjs';
 
+import { AuthenticationError, UserInputError } from '../../utils/error.js';
 import {
   sendPassResetReqEmail,
   sendSignUpEmail
@@ -70,7 +70,7 @@ const userResolver = {
     /* Return authenticated user */
     currentUser: async (parent, args, ctx, info) => {
       // If user not logged in, return null
-      if (!ctx.accessToken) throw new AuthenticationError('no access token');
+      if (!ctx.accessToken) throw AuthenticationError('no access token');
 
       // Verify access token & decode payload
       const payload = verifyAccessToken(ctx.accessToken);
@@ -133,7 +133,7 @@ const userResolver = {
 
         // If user not found, throw error with display code
         if (!user)
-          throw new UserInputError('user not found', {
+          throw UserInputError('user not found', {
             displayCode: 'user.null'
           });
 
@@ -188,7 +188,7 @@ const userResolver = {
 
         // If user found, throw error with display code
         if (foundUser)
-          throw new UserInputError('user already exists', {
+          throw UserInputError('user already exists', {
             displayCode: 'user.exists'
           });
 
@@ -250,7 +250,7 @@ const userResolver = {
 
         // If user not found, throw error with display code
         if (!user)
-          throw new UserInputError('user not found', {
+          throw UserInputError('user not found', {
             displayCode: 'user.null'
           });
 
@@ -297,7 +297,7 @@ const userResolver = {
         });
 
         // If user not found, return error
-        if (!foundUser) throw new UserInputError({ msg: 'user.null' });
+        if (!foundUser) throw UserInputError({ msg: 'user.null' });
 
         // Check if password reset token is expired
         validatePassReset(foundUser.passResetExpiry);

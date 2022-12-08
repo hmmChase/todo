@@ -31,10 +31,10 @@ const frontendUrlDev = 'http://localhost:1337';
 const frontendUrlPrev = 'https://hmmstart-git-preview-hmmchase.vercel.app';
 const frontendUrlProd = 'https://hmmstart.vercel.app';
 
-// export const deployedUrl = process.env.VERCEL_URL;
-
 export const frontendUrl = development
   ? frontendUrlDev
   : preview
   ? frontendUrlPrev
   : production && frontendUrlProd;
+
+export const backendUrl = process.env.VERCEL_URL;

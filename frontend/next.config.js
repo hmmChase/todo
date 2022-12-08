@@ -1,3 +1,5 @@
+// https://nextjs.org/docs/basic-features/typescript#type-checking-nextconfigjs
+
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {

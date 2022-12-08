@@ -1,3 +1,4 @@
+// https://nextjs.org/docs/basic-features/eslint
 // https://github.com/vercel/next.js/blob/canary/examples/with-jest/.eslintrc.json
 
 {
@@ -17,5 +18,7 @@
 
       "extends": ["plugin:testing-library/react"]
     }
-  ]
+  ],
+
+  "ignorePatterns": ["node_modules/", ".next/", "build/", "coverage/"]
 }

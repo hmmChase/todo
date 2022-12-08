@@ -9,7 +9,7 @@ CREATE TABLE "User" (
     "removedAt" TIMESTAMP(3),
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "role" "Role" NOT NULL DEFAULT E'USER',
+    "role" "Role" NOT NULL DEFAULT 'USER',
     "passResetToken" TEXT,
     "passResetExpiry" TIMESTAMP(3),
 
