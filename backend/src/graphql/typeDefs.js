@@ -3,9 +3,7 @@
 // Whenever this files changes:
 // npx prisma generate
 
-import { gql } from 'apollo-server-express';
-
-const typeDefs = gql`
+const typeDefs = `#graphql
   # ---------- Types ----------
 
   type Query {

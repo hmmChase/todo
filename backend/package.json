@@ -13,8 +13,9 @@
     "seed": "node prisma/seed.js"
   },
   "dependencies": {
-    "@prisma/client": "^4.6.1",
-    "apollo-server-express": "^3.11.1",
+    "@apollo/server": "^4.2.2",
+    "@graphql-tools/schema": "^9.0.10",
+    "@prisma/client": "^4.7.1",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
@@ -24,20 +25,22 @@
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "graphql": "^16.6.0",
-    "helmet": "^6.0.0",
+    "helmet": "^6.0.1",
     "isemail": "^3.2.0",
     "jsonwebtoken": "^8.5.1",
     "juice": "^8.1.0",
     "morgan": "^1.10.0",
     "nodemailer": "^6.8.0",
+    "typescript": "^4.9.3",
     "winston": "^3.8.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
+    "@types/node": "^18.11.11",
     "cross-env": "^7.0.3",
-    "eslint": "^8.27.0",
+    "eslint": "^8.29.0",
     "eslint-plugin-import": "^2.26.0",
     "nodemon": "^2.0.20",
-    "prisma": "^4.6.1"
+    "prisma": "^4.7.1"
   }
 }

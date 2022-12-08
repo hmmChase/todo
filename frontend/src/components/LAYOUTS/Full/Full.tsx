@@ -79,11 +79,7 @@ const Logo = styled.a`
   margin: 2rem 0 0 2rem;
 `;
 
-const BoxImg = styled(Image).attrs({
-  height: 41,
-  layout: 'fixed',
-  width: 50
-})``;
+const BoxImg = styled(Image).attrs({ height: 41, width: 50 })``;
 
 const SiteTitle = styled.h1`
   color: ${props => props.theme.text.tertiary};

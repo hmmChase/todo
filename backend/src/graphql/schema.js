@@ -1,3 +1,6 @@
+// https://www.apollographql.com/docs/apollo-server/api/apollo-server/#schema
+// https://the-guild.dev/graphql/tools/docs/generate-schema
+
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
 // import { development } from '../constants/config.js';
@@ -6,7 +9,9 @@ import typeDefs from './typeDefs.js';
 
 // import { permissions } from './permissions';
 
-// https://www.graphql-tools.com/docs/generate-schema/#makeexecutableschemaoptions
+// A schema is a collection of type definitions (hence "typeDefs")
+// that together define the "shape" of queries that are executed against
+// your data.
 
 const executableSchema = makeExecutableSchema({
   // Type definitions define the "shape" of your data and specify

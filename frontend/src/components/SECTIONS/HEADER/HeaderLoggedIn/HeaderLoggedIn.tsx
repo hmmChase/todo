@@ -1,41 +1,27 @@
 import { FC } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import styled from 'styled-components';
 
+import ActiveLink from '@/components/REUSEABLE/ActiveLink/ActiveLink';
 import Left from '@/components/DESIGN/ICONS/Left/Left';
 
 const HeaderLoggedIn: FC = () => {
-  const router = useRouter();
-
-  const routePathArr = router.asPath.split('/');
-
-  const isActive = (path: string) => routePathArr[1] === path;
+  const style = { margin: 5 };
 
   return (
-    <UL>
-      <li>
-        <Link href='/account' passHref prefetch={false}>
-          <Option>
-            <Right data-active={isActive('account')} />
-
-            <a data-active={isActive('account')}>Account</a>
-          </Option>
-        </Link>
-      </li>
-
-      <li>
-        <Link href='/logout' prefetch={false}>
-          <a data-active={isActive('logout')}>Log out</a>
-        </Link>
-      </li>
-
-      <style jsx>{`
-        a[data-active='true'] {
-          color: lightblue;
-        }
-      `}</style>
-    </UL>
+    <nav style={style}>
+      <UL>
+        <li>
+          <ActiveLink activeClassName='active' href='/account'>
+            Account
+          </ActiveLink>
+        </li>
+        <li>
+          <ActiveLink activeClassName='active' href='/logout'>
+            Log Out
+          </ActiveLink>
+        </li>
+      </UL>
+    </nav>
   );
 };
 
@@ -45,6 +31,14 @@ const UL = styled.ul`
   list-style: none;
   margin: 0;
   padding: 10px;
+
+  .active {
+    /* color: ${props => props.theme.text.primary}; */
+  }
+
+  .active:before {
+    content: '>';
+  }
 
   > li {
     cursor: pointer;
@@ -60,7 +54,7 @@ const UL = styled.ul`
   }
 `;
 
-export const Option = styled.div`
+const Option = styled.div`
   align-items: center;
   display: flex;
 `;

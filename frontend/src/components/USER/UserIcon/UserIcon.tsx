@@ -56,10 +56,7 @@ const Dropdownn = styled(Dropdown)`
   top: 33px; /* UserIcon height */
 `;
 
-const IconUser = styled(Image).attrs({
-  height: '33px',
-  width: '33px'
-})<scProps>`
+const IconUser = styled(Image).attrs({ height: 33, width: 33 })<scProps>`
   background-color: ${props =>
     props.$isDropdownOpen
       ? props.theme.background.quinary

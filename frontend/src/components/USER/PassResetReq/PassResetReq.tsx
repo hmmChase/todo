@@ -83,9 +83,9 @@ const PassResetReq: FC = () => {
         Submit
       </Buttonn>
 
-      <Link href='/login' passHref>
-        <A>Log in</A>
-      </Link>
+      <Linkk href='/login' passHref>
+        Log in
+      </Linkk>
     </Form>
   );
 };
@@ -106,11 +106,12 @@ const Buttonn = styled(Button)`
   align-self: flex-end;
 `;
 
-const A = styled.a`
-  align-self: flex-start;
-  cursor: pointer;
+const Linkk = styled(Link)`
+  /* align-self: flex-start; */
+  /* cursor: pointer; */
   font-size: ${props => props.theme.fontSize.small};
   font-weight: bold;
+  text-decoration: none;
 
   &:hover {
     text-decoration: underline;

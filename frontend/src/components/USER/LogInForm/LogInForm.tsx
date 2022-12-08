@@ -123,13 +123,13 @@ const LogInForm: FC<Props> = ({ close }) => {
       </Buttonn>
 
       <LogInLinks>
-        <Link href='/reqpassreset' passHref>
-          <A>Reset Password</A>
-        </Link>
+        <Linkk href='/reqpassreset' passHref>
+          Reset Password
+        </Linkk>
 
-        <Link href='/signup' passHref>
-          <A>Create account</A>
-        </Link>
+        <Linkk href='/signup' passHref>
+          Create account
+        </Linkk>
       </LogInLinks>
     </Form>
   );
@@ -158,11 +158,12 @@ export const LogInLinks = styled.div`
   gap: 0.5rem;
 `;
 
-const A = styled.a`
-  align-self: flex-start;
-  cursor: pointer;
+const Linkk = styled(Link)`
+  /* align-self: flex-start; */
+  /* cursor: pointer; */
   font-size: ${props => props.theme.fontSize.small};
   font-weight: bold;
+  text-decoration: none;
 
   &:hover {
     text-decoration: underline;

@@ -98,11 +98,7 @@ const Logo = styled.div`
   display: flex;
 `;
 
-const BoxImg = styled(Image).attrs({
-  height: 41,
-  layout: 'fixed',
-  width: 50
-})``;
+const BoxImg = styled(Image).attrs({ height: 41, width: 50 })``;
 
 const IdeaTitle = styled.h2`
   font-size: ${props => props.theme.fontSize.h2};

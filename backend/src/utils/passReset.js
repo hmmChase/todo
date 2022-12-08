@@ -1,6 +1,7 @@
-import { UserInputError } from 'apollo-server-express';
 import { randomBytes } from 'crypto';
 import { promisify } from 'util';
+
+import { UserInputError } from '../utils/error.js';
 
 import {
   passResetExpiry,
@@ -20,5 +21,5 @@ export const createPassReset = async () => {
 export const validatePassReset = passResetExpiry => {
   const tokenExpired = Date.now() > passResetExpiry;
 
-  if (tokenExpired) throw new UserInputError({ msg: 'user.passReset.expired' });
+  if (tokenExpired) throw UserInputError({ msg: 'user.passReset.expired' });
 };

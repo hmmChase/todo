@@ -1,66 +1,40 @@
-// https://github.com/vercel/next.js/tree/canary/examples/active-class-name
+// not used
 
-import { Children, cloneElement, FC, ReactElement } from 'react';
-import { useRouter } from 'next/router';
-import Link, { LinkProps } from 'next/link';
+import { FC } from 'react';
 import styled from 'styled-components';
 
-interface Props {
-  activeClassName?: string;
-  as?: string;
-  children: ReactElement;
-  href: LinkProps['href'];
-}
-
-const ActiveLink: FC<Props> = ({ activeClassName, as, children, href }) => {
-  const { asPath } = useRouter();
-
-  const child = Children.only(children);
-
-  const childClassName = child.props.className || '';
-
-  const className =
-    asPath === href || asPath === as
-      ? `${childClassName} ${activeClassName}`.trim()
-      : childClassName;
-
-  return (
-    <Link href={href}>
-      {cloneElement(child, { className: className || null })}
-    </Link>
-  );
-};
+import ActiveLink from '@/components/REUSEABLE/ActiveLink/ActiveLink';
 
 const NavBar: FC = () => (
   <nav>
     <UL>
       <li>
         <ActiveLink href='/' activeClassName='active'>
-          <A>Home</A>
+          Home
         </ActiveLink>
       </li>
 
       <li>
         <ActiveLink href='/offset' activeClassName='active'>
-          <A>Offset</A>
+          Offset
         </ActiveLink>
       </li>
 
       <li>
         <ActiveLink href='/cursor' activeClassName='active'>
-          <A>Cursor</A>
+          Cursor
         </ActiveLink>
       </li>
 
       <li>
         <ActiveLink href='/ssr' activeClassName='active'>
-          <A>SSR</A>
+          SSR
         </ActiveLink>
       </li>
 
       <li>
         <ActiveLink href='/ssg' activeClassName='active'>
-          <A>SSG</A>
+          SSG
         </ActiveLink>
       </li>
     </UL>
@@ -79,12 +53,12 @@ const UL = styled.ul`
   .active {
     color: ${props => props.theme.text.tertiary};
   }
-`;
 
-export const A = styled.a`
-  cursor: pointer;
+  > a {
+    cursor: pointer;
 
-  &:hover {
-    font-weight: bold;
+    &:hover {
+      font-weight: bold;
+    }
   }
 `;
