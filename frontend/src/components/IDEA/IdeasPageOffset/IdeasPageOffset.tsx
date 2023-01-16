@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import { Ideas } from '@/models/index';
 import { ideasPerPage } from '@/constants/config';
 import { READ_IDEAS_PAGINATED_OFFSET } from '@/graphql/queries/idea';
-import Button from '@/components/REUSEABLE/Button/Button';
+import Button from '@/components/COMMON/Button/Button';
 import IdeaList from '@/components/IDEA/IdeaList/IdeaList';
-import Loading from '@/components/REUSEABLE/Loading/Loading';
-import QueryResult from '@/components/REUSEABLE/QueryResult/QueryResult';
+import Loading from '@/components/COMMON/Loading/Loading';
+import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 
 const IdeasPageOffset: FC = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);

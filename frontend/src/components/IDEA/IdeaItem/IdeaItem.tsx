@@ -14,7 +14,9 @@ interface Props {
 const IdeaItem: FC<Props> = ({ authorId, content, ideaId }) => {
   const { user } = useContext(UserCtx);
 
-  const currentUserOwnsIdea = user?.id === authorId;
+  const currentUserIsAdmin = user?.role === 'ADMIN';
+  const currentUserIsAuthor = user?.id === authorId;
+  const currentUserCanDeleteIdea = currentUserIsAdmin || currentUserIsAuthor;
 
   return (
     <Article>
@@ -23,7 +25,7 @@ const IdeaItem: FC<Props> = ({ authorId, content, ideaId }) => {
       <IdeaItemBtns>
         <IdeaDetailIconn ideaId={ideaId} />
 
-        {currentUserOwnsIdea && <RemoveIdea ideaId={ideaId} />}
+        {currentUserCanDeleteIdea && <RemoveIdea ideaId={ideaId} />}
       </IdeaItemBtns>
     </Article>
   );

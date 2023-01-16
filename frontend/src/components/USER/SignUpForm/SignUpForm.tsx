@@ -10,9 +10,9 @@ import { email, password } from '@/utils/validateAuthInputs';
 import { SIGN_UP } from '@/graphql/queries/user';
 import { User } from '@/models/index';
 import { UserCtx } from '@/context/User';
-import Button from '@/components/REUSEABLE/Button/Button';
-import Error from '@/components/REUSEABLE/Error/Error';
-import FormInput from '@/components/REUSEABLE/FormInput/FormInput';
+import Button from '@/components/COMMON/Button/Button';
+import Error from '@/components/COMMON/Error/Error';
+import FormInput from '@/components/COMMON/FormInput/FormInput';
 import PassReqList from '@/components/USER/PassReqList/PassReqList';
 // import { isLoggedInVar } from '@/graphql/cache';
 

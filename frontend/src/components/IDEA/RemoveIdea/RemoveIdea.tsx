@@ -2,7 +2,7 @@ import { FC, MouseEventHandler } from 'react';
 import { MutationUpdaterFn, useMutation } from '@apollo/client';
 
 import { REMOVE_IDEA } from '@/graphql/queries/idea';
-import { XIconBtn } from '@/components/REUSEABLE/IconBtn/IconBtn';
+import { XIconBtn } from '@/components/COMMON/IconBtn/IconBtn';
 
 interface Props {
   ideaId: string;

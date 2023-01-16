@@ -1,15 +1,18 @@
-// https://nextjs.org/docs/basic-features/eslint
-// https://github.com/vercel/next.js/blob/canary/examples/with-jest/.eslintrc.json
-
 {
   "root": true,
 
-  "extends": "next/core-web-vitals",
+  "extends": [
+    // https://nextjs.org/docs/basic-features/eslint
+    "next/core-web-vitals",
+
+    // https://github.com/storybookjs/eslint-plugin-storybook
+    "plugin:storybook/recommended"
+  ],
 
   "plugins": ["testing-library"],
 
   "overrides": [
-    // Only uses Testing Library lint rules in test files
+    // https://github.com/testing-library/eslint-plugin-testing-library
     {
       "files": [
         "**/__tests__/**/*.[jt]s?(x)",

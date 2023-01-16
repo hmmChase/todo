@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import HorizontalRule from '@/components/REUSEABLE/HorizontalRule/HorizontalRule';
-import Modal from '@/components/REUSEABLE/Modal/Modal';
+import HorizontalRule from '@/components/COMMON/HorizontalRule/HorizontalRule';
+import Modal from '@/components/COMMON/Modal/Modal';
 import SignUpForm from '@/components/USER/SignUpForm/SignUpForm';
 
 interface Props {

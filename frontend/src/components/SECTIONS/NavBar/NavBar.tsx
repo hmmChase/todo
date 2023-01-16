@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import ActiveLink from '@/components/REUSEABLE/ActiveLink/ActiveLink';
+import ActiveLink from '@/components/COMMON/ActiveLink/ActiveLink';
 
 const NavBar: FC = () => (
   <nav>

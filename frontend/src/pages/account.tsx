@@ -6,7 +6,7 @@ import { CURRENT_USER_IDEAS } from '@/graphql/queries/idea';
 import { Ideas } from '@/models/index';
 import IdeaList from '@/components/IDEA/IdeaList/IdeaList';
 import App from '@/components/LAYOUTS/App/App';
-import QueryResult from '@/components/REUSEABLE/QueryResult/QueryResult';
+import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 // import verifyUser from '@/utils/verifyUser';
 
 const AccountPage: NextPageWithLayout = () => {

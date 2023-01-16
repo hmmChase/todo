@@ -7,11 +7,11 @@ import styled from 'styled-components';
 
 import { email } from '@/utils/validateAuthInputs';
 import { PASS_RESET_REQ } from '@/graphql/queries/user';
-import Button from '@/components/REUSEABLE/Button/Button';
+import Button from '@/components/COMMON/Button/Button';
 import displayMessages from '@/constants/displayMessages';
-import Error from '@/components/REUSEABLE/Error/Error';
-import FormInput from '@/components/REUSEABLE/FormInput/FormInput';
-import Status from '@/components/REUSEABLE/Status/Status';
+import Error from '@/components/COMMON/Error/Error';
+import FormInput from '@/components/COMMON/FormInput/FormInput';
+import Status from '@/components/COMMON/Status/Status';
 
 type HandleSubmit = (
   formikHelpers: FormikHelpers<{ passResetReqEmail: string }>,

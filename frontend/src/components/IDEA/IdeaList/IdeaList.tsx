@@ -5,11 +5,11 @@ import { Ideas } from '@/models/index';
 import IdeaItem from '@/components/IDEA/IdeaItem/IdeaItem';
 
 interface Props {
-  ideas: Ideas;
+  ideas: Ideas | undefined;
 }
 
 const IdeaList: FC<Props> = ({ ideas }) => {
-  const ideaItems = ideas.map(idea => (
+  const ideaItems = ideas?.map(idea => (
     <LI key={idea.id}>
       <hr />
 

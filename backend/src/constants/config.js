@@ -1,8 +1,10 @@
 /* Environments */
 
-export const development = process.env.NODE_ENV === 'development';
+export const test = process.env.VERCEL_ENV === 'test';
 export const preview = process.env.VERCEL_ENV === 'preview';
 export const production = process.env.VERCEL_ENV === 'production';
+
+export const development = !test || !preview || !production;
 
 /* Settings */
 

@@ -8,12 +8,12 @@ import { PASS_RESET } from '@/graphql/queries/user';
 import { password } from '@/utils/validateAuthInputs';
 import { User } from '@/models/index';
 import { UserCtx } from '@/context/User';
-import Button from '@/components/REUSEABLE/Button/Button';
+import Button from '@/components/COMMON/Button/Button';
 import displayMessages from '@/constants/displayMessages';
-import Error from '@/components/REUSEABLE/Error/Error';
-import FormInput from '@/components/REUSEABLE/FormInput/FormInput';
+import Error from '@/components/COMMON/Error/Error';
+import FormInput from '@/components/COMMON/FormInput/FormInput';
 import PassReqList from '@/components/USER/PassReqList/PassReqList';
-import Status from '@/components/REUSEABLE/Status/Status';
+import Status from '@/components/COMMON/Status/Status';
 // import { isLoggedInVar } from '@/graphql/cache';
 
 interface Props {

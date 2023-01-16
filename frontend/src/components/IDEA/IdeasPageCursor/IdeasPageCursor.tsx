@@ -5,8 +5,8 @@ import { Ideas } from '@/models/index';
 import { ideasPerPage } from '@/constants/config';
 import { READ_IDEAS_PAGINATED_CURSOR } from '@/graphql/queries/idea';
 import IdeaList from '@/components/IDEA/IdeaList/IdeaList';
-import Loading from '@/components/REUSEABLE/Loading/Loading';
-import QueryResult from '@/components/REUSEABLE/QueryResult/QueryResult';
+import Loading from '@/components/COMMON/Loading/Loading';
+import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 
 const IdeasPageCursor: FC = () => {
   // const [page, setPage] = useState(0);

@@ -1,20 +1,30 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import styled from 'styled-components';
 
-import ActiveLink from '@/components/REUSEABLE/ActiveLink/ActiveLink';
+import { UserCtx } from '@/context/User';
+import ActiveLink from '@/components/COMMON/ActiveLink/ActiveLink';
 import Left from '@/components/DESIGN/ICONS/Left/Left';
 
 const HeaderLoggedIn: FC = () => {
-  const style = { margin: 5 };
+  const { user } = useContext(UserCtx);
 
   return (
-    <nav style={style}>
+    <nav>
       <UL>
+        {user?.role === 'ADMIN' && (
+          <li>
+            <ActiveLink activeClassName='active' href='/admin'>
+              Admin
+            </ActiveLink>
+          </li>
+        )}
+
         <li>
           <ActiveLink activeClassName='active' href='/account'>
             Account
           </ActiveLink>
         </li>
+
         <li>
           <ActiveLink activeClassName='active' href='/logout'>
             Log Out

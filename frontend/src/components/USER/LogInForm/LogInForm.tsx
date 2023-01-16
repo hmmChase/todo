@@ -11,9 +11,9 @@ import { isLoggedInVar } from '@/graphql/cache';
 import { LOG_IN } from '@/graphql/queries/user';
 import { User } from '@/models/index';
 import { UserCtx } from '@/context/User';
-import Button from '@/components/REUSEABLE/Button/Button';
-import Error from '@/components/REUSEABLE/Error/Error';
-import FormInput from '@/components/REUSEABLE/FormInput/FormInput';
+import Button from '@/components/COMMON/Button/Button';
+import Error from '@/components/COMMON/Error/Error';
+import FormInput from '@/components/COMMON/FormInput/FormInput';
 
 interface Props {
   close?: () => void;

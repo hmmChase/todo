@@ -6,6 +6,8 @@ export interface User {
   ideas?: Idea[];
 }
 
+export type Users = User[];
+
 export interface Idea {
   __typename?: string;
   id: string;

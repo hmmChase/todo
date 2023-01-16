@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { Ideas as Ideass } from '@/models/index';
 import { READ_IDEAS } from '@/graphql/queries/idea';
 import IdeaList from '@/components/IDEA/IdeaList/IdeaList';
-import QueryResult from '@/components/REUSEABLE/QueryResult/QueryResult';
+import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 
 const Ideas: FC = () => {
   const { data, error, loading } = useQuery(READ_IDEAS);

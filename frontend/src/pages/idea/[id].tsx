@@ -6,7 +6,7 @@ import { Idea } from '@/models/index';
 import { READ_IDEA } from '@/graphql/queries/idea';
 import App from '@/components/LAYOUTS/App/App';
 import IdeaDetail from '@/components/IDEA/DETAIL/IdeaDetail/IdeaDetail';
-import QueryResult from '@/components/REUSEABLE/QueryResult/QueryResult';
+import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 
 const IdeaPage: NextPageWithLayout = () => {
   const router = useRouter();

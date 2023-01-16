@@ -2,7 +2,7 @@ import { FC, useRef, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import Dropdown from '@/components/REUSEABLE/Dropdown/Dropdown';
+import Dropdown from '@/components/COMMON/Dropdown/Dropdown';
 import HeaderLoggedIn from '@/components/SECTIONS/HEADER/HeaderLoggedIn/HeaderLoggedIn';
 import userSvg from '@/public/images/user.svg';
 

@@ -26,7 +26,7 @@ export const IS_LOGGED_IN = gql`
 
 export const READ_USER = gql`
   query ReadUser($id: ID!) {
-    readUser(id: $id) {
+    user(id: $id) {
       ...userFields
     }
   }
@@ -35,7 +35,7 @@ export const READ_USER = gql`
 
 export const READ_USERS = gql`
   query ReadUsers {
-    readUsers {
+    users {
       ...userFields
     }
   }

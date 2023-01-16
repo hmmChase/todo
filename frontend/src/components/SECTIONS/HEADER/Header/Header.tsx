@@ -8,7 +8,7 @@ import { UserCtx } from '@/context/User';
 import CreateIdea from '@/components/IDEA/CreateIdea/CreateIdea';
 import HeaderLoggedOut from '@/components/SECTIONS/HEADER/HeaderLoggedOut/HeaderLoggedOut';
 import Ideabox from '@/public/images/ideabox.png';
-import QueryResult from '@/components/REUSEABLE/QueryResult/QueryResult';
+import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 import UserIcon from '@/components/USER/UserIcon/UserIcon';
 // import NavBar from '@/components/SECTIONS/NavBar';
 // import HeaderUsername from '@/components/SECTIONS/HEADER/HeaderUsername';

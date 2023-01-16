@@ -3,9 +3,9 @@
 
 import pkg from '@prisma/client';
 
-const { PrismaClient } = pkg;
+import { development } from '../src/constants/config.js';
 
-const development = process.env.NODE_ENV === 'development';
+const { PrismaClient } = pkg;
 
 // PrismaClient is attached to the `global` object in development to prevent
 // exhausting your database connection limit.

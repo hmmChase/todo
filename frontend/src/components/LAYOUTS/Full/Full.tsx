@@ -7,8 +7,8 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import { siteTitle } from '@/constants/config';
-import BackButton from '@/components/REUSEABLE/BackButton/BackButton';
-import HorizontalRule from '@/components/REUSEABLE/HorizontalRule/HorizontalRule';
+import BackButton from '@/components/COMMON/BackButton/BackButton';
+import HorizontalRule from '@/components/COMMON/HorizontalRule/HorizontalRule';
 import Ideabox from '@/public/images/ideabox.png';
 
 interface Props {
