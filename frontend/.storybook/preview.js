@@ -1,5 +1,4 @@
 // import * as NextImage from 'next/legacy/image';
-// import { RouterContext } from 'next/dist/shared/lib/router-context';
 
 import { MockedProvider } from '@apollo/client/testing';
 
@@ -51,8 +50,6 @@ export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 
   controls: { matchers: { color: /(background|color)$/i, date: /Date$/ } }
-
-  // nextRouter: { Provider: RouterContext.Provider }
 };
 
 // Global decorator to apply the styles to all stories

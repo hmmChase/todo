@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import BackButton from '@/components/COMMON/BackButton/BackButton';
 import displayMessages from '@/constants/displayMessages';
-import Error from '@/components/COMMON/Error/Error';
+import Notice from '@/components/COMMON/Notice/Notice';
 
 interface Props {
   isTokenExpired: boolean;
@@ -15,11 +15,15 @@ const PassResetError: FC<Props> = ({ isTokenExpired, isTokenPresent }) => (
     <BackButtonn />
 
     {!isTokenPresent && (
-      <Error error={displayMessages.user.passReset.tokenMissing} />
+      <Notice type='error'>
+        {displayMessages.user.passReset.tokenMissing}
+      </Notice>
     )}
 
     {isTokenPresent && isTokenExpired && (
-      <Error error={displayMessages.user.passReset.tokenExpired} />
+      <Notice type='error'>
+        {displayMessages.user.passReset.tokenExpired}
+      </Notice>
     )}
   </>
 );

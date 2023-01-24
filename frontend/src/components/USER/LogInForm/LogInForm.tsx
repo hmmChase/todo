@@ -12,8 +12,9 @@ import { LOG_IN } from '@/graphql/queries/user';
 import { User } from '@/models/index';
 import { UserCtx } from '@/context/User';
 import Button from '@/components/COMMON/Button/Button';
-import Error from '@/components/COMMON/Error/Error';
 import FormInput from '@/components/COMMON/FormInput/FormInput';
+import Notice from '@/components/COMMON/Notice/Notice';
+import parseGQLerrors from '@/utils/parseGQLerrors';
 
 interface Props {
   close?: () => void;
@@ -89,7 +90,7 @@ const LogInForm: FC<Props> = ({ close }) => {
       />
 
       {formik.touched.logInEmail && formik.errors.logInEmail && (
-        <Error error={formik.errors.logInEmail} />
+        <Notice type='error'>{formik.errors.logInEmail}</Notice>
       )}
 
       <FormInput
@@ -100,10 +101,12 @@ const LogInForm: FC<Props> = ({ close }) => {
       />
 
       {formik.touched.logInPassword && formik.errors.logInPassword && (
-        <Error error={formik.errors.logInPassword} />
+        <Notice type='error'>{formik.errors.logInPassword}</Notice>
       )}
 
-      {apolloError && <Error error={apolloError} />}
+      {apolloError && (
+        <Notice type='error'>{parseGQLerrors(apolloError)}</Notice>
+      )}
 
       <Buttonn
         disabled={

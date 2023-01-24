@@ -1,39 +1,32 @@
-import { FC, ReactElement, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { ApolloError } from '@apollo/client';
 import styled from 'styled-components';
 
-import displayMessages from '@/constants/displayMessages';
-import Error from '@/components/COMMON/Error/Error';
 import Loading from '@/components/COMMON/Loading/Loading';
-import Status from '@/components/COMMON/Status/Status';
+import Notice from '@/components/COMMON/Notice/Notice';
+import parseGQLerrors from '@/utils/parseGQLerrors';
 
 interface Props {
   children: ReactNode;
-  data?: any;
-  error?: ApolloError;
-  loader?: boolean | ReactElement;
-  loading: boolean | undefined;
+  error: ApolloError | undefined;
+  loading: boolean;
+  showError?: boolean;
+  showLoading?: boolean;
 }
 
-const QueryResult: FC<Props> = ({ children, data, error, loader, loading }) => {
-  // Uncomment to test loading state
-  // loading = true;
+const QueryResult: FC<Props> = ({
+  children,
+  error,
+  loading,
+  showError,
+  showLoading
+}) => {
+  if (loading && showLoading) return <Loading />;
 
-  if (loading) return <Loading loader={loader} />;
+  if (error && showError)
+    return <Notice type='error'>{parseGQLerrors(error)}</Notice>;
 
-  if (error) return <Error error={error} />;
-
-  // If data is an empty array, display empty message
-  if (!error && !loading && data && Array.isArray(data) && data.length === 0)
-    return (
-      <Center>
-        <Status status='info'>{displayMessages.empty}</Status>
-      </Center>
-    );
-
-  if (!error && !loading && children) return <>{children}</>;
-
-  return null;
+  return <>{children}</>;
 };
 
 export default QueryResult;

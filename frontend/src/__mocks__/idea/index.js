@@ -1,4 +1,4 @@
-import * as user from './user';
+import * as user from '@/mocks/user';
 
 export const idea = {
   idea1: {

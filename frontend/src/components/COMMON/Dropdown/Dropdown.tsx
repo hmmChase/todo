@@ -11,7 +11,6 @@ interface Props {
 }
 
 const Dropdown: FC<Props> = ({ children, className, close, insideRef }) => {
-  // Call hook passing in the ref and a function to call on outside click
   useOnClickOutside(close, insideRef);
 
   return <Container className={className}>{children}</Container>;

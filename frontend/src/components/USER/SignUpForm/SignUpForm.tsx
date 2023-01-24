@@ -11,8 +11,9 @@ import { SIGN_UP } from '@/graphql/queries/user';
 import { User } from '@/models/index';
 import { UserCtx } from '@/context/User';
 import Button from '@/components/COMMON/Button/Button';
-import Error from '@/components/COMMON/Error/Error';
 import FormInput from '@/components/COMMON/FormInput/FormInput';
+import Notice from '@/components/COMMON/Notice/Notice';
+import parseGQLerrors from '@/utils/parseGQLerrors';
 import PassReqList from '@/components/USER/PassReqList/PassReqList';
 // import { isLoggedInVar } from '@/graphql/cache';
 
@@ -86,7 +87,7 @@ const SignUpForm: FC<Props> = ({ close }) => {
       />
 
       {formik.touched.signUpEmail && formik.errors.signUpEmail && (
-        <Error error={formik.errors.signUpEmail} />
+        <Notice type='error'>{formik.errors.signUpEmail}</Notice>
       )}
 
       <FormInput
@@ -97,10 +98,12 @@ const SignUpForm: FC<Props> = ({ close }) => {
       />
 
       {formik.touched.signUpPassword && formik.errors.signUpPassword && (
-        <Error error={formik.errors.signUpPassword} />
+        <Notice type='error'>{formik.errors.signUpPassword}</Notice>
       )}
 
-      {apolloError && <Error error={apolloError} />}
+      {apolloError && (
+        <Notice type='error'>{parseGQLerrors(apolloError)}</Notice>
+      )}
 
       <PassReqList />
 

@@ -12,8 +12,13 @@ const Ideas: FC = () => {
   const ideas: Ideass = data?.ideas;
 
   return (
-    <QueryResult data={ideas} error={error} loading={loading} loader={true}>
-      <IdeaList ideas={ideas} />
+    <QueryResult
+      error={error}
+      loading={loading}
+      showError={true}
+      showLoading={true}
+    >
+      {ideas ? <IdeaList ideas={ideas} /> : <p>There are no ideas</p>}
     </QueryResult>
   );
 };

@@ -16,8 +16,7 @@ type Story = StoryObj<typeof Modal>;
 
 export const Default: Story = {
   args: {
-    close: function (): void {
-      throw new Error('Function not implemented.');
-    }
+    children: 'modal',
+    close: () => {}
   }
 };

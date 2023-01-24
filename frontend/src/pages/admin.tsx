@@ -1,29 +1,11 @@
 // import { GetServerSideProps, NextPageWithLayout } from 'next';
 import { NextPageWithLayout } from 'next';
-import { useQuery } from '@apollo/client';
 
-import { Users } from '@/models/index';
-import { READ_USERS } from '@/graphql/queries/user';
+import Admin from '@/components/SECTIONS/ADMIN/Admin';
 import App from '@/components/LAYOUTS/App/App';
-import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import UserList from '@/components/USER/UserList/UserList';
 // import verifyUser from '@/utils/verifyUser';
 
-const AdminPage: NextPageWithLayout = () => {
-  const { data, error, loading } = useQuery(READ_USERS);
-
-  const users: Users = data?.users;
-
-  return (
-    <>
-      <h2>Admin</h2>
-
-      <QueryResult data={users} error={error} loading={loading}>
-        <UserList users={users} />
-      </QueryResult>
-    </>
-  );
-};
+const AdminPage: NextPageWithLayout = () => <Admin />;
 
 AdminPage.getLayout = function getLayout(page) {
   return (

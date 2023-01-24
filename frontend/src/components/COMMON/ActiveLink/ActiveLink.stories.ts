@@ -14,4 +14,11 @@ export default meta;
 
 type Story = StoryObj<typeof ActiveLink>;
 
-export const Default: Story = { args: {} };
+export const Default: Story = {
+  args: {
+    activeClassName: 'active',
+    children: 'ActiveLink',
+    className: 'class',
+    href: '/'
+  }
+};

@@ -10,10 +10,10 @@ import { User } from '@/models/index';
 import { UserCtx } from '@/context/User';
 import Button from '@/components/COMMON/Button/Button';
 import displayMessages from '@/constants/displayMessages';
-import Error from '@/components/COMMON/Error/Error';
 import FormInput from '@/components/COMMON/FormInput/FormInput';
+import Notice from '@/components/COMMON/Notice/Notice';
+import parseGQLerrors from '@/utils/parseGQLerrors';
 import PassReqList from '@/components/USER/PassReqList/PassReqList';
-import Status from '@/components/COMMON/Status/Status';
 // import { isLoggedInVar } from '@/graphql/cache';
 
 interface Props {
@@ -82,15 +82,15 @@ const PassReset: FC<Props> = ({ passResetToken }) => {
       />
 
       {formik.touched.newPassword && formik.errors.newPassword && (
-        <Error error={formik.errors.newPassword} />
+        <Notice type='error'>{formik.errors.newPassword}</Notice>
       )}
 
-      {apolloError && <Error error={apolloError} />}
+      {apolloError && (
+        <Notice type='error'>{parseGQLerrors(apolloError)}</Notice>
+      )}
 
       {success && (
-        <Status status='success'>
-          {displayMessages.user.passReset.success}
-        </Status>
+        <Notice type='success'>{displayMessages.user.passReset.success}</Notice>
       )}
 
       <PassReqList />

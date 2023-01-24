@@ -1,14 +1,14 @@
-import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
+import { ButtonHTMLAttributes, FC } from 'react';
 import styled, { css } from 'styled-components';
 
 interface Props {
   alt?: boolean;
-  children: ReactNode;
-  className?: string;
-  disabled?: boolean;
+  children: ButtonHTMLAttributes<HTMLButtonElement>['children'];
+  className?: ButtonHTMLAttributes<HTMLButtonElement>['className'];
+  disabled?: ButtonHTMLAttributes<HTMLButtonElement>['disabled'];
   loading?: boolean;
-  name: string;
-  onClick?: () => void;
+  name: ButtonHTMLAttributes<HTMLButtonElement>['name'];
+  onClick?: ButtonHTMLAttributes<HTMLButtonElement>['onClick'];
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
@@ -20,7 +20,7 @@ const Button: FC<Props> = ({
   loading,
   name,
   onClick,
-  type
+  type = 'button'
 }) => {
   return (
     <Buttonn
@@ -45,35 +45,41 @@ interface scProps {
 }
 
 const Buttonn = styled.button<scProps>`
-  background-color: ${props =>
-    props.$alt
-      ? props.theme.background.primary
-      : props.theme.background.quaternary};
-  border-radius: ${props => props.theme.borderRadius.primary};
-  border: none;
-  color: ${props =>
-    props.$alt ? props.theme.text.primary : props.theme.text.secondary};
-  cursor: pointer;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
+  ${({ $alt, theme }) => css`
+    background-color: ${theme.button.background};
+    border-radius: ${theme.button.borderRadius};
+    border: none;
+    color: ${theme.button.color};
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
 
-  ${props =>
-    !props.$alt &&
+    &:hover {
+      background-color: ${theme.button.hover.background};
+    }
+
+    &:active {
+      background-color: ${theme.button.background};
+    }
+
+    &:disabled {
+      background-color: ${theme.button.disabled.background};
+      color: ${theme.button.disabled.color};
+      cursor: not-allowed;
+    }
+
+    ${$alt &&
     css`
-      text-shadow: 1px 1px 1px ${props.theme.text.quinary};
+      background-color: ${theme.button.alt.background};
+      color: ${theme.text.primary};
+
+      &:hover {
+        background-color: ${theme.button.alt.hover.background};
+      }
+
+      &:active {
+        background-color: ${theme.button.alt.background};
+      }
     `}
-
-  &:hover {
-    background-color: ${props =>
-      props.$alt
-        ? props.theme.background.senary
-        : props.theme.background.quinary};
-  }
-
-  &:active {
-    background-color: ${props =>
-      props.$alt
-        ? props.theme.background.primary
-        : props.theme.background.quaternary};
-  }
+  `}
 `;

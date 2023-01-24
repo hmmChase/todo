@@ -9,9 +9,9 @@ import { email } from '@/utils/validateAuthInputs';
 import { PASS_RESET_REQ } from '@/graphql/queries/user';
 import Button from '@/components/COMMON/Button/Button';
 import displayMessages from '@/constants/displayMessages';
-import Error from '@/components/COMMON/Error/Error';
 import FormInput from '@/components/COMMON/FormInput/FormInput';
-import Status from '@/components/COMMON/Status/Status';
+import Notice from '@/components/COMMON/Notice/Notice';
+import parseGQLerrors from '@/utils/parseGQLerrors';
 
 type HandleSubmit = (
   formikHelpers: FormikHelpers<{ passResetReqEmail: string }>,
@@ -59,13 +59,15 @@ const PassResetReq: FC = () => {
       />
 
       {formik.touched.passResetReqEmail && formik.errors.passResetReqEmail && (
-        <Error error={formik.errors.passResetReqEmail} />
+        <Notice type='error'>{formik.errors.passResetReqEmail}</Notice>
       )}
 
-      {apolloError && <Error error={apolloError} />}
+      {apolloError && (
+        <Notice type='error'>{parseGQLerrors(apolloError)}</Notice>
+      )}
 
       {success && (
-        <Status status='success'>{displayMessages.user.passReset.sent}</Status>
+        <Notice type='success'>{displayMessages.user.passReset.sent}</Notice>
       )}
 
       <Buttonn

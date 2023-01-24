@@ -10,8 +10,8 @@ type ActiveLinkProps = LinkProps & {
 };
 
 const ActiveLink = ({
-  children,
   activeClassName,
+  children,
   className,
   ...props
 }: PropsWithChildren<ActiveLinkProps>) => {
