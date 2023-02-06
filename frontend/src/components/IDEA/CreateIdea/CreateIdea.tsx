@@ -1,17 +1,12 @@
-import {
-  ChangeEventHandler,
-  FC,
-  FormEventHandler,
-  useContext,
-  useRef,
-  useState
-} from 'react';
-import { MutationUpdaterFn, useMutation } from '@apollo/client';
-import styled from 'styled-components';
-
 import { CREATE_IDEA, IDEA_FIELDS } from '@/graphql/queries/idea';
 import { Ideas } from '@/models/index';
+import { useContext, useRef, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { UserCtx } from '@/context/User';
+import Button from '@/components/COMMON/Button/Button';
+import styled, { css } from 'styled-components';
+import type { ChangeEventHandler, FC, FormEventHandler } from 'react';
+import type { MutationUpdaterFn } from '@apollo/client';
 
 const CreateIdea: FC = () => {
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -56,9 +51,10 @@ const CreateIdea: FC = () => {
       optimisticResponse: {
         createIdea: {
           __typename: 'Idea',
-          id: 'temp-id',
+          author: { __typename: 'User', id: user?.id },
           content: ideaInputRef.current!.value,
-          author: { id: user?.id, __typename: 'User' }
+          createdAt: new Date().toISOString(),
+          id: 'temp-id'
         }
       }
     });
@@ -78,8 +74,8 @@ const CreateIdea: FC = () => {
     <Form onSubmit={handleSubmit}>
       <Textarea onChange={handleChange} ref={ideaInputRef} />
 
-      <SubmitBtn disabled={isSubmitDisabled} type='submit'>
-        +
+      <SubmitBtn disabled={isSubmitDisabled} name='submitIdea' type='submit'>
+        <Add $dis={isSubmitDisabled}>+</Add>
       </SubmitBtn>
     </Form>
   );
@@ -100,27 +96,44 @@ export const Textarea = styled.textarea.attrs({ rows: 1 })`
   width: 100%;
 
   &:focus {
-    /* border-color: ${props => props.theme.border.secondary};
-		*/ /* box-shadow: none;
-		*/
-  }
-
-  &:hover {
-    /* border-color: ${props => props.theme.border.secondary};
-		*/ /* box-shadow: none;
-		*/
+    outline: none;
   }
 `;
 
-export const SubmitBtn = styled.button`
-  border-top-right-radius: ${props => props.theme.borderRadius.primary};
-  border: none;
-  color: ${props => props.theme.text.tertiary};
+export const SubmitBtn = styled(Button)`
+  background-color: ${props => props.theme.button.hover.background};
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0;
   font-size: 3rem;
-  font-weight: bold;
-  margin: 0;
   padding: 0;
-  text-align: center;
-  vertical-align: middle;
   width: 59.16px;
+
+  &:disabled {
+    background-color: ${props => props.theme.button.hover.background};
+  }
+`;
+
+interface scProps {
+  $dis?: boolean;
+}
+
+const Add = styled.div<scProps>`
+  ${({ $dis }) => css`
+    ${$dis
+      ? css`
+          color: ${props => props.theme.background.septenary};
+          transform: rotate(45deg);
+          transition-duration: 0.5s;
+          transition-property: all;
+          transition-timing-function: ease-in-out;
+        `
+      : css`
+          color: greenyellow;
+          transform: rotate(0deg);
+          transition-duration: 0.5s;
+          transition-property: all;
+          transition-timing-function: ease-in-out;
+        `}
+  `}
 `;

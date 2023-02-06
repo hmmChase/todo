@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import Left from './Left';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Left> = {
   title: 'DESIGN/ICONS/Left',

@@ -1,36 +1,24 @@
-// https://nextjs.org/docs/advanced-features/custom-app
-// https://github.com/vercel/next.js/tree/master/examples/with-styled-components
-
-/** import order
-react=>next=>apollo=>other=>styled
-
-alphabetize local imports
-*/
-
-import {
-  ReactElement,
-  ReactNode,
-  StrictMode
-  // useEffect,
-  // useState
-} from 'react';
-import App, { AppContext, AppPropsWithLayout } from 'next/app';
-import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
-import { ThemeProvider } from 'styled-components';
-
 import { siteTitle } from '@/constants/config';
+import { StrictMode } from 'react';
+import { ThemeProvider } from 'styled-components';
 import { useApollo } from '@/graphql/apolloClient';
 import GlobalStyle from '@/styles/global';
+import Head from 'next/head';
 import reportWebVitals from '@/root/reportWebVitals';
 import theme from '@/styles/theme';
+import type { AppContext, AppPropsWithLayout } from 'next/app';
+import type { ReactElement, ReactNode } from 'react';
 import UserProvider from '@/context/User';
-
+// import App from 'next/app';
 // import { CURRENT_USER } from '@/graphql/queries/user';
 // import { initializeApollo, addApolloState } from '@/graphql/apolloClient';
 // import { READ_IDEAS } from '@/graphql/queries/idea';
 // import coloredLog from '@/utils/coloredLog';
 // import verifyUser from '@/utils/verifyUser';
+
+// https://nextjs.org/docs/advanced-features/custom-app
+// https://github.com/vercel/next.js/tree/master/examples/with-styled-components
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   // const [user, setUser] = useState(null);

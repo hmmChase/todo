@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import PassReqList from './PassReqList';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof PassReqList> = {
   title: 'USER/PassReqList',

@@ -15,5 +15,5 @@ export default meta;
 type Story = StoryObj<typeof IdeaDetail>;
 
 export const Default: Story = {
-  args: { authorId: 'authorId', content: 'content', ideaId: 'ideaId' }
+  args: { authorId: '1', content: 'content', ideaId: '1' }
 };

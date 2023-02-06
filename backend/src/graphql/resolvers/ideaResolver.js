@@ -180,7 +180,7 @@ const ideaResolver = {
       try {
         // Find all ideas matching author id & haven't been deleted
         const ideas = await ctx.prisma.idea.findMany({
-          where: { author: { id: payload.user.id }, removedAt: null },
+          where: { author: { id: payload.id }, removedAt: null },
           select: {
             id: true,
             createdAt: true,
@@ -225,7 +225,7 @@ const ideaResolver = {
     //   // const ideas = await prisma.idea.findMany({
     //   //   skip,
     //   //   take,
-    //   //   where: { id: payload.user.id }
+    //   //   where: { id: payload.id }
     //   // });
 
     //   // return ideas;
@@ -233,7 +233,7 @@ const ideaResolver = {
     //   const ideas = await ctx.prisma.idea.findMany({
     //     skip,
     //     take,
-    //     where: { author: { id: payload.user.id } }
+    //     where: { author: { id: payload.id } }
     //   });
 
     //   return {
@@ -256,8 +256,13 @@ const ideaResolver = {
       try {
         // Create idea
         const idea = ctx.prisma.idea.create({
-          data: { content, author: { connect: { id: payload.user.id } } },
-          select: { id: true, content: true, author: { select: { id: true } } }
+          data: { content, author: { connect: { id: payload.id } } },
+          select: {
+            createdAt: true,
+            id: true,
+            content: true,
+            author: { select: { id: true } }
+          }
         });
 
         // Return new idea
@@ -283,7 +288,7 @@ const ideaResolver = {
         });
 
         // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.user.id;
+        const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
         if (!ownsIdea)
@@ -319,7 +324,7 @@ const ideaResolver = {
         });
 
         // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.userId;
+        const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
         if (!ownsIdea)
@@ -355,7 +360,7 @@ const ideaResolver = {
         });
 
         // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.user.id;
+        const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
         if (!ownsIdea)

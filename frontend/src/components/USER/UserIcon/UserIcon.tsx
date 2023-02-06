@@ -1,9 +1,9 @@
-import { FC, useRef, useState } from 'react';
-import Image from 'next/image';
-import styled from 'styled-components';
-
+import { useRef, useState } from 'react';
 import Dropdown from '@/components/COMMON/Dropdown/Dropdown';
 import HeaderLoggedIn from '@/components/SECTIONS/HEADER/HeaderLoggedIn/HeaderLoggedIn';
+import Image from 'next/image';
+import styled from 'styled-components';
+import type { FC } from 'react';
 import userSvg from '@/public/images/user.svg';
 
 const UserIcon: FC = () => {

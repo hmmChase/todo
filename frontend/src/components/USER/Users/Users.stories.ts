@@ -1,17 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import Users from './Users';
 
-import Admin from './Admin';
+const meta: Meta<typeof Users> = {
+  title: 'USER/Users',
 
-const meta: Meta<typeof Admin> = {
-  title: 'SECTIONS/Admin',
-
-  component: Admin,
+  component: Users,
 
   tags: ['autodocs']
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Admin>;
+type Story = StoryObj<typeof Users>;
 
 export const Default: Story = { args: {} };

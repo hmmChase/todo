@@ -12,6 +12,9 @@ const config = {
     // https://storybook.js.org/docs/react/writing-tests/interaction-testing
     '@storybook/addon-interactions'
 
+    // https://storybook.js.org/addons/@storybook/addon-a11y
+    // '@storybook/addon-a11y'.
+
     // https://storybook.js.org/addons/storybook-addon-apollo-client
     // 'storybook-addon-apollo-client',
   ],
@@ -32,7 +35,6 @@ const config = {
     }
   },
 
-  // what does this do?
   docs: { autodocs: 'tag' },
 
   staticDirs: ['../public']

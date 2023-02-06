@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+// import { IDEA_AUTHOR_FIELDS } from './idea';
+
 //! If you change something, also update mocks
 
 //* - Fragments ----------
@@ -7,14 +9,15 @@ import { gql } from '@apollo/client';
 export const USER_FIELDS = gql`
   fragment userFields on User {
     id
-    email
+    # createdAt
+    # email
     role
-    ideas {
-      id
-      content
-    }
+    # ideas {
+    #   ...IdeaAuthorFields
+    # }
   }
 `;
+// ${IDEA_AUTHOR_FIELDS}
 
 //* - Queries ----------
 
@@ -37,6 +40,7 @@ export const READ_USERS = gql`
   query ReadUsers {
     users {
       ...userFields
+      email
     }
   }
   ${USER_FIELDS}
@@ -90,6 +94,7 @@ export const PASS_RESET_REQ = gql`
 export const PASS_RESET = gql`
   mutation PassReset($resetPassToken: String!, $newPassword: String!) {
     passReset(resetPassToken: $resetPassToken, newPassword: $newPassword) {
+      success
       user {
         ...userFields
       }

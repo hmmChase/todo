@@ -1,9 +1,8 @@
 // not used
 
-import { FC } from 'react';
-import styled from 'styled-components';
-
 import ActiveLink from '@/components/COMMON/ActiveLink/ActiveLink';
+import styled from 'styled-components';
+import type { FC } from 'react';
 
 const NavBar: FC = () => (
   <nav>

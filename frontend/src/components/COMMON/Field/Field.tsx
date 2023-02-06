@@ -1,4 +1,4 @@
-import { FC, HTMLInputTypeAttribute } from 'react';
+import type { FC, HTMLInputTypeAttribute } from 'react';
 
 interface Props {
   label?: string;
@@ -9,7 +9,7 @@ interface Props {
 
 const Field: FC<Props> = ({ label, name, required, type }) => (
   <div>
-    <label id={[name, 'label'].join('-')} htmlFor={[name, 'input'].join('-')}>
+    <label htmlFor={[name, 'input'].join('-')} id={[name, 'label'].join('-')}>
       {label} {required ? <span title='Required'>*</span> : undefined}
     </label>
 

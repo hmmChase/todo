@@ -84,6 +84,7 @@ typings/
 
 # misc
 .DS_Store
+*.pem
 
 # debug
 npm-debug.log*
@@ -146,6 +147,7 @@ typings/
 
 # TypeScript cache
 *.tsbuildinfo
+next-env.d.ts
 
 # Optional npm cache directory
 .npm

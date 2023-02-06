@@ -1,10 +1,9 @@
-import { FC, ReactNode } from 'react';
 import { ApolloError } from '@apollo/client';
-import styled from 'styled-components';
-
 import Loading from '@/components/COMMON/Loading/Loading';
 import Notice from '@/components/COMMON/Notice/Notice';
 import parseGQLerrors from '@/utils/parseGQLerrors';
+import styled from 'styled-components';
+import type { FC, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;

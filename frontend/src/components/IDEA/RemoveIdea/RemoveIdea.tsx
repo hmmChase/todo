@@ -1,8 +1,8 @@
-import { FC, MouseEventHandler } from 'react';
-import { MutationUpdaterFn, useMutation } from '@apollo/client';
-
 import { REMOVE_IDEA } from '@/graphql/queries/idea';
+import { useMutation } from '@apollo/client';
 import { XIconBtn } from '@/components/COMMON/IconBtn/IconBtn';
+import type { FC, MouseEventHandler } from 'react';
+import type { MutationUpdaterFn } from '@apollo/client';
 
 interface Props {
   ideaId: string;

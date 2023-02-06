@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
-import mockGQLerrors from '@/mocks/mockGQLerrors';
+import { mockGQLerror } from '@/mocks/mockGQLerrors';
 import QueryResult from './QueryResult';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof QueryResult> = {
   title: 'COMMON/QueryResult',
@@ -25,8 +24,8 @@ export const ShowLoading: Story = {
   args: { loading: true, showLoading: true }
 };
 
-export const Error: Story = { args: { error: mockGQLerrors } };
+export const Error: Story = { args: { error: mockGQLerror } };
 
 export const ShowError: Story = {
-  args: { error: mockGQLerrors, showError: true }
+  args: { error: mockGQLerror, showError: true }
 };

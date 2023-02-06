@@ -7,13 +7,12 @@ import { UPDATE_IDEA } from '@/graphql/queries/idea';
 import IdeaDetailContent from '@/components/IDEA/DETAIL/IdeaDetailContent/IdeaDetailContent';
 
 interface Props {
-  content: string;
-  currentUserOwnsIdea: boolean;
+  children: string;
   id: string;
 }
 
-const IdeaDetailUpdate: FC<Props> = ({ content, currentUserOwnsIdea, id }) => {
-  const [text, setText] = useState(content);
+const IdeaDetailUpdate: FC<Props> = ({ children, id }) => {
+  const [text, setText] = useState(children);
 
   const [updateIdea] = useMutation(UPDATE_IDEA, { onError: () => {} });
 
@@ -35,13 +34,7 @@ const IdeaDetailUpdate: FC<Props> = ({ content, currentUserOwnsIdea, id }) => {
     debouncedFn();
   };
 
-  return (
-    <IdeaDetailContent
-      currentUserOwnsIdea={currentUserOwnsIdea}
-      onSetText={onSetText}
-      text={text}
-    />
-  );
+  return <IdeaDetailContent onSetText={onSetText}>{text}</IdeaDetailContent>;
 };
 
 export default IdeaDetailUpdate;

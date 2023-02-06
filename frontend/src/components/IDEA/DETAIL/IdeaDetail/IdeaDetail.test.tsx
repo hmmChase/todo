@@ -1,16 +1,18 @@
-import { admin } from '@/mocks/user';
 import { cleanup, render, screen, waitFor } from '@/utils/test-utils';
 import { CURRENT_USER } from '@/mocks/user/graphql';
-import IdeaItem from './IdeaItem';
+import IdeaDetail from './IdeaDetail';
 import UserProvider from '@/context/User';
+import { admin } from '@/mocks/user';
 
-describe('IdeaItem', () => {
+const props = { authorId: '2', content: 'idea', ideaId: '1' };
+
+describe('IdeaDetail', () => {
   afterEach(cleanup);
 
   const props = { authorId: '2', content: 'idea', ideaId: '1' };
 
   it('renders idea', () => {
-    render(<IdeaItem {...props} />);
+    render(<IdeaDetail {...props} />);
 
     const content = screen.getByText(props.content);
 
@@ -20,7 +22,7 @@ describe('IdeaItem', () => {
   it('renders RemoveIdea when user is author', async () => {
     render(
       <UserProvider>
-        <IdeaItem {...props} />
+        <IdeaDetail {...props} />
       </UserProvider>,
 
       { mocks: [CURRENT_USER] }
@@ -36,7 +38,7 @@ describe('IdeaItem', () => {
   it('renders RemoveIdea when user is admin and authorId doesnt match', async () => {
     render(
       <UserProvider>
-        <IdeaItem {...props} />
+        <IdeaDetail {...props} />
       </UserProvider>,
 
       { mocks: [{ ...CURRENT_USER, result: { data: { currentUser: admin } } }] }
@@ -52,7 +54,7 @@ describe('IdeaItem', () => {
   it('doesnt render RemoveIdea when user is not author or admin', async () => {
     render(
       <UserProvider>
-        <IdeaItem {...props} authorId='3' />
+        <IdeaDetail {...props} authorId='3' />
       </UserProvider>,
 
       { mocks: [CURRENT_USER] }

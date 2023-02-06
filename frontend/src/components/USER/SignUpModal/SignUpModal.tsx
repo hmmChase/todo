@@ -1,9 +1,8 @@
-import { FC } from 'react';
-import styled from 'styled-components';
-
 import HorizontalRule from '@/components/COMMON/HorizontalRule/HorizontalRule';
 import Modal from '@/components/COMMON/Modal/Modal';
 import SignUpForm from '@/components/USER/SignUpForm/SignUpForm';
+import styled from 'styled-components';
+import type { FC } from 'react';
 
 interface Props {
   close: () => void;

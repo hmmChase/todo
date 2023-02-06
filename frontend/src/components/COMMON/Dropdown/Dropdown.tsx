@@ -1,6 +1,5 @@
-import { FC, ReactNode, RefObject } from 'react';
 import styled from 'styled-components';
-
+import type { FC, ReactNode, RefObject } from 'react';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 interface Props {

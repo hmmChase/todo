@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import UserItem from './UserItem';
 
 const meta: Meta<typeof UserItem> = {

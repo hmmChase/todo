@@ -1,14 +1,14 @@
-import { FC, useState } from 'react';
-import { useQuery } from '@apollo/client';
-import styled from 'styled-components';
-
-import { Ideas } from '@/models/index';
 import { ideasPerPage } from '@/constants/config';
 import { READ_IDEAS_PAGINATED_OFFSET } from '@/graphql/queries/idea';
+import { useQuery } from '@apollo/client';
+import { useState } from 'react';
 import Button from '@/components/COMMON/Button/Button';
-import IdeaList from '@/components/IDEA/IdeaList/IdeaList';
+import Ideas from '@/components/IDEA/Ideas/Ideas';
 import Loading from '@/components/COMMON/Loading/Loading';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
+import styled from 'styled-components';
+import type { FC } from 'react';
+import type { Ideas as Ideass } from '@/models/index';
 
 const IdeasPageOffset: FC = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -65,15 +65,20 @@ const IdeasPageOffset: FC = () => {
   //   setIsLoadingMore(false);
   // };
 
-  const ideas: Ideas = data?.ideasPaginatedOffset;
+  const ideas: Ideass = data?.ideasPaginatedOffset;
 
-  const haveIdeas = !!ideas;
+  // const haveIdeas = !!ideas;
 
   return (
-    <QueryResult data={ideas} error={error} loading={loading}>
-      <IdeaList ideas={ideas} />
+    <QueryResult
+      error={error}
+      loading={loading}
+      showError={true}
+      showLoading={true}
+    >
+      {ideas ? <Ideas ideas={ideas} /> : <p>There are no ideas</p>}
 
-      {haveIdeas &&
+      {ideas &&
         (isLoadingMore ? (
           <Loading />
         ) : (
@@ -99,7 +104,7 @@ const IdeasPageOffset: FC = () => {
 
 export default IdeasPageOffset;
 
-const Nav = styled('nav')`
+const Nav = styled.nav`
   align-items: center;
   display: flex;
   gap: 1rem;

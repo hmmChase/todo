@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import IdeasPageCursor from './IdeasPageCursor';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof IdeasPageCursor> = {
   title: 'IDEA/IdeasPageCursor',

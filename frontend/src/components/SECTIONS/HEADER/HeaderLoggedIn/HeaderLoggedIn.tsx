@@ -1,9 +1,9 @@
-import { FC, useContext } from 'react';
-import styled from 'styled-components';
-
+import { useContext } from 'react';
 import { UserCtx } from '@/context/User';
 import ActiveLink from '@/components/COMMON/ActiveLink/ActiveLink';
 import Left from '@/components/DESIGN/ICONS/Left/Left';
+import styled from 'styled-components';
+import type { FC } from 'react';
 
 const HeaderLoggedIn: FC = () => {
   const { user } = useContext(UserCtx);

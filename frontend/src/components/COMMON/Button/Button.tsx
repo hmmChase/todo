@@ -1,5 +1,5 @@
-import { ButtonHTMLAttributes, FC } from 'react';
 import styled, { css } from 'styled-components';
+import type { ButtonHTMLAttributes, FC } from 'react';
 
 interface Props {
   alt?: boolean;
@@ -53,11 +53,6 @@ const Buttonn = styled.button<scProps>`
     cursor: pointer;
     font-weight: bold;
     padding: 0.5rem 1rem;
-
-    &:hover {
-      background-color: ${theme.button.hover.background};
-    }
-
     &:active {
       background-color: ${theme.button.background};
     }
@@ -68,17 +63,21 @@ const Buttonn = styled.button<scProps>`
       cursor: not-allowed;
     }
 
+    &:hover {
+      background-color: ${theme.button.hover.background};
+    }
+
     ${$alt &&
     css`
       background-color: ${theme.button.alt.background};
       color: ${theme.text.primary};
 
-      &:hover {
-        background-color: ${theme.button.alt.hover.background};
-      }
-
       &:active {
         background-color: ${theme.button.alt.background};
+      }
+
+      &:hover {
+        background-color: ${theme.button.alt.hover.background};
       }
     `}
   `}

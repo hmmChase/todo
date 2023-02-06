@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import { ExpandIconBtn } from './IconBtn';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof ExpandIconBtn> = {
   title: 'COMMON/ExpandIconBtn',

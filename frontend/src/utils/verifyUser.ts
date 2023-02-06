@@ -1,8 +1,7 @@
 // Not used
 
-import jwt from 'jsonwebtoken';
-
 import { User } from '@/models/index';
+import jwt from 'jsonwebtoken';
 
 interface JwtPayload {
   user: User;

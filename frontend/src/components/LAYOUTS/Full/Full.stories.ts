@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import Full from './Full';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Full> = {
   title: 'LAYOUTS/Full',

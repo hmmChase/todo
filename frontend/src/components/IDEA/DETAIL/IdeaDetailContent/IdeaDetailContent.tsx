@@ -1,33 +1,20 @@
-import {
-  ChangeEventHandler,
-  FC,
-  MouseEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-
+import type { ChangeEventHandler, FC, MouseEventHandler } from 'react';
 import useKeypress from '@/hooks/useKeypress';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 interface Props {
-  currentUserOwnsIdea: boolean;
+  children: string;
   onSetText: (text: string) => void;
-  text: string;
 }
 
-const IdeaDetailContent: FC<Props> = ({
-  currentUserOwnsIdea,
-  onSetText,
-  text
-}) => {
+const IdeaDetailContent: FC<Props> = ({ children, onSetText }) => {
+  const [inputValue, setInputValue] = useState(children);
   const [isInputActive, setIsInputActive] = useState(false);
-  const [inputValue, setInputValue] = useState(text);
 
-  const outsideRef = useRef<HTMLDivElement>(null);
   const ideaEditRef = useRef<HTMLTextAreaElement>(null);
+  const outsideRef = useRef<HTMLDivElement>(null);
 
   // const enter = useKeypress('Enter');
   const escape = useKeypress('Escape');
@@ -53,11 +40,11 @@ const IdeaDetailContent: FC<Props> = ({
 
   const onEscape = useCallback(() => {
     if (escape) {
-      setInputValue(text);
+      setInputValue(children);
 
       setIsInputActive(false);
     }
-  }, [escape, text]);
+  }, [escape, children]);
 
   // focus the cursor in the input field on edit start
   useEffect(() => {
@@ -87,23 +74,20 @@ const IdeaDetailContent: FC<Props> = ({
     [setInputValue]
   );
 
-  if (currentUserOwnsIdea)
-    return (
-      <div ref={outsideRef}>
-        {/* if the user is editing the text, show the input field */}
-        {isInputActive ? (
-          <Textarea
-            onChange={handleChange}
-            ref={ideaEditRef}
-            value={inputValue}
-          />
-        ) : (
-          <Span onClick={handleClick}>{text}</Span>
-        )}
-      </div>
-    );
-
-  return <p>{text}</p>;
+  return (
+    <div ref={outsideRef}>
+      {/* if the user is editing the text, show the input field */}
+      {isInputActive ? (
+        <Textarea
+          onChange={handleChange}
+          ref={ideaEditRef}
+          value={inputValue}
+        />
+      ) : (
+        <Span onClick={handleClick}>{children}</Span>
+      )}
+    </div>
+  );
 };
 
 export default IdeaDetailContent;

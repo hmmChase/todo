@@ -1,7 +1,6 @@
-import { FC, MouseEventHandler } from 'react';
-import styled from 'styled-components';
-
 import Expand from '@/components/DESIGN/ICONS/Expand/Expand';
+import styled from 'styled-components';
+import type { FC, MouseEventHandler } from 'react';
 import X from '@/components/DESIGN/ICONS/X/X';
 
 interface ExpandIconBtnProps {
@@ -35,12 +34,12 @@ const Button = styled.button`
   vertical-align: middle;
   width: 22px;
 
-  :hover {
-    padding: 1px;
-  }
-
   :active {
     padding: 2px;
+  }
+
+  :hover {
+    padding: 1px;
   }
 
   > svg {

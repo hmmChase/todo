@@ -1,20 +1,8 @@
-// import * as NextImage from 'next/legacy/image';
-
 import { MockedProvider } from '@apollo/client/testing';
-
 import { ThemeProvider } from 'styled-components';
-
-// import {
-//   CURRENT_USER,
-//   IS_LOGGED_IN,
-//   LOG_IN,
-//   LOG_OUT,
-//   PASS_RESET_REQ,
-//   PASS_RESET,
-//   READ_USER,
-//   READ_USERS,
-//   SIGN_UP
-// } from '../src/__mocks__/graphql/user';
+import { READ_IDEAS } from '../src/__mocks__/idea/graphql';
+import GlobalStyle from '../src/styles/global';
+import theme from '../src/styles/theme';
 // import {
 //   CREATE_IDEA,
 //   CURRENT_USER_IDEAS,
@@ -27,8 +15,7 @@ import { ThemeProvider } from 'styled-components';
 //   REMOVE_IDEA,
 //   UPDATE_IDEA
 // } from '../src/__mocks__/graphql/idea';
-import GlobalStyle from '../src/styles/global';
-import theme from '../src/styles/theme';
+// import * as NextImage from 'next/legacy/image';
 
 // https://github.com/vercel/next.js/issues/18393
 // https://dev.to/jonasmerlin/how-to-use-the-next-js-image-component-in-storybook-1415
@@ -56,31 +43,29 @@ export const parameters = {
 export const decorators = [
   Story => (
     <MockedProvider
-      mocks={
-        [
-          // // user
-          // CURRENT_USER,
-          // IS_LOGGED_IN,
-          // LOG_IN,
-          // LOG_OUT,
-          // PASS_RESET_REQ,
-          // PASS_RESET,
-          // READ_USER,
-          // READ_USERS,
-          // SIGN_UP,
-          // // idea
-          // CREATE_IDEA,
-          // CURRENT_USER_IDEAS,
-          // DELETE_IDEA,
-          // READ_IDEA,
-          // READ_IDEAS_CLIENT,
-          // READ_IDEAS_PAGINATED_CURSOR,
-          // READ_IDEAS_PAGINATED_OFFSET,
-          // READ_IDEAS,
-          // REMOVE_IDEA,
-          // UPDATE_IDEA
-        ]
-      }
+      mocks={[
+        // // user
+        // CURRENT_USER,
+        // IS_LOGGED_IN,
+        // LOG_IN,
+        // LOG_OUT,
+        // PASS_RESET_REQ,
+        // PASS_RESET,
+        // READ_USER,
+        // READ_USERS,
+        // SIGN_UP,
+        // // idea
+        // CREATE_IDEA,
+        // CURRENT_USER_IDEAS,
+        // DELETE_IDEA,
+        // READ_IDEA,
+        // READ_IDEAS_CLIENT,
+        // READ_IDEAS_PAGINATED_CURSOR,
+        // READ_IDEAS_PAGINATED_OFFSET,
+        READ_IDEAS
+        // REMOVE_IDEA,
+        // UPDATE_IDEA
+      ]}
       // https://charles-stover.medium.com/how-to-fix-apollos-mockedprovider-returning-empty-objects-for-fragments-74c2c744dbcc
       // addTypename={false}
     >

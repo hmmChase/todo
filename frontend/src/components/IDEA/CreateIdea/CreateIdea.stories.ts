@@ -5,9 +5,9 @@ import CreateIdea from './CreateIdea';
 const meta: Meta<typeof CreateIdea> = {
   title: 'IDEA/CreateIdea',
 
-  component: CreateIdea
+  component: CreateIdea,
 
-  // tags: ['autodocs']
+  tags: ['autodocs']
 };
 
 export default meta;

@@ -30,9 +30,12 @@ const userResolver = {
           where: { id },
           select: {
             id: true,
+            createdAt: true,
             email: true,
             role: true,
-            ideas: { select: { id: true, content: true } }
+            ideas: {
+              select: { id: true, createdAt: true, author: true, content: true }
+            }
           }
         });
 
@@ -50,12 +53,7 @@ const userResolver = {
       try {
         // Find all users
         const users = await ctx.prisma.user.findMany({
-          select: {
-            id: true,
-            email: true,
-            role: true,
-            ideas: { select: { id: true, content: true } }
-          }
+          select: { id: true, createdAt: true, email: true, role: true }
         });
 
         // Return users
@@ -78,13 +76,8 @@ const userResolver = {
       try {
         // Find user matching user id
         const user = await ctx.prisma.user.findUnique({
-          where: { id: payload.user.id },
-          select: {
-            id: true,
-            email: true,
-            role: true,
-            ideas: { select: { id: true, content: true } }
-          }
+          where: { id: payload.id },
+          select: { id: true, role: true }
         });
 
         const currentTime = (new Date().getTime() + 1) / 1000;
@@ -94,7 +87,7 @@ const userResolver = {
         //? Refresh access token if within 1 day of expiration
         if (isLessThanOneDay) {
           // Create access token
-          const accessToken = createAccessToken({ user });
+          const accessToken = createAccessToken({ id: user.id });
 
           // Set new access cookie
           ctx.res.cookie('access', accessToken, accessCookieOptions);
@@ -122,20 +115,12 @@ const userResolver = {
         // Find user matching email
         const user = await ctx.prisma.user.findUnique({
           where: { email },
-          select: {
-            id: true,
-            email: true,
-            role: true,
-            password: true,
-            ideas: { select: { id: true, content: true } }
-          }
+          select: { id: true, role: true, password: true }
         });
 
         // If user not found, throw error with display code
         if (!user)
-          throw UserInputError('user not found', {
-            displayCode: 'user.null'
-          });
+          throw UserInputError('user not found', { displayCode: 'user.null' });
 
         // Check if input password matches user password
         await passwordCompare(password, user.password);
@@ -144,13 +129,13 @@ const userResolver = {
         delete user.password;
 
         // Create access token
-        const accessToken = createAccessToken({ user });
+        const accessToken = createAccessToken({ id: user.id });
 
         // Set new access cookie
         ctx.res.cookie('access', accessToken, accessCookieOptions);
 
         // Return user
-        return { user };
+        return user;
       } catch (error) {
         // UserInputError gets caught here
         development && consoleLog(error);
@@ -183,7 +168,7 @@ const userResolver = {
         // Check if account already exists
         const foundUser = await ctx.prisma.user.findUnique({
           where: { email },
-          select: { id: true }
+          select: { id: true, role: true }
         });
 
         // If user found, throw error with display code
@@ -213,11 +198,11 @@ const userResolver = {
         // Create user
         const createdUser = await ctx.prisma.user.create({
           data: { email, password: passwordHashed },
-          select: { id: true, email: true, role: true }
+          select: { id: true, role: true }
         });
 
         // Create access token
-        const accessToken = createAccessToken({ user: createdUser });
+        const accessToken = createAccessToken({ id: createdUser.id });
 
         // Set new access cookie
         ctx.res.cookie('access', accessToken, accessCookieOptions);
@@ -226,7 +211,7 @@ const userResolver = {
         sendSignUpEmail(email);
 
         // Return user
-        return { user: createdUser };
+        return createdUser;
       } catch (error) {
         development && consoleLog(error);
 
@@ -293,7 +278,8 @@ const userResolver = {
             //   gt: Date.now()
             // }
           },
-          select: { id: true, passResetExpiry: true }
+          // select: { id: true, passResetExpiry: true }
+          select: { passResetExpiry: true }
         });
 
         // If user not found, return error
@@ -312,26 +298,21 @@ const userResolver = {
         const updatedUser = await ctx.prisma.user.update({
           where: { id: foundUser.id },
           data: {
-            password: passwordHashed,
             passResetExpiry: null,
-            passResetToken: null
+            passResetToken: null,
+            password: passwordHashed
           },
-          select: {
-            id: true,
-            email: true,
-            role: true,
-            ideas: { select: { id: true, content: true } }
-          }
+          select: { id: true, role: true }
         });
 
         // Create access token
-        const accessToken = createAccessToken({ user: updatedUser });
+        const accessToken = createAccessToken({ id: updatedUser.id });
 
         // Set new access cookie
         ctx.res.cookie('access', accessToken, accessCookieOptions);
 
         // Return user
-        return { user: updatedUser };
+        return { success: true, user: updatedUser };
       } catch (error) {
         development && consoleLog(error);
 

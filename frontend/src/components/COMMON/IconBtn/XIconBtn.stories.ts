@@ -1,7 +1,6 @@
-import { MouseEvent } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-
 import { XIconBtn } from './IconBtn';
+import type { Meta, StoryObj } from '@storybook/react';
+import type { MouseEvent } from 'react';
 
 const meta: Meta<typeof XIconBtn> = {
   title: 'COMMON/XIconBtn',

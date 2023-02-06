@@ -1,20 +1,21 @@
-import { FC, useContext, useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { ApolloError, useMutation } from '@apollo/client';
-import { FormikHelpers, useFormik } from 'formik';
-import { object } from 'yup';
-import styled from 'styled-components';
-
 import { email, password } from '@/utils/validateAuthInputs';
+import { FormikHelpers, useFormik } from 'formik';
 import { isLoggedInVar } from '@/graphql/cache';
 import { LOG_IN } from '@/graphql/queries/user';
-import { User } from '@/models/index';
+import { object } from 'yup';
+import { useContext, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { UserCtx } from '@/context/User';
+import { useRouter } from 'next/router';
 import Button from '@/components/COMMON/Button/Button';
 import FormInput from '@/components/COMMON/FormInput/FormInput';
+import Link from 'next/link';
 import Notice from '@/components/COMMON/Notice/Notice';
 import parseGQLerrors from '@/utils/parseGQLerrors';
+import styled from 'styled-components';
+import type { ApolloError } from '@apollo/client';
+import type { FC } from 'react';
+import type { User } from '@/models/index';
 
 interface Props {
   close?: () => void;

@@ -1,9 +1,8 @@
-import { FC } from 'react';
-import styled from 'styled-components';
-
 import BackButton from '@/components/COMMON/BackButton/BackButton';
 import displayMessages from '@/constants/displayMessages';
 import Notice from '@/components/COMMON/Notice/Notice';
+import styled from 'styled-components';
+import type { FC } from 'react';
 
 interface Props {
   isTokenExpired: boolean;

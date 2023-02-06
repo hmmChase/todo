@@ -1,10 +1,10 @@
+const nextJest = require('next/jest');
+// const path = require('path');
+
 // https://testing-library.com/docs/react-testing-library/setup
 // https://github.com/vercel/next.js/tree/canary/examples/with-jest
 // https://jestjs.io/docs/configuration
 // https://github.com/vercel/next.js/blob/canary/examples/with-jest-babel/jest.config.js
-
-const nextJest = require('next/jest');
-// const path = require('path');
 
 /** @type {import('@jest/types').Config.InitialOptions} */
 

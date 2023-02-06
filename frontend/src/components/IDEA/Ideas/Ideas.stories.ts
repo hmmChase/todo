@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import Ideas from './Ideas';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Ideas> = {
   title: 'IDEA/Ideas',

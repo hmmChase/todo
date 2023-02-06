@@ -1,9 +1,7 @@
+import { development, gqlUri } from '@/constants/config';
 import { from, HttpLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-
-import { development, gqlUri } from '@/constants/config';
 import coloredLog from '@/utils/coloredLog';
-
 // import { TokenRefreshLink } from 'apollo-link-token-refresh';
 
 const errorLink = onError(error => {

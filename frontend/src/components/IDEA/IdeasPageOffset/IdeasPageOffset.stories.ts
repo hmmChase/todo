@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import IdeasPageOffset from './IdeasPageOffset';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof IdeasPageOffset> = {
   title: 'IDEA/IdeasPageOffset',

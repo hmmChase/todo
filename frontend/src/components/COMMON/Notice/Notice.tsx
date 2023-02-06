@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import styled from 'styled-components';
+import type { FC } from 'react';
 
 interface Props {
   children: string[] | string;

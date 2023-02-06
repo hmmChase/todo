@@ -51,11 +51,11 @@ const typeDefs = `#graphql
   type Mutation {
     # --- User ---
 
-    logIn(input: UserAuthInput!): UserAuthPayload!
+    logIn(input: UserAuthInput!): User!
 
     logOut: Boolean!
 
-    signUp(input: UserAuthInput!): UserAuthPayload!
+    signUp(input: UserAuthInput!): User!
 
     passResetReq(email: String!): Boolean!
 
@@ -92,6 +92,7 @@ const typeDefs = `#graphql
   }
 
   type UserAuthPayload {
+    success: Boolean!
     user: User!
   }
 

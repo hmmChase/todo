@@ -1,26 +1,54 @@
-import { FC } from 'react';
-import { useQuery } from '@apollo/client';
+import IdeaItem from '@/components/IDEA/IdeaItem/IdeaItem';
+import styled from 'styled-components';
+import type { FC } from 'react';
+import type { Ideas as Ideass } from '@/models/index';
 
-import { Ideas as Ideass } from '@/models/index';
-import { READ_IDEAS } from '@/graphql/queries/idea';
-import IdeaList from '@/components/IDEA/IdeaList/IdeaList';
-import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
+interface Props {
+  ideas: Ideass;
+}
 
-const Ideas: FC = () => {
-  const { data, error, loading } = useQuery(READ_IDEAS);
-
-  const ideas: Ideass = data?.ideas;
-
+const Ideas: FC<Props> = ({ ideas }) => {
   return (
-    <QueryResult
-      error={error}
-      loading={loading}
-      showError={true}
-      showLoading={true}
-    >
-      {ideas ? <IdeaList ideas={ideas} /> : <p>There are no ideas</p>}
-    </QueryResult>
+    <>
+      {ideas.length ? (
+        <UL>
+          {ideas.map(idea => (
+            <LI key={idea.id}>
+              <hr />
+
+              <IdeaItem
+                authorId={idea.author!.id}
+                content={idea.content}
+                ideaId={idea.id}
+              />
+            </LI>
+          ))}
+        </UL>
+      ) : (
+        <p>There are no ideas</p>
+      )}
+    </>
   );
 };
 
 export default Ideas;
+
+const LI = styled.li`
+  > hr {
+    border-top: 1px solid ${props => props.theme.border.quaternary};
+    margin: 0;
+  }
+
+  :first-of-type {
+    > hr {
+      display: none;
+    }
+  }
+`;
+
+const UL = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  width: 100%;
+`;

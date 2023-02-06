@@ -1,5 +1,5 @@
-import { FC, ReactNode } from 'react';
 import { default as Linkk } from 'next/link';
+import type { FC, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;

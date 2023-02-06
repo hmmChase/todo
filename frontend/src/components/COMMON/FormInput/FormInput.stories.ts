@@ -1,7 +1,6 @@
-import { ChangeEvent, FocusEvent } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-
 import FormInput from './FormInput';
+import type { ChangeEvent, FocusEvent } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof FormInput> = {
   title: 'COMMON/FormInput',

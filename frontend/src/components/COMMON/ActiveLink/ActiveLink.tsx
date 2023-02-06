@@ -1,12 +1,15 @@
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import type { LinkProps } from 'next/link';
+import type { PropsWithChildren, ReactNode } from 'react';
+
 // https://github.com/vercel/next.js/blob/canary/examples/active-class-name/components/ActiveLink.tsx
 
-import { PropsWithChildren, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Link, { LinkProps } from 'next/link';
-
 type ActiveLinkProps = LinkProps & {
-  className?: string;
   activeClassName: string;
+  children: ReactNode;
+  className?: string;
 };
 
 const ActiveLink = ({

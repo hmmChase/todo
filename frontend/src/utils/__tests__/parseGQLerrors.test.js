@@ -1,7 +1,5 @@
-import { ApolloError } from '@apollo/client';
-
+import { mockGQLerrors } from '@/mocks/mockGQLerrors';
 import displayMessages from '@/constants/displayMessages';
-import mockGQLerrors from '@/mocks/mockGQLerrors';
 import parseGQLerrors from '../parseGQLerrors';
 
 describe('parseGQLerrors', () => {

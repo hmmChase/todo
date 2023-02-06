@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components';
+import type { DefaultTheme } from 'styled-components';
 
 const colors = {
   white: 'white', // #FFFFFF
@@ -91,9 +91,8 @@ const theme: DefaultTheme = {
   text: {
     primary: colors.gray.dark,
     secondary: colors.white,
-    tertiary: colors.imperialPurple,
-    quaternary: colors.blue.light,
-    quinary: colors.blue.dark
+    tertiary: colors.blue.light,
+    quaternary: colors.blue.dark
   },
 
   border: {

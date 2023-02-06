@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import Button from './Button';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Button> = {
   title: 'COMMON/Button',
@@ -20,8 +19,8 @@ export const Loading: Story = { args: { children: 'Button', loading: true } };
 
 export const Disabled: Story = { args: { children: 'Button', disabled: true } };
 
-export const Alt: Story = { args: { children: 'Button', alt: true } };
+export const Alt: Story = { args: { alt: true, children: 'Button' } };
 
 export const AltLoading: Story = {
-  args: { children: 'Button', alt: true, loading: true }
+  args: { alt: true, children: 'Button', loading: true }
 };

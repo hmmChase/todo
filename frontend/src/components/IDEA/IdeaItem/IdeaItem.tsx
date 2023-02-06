@@ -1,9 +1,9 @@
-import { FC, useContext } from 'react';
-import styled from 'styled-components';
-
+import { useContext } from 'react';
 import { UserCtx } from '@/context/User';
 import IdeaDetailIcon from '@/components/IDEA/DETAIL/IdeaDetailIcon/IdeaDetailIcon';
 import RemoveIdea from '@/components/IDEA/RemoveIdea/RemoveIdea';
+import styled from 'styled-components';
+import type { FC } from 'react';
 
 interface Props {
   authorId: string;
@@ -22,7 +22,7 @@ const IdeaItem: FC<Props> = ({ authorId, content, ideaId }) => {
     <Article>
       <Content>{content}</Content>
 
-      <IdeaItemBtns>
+      <IdeaItemBtns data-testid='IdeaItemBtns'>
         <IdeaDetailIconn ideaId={ideaId} />
 
         {currentUserCanDeleteIdea && <RemoveIdea ideaId={ideaId} />}

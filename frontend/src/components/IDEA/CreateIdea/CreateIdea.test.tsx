@@ -1,4 +1,3 @@
-import CreateIdea from './CreateIdea';
 import {
   cleanup,
   render,
@@ -6,40 +5,31 @@ import {
   userEvent,
   waitFor
 } from '@/utils/test-utils';
+import CreateIdea from './CreateIdea';
 
 // import { CREATE_IDEA } from '@/graphql/queries/idea';
-
-/** test:
-- renders without error
-- button disabled when textarea is empty
-- button enabled when textarea is not empty
-*/
 
 describe('CreateIdea', () => {
   afterEach(cleanup);
 
-  it('renders without error', async () => {
-    render(<CreateIdea />);
-  });
-
-  it('button disabled when textArea is empty', async () => {
+  it('disables button when textArea is empty', () => {
     render(<CreateIdea />);
 
-    const button = await screen.findByText('+');
+    const button = screen.getByRole('button', { name: 'submitIdea' });
 
     expect(button).toBeDisabled();
   });
 
-  it('button enabled when textArea is not empty', async () => {
+  it('enables button when textArea is filled', async () => {
     render(<CreateIdea />);
 
-    const textbox = await screen.findByRole('textbox');
+    const textbox = screen.getByRole('textbox');
 
     await waitFor(async () => await userEvent.type(textbox, 'content'));
 
     expect(textbox).toHaveValue('content');
 
-    const button = await screen.findByText('+');
+    const button = screen.getByRole('button', { name: 'submitIdea' });
 
     expect(button).toBeEnabled();
   });

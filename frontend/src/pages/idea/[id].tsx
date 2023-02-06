@@ -1,12 +1,11 @@
-import { NextPageWithLayout } from 'next';
-import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/client';
-
-import { Idea } from '@/models/index';
 import { READ_IDEA } from '@/graphql/queries/idea';
+import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
 import App from '@/components/LAYOUTS/App/App';
 import IdeaDetail from '@/components/IDEA/DETAIL/IdeaDetail/IdeaDetail';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
+import type { Idea } from '@/models/index';
+import type { NextPageWithLayout } from 'next';
 
 const IdeaPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -22,7 +21,12 @@ const IdeaPage: NextPageWithLayout = () => {
   const idea: Idea = data?.idea;
 
   return (
-    <QueryResult data={idea} error={error} loading={loading}>
+    <QueryResult
+      error={error}
+      loading={loading}
+      showError={true}
+      showLoading={true}
+    >
       <IdeaDetail
         authorId={idea?.author!.id}
         content={idea?.content}

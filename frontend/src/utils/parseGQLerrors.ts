@@ -1,6 +1,5 @@
-import type { ApolloError } from '@apollo/client';
-
 import displayMessages from '@/constants/displayMessages';
+import type { ApolloError } from '@apollo/client';
 
 type Keys = Array<keyof typeof displayMessages>;
 

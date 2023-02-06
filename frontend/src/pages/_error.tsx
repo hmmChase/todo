@@ -1,8 +1,8 @@
-// https://nextjs.org/docs/advanced-features/custom-error-page#more-advanced-error-page-customizing
-
 import { useState } from 'react';
-import { NextPage } from 'next';
 import Link from 'next/link';
+import type { NextPage } from 'next';
+
+// https://nextjs.org/docs/advanced-features/custom-error-page#more-advanced-error-page-customizing
 
 const LinkHome: NextPage = () => (
   <Link href='/' passHref>

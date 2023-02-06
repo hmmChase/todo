@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import PassResetError from './PassResetError';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof PassResetError> = {
   title: 'USER/PassResetError',

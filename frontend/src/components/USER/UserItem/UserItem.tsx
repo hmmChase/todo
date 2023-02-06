@@ -1,12 +1,11 @@
-import { FC } from 'react';
+import Ideas from '@/components/IDEA/Ideas/Ideas';
 import styled from 'styled-components';
-
-import { Ideas } from '@/models/index';
-import IdeaList from '@/components/IDEA/IdeaList/IdeaList';
+import type { FC } from 'react';
+import type { Ideas as Ideass } from '@/models/index';
 
 interface Props {
   email: string;
-  ideas: Ideas | undefined;
+  ideas?: Ideass;
   role: string;
   userId: string;
 }
@@ -31,11 +30,13 @@ const IdeaItem: FC<Props> = ({ email, ideas, role, userId }) => (
       {role}
     </ListItem>
 
-    <ListItem>
-      <ItemLabel>Ideas:</ItemLabel>
+    {ideas && (
+      <ListItem>
+        <ItemLabel>Ideas:</ItemLabel>
 
-      <IdeaList ideas={ideas} />
-    </ListItem>
+        <Ideas ideas={ideas} />
+      </ListItem>
+    )}
   </List>
 );
 

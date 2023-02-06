@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import RemoveIdea from './RemoveIdea';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof RemoveIdea> = {
   title: 'IDEA/RemoveIdea',
@@ -14,4 +13,4 @@ export default meta;
 
 type Story = StoryObj<typeof RemoveIdea>;
 
-export const Default: Story = { args: { ideaId: 'ideaId' } };
+export const Default: Story = { args: { ideaId: '1' } };

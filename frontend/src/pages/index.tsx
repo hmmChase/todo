@@ -1,9 +1,27 @@
-import { NextPageWithLayout } from 'next';
-
+import { READ_IDEAS } from '@/graphql/queries/idea';
+import { useQuery } from '@apollo/client';
 import App from '@/components/LAYOUTS/App/App';
-import IdeasPageOffset from '@/components/IDEA/IdeasPageOffset/IdeasPageOffset';
+import Ideas from '@/components/IDEA/Ideas/Ideas';
+import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
+import type { Ideas as Ideass } from '@/models/index';
+import type { NextPageWithLayout } from 'next';
 
-const IndexPage: NextPageWithLayout = () => <IdeasPageOffset />;
+const IndexPage: NextPageWithLayout = () => {
+  const { data, error, loading } = useQuery(READ_IDEAS);
+
+  const ideas: Ideass = data?.ideas;
+
+  return (
+    <QueryResult
+      error={error}
+      loading={loading}
+      showError={true}
+      showLoading={true}
+    >
+      <Ideas ideas={ideas} />
+    </QueryResult>
+  );
+};
 
 IndexPage.getLayout = function getLayout(page) {
   return (
