@@ -1,10 +1,8 @@
+import { admin } from '@/mocks/user';
 import { cleanup, render, screen, waitFor } from '@/utils/test-utils';
 import { CURRENT_USER } from '@/mocks/user/graphql';
 import IdeaDetail from './IdeaDetail';
 import UserProvider from '@/context/User';
-import { admin } from '@/mocks/user';
-
-const props = { authorId: '2', content: 'idea', ideaId: '1' };
 
 describe('IdeaDetail', () => {
   afterEach(cleanup);
