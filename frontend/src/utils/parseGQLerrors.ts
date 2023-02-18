@@ -22,10 +22,10 @@ const parseGQLerrors = (ApolloError: ApolloError) => {
         const displayKeyArr = displayCode.split('.') as Keys;
 
         // Default error message
-        let errMsg = displayMessages.error;
+        let errMsg = displayMsg.error;
 
         // Init current object position
-        let index = displayMessages;
+        let index = displayMsg;
 
         // Loop through object to get correct property
         // Final loop will return correct error message
@@ -33,20 +33,23 @@ const parseGQLerrors = (ApolloError: ApolloError) => {
           // If last item in array, return error message
           if (i === displayKeyArr.length - 1) errMsg = index[key] as string;
           // Else update current object to sub-object
-          else index = index[key] as unknown as typeof displayMessages;
+          else index = index[key] as unknown as typeof displayMsg;
         });
 
-        // // Map displayKeyArr to displayMessages
+        // // Map displayKeyArr to displayMsg
         // const errMsg = displayKeyArr.reduce(
         //   (property, key) => property[key],
-        //   displayMessages
+        //   displayMsg
         // );
 
-        messages.push(errMsg);
+        msgArr.push(errMsg);
       }
+
+      // If no display code, return error message
+      else msgArr.push(graphQLError.message);
     }
 
-  return messages;
+  return msgArr;
 };
 
-export default parseGQLerrors;
+export default parseGQLErrors;

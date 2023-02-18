@@ -17,7 +17,7 @@ describe('IdeaDetail', () => {
     expect(content).toBeInTheDocument();
   });
 
-  it('renders RemoveIdea when user is author', async () => {
+  it('renders RemoveIdea when user is author/admin', async () => {
     render(
       <UserProvider>
         <IdeaDetail {...props} />
@@ -49,7 +49,7 @@ describe('IdeaDetail', () => {
     expect(removeIdea).toBeInTheDocument();
   });
 
-  it('doesnt render RemoveIdea when user is not author or admin', async () => {
+  it('doesnt render RemoveIdea when user is not author/admin', async () => {
     render(
       <UserProvider>
         <IdeaDetail {...props} authorId='3' />

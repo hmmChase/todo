@@ -1,4 +1,4 @@
-const paginateResults = ({
+const paginate = ({
   after: cursor,
   pageSize = 2,
   results, // all nodes
@@ -30,4 +30,4 @@ const paginateResults = ({
     : results.slice(0, pageSize);
 };
 
-export default paginateResults;
+export default paginate;

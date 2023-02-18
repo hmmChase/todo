@@ -5,11 +5,11 @@ import { PASS_RESET_REQ } from '@/graphql/queries/user';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import Button from '@/components/COMMON/Button/Button';
-import displayMessages from '@/constants/displayMessages';
+import displayMsg from '@/constants/displayMsg';
 import FormInput from '@/components/COMMON/FormInput/FormInput';
 import Link from 'next/link';
 import Notice from '@/components/COMMON/Notice/Notice';
-import parseGQLerrors from '@/utils/parseGQLerrors';
+import parseGQLErrors from '@/utils/parseGQLErrors';
 import styled from 'styled-components';
 import type { ApolloError } from '@apollo/client';
 import type { FC } from 'react';
@@ -64,11 +64,11 @@ const PassResetReq: FC = () => {
       )}
 
       {apolloError && (
-        <Notice type='error'>{parseGQLerrors(apolloError)}</Notice>
+        <Notice type='error'>{parseGQLErrors(apolloError)}</Notice>
       )}
 
       {success && (
-        <Notice type='success'>{displayMessages.user.passReset.sent}</Notice>
+        <Notice type='success'>{displayMsg.user.passReset.sent}</Notice>
       )}
 
       <Buttonn

@@ -4,6 +4,7 @@
 import pkg from '@prisma/client';
 
 import { development } from '../src/constants/config.js';
+import consoleLog from '../src/utils/consoleLog.js';
 
 const { PrismaClient } = pkg;
 
@@ -26,16 +27,13 @@ const prisma =
   });
 
 prisma.$on('query', e => {
-  console.log(
-    '--------------------------------------------------',
-    '\n',
-    'Prisma query: ',
-    e.query.split(',')[0].split('.')[1],
-    ', params: ',
-    e.params,
-    '\n',
-    '--------------------------------------------------'
-  );
+  consoleLog({
+    // sql: e.query,
+    query: e.query.split(',')[0].split('.')[1],
+    params: e.params
+    // duration: e.duration,
+    // timestamp: e.timestamp
+  });
 });
 
 if (process.env.NODE_ENV !== 'production') global.prisma = prisma;

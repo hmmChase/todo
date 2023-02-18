@@ -1,17 +1,15 @@
-import isEmail from 'isemail';
-
 import { passwordMaxLength, passwordMinLength } from '../constants/config.js';
-import { UserInputError } from '../utils/error.js';
+import GQLError from '../utils/GQLError.js';
+import isEmail from 'isemail';
 
 /** ----- Email ----- */
 
 const validateEmail = email => {
   // Check if missing args
-  if (!email) throw UserInputError('missing', { argumentName: 'email' });
+  if (!email) GQLError(400, 'validateEmail');
 
   // Type check
-  if (typeof email !== 'string')
-    throw UserInputError('type', { argumentName: 'email' });
+  if (typeof email !== 'string') GQLError(400, 'validateEmail');
 
   // Check if email is well-formed
   isEmailWellFormed(email);
@@ -21,7 +19,8 @@ const isEmailWellFormed = email => {
   // Ensure valid email address
   const isvalid = isEmail.validate(email);
 
-  if (!isvalid) throw UserInputError('error.user.isEmailWellFormed.invalid');
+  if (!isvalid)
+    GQLError(400, 'isEmailWellFormed', 'error.user.isEmailWellFormed.invalid');
 };
 
 /** ----- Password ----- */
@@ -33,25 +32,24 @@ const isPasswordWellFormed = password => {
   */
 
   const tooShort = password.length < passwordMinLength;
-  if (tooShort) throw UserInputError({ msg: 'user.password.short' });
+  if (tooShort) GQLError(422, 'tooShort', 'user.password.short');
 
   const tooLong = password.length > passwordMaxLength;
-  if (tooLong) throw UserInputError({ msg: 'user.password.long' });
+  if (tooLong) GQLError(422, 'tooLong', 'user.password.long');
 };
 
 const validatePassword = password => {
   // Check if missing args
-  if (!password) throw UserInputError('missing', { argumentName: 'password' });
+  if (!password) GQLError(400, 'validatePassword');
 
   // Type check
-  if (typeof password !== 'string')
-    throw UserInputError('type', { argumentName: 'password' });
+  if (typeof password !== 'string') GQLError(400, 'validatePassword');
 
   // Check if password is well-formed
   isPasswordWellFormed(password);
 };
 
-export const validateInputs = inputs => {
+const validate = inputs => {
   // Loop through inputs
   for (const key in inputs) {
     // Get value
@@ -74,3 +72,5 @@ export const validateInputs = inputs => {
 
   return inputs;
 };
+
+export default validate;

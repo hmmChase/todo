@@ -1,8 +1,7 @@
+import { GraphQLError } from 'graphql';
 import bcryptjs from 'bcryptjs';
 // import argon2 from 'argon2';
 // import crypto from 'crypto';
-
-import { UserInputError } from '../utils/error.js';
 
 export const createUserObj = user => ({
   user: { id: user.id, email: user.email, role: user.role }
@@ -20,8 +19,5 @@ export const passwordCompare = async (inputPassword, userPassword) => {
 
   const isCorrectPass = await bcryptjs.compare(inputPassword, userPassword);
 
-  if (!isCorrectPass)
-    throw UserInputError('user password wrong', {
-      displayCode: 'user.password.wrong'
-    });
+  if (!isCorrectPass) throw new GraphQLError('user.password.wrong');
 };

@@ -1,11 +1,4 @@
-export const consoleLog = stuff =>
-  console.log(
-    '------------------------------',
-    '\n',
-    stuff,
-    '\n',
-    '------------------------------'
-  );
+import consoleLog from './consoleLog.js';
 
 const myLogger = (req, res, next) => {
   const oldWrite = res.write;
@@ -25,10 +18,12 @@ const myLogger = (req, res, next) => {
     if (req.body.operationName !== 'IntrospectionQuery') {
       consoleLog({
         time: new Date().toUTCString(),
-        operationName: req.body.operationName,
+        source: req.headers['x-server'] ? 'server' : 'client',
+        operation: req.body.operationName,
         variables: req.body.variables,
-        'access cookie': req.headers.cookie,
-        'server-side req': !!req.headers['x-server']
+        accessToken: !!req.headers.cookie,
+        status: res.statusCode,
+        data: Buffer.concat(chunks).toString('utf8')
 
         // cookies: req.cookies,
         // fromIP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
@@ -39,9 +34,7 @@ const myLogger = (req, res, next) => {
         // referer: req.headers.referer || ''
         // requestData: req.body,
         // requestHeaders: req.headers,
-        // responseData: Buffer.concat(chunks).toString('utf8'),
         // responseHeaders: res.header()._headers,
-        // statusCode: res.statusCode,
         // ua: req.headers['user-agent']
         // uri: req.url,
       });

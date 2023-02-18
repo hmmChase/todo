@@ -1,16 +1,16 @@
-import displayMessages from '@/constants/displayMessages';
+import displayMsg from '@/constants/displayMsg';
 import styled from 'styled-components';
 import type { FC } from 'react';
 
 const PassReqList: FC = () => {
-  const reqList = displayMessages.user.password.requirements.rules.map(
-    (req, i) => <PassListItem key={`req${i}`}>{req}</PassListItem>
-  );
+  const reqList = displayMsg.user.password.requirements.rules.map((req, i) => (
+    <PassListItem key={`req${i}`}>{req}</PassListItem>
+  ));
 
   return (
     <PassListContainer>
       <PassListTitle>
-        {displayMessages.user.password.requirements.title}
+        {displayMsg.user.password.requirements.title}
       </PassListTitle>
 
       <PassListList>{reqList}</PassListList>

@@ -1,6 +1,7 @@
+import { CURRENT_USER } from '../src/__mocks__/user/graphql';
 import { MockedProvider } from '@apollo/client/testing';
-import { ThemeProvider } from 'styled-components';
 import { READ_IDEAS } from '../src/__mocks__/idea/graphql';
+import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../src/styles/global';
 import theme from '../src/styles/theme';
 // import {
@@ -45,7 +46,7 @@ export const decorators = [
     <MockedProvider
       mocks={[
         // // user
-        // CURRENT_USER,
+        CURRENT_USER,
         // IS_LOGGED_IN,
         // LOG_IN,
         // LOG_OUT,

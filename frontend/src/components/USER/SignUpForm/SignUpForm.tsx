@@ -11,7 +11,7 @@ import Button from '@/components/COMMON/Button/Button';
 import FormInput from '@/components/COMMON/FormInput/FormInput';
 import Link from 'next/link';
 import Notice from '@/components/COMMON/Notice/Notice';
-import parseGQLerrors from '@/utils/parseGQLerrors';
+import parseGQLErrors from '@/utils/parseGQLErrors';
 import PassReqList from '@/components/USER/PassReqList/PassReqList';
 import styled from 'styled-components';
 import type { ApolloError } from '@apollo/client';
@@ -103,7 +103,7 @@ const SignUpForm: FC<Props> = ({ close }) => {
       )}
 
       {apolloError && (
-        <Notice type='error'>{parseGQLerrors(apolloError)}</Notice>
+        <Notice type='error'>{parseGQLErrors(apolloError)}</Notice>
       )}
 
       <PassReqList />

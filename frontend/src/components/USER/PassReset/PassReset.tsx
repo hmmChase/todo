@@ -6,10 +6,10 @@ import { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { UserCtx } from '@/context/User';
 import Button from '@/components/COMMON/Button/Button';
-import displayMessages from '@/constants/displayMessages';
+import displayMsg from '@/constants/displayMsg';
 import FormInput from '@/components/COMMON/FormInput/FormInput';
 import Notice from '@/components/COMMON/Notice/Notice';
-import parseGQLerrors from '@/utils/parseGQLerrors';
+import parseGQLErrors from '@/utils/parseGQLErrors';
 import PassReqList from '@/components/USER/PassReqList/PassReqList';
 import styled from 'styled-components';
 import type { ApolloError } from '@apollo/client';
@@ -87,11 +87,11 @@ const PassReset: FC<Props> = ({ passResetToken }) => {
       )}
 
       {apolloError && (
-        <Notice type='error'>{parseGQLerrors(apolloError)}</Notice>
+        <Notice type='error'>{parseGQLErrors(apolloError)}</Notice>
       )}
 
       {success && (
-        <Notice type='success'>{displayMessages.user.passReset.success}</Notice>
+        <Notice type='success'>{displayMsg.user.passReset.success}</Notice>
       )}
 
       <PassReqList />

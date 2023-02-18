@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
+import { CURRENT_USER } from '@/graphql/queries/user';
 import { siteTitle } from '@/constants/config';
-import { StrictMode } from 'react';
+import { StrictMode, useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useApollo } from '@/graphql/apolloClient';
 import GlobalStyle from '@/styles/global';
@@ -9,9 +10,9 @@ import reportWebVitals from '@/root/reportWebVitals';
 import theme from '@/styles/theme';
 import type { AppContext, AppPropsWithLayout } from 'next/app';
 import type { ReactElement, ReactNode } from 'react';
+import type { User } from '@/models/index';
 import UserProvider from '@/context/User';
 // import App from 'next/app';
-// import { CURRENT_USER } from '@/graphql/queries/user';
 // import { initializeApollo, addApolloState } from '@/graphql/apolloClient';
 // import { READ_IDEAS } from '@/graphql/queries/idea';
 // import coloredLog from '@/utils/coloredLog';
@@ -21,21 +22,27 @@ import UserProvider from '@/context/User';
 // https://github.com/vercel/next.js/tree/master/examples/with-styled-components
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
 
   const apolloClient = useApollo(pageProps);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await apolloClient.query({
+        query: CURRENT_USER,
+        errorPolicy: 'all',
+        fetchPolicy: 'cache-first'
+      });
+
+      setUser(await res.data.currentUser);
+
+      fetchUser();
+    };
+  });
 
   // Use the layout defined at the page level, if available
   const getLayout =
     Component.getLayout || ((page: ReactElement) => page as ReactNode);
-
-  // useEffect(() => {
-  // const {
-  // data: { user }
-  // } = async () => await apolloClient.query({ query: CURRENT_USER });
-
-  //   setUser(user);
-  // }, []);
 
   return (
     <>
@@ -60,7 +67,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
       <StrictMode>
         <ApolloProvider client={apolloClient}>
           <ThemeProvider theme={theme}>
-            <UserProvider>
+            <UserProvider currentUser={user}>
               <GlobalStyle />
 
               {getLayout(<Component {...pageProps} />)}

@@ -1,22 +1,16 @@
-// https://www.apollographql.com/docs/apollo-server/data/resolvers
-
-import bcryptjs from 'bcryptjs';
-
-import { AuthenticationError, UserInputError } from '../../utils/error.js';
+import { authAccessToken, newAccessToken } from '../../utils/accessToken.js';
+import { createPassReset, validatePassReset } from '../../utils/passReset.js';
+import { development, passHashSaltRounds } from '../../constants/config.js';
+import { passwordCompare } from '../../utils/user.js';
 import {
   sendPassResetReqEmail,
   sendSignUpEmail
 } from '../../handlers/emailHandler.js';
-import {
-  createAccessToken,
-  verifyAccessToken
-} from '../../utils/accessToken.js';
-import { consoleLog } from '../../utils/myLogger.js';
-import { createPassReset, validatePassReset } from '../../utils/passReset.js';
-import { development, passwordHashSaltRounds } from '../../constants/config.js';
-import { passwordCompare } from '../../utils/user.js';
-import { validateInputs } from '../../utils/validateInputs.js';
 import accessCookieOptions from '../../constants/cookie.js';
+import bcryptjs from 'bcryptjs';
+import consoleLog from '../../utils/consoleLog.js';
+import GQLError from '../../utils/GQLError.js';
+import validate from '../../utils/validate.js';
 
 const userResolver = {
   Query: {
@@ -68,10 +62,11 @@ const userResolver = {
     /* Return authenticated user */
     currentUser: async (parent, args, ctx, info) => {
       // If user not logged in, return null
-      if (!ctx.accessToken) throw AuthenticationError('no access token');
+      if (!ctx.accessToken)
+        GQLError(401, 'currentUserIdeas', 'user.error.notLoggedIn');
 
       // Verify access token & decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Find user matching user id
@@ -87,7 +82,7 @@ const userResolver = {
         //? Refresh access token if within 1 day of expiration
         if (isLessThanOneDay) {
           // Create access token
-          const accessToken = createAccessToken({ id: user.id });
+          const accessToken = newAccessToken({ id: user.id });
 
           // Set new access cookie
           ctx.res.cookie('access', accessToken, accessCookieOptions);
@@ -109,7 +104,7 @@ const userResolver = {
       const { input } = args;
 
       // Normalize & validate inputs
-      const { email, password } = validateInputs({ ...input });
+      const { email, password } = validate({ ...input });
 
       try {
         // Find user matching email
@@ -118,9 +113,8 @@ const userResolver = {
           select: { id: true, role: true, password: true }
         });
 
-        // If user not found, throw error with display code
-        if (!user)
-          throw UserInputError('user not found', { displayCode: 'user.null' });
+        // If user not found, throw error
+        if (!user) GQLError(404, 'logIn', 'user.null');
 
         // Check if input password matches user password
         await passwordCompare(password, user.password);
@@ -129,7 +123,7 @@ const userResolver = {
         delete user.password;
 
         // Create access token
-        const accessToken = createAccessToken({ id: user.id });
+        const accessToken = newAccessToken({ id: user.id });
 
         // Set new access cookie
         ctx.res.cookie('access', accessToken, accessCookieOptions);
@@ -137,7 +131,7 @@ const userResolver = {
         // Return user
         return user;
       } catch (error) {
-        // UserInputError gets caught here
+        // GraphQLError gets caught here
         development && consoleLog(error);
 
         // Throw caught error, else generic error is returned
@@ -162,37 +156,34 @@ const userResolver = {
       const { input } = args;
 
       // Normalize & validate inputs
-      const { email, password } = validateInputs({ ...input });
+      const { email, password } = validate({ ...input });
 
       try {
-        // Check if account already exists
-        const foundUser = await ctx.prisma.user.findUnique({
+        // Check if email already used
+        const user = await ctx.prisma.user.findUnique({
           where: { email },
           select: { id: true, role: true }
         });
 
-        // If user found, throw error with display code
-        if (foundUser)
-          throw UserInputError('user already exists', {
-            displayCode: 'user.exists'
-          });
+        // If user found, throw error
+        if (user) GQLError(409, 'signUp', 'user.exists');
 
         /**
         // Encrypt password
         const hash = crypto
-          .pbkdf2Sync(password, passwordHashSaltRounds, 1000, 64, 'sha512')
+          .pbkdf2Sync(password, passHashSaltRounds, 1000, 64, 'sha512')
           .toString('hex');
 
         const hashedPassword = await argon2.hash(
           newPassword,
-          passwordHashSaltRounds
+          passHashSaltRounds
         );
         */
 
         // Encrypt password
         const passwordHashed = await bcryptjs.hash(
           password,
-          passwordHashSaltRounds
+          passHashSaltRounds
         );
 
         // Create user
@@ -202,7 +193,7 @@ const userResolver = {
         });
 
         // Create access token
-        const accessToken = createAccessToken({ id: createdUser.id });
+        const accessToken = newAccessToken({ id: createdUser.id });
 
         // Set new access cookie
         ctx.res.cookie('access', accessToken, accessCookieOptions);
@@ -224,7 +215,7 @@ const userResolver = {
       const { input } = args;
 
       // Normalize & validate inputs
-      const { email } = validateInputs({ ...input });
+      const { email } = validate({ ...input });
 
       try {
         // Find user matching email
@@ -233,11 +224,8 @@ const userResolver = {
           select: { id: true }
         });
 
-        // If user not found, throw error with display code
-        if (!user)
-          throw UserInputError('user not found', {
-            displayCode: 'user.null'
-          });
+        // If user not found, throw error
+        if (!user) GQLError(404, 'passResetReq', 'user.null');
 
         // Generate password reset token & expiration
         const [passResetExpiry, passResetToken] = await createPassReset();
@@ -265,11 +253,11 @@ const userResolver = {
       const { newPassword, passResetToken } = args;
 
       // Normalize & validate inputs
-      const { password } = validateInputs({ password: newPassword });
+      const { password } = validate({ password: newPassword });
 
       try {
         // Find user matching password reset token
-        const foundUser = await ctx.prisma.user.findUnique({
+        const user = await ctx.prisma.user.findUnique({
           where: {
             passResetToken
 
@@ -282,21 +270,21 @@ const userResolver = {
           select: { passResetExpiry: true }
         });
 
-        // If user not found, return error
-        if (!foundUser) throw UserInputError({ msg: 'user.null' });
+        // If user not found, throw error
+        if (!user) GQLError(404, 'passReset', 'user.null');
 
         // Check if password reset token is expired
-        validatePassReset(foundUser.passResetExpiry);
+        validatePassReset(user.passResetExpiry);
 
         // Encrypt new password
         const passwordHashed = await bcryptjs.hash(
           password,
-          passwordHashSaltRounds
+          passHashSaltRounds
         );
 
         // Update user with new password & clear password reset token & expiry
         const updatedUser = await ctx.prisma.user.update({
-          where: { id: foundUser.id },
+          where: { id: user.id },
           data: {
             passResetExpiry: null,
             passResetToken: null,
@@ -306,7 +294,7 @@ const userResolver = {
         });
 
         // Create access token
-        const accessToken = createAccessToken({ id: updatedUser.id });
+        const accessToken = newAccessToken({ id: updatedUser.id });
 
         // Set new access cookie
         ctx.res.cookie('access', accessToken, accessCookieOptions);

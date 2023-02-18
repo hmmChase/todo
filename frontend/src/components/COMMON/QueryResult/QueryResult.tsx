@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import Loading from '@/components/COMMON/Loading/Loading';
 import Notice from '@/components/COMMON/Notice/Notice';
-import parseGQLerrors from '@/utils/parseGQLerrors';
+import parseGQLErrors from '@/utils/parseGQLErrors';
 import styled from 'styled-components';
 import type { FC, ReactNode } from 'react';
 
@@ -23,7 +23,7 @@ const QueryResult: FC<Props> = ({
   if (loading && showLoading) return <Loading />;
 
   if (error && showError)
-    return <Notice type='error'>{parseGQLerrors(error)}</Notice>;
+    return <Notice type='error'>{parseGQLErrors(error)}</Notice>;
 
   return <>{children}</>;
 };

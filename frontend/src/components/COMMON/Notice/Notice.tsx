@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import type { FC } from 'react';
 
 interface Props {
-  children: string[] | string;
+  children: string | string[];
   type: 'error' | 'info' | 'success';
 }
 

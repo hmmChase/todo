@@ -8,26 +8,26 @@ export const development = !test || !preview || !production;
 
 /* Settings */
 
-export const port = process.env.PORT || 4000;
-
-export const graphqlPath = '/gql';
-
 export const passwordMinLength = 8;
 export const passwordMaxLength = 30;
 
-export const passwordHashSaltRounds = 10;
+export const passHashSaltRounds = 10;
 
-export const passwordResetTokenBytesSize = 16;
-
-export const accessTokenExpiry = '1w';
-
-export const accessCookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
+export const passResetTokenBytes = 16;
 
 export const passResetExpiry = new Date(
   Date.now() + 1000 * 60 * 60
 ).toISOString(); // 1 hour from now
 
+export const accessTokenExpiry = '1w';
+
+export const accessCookieExpiry = 7 * 24 * 60 * 60 * 1000; // 1 week
+
 /* URLs */
+
+export const port = process.env.PORT || 4000;
+
+export const graphqlPath = '/gql';
 
 const frontendUrlDev = 'http://localhost:1337';
 const frontendUrlPrev = 'https://hmmstart-git-preview-hmmchase.vercel.app';

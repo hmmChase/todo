@@ -1,13 +1,14 @@
+import { accessTokenExpiry, development } from '../constants/config.js';
+import consoleLog from '../utils/consoleLog.js';
+import GQLError from './GQLError.js';
 import jwt from 'jsonwebtoken';
 // import Iron from '@hapi/iron';
 
-import { accessTokenExpiry, development } from '../constants/config.js';
-import { AuthenticationError } from '../utils/error.js';
-import { consoleLog } from '../utils/myLogger.js';
+//! TODO: https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/
 
 const secret = Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64');
 
-export const createAccessToken = payload => {
+export const newAccessToken = payload => {
   // const ironAT = await Iron.seal(payload, secret, Iron.defaults);
 
   const JWToptions = { expiresIn: accessTokenExpiry };
@@ -17,9 +18,7 @@ export const createAccessToken = payload => {
   return jwtAccessToken;
 };
 
-//! TODO: https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/
-
-export const verifyAccessToken = accessToken => {
+export const authAccessToken = accessToken => {
   try {
     // const payload = await Iron.unseal(accessToken, secret, Iron.defaults);
 
@@ -29,6 +28,6 @@ export const verifyAccessToken = accessToken => {
   } catch (error) {
     development && consoleLog(error);
 
-    throw AuthenticationError(error);
+    GQLError(401, error.message);
   }
 };

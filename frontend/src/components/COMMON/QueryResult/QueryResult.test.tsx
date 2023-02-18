@@ -1,5 +1,5 @@
 import { cleanup, render, screen } from '@/utils/test-utils';
-import { mockGQLerror } from '@/mocks/mockGQLerrors';
+import { mockGQLError } from '@/mocks/mockGQLErrors';
 import QueryResult from './QueryResult';
 
 describe('QueryResult', () => {
@@ -19,7 +19,7 @@ describe('QueryResult', () => {
 
   test('renders error message if error and showError are true', () => {
     render(
-      <QueryResult loading={false} error={mockGQLerror} showError={true}>
+      <QueryResult loading={false} error={mockGQLError} showError={true}>
         children
       </QueryResult>
     );

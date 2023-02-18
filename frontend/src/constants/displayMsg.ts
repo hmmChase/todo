@@ -1,13 +1,18 @@
 import { passwordMaxLength, passwordMinLength } from '@/constants/config';
 
-const displayMessages = {
-  error: 'Something went wrong',
+const displayMsg = {
+  error: 'ERROR',
 
-  empty: 'Nothing to show',
+  null: 'NULL',
+
+  networkError: 'Network error',
 
   user: {
-    null: 'No account found',
+    null: 'Account found',
     exists: 'Email already in use',
+
+    unauthenticated: 'Unauthenticated',
+    unauthorized: 'Unauthorized',
 
     email: {
       required: 'Required',
@@ -45,4 +50,4 @@ const displayMessages = {
   }
 };
 
-export default displayMessages;
+export default displayMsg;

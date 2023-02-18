@@ -1,4 +1,4 @@
-import { mockGQLerror } from '@/mocks/mockGQLerrors';
+import { mockGQLError } from '@/mocks/mockGQLErrors';
 import QueryResult from './QueryResult';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -24,8 +24,8 @@ export const ShowLoading: Story = {
   args: { loading: true, showLoading: true }
 };
 
-export const Error: Story = { args: { error: mockGQLerror } };
+export const Error: Story = { args: { error: mockGQLError } };
 
 export const ShowError: Story = {
-  args: { error: mockGQLerror, showError: true }
+  args: { error: mockGQLError, showError: true }
 };

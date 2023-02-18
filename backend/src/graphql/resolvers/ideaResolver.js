@@ -1,8 +1,8 @@
-import { AuthenticationError, ForbiddenError } from '../../utils/error.js';
-import { consoleLog } from '../../utils/myLogger.js';
+import { authAccessToken } from '../../utils/accessToken.js';
 import { development } from '../../constants/config.js';
-import { verifyAccessToken } from '../../utils/accessToken.js';
-import paginateResults from '../../utils/paginateResults.js';
+import consoleLog from '../../utils/consoleLog.js';
+import GQLError from '../../utils/GQLError.js';
+import paginate from '../../utils/paginate.js';
 
 const ideaResolver = {
   Query: {
@@ -60,7 +60,9 @@ const ideaResolver = {
       const { offset, limit } = args;
 
       if ((!offset && offset !== 0) || !limit)
-        throw ForbiddenError(
+        GQLError(
+          422,
+          'ideasPaginatedOffset',
           'idea.error.ideasPaginatedOffset.invalidOffsetOrLimit'
         );
 
@@ -86,23 +88,15 @@ const ideaResolver = {
       }
     },
 
-    //todo: figure out what to use as a cursor
-
     /* Return cursor paginated ideas */
     ideasPaginatedCursor: async (parent, args, ctx, info) => {
       const { after, pageSize } = args;
 
       // if (!cursor || !limit)
-      //   throw ForbiddenError(
+      //   GQLError(
+      //     422,
+      //     'ideasPaginatedCursor',
       //     'idea.error.ideasPaginatedCursor.invalidCursorOrLimit'
-      //   );
-
-      console.log('after:', after);
-      console.log('pageSize:', pageSize);
-
-      // if ((!offset && offset !== 0) || !limit)
-      //   throw ForbiddenError(
-      //     'idea.error.ideasPaginatedCursor.invalidOffsetOrLimit'
       //   );
 
       try {
@@ -119,15 +113,7 @@ const ideaResolver = {
           orderBy: { createdAt: 'desc' }
         });
 
-        // console.log('ideas:', ideas);
-
-        const ideasPaginated = paginateResults({
-          after,
-          pageSize,
-          results: ideas
-        });
-
-        console.log('ideasPaginated:', ideasPaginated);
+        const ideasPaginated = paginate({ after, pageSize, results: ideas });
 
         // try {
         //   const ideas = await ctx.prisma.idea.findMany({
@@ -149,16 +135,12 @@ const ideaResolver = {
           ? ideasPaginated[ideasPaginated.length - 1].createdAt
           : null;
 
-        console.log('cursor:', cursor);
-
         // if the cursor of the end of the paginated results is the same as the
         // last item in _all_ results, then there are no more results after this
         const hasMore = ideasPaginated.length
           ? ideasPaginated[ideasPaginated.length - 1].createdAt !==
             ideas[ideas.length - 1].createdAt
           : false;
-
-        console.log('hasMore:', hasMore);
 
         return { cursor, hasMore, ideas: ideasPaginated };
       } catch (error) {
@@ -171,11 +153,11 @@ const ideaResolver = {
     /* Return authenticated user's ideas */
     currentUserIdeas: async (parent, args, ctx, info) => {
       // If user not logged in, return null
-      if (!ctx.accessToken) throw AuthenticationError('no access token');
-      // if (!ctx.accessToken) return null;
+      if (!ctx.accessToken)
+        GQLError(401, 'currentUserIdeas', 'idea.error.notLoggedIn');
 
       // Verify access token & decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Find all ideas matching author id & haven't been deleted
@@ -203,7 +185,7 @@ const ideaResolver = {
     //   const { skip, take } = args;
 
     //   // Verify access token and decode payload
-    //   const payload = verifyAccessToken(ctx.accessToken);
+    //   const payload = authAccessToken(ctx.accessToken);
 
     //   // Find and return paginated ideas matching user id
     //   const ideas = await prisma.idea.findMany({
@@ -219,7 +201,7 @@ const ideaResolver = {
     //   const { skip, take } = args;
 
     //   // Verify access token and decode payload
-    //   const payload = verifyAccessToken(ctx.accessToken);
+    //   const payload = authAccessToken(ctx.accessToken);
 
     //   // // Find and return paginated ideas matching user id
     //   // const ideas = await prisma.idea.findMany({
@@ -250,8 +232,12 @@ const ideaResolver = {
     createIdea: (parent, args, ctx, info) => {
       const { content } = args;
 
+      // If user not logged in, return null
+      if (!ctx.accessToken)
+        GQLError(401, 'createIdea', 'idea.error.notLoggedIn');
+
       // Verify access token and decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Create idea
@@ -277,8 +263,12 @@ const ideaResolver = {
     updateIdea: async (parent, args, ctx, info) => {
       const { id, content } = args;
 
+      // If user not logged in, return null
+      if (!ctx.accessToken)
+        GQLError(401, 'updateIdea', 'idea.error.notLoggedIn');
+
       // Verify access token and decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Request idea's author ID
@@ -291,8 +281,7 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea)
-          throw ForbiddenError('idea.error.updateIdea.invalidOwnership');
+        if (!ownsIdea) GQLError(403, 'updateIdea');
 
         // Update idea
         const updatedIdea = ctx.prisma.idea.update({
@@ -313,8 +302,12 @@ const ideaResolver = {
     removeIdea: async (parent, args, ctx, info) => {
       const { id } = args;
 
+      // If user not logged in, return null
+      if (!ctx.accessToken)
+        GQLError(401, 'removeIdea', 'idea.error.notLoggedIn');
+
       // Verify access token and decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Request idea's author ID
@@ -327,8 +320,7 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea)
-          throw ForbiddenError('idea.error.removeIdea.invalidOwnership');
+        if (!ownsIdea) GQLError(403, 'removeIdea');
 
         // Update idea soft delete field
         const removedIdea = await ctx.prisma.idea.update({
@@ -349,8 +341,12 @@ const ideaResolver = {
     deleteIdea: async (parent, args, ctx, info) => {
       const { id } = args;
 
+      // If user not logged in, return null
+      if (!ctx.accessToken)
+        GQLError(401, 'deleteIdea', 'idea.error.notLoggedIn');
+
       // Verify access token and decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Request idea's author ID
@@ -363,8 +359,7 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea)
-          throw ForbiddenError('idea.error.deleteIdea.invalidOwnership');
+        if (!ownsIdea) GQLError(403, 'deleteIdea');
 
         // Delete idea
         const deletedIdea = ctx.prisma.idea.delete({

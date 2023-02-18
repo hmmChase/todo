@@ -1,5 +1,5 @@
 import { idea1, ideas } from '@/mocks/idea';
-import { mockGQLerror } from '@/mocks/mockGQLerrors';
+import { mockGQLError } from '@/mocks/mockGQLErrors';
 import * as ideaQuery from '@/graphql/queries/idea';
 
 //* - Queries ----------
@@ -11,7 +11,7 @@ export const READ_IDEA = {
 
 export const READ_IDEA_ERROR = {
   request: { query: ideaQuery.READ_IDEA, variables: { id: '1' } },
-  error: mockGQLerror
+  error: mockGQLError
 };
 
 //---
@@ -23,7 +23,7 @@ export const READ_IDEAS = {
 
 export const READ_IDEAS_ERROR = {
   request: { query: ideaQuery.READ_IDEAS },
-  error: mockGQLerror
+  error: mockGQLError
 };
 
 //---
@@ -35,7 +35,7 @@ export const READ_IDEAS_CLIENT = {
 
 export const READ_IDEAS_CLIENT_ERROR = {
   request: { query: ideaQuery.READ_IDEAS_CLIENT },
-  error: mockGQLerror
+  error: mockGQLError
 };
 
 //---
@@ -53,7 +53,7 @@ export const READ_IDEAS_PAGINATED_OFFSET_ERROR = {
     query: ideaQuery.READ_IDEAS_PAGINATED_OFFSET,
     variables: { offset: 1, limit: 3 }
   },
-  error: mockGQLerror
+  error: mockGQLError
 };
 
 //---
@@ -71,7 +71,7 @@ export const READ_IDEAS_PAGINATED_CURSOR_ERROR = {
     query: ideaQuery.READ_IDEAS_PAGINATED_CURSOR,
     variables: { offset: 1, limit: 3 }
   },
-  error: mockGQLerror
+  error: mockGQLError
 };
 
 //---
@@ -83,7 +83,7 @@ export const CURRENT_USER_IDEAS = {
 
 export const CURRENT_USER_IDEAS_ERROR = {
   request: { query: ideaQuery.CURRENT_USER_IDEAS },
-  error: mockGQLerror
+  error: mockGQLError
 };
 
 //* - Mutations ----------
@@ -103,7 +103,7 @@ export const CREATE_IDEA_ERROR = {
     query: ideaQuery.CREATE_IDEA,
     variables: { content: 'mock idea' }
   },
-  error: mockGQLerror
+  error: mockGQLError
 };
 
 //---
@@ -123,7 +123,7 @@ export const UPDATE_IDEA_ERROR = {
     query: ideaQuery.UPDATE_IDEA,
     variables: { id: '1', content: 'updated mock idea' }
   },
-  error: mockGQLerror
+  error: mockGQLError
 };
 
 //---
@@ -135,7 +135,7 @@ export const REMOVE_IDEA = {
 
 export const REMOVE_IDEA_ERROR = {
   request: { query: ideaQuery.REMOVE_IDEA, variables: { id: '1' } },
-  error: mockGQLerror
+  error: mockGQLError
 };
 
 //---
@@ -147,5 +147,5 @@ export const DELETE_IDEA = {
 
 export const DELETE_IDEA_ERROR = {
   request: { query: ideaQuery.DELETE_IDEA, variables: { id: '1' } },
-  error: mockGQLerror
+  error: mockGQLError
 };
