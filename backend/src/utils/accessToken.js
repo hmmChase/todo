@@ -13,7 +13,7 @@ export const newAccessToken = payload => {
 
   const JWToptions = { expiresIn: accessTokenExpiry };
 
-  const jwtAccessToken = jwt.sign({ payload }, secret, JWToptions);
+  const jwtAccessToken = jwt.sign(payload, secret, JWToptions);
 
   return jwtAccessToken;
 };
