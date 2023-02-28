@@ -1,4 +1,5 @@
-import { mockGQLError } from '@/mocks/mockGQLErrors';
+import { mockGQLError } from '../../../__mocks__/mockGQLErrors';
+// import { mockGQLError } from '@/mocks/mockGQLErrors';
 import QueryResult from './QueryResult';
 import type { Meta, StoryObj } from '@storybook/react';
 
