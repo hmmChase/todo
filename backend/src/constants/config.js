@@ -29,14 +29,15 @@ export const port = process.env.PORT || 4000;
 
 export const graphqlPath = '/gql';
 
-const frontendUrlDev = 'http://localhost:1337';
+const frontendUrlLocal = 'http://localhost:1337';
+const frontendUrlDev = 'https://hmmstart-git-dev-hmmchase.vercel.app/';
 const frontendUrlPrev = 'https://hmmstart-git-preview-hmmchase.vercel.app';
 const frontendUrlProd = 'https://hmmstart.vercel.app';
 
 export const frontendUrl = development
-  ? frontendUrlDev
+  ? frontendUrlLocal
   : preview
-  ? frontendUrlPrev
+  ? [frontendUrlDev, frontendUrlPrev]
   : production && frontendUrlProd;
 
 export const backendUrl = process.env.VERCEL_URL;
