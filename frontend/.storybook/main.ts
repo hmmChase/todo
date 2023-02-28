@@ -1,4 +1,4 @@
-// const path = require('path');
+import path from 'path';
 
 const config = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -37,30 +37,31 @@ const config = {
 
   docs: { autodocs: 'tag' },
 
-  staticDirs: ['../public']
+  staticDirs: ['../public'],
 
-  // webpackFinal: async config => {
-  //   // https://github.com/storybookjs/storybook/issues/11639
-  //   // config.resolve.modules = [path.resolve(__dirname), 'node_modules'];
+  webpackFinal: async config => {
+    // https://github.com/storybookjs/storybook/issues/11639
+    // config.resolve.modules = [path.resolve(__dirname), 'node_modules'];
 
-  //   config.resolve.alias = {
-  //     ...config.resolve.alias,
+    config.resolve.alias = {
+      ...config.resolve.alias,
 
-  //     '@/components': path.resolve(__dirname, '../src/components'),
-  //     '@/constants': path.resolve(__dirname, '../src/constants'),
-  //     '@/context': path.resolve(__dirname, '../src/context'),
-  //     '@/graphql': path.resolve(__dirname, '../src/graphql'),
-  //     '@/hooks': path.resolve(__dirname, '../src/hooks'),
-  //     '@/models': path.resolve(__dirname, '../src/models'),
-  //     '@/pages': path.resolve(__dirname, '../src/pages'),
-  //     '@/public': path.resolve(__dirname, '../public'),
-  //     '@/root': path.resolve(__dirname, '../'),
-  //     '@/styles': path.resolve(__dirname, '../src/styles'),
-  //     '@/utils': path.resolve(__dirname, '../src/utils')
-  //   };
+      '@/components': path.resolve(__dirname, '../src/components'),
+      '@/constants': path.resolve(__dirname, '../src/constants'),
+      '@/context': path.resolve(__dirname, '../src/context'),
+      '@/graphql': path.resolve(__dirname, '../src/graphql'),
+      '@/hooks': path.resolve(__dirname, '../src/hooks'),
+      '@/mocks': path.resolve(__dirname, '../src/__mocks__'),
+      '@/models': path.resolve(__dirname, '../src/models'),
+      '@/pages': path.resolve(__dirname, '../src/pages'),
+      '@/public': path.resolve(__dirname, '../public'),
+      '@/root': path.resolve(__dirname, '../'),
+      '@/styles': path.resolve(__dirname, '../src/styles'),
+      '@/utils': path.resolve(__dirname, '../src/utils')
+    };
 
-  //   return config;
-  // }
+    return config;
+  }
 };
 
 module.exports = config;
