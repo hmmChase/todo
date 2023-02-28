@@ -1,20 +1,20 @@
-import displayMessages from '@/constants/displayMessages';
+import displayMsg from '@/constants/displayMsg';
 import type { ApolloError } from '@apollo/client';
 
-type Keys = Array<keyof typeof displayMessages>;
+type Keys = Array<keyof typeof displayMsg>;
 
-const parseGQLerrors = (ApolloError: ApolloError) => {
-  const { graphQLErrors } = ApolloError;
+const parseGQLErrors = (GQLErrors: ApolloError) => {
+  const { clientErrors, graphQLErrors, networkError } = GQLErrors;
 
-  const messages = [];
+  const msgArr = [];
 
-  if (graphQLErrors)
+  if (clientErrors.length) msgArr.push(displayMsg.error);
+
+  if (networkError) msgArr.push(displayMsg.error);
+
+  if (graphQLErrors.length)
     for (const graphQLError of graphQLErrors) {
-      if (
-        graphQLError.extensions &&
-        graphQLError.extensions.displayCode &&
-        graphQLError.extensions.code === 'BAD_USER_INPUT'
-      ) {
+      if (graphQLError.extensions && graphQLError.extensions.displayCode) {
         // Get display code
         const displayCode = graphQLError.extensions.displayCode as string;
 
@@ -36,17 +36,11 @@ const parseGQLerrors = (ApolloError: ApolloError) => {
           else index = index[key] as unknown as typeof displayMsg;
         });
 
-        // // Map displayKeyArr to displayMsg
-        // const errMsg = displayKeyArr.reduce(
-        //   (property, key) => property[key],
-        //   displayMsg
-        // );
-
         msgArr.push(errMsg);
       }
 
       // If no display code, return error message
-      else msgArr.push(graphQLError.message);
+      else msgArr.push(displayMsg.error);
     }
 
   return msgArr;

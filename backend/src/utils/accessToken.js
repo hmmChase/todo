@@ -1,6 +1,6 @@
 import { accessTokenExpiry, development } from '../constants/config.js';
+import { GraphQLError } from 'graphql';
 import consoleLog from '../utils/consoleLog.js';
-import GQLError from './GQLError.js';
 import jwt from 'jsonwebtoken';
 // import Iron from '@hapi/iron';
 
@@ -13,7 +13,7 @@ export const newAccessToken = payload => {
 
   const JWToptions = { expiresIn: accessTokenExpiry };
 
-  const jwtAccessToken = jwt.sign(payload, secret, JWToptions);
+  const jwtAccessToken = jwt.sign({ payload }, secret, JWToptions);
 
   return jwtAccessToken;
 };
@@ -28,6 +28,6 @@ export const authAccessToken = accessToken => {
   } catch (error) {
     development && consoleLog(error);
 
-    GQLError(401, error.message);
+    throw new GraphQLError(401);
   }
 };

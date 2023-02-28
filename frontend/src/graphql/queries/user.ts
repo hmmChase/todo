@@ -60,9 +60,7 @@ export const CURRENT_USER = gql`
 export const LOG_IN = gql`
   mutation LogIn($email: String!, $password: String!) {
     logIn(input: { email: $email, password: $password }) {
-      user {
-        ...userFields
-      }
+      ...userFields
     }
   }
   ${USER_FIELDS}
@@ -77,9 +75,7 @@ export const LOG_OUT = gql`
 export const SIGN_UP = gql`
   mutation SignUp($email: String!, $password: String!) {
     signUp(input: { email: $email, password: $password }) {
-      user {
-        ...userFields
-      }
+      ...userFields
     }
   }
   ${USER_FIELDS}

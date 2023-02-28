@@ -22,7 +22,7 @@ interface Props {
 }
 
 interface Data {
-  logIn: { user: User };
+  logIn: User;
 }
 
 type HandleSubmit = (
@@ -44,9 +44,9 @@ const LogInForm: FC<Props> = ({ close }) => {
 
   const onCompleted = (data: Data) => {
     if (data.logIn) {
-      setUser(data.logIn.user);
+      setUser(data.logIn);
 
-      isLoggedInVar(true);
+      isLoggedInVar(!!data.logIn);
 
       // localStorage.setItem('userId', data.logIn.user.id);
     }
@@ -153,7 +153,7 @@ const Form = styled.form`
 
 const Buttonn = styled(Button)`
   align-self: flex-end;
-  margin-bottom: 1rem;
+  margin: 0.5rem 0;
 `;
 
 export const LogInLinks = styled.div`

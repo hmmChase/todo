@@ -1,44 +1,43 @@
 import { ApolloProvider } from '@apollo/client';
-import { CURRENT_USER } from '@/graphql/queries/user';
 import { siteTitle } from '@/constants/config';
-import { StrictMode, useEffect, useState } from 'react';
+import { StrictMode } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useApollo } from '@/graphql/apolloClient';
 import GlobalStyle from '@/styles/global';
 import Head from 'next/head';
 import reportWebVitals from '@/root/reportWebVitals';
 import theme from '@/styles/theme';
-import type { AppContext, AppPropsWithLayout } from 'next/app';
+import type { AppPropsWithLayout } from 'next/app';
 import type { ReactElement, ReactNode } from 'react';
-import type { User } from '@/models/index';
 import UserProvider from '@/context/User';
-// import App from 'next/app';
+// import { CURRENT_USER } from '@/graphql/queries/user';
 // import { initializeApollo, addApolloState } from '@/graphql/apolloClient';
 // import { READ_IDEAS } from '@/graphql/queries/idea';
-// import coloredLog from '@/utils/coloredLog';
+// import App from 'next/app';
+// import type { User } from '@/models/index';
 // import verifyUser from '@/utils/verifyUser';
 
 // https://nextjs.org/docs/advanced-features/custom-app
 // https://github.com/vercel/next.js/tree/master/examples/with-styled-components
 
-const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
-  const [user, setUser] = useState<User | null>(null);
+const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+  // const [user, setUser] = useState<User | null>(null);
 
   const apolloClient = useApollo(pageProps);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await apolloClient.query({
-        query: CURRENT_USER,
-        errorPolicy: 'all',
-        fetchPolicy: 'cache-first'
-      });
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const res = await apolloClient.query({
+  //       query: CURRENT_USER,
+  //       errorPolicy: 'all'
+  //       // fetchPolicy: 'cache-first'
+  //     });
 
-      setUser(await res.data.currentUser);
+  //     setUser(res.data.currentUser);
+  //   };
 
-      fetchUser();
-    };
-  });
+  //   fetchUser();
+  // });
 
   // Use the layout defined at the page level, if available
   const getLayout =
@@ -67,7 +66,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
       <StrictMode>
         <ApolloProvider client={apolloClient}>
           <ThemeProvider theme={theme}>
-            <UserProvider currentUser={user}>
+            <UserProvider>
               <GlobalStyle />
 
               {getLayout(<Component {...pageProps} />)}
@@ -79,7 +78,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   );
 };
 
-// MyApp.getInitialProps = async (appContext: AppContext) => {
+// App.getInitialProps = async (appContext: AppContext) => {
 // const apolloClient = initializeApollo();
 
 // const res = await apolloClient.query({ query: CURRENT_USER });
@@ -97,7 +96,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
 //? if on server, verify user
 // if (typeof window === 'undefined') {
-//   MyApp.getInitialProps = async (appContext: AppContext) => {
+//   App.getInitialProps = async (appContext: AppContext) => {
 //     // calls page's `getInitialProps` and fills `appProps.pageProps`
 //     const appProps = await App.getInitialProps(appContext);
 
@@ -122,7 +121,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 // Called server-side on:
 // - initial page load
 
-// MyApp.getInitialProps = async (appContext: AppContext) => {
+// App.getInitialProps = async (appContext: AppContext) => {
 //   // calls page's `getInitialProps` and fills `appProps.pageProps`
 //   const appProps = await App.getInitialProps(appContext);
 
@@ -155,4 +154,4 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-export default MyApp;
+export default App;

@@ -1,7 +1,7 @@
 import { development, gqlUri } from '@/constants/config';
 import { from, HttpLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import coloredLog from '@/utils/coloredLog';
+import consoleLog from '@/utils/consoleLog';
 // import { TokenRefreshLink } from 'apollo-link-token-refresh';
 
 const errorLink = onError(error => {
@@ -12,19 +12,20 @@ const errorLink = onError(error => {
 
   if (graphQLErrors)
     graphQLErrors.forEach(graphQLError => {
-      const { extensions, message, path } = graphQLError;
+      const { extensions, locations, message, path } = graphQLError;
 
-      coloredLog(
+      consoleLog(
         'GraphQL error',
-        `Message: ${message} \nCode: ${extensions.code} \nPath: ${path}`,
-        '#C0FFEE'
+        `Message: ${message} \n Code: ${
+          extensions.code
+        } \n Path: ${path} \n Line: ${locations && locations[0].line}`
       );
     });
 
   if (networkError) {
-    const { name, message, stack } = networkError;
+    const { message, name } = networkError;
 
-    coloredLog('Network error', `${name} \nMessage: ${message}`, '#C0FFEE');
+    consoleLog('Network error', `${name} \n Message: ${message}`);
   }
 });
 

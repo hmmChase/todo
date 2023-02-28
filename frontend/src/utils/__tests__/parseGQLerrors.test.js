@@ -1,13 +1,13 @@
-import { mockGQLerrors } from '@/mocks/mockGQLerrors';
-import displayMessages from '@/constants/displayMessages';
-import parseGQLerrors from '../parseGQLerrors';
+import { mockGQLErrors } from '@/mocks/mockGQLErrors';
+import displayMsg from '@/constants/displayMsg';
+import parseGQLErrors from '../parseGQLErrors';
 
-describe('parseGQLerrors', () => {
-  it('returns correct messages corresponding to displayCode', () => {
-    const errors = parseGQLerrors(mockGQLerrors);
+describe('parseGQLErrors', () => {
+  it('returns correct displayMsg corresponding to displayCode', () => {
+    const errors = parseGQLErrors(mockGQLErrors);
 
     expect(errors).toBeInstanceOf(Array);
     expect(errors).toHaveLength(2);
-    expect(errors).toEqual([displayMessages.error, displayMessages.user.null]);
+    expect(errors).toEqual([displayMsg.error, displayMsg.user.null]);
   });
 });

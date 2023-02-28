@@ -11,7 +11,7 @@ const typeDefs = `#graphql
 
     # --- User ---
 
-    user(id: ID!): User
+    user(id: ID!): User!
 
     users: [User!]!
 
@@ -19,7 +19,7 @@ const typeDefs = `#graphql
 
     # --- Idea ---
 
-    idea(id: ID!): Idea
+    idea(id: ID!): Idea!
 
     ideas: [Idea!]!
 
@@ -110,8 +110,8 @@ const typeDefs = `#graphql
   # ---------- Enums ----------
 
   enum Role {
-    USER
     ADMIN
+    USER
   }
 
   # ---------- Inputs ----------

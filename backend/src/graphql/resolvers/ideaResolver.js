@@ -1,7 +1,7 @@
 import { authAccessToken } from '../../utils/accessToken.js';
 import { development } from '../../constants/config.js';
+import { GraphQLError } from 'graphql';
 import consoleLog from '../../utils/consoleLog.js';
-import GQLError from '../../utils/GQLError.js';
 import paginate from '../../utils/paginate.js';
 
 const ideaResolver = {
@@ -59,13 +59,6 @@ const ideaResolver = {
     ideasPaginatedOffset: async (parent, args, ctx, info) => {
       const { offset, limit } = args;
 
-      if ((!offset && offset !== 0) || !limit)
-        GQLError(
-          422,
-          'ideasPaginatedOffset',
-          'idea.error.ideasPaginatedOffset.invalidOffsetOrLimit'
-        );
-
       try {
         const ideas = await ctx.prisma.idea.findMany({
           skip: offset,
@@ -91,13 +84,6 @@ const ideaResolver = {
     /* Return cursor paginated ideas */
     ideasPaginatedCursor: async (parent, args, ctx, info) => {
       const { after, pageSize } = args;
-
-      // if (!cursor || !limit)
-      //   GQLError(
-      //     422,
-      //     'ideasPaginatedCursor',
-      //     'idea.error.ideasPaginatedCursor.invalidCursorOrLimit'
-      //   );
 
       try {
         const ideas = await ctx.prisma.idea.findMany({
@@ -153,8 +139,7 @@ const ideaResolver = {
     /* Return authenticated user's ideas */
     currentUserIdeas: async (parent, args, ctx, info) => {
       // If user not logged in, return null
-      if (!ctx.accessToken)
-        GQLError(401, 'currentUserIdeas', 'idea.error.notLoggedIn');
+      if (!ctx.accessToken) throw new GraphQLError(401);
 
       // Verify access token & decode payload
       const payload = authAccessToken(ctx.accessToken);
@@ -233,8 +218,7 @@ const ideaResolver = {
       const { content } = args;
 
       // If user not logged in, return null
-      if (!ctx.accessToken)
-        GQLError(401, 'createIdea', 'idea.error.notLoggedIn');
+      if (!ctx.accessToken) throw new GraphQLError(401);
 
       // Verify access token and decode payload
       const payload = authAccessToken(ctx.accessToken);
@@ -264,8 +248,7 @@ const ideaResolver = {
       const { id, content } = args;
 
       // If user not logged in, return null
-      if (!ctx.accessToken)
-        GQLError(401, 'updateIdea', 'idea.error.notLoggedIn');
+      if (!ctx.accessToken) throw new GraphQLError(401);
 
       // Verify access token and decode payload
       const payload = authAccessToken(ctx.accessToken);
@@ -281,7 +264,7 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea) GQLError(403, 'updateIdea');
+        if (!ownsIdea) throw new GraphQLError(403);
 
         // Update idea
         const updatedIdea = ctx.prisma.idea.update({
@@ -303,8 +286,7 @@ const ideaResolver = {
       const { id } = args;
 
       // If user not logged in, return null
-      if (!ctx.accessToken)
-        GQLError(401, 'removeIdea', 'idea.error.notLoggedIn');
+      if (!ctx.accessToken) throw new GraphQLError(401);
 
       // Verify access token and decode payload
       const payload = authAccessToken(ctx.accessToken);
@@ -320,7 +302,7 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea) GQLError(403, 'removeIdea');
+        if (!ownsIdea) throw new GraphQLError(403);
 
         // Update idea soft delete field
         const removedIdea = await ctx.prisma.idea.update({
@@ -342,8 +324,7 @@ const ideaResolver = {
       const { id } = args;
 
       // If user not logged in, return null
-      if (!ctx.accessToken)
-        GQLError(401, 'deleteIdea', 'idea.error.notLoggedIn');
+      if (!ctx.accessToken) throw new GraphQLError(401);
 
       // Verify access token and decode payload
       const payload = authAccessToken(ctx.accessToken);
@@ -359,7 +340,7 @@ const ideaResolver = {
         const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea) GQLError(403, 'deleteIdea');
+        if (!ownsIdea) throw new GraphQLError(403);
 
         // Delete idea
         const deletedIdea = ctx.prisma.idea.delete({

@@ -14,7 +14,7 @@ import UserIcon from '@/components/USER/UserIcon/UserIcon';
 // import HeaderUsername from '@/components/SECTIONS/HEADER/HeaderUsername';
 
 const Header: FC = () => {
-  const { user } = useContext(UserCtx);
+  const { loading, user } = useContext(UserCtx);
 
   const router = useRouter();
 
@@ -44,7 +44,7 @@ const Header: FC = () => {
           showLoading={true}
         > */}
 
-        {user?.id ? <UserIcon /> : <HeaderLoggedOut />}
+        {!loading ? user ? <UserIcon /> : <HeaderLoggedOut /> : null}
 
         {/* </QueryResult> */}
       </Top>

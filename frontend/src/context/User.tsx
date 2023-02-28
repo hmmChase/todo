@@ -1,37 +1,27 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useState
-} from 'react';
-import { ApolloError, useQuery } from '@apollo/client';
-
-import { CURRENT_USER, IS_LOGGED_IN } from '@/graphql/queries/user';
+import { createContext, useState } from 'react';
+import { CURRENT_USER } from '@/graphql/queries/user';
 import { isLoggedInVar } from '@/graphql/cache';
-import { User } from '@/models/index';
-
-interface UserState extends User {
-  error?: ApolloError;
-  loading: boolean;
-}
+import { useQuery } from '@apollo/client';
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
+import type { User } from '@/models/index';
 
 type Userr = User | null;
 
 interface ContextState {
-  user: UserState | null;
+  loading: boolean;
+  user: Userr;
   setUser: Dispatch<SetStateAction<Userr>>;
 }
 
+interface Props {
+  children: ReactNode;
+}
+
 export const UserCtx = createContext<ContextState>({
+  loading: true,
   user: null,
   setUser: () => {}
 });
-
-interface Props {
-  children: ReactNode;
-  // currentUser: Userr;
-}
 
 const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<Userr>(null);
@@ -50,12 +40,8 @@ const UserProvider = ({ children }: Props) => {
     }
   });
 
-  // const { data } = useQuery(IS_LOGGED_IN);
-
-  const userState: UserState = { loading, ...user! };
-
   return (
-    <UserCtx.Provider value={{ user: userState, setUser }}>
+    <UserCtx.Provider value={{ loading, user, setUser }}>
       {children}
     </UserCtx.Provider>
   );

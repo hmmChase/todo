@@ -146,7 +146,7 @@ const Form = styled.form`
 
 const Buttonn = styled(Button)`
   align-self: flex-end;
-  margin-bottom: 1rem;
+  margin: 0.5rem 0;
 `;
 
 const Linkk = styled(Link)`

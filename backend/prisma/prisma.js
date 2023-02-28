@@ -4,7 +4,7 @@
 import pkg from '@prisma/client';
 
 import { development } from '../src/constants/config.js';
-import consoleLog from '../src/utils/consoleLog.js';
+// import consoleLog from '../src/utils/consoleLog.js';
 
 const { PrismaClient } = pkg;
 
@@ -18,7 +18,7 @@ const prisma =
 
     log: development
       ? [
-          { level: 'query', emit: 'event' },
+          { level: 'query', emit: 'stdout' },
           { level: 'info', emit: 'stdout' },
           { level: 'warn', emit: 'stdout' },
           { level: 'error', emit: 'stdout' }
@@ -26,15 +26,7 @@ const prisma =
       : []
   });
 
-prisma.$on('query', e => {
-  consoleLog({
-    // sql: e.query,
-    query: e.query.split(',')[0].split('.')[1],
-    params: e.params
-    // duration: e.duration,
-    // timestamp: e.timestamp
-  });
-});
+// prisma.$on('query', e => consoleLog('e:', e));
 
 if (process.env.NODE_ENV !== 'production') global.prisma = prisma;
 

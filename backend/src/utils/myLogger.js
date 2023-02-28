@@ -23,7 +23,10 @@ const myLogger = (req, res, next) => {
         variables: req.body.variables,
         accessToken: !!req.headers.cookie,
         status: res.statusCode,
-        data: Buffer.concat(chunks).toString('utf8')
+        data: JSON.parse(Buffer.concat(chunks).toString('utf8')).data,
+        errors: JSON.parse(Buffer.concat(chunks).toString('utf8')).errors
+        // errorCode: JSON.parse(Buffer.concat(chunks).toString('utf8')).errors[0]
+        //   .extensions.code
 
         // cookies: req.cookies,
         // fromIP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
