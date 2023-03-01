@@ -1,8 +1,8 @@
 /* Environments */
 
 export const development = process.env.NODE_ENV === 'development';
-export const preview = process.env.VERCEL_ENV === 'preview';
-export const production = process.env.VERCEL_ENV === 'production';
+export const preview = process.env.VERCEL_ENV === 'preview'; // work branch deploys, NODE_ENV = 'production'
+export const production = process.env.VERCEL_ENV === 'production'; // main branch deploy, NODE_ENV = 'production'
 
 /* Settings */
 
@@ -29,22 +29,21 @@ export const graphqlPath = '/gql';
 
 const apolloStudio = 'https://studio.apollographql.com';
 
-const frontendUrlLocal = 'http://localhost:1337';
-const frontendUrlDev = 'https://hmmstart-git-dev-hmmchase.vercel.app/';
-const frontendUrlPrev = 'https://hmmstart-git-preview-hmmchase.vercel.app';
+const frontendUrlDev = 'http://localhost:1337';
+const frontendUrlPrev = 'https://hmmstart-git-dev-hmmchase.vercel.app/';
 const frontendUrlProd = 'https://hmmstart.vercel.app';
 
-const backendUrlLocal = 'http://localhost:8008';
+const backendUrlDev = 'http://localhost:8008';
 const backendUrlVercel = process.env.VERCEL_URL;
 
 export const frontendUrl = development
-  ? frontendUrlLocal
+  ? frontendUrlDev
   : preview
   ? frontendUrlPrev
   : production && frontendUrlProd;
 
-export const backendUrl = development ? backendUrlLocal : backendUrlVercel;
+export const backendUrl = development ? backendUrlDev : backendUrlVercel;
 
 export const corsWhitelist = development
-  ? [frontendUrlLocal, apolloStudio]
-  : [frontendUrlDev, frontendUrlPrev, frontendUrlProd];
+  ? [frontendUrlDev, apolloStudio]
+  : [frontendUrlPrev, frontendUrlProd];

@@ -22,7 +22,7 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 
 import { corsOptions } from './constants/cors.js';
 import prisma from '../prisma/prisma.js';
-import { backendUrl, development, frontendUrl } from './constants/config.js';
+import { backendUrl, development } from './constants/config.js';
 import myLogger from './utils/myLogger.js';
 import router from './rest/routes.js';
 import schema from './graphql/schema.js';
