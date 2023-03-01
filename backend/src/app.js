@@ -22,11 +22,18 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 
 import { corsOptions } from './constants/cors.js';
 import prisma from '../prisma/prisma.js';
-import { backendUrl, development } from './constants/config.js';
+import { backendUrl, development, frontendUrl } from './constants/config.js';
 import myLogger from './utils/myLogger.js';
 import router from './rest/routes.js';
 import schema from './graphql/schema.js';
 // import apolloServer from './graphql/apolloServer.js';
+
+console.log('corsOptions:', corsOptions);
+console.log('backendUrl:', backendUrl);
+console.log('frontendUrl:', frontendUrl);
+console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
+console.log('process.env.VERCEL_URL:', process.env.VERCEL_URL);
+console.log('process.env.VERCEL_ENV:', process.env.VERCEL_ENV);
 
 // Required logic for integrating with Express
 const app = express();

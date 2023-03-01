@@ -1,10 +1,8 @@
 /* Environments */
 
-export const test = process.env.VERCEL_ENV === 'test';
+export const development = process.env.NODE_ENV === 'development';
 export const preview = process.env.VERCEL_ENV === 'preview';
 export const production = process.env.VERCEL_ENV === 'production';
-
-export const development = !test || !preview || !production;
 
 /* Settings */
 
@@ -29,15 +27,24 @@ export const port = process.env.PORT || 4000;
 
 export const graphqlPath = '/gql';
 
+const apolloStudio = 'https://studio.apollographql.com';
+
 const frontendUrlLocal = 'http://localhost:1337';
 const frontendUrlDev = 'https://hmmstart-git-dev-hmmchase.vercel.app/';
 const frontendUrlPrev = 'https://hmmstart-git-preview-hmmchase.vercel.app';
 const frontendUrlProd = 'https://hmmstart.vercel.app';
 
+const backendUrlLocal = 'http://localhost:8008';
+const backendUrlVercel = process.env.VERCEL_URL;
+
 export const frontendUrl = development
   ? frontendUrlLocal
   : preview
-  ? [frontendUrlDev, frontendUrlPrev]
+  ? frontendUrlPrev
   : production && frontendUrlProd;
 
-export const backendUrl = process.env.VERCEL_URL;
+export const backendUrl = development ? backendUrlLocal : backendUrlVercel;
+
+export const corsWhitelist = development
+  ? [frontendUrlLocal, apolloStudio]
+  : [frontendUrlDev, frontendUrlPrev, frontendUrlProd];

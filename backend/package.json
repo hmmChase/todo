@@ -8,7 +8,7 @@
   "license": "",
   "type": "module",
   "scripts": {
-    "dev": "nodemon bin/www.js",
+    "dev": "SET NODE_ENV=development&& nodemon bin/www.js",
     "start": "node bin/www.js",
     "seed": "node prisma/seed.js"
   },
