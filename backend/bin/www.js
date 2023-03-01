@@ -10,10 +10,6 @@ import http from 'http';
 import app from '../src/app.js';
 import { port as portt } from '../src/constants/config.js';
 
-console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
-console.log('process.env.VERCEL_URL:', process.env.VERCEL_URL);
-console.log('process.env.VERCEL_ENV:', process.env.VERCEL_ENV);
-
 const debug = Debug('hmmStart:server');
 
 /**
