@@ -1,4 +1,4 @@
 /* index */
 
 export const index = (req, res, next) =>
-  res.status(200).json({ route: 'index', ...process.env });
+  res.status(200).json({ route: 'index' });
