@@ -1,3 +1,5 @@
+// https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser
+
 /* Environments */
 
 export const development = process.env.NODE_ENV === 'development';
@@ -19,8 +21,8 @@ export const IdeaInputDebounceDelay = 200;
 
 /* URLs */
 
-const gitBranch = process.env.VERCEL_GIT_COMMIT_REF;
-const gitOwner = process.env.VERCEL_GIT_REPO_OWNER;
+const gitBranch = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF;
+const gitOwner = process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER;
 
 const backendUrlDev = 'http://localhost:8008';
 const backendUrlPrev = `https://hmmstart-backend-git-${gitBranch}-${gitOwner}.vercel.app`;
