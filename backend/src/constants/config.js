@@ -27,10 +27,13 @@ export const port = process.env.PORT || 4000;
 
 export const graphqlPath = '/gql';
 
+const gitBranch = process.env.VERCEL_GIT_COMMIT_REF;
+const gitOwner = process.env.VERCEL_GIT_REPO_OWNER;
+
 const apolloStudio = 'https://studio.apollographql.com';
 
 const frontendUrlDev = 'http://localhost:1337';
-const frontendUrlPrev = 'https://hmmstart-git-dev-hmmchase.vercel.app/';
+const frontendUrlPrev = `https://hmmstart-git-${gitBranch}-${gitOwner}.vercel.app/`;
 const frontendUrlProd = 'https://hmmstart.vercel.app';
 
 const backendUrlDev = 'http://localhost:8008';
