@@ -23,13 +23,6 @@ import UserProvider from '@/context/User';
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   // const [user, setUser] = useState<User | null>(null);
 
-  console.log('process:', JSON.stringify(process.env, null, 4));
-  console.log('process:', JSON.stringify({ ...process.env }, null, 4));
-  console.log('process:', { ...process.env });
-  console.log('process:', process.env);
-  console.log('VERCEL_ENV:', process.env.VERCEL_ENV);
-  console.log('NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
-
   const apolloClient = useApollo(pageProps);
 
   // useEffect(() => {
