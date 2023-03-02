@@ -23,7 +23,10 @@ import UserProvider from '@/context/User';
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   // const [user, setUser] = useState<User | null>(null);
 
+  console.log('process:', JSON.stringify(process.env, null, 4));
   console.log('process:', JSON.stringify({ ...process.env }, null, 4));
+  console.log('process:', { ...process.env });
+  console.log('process:', process.env);
 
   const apolloClient = useApollo(pageProps);
 
