@@ -27,6 +27,8 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   console.log('process:', JSON.stringify({ ...process.env }, null, 4));
   console.log('process:', { ...process.env });
   console.log('process:', process.env);
+  console.log('VERCEL_ENV:', process.env.VERCEL_ENV);
+  console.log('NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
 
   const apolloClient = useApollo(pageProps);
 
