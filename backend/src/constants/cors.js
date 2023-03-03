@@ -1,19 +1,10 @@
 import {
   // corsWhitelist,
   development,
+  frontendUrl,
   preview,
   production
 } from './config.js';
-
-const frontendUrlDev = 'http://localhost:1337';
-const frontendUrlPrev = 'https://hmmstart-git-dev-hmmchase.vercel.app';
-const frontendUrlProd = 'https://hmmstart.vercel.app';
-
-export const frontendUrl = development
-  ? frontendUrlDev
-  : preview
-  ? frontendUrlPrev
-  : production && frontendUrlProd;
 
 // https://www.npmjs.com/package/cors#configuring-cors-w-dynamic-origin
 
