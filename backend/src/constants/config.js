@@ -30,8 +30,6 @@ export const graphqlPath = '/gql';
 const gitBranch = process.env.VERCEL_GIT_COMMIT_REF;
 const gitOwner = process.env.VERCEL_GIT_REPO_OWNER;
 
-const apolloStudio = 'https://studio.apollographql.com';
-
 const frontendUrlDev = 'http://localhost:1337';
 const frontendUrlPrev =
   `https://hmmstart-git-${gitBranch}-${gitOwner}.vercel.app`.toLowerCase();
@@ -40,6 +38,8 @@ const frontendUrlProd = 'https://hmmstart.vercel.app';
 const backendUrlDev = 'http://localhost:8008';
 const backendUrlVercel = process.env.VERCEL_URL;
 
+export const apolloStudio = 'https://studio.apollographql.com';
+
 export const frontendUrl = development
   ? frontendUrlDev
   : preview
@@ -47,7 +47,3 @@ export const frontendUrl = development
   : production && frontendUrlProd;
 
 export const backendUrl = development ? backendUrlDev : backendUrlVercel;
-
-export const corsWhitelist = development
-  ? [frontendUrlDev, apolloStudio]
-  : [frontendUrlPrev, frontendUrlProd];
