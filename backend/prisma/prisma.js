@@ -3,9 +3,10 @@
 
 import pkg from '@prisma/client';
 
-const { PrismaClient } = pkg;
+import { development } from '../src/constants/config.js';
+// import consoleLog from '../src/utils/consoleLog.js';
 
-const development = process.env.NODE_ENV === 'development';
+const { PrismaClient } = pkg;
 
 // PrismaClient is attached to the `global` object in development to prevent
 // exhausting your database connection limit.
@@ -17,7 +18,7 @@ const prisma =
 
     log: development
       ? [
-          { level: 'query', emit: 'event' },
+          { level: 'query', emit: 'stdout' },
           { level: 'info', emit: 'stdout' },
           { level: 'warn', emit: 'stdout' },
           { level: 'error', emit: 'stdout' }
@@ -25,18 +26,7 @@ const prisma =
       : []
   });
 
-prisma.$on('query', e => {
-  console.log(
-    '--------------------------------------------------',
-    '\n',
-    'Prisma query: ',
-    e.query.split(',')[0].split('.')[1],
-    ', params: ',
-    e.params,
-    '\n',
-    '--------------------------------------------------'
-  );
-});
+// prisma.$on('query', e => consoleLog('e:', e));
 
 if (process.env.NODE_ENV !== 'production') global.prisma = prisma;
 

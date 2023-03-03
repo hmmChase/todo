@@ -1,8 +1,8 @@
-import { AuthenticationError, ForbiddenError } from '../../utils/error.js';
-import { consoleLog } from '../../utils/myLogger.js';
+import { authAccessToken } from '../../utils/accessToken.js';
 import { development } from '../../constants/config.js';
-import { verifyAccessToken } from '../../utils/accessToken.js';
-import paginateResults from '../../utils/paginateResults.js';
+import { GraphQLError } from 'graphql';
+import consoleLog from '../../utils/consoleLog.js';
+import paginate from '../../utils/paginate.js';
 
 const ideaResolver = {
   Query: {
@@ -59,11 +59,6 @@ const ideaResolver = {
     ideasPaginatedOffset: async (parent, args, ctx, info) => {
       const { offset, limit } = args;
 
-      if ((!offset && offset !== 0) || !limit)
-        throw ForbiddenError(
-          'idea.error.ideasPaginatedOffset.invalidOffsetOrLimit'
-        );
-
       try {
         const ideas = await ctx.prisma.idea.findMany({
           skip: offset,
@@ -86,24 +81,9 @@ const ideaResolver = {
       }
     },
 
-    //todo: figure out what to use as a cursor
-
     /* Return cursor paginated ideas */
     ideasPaginatedCursor: async (parent, args, ctx, info) => {
       const { after, pageSize } = args;
-
-      // if (!cursor || !limit)
-      //   throw ForbiddenError(
-      //     'idea.error.ideasPaginatedCursor.invalidCursorOrLimit'
-      //   );
-
-      console.log('after:', after);
-      console.log('pageSize:', pageSize);
-
-      // if ((!offset && offset !== 0) || !limit)
-      //   throw ForbiddenError(
-      //     'idea.error.ideasPaginatedCursor.invalidOffsetOrLimit'
-      //   );
 
       try {
         const ideas = await ctx.prisma.idea.findMany({
@@ -119,15 +99,7 @@ const ideaResolver = {
           orderBy: { createdAt: 'desc' }
         });
 
-        // console.log('ideas:', ideas);
-
-        const ideasPaginated = paginateResults({
-          after,
-          pageSize,
-          results: ideas
-        });
-
-        console.log('ideasPaginated:', ideasPaginated);
+        const ideasPaginated = paginate({ after, pageSize, results: ideas });
 
         // try {
         //   const ideas = await ctx.prisma.idea.findMany({
@@ -149,16 +121,12 @@ const ideaResolver = {
           ? ideasPaginated[ideasPaginated.length - 1].createdAt
           : null;
 
-        console.log('cursor:', cursor);
-
         // if the cursor of the end of the paginated results is the same as the
         // last item in _all_ results, then there are no more results after this
         const hasMore = ideasPaginated.length
           ? ideasPaginated[ideasPaginated.length - 1].createdAt !==
             ideas[ideas.length - 1].createdAt
           : false;
-
-        console.log('hasMore:', hasMore);
 
         return { cursor, hasMore, ideas: ideasPaginated };
       } catch (error) {
@@ -171,16 +139,15 @@ const ideaResolver = {
     /* Return authenticated user's ideas */
     currentUserIdeas: async (parent, args, ctx, info) => {
       // If user not logged in, return null
-      if (!ctx.accessToken) throw AuthenticationError('no access token');
-      // if (!ctx.accessToken) return null;
+      if (!ctx.accessToken) throw new GraphQLError(401);
 
       // Verify access token & decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Find all ideas matching author id & haven't been deleted
         const ideas = await ctx.prisma.idea.findMany({
-          where: { author: { id: payload.user.id }, removedAt: null },
+          where: { author: { id: payload.id }, removedAt: null },
           select: {
             id: true,
             createdAt: true,
@@ -203,7 +170,7 @@ const ideaResolver = {
     //   const { skip, take } = args;
 
     //   // Verify access token and decode payload
-    //   const payload = verifyAccessToken(ctx.accessToken);
+    //   const payload = authAccessToken(ctx.accessToken);
 
     //   // Find and return paginated ideas matching user id
     //   const ideas = await prisma.idea.findMany({
@@ -219,13 +186,13 @@ const ideaResolver = {
     //   const { skip, take } = args;
 
     //   // Verify access token and decode payload
-    //   const payload = verifyAccessToken(ctx.accessToken);
+    //   const payload = authAccessToken(ctx.accessToken);
 
     //   // // Find and return paginated ideas matching user id
     //   // const ideas = await prisma.idea.findMany({
     //   //   skip,
     //   //   take,
-    //   //   where: { id: payload.user.id }
+    //   //   where: { id: payload.id }
     //   // });
 
     //   // return ideas;
@@ -233,7 +200,7 @@ const ideaResolver = {
     //   const ideas = await ctx.prisma.idea.findMany({
     //     skip,
     //     take,
-    //     where: { author: { id: payload.user.id } }
+    //     where: { author: { id: payload.id } }
     //   });
 
     //   return {
@@ -250,14 +217,22 @@ const ideaResolver = {
     createIdea: (parent, args, ctx, info) => {
       const { content } = args;
 
+      // If user not logged in, return null
+      if (!ctx.accessToken) throw new GraphQLError(401);
+
       // Verify access token and decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Create idea
         const idea = ctx.prisma.idea.create({
-          data: { content, author: { connect: { id: payload.user.id } } },
-          select: { id: true, content: true, author: { select: { id: true } } }
+          data: { content, author: { connect: { id: payload.id } } },
+          select: {
+            createdAt: true,
+            id: true,
+            content: true,
+            author: { select: { id: true } }
+          }
         });
 
         // Return new idea
@@ -272,8 +247,11 @@ const ideaResolver = {
     updateIdea: async (parent, args, ctx, info) => {
       const { id, content } = args;
 
+      // If user not logged in, return null
+      if (!ctx.accessToken) throw new GraphQLError(401);
+
       // Verify access token and decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Request idea's author ID
@@ -283,11 +261,10 @@ const ideaResolver = {
         });
 
         // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.user.id;
+        const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea)
-          throw ForbiddenError('idea.error.updateIdea.invalidOwnership');
+        if (!ownsIdea) throw new GraphQLError(403);
 
         // Update idea
         const updatedIdea = ctx.prisma.idea.update({
@@ -308,8 +285,11 @@ const ideaResolver = {
     removeIdea: async (parent, args, ctx, info) => {
       const { id } = args;
 
+      // If user not logged in, return null
+      if (!ctx.accessToken) throw new GraphQLError(401);
+
       // Verify access token and decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Request idea's author ID
@@ -319,11 +299,10 @@ const ideaResolver = {
         });
 
         // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.userId;
+        const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea)
-          throw ForbiddenError('idea.error.removeIdea.invalidOwnership');
+        if (!ownsIdea) throw new GraphQLError(403);
 
         // Update idea soft delete field
         const removedIdea = await ctx.prisma.idea.update({
@@ -344,8 +323,11 @@ const ideaResolver = {
     deleteIdea: async (parent, args, ctx, info) => {
       const { id } = args;
 
+      // If user not logged in, return null
+      if (!ctx.accessToken) throw new GraphQLError(401);
+
       // Verify access token and decode payload
-      const payload = verifyAccessToken(ctx.accessToken);
+      const payload = authAccessToken(ctx.accessToken);
 
       try {
         // Request idea's author ID
@@ -355,11 +337,10 @@ const ideaResolver = {
         });
 
         // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.user.id;
+        const ownsIdea = idea.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea)
-          throw ForbiddenError('idea.error.deleteIdea.invalidOwnership');
+        if (!ownsIdea) throw new GraphQLError(403);
 
         // Delete idea
         const deletedIdea = ctx.prisma.idea.delete({

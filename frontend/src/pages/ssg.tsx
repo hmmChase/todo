@@ -1,4 +1,4 @@
-import { NextPageWithLayout } from 'next';
+import type { NextPageWithLayout } from 'next';
 
 // import { initializeApollo, addApolloState } from '../graphql/apolloClient';
 // import { CURRENT_USER } from '../graphql/queries/user';

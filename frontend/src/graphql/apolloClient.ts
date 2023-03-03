@@ -1,17 +1,17 @@
+import { ApolloClient } from '@apollo/client';
+import { development, server } from '@/constants/config';
+import { useMemo } from 'react';
+import cache from '@/graphql/cache';
+import isEqual from 'lodash.isequal';
+import link from '@/graphql/links';
+import merge from 'deepmerge';
+import type { IncomingMessage, ServerResponse } from 'http';
+import type { NormalizedCacheObject } from '@apollo/client';
+import typeDefs from '@/graphql/typeDefs';
+
 // https://github.com/apollographql/fullstack-tutorial/tree/master/final/client
 // https://github.com/vercel/next.js/blob/canary/examples/with-apollo/lib/apolloClient.js
 // https://github.com/vercel/next.js/blob/canary/examples/with-typescript-graphql/lib/apollo.ts
-
-import { useMemo } from 'react';
-import { IncomingMessage, ServerResponse } from 'http';
-import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
-import isEqual from 'lodash.isequal';
-import merge from 'deepmerge';
-
-import { development, server } from '@/constants/config';
-import cache from '@/graphql/cache';
-import link from '@/graphql/links';
-import typeDefs from '@/graphql/typeDefs';
 
 type ResolverContext = { req?: IncomingMessage; res?: ServerResponse };
 

@@ -1,19 +1,21 @@
-import { FC, useContext, useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { ApolloError, useMutation } from '@apollo/client';
+import { email, password } from '@/utils/validateAuthInputs';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
-import styled from 'styled-components';
-
-import { email, password } from '@/utils/validateAuthInputs';
 import { SIGN_UP } from '@/graphql/queries/user';
+import { useContext, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { User } from '@/models/index';
 import { UserCtx } from '@/context/User';
-import Button from '@/components/REUSEABLE/Button/Button';
-import Error from '@/components/REUSEABLE/Error/Error';
-import FormInput from '@/components/REUSEABLE/FormInput/FormInput';
+import { useRouter } from 'next/router';
+import Button from '@/components/COMMON/Button/Button';
+import FormInput from '@/components/COMMON/FormInput/FormInput';
+import Link from 'next/link';
+import Notice from '@/components/COMMON/Notice/Notice';
+import parseGQLErrors from '@/utils/parseGQLErrors';
 import PassReqList from '@/components/USER/PassReqList/PassReqList';
+import styled from 'styled-components';
+import type { ApolloError } from '@apollo/client';
+import type { FC } from 'react';
 // import { isLoggedInVar } from '@/graphql/cache';
 
 interface Props {
@@ -86,7 +88,7 @@ const SignUpForm: FC<Props> = ({ close }) => {
       />
 
       {formik.touched.signUpEmail && formik.errors.signUpEmail && (
-        <Error error={formik.errors.signUpEmail} />
+        <Notice type='error'>{formik.errors.signUpEmail}</Notice>
       )}
 
       <FormInput
@@ -97,10 +99,12 @@ const SignUpForm: FC<Props> = ({ close }) => {
       />
 
       {formik.touched.signUpPassword && formik.errors.signUpPassword && (
-        <Error error={formik.errors.signUpPassword} />
+        <Notice type='error'>{formik.errors.signUpPassword}</Notice>
       )}
 
-      {apolloError && <Error error={apolloError} />}
+      {apolloError && (
+        <Notice type='error'>{parseGQLErrors(apolloError)}</Notice>
+      )}
 
       <PassReqList />
 
@@ -142,7 +146,7 @@ const Form = styled.form`
 
 const Buttonn = styled(Button)`
   align-self: flex-end;
-  margin-bottom: 1rem;
+  margin: 0.5rem 0;
 `;
 
 const Linkk = styled(Link)`

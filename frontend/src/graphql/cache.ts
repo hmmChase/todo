@@ -1,11 +1,10 @@
+import { defaultDataIdFromObject, InMemoryCache } from '@apollo/client/cache';
+import { makeVar } from '@apollo/client';
+// import { concatPagination } from '@apollo/client/utilities';
+// import { Idea } from '@/models/index';
+
 // https://www.apollographql.com/docs/react/caching/overview/
 // https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-local-state
-
-import { makeVar } from '@apollo/client';
-import { defaultDataIdFromObject, InMemoryCache } from '@apollo/client/cache';
-// import { concatPagination } from '@apollo/client/utilities';
-
-import { Idea } from '@/models/index';
 
 export let isLoggedInVar = makeVar<boolean>(false);
 
@@ -17,37 +16,43 @@ const cache: InMemoryCache = new InMemoryCache({
           read() {
             return isLoggedInVar();
           }
-        },
-
-        // allIdeas: concatPagination(),
-
-        ideasPaginatedOffset: {
-          // keyArgs: false,
-          // merge(existing: { ideas: Idea[] }, incoming: { ideas: Idea[] }) {
-          //   let ideas: Idea[] = [];
-          //   if (existing && existing.ideas)
-          //     ideas = ideas.concat(existing.ideas);
-          //   if (incoming && incoming.ideas)
-          //     ideas = ideas.concat(incoming.ideas);
-          //   return { ...incoming, ideas };
-          // }
-        },
-
-        ideasPaginatedCursor: {
-          keyArgs: false,
-
-          merge(existing: { ideas: Idea[] }, incoming: { ideas: Idea[] }) {
-            let ideas: Idea[] = [];
-
-            if (existing && existing.ideas)
-              ideas = ideas.concat(existing.ideas);
-
-            if (incoming && incoming.ideas)
-              ideas = ideas.concat(incoming.ideas);
-
-            return { ...incoming, ideas };
-          }
         }
+
+        // https://www.apollographql.com/docs/react/pagination/core-api/
+        // ideas: concatPagination(['ideasPaginatedOffset']),
+
+        // ideasPaginatedOffset: {
+        //   keyArgs: false,
+
+        //   merge(existing: { ideas: Idea[] }, incoming: { ideas: Idea[] }) {
+        //     let ideas: Idea[] = [];
+
+        //     console.log('existing:', existing);
+        //     if (existing && existing.ideas)
+        //       ideas = ideas.concat(existing.ideas);
+
+        //     if (incoming && incoming.ideas)
+        //       ideas = ideas.concat(incoming.ideas);
+
+        //     return { ...incoming, ideas };
+        //   }
+        // },
+
+        // ideasPaginatedCursor: {
+        //   keyArgs: false,
+
+        //   merge(existing: { ideas: Idea[] }, incoming: { ideas: Idea[] }) {
+        //     let ideas: Idea[] = [];
+
+        //     if (existing && existing.ideas)
+        //       ideas = ideas.concat(existing.ideas);
+
+        //     if (incoming && incoming.ideas)
+        //       ideas = ideas.concat(incoming.ideas);
+
+        //     return { ...incoming, ideas };
+        //   }
+        // }
       }
     }
   }

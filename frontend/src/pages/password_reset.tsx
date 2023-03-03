@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { NextPageWithLayout } from 'next';
 import { useRouter } from 'next/router';
-
 import Full from '@/components/LAYOUTS/Full/Full';
 import PassReset from '@/components/USER/PassReset/PassReset';
 import PassResetError from '@/components/USER/PassResetError/PassResetError';
+import type { NextPageWithLayout } from 'next';
 
 type QueryParams = { token: string; expiry: string };
 

@@ -1,16 +1,10 @@
+import { Fragment } from 'react';
+import { ServerStyleSheet } from 'styled-components';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import type { DocumentContext, DocumentInitialProps } from 'next/document';
+
 // https://nextjs.org/docs/advanced-features/custom-document
 // https://github.com/vercel/next.js/tree/canary/examples/with-styled-components
-
-import { Fragment } from 'react';
-import Document, {
-  DocumentContext,
-  DocumentInitialProps,
-  Head,
-  Html,
-  Main,
-  NextScript
-} from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
 
 // Resolution order
 

@@ -1,6 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import type { NextApiHandler } from 'next';
 
-import { NextApiHandler } from 'next';
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 const handler: NextApiHandler = (req, res) =>
   res.status(200).json({ name: 'hmmStart' });

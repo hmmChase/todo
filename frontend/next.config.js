@@ -10,6 +10,8 @@ const nextConfig = {
     styledComponents: true
   }
 
+  // experimental: { appDir: true }
+
   // serverRuntimeConfig: {
   //   mySecret: 'secret'
   // },

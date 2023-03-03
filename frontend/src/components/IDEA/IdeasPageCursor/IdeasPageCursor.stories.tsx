@@ -1,7 +1,16 @@
 import IdeasPageCursor from './IdeasPageCursor';
+import type { Meta, StoryObj } from '@storybook/react';
 
-const story = { component: IdeasPageCursor, title: 'IDEA/IdeasPageCursor' };
+const meta: Meta<typeof IdeasPageCursor> = {
+  title: 'IDEA/IdeasPageCursor',
 
-export const ideasPageCursor = () => <IdeasPageCursor />;
+  component: IdeasPageCursor,
 
-export default story;
+  tags: ['autodocs']
+};
+
+export default meta;
+
+type Story = StoryObj<typeof IdeasPageCursor>;
+
+export const Default: Story = { args: {} };

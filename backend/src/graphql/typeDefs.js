@@ -11,7 +11,7 @@ const typeDefs = `#graphql
 
     # --- User ---
 
-    user(id: ID!): User
+    user(id: ID!): User!
 
     users: [User!]!
 
@@ -19,7 +19,7 @@ const typeDefs = `#graphql
 
     # --- Idea ---
 
-    idea(id: ID!): Idea
+    idea(id: ID!): Idea!
 
     ideas: [Idea!]!
 
@@ -51,11 +51,11 @@ const typeDefs = `#graphql
   type Mutation {
     # --- User ---
 
-    logIn(input: UserAuthInput!): UserAuthPayload!
+    logIn(input: UserAuthInput!): User!
 
     logOut: Boolean!
 
-    signUp(input: UserAuthInput!): UserAuthPayload!
+    signUp(input: UserAuthInput!): User!
 
     passResetReq(email: String!): Boolean!
 
@@ -92,6 +92,7 @@ const typeDefs = `#graphql
   }
 
   type UserAuthPayload {
+    success: Boolean!
     user: User!
   }
 
@@ -109,8 +110,8 @@ const typeDefs = `#graphql
   # ---------- Enums ----------
 
   enum Role {
-    USER
     ADMIN
+    USER
   }
 
   # ---------- Inputs ----------

@@ -1,17 +1,12 @@
-import { randomBytes } from 'crypto';
+import { GraphQLError } from 'graphql';
+import { passResetExpiry, passResetTokenBytes } from '../constants/config.js';
 import { promisify } from 'util';
-
-import { UserInputError } from '../utils/error.js';
-
-import {
-  passResetExpiry,
-  passwordResetTokenBytesSize
-} from '../constants/config.js';
+import { randomBytes } from 'crypto';
 
 export const createPassReset = async () => {
   const randomBytesPromise = promisify(randomBytes);
 
-  const resetTokenBytes = await randomBytesPromise(passwordResetTokenBytesSize);
+  const resetTokenBytes = await randomBytesPromise(passResetTokenBytes);
 
   const passResetToken = resetTokenBytes.toString('hex');
 
@@ -21,5 +16,5 @@ export const createPassReset = async () => {
 export const validatePassReset = passResetExpiry => {
   const tokenExpired = Date.now() > passResetExpiry;
 
-  if (tokenExpired) throw UserInputError({ msg: 'user.passReset.expired' });
+  if (tokenExpired) throw new GraphQLError('user.passResetToken.expired');
 };

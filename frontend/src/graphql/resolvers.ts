@@ -1,7 +1,6 @@
 // Not used
 
 // import jwt from 'jsonwebtoken';
-
 // import { getAccessToken } from '@/utils/accessToken';
 
 const resolvers = () => {

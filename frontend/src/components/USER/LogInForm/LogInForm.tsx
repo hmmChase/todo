@@ -1,26 +1,28 @@
-import { FC, useContext, useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { ApolloError, useMutation } from '@apollo/client';
-import { FormikHelpers, useFormik } from 'formik';
-import { object } from 'yup';
-import styled from 'styled-components';
-
 import { email, password } from '@/utils/validateAuthInputs';
+import { FormikHelpers, useFormik } from 'formik';
 import { isLoggedInVar } from '@/graphql/cache';
 import { LOG_IN } from '@/graphql/queries/user';
-import { User } from '@/models/index';
+import { object } from 'yup';
+import { useContext, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { UserCtx } from '@/context/User';
-import Button from '@/components/REUSEABLE/Button/Button';
-import Error from '@/components/REUSEABLE/Error/Error';
-import FormInput from '@/components/REUSEABLE/FormInput/FormInput';
+import { useRouter } from 'next/router';
+import Button from '@/components/COMMON/Button/Button';
+import FormInput from '@/components/COMMON/FormInput/FormInput';
+import Link from 'next/link';
+import Notice from '@/components/COMMON/Notice/Notice';
+import parseGQLErrors from '@/utils/parseGQLErrors';
+import styled from 'styled-components';
+import type { ApolloError } from '@apollo/client';
+import type { FC } from 'react';
+import type { User } from '@/models/index';
 
 interface Props {
   close?: () => void;
 }
 
 interface Data {
-  logIn: { user: User };
+  logIn: User;
 }
 
 type HandleSubmit = (
@@ -42,9 +44,9 @@ const LogInForm: FC<Props> = ({ close }) => {
 
   const onCompleted = (data: Data) => {
     if (data.logIn) {
-      setUser(data.logIn.user);
+      setUser(data.logIn);
 
-      isLoggedInVar(true);
+      isLoggedInVar(!!data.logIn);
 
       // localStorage.setItem('userId', data.logIn.user.id);
     }
@@ -89,7 +91,7 @@ const LogInForm: FC<Props> = ({ close }) => {
       />
 
       {formik.touched.logInEmail && formik.errors.logInEmail && (
-        <Error error={formik.errors.logInEmail} />
+        <Notice type='error'>{formik.errors.logInEmail}</Notice>
       )}
 
       <FormInput
@@ -100,10 +102,12 @@ const LogInForm: FC<Props> = ({ close }) => {
       />
 
       {formik.touched.logInPassword && formik.errors.logInPassword && (
-        <Error error={formik.errors.logInPassword} />
+        <Notice type='error'>{formik.errors.logInPassword}</Notice>
       )}
 
-      {apolloError && <Error error={apolloError} />}
+      {apolloError && (
+        <Notice type='error'>{parseGQLErrors(apolloError)}</Notice>
+      )}
 
       <Buttonn
         disabled={
@@ -149,7 +153,7 @@ const Form = styled.form`
 
 const Buttonn = styled(Button)`
   align-self: flex-end;
-  margin-bottom: 1rem;
+  margin: 0.5rem 0;
 `;
 
 export const LogInLinks = styled.div`

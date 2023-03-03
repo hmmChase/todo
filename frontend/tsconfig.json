@@ -16,12 +16,14 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
+    "plugins": [{ "name": "next" }],
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
     "target": "es5",
     "paths": {
+      "@/*": ["./src/*"],
       "@/components/*": ["src/components/*"],
       "@/constants/*": ["src/constants/*"],
       "@/context/*": ["src/context/*"],
@@ -37,6 +39,7 @@
     }
   },
   "include": [
+    ".next/types/**/*.ts",
     "**/*.js",
     "**/*.jsx",
     "**/*.ts",
@@ -46,12 +49,13 @@
     "jest.setup.js",
     "next-env.d.ts",
     "types.d.ts"
-    // ".storybook/*.js"
   ],
   "exclude": [
     ".next",
-    "**/*.test.js",
-    "**/*.test.ts",
+    // "**/*.test.js",
+    // "**/*.test.jsx",
+    // "**/*.test.ts",
+    // "**/*.test.tsx",
     "node_modules",
     "storybook-static"
   ]

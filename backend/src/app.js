@@ -52,8 +52,7 @@ await apolloServer.start();
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
 app.use(
-  '/',
-
+  router,
   express.json(),
   express.urlencoded({ extended: false }),
   helmet(),
@@ -61,6 +60,9 @@ app.use(
   cookieParser(),
   cors(corsOptions),
   bodyParser.json(),
+
+  // logger(development ? 'dev' : 'combined'),
+  development ? myLogger : (req, res, next) => next(),
 
   // expressMiddleware accepts the same arguments:
   // an Apollo Server instance and optional configuration options
@@ -75,11 +77,6 @@ app.use(
     }
   })
 );
-
-// app.use(logger(development ? 'dev' : 'combined'));
-app.use(development ? myLogger : (req, res, next) => next());
-
-app.use(router);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));

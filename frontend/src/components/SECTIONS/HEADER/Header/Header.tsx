@@ -1,20 +1,20 @@
-import { FC, useContext } from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import styled from 'styled-components';
-
 import { siteTitle } from '@/constants/config';
+import { useContext } from 'react';
 import { UserCtx } from '@/context/User';
+import { useRouter } from 'next/router';
 import CreateIdea from '@/components/IDEA/CreateIdea/CreateIdea';
 import HeaderLoggedOut from '@/components/SECTIONS/HEADER/HeaderLoggedOut/HeaderLoggedOut';
 import Ideabox from '@/public/images/ideabox.png';
-import QueryResult from '@/components/REUSEABLE/QueryResult/QueryResult';
+import Image from 'next/image';
+import styled from 'styled-components';
+import type { FC } from 'react';
 import UserIcon from '@/components/USER/UserIcon/UserIcon';
+// import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 // import NavBar from '@/components/SECTIONS/NavBar';
 // import HeaderUsername from '@/components/SECTIONS/HEADER/HeaderUsername';
 
 const Header: FC = () => {
-  const { user } = useContext(UserCtx);
+  const { loading, user } = useContext(UserCtx);
 
   const router = useRouter();
 
@@ -37,9 +37,16 @@ const Header: FC = () => {
 
         {/* {user && <HeaderUsername />} */}
 
-        <QueryResult loading={user?.loading}>
-          {user?.id ? <UserIcon /> : <HeaderLoggedOut />}
-        </QueryResult>
+        {/* <QueryResult
+          error={error}
+          loading={loading}
+          showError={true}
+          showLoading={true}
+        > */}
+
+        {!loading ? user ? <UserIcon /> : <HeaderLoggedOut /> : null}
+
+        {/* </QueryResult> */}
       </Top>
 
       <div>

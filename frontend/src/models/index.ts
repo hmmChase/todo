@@ -1,17 +1,20 @@
 export interface User {
   __typename?: string;
-  id: string;
+  createdAt?: Date;
   email: string;
-  role: string;
+  id: string;
   ideas?: Idea[];
+  role: string;
 }
+
+export type Users = User[];
 
 export interface Idea {
   __typename?: string;
-  id: string;
-  createdAt: string;
+  author?: User;
   content: string;
-  author?: { id: User['id'] };
+  createdAt: Date;
+  id: string;
 }
 
 export type Ideas = Idea[];

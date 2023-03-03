@@ -1,7 +1,6 @@
 // Not used
 
 import { InMemoryCache } from '@apollo/client';
-
 import { IS_LOGGED_IN } from '@/graphql/queries/user';
 import verifyUser from '@/utils/verifyUser';
 

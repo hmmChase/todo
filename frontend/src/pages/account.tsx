@@ -1,25 +1,29 @@
-// import { GetServerSideProps, NextPageWithLayout } from 'next';
-import { NextPageWithLayout } from 'next';
-import { useQuery } from '@apollo/client';
-
 import { CURRENT_USER_IDEAS } from '@/graphql/queries/idea';
-import { Ideas } from '@/models/index';
-import IdeaList from '@/components/IDEA/IdeaList/IdeaList';
+import { useQuery } from '@apollo/client';
 import App from '@/components/LAYOUTS/App/App';
-import QueryResult from '@/components/REUSEABLE/QueryResult/QueryResult';
+import Ideas from '@/components/IDEA/Ideas/Ideas';
+import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
+import type { Ideas as Ideass } from '@/models/index';
+import type { NextPageWithLayout } from 'next';
+// import { GetServerSideProps, NextPageWithLayout } from 'next';
 // import verifyUser from '@/utils/verifyUser';
 
 const AccountPage: NextPageWithLayout = () => {
   const { data, error, loading } = useQuery(CURRENT_USER_IDEAS);
 
-  const ideas: Ideas = data?.currentUserIdeas;
+  const ideas: Ideass = data?.currentUserIdeas;
 
   return (
     <>
       <h2>My Ideas</h2>
 
-      <QueryResult data={ideas} error={error} loading={loading}>
-        <IdeaList ideas={ideas} />
+      <QueryResult
+        error={error}
+        loading={loading}
+        showError={true}
+        showLoading={true}
+      >
+        <Ideas ideas={ideas} />
       </QueryResult>
     </>
   );

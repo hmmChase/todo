@@ -1,7 +1,6 @@
-import { NextPageWithLayout } from 'next';
-
 import Full from '@/components/LAYOUTS/Full/Full';
 import LogInForm from '@/components/USER/LogInForm/LogInForm';
+import type { NextPageWithLayout } from 'next';
 
 const LogInPage: NextPageWithLayout = () => <LogInForm />;
 

@@ -11,7 +11,7 @@
 // npx prisma migrate dev --name some-update
 
 // Generate client if needed:
-// * prisma migrate does this automatically
+// `prisma migrate` does this automatically
 // npx prisma generate
 
 // ----- Configuration -----

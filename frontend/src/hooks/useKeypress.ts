@@ -1,7 +1,7 @@
+import { useCallback, useEffect, useState } from 'react';
+
 // https://usehooks.com/useKeyPress/
 // https://github.com/react-typed-hooks/react-typed-hooks/blob/main/packages/useKeyPress/src/useKeyPress.ts
-
-import { useCallback, useEffect, useState } from 'react';
 
 const useKeyPress = (targetKey: string): boolean => {
   // State for keeping track of whether key is pressed

@@ -1,21 +1,19 @@
-import { DefaultTheme } from 'styled-components';
+import type { DefaultTheme } from 'styled-components';
 
 const colors = {
   white: 'white', // #FFFFFF
   black: 'black', // #000000
 
-  imperialPurple: '#66023C',
+  gray: {
+    light: 'lightgray', // #D3D3D3
+    medium: 'gray', // #808080
+    dark: '#404040'
+  },
 
   blue: {
     light: '#C8DCF0',
     medium: '#809BFF',
     dark: '#6271C0'
-  },
-
-  gray: {
-    light: 'silver', // #C0C0C0
-    medium: 'gray', // #808080
-    dark: '#393939'
   },
 
   pale: {
@@ -55,6 +53,28 @@ const theme: DefaultTheme = {
   borderRadius,
   width,
 
+  button: {
+    background: colors.blue.medium,
+    border: colors.blue.medium,
+    borderRadius: borderRadius.primary,
+    color: colors.white,
+
+    disabled: {
+      background: colors.gray.light,
+      border: colors.gray.light,
+      color: colors.gray.medium
+    },
+
+    hover: { background: colors.blue.dark },
+
+    alt: {
+      background: colors.pale.blue,
+      color: colors.blue.medium,
+
+      hover: { background: colors.white }
+    }
+  },
+
   background: {
     primary: colors.white,
     secondary: colors.gray.medium,
@@ -71,9 +91,8 @@ const theme: DefaultTheme = {
   text: {
     primary: colors.gray.dark,
     secondary: colors.white,
-    tertiary: colors.imperialPurple,
-    quaternary: colors.blue.light,
-    quinary: colors.blue.dark
+    tertiary: colors.blue.light,
+    quaternary: colors.blue.dark
   },
 
   border: {

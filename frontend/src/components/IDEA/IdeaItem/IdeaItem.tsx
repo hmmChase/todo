@@ -1,9 +1,9 @@
-import { FC, useContext } from 'react';
-import styled from 'styled-components';
-
+import { useContext } from 'react';
 import { UserCtx } from '@/context/User';
 import IdeaDetailIcon from '@/components/IDEA/DETAIL/IdeaDetailIcon/IdeaDetailIcon';
 import RemoveIdea from '@/components/IDEA/RemoveIdea/RemoveIdea';
+import styled from 'styled-components';
+import type { FC } from 'react';
 
 interface Props {
   authorId: string;
@@ -14,16 +14,18 @@ interface Props {
 const IdeaItem: FC<Props> = ({ authorId, content, ideaId }) => {
   const { user } = useContext(UserCtx);
 
-  const currentUserOwnsIdea = user?.id === authorId;
+  const currentUserIsAdmin = user?.role === 'ADMIN';
+  const currentUserIsAuthor = user?.id === authorId;
+  const currentUserCanDeleteIdea = currentUserIsAdmin || currentUserIsAuthor;
 
   return (
     <Article>
       <Content>{content}</Content>
 
-      <IdeaItemBtns>
+      <IdeaItemBtns data-testid='IdeaItemBtns'>
         <IdeaDetailIconn ideaId={ideaId} />
 
-        {currentUserOwnsIdea && <RemoveIdea ideaId={ideaId} />}
+        {currentUserCanDeleteIdea && <RemoveIdea ideaId={ideaId} />}
       </IdeaItemBtns>
     </Article>
   );

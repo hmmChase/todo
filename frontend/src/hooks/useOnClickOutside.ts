@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
+import type { RefObject } from 'react';
+
 // https://usehooks.com/useOnClickOutside/
 // https://usehooks-ts.com/react-hook/use-on-click-outside
-
-import { RefObject, useEffect } from 'react';
 
 type UseOnClickOutside = (
   handler: (e: Event) => void,

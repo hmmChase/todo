@@ -1,23 +1,67 @@
-import React from 'react';
-
-import { render, cleanup } from '@/utils/test-utils';
+import { admin } from '@/mocks/user';
+import { cleanup, render, screen, waitFor } from '@/utils/test-utils';
+import { CURRENT_USER } from '@/mocks/user/graphql';
 import IdeaItem from './IdeaItem';
+import UserProvider from '@/context/User';
 
-const mockIdea = {
-  idea: {
-    __typename: 'Idea',
-    id: '1',
-    createdAt: '32452424',
-    content: 'idea content 1',
-    author: { id: '1' }
-  }
-};
-
-describe('Module Detail View', () => {
-  // automatically unmount and cleanup DOM after the test is finished.
+describe('IdeaItem', () => {
   afterEach(cleanup);
 
-  it('renders without error', () => {
-    render(<IdeaItem {...mockIdea} />);
+  const props = { authorId: '2', content: 'idea', ideaId: '1' };
+
+  it('renders idea', () => {
+    render(<IdeaItem {...props} />);
+
+    const content = screen.getByText(props.content);
+
+    expect(content).toBeInTheDocument();
+  });
+
+  it('renders RemoveIdea when user is author', async () => {
+    render(
+      <UserProvider>
+        <IdeaItem {...props} />
+      </UserProvider>,
+
+      { mocks: [CURRENT_USER] }
+    );
+
+    const removeIdea = await screen.findByRole('button', {
+      name: 'removeIdea'
+    });
+
+    expect(removeIdea).toBeInTheDocument();
+  });
+
+  it('renders RemoveIdea when user is admin and authorId doesnt match', async () => {
+    render(
+      <UserProvider>
+        <IdeaItem {...props} />
+      </UserProvider>,
+
+      { mocks: [{ ...CURRENT_USER, result: { data: { currentUser: admin } } }] }
+    );
+
+    const removeIdea = await screen.findByRole('button', {
+      name: 'removeIdea'
+    });
+
+    expect(removeIdea).toBeInTheDocument();
+  });
+
+  it('doesnt render RemoveIdea when user is not author or admin', async () => {
+    render(
+      <UserProvider>
+        <IdeaItem {...props} authorId='3' />
+      </UserProvider>,
+
+      { mocks: [CURRENT_USER] }
+    );
+
+    await waitFor(() => {
+      const removeIdea = screen.queryByRole('button', { name: 'removeIdea' });
+
+      expect(removeIdea).not.toBeInTheDocument();
+    });
   });
 });
