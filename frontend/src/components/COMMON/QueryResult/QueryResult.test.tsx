@@ -24,7 +24,7 @@ describe('QueryResult', () => {
       </QueryResult>
     );
 
-    const errorMessage = screen.getByText(/Something went wrong/i);
+    const errorMessage = screen.getByText(/ERROR/i);
 
     expect(errorMessage).toBeInTheDocument();
   });

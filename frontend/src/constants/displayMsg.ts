@@ -47,6 +47,10 @@ const displayMsg = {
       expired: 'Expired password reset token',
       invalid: 'Invalid password reset token'
     }
+  },
+
+  idea: {
+    noIdeas: 'No ideas'
   }
 };
 
