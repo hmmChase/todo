@@ -37,12 +37,12 @@ const ideaResolver = {
         // Find all ideas that haven't been deleted
         const ideas = await ctx.prisma.idea.findMany({
           where: { removedAt: null },
-          select: {
-            id: true,
-            createdAt: true,
-            content: true,
-            author: { select: { id: true } }
-          },
+          // select: {
+          //   id: true,
+          //   createdAt: true,
+          //   content: true,
+          //   author: { select: { id: true } }
+          // },
           orderBy: { createdAt: 'desc' }
         });
 
@@ -355,6 +355,20 @@ const ideaResolver = {
 
         throw error;
       }
+    }
+  },
+
+  Idea: {
+    // Return idea author
+    author(parent, args, ctx, info) {
+      return ctx.prisma.idea
+        .findUnique({ where: { id: parent.id } })
+        .author({ select: { id: true } });
+
+      // return ctx.prisma.user.findUnique({
+      //   where: { id: parent.authorId },
+      //   select: { id: true }
+      // });
     }
   }
 };

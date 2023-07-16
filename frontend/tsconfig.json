@@ -45,6 +45,7 @@
     "**/*.ts",
     "**/*.tsx",
     "additional.d.ts",
+    "images.d.ts",
     "jest.config.js",
     "jest.setup.js",
     "next-env.d.ts",

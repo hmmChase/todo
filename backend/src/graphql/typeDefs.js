@@ -1,8 +1,5 @@
 // https:www.graphql.org/learn/schema/
 
-// Whenever this files changes:
-// npx prisma generate
-
 const typeDefs = `#graphql
   # ---------- Types ----------
 
@@ -79,9 +76,9 @@ const typeDefs = `#graphql
 
   type User {
     id: ID!
-    email: String!
+    # email: String!
     role: Role!
-    ideas: [Idea!]!
+    # ideas: [Idea!]!
   }
 
   type Idea {

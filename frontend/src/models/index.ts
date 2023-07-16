@@ -1,7 +1,7 @@
 export interface User {
   __typename?: string;
   createdAt?: Date;
-  email: string;
+  email?: string;
   id: string;
   ideas?: Idea[];
   role: string;
