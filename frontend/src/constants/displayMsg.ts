@@ -37,11 +37,11 @@ const displayMsg = {
     },
 
     passReset: {
-      success: 'Your password has been changed.'
-
-      // sent: 'Check your email for a password reset link.',
-      // tokenMissing: 'Error: Please submit a new password reset request.',
-      // tokenExpired: 'Error: Your reset request is expired. Please submit a new one.'
+      sent: 'Check your email for a password reset link.',
+      success: 'Your password has been changed.',
+      tokenMissing: 'Error: Please submit a new password reset request.',
+      tokenExpired:
+        'Error: Your reset request is expired. Please submit a new one.'
     },
 
     passResetToken: {
