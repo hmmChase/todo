@@ -4,6 +4,8 @@ import { GraphQLError } from 'graphql';
 import consoleLog from '../../utils/consoleLog.js';
 import paginate from '../../utils/paginate.js';
 
+import { corsOptions } from '../../constants/cors.js';
+
 const ideaResolver = {
   Query: {
     /* Return idea matching ID */
@@ -33,6 +35,8 @@ const ideaResolver = {
 
     /* Return all ideas */
     ideas: async (parent, args, ctx, info) => {
+      console.log('corsOptions:', corsOptions);
+
       try {
         // Find all ideas that haven't been deleted
         const ideas = await ctx.prisma.idea.findMany({
