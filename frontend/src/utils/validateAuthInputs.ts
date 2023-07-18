@@ -15,7 +15,7 @@ export const email = yup
 /* Password */
 export const password = yup
   .string()
-  .min(passwordMinLength, displayMsg.user.password.short)
-  .max(passwordMaxLength, displayMsg.user.password.long)
+  .min(passwordMinLength, displayMsg.user.password.tooShort)
+  .max(passwordMaxLength, displayMsg.user.password.tooLong)
   .required(displayMsg.user.password.required);
 // .label('password'),

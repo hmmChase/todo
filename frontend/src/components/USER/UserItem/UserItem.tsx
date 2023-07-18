@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import type { Ideas as Ideass } from '@/models/index';
 
 interface Props {
-  email: string;
+  email?: string;
   ideas?: Ideass;
   role: string;
   userId: string;
@@ -17,12 +17,12 @@ const IdeaItem: FC<Props> = ({ email, ideas, role, userId }) => (
 
       {userId}
     </ListItem>
-
+    {/* 
     <ListItem>
       <ItemLabel>Email:</ItemLabel>
 
       {email}
-    </ListItem>
+    </ListItem> */}
 
     <ListItem>
       <ItemLabel>Role:</ItemLabel>
@@ -30,13 +30,13 @@ const IdeaItem: FC<Props> = ({ email, ideas, role, userId }) => (
       {role}
     </ListItem>
 
-    {ideas && (
+    {/* {ideas && (
       <ListItem>
         <ItemLabel>Ideas:</ItemLabel>
 
         <Ideas ideas={ideas} />
       </ListItem>
-    )}
+    )} */}
   </List>
 );
 

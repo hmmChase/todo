@@ -1,3 +1,4 @@
+import displayMsg from '@/constants/displayMsg';
 import IdeaItem from '@/components/IDEA/IdeaItem/IdeaItem';
 import styled from 'styled-components';
 import type { FC } from 'react';
@@ -25,7 +26,7 @@ const Ideas: FC<Props> = ({ ideas }) => {
           ))}
         </UL>
       ) : (
-        <p>There are no ideas</p>
+        <p>{displayMsg.idea.noIdeas}</p>
       )}
     </>
   );

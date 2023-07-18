@@ -29,7 +29,7 @@
       "@/context/*": ["src/context/*"],
       "@/graphql/*": ["src/graphql/*"],
       "@/hooks/*": ["src/hooks/*"],
-      "@/mocks/*": ["src/__mocks__/*"],
+      "@/mocks/*": ["src/mocks/*"],
       "@/models/*": ["src/models/*"],
       "@/pages/*": ["src/pages/*"],
       "@/public/*": ["public/*"],

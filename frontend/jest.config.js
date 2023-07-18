@@ -28,7 +28,7 @@ const customJestConfig = {
     '^@/context/(.*)$': '<rootDir>/src/context/$1',
     '^@/graphql/(.*)$': '<rootDir>/src/graphql/$1',
     '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
-    '^@/mocks/(.*)$': ['<rootDir>/src/__mocks__/$1'],
+    '^@/mocks/(.*)$': ['<rootDir>/src/mocks/$1'],
     '^@/models/(.*)$': '<rootDir>/src/models/$1',
     '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
     '^@/public/(.*)$': '<rootDir>/public/$1',

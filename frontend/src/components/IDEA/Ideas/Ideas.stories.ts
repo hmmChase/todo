@@ -1,3 +1,4 @@
+import { ideas } from '@/mocks/idea';
 import Ideas from './Ideas';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -13,4 +14,6 @@ export default meta;
 
 type Story = StoryObj<typeof Ideas>;
 
-export const Default: Story = { args: {} };
+export const Default: Story = {
+  args: { ideas }
+};

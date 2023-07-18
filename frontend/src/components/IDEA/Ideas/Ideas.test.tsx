@@ -1,39 +1,60 @@
 import { cleanup, render, screen } from '@/utils/test-utils';
-import { READ_IDEAS, READ_IDEAS_ERROR } from '@/mocks/idea/graphql';
+import { ideas } from '@/mocks/idea';
+import displayMsg from '@/constants/displayMsg';
 import Ideas from './Ideas';
 
 describe('Ideas', () => {
   afterEach(cleanup);
 
-  it('renders loading icon on loading', async () => {
-    render(<Ideas />, { mocks: [READ_IDEAS] });
+  it('renders ideas if ideas', () => {
+    render(<Ideas ideas={ideas} />);
 
-    const loading = await screen.findByTestId('loading');
+    const idea = screen.queryAllByRole('listitem');
 
-    expect(loading).toBeInTheDocument();
+    expect(idea).toHaveLength(3);
   });
 
-  it('renders list of ideas on success', async () => {
-    render(<Ideas />, { mocks: [READ_IDEAS] });
+  it('renders message if no ideas', () => {
+    render(<Ideas ideas={[]} />);
 
-    const loading = await screen.findByTestId('loading');
+    const idea = screen.queryAllByRole('listitem');
 
-    expect(loading).toBeInTheDocument();
+    expect(idea).toHaveLength(0);
 
-    const ideas = await screen.findByText('idea content 1');
+    const message = screen.getByText(displayMsg.idea.noIdeas);
 
-    expect(ideas).toBeInTheDocument();
+    expect(message).toBeInTheDocument();
   });
 
-  it('renders error message on error', async () => {
-    render(<Ideas />, { mocks: [READ_IDEAS_ERROR] });
+  // it('renders loading icon on loading', async () => {
+  //   render(<Ideas ideas={ideas} />, { mocks: [READ_IDEAS] });
 
-    const loading = await screen.findByTestId('loading');
+  //   const loading = await screen.findByTestId('loading');
 
-    expect(loading).toBeInTheDocument();
+  //   expect(loading).toBeInTheDocument();
+  // });
 
-    const error = await screen.findByText('Something went wrong');
+  // it('renders list of ideas on success', async () => {
+  //   render(<Ideas ideas={ideas} />, { mocks: [READ_IDEAS] });
 
-    expect(error).toBeInTheDocument();
-  });
+  //   const loading = await screen.findByTestId('loading');
+
+  //   expect(loading).toBeInTheDocument();
+
+  //   const ideas = await screen.findByText('idea content 1');
+
+  //   expect(ideas).toBeInTheDocument();
+  // });
+
+  // it('renders error message on error', async () => {
+  //   render(<Ideas ideas={ideas} />, { mocks: [READ_IDEAS_ERROR] });
+
+  //   const loading = await screen.findByTestId('loading');
+
+  //   expect(loading).toBeInTheDocument();
+
+  //   const error = await screen.findByText('Something went wrong');
+
+  //   expect(error).toBeInTheDocument();
+  // });
 });

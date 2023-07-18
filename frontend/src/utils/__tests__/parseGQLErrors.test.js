@@ -8,6 +8,6 @@ describe('parseGQLErrors', () => {
 
     expect(errors).toBeInstanceOf(Array);
     expect(errors).toHaveLength(2);
-    expect(errors).toEqual([displayMsg.error, displayMsg.user.null]);
+    expect(errors).toEqual([displayMsg.error, displayMsg.error]);
   });
 });

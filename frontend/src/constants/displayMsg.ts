@@ -3,15 +3,15 @@ import { passwordMaxLength, passwordMinLength } from '@/constants/config';
 const displayMsg = {
   error: 'ERROR',
   // null: 'NULL',
-  // required: 'Required',
 
   user: {
     email: {
       notFound: 'Email not found',
-      exists: 'Email already used'
+      exists: 'Email already used',
 
-      // invalid: 'Invalid email',
-      // length: 'Must be 255 characters or less',
+      required: 'Email required',
+      invalid: 'Invalid email',
+      length: 'Must be 255 characters or less'
 
       // null: 'Account found',
 
@@ -22,6 +22,7 @@ const displayMsg = {
     password: {
       wrong: 'Wrong password',
 
+      required: 'Password required',
       tooShort: `Password must be at least ${passwordMinLength} characters`,
       tooLong: `Password must be no more than ${passwordMaxLength} characters`,
 
