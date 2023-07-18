@@ -35,8 +35,6 @@ const ideaResolver = {
 
     /* Return all ideas */
     ideas: async (parent, args, ctx, info) => {
-      console.log('corsOptions:', corsOptions);
-
       try {
         // Find all ideas that haven't been deleted
         const ideas = await ctx.prisma.idea.findMany({
