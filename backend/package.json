@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "SET NODE_ENV=development&& nodemon bin/www.js",
     "start": "node bin/www.js",
-    "seed": "node prisma/seed.js"
+    "seed": "node prisma/seed.js",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@apollo/server": "^4.7.5",
