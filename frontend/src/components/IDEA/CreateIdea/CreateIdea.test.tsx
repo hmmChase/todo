@@ -6,8 +6,7 @@ import {
   waitFor
 } from '@/utils/test-utils';
 import CreateIdea from './CreateIdea';
-
-// import { CREATE_IDEA } from '@/graphql/queries/idea';
+import { CREATE_IDEA } from '@/mocks/idea/graphql';
 
 describe('CreateIdea', () => {
   afterEach(cleanup);
@@ -32,6 +31,28 @@ describe('CreateIdea', () => {
     const button = screen.getByRole('button', { name: 'submitIdea' });
 
     expect(button).toBeEnabled();
+  });
+
+  it('disables submit button on complete', async () => {
+    render(<CreateIdea />, { mocks: [CREATE_IDEA] });
+
+    const textbox = screen.getByRole('textbox');
+
+    expect(textbox).toHaveValue('');
+
+    const button = screen.getByRole('button', { name: 'submitIdea' });
+
+    expect(button).not.toBeEnabled();
+
+    await waitFor(async () => await userEvent.type(textbox, 'idea 1'));
+
+    expect(textbox).toHaveValue('idea 1');
+
+    await waitFor(async () => await userEvent.click(button));
+
+    expect(textbox).toHaveValue('');
+
+    expect(button).not.toBeEnabled();
   });
 
   // it('should render loading and success states on create', async () => {

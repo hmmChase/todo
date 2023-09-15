@@ -51,7 +51,7 @@ const config = {
   //     '@/context': path.resolve(__dirname, '../src/context'),
   //     '@/graphql': path.resolve(__dirname, '../src/graphql'),
   //     '@/hooks': path.resolve(__dirname, '../src/hooks'),
-  //     '@/mocks': path.resolve(__dirname, '../src/__mocks__'),
+  //     '@/mocks': path.resolve(__dirname, '../src/mocks'),
   //     '@/models': path.resolve(__dirname, '../src/models'),
   //     '@/pages': path.resolve(__dirname, '../src/pages'),
   //     '@/public': path.resolve(__dirname, '../public'),

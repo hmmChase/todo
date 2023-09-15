@@ -23,6 +23,11 @@ export const CURRENT_USER = {
   result: { data: { currentUser: user1 } }
 };
 
+export const NO_CURRENT_USER = {
+  request: { query: userQuery.CURRENT_USER },
+  result: { data: { currentUser: null } }
+};
+
 //* - Mutations ----------
 
 export const LOG_IN = {

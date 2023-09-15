@@ -91,11 +91,9 @@ export const CURRENT_USER_IDEAS_ERROR = {
 export const CREATE_IDEA = {
   request: {
     query: ideaQuery.CREATE_IDEA,
-    variables: { content: 'mock idea' }
+    variables: { content: idea1.content }
   },
-  result: {
-    data: { createIdea: { id: '1', content: 'mock idea', author: { id: '1' } } }
-  }
+  result: { data: { createIdea: idea1 } }
 };
 
 export const CREATE_IDEA_ERROR = {

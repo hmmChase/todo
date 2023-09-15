@@ -2,28 +2,28 @@ import type { User, Users } from '@/models/index';
 
 export const admin: User = {
   __typename: 'User',
-  // createdAt: new Date(),
+  createdAt: new Date(),
   email: 'admin@email.com',
   id: '1',
-  ideas: [],
+  // ideas: [],
   role: 'ADMIN'
 };
 
 export const user1: User = {
   __typename: 'User',
-  // createdAt: new Date(),
+  createdAt: new Date(),
   email: 'user1@email.com',
   id: '2',
-  ideas: [],
+  // ideas: [],
   role: 'USER'
 };
 
 export const user2: User = {
   __typename: 'User',
-  // createdAt: new Date(),
+  createdAt: new Date(),
   email: 'user2@email.com',
   id: '3',
-  ideas: [],
+  // ideas: [],
   role: 'USER'
 };
 

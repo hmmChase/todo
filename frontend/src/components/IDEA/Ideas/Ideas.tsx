@@ -8,29 +8,27 @@ interface Props {
   ideas: Ideass;
 }
 
-const Ideas: FC<Props> = ({ ideas }) => {
-  return (
-    <>
-      {ideas.length ? (
-        <UL>
-          {ideas.map(idea => (
-            <LI key={idea.id}>
-              <hr />
+const Ideas: FC<Props> = ({ ideas }) => (
+  <>
+    {ideas.length ? (
+      <UL>
+        {ideas.map(idea => (
+          <LI key={idea.id}>
+            <hr />
 
-              <IdeaItem
-                authorId={idea.author!.id}
-                content={idea.content}
-                ideaId={idea.id}
-              />
-            </LI>
-          ))}
-        </UL>
-      ) : (
-        <p>{displayMsg.idea.noIdeas}</p>
-      )}
-    </>
-  );
-};
+            <IdeaItem
+              authorId={idea.author!.id}
+              content={idea.content}
+              ideaId={idea.id}
+            />
+          </LI>
+        ))}
+      </UL>
+    ) : (
+      <p>{displayMsg.idea.noIdeas}</p>
+    )}
+  </>
+);
 
 export default Ideas;
 

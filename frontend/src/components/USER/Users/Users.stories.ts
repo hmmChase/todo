@@ -1,3 +1,4 @@
+import { users } from '@/mocks/user';
 import type { Meta, StoryObj } from '@storybook/react';
 import Users from './Users';
 
@@ -13,4 +14,6 @@ export default meta;
 
 type Story = StoryObj<typeof Users>;
 
-export const Default: Story = { args: {} };
+export const WithUsers: Story = { args: { users } };
+
+export const NoUsers: Story = { args: {} };

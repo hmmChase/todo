@@ -76,7 +76,7 @@ const typeDefs = `#graphql
 
   type User {
     id: ID!
-    # email: String!
+    email: String!
     role: Role!
     # ideas: [Idea!]!
   }

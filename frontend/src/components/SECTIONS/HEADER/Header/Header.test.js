@@ -1,20 +1,7 @@
 import { cleanup, render, screen, waitFor } from '@/utils/test-utils';
-// import { mockGQLError } from '@/mocks/mockGQLErrors';
-import UserProvider from '@/context/User';
+import { CURRENT_USER, NO_CURRENT_USER } from '@/mocks/user/graphql';
 import Header from './Header';
-import { CURRENT_USER } from '@/mocks/user/graphql';
-
-// jest.mock('@/context/User', () => {
-//   return jest.fn().mockImplementation(() => {
-//     return {
-//       user: {
-//         loading: false,
-//         // error: mockGQLError,
-//         data: { user: { id: '1' } }
-//       }
-//     };
-//   });
-// });
+import UserProvider from '@/context/User';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({ asPath: '/route', isReady: true })
@@ -23,7 +10,7 @@ jest.mock('next/router', () => ({
 describe('UserProvider', () => {
   afterEach(cleanup);
 
-  test.skip('renders no user icon when loading', async () => {
+  test('renders no user icon when loading', () => {
     render(
       <UserProvider>
         <Header />
@@ -32,28 +19,40 @@ describe('UserProvider', () => {
       { mocks: [CURRENT_USER] }
     );
 
-    // screen.debug();
+    const userIcon = screen.queryByTestId('user-icon');
 
-    // await waitFor(() => {
-    const loader = screen.getByTestId(/loading/i);
-
-    expect(loader).toBeInTheDocument();
-    // });
+    expect(userIcon).not.toBeInTheDocument();
   });
 
-  test.skip('renders logged out when user not logged in', () => {
-    render(<UserProvider>children</UserProvider>);
+  test('renders logged out when user not logged in', async () => {
+    render(
+      <UserProvider>
+        <Header />
+      </UserProvider>,
 
-    const errorMessage = screen.getByText(/ERROR/i);
+      { mocks: [NO_CURRENT_USER] }
+    );
 
-    expect(errorMessage).toBeInTheDocument();
+    await waitFor(() => {
+      const headerLoggedOut = screen.getByTestId('header-logged-out');
+
+      expect(headerLoggedOut).toBeInTheDocument();
+    });
   });
 
-  test('renders user icon when logged in', () => {
-    render(<UserProvider>children</UserProvider>);
+  test('renders user icon when logged in', async () => {
+    render(
+      <UserProvider>
+        <Header />
+      </UserProvider>,
 
-    const children = screen.getByText(/children/i);
+      { mocks: [CURRENT_USER] }
+    );
 
-    expect(children).toBeInTheDocument();
+    await waitFor(() => {
+      const userIcon = screen.getByTestId('user-icon');
+
+      expect(userIcon).toBeInTheDocument();
+    });
   });
 });

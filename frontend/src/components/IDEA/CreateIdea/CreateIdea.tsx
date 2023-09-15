@@ -35,6 +35,8 @@ const CreateIdea: FC = () => {
     });
 
   const [createIdea] = useMutation(CREATE_IDEA, {
+    onCompleted: () => setIsSubmitDisabled(true),
+
     update: (cache, result) => update(cache, result),
 
     onError: () => {}

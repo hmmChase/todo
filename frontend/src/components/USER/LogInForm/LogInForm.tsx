@@ -127,7 +127,7 @@ const LogInForm: FC<Props> = ({ close }) => {
       </Buttonn>
 
       <LogInLinks>
-        <Linkk href='/reqpassreset' passHref>
+        <Linkk href='/passresetreq' passHref>
           Reset Password
         </Linkk>
 

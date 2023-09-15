@@ -1,5 +1,6 @@
 import { READ_IDEA } from '@/graphql/queries/idea';
-import { useQuery } from '@apollo/client';
+import { useEffect } from 'react';
+import { useLazyQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import App from '@/components/LAYOUTS/App/App';
 import IdeaDetail from '@/components/IDEA/DETAIL/IdeaDetail/IdeaDetail';
@@ -10,13 +11,13 @@ import type { NextPageWithLayout } from 'next';
 const IdeaPage: NextPageWithLayout = () => {
   const router = useRouter();
 
-  const ideaId = router.query.id;
-
-  const { data, error, loading } = useQuery(READ_IDEA, {
-    fetchPolicy: 'cache-first',
-
-    variables: { id: ideaId }
+  const [readIdea, { data, error, loading }] = useLazyQuery(READ_IDEA, {
+    fetchPolicy: 'cache-first'
   });
+
+  useEffect(() => {
+    if (router.isReady) readIdea({ variables: { id: router.query.id } });
+  }, [readIdea, router.isReady, router.query.id]);
 
   const idea: Idea = data?.idea;
 
@@ -27,11 +28,13 @@ const IdeaPage: NextPageWithLayout = () => {
       showError={true}
       showLoading={true}
     >
-      <IdeaDetail
-        authorId={idea?.author!.id}
-        content={idea?.content}
-        ideaId={idea?.id}
-      />
+      {idea && (
+        <IdeaDetail
+          authorId={idea?.author!.id}
+          content={idea?.content}
+          ideaId={idea?.id}
+        />
+      )}
     </QueryResult>
   );
 };

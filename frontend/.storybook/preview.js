@@ -1,6 +1,6 @@
-import { CURRENT_USER } from '../src/__mocks__/user/graphql';
+import { CURRENT_USER } from '../src/mocks/user/graphql';
 import { MockedProvider } from '@apollo/client/testing';
-import { READ_IDEAS } from '../src/__mocks__/idea/graphql';
+import { READ_IDEAS } from '../src/mocks/idea/graphql';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../src/styles/global';
 import theme from '../src/styles/theme';

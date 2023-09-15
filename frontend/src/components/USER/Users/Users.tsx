@@ -11,7 +11,7 @@ interface Props {
 const Users: FC<Props> = ({ users }) => {
   return (
     <>
-      {users.length ? (
+      {users && users.length ? (
         <UL>
           {users.map(user => (
             <Fragment key={user.id}>

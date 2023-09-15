@@ -6,23 +6,19 @@ import styled from 'styled-components';
 import type { FC } from 'react';
 
 const HeaderLoggedOut: FC = () => {
-  const [modalDisplay, setModalDisplay] = useState('');
+  const [modalName, setModalName] = useState('');
 
   return (
-    <Container>
-      {modalDisplay === 'login' && (
-        <LogInModal close={() => setModalDisplay('')} />
-      )}
+    <Container data-testid='header-logged-out'>
+      {modalName === 'login' && <LogInModal close={() => setModalName('')} />}
 
-      <ButtonLogIn alt name='logIn' onClick={() => setModalDisplay('login')}>
+      <ButtonLogIn alt name='logIn' onClick={() => setModalName('login')}>
         Log in
       </ButtonLogIn>
 
-      {modalDisplay === 'signup' && (
-        <SignUpModal close={() => setModalDisplay('')} />
-      )}
+      {modalName === 'signup' && <SignUpModal close={() => setModalName('')} />}
 
-      <Button name='signUp' onClick={() => setModalDisplay('signup')}>
+      <Button name='signUp' onClick={() => setModalName('signup')}>
         Sign up
       </Button>
     </Container>
