@@ -1,7 +1,8 @@
 import { GraphQLError } from 'graphql';
-import { passResetExpiry, passResetTokenBytes } from '../constants/config.js';
 import { promisify } from 'util';
 import { randomBytes } from 'crypto';
+
+import { passResetExpiry, passResetTokenBytes } from '../constants/config.js';
 
 export const createPassReset = async () => {
   const randomBytesPromise = promisify(randomBytes);

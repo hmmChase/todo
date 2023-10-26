@@ -1,30 +1,31 @@
-import { CURRENT_USER_IDEAS } from '@/graphql/queries/idea';
+import { GetServerSideProps, NextPageWithLayout } from 'next';
 import { useQuery } from '@apollo/client';
+// import type { NextPageWithLayout } from 'next';
+
 import App from '@/components/LAYOUTS/App/App';
-import Ideas from '@/components/IDEA/Ideas/Ideas';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import type { Ideas as Ideass } from '@/models/index';
-import type { NextPageWithLayout } from 'next';
-// import { GetServerSideProps, NextPageWithLayout } from 'next';
-// import verifyUser from '@/utils/verifyUser';
+import verifyUser from '@/utils/verifyUser';
+// import Ideas from '@/components/IDEA/Ideas/Ideas';
+// import type { Ideas as Ideass } from '@/models/index';
+// import { CURRENT_USER_IDEAS } from '@/graphql/queries/idea';
 
 const AccountPage: NextPageWithLayout = () => {
-  const { data, error, loading } = useQuery(CURRENT_USER_IDEAS);
+  // const { data, error, loading } = useQuery(CURRENT_USER_IDEAS);
 
-  const ideas: Ideass = data?.currentUserIdeas;
+  // const ideas: Ideass = data?.currentUserIdeas;
 
   return (
     <>
-      <h2>My Ideas</h2>
+      <h2>Account</h2>
 
-      <QueryResult
+      {/* <QueryResult
         error={error}
         loading={loading}
         showError={true}
         showLoading={true}
       >
         <Ideas ideas={ideas} />
-      </QueryResult>
+      </QueryResult> */}
     </>
   );
 };
@@ -43,18 +44,18 @@ AccountPage.getLayout = function getLayout(page) {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async ctx => {
-//   const { req, res } = ctx;
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { req, res } = ctx;
 
-//   const userPayload = verifyUser(req.headers.cookie);
+  const userPayload = verifyUser(req.headers.cookie);
 
-//   if (!userPayload) {
-//     res.writeHead(302, { Location: '/' });
+  if (!userPayload) {
+    res.writeHead(302, { Location: '/login' });
 
-//     res.end();
-//   }
+    res.end();
+  }
 
-//   return { props: {} };
-// };
+  return { props: {} };
+};
 
 export default AccountPage;

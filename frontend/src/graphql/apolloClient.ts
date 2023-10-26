@@ -7,7 +7,7 @@ import link from '@/graphql/links';
 import merge from 'deepmerge';
 import type { IncomingMessage, ServerResponse } from 'http';
 import type { NormalizedCacheObject } from '@apollo/client';
-import typeDefs from '@/graphql/typeDefs';
+// import typeDefs from '@/graphql/typeDefs';
 
 // https://github.com/apollographql/fullstack-tutorial/tree/master/final/client
 // https://github.com/vercel/next.js/blob/canary/examples/with-apollo/lib/apolloClient.js
@@ -23,7 +23,7 @@ const createApolloClient = (context?: ResolverContext) =>
 
     link,
 
-    typeDefs,
+    // typeDefs,
 
     // headers: { authorization: localStorage.getItem('at') || '' },
 

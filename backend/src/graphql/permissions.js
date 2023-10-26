@@ -5,6 +5,6 @@
 // export const permissions = shield({
 //   Query: {
 //     currentUser: rules.isAuthenticated,
-//     idea: rules.isIdeaOwner
+//     task: rules.isTaskOwner
 //   }
 // });

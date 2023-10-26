@@ -20,10 +20,10 @@
 
 // export const isAuthenticated = or(isAdmin, isUser);
 
-// export const isIdeaOwner = rule()(async (parent, args, ctx, info) => {
+// export const isTaskOwner = rule()(async (parent, args, ctx, info) => {
 //   const userId = args.userId;
 
-//   const author = await ctx.prisma.idea
+//   const author = await ctx.prisma.task
 //     .findUnique({ where: { id: userId } })
 //     .author();
 

@@ -1,7 +1,13 @@
-import path from 'path';
+import type { StorybookConfig } from '@storybook/nextjs';
 
-const config = {
+const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
+
+  core: { disableTelemetry: true },
+
+  docs: { autodocs: 'tag' },
+
+  staticDirs: ['../public'],
 
   framework: { name: '@storybook/nextjs', options: {} },
 
@@ -19,10 +25,6 @@ const config = {
     // 'storybook-addon-apollo-client',
   ],
 
-  core: { disableTelemetry: true },
-
-  features: { interactionsDebugger: true },
-
   // https://storybook.js.org/docs/react/configure/typescript
   typescript: {
     check: false,
@@ -33,11 +35,7 @@ const config = {
       propFilter: prop =>
         prop.parent ? !/node_modules/.test(prop.parent.fileName) : true
     }
-  },
-
-  docs: { autodocs: 'tag' },
-
-  staticDirs: ['../public']
+  }
 
   // webpackFinal: async config => {
   //   // https://github.com/storybookjs/storybook/issues/11639
@@ -64,4 +62,4 @@ const config = {
   // }
 };
 
-module.exports = config;
+export default config;

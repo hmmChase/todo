@@ -1,5 +1,6 @@
-import Full from '@/components/LAYOUTS/Full/Full';
 import type { NextPageWithLayout } from 'next';
+
+import Full from '@/components/LAYOUTS/Full/Full';
 
 // https://github.com/vercel/next.js/blob/master/errors/custom-error-no-custom-404.md
 

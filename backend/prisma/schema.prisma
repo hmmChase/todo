@@ -53,6 +53,7 @@ model Task {
   updatedAt DateTime  @updatedAt
   removedAt DateTime?
   content   String
+  due       DateTime?
   author    User      @relation(fields: [authorId], references: [id])
   authorId  String
 }

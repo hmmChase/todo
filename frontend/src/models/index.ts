@@ -3,13 +3,13 @@ export interface User {
   createdAt: Date;
   email: string;
   id: string;
-  ideas?: Idea[];
+  tasks?: Task[];
   role: string;
 }
 
 export type Users = User[];
 
-export interface Idea {
+export interface Task {
   __typename?: string;
   author: User;
   content: string;
@@ -17,4 +17,4 @@ export interface Idea {
   id: string;
 }
 
-export type Ideas = Idea[];
+export type Tasks = Task[];

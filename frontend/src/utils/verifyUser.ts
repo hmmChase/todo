@@ -1,5 +1,3 @@
-// Not used
-
 import { User } from '@/models/index';
 import jwt from 'jsonwebtoken';
 
@@ -20,9 +18,9 @@ const verifyUser = (accessCookie: string | undefined) => {
 
   try {
     // Decode payload if signature is valid and JWT not expired
-    const { user } = jwt.verify(accessToken, secret) as JwtPayload;
+    const payload = jwt.verify(accessToken, secret);
 
-    return user;
+    return payload;
   } catch {
     return null;
   }

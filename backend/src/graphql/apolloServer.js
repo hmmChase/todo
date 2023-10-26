@@ -6,10 +6,9 @@
 import { ApolloServer } from '@apollo/server';
 // import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 
+import schema from './schema.js';
 // import { development } from '../constants/config.js';
 // import { httpServer } from '../app.js';
-import schema from './schema.js';
-
 // import { subscriptionServer } from '../app';
 
 const apolloServer = new ApolloServer({

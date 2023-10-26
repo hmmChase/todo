@@ -27,7 +27,7 @@ const userResolver = {
             createdAt: true,
             email: true,
             role: true,
-            ideas: {
+            tasks: {
               select: { id: true, createdAt: true, author: true, content: true }
             }
           }
@@ -313,7 +313,7 @@ const userResolver = {
   }
 
   // User: {
-  //   ideas: async (parent, args, ctx, info) => {}
+  //   tasks: async (parent, args, ctx, info) => {}
   // }
 };
 
