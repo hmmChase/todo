@@ -6,15 +6,15 @@ import paginate from '../../utils/paginate.js';
 
 import { corsOptions } from '../../constants/cors.js';
 
-const ideaResolver = {
+const taskResolver = {
   Query: {
-    /* Return idea matching ID */
-    idea: async (parent, args, ctx, info) => {
+    /* Return task matching ID */
+    task: async (parent, args, ctx, info) => {
       const { id } = args;
 
       try {
-        // Find idea matching user id
-        const idea = await ctx.prisma.idea.findUnique({
+        // Find task matching user id
+        const task = await ctx.prisma.task.findUnique({
           where: { id },
           select: {
             id: true,
@@ -24,8 +24,8 @@ const ideaResolver = {
           }
         });
 
-        // Return idea
-        return idea;
+        // Return task
+        return task;
       } catch (error) {
         development && consoleLog(error);
 
@@ -33,11 +33,11 @@ const ideaResolver = {
       }
     },
 
-    /* Return all ideas */
-    ideas: async (parent, args, ctx, info) => {
+    /* Return all tasks */
+    tasks: async (parent, args, ctx, info) => {
       try {
-        // Find all ideas that haven't been deleted
-        const ideas = await ctx.prisma.idea.findMany({
+        // Find all tasks that haven't been deleted
+        const tasks = await ctx.prisma.task.findMany({
           where: { removedAt: null },
           // select: {
           //   id: true,
@@ -48,8 +48,8 @@ const ideaResolver = {
           orderBy: { createdAt: 'desc' }
         });
 
-        // Return ideas
-        return ideas;
+        // Return tasks
+        return tasks;
       } catch (error) {
         development && consoleLog(error);
 
@@ -57,12 +57,12 @@ const ideaResolver = {
       }
     },
 
-    /* Return offset paginated ideas */
-    ideasPaginatedOffset: async (parent, args, ctx, info) => {
+    /* Return offset paginated tasks */
+    tasksPaginatedOffset: async (parent, args, ctx, info) => {
       const { offset, limit } = args;
 
       try {
-        const ideas = await ctx.prisma.idea.findMany({
+        const tasks = await ctx.prisma.task.findMany({
           skip: offset,
           take: limit, // first
           where: { removedAt: null },
@@ -75,7 +75,7 @@ const ideaResolver = {
           orderBy: { createdAt: 'desc' }
         });
 
-        return ideas;
+        return tasks;
       } catch (error) {
         development && consoleLog(error);
 
@@ -83,12 +83,12 @@ const ideaResolver = {
       }
     },
 
-    /* Return cursor paginated ideas */
-    ideasPaginatedCursor: async (parent, args, ctx, info) => {
+    /* Return cursor paginated tasks */
+    tasksPaginatedCursor: async (parent, args, ctx, info) => {
       const { after, pageSize } = args;
 
       try {
-        const ideas = await ctx.prisma.idea.findMany({
+        const tasks = await ctx.prisma.task.findMany({
           // cursor: { createdAt: after },
           // take: pageSize,
           where: { removedAt: null },
@@ -101,10 +101,10 @@ const ideaResolver = {
           orderBy: { createdAt: 'desc' }
         });
 
-        const ideasPaginated = paginate({ after, pageSize, results: ideas });
+        const tasksPaginated = paginate({ after, pageSize, results: tasks });
 
         // try {
-        //   const ideas = await ctx.prisma.idea.findMany({
+        //   const tasks = await ctx.prisma.task.findMany({
         //     skip: 1, // Skip the cursor
         //     take: limit, // first
         //     cursor: { id: cursor },
@@ -115,22 +115,22 @@ const ideaResolver = {
 
         // Bookmark your location in the result set - in this
         // case, the ID of the last post in the list of 4.
-        // const lastPostInResults = ideas[3]; // Remember: zero-based index! :)
+        // const lastPostInResults = tasks[3]; // Remember: zero-based index! :)
         // const myCursor = lastPostInResults.id; // Example: 29
 
         // if there are launches, get the cursor of the last launch, else null
-        const cursor = ideasPaginated.length
-          ? ideasPaginated[ideasPaginated.length - 1].createdAt
+        const cursor = tasksPaginated.length
+          ? tasksPaginated[tasksPaginated.length - 1].createdAt
           : null;
 
         // if the cursor of the end of the paginated results is the same as the
         // last item in _all_ results, then there are no more results after this
-        const hasMore = ideasPaginated.length
-          ? ideasPaginated[ideasPaginated.length - 1].createdAt !==
-            ideas[ideas.length - 1].createdAt
+        const hasMore = tasksPaginated.length
+          ? tasksPaginated[tasksPaginated.length - 1].createdAt !==
+            tasks[tasks.length - 1].createdAt
           : false;
 
-        return { cursor, hasMore, ideas: ideasPaginated };
+        return { cursor, hasMore, tasks: tasksPaginated };
       } catch (error) {
         development && consoleLog(error);
 
@@ -138,8 +138,8 @@ const ideaResolver = {
       }
     },
 
-    /* Return authenticated user's ideas */
-    currentUserIdeas: async (parent, args, ctx, info) => {
+    /* Return authenticated user's tasks */
+    currentUserTasks: async (parent, args, ctx, info) => {
       // If user not logged in, return null
       if (!ctx.accessToken) throw new GraphQLError(401);
 
@@ -147,8 +147,8 @@ const ideaResolver = {
       const payload = authAccessToken(ctx.accessToken);
 
       try {
-        // Find all ideas matching author id & haven't been deleted
-        const ideas = await ctx.prisma.idea.findMany({
+        // Find all tasks matching author id & haven't been deleted
+        const tasks = await ctx.prisma.task.findMany({
           where: { author: { id: payload.id }, removedAt: null },
           select: {
             id: true,
@@ -159,8 +159,8 @@ const ideaResolver = {
           orderBy: { createdAt: 'desc' }
         });
 
-        // Return current user ideas
-        return ideas;
+        // Return current user tasks
+        return tasks;
       } catch (error) {
         development && consoleLog(error);
 
@@ -168,46 +168,46 @@ const ideaResolver = {
       }
     }
 
-    // currentUserOffsetPaginatedIdeas: async (parent, args, ctx, info) => {
+    // currentUserOffsetPaginatedTasks: async (parent, args, ctx, info) => {
     //   const { skip, take } = args;
 
     //   // Verify access token and decode payload
     //   const payload = authAccessToken(ctx.accessToken);
 
-    //   // Find and return paginated ideas matching user id
-    //   const ideas = await prisma.idea.findMany({
+    //   // Find and return paginated tasks matching user id
+    //   const tasks = await prisma.task.findMany({
     //     skip,
     //     take,
     //     where: { id: payload.userId }
     //   });
 
-    //   return ideas;
+    //   return tasks;
     // },
 
-    // currentUserCursorPaginatedIdeas: async (parent, args, ctx, info) => {
+    // currentUserCursorPaginatedTasks: async (parent, args, ctx, info) => {
     //   const { skip, take } = args;
 
     //   // Verify access token and decode payload
     //   const payload = authAccessToken(ctx.accessToken);
 
-    //   // // Find and return paginated ideas matching user id
-    //   // const ideas = await prisma.idea.findMany({
+    //   // // Find and return paginated tasks matching user id
+    //   // const tasks = await prisma.task.findMany({
     //   //   skip,
     //   //   take,
     //   //   where: { id: payload.id }
     //   // });
 
-    //   // return ideas;
+    //   // return tasks;
 
-    //   const ideas = await ctx.prisma.idea.findMany({
+    //   const tasks = await ctx.prisma.task.findMany({
     //     skip,
     //     take,
     //     where: { author: { id: payload.id } }
     //   });
 
     //   return {
-    //     edges: ideas.map(idea => {
-    //       return { node: idea };
+    //     edges: tasks.map(task => {
+    //       return { node: task };
     //     }),
 
     //     aggregate: { count: await ctx.prisma.user.count({ where: args.where }) }
@@ -216,7 +216,7 @@ const ideaResolver = {
   },
 
   Mutation: {
-    createIdea: (parent, args, ctx, info) => {
+    createTask: (parent, args, ctx, info) => {
       const { content } = args;
 
       // If user not logged in, return null
@@ -226,8 +226,8 @@ const ideaResolver = {
       const payload = authAccessToken(ctx.accessToken);
 
       try {
-        // Create idea
-        const idea = ctx.prisma.idea.create({
+        // Create task
+        const task = ctx.prisma.task.create({
           data: { content, author: { connect: { id: payload.id } } },
           select: {
             createdAt: true,
@@ -237,8 +237,8 @@ const ideaResolver = {
           }
         });
 
-        // Return new idea
-        return idea;
+        // Return new task
+        return task;
       } catch (error) {
         development && consoleLog(error);
 
@@ -246,7 +246,7 @@ const ideaResolver = {
       }
     },
 
-    updateIdea: async (parent, args, ctx, info) => {
+    updateTask: async (parent, args, ctx, info) => {
       const { id, content } = args;
 
       // If user not logged in, return null
@@ -256,27 +256,27 @@ const ideaResolver = {
       const payload = authAccessToken(ctx.accessToken);
 
       try {
-        // Request idea's author ID
-        const idea = await ctx.prisma.idea.findUnique({
+        // Request task's author ID
+        const task = await ctx.prisma.task.findUnique({
           where: { id },
           select: { author: { select: { id: true } } }
         });
 
-        // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.id;
+        // Check if they own that task
+        const ownsTask = task.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea) throw new GraphQLError(403);
+        if (!ownsTask) throw new GraphQLError(403);
 
-        // Update idea
-        const updatedIdea = ctx.prisma.idea.update({
+        // Update task
+        const updatedTask = ctx.prisma.task.update({
           where: { id },
           data: { content },
           select: { id: true, content: true, author: { select: { id: true } } }
         });
 
-        // Return updated idea
-        return updatedIdea;
+        // Return updated task
+        return updatedTask;
       } catch (error) {
         development && consoleLog(error);
 
@@ -284,7 +284,7 @@ const ideaResolver = {
       }
     },
 
-    removeIdea: async (parent, args, ctx, info) => {
+    removeTask: async (parent, args, ctx, info) => {
       const { id } = args;
 
       // If user not logged in, return null
@@ -294,27 +294,27 @@ const ideaResolver = {
       const payload = authAccessToken(ctx.accessToken);
 
       try {
-        // Request idea's author ID
-        const idea = await ctx.prisma.idea.findUnique({
+        // Request task's author ID
+        const task = await ctx.prisma.task.findUnique({
           where: { id },
           select: { author: { select: { id: true } } }
         });
 
-        // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.id;
+        // Check if they own that task
+        const ownsTask = task.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea) throw new GraphQLError(403);
+        if (!ownsTask) throw new GraphQLError(403);
 
-        // Update idea soft delete field
-        const removedIdea = await ctx.prisma.idea.update({
+        // Update task soft delete field
+        const removedTask = await ctx.prisma.task.update({
           where: { id },
           data: { removedAt: new Date().toISOString() },
           select: { id: true }
         });
 
-        // Return removed idea
-        return removedIdea;
+        // Return removed task
+        return removedTask;
       } catch (error) {
         development && consoleLog(error);
 
@@ -322,7 +322,7 @@ const ideaResolver = {
       }
     },
 
-    deleteIdea: async (parent, args, ctx, info) => {
+    deleteTask: async (parent, args, ctx, info) => {
       const { id } = args;
 
       // If user not logged in, return null
@@ -332,26 +332,26 @@ const ideaResolver = {
       const payload = authAccessToken(ctx.accessToken);
 
       try {
-        // Request idea's author ID
-        const idea = await ctx.prisma.idea.findUnique({
+        // Request task's author ID
+        const task = await ctx.prisma.task.findUnique({
           where: { id },
           select: { author: { select: { id: true } } }
         });
 
-        // Check if they own that idea
-        const ownsIdea = idea.author.id === payload.id;
+        // Check if they own that task
+        const ownsTask = task.author.id === payload.id;
 
         // If not, throw error
-        if (!ownsIdea) throw new GraphQLError(403);
+        if (!ownsTask) throw new GraphQLError(403);
 
-        // Delete idea
-        const deletedIdea = ctx.prisma.idea.delete({
+        // Delete task
+        const deletedTask = ctx.prisma.task.delete({
           where: { id },
           select: { id: true }
         });
 
-        // Return deleted idea
-        return deletedIdea;
+        // Return deleted task
+        return deletedTask;
       } catch (error) {
         development && consoleLog(error);
 
@@ -360,10 +360,10 @@ const ideaResolver = {
     }
   },
 
-  Idea: {
-    // Return idea author
+  Task: {
+    // Return task author
     author(parent, args, ctx, info) {
-      return ctx.prisma.idea
+      return ctx.prisma.task
         .findUnique({ where: { id: parent.id } })
         .author({ select: { id: true } });
 
@@ -375,4 +375,4 @@ const ideaResolver = {
   }
 };
 
-export default ideaResolver;
+export default taskResolver;

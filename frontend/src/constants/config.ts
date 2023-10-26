@@ -10,14 +10,14 @@ export const server = typeof window === 'undefined';
 
 /* Settings */
 
-export const siteTitle = 'hmmStart';
+export const siteTitle = 'ToDo';
 
 export const passwordMinLength = 8;
 export const passwordMaxLength = 30;
 
-export const ideasPerPage = 20;
+export const tasksPerPage = 20;
 
-export const IdeaInputDebounceDelay = 200;
+export const TaskInputDebounceDelay = 200;
 
 /* URLs */
 

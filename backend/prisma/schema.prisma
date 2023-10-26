@@ -44,10 +44,10 @@ model User {
   role            Role      @default(USER)
   passResetToken  String?   @unique
   passResetExpiry DateTime?
-  ideas           Idea[]
+  tasks           Task[]
 }
 
-model Idea {
+model Task {
   id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

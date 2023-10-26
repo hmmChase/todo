@@ -51,8 +51,8 @@ const displayMsg = {
     }
   },
 
-  idea: {
-    noIdeas: 'No ideas'
+  task: {
+    noTasks: 'No tasks'
   }
 };
 

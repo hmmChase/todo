@@ -180,6 +180,7 @@ Correct the inability to style clickable types in iOS and Safari.
   [type='reset'],
   [type='submit'] {
     -webkit-appearance: button;
+    appearance: button;
   }
 
   /**
@@ -240,6 +241,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 
   [type='search'] {
     -webkit-appearance: textfield; /* 1 */
+    appearance: textfield;
     outline-offset: -2px; /* 2 */
   }
 
