@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import { READ_TASK } from '@/graphql/queries/task';
 import App from '@/components/LAYOUTS/App/App';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import TaskDetail from '@/components/TASK/DETAIL/TaskDetail/TaskDetail';
 import type { NextPageWithLayout } from 'next';
 import type { Task } from '@/models/index';
+// import TaskDetail from '@/components/TASK/DETAIL/TaskDetail/TaskDetail';
 
 const TaskPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -29,13 +29,14 @@ const TaskPage: NextPageWithLayout = () => {
       showError={true}
       showLoading={true}
     >
-      {task && (
+      asdf
+      {/* {task && (
         <TaskDetail
           authorId={task?.author!.id}
           content={task?.content}
           taskId={task?.id}
         />
-      )}
+      )} */}
     </QueryResult>
   );
 };
