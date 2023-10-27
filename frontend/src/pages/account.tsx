@@ -1,31 +1,30 @@
-import { GetServerSideProps, NextPageWithLayout } from 'next';
 import { useQuery } from '@apollo/client';
-// import type { NextPageWithLayout } from 'next';
+import type { GetServerSideProps, NextPageWithLayout } from 'next';
 
+import { CURRENT_USER_TASKS } from '@/graphql/queries/task';
 import App from '@/components/LAYOUTS/App/App';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
+import Tasks from '@/components/TASK/Tasks/Tasks';
+import type { Tasks as Taskss } from '@/models/index';
 import verifyUser from '@/utils/verifyUser';
-// import Ideas from '@/components/IDEA/Ideas/Ideas';
-// import type { Ideas as Ideass } from '@/models/index';
-// import { CURRENT_USER_IDEAS } from '@/graphql/queries/idea';
 
 const AccountPage: NextPageWithLayout = () => {
-  // const { data, error, loading } = useQuery(CURRENT_USER_IDEAS);
+  const { data, error, loading } = useQuery(CURRENT_USER_TASKS);
 
-  // const ideas: Ideass = data?.currentUserIdeas;
+  const tasks: Taskss = data?.currentUserTasks;
 
   return (
     <>
       <h2>Account</h2>
 
-      {/* <QueryResult
+      <QueryResult
         error={error}
         loading={loading}
         showError={true}
         showLoading={true}
       >
-        <Ideas ideas={ideas} />
-      </QueryResult> */}
+        <Tasks tasks={tasks} />
+      </QueryResult>
     </>
   );
 };

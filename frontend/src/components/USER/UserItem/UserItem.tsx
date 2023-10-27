@@ -1,16 +1,16 @@
-import Ideas from '@/components/IDEA/Ideas/Ideas';
 import styled from 'styled-components';
-import type { FC } from 'react';
-import type { Ideas as Ideass } from '@/models/index';
+
+import type { Tasks as Taskss } from '@/models/index';
+// import Tasks from '@/components/TASK/Tasks/Tasks';
 
 interface Props {
   email: string;
-  ideas?: Ideass;
+  tasks?: Taskss;
   role: string;
   userId: string;
 }
 
-const IdeaItem: FC<Props> = ({ email, ideas, role, userId }) => (
+const TaskItem = ({ email, tasks, role, userId }: Props) => (
   <List>
     <ListItem>
       <ItemLabel>Id:</ItemLabel>
@@ -30,17 +30,17 @@ const IdeaItem: FC<Props> = ({ email, ideas, role, userId }) => (
       {role}
     </ListItem>
 
-    {/* {ideas && (
+    {/* {tasks && (
       <ListItem>
-        <ItemLabel>Ideas:</ItemLabel>
+        <ItemLabel>Tasks:</ItemLabel>
 
-        <Ideas ideas={ideas} />
+        <Tasks tasks={tasks} />
       </ListItem>
     )} */}
   </List>
 );
 
-export default IdeaItem;
+export default TaskItem;
 
 const List = styled.ul`
   /* display: flex; */

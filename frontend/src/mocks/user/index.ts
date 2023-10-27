@@ -5,7 +5,7 @@ export const admin: User = {
   createdAt: new Date(),
   email: 'admin@email.com',
   id: '1',
-  // ideas: [],
+  // tasks: [],
   role: 'ADMIN'
 };
 
@@ -14,7 +14,7 @@ export const user1: User = {
   createdAt: new Date(),
   email: 'user1@email.com',
   id: '2',
-  // ideas: [],
+  // tasks: [],
   role: 'USER'
 };
 
@@ -23,7 +23,7 @@ export const user2: User = {
   createdAt: new Date(),
   email: 'user2@email.com',
   id: '3',
-  // ideas: [],
+  // tasks: [],
   role: 'USER'
 };
 

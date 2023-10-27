@@ -1,15 +1,16 @@
-import { READ_IDEAS } from '@/graphql/queries/idea';
 import { useQuery } from '@apollo/client';
+
+import { READ_TASKS } from '@/graphql/queries/task';
 import App from '@/components/LAYOUTS/App/App';
-import Ideas from '@/components/IDEA/Ideas/Ideas';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import type { Ideas as Ideass } from '@/models/index';
+import Tasks from '@/components/TASK/Tasks/Tasks';
 import type { NextPageWithLayout } from 'next';
+import type { Tasks as Taskss } from '@/models/index';
 
 const IndexPage: NextPageWithLayout = () => {
-  const { data, error, loading } = useQuery(READ_IDEAS);
+  const { data, error, loading } = useQuery(READ_TASKS);
 
-  const ideas: Ideass = data?.ideas;
+  const tasks: Taskss = data?.tasks;
 
   return (
     <QueryResult
@@ -18,7 +19,7 @@ const IndexPage: NextPageWithLayout = () => {
       showError={true}
       showLoading={true}
     >
-      <Ideas ideas={ideas} />
+      <Tasks tasks={tasks} />
     </QueryResult>
   );
 };

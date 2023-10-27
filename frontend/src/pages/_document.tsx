@@ -28,6 +28,7 @@ import type { DocumentContext, DocumentInitialProps } from 'next/document';
 // 3. app.render
 // 4. page.render
 
+// new
 // export default function Document() {
 //   return (
 //     <Html lang='en'>

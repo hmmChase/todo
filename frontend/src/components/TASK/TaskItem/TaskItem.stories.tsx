@@ -1,11 +1,11 @@
-import IdeaDetail from './IdeaDetail';
+import TaskItem from './TaskItem';
 import type { Meta, StoryObj } from '@storybook/react';
 import UserProvider from '@/context/User';
 
-const meta: Meta<typeof IdeaDetail> = {
-  title: 'IDEA/DETAIL/IdeaDetail',
+const meta: Meta<typeof TaskItem> = {
+  title: 'TASK/TaskItem',
 
-  component: IdeaDetail,
+  component: TaskItem,
 
   tags: ['autodocs'],
 
@@ -20,12 +20,12 @@ const meta: Meta<typeof IdeaDetail> = {
 
 export default meta;
 
-type Story = StoryObj<typeof IdeaDetail>;
+type Story = StoryObj<typeof TaskItem>;
 
 export const Default: Story = {
-  args: { authorId: '1', content: 'content', ideaId: '1' }
+  args: { authorId: '3', content: 'content', taskId: '1' }
 };
 
 export const AsAuthor: Story = {
-  args: { authorId: '2', content: 'content', ideaId: '1' }
+  args: { authorId: '2', content: 'content', taskId: '1' }
 };

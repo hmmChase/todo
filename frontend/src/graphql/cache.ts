@@ -1,7 +1,8 @@
 import { defaultDataIdFromObject, InMemoryCache } from '@apollo/client/cache';
 import { makeVar } from '@apollo/client';
 // import { concatPagination } from '@apollo/client/utilities';
-// import { Idea } from '@/models/index';
+
+// import { Task } from '@/models/index';
 
 // https://www.apollographql.com/docs/react/caching/overview/
 // https://github.com/apollographql/ac3-state-management-examples/tree/master/apollo-local-state
@@ -19,38 +20,38 @@ const cache: InMemoryCache = new InMemoryCache({
         }
 
         // https://www.apollographql.com/docs/react/pagination/core-api/
-        // ideas: concatPagination(['ideasPaginatedOffset']),
+        // tasks: concatPagination(['tasksPaginatedOffset']),
 
-        // ideasPaginatedOffset: {
+        // tasksPaginatedOffset: {
         //   keyArgs: false,
 
-        //   merge(existing: { ideas: Idea[] }, incoming: { ideas: Idea[] }) {
-        //     let ideas: Idea[] = [];
+        //   merge(existing: { tasks: Task[] }, incoming: { tasks: Task[] }) {
+        //     let tasks: Task[] = [];
 
         //     console.log('existing:', existing);
-        //     if (existing && existing.ideas)
-        //       ideas = ideas.concat(existing.ideas);
+        //     if (existing && existing.tasks)
+        //       tasks = tasks.concat(existing.tasks);
 
-        //     if (incoming && incoming.ideas)
-        //       ideas = ideas.concat(incoming.ideas);
+        //     if (incoming && incoming.tasks)
+        //       tasks = tasks.concat(incoming.tasks);
 
-        //     return { ...incoming, ideas };
+        //     return { ...incoming, tasks };
         //   }
         // },
 
-        // ideasPaginatedCursor: {
+        // tasksPaginatedCursor: {
         //   keyArgs: false,
 
-        //   merge(existing: { ideas: Idea[] }, incoming: { ideas: Idea[] }) {
-        //     let ideas: Idea[] = [];
+        //   merge(existing: { tasks: Task[] }, incoming: { tasks: Task[] }) {
+        //     let tasks: Task[] = [];
 
-        //     if (existing && existing.ideas)
-        //       ideas = ideas.concat(existing.ideas);
+        //     if (existing && existing.tasks)
+        //       tasks = tasks.concat(existing.tasks);
 
-        //     if (incoming && incoming.ideas)
-        //       ideas = ideas.concat(incoming.ideas);
+        //     if (incoming && incoming.tasks)
+        //       tasks = tasks.concat(incoming.tasks);
 
-        //     return { ...incoming, ideas };
+        //     return { ...incoming, tasks };
         //   }
         // }
       }
@@ -59,38 +60,38 @@ const cache: InMemoryCache = new InMemoryCache({
 });
 
 // const cache = new InMemoryCache({
-//   // resultCaching: true,
-//   // freezeResults: true,
+//   resultCaching: true,
+//   freezeResults: true,
 
-//   // dataIdFromObject(object) {
-//   //   switch (object.__typename) {
-//   //     case 'Idea':
-//   //       return `${object.__typename}:${object.slug}`;
-//   //     case 'User':
-//   //       return `${object.__typename}:${object.email}`;
-//   //     default:
-//   //       return defaultDataIdFromObject(object);
-//   //   }
-//   // },
+//   dataIdFromObject(object) {
+//     switch (object.__typename) {
+//       case 'Task':
+//         return `${object.__typename}:${object.slug}`;
+//       case 'User':
+//         return `${object.__typename}:${object.email}`;
+//       default:
+//         return defaultDataIdFromObject(object);
+//     }
+//   },
 
-//   // cacheRedirects: {
-//   //   Query: {
-//   //     articleBySlug(_root, args, context) {
-//   //       return context.getCacheKey({ __typename: 'Article', slug: args.slug });
-//   //     },
+//   cacheRedirects: {
+//     Query: {
+//       articleBySlug(_root, args, context) {
+//         return context.getCacheKey({ __typename: 'Article', slug: args.slug });
+//       },
 
-//   //     comment(_root, args, context) {
-//   //       return context.getCacheKey({ __typename: 'Comment', id: args.id });
-//   //     },
+//       comment(_root, args, context) {
+//         return context.getCacheKey({ __typename: 'Comment', id: args.id });
+//       },
 
-//   //     userByEmail(_root, args, context) {
-//   //       return context.getCacheKey({
-//   //         __typename: 'User',
-//   //         username: args.email
-//   //       });
-//   //     }
-//   //   }
-//   // },
+//       userByEmail(_root, args, context) {
+//         return context.getCacheKey({
+//           __typename: 'User',
+//           username: args.email
+//         });
+//       }
+//     }
+//   }
 // });
 
 export default cache;

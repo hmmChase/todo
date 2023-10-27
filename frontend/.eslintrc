@@ -1,0 +1,22 @@
+{
+  "root": true,
+
+  "extends": [
+    // https://nextjs.org/docs/basic-features/eslint
+    "next/core-web-vitals",
+
+    // https://github.com/storybookjs/eslint-plugin-storybook
+    "plugin:storybook/recommended"
+  ],
+
+  "overrides": [
+    // https://www.npmjs.com/package/eslint-plugin-testing-library
+    {
+      "files": ["**/?(*.)+(spec|test).[jt]s?(x)"],
+
+      "extends": ["plugin:testing-library/react"]
+    }
+  ],
+
+  "ignorePatterns": ["node_modules/", ".next/", "build/", "coverage/"]
+}

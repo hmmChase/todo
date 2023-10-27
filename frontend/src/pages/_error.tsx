@@ -1,9 +1,10 @@
-// https://nextjs.org/docs/advanced-features/custom-error-page#more-advanced-error-page-customizing
-
 import { useState } from 'react';
 import Link from 'next/link';
 import type { NextPage } from 'next';
 
+// https://nextjs.org/docs/advanced-features/custom-error-page#more-advanced-error-page-customizing
+
+// new
 // interface ErrorProps {
 //   statusCode: number;
 // }

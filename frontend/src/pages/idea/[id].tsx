@@ -1,25 +1,26 @@
-import { READ_IDEA } from '@/graphql/queries/idea';
 import { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
-import App from '@/components/LAYOUTS/App/App';
-import IdeaDetail from '@/components/IDEA/DETAIL/IdeaDetail/IdeaDetail';
-import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import type { Idea } from '@/models/index';
-import type { NextPageWithLayout } from 'next';
 
-const IdeaPage: NextPageWithLayout = () => {
+import { READ_TASK } from '@/graphql/queries/task';
+import App from '@/components/LAYOUTS/App/App';
+import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
+import TaskDetail from '@/components/TASK/DETAIL/TaskDetail/TaskDetail';
+import type { NextPageWithLayout } from 'next';
+import type { Task } from '@/models/index';
+
+const TaskPage: NextPageWithLayout = () => {
   const router = useRouter();
 
-  const [readIdea, { data, error, loading }] = useLazyQuery(READ_IDEA, {
+  const [readTask, { data, error, loading }] = useLazyQuery(READ_TASK, {
     fetchPolicy: 'cache-first'
   });
 
   useEffect(() => {
-    if (router.isReady) readIdea({ variables: { id: router.query.id } });
-  }, [readIdea, router.isReady, router.query.id]);
+    if (router.isReady) readTask({ variables: { id: router.query.id } });
+  }, [readTask, router.isReady, router.query.id]);
 
-  const idea: Idea = data?.idea;
+  const task: Task = data?.task;
 
   return (
     <QueryResult
@@ -28,11 +29,11 @@ const IdeaPage: NextPageWithLayout = () => {
       showError={true}
       showLoading={true}
     >
-      {idea && (
-        <IdeaDetail
-          authorId={idea?.author!.id}
-          content={idea?.content}
-          ideaId={idea?.id}
+      {task && (
+        <TaskDetail
+          authorId={task?.author!.id}
+          content={task?.content}
+          taskId={task?.id}
         />
       )}
     </QueryResult>
@@ -44,7 +45,7 @@ const IdeaPage: NextPageWithLayout = () => {
 // // the path has not been generated.
 // // pre-renders a page for every given slug
 // export const getStaticPaths = async () => {
-//   const paths = getAllIdeaIds();
+//   const paths = getAllTaskIds();
 
 //   // We'll pre-render only these paths at build time.
 //   // { fallback: blocking } will server-render pages
@@ -56,10 +57,10 @@ const IdeaPage: NextPageWithLayout = () => {
 // // It may be called again, on a serverless function, if
 // // revalidation is enabled and a new request comes in
 // export const getStaticProps = async props => {
-//   const ideaData = await getIdeaData(params.id);
+//   const taskData = await getTaskData(params.id);
 
 //   return {
-//     props: { ideaData },
+//     props: { taskData },
 
 //     // Next.js will attempt to re-generate the page:
 //     // - When a request comes in
@@ -85,12 +86,12 @@ const IdeaPage: NextPageWithLayout = () => {
 //   return { paths, fallback: false };
 // }
 
-IdeaPage.getLayout = function getLayout(page) {
+TaskPage.getLayout = function getLayout(page) {
   return (
-    <App title='Idea' description='Idea page' hasHeader hasFooter hasBackButton>
+    <App title='Task' description='Task page' hasHeader hasFooter hasBackButton>
       {page}
     </App>
   );
 };
 
-export default IdeaPage;
+export default TaskPage;

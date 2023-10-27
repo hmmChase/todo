@@ -1,28 +1,28 @@
 import type { NextPageWithLayout } from 'next';
 
 // import { initializeApollo, addApolloState } from '../graphql/apolloClient';
-// import { READ_IDEAS } from '../graphql/queries/idea';
+// import { READ_TASKS } from '../graphql/queries/task';
 // import isLoggedIn from '../utils/isLoggedIn';
 // import Layout from '../components/LAYOUTS/Layout';
-// import Ideas from '../components/IDEA/Ideas';
+// import Tasks from '../components/TASK/Tasks';
 
 const SSRPage: NextPageWithLayout = props => {
-  // const { ideasRes } = props;
+  // const { tasksRes } = props;
 
-  // const ideas = ideasRes?.data?.ideas || [];
+  // const tasks = tasksRes?.data?.tasks || [];
 
-  // const havePosts = !!ideas.length;
+  // const havePosts = !!tasks.length;
 
   return (
     <>
-      {/* {ideasRes.loading ? ( */}
+      {/* {tasksRes.loading ? ( */}
       <p>Loading...</p>
-      {/* ) : ideasRes.error ? ( */}
+      {/* ) : tasksRes.error ? ( */}
       {/* <p>An error has occurred.</p> */}
       {/* ) : !havePosts ? ( */}
-      {/* <p>No ideas found.</p> */}
+      {/* <p>No tasks found.</p> */}
       {/* ) : ( */}
-      {/* <Ideas ideas={ideas} /> */}
+      {/* <Tasks tasks={tasks} /> */}
       {/* )} */}
     </>
   );
@@ -42,14 +42,14 @@ const SSRPage: NextPageWithLayout = props => {
 // export async function getServerSideProps(ctx) {
 //   const apolloClient = initializeApollo();
 
-//   const res = await apolloClient.query({ query: READ_IDEAS });
+//   const res = await apolloClient.query({ query: READ_TASKS });
 
 //   // addApolloState(apolloClient, { props: {} });
 
-//   // return addApolloState(apolloClient, { props: { ideas: res.data.ideas } });
+//   // return addApolloState(apolloClient, { props: { tasks: res.data.tasks } });
 
 //   return {
-//     props: { ideasRes: res, isLoggedIn: isLoggedIn(ctx.req.headers) }
+//     props: { tasksRes: res, isLoggedIn: isLoggedIn(ctx.req.headers) }
 //   };
 // }
 

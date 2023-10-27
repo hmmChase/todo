@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import styled from 'styled-components';
-import type { FC } from 'react';
+
 import type { Users as Userss } from '@/models/index';
 import UserItem from '@/components/USER/UserItem/UserItem';
 
@@ -8,7 +8,7 @@ interface Props {
   users: Userss;
 }
 
-const Users: FC<Props> = ({ users }) => {
+const Users = ({ users }: Props) => {
   return (
     <>
       {users && users.length ? (
@@ -22,7 +22,7 @@ const Users: FC<Props> = ({ users }) => {
 
                 <UserItem
                   email={user.email}
-                  ideas={user.ideas}
+                  tasks={user.tasks}
                   role={user.role}
                   userId={user.id}
                 />

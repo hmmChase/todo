@@ -1,28 +1,44 @@
-// https://nextjs.org/docs/advanced-features/custom-app
-// https://github.com/vercel/next.js/tree/master/examples/with-styled-components
-
-// import { initializeApollo, addApolloState } from '@/graphql/apolloClient';
-// import App from 'next/app';
 import { ApolloProvider } from '@apollo/client';
 import { StrictMode } from 'react';
 import { ThemeProvider } from 'styled-components';
 import Head from 'next/head';
-import type { AppPropsWithLayout } from 'next/app';
 import type { ReactElement, ReactNode } from 'react';
+// import App from 'next/app';
 
-// import { CURRENT_USER } from '@/graphql/queries/user';
-// import { READ_IDEAS } from '@/graphql/queries/idea';
-// import type { User } from '@/models/index';
-// import verifyUser from '@/utils/verifyUser';
 import { siteTitle } from '@/constants/config';
 import { useApollo } from '@/graphql/apolloClient';
 import GlobalStyle from '@/styles/global';
 import reportWebVitals from '@/root/reportWebVitals';
 import theme from '@/styles/theme';
+import type { AppPropsWithLayout } from 'next/app';
 import UserProvider from '@/context/User';
+// import { CURRENT_USER } from '@/graphql/queries/user';
+// import { initializeApollo, addApolloState } from '@/graphql/apolloClient';
+// import { READ_TASKS } from '@/graphql/queries/task';
+// import type { User } from '@/models/index';
+// import verifyUser from '@/utils/verifyUser';
+
+// https://github.com/vercel/next.js/tree/master/examples/with-styled-components
+// https://nextjs.org/docs/advanced-features/custom-app
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+  // const [user, setUser] = useState<User | null>(null);
+
   const apolloClient = useApollo(pageProps);
+
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const res = await apolloClient.query({
+  //       query: CURRENT_USER,
+  //       errorPolicy: 'all'
+  //       // fetchPolicy: 'cache-first'
+  //     });
+
+  //     setUser(res.data.currentUser);
+  //   };
+
+  //   fetchUser();
+  // });
 
   // Use the layout defined at the page level, if available
   const getLayout =
@@ -72,7 +88,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 
 // addApolloState(apolloClient, { props: {} });
 
-// return addApolloState(apolloClient, { props: { ideas: res.data.ideas } });
+// return addApolloState(apolloClient, { props: { tasks: res.data.tasks } });
 
 // return { props: { user: verifyUser(appContext.ctx.req?.headers.cookie) } };
 
