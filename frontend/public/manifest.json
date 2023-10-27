@@ -1,10 +1,10 @@
 {
   "background_color": "#ffffff",
-  "description": "An app head start.",
+  "description": "to do app",
   "dir": "ltr",
   "display": "standalone",
   "lang": "en",
-  "name": "hmmStart",
+  "name": "todo",
   "orientation": "portrait",
   "short_name": "hS",
   "start_url": ".",

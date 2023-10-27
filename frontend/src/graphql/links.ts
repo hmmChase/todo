@@ -1,8 +1,9 @@
-import { development, gqlUri } from '@/constants/config';
 import { from, HttpLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import consoleLog from '@/utils/consoleLog';
 // import { TokenRefreshLink } from 'apollo-link-token-refresh';
+
+import { development, gqlUri } from '@/constants/config';
+import consoleLog from '@/utils/consoleLog';
 
 const errorLink = onError(error => {
   const { graphQLErrors, networkError, operation, response } = error;
@@ -79,7 +80,7 @@ const errorLink = onError(error => {
 const httpLink = new HttpLink({
   uri: gqlUri,
 
-  credentials: 'include'
+  credentials: 'include' // 'same-origin'
 });
 
 const link = development ? from([errorLink, httpLink]) : from([httpLink]);

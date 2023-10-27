@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-// import { IDEA_AUTHOR_FIELDS } from './idea';
+// import { TASK_AUTHOR_FIELDS } from './task';
 
 //! If you change something, also update mocks
 
@@ -12,12 +12,12 @@ export const USER_FIELDS = gql`
     # createdAt
     # email
     role
-    # ideas {
-    #   ...IdeaAuthorFields
+    # tasks {
+    #   ...TaskAuthorFields
     # }
   }
 `;
-// ${IDEA_AUTHOR_FIELDS}
+// ${TASK_AUTHOR_FIELDS}
 
 //* - Queries ----------
 

@@ -1,12 +1,13 @@
-import { siteTitle } from '@/constants/config';
-import BackButton from '@/components/COMMON/BackButton/BackButton';
 import Head from 'next/head';
-import HorizontalRule from '@/components/COMMON/HorizontalRule/HorizontalRule';
-import Ideabox from '@/public/images/ideabox.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+
+import { siteTitle } from '@/constants/config';
+import BackButton from '@/components/COMMON/BackButton/BackButton';
+import HorizontalRule from '@/components/COMMON/HorizontalRule/HorizontalRule';
+import Ideabox from '@/public/images/ideabox.png';
 
 // https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag
 
@@ -17,12 +18,7 @@ interface Props {
   title: string;
 }
 
-const FullPage: FC<Props> = ({
-  children,
-  description,
-  hasBackButton,
-  title
-}) => (
+const FullPage = ({ children, description, hasBackButton, title }: Props) => (
   <>
     <Head>
       <title>{`${title} | ${siteTitle}`}</title>
@@ -71,7 +67,7 @@ const LogoWrapper = styled.div`
   top: 0;
 `;
 
-const Logo = styled.a`
+const Logo = styled.div`
   align-items: center;
   cursor: pointer;
   display: flex;

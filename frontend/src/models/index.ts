@@ -1,20 +1,20 @@
 export interface User {
   __typename?: string;
-  createdAt?: Date;
+  createdAt: Date;
   email: string;
   id: string;
-  ideas?: Idea[];
+  tasks?: Task[];
   role: string;
 }
 
 export type Users = User[];
 
-export interface Idea {
+export interface Task {
   __typename?: string;
-  author?: User;
+  author: User;
   content: string;
   createdAt: Date;
   id: string;
 }
 
-export type Ideas = Idea[];
+export type Tasks = Task[];

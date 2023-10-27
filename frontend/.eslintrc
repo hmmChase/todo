@@ -9,15 +9,10 @@
     "plugin:storybook/recommended"
   ],
 
-  "plugins": ["testing-library"],
-
   "overrides": [
-    // https://github.com/testing-library/eslint-plugin-testing-library
+    // https://www.npmjs.com/package/eslint-plugin-testing-library
     {
-      "files": [
-        "**/__tests__/**/*.[jt]s?(x)",
-        "**/?(*.)+(spec|test).[jt]s?(x)"
-      ],
+      "files": ["**/?(*.)+(spec|test).[jt]s?(x)"],
 
       "extends": ["plugin:testing-library/react"]
     }

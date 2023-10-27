@@ -1,14 +1,12 @@
 <!-- markdownlint-disable no-duplicate-header -->
 
-# hmmStart
-
-*An app head start!*
+# ToDo
 
 ## Install
 
 ### FRONTEND
 
-1. `cd hmmStart/frontend`
+1. `cd todo/frontend`
 
 2. `npm i`
 
@@ -16,7 +14,7 @@
 
 ### BACKEND
 
-1. `cd hmmStart/backend`
+1. `cd todo/backend`
 
 2. `npm i`
 

@@ -4,6 +4,29 @@ import type { NextPage } from 'next';
 
 // https://nextjs.org/docs/advanced-features/custom-error-page#more-advanced-error-page-customizing
 
+// new
+// interface ErrorProps {
+//   statusCode: number;
+// }
+
+// function Error({ statusCode }: ErrorProps) {
+//   return (
+//     <p>
+//       {statusCode
+//         ? `An error ${statusCode} occurred on server`
+//         : 'An error occurred on client'}
+//     </p>
+//   );
+// }
+
+// Error.getInitialProps = ({ res, err }: { res: any; err: any }) => {
+//   const statusCode: number = res ? res.statusCode : err ? err.statusCode : 404;
+
+//   return { statusCode };
+// };
+
+// export default Error;
+
 const LinkHome: NextPage = () => (
   <Link href='/' passHref>
     <button>Home</button>

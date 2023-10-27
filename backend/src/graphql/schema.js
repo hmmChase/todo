@@ -3,10 +3,9 @@
 
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
-// import { development } from '../constants/config.js';
 import resolvers from './resolvers/index.js';
 import typeDefs from './typeDefs.js';
-
+// import { development } from '../constants/config.js';
 // import { permissions } from './permissions';
 
 // A schema is a collection of type definitions (hence "typeDefs")

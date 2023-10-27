@@ -28,6 +28,21 @@ import type { DocumentContext, DocumentInitialProps } from 'next/document';
 // 3. app.render
 // 4. page.render
 
+// new
+// export default function Document() {
+//   return (
+//     <Html lang='en'>
+//       <Head />
+
+//       <body>
+//         <Main />
+
+//         <NextScript />
+//       </body>
+//     </Html>
+//   );
+// }
+
 class MyDocument extends Document {
   // `getInitialProps` belongs to `_document` (instead of `_app`)
   // It's compatible with server-side generation (SSG)
@@ -83,7 +98,7 @@ class MyDocument extends Document {
 
           {/* SEO */}
 
-          <meta content='hmmStart' name='description' />
+          <meta content='toDo' name='description' />
 
           {/* Favicon */}
 

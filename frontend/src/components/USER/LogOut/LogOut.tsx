@@ -37,7 +37,7 @@ const LogOut = () => {
 
     isLoggedInVar(false);
 
-    await router.push('/');
+    await router.push('/login');
   };
 
   const [logOut] = useMutation(LOG_OUT, { onCompleted, onError: () => {} });

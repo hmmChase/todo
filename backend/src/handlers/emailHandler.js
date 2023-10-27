@@ -1,6 +1,6 @@
-import nodemailer from 'nodemailer';
 import ejs from 'ejs';
 import juice from 'juice';
+import nodemailer from 'nodemailer';
 
 import { frontendUrl } from '../constants/config.js';
 import logger from './logHandler.js';

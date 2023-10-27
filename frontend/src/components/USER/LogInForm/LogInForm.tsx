@@ -1,25 +1,21 @@
-import { email, password } from '@/utils/validateAuthInputs';
 import { FormikHelpers, useFormik } from 'formik';
-import { isLoggedInVar } from '@/graphql/cache';
-import { LOG_IN } from '@/graphql/queries/user';
 import { object } from 'yup';
 import { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { UserCtx } from '@/context/User';
 import { useRouter } from 'next/router';
-import Button from '@/components/COMMON/Button/Button';
-import FormInput from '@/components/COMMON/FormInput/FormInput';
 import Link from 'next/link';
-import Notice from '@/components/COMMON/Notice/Notice';
-import parseGQLErrors from '@/utils/parseGQLErrors';
 import styled from 'styled-components';
 import type { ApolloError } from '@apollo/client';
-import type { FC } from 'react';
-import type { User } from '@/models/index';
 
-interface Props {
-  close?: () => void;
-}
+import { email, password } from '@/utils/validateAuthInputs';
+import { isLoggedInVar } from '@/graphql/cache';
+import { LOG_IN } from '@/graphql/queries/user';
+import { UserCtx } from '@/context/User';
+import Button from '@/components/COMMON/Button/Button';
+import FormInput from '@/components/COMMON/FormInput/FormInput';
+import Notice from '@/components/COMMON/Notice/Notice';
+import parseGQLErrors from '@/utils/parseGQLErrors';
+import type { User } from '@/models/index';
 
 interface Data {
   logIn: User;
@@ -35,7 +31,7 @@ const validationSchema = object().shape({
   logInPassword: password
 });
 
-const LogInForm: FC<Props> = ({ close }) => {
+const LogInForm = () => {
   const [apolloError, setApolloError] = useState<ApolloError>();
 
   const { setUser } = useContext(UserCtx);
@@ -51,8 +47,7 @@ const LogInForm: FC<Props> = ({ close }) => {
       // localStorage.setItem('userId', data.logIn.user.id);
     }
 
-    // when logging in from /login page
-    if (!close) router.push('/');
+    router.push('/');
   };
 
   const [logIn, { loading }] = useMutation(LOG_IN, {
@@ -127,7 +122,7 @@ const LogInForm: FC<Props> = ({ close }) => {
       </Buttonn>
 
       <LogInLinks>
-        <Linkk href='/reqpassreset' passHref>
+        <Linkk href='/passresetreq' passHref>
           Reset Password
         </Linkk>
 

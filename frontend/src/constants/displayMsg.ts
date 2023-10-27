@@ -2,30 +2,29 @@ import { passwordMaxLength, passwordMinLength } from '@/constants/config';
 
 const displayMsg = {
   error: 'ERROR',
-
-  null: 'NULL',
-
-  networkError: 'Network error',
+  // null: 'NULL',
 
   user: {
-    null: 'Account found',
-    exists: 'Email already in use',
-
-    unauthenticated: 'Unauthenticated',
-    unauthorized: 'Unauthorized',
-
     email: {
-      required: 'Required',
+      notFound: 'Email not found',
+      exists: 'Email already used',
+
+      required: 'Email required',
       invalid: 'Invalid email',
       length: 'Must be 255 characters or less'
+
+      // null: 'Account found',
+
+      // unauthenticated: 'Unauthenticated',
+      // unauthorized: 'Unauthorized'
     },
 
     password: {
-      required: 'Required',
       wrong: 'Wrong password',
 
-      short: `Password must be at least ${passwordMinLength} characters.`,
-      long: `Password must be no more than ${passwordMaxLength} characters.`,
+      required: 'Password required',
+      tooShort: `Password must be at least ${passwordMinLength} characters`,
+      tooLong: `Password must be no more than ${passwordMaxLength} characters`,
 
       requirements: {
         title: 'Password must contain:',
@@ -39,14 +38,21 @@ const displayMsg = {
     },
 
     passReset: {
-      expired:
-        'Your password reset request is expired. Please submit a new one.',
       sent: 'Check your email for a password reset link.',
       success: 'Your password has been changed.',
-
       tokenMissing: 'Error: Please submit a new password reset request.',
-      tokenExpired: 'Your reset request is expired. Please submit a new one.'
+      tokenExpired:
+        'Error: Your reset request is expired. Please submit a new one.'
+    },
+
+    passResetToken: {
+      expired: 'Expired password reset token',
+      invalid: 'Invalid password reset token'
     }
+  },
+
+  task: {
+    noTasks: 'No tasks'
   }
 };
 

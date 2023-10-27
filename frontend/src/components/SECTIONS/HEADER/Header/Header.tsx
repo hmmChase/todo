@@ -1,28 +1,28 @@
-import { siteTitle } from '@/constants/config';
 import { useContext } from 'react';
-import { UserCtx } from '@/context/User';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import CreateIdea from '@/components/IDEA/CreateIdea/CreateIdea';
+
 import HeaderLoggedOut from '@/components/SECTIONS/HEADER/HeaderLoggedOut/HeaderLoggedOut';
 import Ideabox from '@/public/images/ideabox.png';
-import Image from 'next/image';
 import styled from 'styled-components';
-import type { FC } from 'react';
+import { siteTitle } from '@/constants/config';
+import { UserCtx } from '@/context/User';
 import UserIcon from '@/components/USER/UserIcon/UserIcon';
-// import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
+import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
+// import CreateTask from '@/components/TASK/CreateTask/CreateTask';
 // import NavBar from '@/components/SECTIONS/NavBar';
 // import HeaderUsername from '@/components/SECTIONS/HEADER/HeaderUsername';
 
-const Header: FC = () => {
+const Header = () => {
   const { loading, user } = useContext(UserCtx);
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  const routePathArr = router.asPath.split('/');
+  // const routePathArr = router.asPath.split('/');
 
-  const onIdeaDetailPage = routePathArr[1] === 'idea';
+  // const onTaskDetailPage = routePathArr[1] === 'task';
 
-  const ideaId = routePathArr[2];
+  // const taskId = routePathArr[2];
 
   return (
     <Container>
@@ -37,25 +37,23 @@ const Header: FC = () => {
 
         {/* {user && <HeaderUsername />} */}
 
-        {/* <QueryResult
-          error={error}
+        <QueryResult
+          error={undefined}
           loading={loading}
-          showError={true}
-          showLoading={true}
-        > */}
-
-        {!loading ? user ? <UserIcon /> : <HeaderLoggedOut /> : null}
-
-        {/* </QueryResult> */}
+          showError={false}
+          showLoading={false}
+        >
+          {!loading ? user ? <UserIcon /> : <HeaderLoggedOut /> : null}
+        </QueryResult>
       </Top>
 
-      <div>
-        {onIdeaDetailPage ? (
-          <IdeaTitle>{ideaId}</IdeaTitle>
+      {/* <div>
+        {onTaskDetailPage ? (
+          <TaskTitle>{taskId}</TaskTitle>
         ) : (
-          user && <CreateIdea />
+          user && <CreateTask />
         )}
-      </div>
+      </div> */}
     </Container>
   );
 };
@@ -107,10 +105,10 @@ const Logo = styled.div`
 
 const BoxImg = styled(Image).attrs({ height: 41, width: 50 })``;
 
-const IdeaTitle = styled.h2`
-  font-size: ${props => props.theme.fontSize.h2};
-  margin: 0 0 1rem 1rem;
-`;
+// const TaskTitle = styled.h2`
+//   font-size: ${props => props.theme.fontSize.h2};
+//   margin: 0 0 1rem 1rem;
+// `;
 
 const HeaderTitle = styled.h1`
   color: ${props => props.theme.text.tertiary};

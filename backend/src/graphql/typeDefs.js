@@ -1,8 +1,5 @@
 // https:www.graphql.org/learn/schema/
 
-// Whenever this files changes:
-// npx prisma generate
-
 const typeDefs = `#graphql
   # ---------- Types ----------
 
@@ -17,13 +14,13 @@ const typeDefs = `#graphql
 
     currentUser: User
 
-    # --- Idea ---
+    # --- Task ---
 
-    idea(id: ID!): Idea!
+    task(id: ID!): Task!
 
-    ideas: [Idea!]!
+    tasks: [Task!]!
 
-    ideasPaginatedOffset(
+    tasksPaginatedOffset(
       """
       Return results after this cursor
       """
@@ -32,9 +29,9 @@ const typeDefs = `#graphql
       Number of nodes per page
       """
       limit: Int!
-    ): [Idea!]!
+    ): [Task!]!
 
-    ideasPaginatedCursor(
+    tasksPaginatedCursor(
       """
       Number of nodes per page (first)
       """
@@ -43,9 +40,9 @@ const typeDefs = `#graphql
       If you add a cursor here, it will only return results _after_ this cursor
       """
       after: String
-    ): IdeaConnection!
+    ): TaskConnection!
 
-    currentUserIdeas: [Idea!]!
+    currentUserTasks: [Task!]!
   }
 
   type Mutation {
@@ -61,16 +58,16 @@ const typeDefs = `#graphql
 
     passReset(resetPassToken: String!, newPassword: String!): UserAuthPayload!
 
-    # --- Idea ---
+    # --- Task ---
 
-    createIdea(content: String!): Idea!
+    createTask(content: String!): Task!
 
-    updateIdea(id: ID!, content: String!): Idea!
+    updateTask(id: ID!, content: String!): Task!
 
     # soft delete
-    removeIdea(id: ID!): Idea!
+    removeTask(id: ID!): Task!
 
-    deleteIdea(id: ID!): Idea!
+    deleteTask(id: ID!): Task!
   }
 
   type Subscription {
@@ -81,10 +78,10 @@ const typeDefs = `#graphql
     id: ID!
     email: String!
     role: Role!
-    ideas: [Idea!]!
+    # tasks: [Task!]!
   }
 
-  type Idea {
+  type Task {
     id: ID!
     createdAt: String!
     content: String!
@@ -97,14 +94,14 @@ const typeDefs = `#graphql
   }
 
   """
-  Simple wrapper around our list of ideas that contains a cursor to the last
+  Simple wrapper around our list of tasks that contains a cursor to the last
   item in the list.
-  Pass this cursor to the ideas query to fetch results after these.
+  Pass this cursor to the tasks query to fetch results after these.
   """
-  type IdeaConnection {
+  type TaskConnection {
     cursor: String!
     hasMore: Boolean!
-    ideas: [Idea!]!
+    tasks: [Task!]!
   }
 
   # ---------- Enums ----------

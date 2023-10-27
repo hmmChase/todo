@@ -1,5 +1,6 @@
 // https://www.prisma.io/docs/reference/api-reference/prisma-client-reference
 // https://pris.ly/d/help/next-js-best-practices
+// https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/vercel-caching-issue
 
 import pkg from '@prisma/client';
 

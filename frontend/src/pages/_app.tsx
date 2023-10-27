@@ -1,24 +1,25 @@
 import { ApolloProvider } from '@apollo/client';
-import { siteTitle } from '@/constants/config';
 import { StrictMode } from 'react';
 import { ThemeProvider } from 'styled-components';
+import Head from 'next/head';
+import type { ReactElement, ReactNode } from 'react';
+// import App from 'next/app';
+
+import { siteTitle } from '@/constants/config';
 import { useApollo } from '@/graphql/apolloClient';
 import GlobalStyle from '@/styles/global';
-import Head from 'next/head';
 import reportWebVitals from '@/root/reportWebVitals';
 import theme from '@/styles/theme';
 import type { AppPropsWithLayout } from 'next/app';
-import type { ReactElement, ReactNode } from 'react';
 import UserProvider from '@/context/User';
 // import { CURRENT_USER } from '@/graphql/queries/user';
 // import { initializeApollo, addApolloState } from '@/graphql/apolloClient';
-// import { READ_IDEAS } from '@/graphql/queries/idea';
-// import App from 'next/app';
+// import { READ_TASKS } from '@/graphql/queries/task';
 // import type { User } from '@/models/index';
 // import verifyUser from '@/utils/verifyUser';
 
-// https://nextjs.org/docs/advanced-features/custom-app
 // https://github.com/vercel/next.js/tree/master/examples/with-styled-components
+// https://nextjs.org/docs/advanced-features/custom-app
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   // const [user, setUser] = useState<User | null>(null);
@@ -87,7 +88,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 
 // addApolloState(apolloClient, { props: {} });
 
-// return addApolloState(apolloClient, { props: { ideas: res.data.ideas } });
+// return addApolloState(apolloClient, { props: { tasks: res.data.tasks } });
 
 // return { props: { user: verifyUser(appContext.ctx.req?.headers.cookie) } };
 

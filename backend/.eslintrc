@@ -1,7 +1,7 @@
 {
   "env": {
-    "node": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
 
   "extends": ["eslint:recommended", "plugin:import/recommended"],
@@ -14,7 +14,7 @@
   "rules": {
     "no-unused-vars": [
       "error",
-      { "vars": "all", "args": "none", "ignoreRestSiblings": false }
+      { "args": "none", "ignoreRestSiblings": false, "vars": "all" }
     ]
   }
 }

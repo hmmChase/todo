@@ -1,7 +1,8 @@
-import { accessTokenExpiry, development } from '../constants/config.js';
 import { GraphQLError } from 'graphql';
-import consoleLog from '../utils/consoleLog.js';
 import jwt from 'jsonwebtoken';
+
+import { accessTokenExpiry, development } from '../constants/config.js';
+import consoleLog from '../utils/consoleLog.js';
 // import Iron from '@hapi/iron';
 
 //! TODO: https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/

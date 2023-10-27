@@ -11,52 +11,54 @@
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "plugins": [{ "name": "next" }],
+    // "plugins": [{ "name": "next" }],
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
     "target": "es5",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["src/components/*"],
-      "@/constants/*": ["src/constants/*"],
-      "@/context/*": ["src/context/*"],
-      "@/graphql/*": ["src/graphql/*"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/mocks/*": ["src/__mocks__/*"],
-      "@/models/*": ["src/models/*"],
-      "@/pages/*": ["src/pages/*"],
+      "@/*": ["src/*"],
       "@/public/*": ["public/*"],
-      "@/root/*": ["*"],
-      "@/styles/*": ["src/styles/*"],
-      "@/utils/*": ["src/utils/*"]
+      "@/root/*": ["*"]
+      // "@/components/*": ["src/components/*"],
+      // "@/constants/*": ["src/constants/*"],
+      // "@/context/*": ["src/context/*"],
+      // "@/graphql/*": ["src/graphql/*"],
+      // "@/hooks/*": ["src/hooks/*"],
+      // "@/mocks/*": ["src/mocks/*"],
+      // "@/models/*": ["src/models/*"],
+      // "@/pages/*": ["src/pages/*"],
+      // "@/styles/*": ["src/styles/*"],
+      // "@/utils/*": ["src/utils/*"]
     }
   },
   "include": [
-    ".next/types/**/*.ts",
-    "**/*.js",
-    "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
     "additional.d.ts",
     "jest.config.js",
     "jest.setup.js",
-    "next-env.d.ts",
-    "types.d.ts"
+    "next-env.d.ts"
+    // ".next/types/**/*.ts",
+    // "**/*.js",
+    // "**/*.jsx",
+    // "images.d.ts",
+    // "types.d.ts"
   ],
   "exclude": [
-    ".next",
+    "node_modules"
+    // ".next",
     // "**/*.test.js",
     // "**/*.test.jsx",
     // "**/*.test.ts",
     // "**/*.test.tsx",
-    "node_modules",
-    "storybook-static"
+    // "node_modules",
+    // "storybook-static"
   ]
 }

@@ -1,19 +1,19 @@
 // 'npm run seed' to seed
 
-import pkg from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import bcryptjs from 'bcryptjs';
+import pkg from '@prisma/client';
 
 const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 
-const createIdeas = amtIdeas => {
-  const ideas = [];
+const createTasks = amtTasks => {
+  const tasks = [];
 
-  for (let i = 0; i < amtIdeas; i++)
-    ideas.push({ content: faker.lorem.sentence() });
+  for (let i = 0; i < amtTasks; i++)
+    tasks.push({ content: faker.lorem.sentence() });
 
-  return ideas;
+  return tasks;
 };
 
 const userData = async () => {
@@ -29,7 +29,7 @@ const userData = async () => {
       email: 'user@email.com',
       password: await bcryptjs.hash('user123$', 10),
       role: 'USER',
-      ideas: { create: createIdeas(3) }
+      tasks: { create: createTasks(3) }
     }
   ];
 
@@ -38,7 +38,7 @@ const userData = async () => {
       email: faker.internet.email(),
       password: await bcryptjs.hash(faker.internet.password(), 10),
       role: 'USER',
-      ideas: { create: createIdeas(3) }
+      tasks: { create: createTasks(3) }
     });
   }
 

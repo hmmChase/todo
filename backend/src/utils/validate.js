@@ -1,7 +1,7 @@
-import { passwordMaxLength, passwordMinLength } from '../constants/config.js';
+import { GraphQLError } from 'graphql';
 import isEmail from 'isemail';
 
-import { GraphQLError } from 'graphql';
+import { passwordMaxLength, passwordMinLength } from '../constants/config.js';
 
 // error signature: domain.field.key
 

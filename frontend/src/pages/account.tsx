@@ -1,21 +1,21 @@
-import { CURRENT_USER_IDEAS } from '@/graphql/queries/idea';
 import { useQuery } from '@apollo/client';
+import type { GetServerSideProps, NextPageWithLayout } from 'next';
+
+import { CURRENT_USER_TASKS } from '@/graphql/queries/task';
 import App from '@/components/LAYOUTS/App/App';
-import Ideas from '@/components/IDEA/Ideas/Ideas';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import type { Ideas as Ideass } from '@/models/index';
-import type { NextPageWithLayout } from 'next';
-// import { GetServerSideProps, NextPageWithLayout } from 'next';
-// import verifyUser from '@/utils/verifyUser';
+import Tasks from '@/components/TASK/Tasks/Tasks';
+import type { Tasks as Taskss } from '@/models/index';
+import verifyUser from '@/utils/verifyUser';
 
 const AccountPage: NextPageWithLayout = () => {
-  const { data, error, loading } = useQuery(CURRENT_USER_IDEAS);
+  const { data, error, loading } = useQuery(CURRENT_USER_TASKS);
 
-  const ideas: Ideass = data?.currentUserIdeas;
+  const tasks: Taskss = data?.currentUserTasks;
 
   return (
     <>
-      <h2>My Ideas</h2>
+      <h2>Account</h2>
 
       <QueryResult
         error={error}
@@ -23,7 +23,7 @@ const AccountPage: NextPageWithLayout = () => {
         showError={true}
         showLoading={true}
       >
-        <Ideas ideas={ideas} />
+        <Tasks tasks={tasks} />
       </QueryResult>
     </>
   );
@@ -43,18 +43,18 @@ AccountPage.getLayout = function getLayout(page) {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async ctx => {
-//   const { req, res } = ctx;
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { req, res } = ctx;
 
-//   const userPayload = verifyUser(req.headers.cookie);
+  const userPayload = verifyUser(req.headers.cookie);
 
-//   if (!userPayload) {
-//     res.writeHead(302, { Location: '/' });
+  if (!userPayload) {
+    res.writeHead(302, { Location: '/login' });
 
-//     res.end();
-//   }
+    res.end();
+  }
 
-//   return { props: {} };
-// };
+  return { props: {} };
+};
 
 export default AccountPage;

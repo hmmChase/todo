@@ -1,7 +1,14 @@
-import path from 'path';
+import type { StorybookConfig } from '@storybook/nextjs';
+// import path from 'path';
 
-const config = {
+const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
+
+  core: { disableTelemetry: true },
+
+  docs: { autodocs: 'tag' },
+
+  staticDirs: ['../public'],
 
   framework: { name: '@storybook/nextjs', options: {} },
 
@@ -19,10 +26,6 @@ const config = {
     // 'storybook-addon-apollo-client',
   ],
 
-  core: { disableTelemetry: true },
-
-  features: { interactionsDebugger: true },
-
   // https://storybook.js.org/docs/react/configure/typescript
   typescript: {
     check: false,
@@ -33,11 +36,7 @@ const config = {
       propFilter: prop =>
         prop.parent ? !/node_modules/.test(prop.parent.fileName) : true
     }
-  },
-
-  docs: { autodocs: 'tag' },
-
-  staticDirs: ['../public']
+  }
 
   // webpackFinal: async config => {
   //   // https://github.com/storybookjs/storybook/issues/11639
@@ -51,7 +50,7 @@ const config = {
   //     '@/context': path.resolve(__dirname, '../src/context'),
   //     '@/graphql': path.resolve(__dirname, '../src/graphql'),
   //     '@/hooks': path.resolve(__dirname, '../src/hooks'),
-  //     '@/mocks': path.resolve(__dirname, '../src/__mocks__'),
+  //     '@/mocks': path.resolve(__dirname, '../src/mocks'),
   //     '@/models': path.resolve(__dirname, '../src/models'),
   //     '@/pages': path.resolve(__dirname, '../src/pages'),
   //     '@/public': path.resolve(__dirname, '../public'),
@@ -64,4 +63,4 @@ const config = {
   // }
 };
 
-module.exports = config;
+export default config;

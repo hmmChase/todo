@@ -26,6 +26,7 @@ const UserIcon: FC = () => {
         alt='User icon'
         onClick={() => setDropdownOpen(!isDropdownOpen)}
         src={userSvg}
+        data-testid='user-icon'
       />
     </Container>
   );
