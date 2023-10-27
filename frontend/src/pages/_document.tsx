@@ -98,7 +98,7 @@ class MyDocument extends Document {
 
           {/* SEO */}
 
-          <meta content='hmmStart' name='description' />
+          <meta content='toDo' name='description' />
 
           {/* Favicon */}
 
