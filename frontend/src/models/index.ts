@@ -3,8 +3,8 @@ export interface User {
   createdAt: Date;
   email: string;
   id: string;
-  tasks?: Task[];
   role: string;
+  tasks?: Task[];
 }
 
 export type Users = User[];
@@ -14,6 +14,7 @@ export interface Task {
   author: User;
   content: string;
   createdAt: Date;
+  due: Date;
   id: string;
 }
 
