@@ -13,3 +13,19 @@ LogInPage.getLayout = function getLayout(page) {
 };
 
 export default LogInPage;
+
+// export const getServerSideProps = () => {
+//   const user = req.session.user;
+
+//   if (user === undefined) {
+//     res.setHeader('location', '/login');
+//     res.statusCode = 302;
+//     res.end();
+
+//     return {
+//       props: { user: { isLoggedIn: false, login: '', avatarUrl: '' } as User }
+//     };
+//   }
+
+//   return { props: { user: req.session.user } };
+// };

@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+// import Head from 'next/head';
 
 import { READ_TASKS } from '@/graphql/queries/task';
 import App from '@/components/LAYOUTS/App/App';
@@ -13,14 +14,26 @@ const IndexPage: NextPageWithLayout = () => {
   const tasks: Taskss = data?.tasks;
 
   return (
-    <QueryResult
-      error={error}
-      loading={loading}
-      showError={true}
-      showLoading={true}
-    >
-      <Tasks tasks={tasks} />
-    </QueryResult>
+    <>
+      {/* <Head>
+        <title>Home</title>
+        <meta name='description' content='Home' />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head> */}
+
+      <main>
+        <QueryResult
+          data={data}
+          error={error}
+          loading={loading}
+          showError={true}
+          showLoading={true}
+        >
+          <Tasks tasks={tasks} />
+        </QueryResult>
+      </main>
+    </>
   );
 };
 

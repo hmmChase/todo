@@ -1,50 +1,76 @@
 import { useContext } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-
-import HeaderLoggedOut from '@/components/SECTIONS/HEADER/HeaderLoggedOut/HeaderLoggedOut';
-import Ideabox from '@/public/images/ideabox.png';
-import styled from 'styled-components';
-import { siteTitle } from '@/constants/config';
 import { UserCtx } from '@/context/User';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import styled from 'styled-components';
+
+import { siteTitle } from '@/constants/config';
 import UserIcon from '@/components/USER/UserIcon/UserIcon';
-import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 // import CreateTask from '@/components/TASK/CreateTask/CreateTask';
-// import NavBar from '@/components/SECTIONS/NavBar';
 // import HeaderUsername from '@/components/SECTIONS/HEADER/HeaderUsername';
+// import NavBar from '@/components/SECTIONS/NavBar';
+// import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
+// import Taskbox from '@/public/images/taskbox.svg';
 
 const Header = () => {
   const { loading, user } = useContext(UserCtx);
 
-  // const router = useRouter();
+  const router = useRouter();
 
-  // const routePathArr = router.asPath.split('/');
+  const routePathArr = router.asPath.split('/');
 
-  // const onTaskDetailPage = routePathArr[1] === 'task';
+  const onTaskDetailPage = routePathArr[1] === 'task';
 
-  // const taskId = routePathArr[2];
+  const taskId = routePathArr[2];
+
+  const day = 31;
+  const month = 12;
+  const year = 2023;
+
+  const date = new Date(`${month}/${day}/${year}`);
 
   return (
     <Container>
       <Top>
         <Logo>
-          <BoxImg alt='ideabox' priority src={Ideabox} />
+          {/* <BoxImg alt='ideabox' priority src={Ideabox} /> */}
 
           <HeaderTitle>{siteTitle}</HeaderTitle>
         </Logo>
+
+        {/* 
+        {new Date()
+          .toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })
+          .replace(',', '')} */}
 
         {/* <NavBar /> */}
 
         {/* {user && <HeaderUsername />} */}
 
-        <QueryResult
-          error={undefined}
+        {/* <QueryResult
+          error={error}
           loading={loading}
-          showError={false}
-          showLoading={false}
-        >
-          {!loading ? user ? <UserIcon /> : <HeaderLoggedOut /> : null}
-        </QueryResult>
+          showError={true}
+          showLoading={true}
+        > */}
+
+        {date
+          .toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })
+          .replace(',', '')}
+
+        {!loading ? user && <UserIcon /> : null}
+
+        {/* </QueryResult> */}
       </Top>
 
       {/* <div>
@@ -105,13 +131,13 @@ const Logo = styled.div`
 
 const BoxImg = styled(Image).attrs({ height: 41, width: 50 })``;
 
-// const TaskTitle = styled.h2`
-//   font-size: ${props => props.theme.fontSize.h2};
-//   margin: 0 0 1rem 1rem;
-// `;
+const TaskTitle = styled.h2`
+  font-size: ${props => props.theme.fontSize.h2};
+  margin: 0 0 1rem 1rem;
+`;
 
 const HeaderTitle = styled.h1`
-  color: ${props => props.theme.text.tertiary};
+  /* color: ${props => props.theme.text.tertiary}; */
   font-size: ${props => props.theme.fontSize.h1};
   letter-spacing: 0.05rem;
   margin: 0;

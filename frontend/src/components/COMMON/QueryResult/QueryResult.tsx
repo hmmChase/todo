@@ -7,6 +7,7 @@ import type { FC, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
+  data?: any;
   error: ApolloError | undefined;
   loading: boolean;
   showError?: boolean;
@@ -15,6 +16,7 @@ interface Props {
 
 const QueryResult: FC<Props> = ({
   children,
+  data,
   error,
   loading,
   showError,
@@ -25,7 +27,9 @@ const QueryResult: FC<Props> = ({
   if (error && showError)
     return <Notice type='error'>{parseGQLErrors(error)}</Notice>;
 
-  return <>{children}</>;
+  if (!loading && !error && data) return <>{children}</>;
+
+  return null;
 };
 
 export default QueryResult;
