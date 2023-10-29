@@ -22,7 +22,7 @@ const CreateTask: FC = () => {
   const update: MutationUpdaterFn = (cache, result) =>
     cache.modify({
       fields: {
-        tasks(existingTasks: Tasks = []) {
+        tasks(existingTasks = []) {
           const newTaskRef = cache.writeFragment({
             data: result.data?.createTask,
 

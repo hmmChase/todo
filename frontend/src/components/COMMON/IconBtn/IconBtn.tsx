@@ -1,7 +1,7 @@
-import Expand from '@/components/DESIGN/ICONS/Expand/Expand';
+import Expand from '@/components/ICONS/Expand/Expand';
 import styled from 'styled-components';
 import type { FC, MouseEventHandler } from 'react';
-import X from '@/components/DESIGN/ICONS/X/X';
+import X from '@/components/ICONS/X/X';
 
 interface ExpandIconBtnProps {
   name: string;
