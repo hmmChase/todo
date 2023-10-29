@@ -32,7 +32,7 @@ const gitOwner = process.env.VERCEL_GIT_REPO_OWNER;
 
 const frontendUrlDev = 'http://localhost:1337';
 const frontendUrlPrev =
-  `https://hmmtodo-git-${gitBranch}-${gitOwner}.vercel.app`.toLowerCase();
+  `https://todo-git-${gitBranch}-${gitOwner}.vercel.app`.toLowerCase();
 const frontendUrlProd = 'https://hmmtodo.vercel.app';
 
 const backendUrlDev = 'http://localhost:8008';

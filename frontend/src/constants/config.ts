@@ -25,7 +25,7 @@ const gitBranch = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF;
 const gitOwner = process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER;
 
 const backendUrlDev = 'http://localhost:8008';
-const backendUrlPrev = `https://hmmtodo-backend-git-${gitBranch}-${gitOwner}.vercel.app`;
+const backendUrlPrev = `https://todo-backend-git-${gitBranch}-${gitOwner}.vercel.app`;
 const backendUrlProd = 'https://hmmtodo-backend.vercel.app';
 
 export const backendUrl = development
