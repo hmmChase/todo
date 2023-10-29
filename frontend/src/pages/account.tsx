@@ -4,9 +4,9 @@ import { useQuery } from '@apollo/client';
 import App from '@/components/LAYOUTS/App/App';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 import verifyUser from '@/utils/verifyUser';
-// import { CURRENT_USER_TASKS } from '@/graphql/queries/idea';
-// import Ideas from '@/components/IDEA/Ideas/Ideas';
-// import type { Ideas as Ideass } from '@/models/index';
+// import { CURRENT_USER_TASKS } from '@/graphql/queries/task';
+// import Tasks from '@/components/TASK/Tasks/Tasks';
+// import type { Tasks as Taskss } from '@/models/index';
 
 const AccountPage: NextPageWithLayout = () => {
   // const { data, error, loading } = useQuery(CURRENT_USER_TASKS);
@@ -23,7 +23,7 @@ const AccountPage: NextPageWithLayout = () => {
         showError={true}
         showLoading={true}
       >
-        <Ideas ideas={ideas} />
+        <Tasks tasks={tasks} />
       </QueryResult> */}
     </>
   );
