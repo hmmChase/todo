@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 import styled from 'styled-components';
 import type { ReactNode } from 'react';
 
@@ -28,13 +27,11 @@ const FullPage = ({ children, description, hasBackButton, title }: Props) => (
 
     <Container>
       <LogoWrapper>
-        <Link href='/' passHref>
-          <Logo>
-            <BoxImg alt='ideabox' src={Ideabox} />
+        <Logo>
+          {/* <BoxImg alt='ideabox' src={Ideabox} /> */}
 
-            <SiteTitle>{siteTitle}</SiteTitle>
-          </Logo>
-        </Link>
+          <SiteTitle>{siteTitle}</SiteTitle>
+        </Logo>
       </LogoWrapper>
 
       <Content>
@@ -44,6 +41,7 @@ const FullPage = ({ children, description, hasBackButton, title }: Props) => (
 
         <PageWrapper>
           <HorizontalRulee />
+
           {children}
         </PageWrapper>
       </Content>
@@ -69,7 +67,6 @@ const LogoWrapper = styled.div`
 
 const Logo = styled.div`
   align-items: center;
-  cursor: pointer;
   display: flex;
   margin: 2rem 0 0 2rem;
 `;
@@ -77,7 +74,7 @@ const Logo = styled.div`
 const BoxImg = styled(Image).attrs({ height: 41, width: 50 })``;
 
 const SiteTitle = styled.h1`
-  color: ${props => props.theme.text.tertiary};
+  /* color: ${props => props.theme.text.tertiary}; */
   font-family: 'Play', sans-serif;
   font-size: ${props => props.theme.fontSize.h1};
   letter-spacing: 0.2rem;

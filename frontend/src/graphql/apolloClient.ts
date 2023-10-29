@@ -1,9 +1,9 @@
-// import isEqual from 'lodash.isequal';
 import { ApolloClient } from '@apollo/client';
 import { useMemo } from 'react';
 import merge from 'deepmerge';
 import type { IncomingMessage, ServerResponse } from 'http';
 import type { NormalizedCacheObject } from '@apollo/client';
+// import isEqual from 'lodash.isequal';
 
 import { development, server } from '@/constants/config';
 import cache from '@/graphql/cache';

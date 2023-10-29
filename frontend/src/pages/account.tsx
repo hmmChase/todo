@@ -1,30 +1,30 @@
+import { GetServerSideProps, NextPageWithLayout } from 'next';
 import { useQuery } from '@apollo/client';
-import type { GetServerSideProps, NextPageWithLayout } from 'next';
 
-import { CURRENT_USER_TASKS } from '@/graphql/queries/task';
 import App from '@/components/LAYOUTS/App/App';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import Tasks from '@/components/TASK/Tasks/Tasks';
-import type { Tasks as Taskss } from '@/models/index';
 import verifyUser from '@/utils/verifyUser';
+// import { CURRENT_USER_TASKS } from '@/graphql/queries/task';
+// import Tasks from '@/components/TASK/Tasks/Tasks';
+// import type { Tasks as Taskss } from '@/models/index';
 
 const AccountPage: NextPageWithLayout = () => {
-  const { data, error, loading } = useQuery(CURRENT_USER_TASKS);
+  // const { data, error, loading } = useQuery(CURRENT_USER_TASKS);
 
-  const tasks: Taskss = data?.currentUserTasks;
+  // const tasks: Taskss = data?.currentUserTasks;
 
   return (
     <>
       <h2>Account</h2>
 
-      <QueryResult
+      {/* <QueryResult
         error={error}
         loading={loading}
         showError={true}
         showLoading={true}
       >
         <Tasks tasks={tasks} />
-      </QueryResult>
+      </QueryResult> */}
     </>
   );
 };

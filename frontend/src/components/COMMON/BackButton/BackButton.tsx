@@ -1,10 +1,10 @@
-import Button from '@/components/COMMON/Button/Button';
-import Left from '@/components/DESIGN/ICONS/Left/Left';
-import Link from '@/components/COMMON/Link/Link';
 import styled from 'styled-components';
-import type { FC } from 'react';
 
-const BackButton: FC = () => (
+import Button from '@/components/COMMON/Button/Button';
+import Left from '@/components/ICONS/Left/Left';
+import Link from '@/components/COMMON/Link/Link';
+
+const BackButton = () => (
   <Link href='/'>
     <Buttonn name='back'>
       <Leftt />

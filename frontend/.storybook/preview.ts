@@ -57,17 +57,17 @@ const preview: Preview = {
 //         // READ_USER,
 //         // READ_USERS,
 //         // SIGN_UP,
-//         // // idea
-//         // CREATE_IDEA,
-//         // CURRENT_USER_IDEAS,
-//         // DELETE_IDEA,
-//         // READ_IDEA,
-//         // READ_IDEAS_CLIENT,
-//         // READ_IDEAS_PAGINATED_CURSOR,
-//         // READ_IDEAS_PAGINATED_OFFSET,
-//         READ_IDEAS
-//         // REMOVE_IDEA,
-//         // UPDATE_IDEA
+//         // // task
+//         // CREATE_TASK,
+//         // CURRENT_USER_TASKS,
+//         // DELETE_TASK,
+//         // READ_TASK,
+//         // READ_TASKS_CLIENT,
+//         // READ_TASKS_PAGINATED_CURSOR,
+//         // READ_TASKS_PAGINATED_OFFSET,
+//         READ_TASKS
+//         // REMOVE_TASK,
+//         // UPDATE_TASK
 //       ]}
 //       // https://charles-stover.medium.com/how-to-fix-apollos-mockedprovider-returning-empty-objects-for-fragments-74c2c744dbcc
 //       // addTypename={false}

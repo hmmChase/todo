@@ -1,8 +1,9 @@
-import { createContext, useState } from 'react';
-import { CURRENT_USER } from '@/graphql/queries/user';
-import { isLoggedInVar } from '@/graphql/cache';
+import { createContext, useContext, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
+
+import { CURRENT_USER } from '@/graphql/queries/user';
+import { isLoggedInVar } from '@/graphql/cache';
 import type { User } from '@/models/index';
 
 type Userr = User | null;
@@ -46,5 +47,7 @@ const UserProvider = ({ children }: Props) => {
     </UserCtx.Provider>
   );
 };
+
+export const useUser = () => useContext(UserCtx);
 
 export default UserProvider;

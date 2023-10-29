@@ -1,7 +1,7 @@
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { useContext, useState } from 'react';
-import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -38,16 +38,18 @@ const LogInForm = () => {
 
   const router = useRouter();
 
-  const onCompleted = (data: Data) => {
+  const apolloClient = useApolloClient();
+
+  const onCompleted = async (data: Data) => {
     if (data.logIn) {
       setUser(data.logIn);
 
       isLoggedInVar(!!data.logIn);
 
       // localStorage.setItem('userId', data.logIn.user.id);
-    }
 
-    router.push('/');
+      await router.push('/');
+    }
   };
 
   const [logIn, { loading }] = useMutation(LOG_IN, {
@@ -59,6 +61,8 @@ const LogInForm = () => {
   });
 
   const handleSubmit: HandleSubmit = async (formikHelpers, values) => {
+    await apolloClient.resetStore();
+
     await logIn({
       variables: { email: values.logInEmail, password: values.logInPassword }
     });
