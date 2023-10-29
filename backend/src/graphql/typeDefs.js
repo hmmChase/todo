@@ -85,6 +85,7 @@ const typeDefs = `#graphql
     id: ID!
     createdAt: String!
     content: String!
+    due: String!
     author: User!
   }
 

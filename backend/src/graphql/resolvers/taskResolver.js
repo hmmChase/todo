@@ -20,6 +20,7 @@ const taskResolver = {
             id: true,
             createdAt: true,
             content: true,
+            due: true,
             author: { select: { id: true } }
           }
         });
