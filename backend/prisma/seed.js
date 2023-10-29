@@ -1,17 +1,21 @@
-// 'npm run seed' to seed
-
 import { faker } from '@faker-js/faker';
 import bcryptjs from 'bcryptjs';
 import pkg from '@prisma/client';
 
+// 'npm run seed' to seed
+
 const { PrismaClient } = pkg;
+
 const prisma = new PrismaClient();
 
 const createTasks = amtTasks => {
   const tasks = [];
 
   for (let i = 0; i < amtTasks; i++)
-    tasks.push({ content: faker.lorem.sentence() });
+    tasks.push({
+      content: faker.lorem.sentence(),
+      due: faker.date.future()
+    });
 
   return tasks;
 };

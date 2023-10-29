@@ -9,6 +9,7 @@ export const TASK_FIELDS = gql`
     id
     createdAt
     content
+    due
   }
 `;
 

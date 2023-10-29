@@ -10,7 +10,7 @@ import http from 'http';
 import app from '../src/app.js';
 import { port as portt } from '../src/constants/config.js';
 
-const debug = Debug('hmmStart:server');
+const debug = Debug('todo:server');
 
 /**
  * Normalize a port into a number, string, or false.

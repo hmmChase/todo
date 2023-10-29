@@ -23,6 +23,7 @@ CREATE TABLE "Task" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "removedAt" TIMESTAMP(3),
     "content" TEXT NOT NULL,
+    "due" TIMESTAMP(3),
     "authorId" TEXT NOT NULL,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")

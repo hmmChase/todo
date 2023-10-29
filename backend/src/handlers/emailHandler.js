@@ -47,7 +47,7 @@ export const sendEmail = async options => {
   const emailHtml = await generateHTML(options.filename, options);
 
   const mailOptions = {
-    from: 'hmmStart <no-reply@hmmstart.com>',
+    from: 'ToDo <no-reply@todo.com>',
     subject: options.subject,
     to: options.user.email,
     html: emailHtml
@@ -61,7 +61,7 @@ export const sendEmail = async options => {
 export const sendSignUpEmail = email => {
   const options = {
     filename: 'signUpEmail',
-    subject: 'Welcome to hmmStart',
+    subject: 'Welcome to ToDo',
     user: { email }
   };
 
