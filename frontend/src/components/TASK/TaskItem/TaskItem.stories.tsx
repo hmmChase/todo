@@ -1,5 +1,6 @@
-import TaskItem from './TaskItem';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import TaskItem from './TaskItem';
 import UserProvider from '@/context/User';
 
 const meta: Meta<typeof TaskItem> = {

@@ -1,5 +1,6 @@
-import { users } from '@/mocks/user';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import { users } from '@/mocks/user';
 import Users from './Users';
 
 const meta: Meta<typeof Users> = {

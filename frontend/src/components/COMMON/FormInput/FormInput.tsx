@@ -16,7 +16,7 @@ interface Props {
   value: string;
 }
 
-const FormInput: FC<Props> = ({
+const FormInput = ({
   id,
   label,
   name,
@@ -24,7 +24,7 @@ const FormInput: FC<Props> = ({
   onChange,
   type,
   value
-}) => {
+}: Props) => {
   const fieldId = `${id}-${name}`;
 
   return (

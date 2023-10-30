@@ -1,5 +1,6 @@
-import HorizontalRule from './HorizontalRule';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import HorizontalRule from './HorizontalRule';
 
 const meta: Meta<typeof HorizontalRule> = {
   title: 'COMMON/HorizontalRule',

@@ -1,5 +1,6 @@
-import Spinner from '@/components/COMMON/Spinner/Spinner';
 import styled from 'styled-components';
+
+import Spinner from '@/components/COMMON/Spinner/Spinner';
 
 const Loading = () => (
   <Center data-testid='loading'>

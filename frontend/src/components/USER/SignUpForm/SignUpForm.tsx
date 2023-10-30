@@ -1,26 +1,22 @@
-import { email, password } from '@/utils/validateAuthInputs';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
-import { SIGN_UP } from '@/graphql/queries/user';
 import { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import styled from 'styled-components';
+import type { ApolloError } from '@apollo/client';
+
+import { email, password } from '@/utils/validateAuthInputs';
+import { SIGN_UP } from '@/graphql/queries/user';
 import { User } from '@/models/index';
 import { UserCtx } from '@/context/User';
-import { useRouter } from 'next/router';
 import Button from '@/components/COMMON/Button/Button';
 import FormInput from '@/components/COMMON/FormInput/FormInput';
-import Link from 'next/link';
 import Notice from '@/components/COMMON/Notice/Notice';
 import parseGQLErrors from '@/utils/parseGQLErrors';
 import PassReqList from '@/components/USER/PassReqList/PassReqList';
-import styled from 'styled-components';
-import type { ApolloError } from '@apollo/client';
-import type { FC } from 'react';
 // import { isLoggedInVar } from '@/graphql/cache';
-
-interface Props {
-  close?: () => void;
-}
 
 interface Data {
   signUp: { user: User };
@@ -36,7 +32,7 @@ const validationSchema = object().shape({
   signUpPassword: password
 });
 
-const SignUpForm: FC<Props> = ({ close }) => {
+const SignUpForm = () => {
   const [apolloError, setApolloError] = useState<ApolloError>();
 
   const { setUser } = useContext(UserCtx);
@@ -48,8 +44,7 @@ const SignUpForm: FC<Props> = ({ close }) => {
 
     // isLoggedInVar(true);
 
-    // when logging in from /signup page
-    if (!close) router.push('/');
+    router.push('/');
   };
 
   const [signUp, { error, loading }] = useMutation(SIGN_UP, {

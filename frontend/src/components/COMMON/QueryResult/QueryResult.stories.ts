@@ -1,6 +1,7 @@
+import type { Meta, StoryObj } from '@storybook/react';
+
 import { mockGQLError } from '@/mocks/mockGQLErrors';
 import QueryResult from './QueryResult';
-import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof QueryResult> = {
   title: 'COMMON/QueryResult',

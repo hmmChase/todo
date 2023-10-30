@@ -1,5 +1,6 @@
-import ActiveLink from './ActiveLink';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import ActiveLink from './ActiveLink';
 
 const meta: Meta<typeof ActiveLink> = {
   title: 'COMMON/ActiveLink',

@@ -1,11 +1,11 @@
 import { useState } from 'react';
+import styled from 'styled-components';
+
 import Button from '@/components/COMMON/Button/Button';
 import LogInModal from '@/components/USER/LogInModal/LogInModal';
 import SignUpModal from '@/components/USER/SignUpModal/SignUpModal';
-import styled from 'styled-components';
-import type { FC } from 'react';
 
-const HeaderLoggedOut: FC = () => {
+const HeaderLoggedOut = () => {
   const [modalName, setModalName] = useState('');
 
   return (

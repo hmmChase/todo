@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import X from './X';
 
 const meta: Meta<typeof X> = {
-  title: 'DESIGN/ICONS/X',
+  title: 'ICONS/X',
 
   component: X,
 

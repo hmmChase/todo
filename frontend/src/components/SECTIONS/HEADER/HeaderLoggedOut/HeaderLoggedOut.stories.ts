@@ -1,5 +1,6 @@
-import HeaderLoggedOut from './HeaderLoggedOut';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import HeaderLoggedOut from './HeaderLoggedOut';
 
 const meta: Meta<typeof HeaderLoggedOut> = {
   title: 'SECTIONS/HEADER/HeaderLoggedOut',

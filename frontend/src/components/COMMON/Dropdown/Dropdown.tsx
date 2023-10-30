@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import type { FC, ReactNode, RefObject } from 'react';
+import type { ReactNode, RefObject } from 'react';
+
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
   insideRef: RefObject<HTMLDivElement>;
 }
 
-const Dropdown: FC<Props> = ({ children, className, close, insideRef }) => {
+const Dropdown = ({ children, className, close, insideRef }: Props) => {
   useOnClickOutside(close, insideRef);
 
   return <Container className={className}>{children}</Container>;

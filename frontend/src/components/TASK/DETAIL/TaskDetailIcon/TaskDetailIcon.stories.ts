@@ -1,5 +1,6 @@
-import TaskDetailIcon from './TaskDetailIcon';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import TaskDetailIcon from './TaskDetailIcon';
 
 const meta: Meta<typeof TaskDetailIcon> = {
   title: 'TASK/DETAIL/TaskDetailIcon',

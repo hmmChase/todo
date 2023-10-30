@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
   close: () => void;
 }
 
-const Modal: FC<Props> = ({ children, close }) => {
+const Modal = ({ children, close }: Props) => {
   // create a ref that we add to the element for which we want to detect outside clicks
   const insideRef = useRef<HTMLDivElement>(null);
 

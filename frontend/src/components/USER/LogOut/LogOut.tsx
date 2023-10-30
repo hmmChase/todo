@@ -1,9 +1,10 @@
-import { isLoggedInVar } from '@/graphql/cache';
-import { LOG_OUT } from '@/graphql/queries/user';
 import { useApolloClient, useMutation } from '@apollo/client';
 import { useContext, useEffect } from 'react';
-import { UserCtx } from '@/context/User';
 import { useRouter } from 'next/router';
+
+import { isLoggedInVar } from '@/graphql/cache';
+import { LOG_OUT } from '@/graphql/queries/user';
+import { UserCtx } from '@/context/User';
 
 const LogOut = () => {
   const { setUser } = useContext(UserCtx);

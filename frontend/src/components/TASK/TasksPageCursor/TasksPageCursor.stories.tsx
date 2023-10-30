@@ -1,5 +1,6 @@
-import TasksPageCursor from './TasksPageCursor';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import TasksPageCursor from './TasksPageCursor';
 
 const meta: Meta<typeof TasksPageCursor> = {
   title: 'TASK/TasksPageCursor',

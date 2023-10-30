@@ -1,5 +1,6 @@
-import LogOut from './LogOut';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import LogOut from './LogOut';
 
 const meta: Meta<typeof LogOut> = {
   title: 'USER/LogOut',

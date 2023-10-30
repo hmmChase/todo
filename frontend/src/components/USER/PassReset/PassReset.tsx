@@ -1,9 +1,12 @@
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
-import { PASS_RESET } from '@/graphql/queries/user';
-import { password } from '@/utils/validateAuthInputs';
 import { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
+import styled from 'styled-components';
+import type { ApolloError } from '@apollo/client';
+
+import { PASS_RESET } from '@/graphql/queries/user';
+import { password } from '@/utils/validateAuthInputs';
 import { UserCtx } from '@/context/User';
 import Button from '@/components/COMMON/Button/Button';
 import displayMsg from '@/constants/displayMsg';
@@ -11,9 +14,6 @@ import FormInput from '@/components/COMMON/FormInput/FormInput';
 import Notice from '@/components/COMMON/Notice/Notice';
 import parseGQLErrors from '@/utils/parseGQLErrors';
 import PassReqList from '@/components/USER/PassReqList/PassReqList';
-import styled from 'styled-components';
-import type { ApolloError } from '@apollo/client';
-import type { FC } from 'react';
 import type { User } from '@/models/index';
 // import { isLoggedInVar } from '@/graphql/cache';
 
@@ -32,7 +32,7 @@ type HandleSubmit = (
 
 const validationSchema = object().shape({ newPassword: password });
 
-const PassReset: FC<Props> = ({ passResetToken }) => {
+const PassReset = ({ passResetToken }: Props) => {
   const [apolloError, setApolloError] = useState<ApolloError>();
 
   const [success, setSuccess] = useState(false);

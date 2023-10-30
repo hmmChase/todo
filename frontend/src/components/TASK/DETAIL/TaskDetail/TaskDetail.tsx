@@ -1,8 +1,9 @@
 import { useContext } from 'react';
-import { UserCtx } from '@/context/User';
-import TaskDetailUpdate from '@/components/TASK/DETAIL/TaskDetailUpdate/TaskDetailUpdate';
-import RemoveTask from '@/components/TASK/RemoveTask/RemoveTask';
 import styled from 'styled-components';
+
+import { UserCtx } from '@/context/User';
+import RemoveTask from '@/components/TASK/RemoveTask/RemoveTask';
+import TaskDetailUpdate from '@/components/TASK/DETAIL/TaskDetailUpdate/TaskDetailUpdate';
 
 interface Props {
   authorId: string;

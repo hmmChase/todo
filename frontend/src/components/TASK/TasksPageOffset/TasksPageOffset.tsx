@@ -1,16 +1,16 @@
-import { tasksPerPage } from '@/constants/config';
-import { READ_TASKS_PAGINATED_OFFSET } from '@/graphql/queries/task';
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
+import styled from 'styled-components';
+
+import { READ_TASKS_PAGINATED_OFFSET } from '@/graphql/queries/task';
+import { tasksPerPage } from '@/constants/config';
 import Button from '@/components/COMMON/Button/Button';
-import Tasks from '@/components/TASK/Tasks/Tasks';
 import Loading from '@/components/COMMON/Loading/Loading';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import styled from 'styled-components';
-import type { FC } from 'react';
+import Tasks from '@/components/TASK/Tasks/Tasks';
 import type { Tasks as Taskss } from '@/models/index';
 
-const TasksPageOffset: FC = () => {
+const TasksPageOffset = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   // const [offset, setOffset] = useState(0);

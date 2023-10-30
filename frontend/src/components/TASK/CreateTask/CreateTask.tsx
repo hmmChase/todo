@@ -1,14 +1,15 @@
-import { CREATE_TASK, TASK_FIELDS } from '@/graphql/queries/task';
-import { Tasks } from '@/models/index';
 import { useContext, useRef, useState } from 'react';
+import styled, { css } from 'styled-components';
+import type { ChangeEventHandler, FormEventHandler } from 'react';
+import type { MutationUpdaterFn } from '@apollo/client';
+
+import { CREATE_TASK, TASK_FIELDS } from '@/graphql/queries/task';
 import { useMutation } from '@apollo/client';
 import { UserCtx } from '@/context/User';
 import Button from '@/components/COMMON/Button/Button';
-import styled, { css } from 'styled-components';
-import type { ChangeEventHandler, FC, FormEventHandler } from 'react';
-import type { MutationUpdaterFn } from '@apollo/client';
+// import { Tasks } from '@/models/index';
 
-const CreateTask: FC = () => {
+const CreateTask = () => {
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   const { user } = useContext(UserCtx);

@@ -1,8 +1,9 @@
-import Expand from './Expand';
 import type { Meta, StoryObj } from '@storybook/react';
 
+import Expand from './Expand';
+
 const meta: Meta<typeof Expand> = {
-  title: 'DESIGN/ICONS/Expand',
+  title: 'ICONS/Expand',
 
   component: Expand,
 

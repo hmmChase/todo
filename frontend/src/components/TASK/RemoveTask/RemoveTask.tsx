@@ -1,8 +1,9 @@
-import { REMOVE_TASK } from '@/graphql/queries/task';
 import { useMutation } from '@apollo/client';
-import { XIconBtn } from '@/components/COMMON/IconBtn/IconBtn';
-import type { FC, MouseEventHandler } from 'react';
+import type { MouseEventHandler } from 'react';
 import type { MutationUpdaterFn } from '@apollo/client';
+
+import { REMOVE_TASK } from '@/graphql/queries/task';
+import { XIconBtn } from '@/components/COMMON/IconBtn/IconBtn';
 
 interface Props {
   taskId: string;
@@ -12,7 +13,7 @@ interface Task {
   __ref: string;
 }
 
-const RemoveTask: FC<Props> = ({ taskId }) => {
+const RemoveTask = ({ taskId }: Props) => {
   const update: MutationUpdaterFn = cache =>
     cache.modify({
       fields: {
