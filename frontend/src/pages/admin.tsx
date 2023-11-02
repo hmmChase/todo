@@ -1,11 +1,12 @@
-import { READ_USERS } from '@/graphql/queries/user';
 import { useQuery } from '@apollo/client';
+import type { NextPageWithLayout } from 'next';
+// import { GetServerSideProps } from 'next';
+
+import { READ_USERS } from '@/graphql/queries/user';
 import App from '@/components/LAYOUTS/App/App';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import type { NextPageWithLayout } from 'next';
 import type { Users as Userss } from '@/models/index';
 import Users from '@/components/USER/Users/Users';
-// import { GetServerSideProps, NextPageWithLayout } from 'next';
 // import verifyUser from '@/utils/verifyUser';
 
 const AdminPage: NextPageWithLayout = () => {

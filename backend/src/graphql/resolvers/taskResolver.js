@@ -1,10 +1,9 @@
+import { GraphQLError } from 'graphql';
+
 import { authAccessToken } from '../../utils/accessToken.js';
 import { development } from '../../constants/config.js';
-import { GraphQLError } from 'graphql';
 import consoleLog from '../../utils/consoleLog.js';
 import paginate from '../../utils/paginate.js';
-
-import { corsOptions } from '../../constants/cors.js';
 
 const taskResolver = {
   Query: {

@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import type { NextPage, NextPageWithLayout } from 'next';
 import type { ReactElement, ReactNode } from 'react';
+
 // import { User } from "@/models";
 
 // https://nextjs.org/docs/basic-features/layouts#with-typescript

@@ -1,15 +1,16 @@
-import { authAccessToken, newAccessToken } from '../../utils/accessToken.js';
-import { createPassReset, validatePassReset } from '../../utils/passReset.js';
-import { development, passHashSaltRounds } from '../../constants/config.js';
 import { GraphQLError } from 'graphql';
-import { passwordCompare } from '../../utils/user.js';
+import bcryptjs from 'bcryptjs';
+
 import {
   sendPassResetReqEmail,
   sendSignUpEmail
 } from '../../handlers/emailHandler.js';
+import { authAccessToken, newAccessToken } from '../../utils/accessToken.js';
+import { createPassReset, validatePassReset } from '../../utils/passReset.js';
+import { development, passHashSaltRounds } from '../../constants/config.js';
+import { passwordCompare } from '../../utils/user.js';
 import { validateEmail, validatePassword } from '../../utils/validate.js';
 import accessCookieOptions from '../../constants/cookie.js';
-import bcryptjs from 'bcryptjs';
 import consoleLog from '../../utils/consoleLog.js';
 
 const userResolver = {

@@ -1,4 +1,5 @@
-import { GetServerSideProps, NextPageWithLayout } from 'next';
+import { GetServerSideProps } from 'next';
+import type { NextPageWithLayout } from 'next';
 import { useQuery } from '@apollo/client';
 
 import App from '@/components/LAYOUTS/App/App';

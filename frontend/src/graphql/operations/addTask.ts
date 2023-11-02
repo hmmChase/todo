@@ -1,6 +1,6 @@
-// Not used
-
 import { ReactiveVar } from '@apollo/client';
+
+// Not used
 
 const createAddTask = (taskVar: ReactiveVar<boolean>) => {
   // const createNewTaskId = allTasks =>

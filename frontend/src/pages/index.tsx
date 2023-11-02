@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client';
+import type { NextPageWithLayout } from 'next';
 // import Head from 'next/head';
 
 import { READ_TASKS } from '@/graphql/queries/task';
 import App from '@/components/LAYOUTS/App/App';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 import Tasks from '@/components/TASK/Tasks/Tasks';
-import type { NextPageWithLayout } from 'next';
 import type { Tasks as Taskss } from '@/models/index';
 
 const IndexPage: NextPageWithLayout = () => {

@@ -1,32 +1,32 @@
-// https://www.apollographql.com/docs/apollo-server/api/express-middleware#example
-// https://expressjs.com/en/advanced/best-practice-security.html
-// https://expressjs.com/en/advanced/best-practice-performance.html
+import 'dotenv/config';
+import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { expressMiddleware } from '@apollo/server/express4';
+import bodyParser from 'body-parser';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import createError from 'http-errors';
+import express from 'express';
+import helmet from 'helmet';
+import http from 'http';
+// import logger from 'morgan';
+
+import { backendUrl, development } from './constants/config.js';
+import { corsOptions } from './constants/cors.js';
+import myLogger from './utils/myLogger.js';
+import prisma from '../prisma/prisma.js';
+import router from './rest/routes.js';
+import schema from './graphql/schema.js';
+// import apolloServer from './graphql/apolloServer.js';
 
 // In production, env vars are defined on the host
 // https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 // if (!production) require('dotenv').config();
-import 'dotenv/config';
 
-import express from 'express';
-import http from 'http';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
-import createError from 'http-errors';
-import helmet from 'helmet';
-import { expressMiddleware } from '@apollo/server/express4';
-import { ApolloServer } from '@apollo/server';
-import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-// import logger from 'morgan';
-
-import { corsOptions } from './constants/cors.js';
-import prisma from '../prisma/prisma.js';
-import { backendUrl, development } from './constants/config.js';
-import myLogger from './utils/myLogger.js';
-import router from './rest/routes.js';
-import schema from './graphql/schema.js';
-// import apolloServer from './graphql/apolloServer.js';
+// https://www.apollographql.com/docs/apollo-server/api/express-middleware#example
+// https://expressjs.com/en/advanced/best-practice-security.html
+// https://expressjs.com/en/advanced/best-practice-performance.html
 
 // Required logic for integrating with Express
 const app = express();
