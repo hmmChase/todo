@@ -48,7 +48,7 @@ const LogInForm = () => {
 
       // localStorage.setItem('userId', data.logIn.user.id);
 
-      await router.push('/');
+      router.push('/');
     }
   };
 

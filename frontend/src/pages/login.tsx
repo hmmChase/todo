@@ -1,7 +1,8 @@
-import type { NextPageWithLayout } from 'next';
+import type { GetServerSideProps, NextPageWithLayout } from 'next';
 
 import Full from '@/components/LAYOUTS/Full/Full';
 import LogInForm from '@/components/USER/LogInForm/LogInForm';
+import verifyUser from '@/utils/verifyUser';
 
 const LogInPage: NextPageWithLayout = () => <LogInForm />;
 
@@ -13,20 +14,18 @@ LogInPage.getLayout = function getLayout(page) {
   );
 };
 
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { req, res } = ctx;
+
+  const userPayload = verifyUser(req.headers.cookie);
+
+  if (userPayload) {
+    res.writeHead(302, { Location: '/' });
+
+    res.end();
+  }
+
+  return { props: {} };
+};
+
 export default LogInPage;
-
-// export const getServerSideProps = () => {
-//   const user = req.session.user;
-
-//   if (user === undefined) {
-//     res.setHeader('location', '/login');
-//     res.statusCode = 302;
-//     res.end();
-
-//     return {
-//       props: { user: { isLoggedIn: false, login: '', avatarUrl: '' } as User }
-//     };
-//   }
-
-//   return { props: { user: req.session.user } };
-// };
