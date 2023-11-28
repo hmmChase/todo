@@ -57,25 +57,29 @@ export const CURRENT_USER = gql`
 
 //* - Mutations ----------
 
-export const LOG_IN = gql`
-  mutation LogIn($email: String!, $password: String!) {
-    logIn(input: { email: $email, password: $password }) {
-      ...userFields
+export const SIGN_IN = gql`
+  mutation SignIn($email: String!, $password: String!) {
+    signIn(input: { email: $email, password: $password }) {
+      user {
+        ...userFields
+      }
     }
   }
   ${USER_FIELDS}
 `;
 
-export const LOG_OUT = gql`
-  mutation LogOut {
-    logOut
+export const SIGN_OUT = gql`
+  mutation SignOut {
+    signOut
   }
 `;
 
 export const SIGN_UP = gql`
   mutation SignUp($email: String!, $password: String!) {
     signUp(input: { email: $email, password: $password }) {
-      ...userFields
+      user {
+        ...userFields
+      }
     }
   }
   ${USER_FIELDS}

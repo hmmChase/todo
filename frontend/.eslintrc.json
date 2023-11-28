@@ -18,5 +18,5 @@
     }
   ],
 
-  "ignorePatterns": ["node_modules/", ".next/", "build/", "coverage/"]
+  "ignorePatterns": [".next/", "build/", "coverage/", "node_modules/"]
 }

@@ -32,17 +32,17 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    font-family: ${props => props.theme.fonts.title};
+    font-family: ${(props) => props.theme.fonts.title};
   }
 
   body {
-    background: ${props => props.theme.background.primary};
-    color: ${props => props.theme.text.primary};
-    font-size: ${props => props.theme.fontSize.primary};
+    background: ${(props) => props.theme.background.primary};
+    color: ${(props) => props.theme.text.primary};
+    font-size: ${(props) => props.theme.fontSize.primary};
   }
 
   *, ::before, ::after {
-    font-family: ${props => props.theme.fonts.body};
+    font-family: ${(props) => props.theme.fonts.body};
   }
 `;
 

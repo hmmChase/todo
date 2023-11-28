@@ -1,6 +1,6 @@
 import { mockGQLErrors } from '@/mocks/mockGQLErrors';
 import displayMsg from '@/constants/displayMsg';
-import parseGQLErrors from '../parseGQLErrors';
+import parseGQLErrors from '@/utils/parseGQLErrors';
 
 describe('parseGQLErrors', () => {
   it('returns correct displayMsg corresponding to displayCode', () => {

@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import LogOut from './LogOut';
+import SignUp from './SignUp';
 
-const meta: Meta<typeof LogOut> = {
-  title: 'USER/LogOut',
+const meta: Meta<typeof SignUp> = {
+  title: 'USER/SignUp',
 
-  component: LogOut,
+  component: SignUp,
 
   tags: ['autodocs']
 };
 
 export default meta;
 
-type Story = StoryObj<typeof LogOut>;
+type Story = StoryObj<typeof SignUp>;
 
 export const Default: Story = { args: {} };

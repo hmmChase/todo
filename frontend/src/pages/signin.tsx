@@ -1,14 +1,14 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next';
 
 import Full from '@/components/LAYOUTS/Full/Full';
-import LogInForm from '@/components/USER/LogInForm/LogInForm';
+import SignIn from '@/components/USER/SignIn/SignIn';
 import verifyUser from '@/utils/verifyUser';
 
-const LogInPage: NextPageWithLayout = () => <LogInForm />;
+const SignInPage: NextPageWithLayout = () => <SignIn />;
 
-LogInPage.getLayout = function getLayout(page) {
+SignInPage.getLayout = function getLayout(page) {
   return (
-    <Full title='Log in' description='LogIn page'>
+    <Full title='Sign in' description='SignIn page'>
       {page}
     </Full>
   );
@@ -28,4 +28,4 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
   return { props: {} };
 };
 
-export default LogInPage;
+export default SignInPage;

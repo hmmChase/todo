@@ -4,14 +4,14 @@ import bcryptjs from 'bcryptjs';
 import {
   sendPassResetReqEmail,
   sendSignUpEmail
-} from '../../handlers/emailHandler.js';
-import { authAccessToken, newAccessToken } from '../../utils/accessToken.js';
-import { createPassReset, validatePassReset } from '../../utils/passReset.js';
-import { development, passHashSaltRounds } from '../../constants/config.js';
-import { passwordCompare } from '../../utils/user.js';
-import { validateEmail, validatePassword } from '../../utils/validate.js';
-import accessCookieOptions from '../../constants/cookie.js';
-import consoleLog from '../../utils/consoleLog.js';
+} from '../handlers/emailHandler.js';
+import { authAccessToken, newAccessToken } from '../utils/accessToken.js';
+import { createPassReset, validatePassReset } from '../utils/passReset.js';
+import { development, passHashSaltRounds } from '../constants/config.js';
+import { passwordCompare } from '../utils/user.js';
+import { validateEmail, validatePassword } from '../utils/validate.js';
+import accessCookieOptions from '../constants/cookie.js';
+import consoleLog from '../utils/consoleLog.js';
 
 const userResolver = {
   Query: {
@@ -62,11 +62,15 @@ const userResolver = {
 
     /* Return authenticated user */
     currentUser: async (parent, args, ctx, info) => {
+      console.log('ctx.accessToken:', ctx.accessToken);
+
       // If user not logged in, return null
       if (!ctx.accessToken) return null;
 
       // Verify access token & decode payload
       const payload = authAccessToken(ctx.accessToken);
+
+      console.log('payload:', payload);
 
       try {
         // Find user matching user id
@@ -75,12 +79,25 @@ const userResolver = {
           select: { id: true, role: true }
         });
 
+        console.log('user:', user);
+
+        // If user not found, delete cookie & return null
+        if (!user) {
+          // Needed to delete cookie
+          delete accessCookieOptions.maxAge;
+
+          // Delete cookie
+          ctx.res.clearCookie('access', accessCookieOptions);
+
+          return null;
+        }
+
         const currentTime = (new Date().getTime() + 1) / 1000;
         const oneDay = 86400000;
         const isLessThanOneDay = currentTime + oneDay < payload.exp;
 
         //? Refresh access token if within 1 day of expiration
-        if (isLessThanOneDay) {
+        if (user && isLessThanOneDay) {
           // Create access token
           const accessToken = newAccessToken({ id: user.id });
 
@@ -100,7 +117,7 @@ const userResolver = {
 
   Mutation: {
     /* Authenticate user */
-    logIn: async (parent, args, ctx, info) => {
+    signIn: async (parent, args, ctx, info) => {
       const { input } = args;
 
       // Normalize & validate email
@@ -132,7 +149,7 @@ const userResolver = {
         ctx.res.cookie('access', accessToken, accessCookieOptions);
 
         // Return user
-        return user;
+        return { user };
       } catch (error) {
         development && consoleLog(error);
 
@@ -141,7 +158,7 @@ const userResolver = {
     },
 
     /* Clear authenticated user */
-    logOut: (parent, args, ctx, info) => {
+    signOut: (parent, args, ctx, info) => {
       // Needed to delete cookie
       delete accessCookieOptions.maxAge;
 
@@ -206,7 +223,7 @@ const userResolver = {
         sendSignUpEmail(email);
 
         // Return user
-        return user;
+        return { user };
       } catch (error) {
         development && consoleLog(error);
 

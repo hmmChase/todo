@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
-import resolvers from './resolvers/index.js';
+import resolvers from '../resolvers/index.js';
 import typeDefs from './typeDefs.js';
 // import { development } from '../constants/config.js';
 // import { permissions } from './permissions';
@@ -12,7 +12,7 @@ import typeDefs from './typeDefs.js';
 // that together define the "shape" of queries that are executed against
 // your data.
 
-const executableSchema = makeExecutableSchema({
+const schema = makeExecutableSchema({
   // Type definitions define the "shape" of your data and specify
   // which ways the data can be fetched from the GraphQL server
   typeDefs,
@@ -25,4 +25,4 @@ const executableSchema = makeExecutableSchema({
   // allowUndefinedInResolve: true
 });
 
-export default executableSchema;
+export default schema;

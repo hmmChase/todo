@@ -28,21 +28,6 @@ import type { DocumentContext, DocumentInitialProps } from 'next/document';
 // 3. app.render
 // 4. page.render
 
-// new
-// export default function Document() {
-//   return (
-//     <Html lang='en'>
-//       <Head />
-
-//       <body>
-//         <Main />
-
-//         <NextScript />
-//       </body>
-//     </Html>
-//   );
-// }
-
 class MyDocument extends Document {
   // `getInitialProps` belongs to `_document` (instead of `_app`)
   // It's compatible with server-side generation (SSG)
@@ -77,13 +62,16 @@ class MyDocument extends Document {
         // getStyleElement returns an array of React elements
         // Pass styleTags as a prop
         // Styles fragment is rendered after the app and page rendering finish
-        styles: [
-          <Fragment key={1}>
-            {initialProps.styles}
+        styles: [initialProps.styles, sheet.getStyleElement()]
 
-            {sheet.getStyleElement()}
-          </Fragment>
-        ]
+        // previous:
+        // styles: [
+        //   <Fragment key={1}>
+        //     {initialProps.styles}
+
+        //     {sheet.getStyleElement()}
+        //   </Fragment>
+        // ]
       };
     } finally {
       sheet.seal();

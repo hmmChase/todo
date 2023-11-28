@@ -1,6 +1,6 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import LogInForm from './LogInForm'; // Adjust the path accordingly
+import SignIn from './SignIn'; // Adjust the path accordingly
 
 // Mocking next/router
 jest.mock('next/router', () => ({
@@ -25,13 +25,13 @@ jest.mock('@/context/User', () => ({
   }
 }));
 
-describe('<LogInForm />', () => {
+describe('<SignIn />', () => {
   it('renders without crashing', () => {
-    render(<LogInForm />);
+    render(<SignIn />);
   });
 
   it('changes input values and displays validation errors', async () => {
-    render(<LogInForm />);
+    render(<SignIn />);
 
     // Assuming email and password validations fail if empty
     const emailInput = screen.getByLabelText('Email');
@@ -51,7 +51,7 @@ describe('<LogInForm />', () => {
   });
 
   it('submits the form', async () => {
-    render(<LogInForm />);
+    render(<SignIn />);
 
     const emailInput = screen.getByLabelText('Email');
     const passwordInput = screen.getByLabelText('Password');

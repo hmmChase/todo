@@ -1,6 +1,11 @@
+import gql from 'graphql-tag';
+
 // https:www.graphql.org/learn/schema/
 
-const typeDefs = `#graphql
+// const typeDefs = `#graphql
+const typeDefs = gql`
+  # Comments in GraphQL are defined with the hash (#) symbol.
+
   # ---------- Types ----------
 
   type Query {
@@ -48,11 +53,11 @@ const typeDefs = `#graphql
   type Mutation {
     # --- User ---
 
-    logIn(input: UserAuthInput!): User!
+    signIn(input: UserAuthInput!): UserAuthPayload!
 
-    logOut: Boolean!
+    signOut: Boolean!
 
-    signUp(input: UserAuthInput!): User!
+    signUp(input: UserAuthInput!): UserAuthPayload!
 
     passResetReq(email: String!): Boolean!
 
@@ -90,7 +95,6 @@ const typeDefs = `#graphql
   }
 
   type UserAuthPayload {
-    success: Boolean!
     user: User!
   }
 

@@ -22,35 +22,24 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "es5",
+
     "paths": {
-      "@/*": ["src/*"],
-      "@/public/*": ["public/*"],
-      "@/root/*": ["*"]
-      // "@/components/*": ["src/components/*"],
-      // "@/constants/*": ["src/constants/*"],
-      // "@/context/*": ["src/context/*"],
-      // "@/graphql/*": ["src/graphql/*"],
-      // "@/hooks/*": ["src/hooks/*"],
-      // "@/mocks/*": ["src/mocks/*"],
-      // "@/models/*": ["src/models/*"],
-      // "@/pages/*": ["src/pages/*"],
-      // "@/styles/*": ["src/styles/*"],
-      // "@/utils/*": ["src/utils/*"]
+      "@/*": ["./src/*"],
+      "@/public/*": ["./public/*"]
     }
   },
+
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "additional.d.ts",
+    "images.d.ts",
     "jest.config.js",
     "jest.setup.js",
-    "next-env.d.ts"
-    // ".next/types/**/*.ts",
-    // "**/*.js",
-    // "**/*.jsx",
-    // "images.d.ts",
-    // "types.d.ts"
+    "next-env.d.ts",
+    "styled.d.ts"
   ],
+
   "exclude": [
     "node_modules"
     // ".next",
@@ -58,7 +47,5 @@
     // "**/*.test.jsx",
     // "**/*.test.ts",
     // "**/*.test.tsx",
-    // "node_modules",
-    // "storybook-static"
   ]
 }

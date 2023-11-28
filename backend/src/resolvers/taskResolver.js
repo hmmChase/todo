@@ -1,9 +1,9 @@
 import { GraphQLError } from 'graphql';
 
-import { authAccessToken } from '../../utils/accessToken.js';
-import { development } from '../../constants/config.js';
-import consoleLog from '../../utils/consoleLog.js';
-import paginate from '../../utils/paginate.js';
+import { authAccessToken } from '../utils/accessToken.js';
+import { development } from '../constants/config.js';
+import consoleLog from '../utils/consoleLog.js';
+import paginate from '../utils/paginate.js';
 
 const taskResolver = {
   Query: {
@@ -217,6 +217,8 @@ const taskResolver = {
 
   Mutation: {
     createTask: (parent, args, ctx, info) => {
+      console.log('args:', args);
+
       const { content } = args;
 
       // If user not logged in, return null
@@ -224,6 +226,8 @@ const taskResolver = {
 
       // Verify access token and decode payload
       const payload = authAccessToken(ctx.accessToken);
+
+      console.log('payload:', payload);
 
       try {
         // Create task
@@ -236,6 +240,8 @@ const taskResolver = {
             author: { select: { id: true } }
           }
         });
+
+        console.log('task:', task);
 
         // Return new task
         return task;
