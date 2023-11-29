@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "SET NODE_ENV=development&& nodemon ./bin/www",
-    "start": "node ./bin/www"
+    "dev": "SET NODE_ENV=development&& nodemon ./bin/www.js",
+    "start": "node ./bin/www.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
