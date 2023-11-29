@@ -29,6 +29,8 @@ import schema from './graphql/schema.js';
 // https://expressjs.com/en/advanced/best-practice-security.html
 // https://expressjs.com/en/advanced/best-practice-performance.html
 
+console.log('corsOptions:', corsOptions);
+
 const debug = Debug('todo:server');
 
 // Normalize a port into a number, string, or false
