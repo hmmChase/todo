@@ -1,10 +1,14 @@
 import gql from 'graphql-tag';
 
-// https:www.graphql.org/learn/schema/
+// https://graphql.org/learn/schema/
 
 // const typeDefs = `#graphql
 const typeDefs = gql`
   # Comments in GraphQL are defined with the hash (#) symbol.
+
+  # ---------- Scalars ----------
+
+  scalar Date
 
   # ---------- Types ----------
 
@@ -88,9 +92,9 @@ const typeDefs = gql`
 
   type Task {
     id: ID!
-    createdAt: String!
+    createdAt: Date!
     content: String!
-    due: String!
+    due: Date!
     author: User!
   }
 

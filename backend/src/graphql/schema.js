@@ -1,7 +1,9 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
-import resolvers from '../resolvers/index.js';
+import { dateScalar } from './scalars.js';
+import taskResolver from '../resolvers/taskResolver.js';
 import typeDefs from './typeDefs.js';
+import userResolver from '../resolvers/userResolver.js';
 // import { development } from '../constants/config.js';
 // import { permissions } from './permissions';
 
@@ -13,12 +15,9 @@ import typeDefs from './typeDefs.js';
 // your data.
 
 const schema = makeExecutableSchema({
-  // Type definitions define the "shape" of your data and specify
-  // which ways the data can be fetched from the GraphQL server
   typeDefs,
 
-  // Resolvers define the technique for fetching the types in the schema
-  resolvers
+  resolvers: [{ Date: dateScalar }, taskResolver, userResolver]
 
   // logger: { log: e => (development ? console.log(e) : null) },
 

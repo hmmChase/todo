@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql, TypedDocumentNode } from '@apollo/client';
 
 // import { TASK_AUTHOR_FIELDS } from './task';
 
@@ -8,6 +8,9 @@ import { gql } from '@apollo/client';
 
 export const USER_FIELDS = gql`
   fragment userFields on User {
+    # By default, an object's cache key is a combination of its
+    # __typename and id fields, so we should always make sure the
+    # id is in the response so our data can be normalized and cached properly
     id
     # createdAt
     # email
@@ -27,7 +30,15 @@ export const IS_LOGGED_IN = gql`
   }
 `;
 
-export const READ_USER = gql`
+interface ReadUserData {
+  user: { id: string; role: string };
+}
+
+interface ReadUserVars {
+  id: string;
+}
+
+export const READ_USER: TypedDocumentNode<ReadUserData, ReadUserVars> = gql`
   query ReadUser($id: ID!) {
     user(id: $id) {
       ...userFields

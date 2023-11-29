@@ -19,6 +19,7 @@ const Tasks = ({ tasks }: Props) => (
             <TaskItem
               authorId={task.author!.id}
               content={task.content}
+              due={task.due}
               taskId={task.id}
             />
           </LI>

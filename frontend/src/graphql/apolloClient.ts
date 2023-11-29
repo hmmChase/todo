@@ -1,17 +1,16 @@
 import { ApolloClient } from '@apollo/client';
-import { useMemo } from 'react';
+import { useRef } from 'react';
+import isEqual from 'lodash.isequal';
 import merge from 'deepmerge';
-import type { IncomingMessage, ServerResponse } from 'http';
 import type { NormalizedCacheObject } from '@apollo/client';
-// import isEqual from 'lodash.isequal';
+// import type { IncomingMessage, ServerResponse } from 'http';
 
 import { development, server } from '@/constants/config';
 import cache from '@/graphql/cache';
 import link from '@/graphql/links';
-import typeDefs from '@/graphql/typeDefs';
+// import typeDefs from '@/graphql/typeDefs';
 
 // https://github.com/apollographql/next-apollo-example
-// https://github.com/apollographql/fullstack-tutorial/tree/master/final/client
 // https://github.com/vercel/next.js/blob/canary/examples/with-apollo/lib/apolloClient.js
 // https://github.com/vercel/next.js/blob/canary/examples/with-typescript-graphql/lib/apollo.ts
 
@@ -21,7 +20,8 @@ export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
-const createApolloClient = (context?: ResolverContext) =>
+// (context?: ResolverContext)
+const createApolloClient = () =>
   new ApolloClient({
     cache,
 
@@ -38,7 +38,7 @@ const createApolloClient = (context?: ResolverContext) =>
     connectToDevTools: development
   });
 
-export function initializeApollo(initialState = null) {
+export const initializeApollo = (initialState = null) => {
   const _apolloClient = apolloClient ?? createApolloClient();
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state gets hydrated here
@@ -46,8 +46,14 @@ export function initializeApollo(initialState = null) {
     // Get existing cache, loaded during client side data fetching
     const existingCache = _apolloClient.extract();
 
-    // Merge the existing cache into data passed from getStaticProps/getServerSideProps
-    const data = merge(initialState, existingCache);
+    // Merge the initialState from getStaticProps/getServerSideProps in the existing cache
+    const data = merge(existingCache, initialState, {
+      // combine arrays using object equality (like in sets)
+      arrayMerge: (destinationArray, sourceArray) => [
+        ...sourceArray,
+        ...destinationArray.filter(d => sourceArray.every(s => !isEqual(d, s)))
+      ]
+    });
 
     // Restore the cache with the merged data
     _apolloClient.cache.restore(data);
@@ -60,16 +66,22 @@ export function initializeApollo(initialState = null) {
   if (!apolloClient) apolloClient = _apolloClient;
 
   return _apolloClient;
-}
+};
 
-export function addApolloState(client: any, pageProps: any) {
+export const addApolloState = (client: any, pageProps: any) => {
   if (pageProps?.props)
     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
 
   return pageProps;
-}
-  // Update Apollo client only when the cache value has changed
-  const store = useMemo(() => initializeApollo(initialState), [initialState]);
+};
 
-  return store;
-}
+export const useApollo = (pageProps: any) => {
+  const state = pageProps[APOLLO_STATE_PROP_NAME];
+
+  const storeRef: any = useRef();
+
+  // Update Apollo client only when the cache value has changed
+  if (!storeRef.current) storeRef.current = initializeApollo(state);
+
+  return storeRef.current;
+};

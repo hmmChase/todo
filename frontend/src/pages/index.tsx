@@ -1,16 +1,16 @@
 import { useQuery } from '@apollo/client';
-import type { GetServerSideProps, NextPageWithLayout } from 'next';
+import type { NextPageWithLayout } from 'next';
 // import { useEffect } from 'react';
 // import { useRouter } from 'next/router';
-// import Head from 'next/head';
+// import type { GetServerSideProps } from 'next';
 
 import { READ_TASKS } from '@/graphql/queries/task';
 import App from '@/components/LAYOUTS/App/App';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 import Tasks from '@/components/TASK/Tasks/Tasks';
 import type { Tasks as Taskss } from '@/models/index';
-import verifyUser from '@/utils/verifyUser';
 // import { CURRENT_USER } from '@/graphql/queries/user';
+// import verifyUser from '@/utils/verifyUser';
 
 const IndexPage: NextPageWithLayout = () => {
   const { data, error, loading } = useQuery(READ_TASKS);
@@ -37,13 +37,6 @@ const IndexPage: NextPageWithLayout = () => {
 
   return (
     <>
-      {/* <Head>
-        <title>Home</title>
-        <meta name='description' content='Home' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head> */}
-
       <main>
         <QueryResult
           data={data}
@@ -67,21 +60,21 @@ IndexPage.getLayout = function getLayout(page) {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
-  // console.log('getServerSideProps req:', Object.keys(ctx.req));
-  // console.log('getServerSideProps headers:', Object.keys(ctx.req.headers));
+// export const getServerSideProps: GetServerSideProps = async ctx => {
+//   // console.log('getServerSideProps req:', Object.keys(ctx.req));
+//   // console.log('getServerSideProps headers:', Object.keys(ctx.req.headers));
 
-  const { req, res } = ctx;
+//   const { req, res } = ctx;
 
-  const userPayload = verifyUser(req.headers.cookie);
+//   const userPayload = verifyUser(req.headers.cookie);
 
-  if (!userPayload) {
-    res.writeHead(302, { Location: '/login' });
+//   if (!userPayload) {
+//     res.writeHead(302, { Location: '/login' });
 
-    res.end();
-  }
+//     res.end();
+//   }
 
-  return { props: {} };
-};
+//   return { props: {} };
+// };
 
 export default IndexPage;

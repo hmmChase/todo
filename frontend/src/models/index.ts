@@ -14,8 +14,9 @@ export interface Task {
   author: User;
   content: string;
   createdAt: Date;
-  due: Date;
+  due: string;
   id: string;
+  removedAt?: Date;
 }
 
 export type Tasks = Task[];

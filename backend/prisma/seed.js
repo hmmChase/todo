@@ -14,7 +14,10 @@ const createTasks = amtTasks => {
   for (let i = 0; i < amtTasks; i++)
     tasks.push({
       content: faker.lorem.sentence(),
-      due: faker.date.future()
+      due: faker.date.future({
+        // min: new Date(),
+        // max: new Date(new Date().setMonth(new Date().getMonth() + 1))
+      })
     });
 
   return tasks;

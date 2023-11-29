@@ -86,8 +86,8 @@ export const CURRENT_USER_TASKS = gql`
 //* - Mutations ----------
 
 export const CREATE_TASK = gql`
-  mutation CreateTask($content: String!) {
-    createTask(content: $content) {
+  mutation CreateTask($content: String!, $due: String!) {
+    createTask(content: $content, due: $due) {
       ...TaskFields
     }
   }

@@ -1,5 +1,5 @@
-import { gql, NetworkStatus, useMutation, useQuery } from '@apollo/client';
 import { addApolloState, initializeApollo } from '@/graphql/apolloClient';
+import { gql, NetworkStatus, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
