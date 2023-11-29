@@ -1,18 +1,46 @@
 {
   "name": "backend",
   "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "",
   "private": true,
   "scripts": {
     "dev": "SET NODE_ENV=development&& nodemon ./bin/www.js",
-    "start": "node ./bin/www.js"
+    "start": "node ./bin/www.js",
+    "seed": "node ./prisma/seed.js",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "@apollo/server": "^4.9.5",
+    "@graphql-tools/schema": "^10.0.2",
+    "@prisma/client": "^5.6.0",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "graphql": "^16.8.1",
+    "graphql-tag": "^2.12.6",
+    "helmet": "^7.1.0",
+    "isemail": "^3.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "juice": "^9.1.0",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.7",
+    "typescript": "^5.3.2",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "@faker-js/faker": "^8.3.1",
+    "@types/node": "^20.10.1",
+    "eslint": "^8.54.0",
+    "eslint-plugin-import": "^2.29.0",
+    "nodemon": "^3.0.1",
+    "prisma": "^5.6.0"
   }
 }
