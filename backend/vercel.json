@@ -1,7 +1,7 @@
 {
   "github": { "silent": true },
 
-  "builds": [{ "src": "src/server.js", "use": "@vercel/node" }],
+  "builds": [{ "src": "bin/www.js", "use": "@vercel/node" }],
 
-  "routes": [{ "src": "/(.*)", "dest": "src/server.js" }]
+  "routes": [{ "src": "/(.*)", "dest": "bin/www.js" }]
 }
