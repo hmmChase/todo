@@ -1,13 +1,11 @@
-var { Router } = require('express');
+import { Router } from 'express';
 
-// import * as controller from './controller.js';
-var { index } = require('./controller.js');
+import * as controller from './controller.js';
 
 const router = Router();
 
 /* index */
 
-router.get('/', index);
+router.get('/', controller.index);
 
-// export default router;
-module.exports = router;
+export default router;
