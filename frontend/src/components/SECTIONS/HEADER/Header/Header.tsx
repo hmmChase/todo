@@ -1,19 +1,19 @@
-import { useContext } from 'react';
-import { UserCtx } from '@/context/User';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
+// import { useContext } from 'react';
 
 import { siteTitle } from '@/constants/config';
-import UserIcon from '@/components/USER/UserIcon/UserIcon';
-// import CreateTask from '@/components/TASK/CreateTask/CreateTask';
+import TaskButton from '@/components/TASK/TaskButton/TaskButton';
+// import { useUser } from '@/context/User';
 // import HeaderUsername from '@/components/SECTIONS/HEADER/HeaderUsername';
 // import NavBar from '@/components/SECTIONS/NavBar';
 // import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 // import Taskbox from '@/public/images/taskbox.svg';
+// import UserIcon from '@/components/USER/UserIcon/UserIcon';
 
 const Header = () => {
-  const { loading, user } = useContext(UserCtx);
+  // const { loading, user } = useUser();
 
   const router = useRouter();
 
@@ -68,10 +68,12 @@ const Header = () => {
           })
           .replace(',', '')}
 
-        {!loading ? user && <UserIcon /> : null}
+        {/* {!loading ? user && <UserIcon /> : null} */}
 
         {/* </QueryResult> */}
       </Top>
+
+      <TaskButton />
 
       {/* <div>
         {onTaskDetailPage ? (
