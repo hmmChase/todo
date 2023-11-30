@@ -35,7 +35,7 @@ const frontendUrlPrev =
   `https://todo-git-${gitBranch}-${gitOwner}.vercel.app`.toLowerCase();
 const frontendUrlProd = 'https://hmmtodo.vercel.app';
 
-const backendUrlDev = 'http://localhost:8008';
+const backendUrlDev = 'http://localhost';
 const backendUrlVercel = process.env.VERCEL_URL;
 
 export const apolloStudio = 'https://studio.apollographql.com';
