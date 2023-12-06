@@ -6,7 +6,7 @@ export const task1: Task = {
   author: user1,
   content: 'task 1',
   createdAt: new Date(),
-  due: new Date().toISOString(),
+  dueBy: new Date(),
   id: '1'
 };
 
@@ -15,7 +15,7 @@ export const task2: Task = {
   author: user2,
   content: 'task 2',
   createdAt: new Date(),
-  due: new Date().toISOString(),
+  dueBy: new Date(),
   id: '2'
 };
 
@@ -24,7 +24,7 @@ export const task3: Task = {
   author: admin,
   content: 'task 3',
   createdAt: new Date(),
-  due: new Date().toISOString(),
+  dueBy: new Date(),
   id: '3'
 };
 
