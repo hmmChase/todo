@@ -9,6 +9,8 @@ const SSRPage = () => {
   return <div>SSR</div>;
 };
 
+export default SSRPage;
+
 // // const ALL_TASKS_QUERY = gql`
 // //   query allTasks($first: Int!, $skip: Int!) {
 // //     allTasks(orderBy: { createdAt: desc }, first: $first, skip: $skip) {
