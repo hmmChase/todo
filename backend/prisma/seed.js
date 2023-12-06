@@ -11,14 +11,17 @@ const prisma = new PrismaClient();
 const createTasks = amtTasks => {
   const tasks = [];
 
+  const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+  const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1));
+
+  const dueBy = faker.date.betweens({
+    from: yesterday,
+    to: tomorrow,
+    count: 1
+  });
+
   for (let i = 0; i < amtTasks; i++)
-    tasks.push({
-      content: faker.lorem.sentence(),
-      due: faker.date.future({
-        // min: new Date(),
-        // max: new Date(new Date().setMonth(new Date().getMonth() + 1))
-      })
-    });
+    tasks.push({ content: faker.lorem.sentence(), dueBy: dueBy[0] });
 
   return tasks;
 };
@@ -49,7 +52,7 @@ const userData = async () => {
     });
   }
 
-  return users;
+  return amtUsers === 0 ? [] : users;
 };
 
 const main = async () => {

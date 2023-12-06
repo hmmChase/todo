@@ -12,7 +12,8 @@
     "dev": "SET NODE_ENV=development&& nodemon ./src/server.js",
     "start": "node ./src/server.js",
     "seed": "node ./prisma/seed.js",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "reset": "prisma migrate reset"
   },
   "dependencies": {
     "@apollo/server": "^4.9.5",

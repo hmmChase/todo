@@ -13,13 +13,13 @@ import logger from 'morgan';
 // import cookieParser from 'cookie-parser';
 // import createError from 'http-errors';
 
-import { backendUrl } from './constants/config.js';
+import { backendUrl, development } from './constants/config.js';
 import { corsOptions } from './constants/cors.js';
 import prisma from '../prisma/prisma.js';
 import router from './routes/routes.js';
 import schema from './graphql/schema.js';
-// import { backendUrl, development, port as portt } from './constants/config.js';
-// import myLogger from './utils/myLogger.js';
+// import { backendUrl, port as portt } from './constants/config.js';
+import myLogger from './utils/myLogger.js';
 // import path from 'path';
 
 // In production, env vars are defined on the host
@@ -38,6 +38,7 @@ const app = express();
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(compression());
 app.use(cors(corsOptions));
+app.use(development ? myLogger : (req, res, next) => next());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger('dev'));
@@ -63,7 +64,6 @@ app.use(
 );
 // app.use(cookieParser());
 // logger(development ? 'dev' : 'combined'),
-// development ? myLogger : (req, res, next) => next(),
 
 // catch 404 and forward to error handler
 // app.use((req, res, next) => next(createError(404)));

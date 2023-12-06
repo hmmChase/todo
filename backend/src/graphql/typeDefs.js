@@ -8,7 +8,7 @@ const typeDefs = gql`
 
   # ---------- Scalars ----------
 
-  scalar Date
+  scalar DateTime
 
   # ---------- Types ----------
 
@@ -69,9 +69,9 @@ const typeDefs = gql`
 
     # --- Task ---
 
-    createTask(content: String!): Task!
+    createTask(content: String!, dueBy: DateTime!): Task!
 
-    updateTask(id: ID!, content: String!): Task!
+    updateTask(id: ID!, content: String, dueBy: DateTime): Task!
 
     # soft delete
     removeTask(id: ID!): Task!
@@ -92,9 +92,9 @@ const typeDefs = gql`
 
   type Task {
     id: ID!
-    createdAt: Date!
+    createdAt: DateTime!
     content: String!
-    due: Date!
+    dueBy: DateTime!
     author: User!
   }
 

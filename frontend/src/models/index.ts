@@ -14,7 +14,7 @@ export interface Task {
   author: User;
   content: string;
   createdAt: Date;
-  due: string;
+  dueBy: Date;
   id: string;
   removedAt?: Date;
 }

@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 import { useContext, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import type { ChangeEventHandler, FormEventHandler } from 'react';
@@ -14,31 +15,54 @@ const CreateTask = () => {
 
   const { user } = useContext(UserCtx);
 
-  const taskInputRef = useRef<HTMLTextAreaElement>(null);
+  const taskContentRef = useRef<HTMLTextAreaElement>(null);
+  const taskDueByRef = useRef<HTMLInputElement>(null);
 
   // Update the cache to add our new task
   // https://www.apollographql.com/docs/react/api/react/hooks/#update
   // https://www.apollographql.com/docs/react/data/mutations/#the-update-function
   // https://www.apollographql.com/docs/react/data/mutations/#updating-the-cache-directly
-  const update: MutationUpdaterFn = (cache, result) =>
-    cache.modify({
-      fields: {
-        tasks(existingTasks = []) {
-          const newTaskRef = cache.writeFragment({
-            data: result.data?.createTask,
+  // const update: MutationUpdaterFn = (cache, result) =>
+  //   cache.modify({
+  //     fields: {
+  //       tasks(existingTasks = []) {
+  //         const newTaskRef = cache.writeFragment({
+  //           data: result.data?.createTask,
 
-            fragment: TASK_FIELDS
-          });
+  //           fragment: TASK_FIELDS
+  //         });
 
-          return [...existingTasks, newTaskRef];
-        }
-      }
-    });
+  //         return [...existingTasks, newTaskRef];
+  //       }
+  //     }
+  //   });
 
   const [createTask] = useMutation(CREATE_TASK, {
     onCompleted: () => setIsSubmitDisabled(true),
 
-    update: (cache, result) => update(cache, result),
+    // update: (cache, result) => update(cache, result),
+
+    // update(cache, { data: { addTask } }) {
+    //   cache.modify({
+    //     fields: {
+    //       tasks(existingTasks = []) {
+    //         const newTaskRef = cache.writeFragment({
+    //           data: addTask,
+
+    //           fragment: gql`
+    //             fragment NewTask on Task {
+    //               id
+    //               content
+    //               due
+    //             }
+    //           `
+    //         });
+
+    //         return existingTasks.concat(newTaskRef);
+    //       }
+    //     }
+    //   });
+    // },
 
     onError: () => {}
   });
@@ -47,22 +71,27 @@ const CreateTask = () => {
     e.preventDefault();
 
     createTask({
-      variables: { content: taskInputRef.current?.value },
+      variables: {
+        content: taskContentRef.current?.value,
+        dueBy: taskDueByRef.current?.value
+      }
 
       // Optimistically add the task to the cache before the server responds
       // https://www.apollographql.com/docs/react/performance/optimistic-ui/#the-optimisticresponse-option
-      optimisticResponse: {
-        createTask: {
-          __typename: 'Task',
-          author: { __typename: 'User', id: user?.id },
-          content: taskInputRef.current!.value,
-          createdAt: new Date().toISOString(),
-          id: 'temp-id'
-        }
-      }
+      // optimisticResponse: {
+      //   createTask: {
+      //     __typename: 'Task',
+      //     author: { __typename: 'User', id: user?.id },
+      //     content: taskContentRef.current!.value,
+      //     createdAt: new Date().toISOString(),
+      //     due: taskDueByRef.current!.value,
+      //     id: 'temp-id'
+      //   }
+      // }
     });
 
-    taskInputRef.current!.value = '';
+    taskContentRef.current!.value = '';
+    taskDueByRef.current!.value = '';
   };
 
   const canSubmit = (value: string) => {
@@ -71,11 +100,31 @@ const CreateTask = () => {
   };
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = () =>
-    canSubmit(taskInputRef.current!.value);
+    canSubmit(taskContentRef.current!.value);
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Textarea onChange={handleChange} ref={taskInputRef} />
+      <Textarea onChange={handleChange} ref={taskContentRef} />
+
+      {/* // date picker
+      // https://www.npmjs.com/package/react-datepicker */}
+      {/* <DatePicker
+        dateFormat='dd/MM/yyyy'
+        onChange={date => console.log(date)}
+        selected={new Date()}
+      /> */}
+
+      <label htmlFor='start'>Due by:</label>
+
+      <input
+        type='date'
+        id='start'
+        name='trip-start'
+        defaultValue='2018-07-22'
+        min='2018-01-01'
+        max='2018-12-31'
+        ref={taskDueByRef}
+      />
 
       <SubmitBtn disabled={isSubmitDisabled} name='submitTask' type='submit'>
         <Add $dis={isSubmitDisabled}>+</Add>

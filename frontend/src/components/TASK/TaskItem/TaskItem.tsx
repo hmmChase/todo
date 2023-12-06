@@ -8,11 +8,17 @@ import styled from 'styled-components';
 interface Props {
   authorId: string;
   content: string;
-  due: string;
+  dueBy: Date;
   taskId: string;
 }
 
-const TaskItem = ({ authorId, content, due, taskId }: Props) => {
+const TaskItem = ({ authorId, content, dueBy, taskId }: Props) => {
+  const dueByDate = new Date(dueBy).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
   // const { user } = useContext(UserCtx);
 
   // const currentUserIsAdmin = user?.role === 'ADMIN';
@@ -23,13 +29,7 @@ const TaskItem = ({ authorId, content, due, taskId }: Props) => {
     <Article>
       <Content>{content}</Content>
 
-      <span>
-        {new Date(due).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })}
-      </span>
+      <span>{dueByDate}</span>
 
       {/* <TaskItemBtns data-testid='TaskItemBtns'>
         <TaskDetailIconn taskId={taskId} />

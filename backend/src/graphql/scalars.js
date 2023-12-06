@@ -1,8 +1,8 @@
 import { GraphQLScalarType, Kind } from 'graphql';
 
-export const dateScalar = new GraphQLScalarType({
-  name: 'Date',
-  description: 'Date custom scalar type',
+export const dateTimeScalar = new GraphQLScalarType({
+  name: 'DateTime',
+  description: 'DateTime custom scalar type',
 
   serialize(value) {
     if (value instanceof Date) {

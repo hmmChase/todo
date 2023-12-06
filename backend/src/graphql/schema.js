@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
-import { dateScalar } from './scalars.js';
+import { dateTimeScalar } from './scalars.js';
 import taskResolver from '../resolvers/taskResolver.js';
 import typeDefs from './typeDefs.js';
 import userResolver from '../resolvers/userResolver.js';
@@ -17,7 +17,7 @@ import userResolver from '../resolvers/userResolver.js';
 const schema = makeExecutableSchema({
   typeDefs,
 
-  resolvers: [{ Date: dateScalar }, taskResolver, userResolver]
+  resolvers: [{ DateTime: dateTimeScalar }, taskResolver, userResolver]
 
   // logger: { log: e => (development ? console.log(e) : null) },
 
