@@ -23,11 +23,9 @@ const Header = () => {
 
   const taskId = routePathArr[2];
 
-  const day = 31;
-  const month = 12;
-  const year = 2023;
-
-  const date = new Date(`${month}/${day}/${year}`);
+  const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+  const today = new Date();
+  const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1));
 
   return (
     <Container>
@@ -37,16 +35,6 @@ const Header = () => {
 
           <HeaderTitle>{siteTitle}</HeaderTitle>
         </Logo>
-
-        {/* 
-        {new Date()
-          .toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })
-          .replace(',', '')} */}
 
         {/* <NavBar /> */}
 
@@ -59,14 +47,12 @@ const Header = () => {
           showLoading={true}
         > */}
 
-        {date
-          .toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })
-          .replace(',', '')}
+        {today.toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
 
         {/* {!loading ? user && <UserIcon /> : null} */}
 
