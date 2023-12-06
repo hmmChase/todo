@@ -1,13 +1,13 @@
-import { ExpandIconBtn } from '@/components/COMMON/IconBtn/IconBtn';
 import Link from 'next/link';
-import type { FC } from 'react';
+
+import { ExpandIconBtn } from '@/components/COMMON/IconBtn/IconBtn';
 
 interface Props {
   className?: string;
   taskId: string;
 }
 
-const DetailIcon: FC<Props> = ({ className, taskId }) => (
+const DetailIcon = ({ className, taskId }: Props) => (
   <Link href={`/task/${taskId}`} passHref>
     <div className={className}>
       <ExpandIconBtn name='taskDetail' />

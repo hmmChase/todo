@@ -1,9 +1,10 @@
 import { ApolloError } from '@apollo/client';
+import styled from 'styled-components';
+import type { ReactNode } from 'react';
+
 import Loading from '@/components/COMMON/Loading/Loading';
 import Notice from '@/components/COMMON/Notice/Notice';
 import parseGQLErrors from '@/utils/parseGQLErrors';
-import styled from 'styled-components';
-import type { FC, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -14,14 +15,14 @@ interface Props {
   showLoading?: boolean;
 }
 
-const QueryResult: FC<Props> = ({
+const QueryResult = ({
   children,
   data,
   error,
   loading,
   showError,
   showLoading
-}) => {
+}: Props) => {
   if (loading && showLoading) return <Loading />;
 
   if (error && showError)

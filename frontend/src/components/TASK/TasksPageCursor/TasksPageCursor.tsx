@@ -1,14 +1,14 @@
-import { tasksPerPage } from '@/constants/config';
-import { READ_TASKS_PAGINATED_CURSOR } from '@/graphql/queries/task';
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
-import Tasks from '@/components/TASK/Tasks/Tasks';
+
+import { READ_TASKS_PAGINATED_CURSOR } from '@/graphql/queries/task';
+import { tasksPerPage } from '@/constants/config';
 import Loading from '@/components/COMMON/Loading/Loading';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import type { FC } from 'react';
+import Tasks from '@/components/TASK/Tasks/Tasks';
 import type { Tasks as Taskss } from '@/models/index';
 
-const TasksPageCursor: FC = () => {
+const TasksPageCursor = () => {
   // const [page, setPage] = useState(0);
 
   const [isLoadingMore, setIsLoadingMore] = useState(false);

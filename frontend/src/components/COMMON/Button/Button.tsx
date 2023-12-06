@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import type { ButtonHTMLAttributes, FC } from 'react';
+import type { ButtonHTMLAttributes } from 'react';
 
 interface Props {
   alt?: boolean;
@@ -12,7 +12,7 @@ interface Props {
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
-const Button: FC<Props> = ({
+const Button = ({
   alt,
   children,
   className,
@@ -21,7 +21,7 @@ const Button: FC<Props> = ({
   name,
   onClick,
   type = 'button'
-}) => {
+}: Props) => {
   return (
     <Buttonn
       $alt={alt}

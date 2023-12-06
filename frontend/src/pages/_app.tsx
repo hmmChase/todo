@@ -1,21 +1,18 @@
 import { ApolloProvider } from '@apollo/client';
-import { StrictMode } from 'react';
 import { ThemeProvider } from 'styled-components';
 import Head from 'next/head';
+import type { AppPropsWithLayout } from 'next/app';
 import type { ReactElement, ReactNode } from 'react';
-// import App from 'next/app';
 
 import { siteTitle } from '@/constants/config';
 import { useApollo } from '@/graphql/apolloClient';
 import GlobalStyle from '@/styles/global';
-import reportWebVitals from '@/root/reportWebVitals';
 import theme from '@/styles/theme';
-import type { AppPropsWithLayout } from 'next/app';
-import UserProvider from '@/context/User';
 // import { addApolloState, initializeApollo } from '@/graphql/apolloClient';
 // import { CURRENT_USER } from '@/graphql/queries/user';
 // import { READ_TASKS } from '@/graphql/queries/task';
 // import type { User } from '@/models/index';
+// import UserProvider from '@/context/User';
 // import verifyUser from '@/utils/verifyUser';
 
 // https://github.com/vercel/next.js/tree/master/examples/with-styled-components
@@ -64,17 +61,13 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
         />
       </Head>
 
-      <StrictMode>
-        <ApolloProvider client={apolloClient}>
-          <ThemeProvider theme={theme}>
-            <UserProvider>
-              <GlobalStyle />
+      <ApolloProvider client={apolloClient}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
 
-              {getLayout(<Component {...pageProps} />)}
-            </UserProvider>
-          </ThemeProvider>
-        </ApolloProvider>
-      </StrictMode>
+          {getLayout(<Component {...pageProps} />)}
+        </ThemeProvider>
+      </ApolloProvider>
     </>
   );
 };
@@ -149,10 +142,5 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 
 //   return { ...appProps };
 // };
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
 
 export default App;

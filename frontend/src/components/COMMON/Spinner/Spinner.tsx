@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import type { FC } from 'react';
 
-const Spinner: FC = () => <Spinnerr />;
+const Spinner = () => <Spinnerr />;
 
 export default Spinner;
 

@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
-import Dropdown from '@/components/COMMON/Dropdown/Dropdown';
-import HeaderLoggedIn from '@/components/SECTIONS/HEADER/HeaderLoggedIn/HeaderLoggedIn';
 import Image from 'next/image';
 import styled from 'styled-components';
-import type { FC } from 'react';
+
+import Dropdown from '@/components/COMMON/Dropdown/Dropdown';
+import HeaderLoggedIn from '@/components/SECTIONS/HEADER/HeaderLoggedIn/HeaderLoggedIn';
 import userSvg from '@/public/images/user.svg';
 
-const UserIcon: FC = () => {
+const UserIcon = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   // Create a ref that we add to the element for which we want to detect outside clicks

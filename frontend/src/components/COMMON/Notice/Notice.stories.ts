@@ -1,5 +1,6 @@
-import Notice from './Notice';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import Notice from './Notice';
 
 const meta: Meta<typeof Notice> = {
   title: 'COMMON/Notice',

@@ -1,5 +1,6 @@
-import PassResetReq from './PassResetReq';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import PassResetReq from './PassResetReq';
 
 const meta: Meta<typeof PassResetReq> = {
   title: 'USER/PassResetReq',

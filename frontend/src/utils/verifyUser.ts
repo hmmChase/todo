@@ -1,9 +1,6 @@
-import { User } from '@/models/index';
 import jwt from 'jsonwebtoken';
 
-interface JwtPayload {
-  user: User;
-}
+import { User } from '@/models/index';
 
 const verifyUser = (accessCookie: string | undefined) => {
   const secret = Buffer.from(
@@ -18,7 +15,7 @@ const verifyUser = (accessCookie: string | undefined) => {
 
   try {
     // Decode payload if signature is valid and JWT not expired
-    const payload = jwt.verify(accessToken, secret);
+    const payload = jwt.verify(accessToken, secret) as User;
 
     return payload;
   } catch {

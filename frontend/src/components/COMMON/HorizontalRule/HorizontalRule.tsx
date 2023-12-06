@@ -1,13 +1,10 @@
 import styled from 'styled-components';
-import type { FC } from 'react';
 
 interface Props {
   className?: string;
 }
 
-const HorizontalRule: FC<Props> = ({ className }) => (
-  <HR className={className} />
-);
+const HorizontalRule = ({ className }: Props) => <HR className={className} />;
 
 export default HorizontalRule;
 

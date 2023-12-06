@@ -7,7 +7,12 @@ import UserProvider from '@/context/User';
 describe('TaskItem', () => {
   afterEach(cleanup);
 
-  const props = { authorId: '2', content: 'task', taskId: '1' };
+  const props = {
+    authorId: '2',
+    content: 'task',
+    due: new Date().toISOString(),
+    taskId: '1'
+  };
 
   it('renders task', () => {
     render(<TaskItem {...props} />);

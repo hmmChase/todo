@@ -1,10 +1,8 @@
-import type { FC } from 'react';
-
 interface Props {
   'aria-label'?: string;
   className?: string;
 }
-const X: FC<Props> = props => (
+const X = (props: Props) => (
   <svg
     aria-label={props['aria-label']}
     className={props.className}

@@ -1,5 +1,6 @@
-import RemoveTask from './RemoveTask';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import RemoveTask from './RemoveTask';
 
 const meta: Meta<typeof RemoveTask> = {
   title: 'TASK/RemoveTask',

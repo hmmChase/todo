@@ -1,13 +1,14 @@
-import Expand from '@/components/ICONS/Expand/Expand';
 import styled from 'styled-components';
-import type { FC, MouseEventHandler } from 'react';
+import type { MouseEventHandler } from 'react';
+
+import Expand from '@/components/ICONS/Expand/Expand';
 import X from '@/components/ICONS/X/X';
 
 interface ExpandIconBtnProps {
   name: string;
 }
 
-export const ExpandIconBtn: FC<ExpandIconBtnProps> = ({ name }) => (
+export const ExpandIconBtn = ({ name }: ExpandIconBtnProps) => (
   <Button aria-label={name} data-testid={name}>
     <Expand />
   </Button>
@@ -18,7 +19,7 @@ interface XIconBtnProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const XIconBtn: FC<XIconBtnProps> = ({ name, onClick }) => (
+export const XIconBtn = ({ name, onClick }: XIconBtnProps) => (
   <Button aria-label={name} data-testid={name} onClick={onClick}>
     <X />
   </Button>

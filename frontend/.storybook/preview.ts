@@ -1,8 +1,9 @@
 import type { Preview } from '@storybook/react';
-import { CURRENT_USER } from '../src/mocks/user/graphql';
 import { MockedProvider } from '@apollo/client/testing';
-import { READ_TASKS } from '../src/mocks/task/graphql';
 import { ThemeProvider } from 'styled-components';
+
+import { CURRENT_USER } from '../src/mocks/user/graphql';
+import { READ_TASKS } from '../src/mocks/task/graphql';
 import GlobalStyle from '../src/styles/global';
 import theme from '../src/styles/theme';
 // import {
@@ -38,6 +39,7 @@ import theme from '../src/styles/theme';
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
+
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } }
   }
 };

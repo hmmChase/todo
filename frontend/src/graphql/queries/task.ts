@@ -9,7 +9,7 @@ export const TASK_FIELDS = gql`
     id
     createdAt
     content
-    due
+    dueBy
   }
 `;
 
@@ -86,8 +86,8 @@ export const CURRENT_USER_TASKS = gql`
 //* - Mutations ----------
 
 export const CREATE_TASK = gql`
-  mutation CreateTask($content: String!) {
-    createTask(content: $content) {
+  mutation CreateTask($content: String!, $dueBy: Date!) {
+    createTask(content: $content, dueBy: $dueBy) {
       ...TaskFields
     }
   }

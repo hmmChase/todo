@@ -1,8 +1,9 @@
-import { passwordMaxLength, passwordMinLength } from '@/constants/config';
 import * as yup from 'yup';
-import displayMsg from '@/constants/displayMsg';
-// import isEmail from 'isemail';
 // import Filter from 'bad-words';
+// import isEmail from 'isemail';
+
+import { passwordMaxLength, passwordMinLength } from '@/constants/config';
+import displayMsg from '@/constants/displayMsg';
 
 /* Email */
 export const email = yup

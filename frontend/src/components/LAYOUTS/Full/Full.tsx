@@ -6,7 +6,7 @@ import type { ReactNode } from 'react';
 import { siteTitle } from '@/constants/config';
 import BackButton from '@/components/COMMON/BackButton/BackButton';
 import HorizontalRule from '@/components/COMMON/HorizontalRule/HorizontalRule';
-import Ideabox from '@/public/images/ideabox.png';
+// import Ideabox from '@/public/images/ideabox.png';
 
 // https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag
 

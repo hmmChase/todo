@@ -1,18 +1,18 @@
-import { email } from '@/utils/validateAuthInputs';
 import { FormikHelpers, useFormik } from 'formik';
 import { object } from 'yup';
-import { PASS_RESET_REQ } from '@/graphql/queries/user';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
+import Link from 'next/link';
+import styled from 'styled-components';
+import type { ApolloError } from '@apollo/client';
+
+import { email } from '@/utils/validateAuthInputs';
+import { PASS_RESET_REQ } from '@/graphql/queries/user';
 import Button from '@/components/COMMON/Button/Button';
 import displayMsg from '@/constants/displayMsg';
 import FormInput from '@/components/COMMON/FormInput/FormInput';
-import Link from 'next/link';
 import Notice from '@/components/COMMON/Notice/Notice';
 import parseGQLErrors from '@/utils/parseGQLErrors';
-import styled from 'styled-components';
-import type { ApolloError } from '@apollo/client';
-import type { FC } from 'react';
 
 type HandleSubmit = (
   formikHelpers: FormikHelpers<{ passResetReqEmail: string }>,
@@ -21,7 +21,7 @@ type HandleSubmit = (
 
 const validationSchema = object().shape({ passResetReqEmail: email });
 
-const PassResetReq: FC = () => {
+const PassResetReq = () => {
   const [apolloError, setApolloError] = useState<ApolloError>();
 
   const [success, setSuccess] = useState(false);

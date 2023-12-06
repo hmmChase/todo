@@ -1,6 +1,6 @@
-// not used
-
 import { useState } from 'react';
+
+// not used
 
 const useModal = () => {
   const [isModalOpen, setModalOpen] = useState(false);

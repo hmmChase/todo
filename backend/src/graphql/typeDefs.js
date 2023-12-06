@@ -1,6 +1,15 @@
-// https:www.graphql.org/learn/schema/
+import gql from 'graphql-tag';
 
-const typeDefs = `#graphql
+// https://graphql.org/learn/schema/
+
+// const typeDefs = `#graphql
+const typeDefs = gql`
+  # Comments in GraphQL are defined with the hash (#) symbol.
+
+  # ---------- Scalars ----------
+
+  scalar DateTime
+
   # ---------- Types ----------
 
   type Query {
@@ -48,11 +57,11 @@ const typeDefs = `#graphql
   type Mutation {
     # --- User ---
 
-    logIn(input: UserAuthInput!): User!
+    signIn(input: UserAuthInput!): UserAuthPayload!
 
-    logOut: Boolean!
+    signOut: Boolean!
 
-    signUp(input: UserAuthInput!): User!
+    signUp(input: UserAuthInput!): UserAuthPayload!
 
     passResetReq(email: String!): Boolean!
 
@@ -60,9 +69,9 @@ const typeDefs = `#graphql
 
     # --- Task ---
 
-    createTask(content: String!): Task!
+    createTask(content: String!, dueBy: DateTime!): Task!
 
-    updateTask(id: ID!, content: String!): Task!
+    updateTask(id: ID!, content: String, dueBy: DateTime): Task!
 
     # soft delete
     removeTask(id: ID!): Task!
@@ -83,14 +92,13 @@ const typeDefs = `#graphql
 
   type Task {
     id: ID!
-    createdAt: String!
+    createdAt: DateTime!
     content: String!
-    due: String!
+    dueBy: DateTime!
     author: User!
   }
 
   type UserAuthPayload {
-    success: Boolean!
     user: User!
   }
 

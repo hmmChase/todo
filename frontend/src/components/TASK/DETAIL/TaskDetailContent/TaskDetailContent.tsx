@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import type { ChangeEventHandler, FC, MouseEventHandler } from 'react';
+import type { ChangeEventHandler, MouseEventHandler } from 'react';
+
 import useKeypress from '@/hooks/useKeypress';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
@@ -9,7 +10,7 @@ interface Props {
   onSetText: (text: string) => void;
 }
 
-const TaskDetailContent: FC<Props> = ({ children, onSetText }) => {
+const TaskDetailContent = ({ children, onSetText }: Props) => {
   const [inputValue, setInputValue] = useState(children);
   const [isInputActive, setIsInputActive] = useState(false);
 

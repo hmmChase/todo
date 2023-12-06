@@ -1,5 +1,3 @@
-import type { FC } from 'react';
-
-const Footer: FC = () => <p>hmmChase</p>;
+const Footer = () => <p>hmmChase</p>;
 
 export default Footer;

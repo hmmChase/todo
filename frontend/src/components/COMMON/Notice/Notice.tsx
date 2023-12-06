@@ -1,12 +1,11 @@
 import styled from 'styled-components';
-import type { FC } from 'react';
 
 interface Props {
   children: string | string[];
   type: 'error' | 'info' | 'success';
 }
 
-const Notice: FC<Props> = ({ children, type }) => {
+const Notice = ({ children, type }: Props) => {
   if (Array.isArray(children)) {
     return (
       <MsgList>

@@ -30,17 +30,17 @@ export const NO_CURRENT_USER = {
 
 //* - Mutations ----------
 
-export const LOG_IN = {
+export const SIGN_IN = {
   request: {
-    query: userQuery.LOG_IN,
+    query: userQuery.SIGN_IN,
     variables: { email: 'user1@email.com', password: 'asdf1234' }
   },
   result: { data: { user: user1 } }
 };
 
-export const LOG_OUT = {
-  request: { query: userQuery.LOG_OUT },
-  result: { data: { logOut: true } }
+export const SIGN_OUT = {
+  request: { query: userQuery.SIGN_OUT },
+  result: { data: { signOut: true } }
 };
 
 export const SIGN_UP = {

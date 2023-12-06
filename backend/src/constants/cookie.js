@@ -1,14 +1,14 @@
-// http://expressjs.com/en/5x/api.html#res.cookie
-// https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
-// https://web.dev/same-site-same-origin/
-// https://github.com/cfredric/sameparty
-
 import {
   accessCookieExpiry
   // development
   // frontendUrl,
   // port
 } from './config.js';
+
+// http://expressjs.com/en/5x/api.html#res.cookie
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+// https://web.dev/same-site-same-origin/
+// https://github.com/cfredric/sameparty
 
 const accessCookieOptions = {
   httpOnly: true,

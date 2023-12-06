@@ -1,7 +1,8 @@
 // Not used
 
-import { CURRENT_USER } from '@/graphql/queries/user';
 import { useQuery } from '@apollo/client';
+
+import { CURRENT_USER } from '@/graphql/queries/user';
 
 const HeaderUsername = () => {
   const { loading, error, data } = useQuery(CURRENT_USER);

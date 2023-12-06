@@ -1,19 +1,19 @@
-import { useContext } from 'react';
-import { UserCtx } from '@/context/User';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
+// import { useContext } from 'react';
 
 import { siteTitle } from '@/constants/config';
-import UserIcon from '@/components/USER/UserIcon/UserIcon';
-// import CreateTask from '@/components/TASK/CreateTask/CreateTask';
+import TaskButton from '@/components/TASK/TaskButton/TaskButton';
+// import { useUser } from '@/context/User';
 // import HeaderUsername from '@/components/SECTIONS/HEADER/HeaderUsername';
 // import NavBar from '@/components/SECTIONS/NavBar';
 // import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 // import Taskbox from '@/public/images/taskbox.svg';
+// import UserIcon from '@/components/USER/UserIcon/UserIcon';
 
 const Header = () => {
-  const { loading, user } = useContext(UserCtx);
+  // const { loading, user } = useUser();
 
   const router = useRouter();
 
@@ -23,11 +23,9 @@ const Header = () => {
 
   const taskId = routePathArr[2];
 
-  const day = 31;
-  const month = 12;
-  const year = 2023;
-
-  const date = new Date(`${month}/${day}/${year}`);
+  const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+  const today = new Date();
+  const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1));
 
   return (
     <Container>
@@ -37,16 +35,6 @@ const Header = () => {
 
           <HeaderTitle>{siteTitle}</HeaderTitle>
         </Logo>
-
-        {/* 
-        {new Date()
-          .toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })
-          .replace(',', '')} */}
 
         {/* <NavBar /> */}
 
@@ -59,19 +47,19 @@ const Header = () => {
           showLoading={true}
         > */}
 
-        {date
-          .toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })
-          .replace(',', '')}
+        {today.toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
 
-        {!loading ? user && <UserIcon /> : null}
+        {/* {!loading ? user && <UserIcon /> : null} */}
 
         {/* </QueryResult> */}
       </Top>
+
+      <TaskButton />
 
       {/* <div>
         {onTaskDetailPage ? (

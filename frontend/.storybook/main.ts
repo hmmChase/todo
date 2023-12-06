@@ -4,13 +4,13 @@ import type { StorybookConfig } from '@storybook/nextjs';
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
 
-  core: { disableTelemetry: true },
-
-  docs: { autodocs: 'tag' },
-
   staticDirs: ['../public'],
 
   framework: { name: '@storybook/nextjs', options: {} },
+
+  core: { disableTelemetry: true },
+
+  docs: { autodocs: 'tag' },
 
   addons: [
     '@storybook/addon-links',

@@ -1,30 +1,31 @@
-import { GetServerSideProps, NextPageWithLayout } from 'next';
 import { useQuery } from '@apollo/client';
+import type { NextPageWithLayout } from 'next';
+// import { GetServerSideProps } from 'next';
 
+import { CURRENT_USER_TASKS } from '@/graphql/queries/task';
 import App from '@/components/LAYOUTS/App/App';
 import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
-import verifyUser from '@/utils/verifyUser';
-// import { CURRENT_USER_TASKS } from '@/graphql/queries/task';
-// import Tasks from '@/components/TASK/Tasks/Tasks';
-// import type { Tasks as Taskss } from '@/models/index';
+import Tasks from '@/components/TASK/Tasks/Tasks';
+import type { Tasks as Taskss } from '@/models/index';
+// import verifyUser from '@/utils/verifyUser';
 
 const AccountPage: NextPageWithLayout = () => {
-  // const { data, error, loading } = useQuery(CURRENT_USER_TASKS);
+  const { data, error, loading } = useQuery(CURRENT_USER_TASKS);
 
-  // const tasks: Taskss = data?.currentUserTasks;
+  const tasks: Taskss = data?.currentUserTasks;
 
   return (
     <>
       <h2>Account</h2>
 
-      {/* <QueryResult
+      <QueryResult
         error={error}
         loading={loading}
         showError={true}
         showLoading={true}
       >
         <Tasks tasks={tasks} />
-      </QueryResult> */}
+      </QueryResult>
     </>
   );
 };
@@ -43,18 +44,18 @@ AccountPage.getLayout = function getLayout(page) {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
-  const { req, res } = ctx;
+// export const getServerSideProps: GetServerSideProps = async ctx => {
+//   const { req, res } = ctx;
 
-  const userPayload = verifyUser(req.headers.cookie);
+//   const userPayload = verifyUser(req.headers.cookie);
 
-  if (!userPayload) {
-    res.writeHead(302, { Location: '/login' });
+//   if (!userPayload) {
+//     res.writeHead(302, { Location: '/login' });
 
-    res.end();
-  }
+//     res.end();
+//   }
 
-  return { props: {} };
-};
+//   return { props: {} };
+// };
 
 export default AccountPage;

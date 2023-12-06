@@ -1,5 +1,6 @@
-import TaskDetailUpdate from './TaskDetailUpdate';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import TaskDetailUpdate from './TaskDetailUpdate';
 
 const meta: Meta<typeof TaskDetailUpdate> = {
   title: 'TASK/DETAIL/TaskDetailUpdate',
