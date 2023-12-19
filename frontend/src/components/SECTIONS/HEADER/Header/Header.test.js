@@ -24,7 +24,7 @@ describe('UserProvider', () => {
     expect(userIcon).not.toBeInTheDocument();
   });
 
-  test('renders logged out when user not logged in', async () => {
+  test('renders signed out when user not signed in', async () => {
     render(
       <UserProvider>
         <Header />
@@ -34,13 +34,13 @@ describe('UserProvider', () => {
     );
 
     await waitFor(() => {
-      const headerLoggedOut = screen.getByTestId('header-logged-out');
+      const headerSignedOut = screen.getByTestId('header-signed-out');
 
-      expect(headerLoggedOut).toBeInTheDocument();
+      expect(headerSignedOut).toBeInTheDocument();
     });
   });
 
-  test('renders user icon when logged in', async () => {
+  test('renders user icon when signed in', async () => {
     render(
       <UserProvider>
         <Header />

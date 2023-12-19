@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
-import { UserCtx } from '@/context/User';
+import { UserCtx, useUser } from '@/context/User';
 import ActiveLink from '@/components/COMMON/ActiveLink/ActiveLink';
 import Left from '@/components/ICONS/Left/Left';
 
-const HeaderLoggedIn = () => {
+const HeaderSignedIn = () => {
   const { user } = useContext(UserCtx);
+  const { loading, user: userUse } = useUser();
 
   return (
     <nav>
@@ -26,8 +27,8 @@ const HeaderLoggedIn = () => {
         </li>
 
         <li>
-          <ActiveLink activeClassName='active' href='/logout'>
-            Log Out
+          <ActiveLink activeClassName='active' href='/signout'>
+            Sign Out
           </ActiveLink>
         </li>
       </UL>
@@ -35,7 +36,7 @@ const HeaderLoggedIn = () => {
   );
 };
 
-export default HeaderLoggedIn;
+export default HeaderSignedIn;
 
 const UL = styled.ul`
   list-style: none;

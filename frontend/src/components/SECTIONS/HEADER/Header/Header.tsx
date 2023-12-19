@@ -4,16 +4,17 @@ import styled from 'styled-components';
 // import { useContext } from 'react';
 
 import { siteTitle } from '@/constants/config';
+import { useUser } from '@/context/User';
 import TaskButton from '@/components/TASK/TaskButton/TaskButton';
-// import { useUser } from '@/context/User';
+import UserIcon from '@/components/USER/UserIcon/UserIcon';
+// import ActiveLink from '@/components/COMMON/ActiveLink/ActiveLink';
 // import HeaderUsername from '@/components/SECTIONS/HEADER/HeaderUsername';
 // import NavBar from '@/components/SECTIONS/NavBar';
 // import QueryResult from '@/components/COMMON/QueryResult/QueryResult';
 // import Taskbox from '@/public/images/taskbox.svg';
-// import UserIcon from '@/components/USER/UserIcon/UserIcon';
 
 const Header = () => {
-  // const { loading, user } = useUser();
+  const { loading, user } = useUser();
 
   const router = useRouter();
 
@@ -54,12 +55,14 @@ const Header = () => {
           day: 'numeric'
         })}
 
-        {/* {!loading ? user && <UserIcon /> : null} */}
+        {!loading ? user && <UserIcon /> : null}
 
         {/* </QueryResult> */}
       </Top>
 
-      <TaskButton />
+      <TaskButtonContainer>
+        <TaskButton />
+      </TaskButtonContainer>
 
       {/* <div>
         {onTaskDetailPage ? (
@@ -129,4 +132,10 @@ const HeaderTitle = styled.h1`
   font-size: ${props => props.theme.fontSize.h1};
   letter-spacing: 0.05rem;
   margin: 0;
+`;
+
+const TaskButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
 `;

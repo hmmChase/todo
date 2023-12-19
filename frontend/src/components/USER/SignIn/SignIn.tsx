@@ -3,11 +3,15 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import { SIGN_IN } from '@/graphql/queries/user';
+import { useUser } from '@/context/User';
+// import { isLoggedInVar } from '@/graphql/cache';
 
 function SignIn() {
   const router = useRouter();
 
   const apolloClient = useApolloClient();
+
+  const { setUser } = useUser();
 
   const [signIn] = useMutation(SIGN_IN);
 
@@ -27,9 +31,15 @@ function SignIn() {
         }
       });
 
-      if (data.signIn.user) await router.push('/');
+      if (data.signIn.user) {
+        setUser(data.signIn);
+
+        // isSigngedInVar(!!data.signIn);
+
+        await router.push('/');
+      }
     } catch (error) {
-      console.log('error:', error);
+      console.log('SignIn error:', error);
     }
   }
 

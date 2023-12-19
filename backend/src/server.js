@@ -4,22 +4,22 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import { expressMiddleware } from '@apollo/server/express4';
 import bodyParser from 'body-parser';
 import compression from 'compression';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import Debug from 'debug';
 import express from 'express';
 import helmet from 'helmet';
 import http from 'http';
 import logger from 'morgan';
-// import cookieParser from 'cookie-parser';
 // import createError from 'http-errors';
 
 import { backendUrl, development } from './constants/config.js';
 import { corsOptions } from './constants/cors.js';
+import myLogger from './utils/myLogger.js';
 import prisma from '../prisma/prisma.js';
 import router from './routes/routes.js';
 import schema from './graphql/schema.js';
 // import { backendUrl, port as portt } from './constants/config.js';
-import myLogger from './utils/myLogger.js';
 // import path from 'path';
 
 // In production, env vars are defined on the host
@@ -37,6 +37,7 @@ const app = express();
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(compression());
+app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(development ? myLogger : (req, res, next) => next());
 app.use(express.json());
@@ -62,7 +63,6 @@ app.use(
     }
   })
 );
-// app.use(cookieParser());
 // logger(development ? 'dev' : 'combined'),
 
 // catch 404 and forward to error handler

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import Dropdown from '@/components/COMMON/Dropdown/Dropdown';
-import HeaderLoggedIn from '@/components/SECTIONS/HEADER/HeaderLoggedIn/HeaderLoggedIn';
+import HeaderSignedIn from '@/components/SECTIONS/HEADER/HeaderSignedIn/HeaderSignedIn';
 import userSvg from '@/public/images/user.svg';
 
 const UserIcon = () => {
@@ -16,7 +16,7 @@ const UserIcon = () => {
     <Container $isDropdownOpen={isDropdownOpen} ref={insideRef}>
       {isDropdownOpen && (
         <Dropdownn close={() => setDropdownOpen(false)} insideRef={insideRef}>
-          <HeaderLoggedIn />
+          <HeaderSignedIn />
         </Dropdownn>
       )}
 
@@ -24,9 +24,9 @@ const UserIcon = () => {
         // https://styled-components.com/docs/api#transient-props
         $isDropdownOpen={isDropdownOpen}
         alt='User icon'
+        data-testid='user-icon'
         onClick={() => setDropdownOpen(!isDropdownOpen)}
         src={userSvg}
-        data-testid='user-icon'
       />
     </Container>
   );

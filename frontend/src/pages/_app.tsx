@@ -8,11 +8,11 @@ import { siteTitle } from '@/constants/config';
 import { useApollo } from '@/graphql/apolloClient';
 import GlobalStyle from '@/styles/global';
 import theme from '@/styles/theme';
+import UserProvider from '@/context/User';
 // import { addApolloState, initializeApollo } from '@/graphql/apolloClient';
 // import { CURRENT_USER } from '@/graphql/queries/user';
 // import { READ_TASKS } from '@/graphql/queries/task';
 // import type { User } from '@/models/index';
-// import UserProvider from '@/context/User';
 // import verifyUser from '@/utils/verifyUser';
 
 // https://github.com/vercel/next.js/tree/master/examples/with-styled-components
@@ -62,11 +62,13 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       </Head>
 
       <ApolloProvider client={apolloClient}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
+        <UserProvider>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
 
-          {getLayout(<Component {...pageProps} />)}
-        </ThemeProvider>
+            {getLayout(<Component {...pageProps} />)}
+          </ThemeProvider>
+        </UserProvider>
       </ApolloProvider>
     </>
   );

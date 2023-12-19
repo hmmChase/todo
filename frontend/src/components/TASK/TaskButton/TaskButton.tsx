@@ -8,7 +8,7 @@ const TaskButton = () => {
   const [modalName, setModalName] = useState('');
 
   return (
-    <Container data-testid='header-logged-out'>
+    <Container data-testid='header-signed-out'>
       {modalName === 'newTask' && <TaskModal close={() => setModalName('')} />}
 
       <Button name='newTask' onClick={() => setModalName('newTask')}>
